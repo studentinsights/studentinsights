@@ -62,16 +62,15 @@ class ReadingController < ApplicationController
 
   # Used by ReadingDebugPage
   def reading_debug_json
-    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-05-08-reading-debug/reading_debug.json'))
-    # students = authorized { Student.active }
-    # reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
-    #   .where(student_id: students.pluck(:id))
-    #   .order(updated_at: :asc)
+    students = authorized { Student.active.to_a }
+    reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
+      .where(student_id: students.pluck(:id))
+      .order(updated_at: :asc)
 
-    # render json: {
-    #   students: students.as_json,
-    #   reading_benchmark_data_points: reading_benchmark_data_points.as_json
-    # }
+    render json: {
+      students: students.as_json,
+      reading_benchmark_data_points: reading_benchmark_data_points.as_json
+    }
   end
 
   # PUT

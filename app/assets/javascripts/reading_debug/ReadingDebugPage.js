@@ -8,9 +8,8 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import HighchartsWrapper from '../components/HighchartsWrapper';
 import {gradeText} from '../helpers/gradeText';
-import {orderedFAndPLevels, classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
+import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
 import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
 import {
   high,
@@ -79,7 +78,11 @@ export class ReadingDebugView extends React.Component {
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         {this.renderList()}
-        <div style={{flex: 1}}>{this.renderTable()}</div>
+        <div style={{
+          flex: 1,
+          marginTop: 10,
+          borderTop: '1px solid #ccc',
+          paddingTop: 10}}>{this.renderTable()}</div>
       </div>
     );
   }
@@ -117,11 +120,6 @@ export class ReadingDebugView extends React.Component {
     const grades = ['KF', '1', '2'];
     return (
       <div>
-        {/*<Scatterplot
-          intervals={intervals}
-          dataPoints={filteredDataPoints}
-          studentsById={studentsById}
-        />*/}
         <table style={{width: '100%'}}>
           <thead>
             <tr>
@@ -160,8 +158,6 @@ export class ReadingDebugView extends React.Component {
                           benchmarkPeriodKey={period}
                           fAndPValuesWithNulls={fAndPValuesWithNulls}
                           includeMissing={true}
-                          // style={styles.breakdownBar}
-                          // innerStyle={styles.breakdownBarInner}
                           height={5}
                           labelTop={5}
                         />
@@ -177,45 +173,11 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
-  // renderFilters() {
-  //   return (
-  //     <FilterBar labelText="Filter by" style={{margin: 10}}>
-  //       {this.renderSearch()}
-  //       {this.renderHomeroom()}
-  //     </FilterBar>
-  //   );
-  // }
-
-  // renderSearch() {
-  //   const {searchText} = this.state;
-  //   return (
-  //     <input
-  //       style={styles.search}
-  //       placeholder={`Name...`}
-  //       value={searchText}
-  //       onChange={this.onSearchChanged} />
-  //   );
-  // }
-
-  // renderHomeroom() {
-  //   const {readingStudents} = this.props;
-  //   const {homeroomId} = this.state;
-  //   const homerooms = _.uniqBy(readingStudents.map(s => s.homeroom), 'id');
-  //   return (
-  //     <SelectHomeroomByEducator
-  //       placeholder={`Homeroom...`}
-  //       homerooms={homerooms}
-  //       homeroomId={homeroomId}
-  //       onChange={this.onHomeroomChanged} />
-  //   );
-  // }
-
   renderTable() {
-    const {districtKey, nowFn} = this.context;
     const {students, readingBenchmarkDataPoints} = this.props;
     const {benchmarkAssessmentKey, selection} = this.state;
     if (selection === null) {
-      return <div>Click a cell to see the list of students.</div>;
+      return <div style={{fontSize: 14}}>Click a cell to see the list of students.</div>;
     }
 
     if (!selection) return null;
@@ -236,13 +198,7 @@ export class ReadingDebugView extends React.Component {
       return true;
     });
 
-    const nowMoment = nowFn();
     const rowHeight = 40; // for two lines of student names
-
-    // return <pre>{JSON.stringify(filteredStudents, null, 2)}</pre>;
-
-    // In conjuction with the filtering, this can lead to a warning in development.
-    // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
     return (
       <AutoSizer style={{marginTop: 20, margin: 10}}>
         {({width, height}) => (
@@ -256,9 +212,6 @@ export class ReadingDebugView extends React.Component {
             rowHeight={rowHeight}
             rowCount={filteredStudents.length}
             rowGetter={({index}) => filteredStudents[index]}
-            // sort={onTableSort}
-            // sortBy={sortBy}
-            // sortDirection={sortDirection}
             >
               <Column
                 label='Name'
@@ -285,46 +238,35 @@ export class ReadingDebugView extends React.Component {
 
   renderName(cellProps) {
     const student = cellProps.rowData;
-    // return (
-    //   <div style={styles.nameBlock}>
-    //     <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
-    //     {student.has_photo && (
-    //       <StudentPhotoCropped
-    //         studentId={student.id}
-    //         style={styles.photo}
-    //       />
-    //     )}
-    //   </div>
-    // );
-    return <div>{student.id}</div>;
+    return (
+      <div style={styles.nameBlock}>
+        <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+        {student.has_photo && (
+          <StudentPhotoCropped
+            studentId={student.id}
+            style={styles.photo}
+          />
+        )}
+      </div>
+    );
   }
 
   renderFAndP(dataPointsByStudentId, benchmarkPeriodKey, cellProps) {
     const student = cellProps.rowData;
-    // if (student.grade !== grade) return null;
     const dataPoints = dataPointsByStudentId[student.id] || [];
     if (dataPoints.length === 0) return null;
 
-    // const dataPoints = readingBenchmarkDataPoints.filter(d => {
-    //   if (d.student_id !== student.id) return false;
-    //   if (benchmarkAssessmentKey !== null && benchmarkAssessmentKey !== d.benchmark_assessment_key) return false;
-    //   if (d.benchmark_school_year !== year) return false;
-    //   if (d.benchmark_period_key !== period) return false;
-    //   return true;
-    // });
     return (
-      // <pre>{dataPoints.length}</pre>
-      dataPoints.map(d => <div key={d.id}>
-        {renderFAndPLevel(d.json.value, student.grade, benchmarkPeriodKey)}
-      </div>)
-      // <pre title={JSON.stringify(dataPoints, null, 2)}>{JSON.stringify(dataPoints)}</pre>
+      <div>
+        {dataPoints.map(d => (
+          <div key={d.id}>
+            {renderFAndPLevel(d.json.value, student.grade, benchmarkPeriodKey)}
+          </div>
+        ))}
+      </div>
     );
   }
 }
-ReadingDebugView.contextTypes = {
-  districtKey: PropTypes.string.isRequired,
-  nowFn: PropTypes.func.isRequired
-};
 ReadingDebugView.propTypes = {
   readingBenchmarkDataPoints: PropTypes.arrayOf(PropTypes.shape({
     benchmark_school_year: PropTypes.number.isRequired,
@@ -372,90 +314,6 @@ const styles = {
   }
 };
 
-
-function Scatterplot(props) {
-  const {intervals, dataPoints, studentsById} = props;
-  const seriesData = dataPoints.map(d => {
-    return {
-      ...d,
-      student: studentsById[d.student_id]
-    };
-  });
-  const levels = orderedFAndPLevels();
-  const categories = intervals.map((interval, index) => {
-    const category = interval.join('-');
-    const y = index;
-    const color = 'red';
-    return {category, y, color};
-  });
-  // const props = {
-  //   id: "String",
-  //   animation: false,
-  //   categories: {categories},
-  //   seriesData: seriesData,
-  //   measureText: 'level',
-  //   tooltip: {
-  //     pointFormat: 'Total incidents: <b>{point.y}</b>'
-  //   }
-  // };
-  return (
-    <div className="Scatterplot">
-      <HighchartsWrapper
-        style={{flex: 1}}
-        chart={{
-          type: 'scatter',
-          alignTicks: false
-        }}
-        credits={false}
-        xAxis={{
-          ...categories,
-          gridLineWidth: 1
-        }}
-        plotOptions={{
-          series: {
-            animation: false,
-            marker: {
-              radius: 12,
-              fillColor: 'rgba(124, 181, 236, 0.5)'
-            }
-          }
-        }}
-        title="title!"
-        yAxis={[{
-          min: 420, //7 AM
-          max: 960, //3 PM plus a gutter category
-          reversed: true,
-          showLastLabel: false,
-          tickInterval: 60,
-          title: {text: "level"},
-          // labels: {formatter: this.hourFormatter},
-          // plotBands: [{
-          //   color: 'rgba(241, 254, 198, 0.5)',
-          //   from: 900,
-          //   to: 960,
-          // }]
-        },
-        {
-          // min: 420, //7 AM
-          // max: 960, //3 PM plus a gutter category
-          gridLineWidth: 0,
-          linkedTo: 0,
-          opposite: true,
-          reversed: true,
-          // tickPositions: [930],
-          // labels: {formatter: this.gutterFormatter},
-          // title: {text: undefined}
-        }]}
-        // tooltip={{formatter: this.props.toolTipFormatter}}
-        series={[
-          {
-            showInLegend: false,
-            data: seriesData
-          }
-        ]} />
-    </div>
-  );
-}
 
 function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
   if (!text) return none();
