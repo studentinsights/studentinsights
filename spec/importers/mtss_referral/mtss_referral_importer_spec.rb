@@ -5,7 +5,9 @@ RSpec.describe MtssReferralImporter do
 
   describe 'integration test' do
     it 'works' do
-      file_text = IO.read("#{Rails.root}/spec/importers/mtss_referral/mtss_referral_fixture.csv")
+      sheetsFetcher = GoogleSheetsImporter.new
+      sheetsFetcher.getSheetsFromFolder("Student Insights Sync Test")
+      file_text = IO.read("#{Rails.root}/app/importers/reading/csv/mtss_referral_fixture-mtss_referral_fixture.csv")
       importer = MtssReferralImporter.new
       rows = importer.process(file_text)
       expect(rows).to contain_exactly(*[{
