@@ -4,12 +4,18 @@ import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
+import {toSchoolYear} from '../helpers/schoolYear';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
-import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
+import BreakdownBar from '../components/BreakdownBar';
+import {
+  classifyFAndPEnglish,
+  interpretFAndPEnglish,
+  benchmarkPeriodKeyFor
+} from '../reading/readingData';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {
   high,
   medium,
@@ -17,11 +23,11 @@ import {
   missing
 } from '../helpers/colors';
 import GradeTimeGrid from './GradeTimeGrid';
-
+import {starBucket} from '../class_lists/studentFilters';
 
 // For reviewing, debugging and developing new ways to make use of
 // or revise reading data.
-export default class ReadingDebugPage extends React.Component {
+export default class ReadingDebugStarPage extends React.Component {
   constructor(props) {
     super(props);
     this.fetchJson = this.fetchJson.bind(this);
@@ -33,14 +39,14 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   fetchJson() {
-    return apiFetchJson('/api/reading/reading_debug_json');
+    return apiFetchJson('/api/reading/star_reading_debug_json');
   }
 
   render() {
     return (
-      <div className="ReadingDebugPage" style={styles.flexVertical}>
+      <div className="ReadingDebugStarPage" style={styles.flexVertical}>
         <ExperimentalBanner />
-        <SectionHeading>Benchmark Reading Data (DEBUG)</SectionHeading>
+        <SectionHeading>STAR Reading data (DEBUG)</SectionHeading>
         <GenericLoader
           promiseFn={this.fetchJson}
           style={styles.flexVertical}
@@ -51,20 +57,22 @@ export default class ReadingDebugPage extends React.Component {
 
   renderJson(json) {
     return (
-      <ReadingDebugView
+      <ReadingDebugStarView
         students={json.students}
-        readingBenchmarkDataPoints={json.reading_benchmark_data_points}
+        starReadings={json.star_readings}
+        cutoffMoment={toMomentFromTimestamp(json.cutoff_date)}
+        grades={json.grades}
+        schools={json.schools}
       />
     );
   }
 }
 
 
-export class ReadingDebugView extends React.Component {
+export class ReadingDebugStarView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      benchmarkAssessmentKey: 'f_and_p_english',
       selection: null
     };
 
@@ -90,26 +98,21 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderList() {
-    const {students, readingBenchmarkDataPoints} = this.props;
-    const {benchmarkAssessmentKey, selection} = this.state;
+    const {grades, students, starReadings} = this.props;
+    const {selection} = this.state;
     const studentsById = students.reduce((map, student) => {
       return {...map, [student.id]: student};
     }, {});
-    const filteredDataPoints = readingBenchmarkDataPoints.filter(d => {
-      return (benchmarkAssessmentKey === null || benchmarkAssessmentKey === d.benchmark_assessment_key);
-    });
-    const groups = _.groupBy(filteredDataPoints, d => {
-      const student = studentsById[d.student_id];
+    const groups = _.groupBy(starReadings, result => {
+      const student = studentsById[result.student_id];
+      const dateTakenMoment = toMomentFromTimestamp(result.date_taken);
       return [
-        d.benchmark_school_year,
-        d.benchmark_period_key,
+        toSchoolYear(dateTakenMoment),
+        benchmarkPeriodKeyFor(dateTakenMoment),
         student.grade,
       ].join('-');
     });
 
-    // const years = [2017, 2018, 2019];
-    // const periods = ['fall', 'winter', 'spring'];
-    // const intervals = _.flatMap(years, year => periods.map(period => [year, period]));
     const intervals = [
       [2017, 'winter'],
       [2017, 'spring'],
@@ -119,37 +122,49 @@ export class ReadingDebugView extends React.Component {
       [2019, 'fall'],
       [2019, 'winter']
     ];
-    const grades = ['KF', '1', '2'];
 
     return (
       <GradeTimeGrid
         intervals={intervals}
         grades={grades}
-        renderCellFn={cellParams => this.renderFAndPCell(groups, cellParams)}
+        renderCellFn={cellParams => this.renderStarCell(groups, cellParams)}
         selection={selection}
         onSelectionChanged={this.onCellClicked}
       />
     );
   }
 
-  renderFAndPCell(groups, {grade, year, period}) {
+  renderStarCell(groups, {grade, year, period}) {
     const key = [year, period, grade].join('-');
-    const intervalDataPoints = groups[key] || [];
-    const fAndPValuesWithNulls = intervalDataPoints.map(dataPoint => dataPoint.json.value);
+    const starReadings = groups[key] || [];
+    
+    const counts = _.countBy(starReadings, result => {
+      return (!result.percentile_rank)
+        ? 'missing'
+        : starBucket(result.percentile_rank);
+    });
+    const lowCount = counts.low || 0;
+    const mediumCount = counts.medium || 0;
+    const highCount = counts.high || 0;
+    const missingCount = counts.missing || 0;
+    
+    const items = [
+      { left: 0, width: missingCount, color: missing, key: 'missing' },
+      { left: missingCount, width: highCount, color: high, key: 'high' },
+      { left: missingCount + highCount, width: mediumCount, color: medium, key: 'medium' },
+      { left: missingCount + highCount + mediumCount, width: lowCount, color: low, key: 'low' }
+    ];
     return (
-      <FountasAndPinellBreakdown
-        grade={grade}
-        benchmarkPeriodKey={period}
-        fAndPValuesWithNulls={fAndPValuesWithNulls}
-        includeMissing={true}
+      <BreakdownBar
+        items={items}
         height={5}
         labelTop={5}
       />
     );
   }
 
-
   renderTable() {
+    return 'no yet!';
     const {students, readingBenchmarkDataPoints} = this.props;
     const {benchmarkAssessmentKey, selection} = this.state;
     if (selection === null) {
@@ -243,24 +258,15 @@ export class ReadingDebugView extends React.Component {
     );
   }
 }
-ReadingDebugView.propTypes = {
-  readingBenchmarkDataPoints: PropTypes.arrayOf(PropTypes.shape({
-    benchmark_school_year: PropTypes.number.isRequired,
-    benchmark_period_key: PropTypes.string.isRequired,
-    benchmark_assessment_key: PropTypes.string.isRequired,
-    json: PropTypes.object.isRequired
-  })).isRequired,
+ReadingDebugStarView.propTypes = {
+  cutoffMoment: PropTypes.object.isRequired,
+  grades: PropTypes.arrayOf(PropTypes.string).isRequired,
+  starReadings: PropTypes.arrayOf(PropTypes.object).isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
-    grade: PropTypes.string.isRequired,
-    plan_504: PropTypes.string,
-    access: PropTypes.object,
-    ell_transition_date: PropTypes.string,
-    latest_iep_document: PropTypes.object,
-    limited_english_proficiency: PropTypes.string,
-    homeroom: PropTypes.object,
+    grade: PropTypes.string.isRequired
   })).isRequired,
 };
 
@@ -331,4 +337,3 @@ function coloredBadge(value, color) {
     }}>{value}</div>
   );
 }
-
