@@ -120,12 +120,13 @@ class ReadingController < ApplicationController
 
   # Used by ReadingDebugPage
   def star_reading_debug_json
-    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
+    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-05-10-star-reading/star_reading_debug.json'))
+    # raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
 
-    grades = ['3','4','5','6','7','8']
-    students = authorized { Student.active.where(grade: grades).to_a }
-    json = StarDebugQueries.new.fetch_json(students)
-    render json: json.merge(grades: grades)
+    # grades = ['3','4','5','6','7','8']
+    # students = authorized { Student.active.where(grade: grades).to_a }
+    # json = StarDebugQueries.new.fetch_json(students)
+    # render json: json.merge(grades: grades)
   end
 
   private
