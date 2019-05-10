@@ -62,6 +62,8 @@ class ReadingController < ApplicationController
 
   # Used by ReadingDebugPage
   def reading_debug_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
+
     students = authorized { Student.active.to_a }
     reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
       .where(student_id: students.pluck(:id))

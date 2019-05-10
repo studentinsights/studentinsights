@@ -252,4 +252,25 @@ describe ReadingController, :type => :controller do
       })
     end
   end
+
+  describe '#reading_debug_json' do
+    it 'guards access' do
+      (Educator.all - [pals.uri]).each do |educator|
+        sign_in(educator)
+        get :reading_debug_json, params: { format: :json }
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'returns correct shape' do
+      sign_in(pals.uri)
+      get :reading_debug_json, params: { format: :json }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to contain_exactly(*[
+        'students',
+        'reading_benchmark_data_points'
+      ])
+    end
+  end
 end
