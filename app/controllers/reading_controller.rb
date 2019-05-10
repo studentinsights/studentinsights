@@ -65,12 +65,19 @@ class ReadingController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
 
     students = authorized { Student.active.to_a }
+    students_json = students.as_json(only: [
+      :id,
+      :first_name,
+      :last_name,
+      :grade,
+      :has_photo
+    ])
     reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
       .where(student_id: students.pluck(:id))
       .order(updated_at: :asc)
 
     render json: {
-      students: students.as_json,
+      students: students_json,
       reading_benchmark_data_points: reading_benchmark_data_points.as_json
     }
   end

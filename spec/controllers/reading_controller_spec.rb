@@ -271,6 +271,13 @@ describe ReadingController, :type => :controller do
         'students',
         'reading_benchmark_data_points'
       ])
+      expect(json['students'].size).to eq 5
+      expect(json['students'].first.keys).to contain_exactly(*[
+        'id',
+        'first_name',
+        'last_name',
+        'grade'
+      ])
     end
   end
 end

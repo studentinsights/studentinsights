@@ -1,0 +1,961 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+      "margin": 10,
+    }
+  }
+>
+  <div>
+    <table
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <thead>
+        <tr>
+          <th>
+            Grade
+          </th>
+          <th>
+            <div>
+              2017
+            </div>
+            <div>
+              winter
+            </div>
+          </th>
+          <th>
+            <div>
+              2017
+            </div>
+            <div>
+              spring
+            </div>
+          </th>
+          <th>
+            <div>
+              2018
+            </div>
+            <div>
+              fall
+            </div>
+          </th>
+          <th>
+            <div>
+              2018
+            </div>
+            <div>
+              winter
+            </div>
+          </th>
+          <th>
+            <div>
+              2018
+            </div>
+            <div>
+              spring
+            </div>
+          </th>
+          <th>
+            <div>
+              2019
+            </div>
+            <div>
+              fall
+            </div>
+          </th>
+          <th>
+            <div>
+              2019
+            </div>
+            <div>
+              winter
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Kindergarten
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(0,128,0,0.5)",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(0,128,0,0.5)",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 5,
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      4
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "#ccc",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "#ccc",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 5,
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      7
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "#ccc",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "#ccc",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 5,
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      7
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(0,128,0,0.5)",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "80%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(0,128,0,0.5)",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 5,
+                          "width": "80%",
+                        }
+                      }
+                    >
+                      4
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(255,0,0,0.5)",
+                          "height": 5,
+                          "left": "80%",
+                          "position": "absolute",
+                          "width": "20%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(255,0,0,0.5)",
+                          "left": "80%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 5,
+                          "width": "20%",
+                        }
+                      }
+                    >
+                      1
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "#ccc",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "#ccc",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 5,
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      6
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            1st grade
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            2nd grade
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    style={
+      Object {
+        "borderTop": "1px solid #ccc",
+        "flex": 1,
+        "marginTop": 10,
+        "paddingTop": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "fontSize": 14,
+        }
+      }
+    >
+      Click a cell to see the list of students.
+    </div>
+  </div>
+</div>
+`;
