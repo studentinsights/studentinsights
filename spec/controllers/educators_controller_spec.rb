@@ -36,7 +36,8 @@ describe EducatorsController, :type => :controller do
           'can_upload_student_voice_surveys',
           'should_show_levels_shs_link',
           'enable_reading_benchmark_data_entry',
-          'enable_equity_experiments'
+          'enable_equity_experiments',
+          'enable_reading_debug'
         ]
       })
     end
