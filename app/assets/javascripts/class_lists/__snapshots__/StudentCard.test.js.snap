@@ -33,7 +33,7 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "backgroundColor": "#ddd",
-              "backgroundImage": "url(/students/1/photo)",
+              "backgroundImage": "url(/classlists/foo-workspace-id/students/1/photo)",
               "backgroundPosition": "center top",
               "backgroundPositionY": -10,
               "backgroundRepeat": "no-repeat",

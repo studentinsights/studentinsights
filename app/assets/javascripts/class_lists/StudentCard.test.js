@@ -12,6 +12,7 @@ export function testProps(props = {}) {
   return {
     student: {...student, grade: 'KF' },
     gradeLevelNextYear: '1',
+    studentPhotoUrl: `/classlists/foo-workspace-id/students/${student.id}/photo`,
     index: 0,
     isEditable: false,
     fetchProfile: jest.fn(),

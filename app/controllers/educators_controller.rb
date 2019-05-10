@@ -70,6 +70,15 @@ class EducatorsController < ApplicationController
     }
   end
 
+  # Used by the search bar to query for student names
+  def student_searchbar_json
+    json = EducatorSearchbar.student_searchbar_json_for(current_educator, {
+      compute_if_missing: true
+    })
+    render json: json
+  end
+
+  # Used for services
   def names_for_dropdown
     student = Student.find(params[:id])
     school = student.school

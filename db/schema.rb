@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_172041) do
+ActiveRecord::Schema.define(version: 2019_05_09_220552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -439,6 +439,10 @@ ActiveRecord::Schema.define(version: 2019_05_08_172041) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["benchmark_assessment_key"], name: "index_reading_benchmark_data_points_on_benchmark_assessment_key"
+    t.index ["benchmark_school_year", "benchmark_period_key"], name: "index_reading_benchmark_data_points_on_year_and_period_keys"
+    t.index ["student_id"], name: "index_reading_benchmark_data_points_on_student_id"
+    t.index ["updated_at"], name: "index_reading_benchmark_data_points_on_updated_at", order: :desc
   end
 
   create_table "reading_grouping_snapshots", force: :cascade do |t|
