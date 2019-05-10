@@ -1,5 +1,3 @@
-# requires `create extension fuzzystrmatch` in Postgres
-#
 # This is for manually importing a large spreadsheet, with historical data
 # about students across a range of reading assessments.
 # It outputs JSON to the console.
