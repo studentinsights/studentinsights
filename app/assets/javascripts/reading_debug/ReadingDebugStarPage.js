@@ -10,6 +10,7 @@ import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import BreakdownBar from '../components/BreakdownBar';
+import BoxAndWhisker from '../components/BoxAndWhisker';
 import {
   classifyFAndPEnglish,
   interpretFAndPEnglish,
@@ -138,6 +139,15 @@ export class ReadingDebugStarView extends React.Component {
     const key = [year, period, grade].join('-');
     const starReadings = groups[key] || [];
     
+    // branch!
+    const showBoxAndWhisker = true;
+    if (showBoxAndWhisker) {
+      const values = starReadings.map(r => r.percentile_rank);
+      return (_.compact(values).length === 0)
+        ? null
+        : <BoxAndWhisker values={values} />;
+    }
+
     const counts = _.countBy(starReadings, result => {
       return (!result.percentile_rank)
         ? 'missing'
