@@ -145,7 +145,11 @@ export class ReadingDebugStarView extends React.Component {
       const values = starReadings.map(r => r.percentile_rank);
       return (_.compact(values).length === 0)
         ? null
-        : <BoxAndWhisker values={values} />;
+        : <BoxAndWhisker
+            values={values}
+            showQuartiles={true}
+            quartileLabelStyle={{color: '#ccc'}}
+          />;
     }
 
     const counts = _.countBy(starReadings, result => {
