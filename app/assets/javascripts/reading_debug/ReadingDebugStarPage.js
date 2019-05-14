@@ -10,6 +10,7 @@ import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import BreakdownBar from '../components/BreakdownBar';
+import SimpleFilterSelect from '../components/SimpleFilterSelect';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import {
   classifyFAndPEnglish,
@@ -74,20 +75,40 @@ export class ReadingDebugStarView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: null
+      visualization: 'BOX_AND_WHISKER',
+      selection: null,
+      isFlipped: false,
     };
 
     this.renderName = this.renderName.bind(this);
     this.onCellClicked = this.onCellClicked.bind(this);
+    this.onVisualizationChange = this.onVisualizationChange.bind(this);
+    this.onFlippedClicked = this.onFlippedClicked.bind(this);
   }
 
   onCellClicked(selection) {
     this.setState({selection});
   }
 
+  onVisualizationChange(visualization) {
+    this.setState({visualization});
+  }
+
+  onFlippedClicked() {
+    const {isFlipped} = this.state;
+    this.setState({isFlipped: !isFlipped})
+  }
+
   render() {
+    const {isFlipped} = this.state;
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          {this.renderVisualizationSelect()}
+          <div
+            style={{paddingLeft: 10, cursor: 'pointer', fontWeight: isFlipped ? 'bold' : 'normal'}}
+            onClick={this.onFlippedClicked}>Flip table</div>
+        </div>
         {this.renderList()}
         <div style={{
           flex: 1,
@@ -98,9 +119,24 @@ export class ReadingDebugStarView extends React.Component {
     );
   }
 
+  renderVisualizationSelect() {
+    const {visualization} = this.state;
+    const options = [
+      {value: 'BOX_AND_WHISKER', label: 'Box and whisker'},
+      {value: 'COLOR_BUCKETS', label: 'Color buckets'},
+      {value: 'ASSESSMENT_COUNT', label: 'Assessment count'}
+    ];
+    return (
+      <SimpleFilterSelect
+        placeholder="Visualization..."
+        value={visualization}
+        onChange={this.onVisualizationChange}
+        options={options} />
+    );
+  }
   renderList() {
     const {grades, students, starReadings} = this.props;
-    const {selection} = this.state;
+    const {selection, isFlipped} = this.state;
     const studentsById = students.reduce((map, student) => {
       return {...map, [student.id]: student};
     }, {});
@@ -130,18 +166,19 @@ export class ReadingDebugStarView extends React.Component {
         grades={grades}
         renderCellFn={cellParams => this.renderStarCell(groups, cellParams)}
         selection={selection}
+        isFlipped={isFlipped}
         onSelectionChanged={this.onCellClicked}
       />
     );
   }
 
   renderStarCell(groups, {grade, year, period}) {
+    const {visualization} = this.state;
     const key = [year, period, grade].join('-');
     const starReadings = groups[key] || [];
     
     // branch!
-    const showBoxAndWhisker = true;
-    if (showBoxAndWhisker) {
+    if (visualization === 'BOX_AND_WHISKER') {
       const values = starReadings.map(r => r.percentile_rank);
       return (_.compact(values).length === 0)
         ? null
@@ -152,29 +189,39 @@ export class ReadingDebugStarView extends React.Component {
           />;
     }
 
-    const counts = _.countBy(starReadings, result => {
-      return (!result.percentile_rank)
-        ? 'missing'
-        : starBucket(result.percentile_rank);
-    });
-    const lowCount = counts.low || 0;
-    const mediumCount = counts.medium || 0;
-    const highCount = counts.high || 0;
-    const missingCount = counts.missing || 0;
-    
-    const items = [
-      { left: 0, width: missingCount, color: missing, key: 'missing' },
-      { left: missingCount, width: highCount, color: high, key: 'high' },
-      { left: missingCount + highCount, width: mediumCount, color: medium, key: 'medium' },
-      { left: missingCount + highCount + mediumCount, width: lowCount, color: low, key: 'low' }
-    ];
-    return (
-      <BreakdownBar
-        items={items}
-        height={5}
-        labelTop={5}
-      />
-    );
+    if (visualization === 'COLOR_BUCKETS') {
+      const counts = _.countBy(starReadings, result => {
+        return (!result.percentile_rank)
+          ? 'missing'
+          : starBucket(result.percentile_rank);
+      });
+      const lowCount = counts.low || 0;
+      const mediumCount = counts.medium || 0;
+      const highCount = counts.high || 0;
+      const missingCount = counts.missing || 0;
+      
+      const items = [
+        { left: 0, width: missingCount, color: missing, key: 'missing' },
+        { left: missingCount, width: highCount, color: high, key: 'high' },
+        { left: missingCount + highCount, width: mediumCount, color: medium, key: 'medium' },
+        { left: missingCount + highCount + mediumCount, width: lowCount, color: low, key: 'low' }
+      ];
+      return (
+        <BreakdownBar
+          items={items}
+          height={5}
+          labelTop={5}
+        />
+      );
+    }
+
+    if (visualization === 'ASSESSMENT_COUNT') {
+      return (
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          {starReadings.length}
+        </div>
+      );
+    }
   }
 
   renderTable() {
