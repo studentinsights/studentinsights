@@ -45,6 +45,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/mtss_referral",
         "#{config.root}/app/importers/photo_import",
         "#{config.root}/app/importers/precompute",
+        "#{config.root}/app/importers/reading",
         "#{config.root}/app/importers/rows",
         "#{config.root}/app/importers/student_voice_surveys",
         "#{config.root}/app/importers/student_meeting",
