@@ -5,6 +5,7 @@ import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import DraftNote from './DraftNote';
+import TransitionNoteDialog from './TransitionNoteDialog';
 
 
 /*
@@ -17,6 +18,7 @@ export default class LightNotesDetails extends React.Component {
   constructor(props){
     super(props);
 
+    this.onClickTransitionNote = this.onClickTransitionNote.bind(this);
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
@@ -28,6 +30,11 @@ export default class LightNotesDetails extends React.Component {
       this.props.isTakingNotes ||
       this.props.requests.createNote !== null
     );
+  }
+
+  onClickTransitionNote(event) {
+    event.preventDefault();
+    this.props.onWritingTransitionNoteChanged(true);
   }
 
   onClickTakeNotes(event) {
@@ -61,6 +68,7 @@ export default class LightNotesDetails extends React.Component {
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
+        {this.renderTransitionNoteDialog()}
         {<SectionHeading titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           <div style={{display: 'flex', alignItems: 'center', padding: 2}}>
             <span>{title} for {student.first_name}</span>
@@ -85,14 +93,32 @@ export default class LightNotesDetails extends React.Component {
     );
   }
 
+  renderTransitionNoteDialog() {
+    const {isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
+    return (
+      <TransitionNoteDialog
+        isWritingTransitionNote={isWritingTransitionNote}
+        onWritingTransitionNoteChanged={onWritingTransitionNoteChanged}
+      />
+    );
+  }
+
   renderTakeNotesButton() {
     return (
-      <button
-        className="btn take-notes"
-        style={{display: 'inline-block', margin: 0}}
-        onClick={this.onClickTakeNotes}>
-        <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
-      </button>
+      <div>
+        <a
+          href="#"
+          style={{marginRight: 15}}
+          onClick={this.onClickTransitionNote}>
+          <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>transition</span></span>
+        </a>
+        <button
+          className="btn take-notes"
+          style={{display: 'inline-block', margin: 0}}
+          onClick={this.onClickTakeNotes}>
+          <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
+        </button>
+      </div>
     );
   }
 
@@ -134,7 +160,9 @@ LightNotesDetails.propTypes = {
   helpContent: PropTypes.node.isRequired,
   helpTitle: PropTypes.string.isRequired,
   isTakingNotes: PropTypes.bool.isRequired,
-  onTakingNotesChanged: PropTypes.func.isRequired
+  onTakingNotesChanged: PropTypes.func.isRequired,
+  isWritingTransitionNote: PropTypes.bool.isRequired,
+  onWritingTransitionNoteChanged: PropTypes.func.isRequired
 };
 
 
