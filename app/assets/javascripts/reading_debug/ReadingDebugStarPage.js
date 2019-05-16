@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {Table, Column, AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import memoizer from '../helpers/memoizer';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
@@ -9,7 +8,6 @@ import {toSchoolYear} from '../helpers/schoolYear';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
-import HighchartsWrapper from '../components/HighchartsWrapper';
 import Histogram from '../components/Histogram';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import BreakdownBar from '../components/BreakdownBar';
@@ -146,8 +144,8 @@ export class ReadingDebugStarView extends React.Component {
   renderVisualizationSelect() {
     const {visualization} = this.state;
     const options = [
-      {value: 'BOX_AND_WHISKER', label: 'Box and whisker'},
       {value: 'HISTOGRAM', label: 'Histogram'},
+      {value: 'BOX_AND_WHISKER', label: 'Box and whisker'},
       {value: 'COLOR_BUCKETS', label: 'Color buckets'},
       {value: 'ASSESSMENT_COUNT', label: 'Assessment count'}
     ];

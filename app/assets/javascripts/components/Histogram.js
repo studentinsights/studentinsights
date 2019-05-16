@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 
-// Visual component showing a small histogram.
+// Visual component showing a small histogram, initially made for
+// percentiles.
 export default class Histogram extends React.Component {
   scale(count) {
     const {values} = this.props;
