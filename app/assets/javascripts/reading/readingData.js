@@ -1,9 +1,16 @@
 import _ from 'lodash';
+import moment from 'moment';
 import {
   high,
   medium,
   low
 } from '../helpers/colors';
+import {
+  toSchoolYear,
+  firstDayOfSchool,
+  lastDayOfSchool
+} from '../helpers/schoolYear';
+
 
 export const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
 export const DIBELS_DORF_ACC = 'dibels_dorf_acc';
@@ -124,4 +131,25 @@ export function interpretFAndPEnglish(text) {
   if (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, text.toUpperCase())) return text.toUpperCase();
 
   return null;
+}
+
+export function orderedFAndPLevels() {
+  return _.sortBy(Object.keys(ORDERED_F_AND_P_ENGLISH_LEVELS), level => ORDERED_F_AND_P_ENGLISH_LEVELS[level]);
+}
+
+export function benchmarkPeriodKeyFor(timeMoment) {
+  const year = toSchoolYear(timeMoment);
+  const fallStart = firstDayOfSchool(year);
+  const winterStart = toMoment([year+1, 1, 1]);
+  const springStart = toMoment([year+1, 5, 1]);
+  const summerStart = lastDayOfSchool(year);
+
+  if (timeMoment.isBetween(fallStart, winterStart)) return 'fall';
+  if (timeMoment.isBetween(winterStart, springStart)) return 'winter';
+  if (timeMoment.isBetween(springStart, summerStart)) return 'spring';
+  return 'summer';
+}
+
+function toMoment(triple) {
+  return moment.utc([triple[0], triple[1], triple[2]].join('-'), 'YYYY-M-D');
 }

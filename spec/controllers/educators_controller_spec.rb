@@ -35,7 +35,9 @@ describe EducatorsController, :type => :controller do
         "labels"=>[
           'can_upload_student_voice_surveys',
           'should_show_levels_shs_link',
-          'enable_reading_benchmark_data_entry'
+          'enable_reading_benchmark_data_entry',
+          'enable_equity_experiments',
+          'enable_reading_debug'
         ]
       })
     end
@@ -116,6 +118,81 @@ describe EducatorsController, :type => :controller do
         pals.shs_freshman_amir.id,
         pals.shs_senior_kylo.id
       ])
+    end
+  end
+
+  describe '#student_searchbar_json' do
+    let(:school) { FactoryBot.create(:healey) }
+
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :student_searchbar_json, params: { format: :json }
+    end
+
+    context 'admin educator logged in, no cached student names' do
+      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      before { sign_in(educator) }
+      let!(:juan) {
+        FactoryBot.create(
+          :student, first_name: 'Juan', last_name: 'P', school: school, grade: '5'
+        )
+      }
+
+      let!(:jacob) {
+        FactoryBot.create(:student, first_name: 'Jacob', grade: '5')
+      }
+
+      it 'returns an array of student labels and ids that match educator\'s students' do
+        make_request
+        expect(response).to be_successful
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => juan.id }
+        ]
+      end
+    end
+
+    context 'admin educator logged in, cached student names on EducatorSearchbar record' do
+      let!(:educator) do
+        FactoryBot.create(
+          :educator, :admin,
+          school: school
+        )
+      end
+      let!(:educator_searchbar) do
+        EducatorSearchbar.create!({
+          educator: educator,
+          student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
+        })
+      end
+      before { sign_in(educator) }
+
+      it 'returns an array of student labels and ids that match cached students on EducatorSearchbar record' do
+        make_request
+        expect(response).to be_successful
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => "700" }
+        ]
+      end
+    end
+
+    context 'educator without authorization to students' do
+      let!(:educator) { FactoryBot.create(:educator) }
+      before { sign_in(educator) }
+      let(:healey) { FactoryBot.create(:healey) }
+      let!(:juan) { FactoryBot.create(:student, first_name: 'Juan', school: healey, grade: '5') }
+
+      it 'returns an empty array' do
+        make_request
+        expect(JSON.parse(response.body)).to eq []
+      end
+    end
+
+    context 'educator not logged in' do
+      it 'is not successful' do
+        make_request
+        expect(response.status).to eq 401
+        expect(response.body).to include "You need to sign in before continuing."
+      end
     end
   end
 

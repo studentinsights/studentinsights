@@ -20,3 +20,4 @@ export function genderColor(gender) {
 export const high = chroma('green').alpha(0.5).css();
 export const medium = chroma('darkorange').alpha(0.6).css();
 export const low = chroma('red').alpha(0.5).css();
+export const missing = '#ccc';

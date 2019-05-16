@@ -13,7 +13,7 @@ class DistrictController < ApplicationController
       show_work_board: EnvironmentVariable.is_true('SHOW_WORK_BOARD'),
       enable_student_voice_uploads: enable_student_voice_uploads,
       schools: schools.as_json(only: [:id, :name]),
-      current_educator: current_educator.as_json(only: [:id, :admin, :can_set_districtwide_access])
+      current_educator: current_educator.as_json(only: [:id, :admin, :can_set_districtwide_access], methods: [:labels])
     }
   end
 

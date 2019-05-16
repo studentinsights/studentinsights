@@ -47,8 +47,8 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/precompute",
         "#{config.root}/app/importers/reading",
         "#{config.root}/app/importers/rows",
-        "#{config.root}/app/importers/student_voice_surveys",
         "#{config.root}/app/importers/student_meeting",
+        "#{config.root}/app/importers/student_voice_surveys",
         "#{config.root}/app/importers/team_membership_import",
         "#{config.root}/app/importers/tools"
       ]

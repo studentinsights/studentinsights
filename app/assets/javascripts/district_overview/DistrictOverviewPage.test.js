@@ -36,7 +36,7 @@ it('renders everything after fetch', done => {
 });
 
 describe('DistrictOverviewPageView', () => {
-  it('pure component matches snapshot, without work board', () => {
+  it('pure snapshot, without work board', () => {
     const json = districtOverviewJson;
     const tree = renderer
       .create(
@@ -45,6 +45,24 @@ describe('DistrictOverviewPageView', () => {
           showWorkBoard={false}
           schools={json.schools}
           currentEducator={json.current_educator}
+        />
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('pure snapshot when `enable_equity_experiments` label set', () => {
+    const json = districtOverviewJson;
+    const tree = renderer
+      .create(
+        <DistrictOverviewPageView
+          enableStudentVoiceUploads={json.enable_student_voice_uploads}
+          showWorkBoard={false}
+          schools={json.schools}
+          currentEducator={{
+            ...json.current_educator,
+            labels: json.current_educator.labels.concat('enable_equity_experiments')
+          }}
         />
       )
       .toJSON();

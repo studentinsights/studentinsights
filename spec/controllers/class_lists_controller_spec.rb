@@ -139,36 +139,6 @@ describe ClassListsController, :type => :controller do
     end
   end
 
-  describe '#experimental_workspaces_with_equity_json' do
-    it 'guards access' do
-      create_class_list_from(pals.healey_sarah_teacher, {
-        grade_level_next_year: '6',
-        created_at: time_now - 4.hours,
-        updated_at: time_now - 4.hours,
-      })
-      sign_in(pals.healey_sarah_teacher)
-      get :experimental_workspaces_with_equity_json, params: {
-        format: :json
-      }
-      expect(response.status).to eq 403
-    end
-
-    it 'passes smoke test on happy path' do
-      create_class_list_from(pals.healey_sarah_teacher, {
-        grade_level_next_year: '6',
-        created_at: time_now - 4.hours,
-        updated_at: time_now - 4.hours,
-      })
-      sign_in(pals.uri)
-      get :experimental_workspaces_with_equity_json, params: {
-        format: :json
-      }
-      expect(response.status).to eq 200
-      json = JSON.parse(response.body)
-      expect(json.keys).to eq(['dimension_keys', 'class_lists_with_dimensions'])
-    end
-  end
-
   describe '#text' do
     it 'guards access' do
       class_list = create_class_list_from(pals.healey_sarah_teacher, {
@@ -660,6 +630,113 @@ describe ClassListsController, :type => :controller do
         limit: 10
       }
       expect(response.status).to eq 403
+    end
+  end
+
+  describe '#student_photo' do
+    let!(:pals) { TestPals.create! }
+    let!(:priya_kindergarten_teacher) do
+      Educator.create!(
+        login_name: 'priya',
+        email: "priya@demo.studentinsights.org",
+        full_name: 'Teacher, Priya',
+        staff_type: nil,
+        school: pals.healey,
+        homeroom: Homeroom.create!({
+          name: 'HEA 007',
+          grade: 'KF',
+          school: pals.healey
+        })
+      )
+    end
+
+    def get_student_photo(student_id, workspace_id)
+      request.env['HTTPS'] = 'on'
+      get :student_photo, params: {
+        workspace_id: workspace_id,
+        student_id: student_id,
+      }
+    end
+
+    def create_healey_first_grade_class_list(educator, params = {})
+      create_class_list_from(educator, {
+        grade_level_next_year: '1',
+        school_id: educator.school_id,
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours
+      }.merge(params))
+    end
+
+    def create_student_photo(student_id, params = {})
+      StudentPhoto.create({
+        student_id: student_id,
+        file_digest: SecureRandom.hex,
+        file_size: 1000 + SecureRandom.random_number(100000),
+        s3_filename: SecureRandom.hex
+      }.merge(params))
+    end
+
+    class FakeAwsResponse
+      def body
+        self
+      end
+
+      def read
+        '<mock-bytes-for-photo>'
+      end
+    end
+
+    before do
+      allow_any_instance_of(
+        Aws::S3::Client
+      ).to receive(
+        :get_object
+      ).and_return FakeAwsResponse.new
+    end
+
+    it 'guards access for HS teacher as example' do
+      create_student_photo(pals.healey_kindergarten_student.id)
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
+
+      sign_in(pals.shs_jodi)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 403
+      expect(response.body).to eq '{"error":"unauthorized"}'
+    end
+
+    it 'allows Vivian to access photos for students in her own homeroom like normal' do
+      create_student_photo(pals.healey_kindergarten_student.id)
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
+
+      sign_in(pals.healey_vivian_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 200
+      expect(response.body).to eq '<mock-bytes-for-photo>'
+    end
+
+    it 'is more permissive, and allows Priya to access photos for student in Vivian\'s homeroom, in same grade and school' do
+      create_student_photo(pals.healey_kindergarten_student.id)
+      class_list = create_healey_first_grade_class_list(priya_kindergarten_teacher)
+
+      sign_in(priya_kindergarten_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 200
+      expect(response.body).to eq '<mock-bytes-for-photo>'
+    end
+
+    it 'is sends an error when student has no photo' do
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
+
+      sign_in(pals.healey_vivian_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 404
+      expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
+    end
+
+    it 'guards when not signed in' do
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 401
     end
   end
 end

@@ -16,7 +16,7 @@ module Admin
 
     def update
       super
-      requested_resource.save_student_searchbar_json
+      EducatorSearchbar.update_student_searchbar_json!(requested_resource)
     end
 
     def authorization

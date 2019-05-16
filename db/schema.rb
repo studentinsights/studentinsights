@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_142316) do
+ActiveRecord::Schema.define(version: 2019_05_09_220552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -172,6 +172,12 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.index ["sms_number"], name: "index_educator_multifactor_configs_on_sms_number", unique: true
   end
 
+  create_table "educator_searchbars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "educator_id", null: false
+    t.json "student_searchbar_json", default: "[]", null: false
+    t.index ["educator_id"], name: "index_educator_searchbars_on_educator_id", unique: true
+  end
+
   create_table "educator_section_assignments", force: :cascade do |t|
     t.integer "section_id", null: false
     t.integer "educator_id", null: false
@@ -205,7 +211,6 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.boolean "can_view_restricted_notes", default: false, null: false
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
-    t.text "student_searchbar_json"
     t.text "login_name", null: false
     t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
@@ -430,6 +435,10 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["benchmark_assessment_key"], name: "index_reading_benchmark_data_points_on_benchmark_assessment_key"
+    t.index ["benchmark_school_year", "benchmark_period_key"], name: "index_reading_benchmark_data_points_on_year_and_period_keys"
+    t.index ["student_id"], name: "index_reading_benchmark_data_points_on_student_id"
+    t.index ["updated_at"], name: "index_reading_benchmark_data_points_on_updated_at", order: :desc
   end
 
   create_table "reading_grouping_snapshots", force: :cascade do |t|
@@ -673,6 +682,7 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
+  add_foreign_key "educator_searchbars", "educators"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"

@@ -96,6 +96,38 @@ class ReadingController < ApplicationController
     render json: {}, status: 201
   end
 
+  # Used by ReadingDebugPage
+  def reading_debug_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
+
+    students = authorized { Student.active.to_a }
+    students_json = students.as_json(only: [
+      :id,
+      :first_name,
+      :last_name,
+      :grade,
+      :has_photo
+    ])
+    reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
+      .where(student_id: students.pluck(:id))
+      .order(updated_at: :asc)
+
+    render json: {
+      students: students_json,
+      reading_benchmark_data_points: reading_benchmark_data_points.as_json
+    }
+  end
+
+  # Used by ReadingDebugPage
+  def star_reading_debug_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
+
+    grades = ['3','4','5','6','7','8']
+    students = authorized { Student.active.where(grade: grades).to_a }
+    json = StarDebugQueries.new.fetch_json(students)
+    render json: json.merge(grades: grades)
+  end
+
   private
   def ensure_authorized_for_feature!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_benchmark_data_entry')
