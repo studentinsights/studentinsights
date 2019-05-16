@@ -6,18 +6,13 @@ class TransitionNoteParser
   GUARDIAN_PROMPT = "Who is the student's primary guardian?"
   OTHER_PROMPT = "Any additional comments or good things to know about this student?"
 
-  SOCIAL_SERVICES_PROMPT = "Is this student receiving Social Services and if so, what is the name and contact info of their social worker?"
-  MENTAL_HEALTH_SUPPORT = "Is this student receiving mental health supports?"
-
   def parse_text(text)
     {
       strengths: extract_one(text, STRENGTHS_PROMPT, COMMUNITY_PROMPT),
       community: extract_one(text, COMMUNITY_PROMPT, PEERS_PROMPT),
       peers: extract_one(text, PEERS_PROMPT, GUARDIAN_PROMPT),
       guardian: extract_one(text, GUARDIAN_PROMPT, OTHER_PROMPT),
-      other: extract_one(text, OTHER_PROMPT),
-      social_services: extract_one(text, SOCIAL_SERVICES_PROMPT, MENTAL_HEALTH_SUPPORT),
-      mental_health: extract_one(text, MENTAL_HEALTH_SUPPORT)
+      other: extract_one(text, OTHER_PROMPT)
     }
   end
 
