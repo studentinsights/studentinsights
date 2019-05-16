@@ -3,20 +3,46 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import memoizer from '../helpers/memoizer';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
-import GenericLoader from '../components/GenericLoader';
-import SectionHeading from '../components/SectionHeading';
-import ExperimentalBanner from '../components/ExperimentalBanner';
-import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
-import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
 import {
   high,
   medium,
   low,
   missing
 } from '../helpers/colors';
+import GenericLoader from '../components/GenericLoader';
+import SectionHeading from '../components/SectionHeading';
+import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import ExperimentalBanner from '../components/ExperimentalBanner';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
+import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
+import BoxAndWhisker from '../components/BoxAndWhisker';
+import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
+import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
 import GradeTimeGrid from './GradeTimeGrid';
+import {
+  DIBELS_DORF_WPM,
+  DIBELS_DORF_ACC,
+  DIBELS_DORF_ERRORS,
+  DIBELS_FSF,
+  DIBELS_LNF,
+  DIBELS_PSF,
+  DIBELS_NWF_CLS,
+  DIBELS_NWF_WWR,
+  F_AND_P_ENGLISH,
+  F_AND_P_SPANISH,
+  INSTRUCTIONAL_NEEDS
+} from '../reading/thresholds';
+import {
+  DIBELS_CORE,
+  DIBELS_STRATEGIC,
+  DIBELS_INTENSIVE,
+  DIBELS_UNKNOWN,
+  classifyDibels,
+  colorForDibelsCategory,
+  interpretDibels
+} from '../reading/readingData';
 
 
 // For reviewing, debugging and developing new ways to make use of
@@ -33,6 +59,7 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   fetchJson() {
+    console.log('fetch', (new Date().getTime()));
     return apiFetchJson('/api/reading/reading_debug_json');
   }
 
@@ -53,6 +80,7 @@ export default class ReadingDebugPage extends React.Component {
     return (
       <ReadingDebugView
         students={json.students}
+        groups={json.groups}
         readingBenchmarkDataPoints={json.reading_benchmark_data_points}
       />
     );
@@ -64,21 +92,83 @@ export class ReadingDebugView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      benchmarkAssessmentKey: 'f_and_p_english',
-      selection: null
+      benchmarkAssessmentKey: F_AND_P_ENGLISH,
+      selection: null,
+      visualization: ALL
     };
 
     this.renderName = this.renderName.bind(this);
     this.onCellClicked = this.onCellClicked.bind(this);
+    this.onBenchmarkAssessmentKeyChanged = this.onBenchmarkAssessmentKeyChanged.bind(this);
+    this.onFlippedClicked = this.onFlippedClicked.bind(this);
+    this.onVisualizationChanged = this.onVisualizationChanged.bind(this);
+    this.memoize = memoizer();
+  }
+
+  groups() {
+    const {groups} = this.props;
+    console.log('groups', groups);
+    return groups;
+    // const {students, readingBenchmarkDataPoints} = this.props;
+    // return this.memoize(['groups', students, readingBenchmarkDataPoints], () => {      
+    //   const studentsById = students.reduce((map, student) => {
+    //     return {...map, [student.id]: student};
+    //   }, {});
+    //   return _.groupBy(readingBenchmarkDataPoints, d => {
+    //     const student = studentsById[d.student_id];
+    //     return [
+    //       d.benchmark_school_year,
+    //       d.benchmark_period_key,
+    //       student.grade,
+    //     ].join('-');
+    //   });
+    // });
+  }
+
+  onFlippedClicked() {
+    const {isFlipped} = this.state;
+    this.setState({isFlipped: !isFlipped});
   }
 
   onCellClicked(selection) {
     this.setState({selection});
   }
 
+  onBenchmarkAssessmentKeyChanged(benchmarkAssessmentKey) {
+    this.setState({benchmarkAssessmentKey});
+  }
+
+  onVisualizationChanged(visualization) {
+    this.setState({visualization});
+  }
+
   render() {
+    const {isFlipped, visualization} = this.state;
+    console.log('render', (new Date().getTime()));
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
+        <div style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            {this.renderAssessmentSelect()}
+            <SimpleFilterSelect
+              placeholder="Visualization..."
+              style={{width: '16em'}}
+              value={visualization}
+              onChange={this.onVisualizationChanged}
+              options={[
+                {value: ALL, label: 'Default'},
+                {value: 'BOX_AND_WHISKER', label: 'Box and whisker'}
+              ]} />
+            <div
+              style={{paddingLeft: 10, cursor: 'pointer', fontWeight: isFlipped ? 'bold' : 'normal'}}
+              onClick={this.onFlippedClicked}>Flip table</div>
+          </div>
+          <div>
+            <a
+              target="_blank" rel="noopener noreferrer"
+              href="https://github.com/studentinsights/studentinsights/blob/master/app/assets/javascripts/reading/thresholds.js">thresholds</a>
+          </div>
+        </div>
         {this.renderList()}
         <div style={{
           flex: 1,
@@ -89,24 +179,37 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
-  renderList() {
-    const {students, readingBenchmarkDataPoints} = this.props;
-    const {benchmarkAssessmentKey, selection} = this.state;
-    const studentsById = students.reduce((map, student) => {
-      return {...map, [student.id]: student};
-    }, {});
-    const filteredDataPoints = readingBenchmarkDataPoints.filter(d => {
-      return (benchmarkAssessmentKey === null || benchmarkAssessmentKey === d.benchmark_assessment_key);
-    });
-    const groups = _.groupBy(filteredDataPoints, d => {
-      const student = studentsById[d.student_id];
-      return [
-        d.benchmark_school_year,
-        d.benchmark_period_key,
-        student.grade,
-      ].join('-');
-    });
+  renderAssessmentSelect() {
+    const {benchmarkAssessmentKey} = this.state;
 
+    const options = [
+      {value: F_AND_P_ENGLISH, label: 'F&P English'},
+      {value: F_AND_P_SPANISH, label: 'F&P Spanish'},
+      {value: INSTRUCTIONAL_NEEDS, label: 'Instructional needs'},
+      {value: DIBELS_FSF, label: 'FSF, First sound fluency'},
+      {value: DIBELS_LNF, label: 'LNF, Letter naming fluency'},
+      {value: DIBELS_PSF, label: 'PSF, Phonemic segmentation fluency'},
+      {value: DIBELS_NWF_CLS, label: 'NWF-CLS, Nonsense word fluency'},
+      {value: DIBELS_NWF_WWR, label: 'NWF-WWR, Nonsense word fluency'},
+      {value: DIBELS_DORF_WPM, label: 'ORF words/minute'},
+      {value: DIBELS_DORF_ACC, label: 'ORF accuracy'},
+      {value: DIBELS_DORF_ERRORS, label: 'ORF errors'}
+    ];
+    return (
+      <SimpleFilterSelect
+        style={{width: '20em'}}
+        placeholder="Data type..."
+        value={benchmarkAssessmentKey}
+        onChange={this.onBenchmarkAssessmentKeyChanged}
+        options={options} />
+    );
+  }
+
+  renderList() {
+    const groups = this.groups();
+    const {selection, isFlipped} = this.state;
+
+    console.log('renderList, after groups', (new Date().getTime()));
     // const years = [2017, 2018, 2019];
     // const periods = ['fall', 'winter', 'spring'];
     // const intervals = _.flatMap(years, year => periods.map(period => [year, period]));
@@ -125,17 +228,78 @@ export class ReadingDebugView extends React.Component {
       <GradeTimeGrid
         intervals={intervals}
         grades={grades}
-        renderCellFn={cellParams => this.renderFAndPCell(groups, cellParams)}
+        renderCellFn={cellParams => (
+          <div style={{minWidth: 80, minHeight: 40, overflow: 'hidden'}}>
+            {this.renderCell(groups, cellParams)}
+          </div>
+        )}
+        isFlipped={isFlipped}
         selection={selection}
         onSelectionChanged={this.onCellClicked}
       />
     );
   }
 
-  renderFAndPCell(groups, {grade, year, period}) {
+  renderCell(groups, {grade, year, period}) {
+    const {benchmarkAssessmentKey} = this.state;
     const key = [year, period, grade].join('-');
-    const intervalDataPoints = groups[key] || [];
-    const fAndPValuesWithNulls = intervalDataPoints.map(dataPoint => dataPoint.json.value);
+    const dataPoints = (groups[key] || []).filter(d => {
+      if (benchmarkAssessmentKey === null) return true;
+      if (benchmarkAssessmentKey === d.benchmark_assessment_key) return true;
+      return false;
+    });
+    if (dataPoints.length === 0) return null;
+
+    if (isDibels(benchmarkAssessmentKey)) return this.renderDibelsCell(dataPoints, {grade, year, period});
+    if (benchmarkAssessmentKey === F_AND_P_ENGLISH) return this.renderFAndPCell(dataPoints, {grade, year, period});
+    if (benchmarkAssessmentKey === F_AND_P_SPANISH) return this.renderFAndPCell(dataPoints, {grade, year, period});
+
+    // else
+    return <div style={{textAlign: 'center'}} title={JSON.stringify(dataPoints)}>{dataPoints.length}</div>;
+  }
+
+  renderDibelsCell(dataPoints, {grade, year, period}) {
+    const {benchmarkAssessmentKey, visualization} = this.state;
+    if (dataPoints.length === 0) return null;
+
+    if (visualization === 'BOX_AND_WHISKER') {
+      const values = dataPoints.map(d => interpretDibels(d.json.value));
+      return (_.compact(values).length === 0)
+        ? null
+        : <BoxAndWhisker
+            values={values}
+            showQuartiles={true}
+            quartileLabelStyle={{color: '#ccc'}}
+          />;
+    }
+
+    // default
+    const dibelsCounts = {
+      [DIBELS_UNKNOWN]: 0,
+      [DIBELS_CORE]: 0,
+      [DIBELS_STRATEGIC]: 0,
+      [DIBELS_INTENSIVE]: 0
+    };
+    dataPoints.forEach(d => {
+      if (!d.json.value) return;
+      const category = classifyDibels(d.json.value, benchmarkAssessmentKey, grade, period);
+      if (!category) return;
+      dibelsCounts[category] = dibelsCounts[category] + 1;
+    });
+    return (
+      <DibelsBreakdownBar
+        coreCount={dibelsCounts[DIBELS_CORE]}
+        intensiveCount={dibelsCounts[DIBELS_STRATEGIC]}
+        strategicCount={dibelsCounts[DIBELS_INTENSIVE]}
+        missingCount={dibelsCounts[DIBELS_UNKNOWN]}
+        height={5}
+        labelTop={5}
+      />
+    );
+  }
+
+  renderFAndPCell(dataPoints, {grade, year, period}) {
+    const fAndPValuesWithNulls = dataPoints.map(dataPoint => dataPoint.json.value);
     return (
       <FountasAndPinellBreakdown
         grade={grade}
@@ -147,7 +311,6 @@ export class ReadingDebugView extends React.Component {
       />
     );
   }
-
 
   renderTable() {
     const {students, readingBenchmarkDataPoints} = this.props;
@@ -201,9 +364,9 @@ export class ReadingDebugView extends React.Component {
                 width={100}
               />
               <Column
-                label='F&P level'
-                dataKey='f_and_p_english'
-                cellRenderer={this.renderFAndP.bind(this, dataPointsByStudentId, period)}
+                label='Value'
+                dataKey='value'
+                cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
                 width={100}
               />
           </Table>
@@ -227,11 +390,33 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
-  renderFAndP(dataPointsByStudentId, benchmarkPeriodKey, cellProps) {
+  renderValue(dataPointsByStudentId, benchmarkPeriodKey, cellProps) {
+    const {benchmarkAssessmentKey} = this.state;
+
     const student = cellProps.rowData;
     const dataPoints = dataPointsByStudentId[student.id] || [];
     if (dataPoints.length === 0) return null;
 
+    if (benchmarkAssessmentKey === F_AND_P_ENGLISH) return this.renderFAndPValue(student, dataPoints, benchmarkPeriodKey);
+    if (isDibels(benchmarkAssessmentKey)) return this.renderDibelsValue(student, dataPoints, benchmarkPeriodKey);
+
+    return <pre title={JSON.stringify(dataPoints)}>unknown</pre>;
+  }
+
+  renderDibelsValue(student, dataPoints, benchmarkPeriodKey) {
+    const {benchmarkAssessmentKey} = this.state;
+    return (
+      <div>
+        {dataPoints.map(d => (
+          <div key={d.id}>
+            {renderDibels(d.json.value, benchmarkAssessmentKey, student.grade, benchmarkPeriodKey)}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  renderFAndPValue(student, dataPoints, benchmarkPeriodKey) {
     return (
       <div>
         {dataPoints.map(d => (
@@ -296,28 +481,38 @@ function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
   const level = interpretFAndPEnglish(text);
   if (!level) return none();
 
-  // return <div>{level}</div>;
   const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
   const color = {
     high,
     medium,
     low
   }[category] || missing;
-  return (
-    <div style={{paddingLeft: 5, display: 'flex', flexDirection: 'row'}}>
-      <div style={{display: 'inline-block', marginRight: 5}}>
-        {coloredBadge(level, color)}
-      </div>
-    </div>
-  );
+  return badgeWithPadding(level, color);
+}
+
+function renderDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+  if (!text) return none();
+  const category = classifyDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  if (!category) return none();
+  const color = colorForDibelsCategory(category);
+  return badgeWithPadding(text, color);
 }
 
 function none() {
   return <span style={{paddingLeft: 5}}>(none)</span>;
 }
 
+function badgeWithPadding(el, color) {
+  return (
+    <div style={{paddingLeft: 5, display: 'flex', flexDirection: 'row'}}>
+      <div style={{display: 'inline-block', marginRight: 5}}>
+        {coloredBadge(el, color)}
+      </div>
+    </div>
+  );
+}
 
-function coloredBadge(value, color) {
+function coloredBadge(el, color) {
   return (
     <div style={{
       display: 'flex',
@@ -328,7 +523,19 @@ function coloredBadge(value, color) {
       color: 'white',
       fontSize: 14,
       backgroundColor: color
-    }}>{value}</div>
+    }}>{el}</div>
   );
 }
 
+function isDibels(benchmarkAssessmentKey) {
+  return ([
+    DIBELS_DORF_WPM,
+    DIBELS_DORF_ACC,
+    DIBELS_DORF_ERRORS,
+    DIBELS_FSF,
+    DIBELS_LNF,
+    DIBELS_PSF,
+    DIBELS_NWF_CLS,
+    DIBELS_NWF_WWR
+  ].indexOf(benchmarkAssessmentKey) !== -1);
+}

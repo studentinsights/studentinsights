@@ -16,9 +16,9 @@ import {
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
   readDoc,
-  somervilleReadingThresholdsFor,
   dibelsColor
 } from './readingData';
+import {somervilleReadingThresholdsFor} from './thresholds';
 
 
 export default class SidebarDialog extends React.Component {

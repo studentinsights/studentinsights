@@ -98,24 +98,41 @@ class ReadingController < ApplicationController
 
   # Used by ReadingDebugPage
   def reading_debug_json
-    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
+    json = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-05-08-reading-debug/reading_debug2.json'))
 
-    students = authorized { Student.active.to_a }
-    students_json = students.as_json(only: [
-      :id,
-      :first_name,
-      :last_name,
-      :grade,
-      :has_photo
-    ])
-    reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
-      .where(student_id: students.pluck(:id))
-      .order(updated_at: :asc)
+    students_by_id = {}
+    json['students'].each do |student|
+      students_by_id[student['id']] = student
+    end
+    groups = json['reading_benchmark_data_points'].group_by do |d|
+      student = students_by_id[d['student_id']]
+      [
+        d['benchmark_school_year'],
+        d['benchmark_period_key'],
+        student['grade'],
+      ].join('-')
+    end
 
-    render json: {
-      students: students_json,
-      reading_benchmark_data_points: reading_benchmark_data_points.as_json
-    }
+    render json: json.merge(groups: groups)
+
+    # raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
+
+    # students = authorized { Student.active.to_a }
+    # students_json = students.as_json(only: [
+    #   :id,
+    #   :first_name,
+    #   :last_name,
+    #   :grade,
+    #   :has_photo
+    # ])
+    # reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
+    #   .where(student_id: students.pluck(:id))
+    #   .order(updated_at: :asc)
+
+    # render json: {
+    #   students: students_json,
+    #   reading_benchmark_data_points: reading_benchmark_data_points.as_json
+    # }
   end
 
   # Used by ReadingDebugPage
