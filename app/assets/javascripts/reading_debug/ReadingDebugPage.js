@@ -8,7 +8,6 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import {gradeText} from '../helpers/gradeText';
 import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
 import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
 import {
@@ -17,6 +16,8 @@ import {
   low,
   missing
 } from '../helpers/colors';
+import GradeTimeGrid from './GradeTimeGrid';
+
 
 // For reviewing, debugging and developing new ways to make use of
 // or revise reading data.
@@ -68,6 +69,7 @@ export class ReadingDebugView extends React.Component {
     };
 
     this.renderName = this.renderName.bind(this);
+    this.onCellClicked = this.onCellClicked.bind(this);
   }
 
   onCellClicked(selection) {
@@ -118,60 +120,34 @@ export class ReadingDebugView extends React.Component {
       [2019, 'winter']
     ];
     const grades = ['KF', '1', '2'];
+
     return (
-      <div>
-        <table style={{width: '100%'}}>
-          <thead>
-            <tr>
-              <th>Grade</th>
-              {intervals.map(interval => {
-                const [year, period] = interval;
-                return (
-                  <th key={interval.join('-')}>
-                    <div>{year}</div>
-                    <div>{period}</div>
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {grades.map(grade => (  
-              <tr key={grade}>
-                <td>{gradeText(grade)}</td>
-                {intervals.map(interval => {
-                  const [year, period] = interval;
-                  const key = [year, period, grade].join('-');
-                  const intervalDataPoints = groups[key] || [];
-                  const fAndPValuesWithNulls = intervalDataPoints.map(dataPoint => dataPoint.json.value);
-                  return (
-                    <td
-                      key={interval.join('-')}>
-                      <div 
-                        style={_.isEqual(selection, {year, period, grade})
-                          ? {cursor: 'pointer', padding: 10, border: `2px solid ${selection}`}
-                          : {cursor: 'pointer', padding: 10, border: `2px solid white`}
-                        }
-                        onClick={this.onCellClicked.bind(this, {year, period, grade})}>
-                        <FountasAndPinellBreakdown
-                          grade={grade}
-                          benchmarkPeriodKey={period}
-                          fAndPValuesWithNulls={fAndPValuesWithNulls}
-                          includeMissing={true}
-                          height={5}
-                          labelTop={5}
-                        />
-                      </div>
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <GradeTimeGrid
+        intervals={intervals}
+        grades={grades}
+        renderCellFn={cellParams => this.renderFAndPCell(groups, cellParams)}
+        selection={selection}
+        onSelectionChanged={this.onCellClicked}
+      />
     );
   }
+
+  renderFAndPCell(groups, {grade, year, period}) {
+    const key = [year, period, grade].join('-');
+    const intervalDataPoints = groups[key] || [];
+    const fAndPValuesWithNulls = intervalDataPoints.map(dataPoint => dataPoint.json.value);
+    return (
+      <FountasAndPinellBreakdown
+        grade={grade}
+        benchmarkPeriodKey={period}
+        fAndPValuesWithNulls={fAndPValuesWithNulls}
+        includeMissing={true}
+        height={5}
+        labelTop={5}
+      />
+    );
+  }
+
 
   renderTable() {
     const {students, readingBenchmarkDataPoints} = this.props;
@@ -355,3 +331,4 @@ function coloredBadge(value, color) {
     }}>{value}</div>
   );
 }
+
