@@ -26,6 +26,10 @@ const somervilleThresholds = {
     '1:winter': {
       benchmark: 'G',
       risk: 'D'
+    },
+    '3:winter': { // check these
+      benchmark: 'O',
+      risk: 'M'
     }
   },
   [DIBELS_FSF]: {
@@ -69,6 +73,46 @@ const somervilleThresholds = {
       benchmark: 45,
       risk: 30
     }
+  },
+  [DIBELS_NWF_CLS]: {
+    'KF:spring': {
+      benchmark: 37,
+      risk: 27
+    },
+    '1:fall': {
+      benchmark: 33,
+      risk: 19
+    },
+    '1:winter': {
+      benchmark: 50,
+      risk: 30
+    },
+    '1:spring': {
+      benchmark: 78,
+      risk: 42
+    },
+    '2:fall': {
+      benchmark: 62,
+      risk: 45
+    },
+  },
+  [DIBELS_NWF_WWR]: {
+    '1:fall': {
+      benchmark: 4,
+      risk: 1
+    },
+    '1:winter': {
+      benchmark: 12,
+      risk: 5
+    },
+    '1:spring': {
+      benchmark: 18,
+      risk: 9
+    },
+    '2:fall': {
+      benchmark: 18,
+      risk: 9
+    },
   },
   [DIBELS_DORF_WPM]: {
     '1:winter': {
@@ -119,9 +163,7 @@ const somervilleThresholds = {
 
 export function somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   const thresholds = somervilleThresholds[benchmarkAssessmentKey];
-  console.log('  somervilleReadingThresholdsFor', benchmarkAssessmentKey, grade, benchmarkPeriodKey, thresholds);
   if (!thresholds) return null;
   const periodKey = [grade, benchmarkPeriodKey].join(':');
-  // console.log('    value for periodKey', periodKey, ' = ', thresholds[periodKey]);
   return thresholds[periodKey] || null;
 }

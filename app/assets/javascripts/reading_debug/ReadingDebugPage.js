@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
+import ReactModal from 'react-modal';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import memoizer from '../helpers/memoizer';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
@@ -13,6 +14,7 @@ import {
 } from '../helpers/colors';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import {modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
@@ -59,7 +61,6 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   fetchJson() {
-    console.log('fetch', (new Date().getTime()));
     return apiFetchJson('/api/reading/reading_debug_json');
   }
 
@@ -81,7 +82,6 @@ export default class ReadingDebugPage extends React.Component {
       <ReadingDebugView
         students={json.students}
         groups={json.groups}
-        readingBenchmarkDataPoints={json.reading_benchmark_data_points}
       />
     );
   }
@@ -105,24 +105,20 @@ export class ReadingDebugView extends React.Component {
     this.memoize = memoizer();
   }
 
-  groups() {
+  componentWillMount(){
+    ReactModal.setAppElement(document.body);
+  }
+
+  dataPointsForGroup(selection) {
     const {groups} = this.props;
-    console.log('groups', groups);
-    return groups;
-    // const {students, readingBenchmarkDataPoints} = this.props;
-    // return this.memoize(['groups', students, readingBenchmarkDataPoints], () => {      
-    //   const studentsById = students.reduce((map, student) => {
-    //     return {...map, [student.id]: student};
-    //   }, {});
-    //   return _.groupBy(readingBenchmarkDataPoints, d => {
-    //     const student = studentsById[d.student_id];
-    //     return [
-    //       d.benchmark_school_year,
-    //       d.benchmark_period_key,
-    //       student.grade,
-    //     ].join('-');
-    //   });
-    // });
+    const {benchmarkAssessmentKey} = this.state;
+    const {year, period, grade} = selection;
+    const key = [year, period, grade].join('-');
+    return (groups[key] || []).filter(d => {
+      if (benchmarkAssessmentKey === null) return true;
+      if (benchmarkAssessmentKey === d.benchmark_assessment_key) return true;
+      return false;
+    });
   }
 
   onFlippedClicked() {
@@ -131,6 +127,7 @@ export class ReadingDebugView extends React.Component {
   }
 
   onCellClicked(selection) {
+    console.log('onCellClicked', selection);
     this.setState({selection});
   }
 
@@ -144,7 +141,6 @@ export class ReadingDebugView extends React.Component {
 
   render() {
     const {isFlipped, visualization} = this.state;
-    console.log('render', (new Date().getTime()));
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <div style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -169,7 +165,7 @@ export class ReadingDebugView extends React.Component {
               href="https://github.com/studentinsights/studentinsights/blob/master/app/assets/javascripts/reading/thresholds.js">thresholds</a>
           </div>
         </div>
-        {this.renderList()}
+        {this.renderGrid()}
         <div style={{
           flex: 1,
           marginTop: 10,
@@ -205,14 +201,9 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
-  renderList() {
-    const groups = this.groups();
+  renderGrid() {
+    const {groups} = this.props;
     const {selection, isFlipped} = this.state;
-
-    console.log('renderList, after groups', (new Date().getTime()));
-    // const years = [2017, 2018, 2019];
-    // const periods = ['fall', 'winter', 'spring'];
-    // const intervals = _.flatMap(years, year => periods.map(period => [year, period]));
     const intervals = [
       [2017, 'winter'],
       [2017, 'spring'],
@@ -222,7 +213,7 @@ export class ReadingDebugView extends React.Component {
       [2019, 'fall'],
       [2019, 'winter']
     ];
-    const grades = ['KF', '1', '2'];
+    const grades = ['KF', '1', '2', '3', '4', '5'];
 
     return (
       <GradeTimeGrid
@@ -242,12 +233,7 @@ export class ReadingDebugView extends React.Component {
 
   renderCell(groups, {grade, year, period}) {
     const {benchmarkAssessmentKey} = this.state;
-    const key = [year, period, grade].join('-');
-    const dataPoints = (groups[key] || []).filter(d => {
-      if (benchmarkAssessmentKey === null) return true;
-      if (benchmarkAssessmentKey === d.benchmark_assessment_key) return true;
-      return false;
-    });
+    const dataPoints = this.dataPointsForGroup({year, period, grade});
     if (dataPoints.length === 0) return null;
 
     if (isDibels(benchmarkAssessmentKey)) return this.renderDibelsCell(dataPoints, {grade, year, period});
@@ -313,23 +299,23 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderTable() {
-    const {students, readingBenchmarkDataPoints} = this.props;
+    const {students} = this.props;
     const {benchmarkAssessmentKey, selection} = this.state;
     if (selection === null) {
       return <div style={{fontSize: 14}}>Click a cell to see the list of students.</div>;
     }
 
-    if (!selection) return null;
+    const dataPoints = this.dataPointsForGroup(selection);
 
+    // filter students list
     const {year, period, grade} = selection;
     const dataPointsByStudentId = {};
-    readingBenchmarkDataPoints.forEach(d => {
+    dataPoints.forEach(d => {
       if (benchmarkAssessmentKey !== null && benchmarkAssessmentKey !== d.benchmark_assessment_key) return;
       if (d.benchmark_school_year !== year) return;
       if (d.benchmark_period_key !== period) return;
       dataPointsByStudentId[d.student_id] = (dataPointsByStudentId[d.student_id] || []).concat(d);
     });
-
     const filteredStudents = students.filter(student => {
       if (!dataPointsByStudentId[student.id]) return false;
       if (dataPointsByStudentId.length === 0) return false;
@@ -339,39 +325,41 @@ export class ReadingDebugView extends React.Component {
 
     const rowHeight = 40; // for two lines of student names
     return (
-      <AutoSizer style={{marginTop: 20, margin: 10}}>
-        {({width, height}) => (
-          <Table
-            width={width}
-            height={height}
-            headerHeight={rowHeight}
-            headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
-            rowStyle={{display: 'flex'}}
-            style={{fontSize: 14}}
-            rowHeight={rowHeight}
-            rowCount={filteredStudents.length}
-            rowGetter={({index}) => filteredStudents[index]}
-            >
-              <Column
-                label='Name'
-                dataKey='name'
-                cellRenderer={this.renderName}
-                width={260}
-              />
-              <Column
-                label='Grade'
-                dataKey='grade'
-                width={100}
-              />
-              <Column
-                label='Value'
-                dataKey='value'
-                cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
-                width={100}
-              />
-          </Table>
-        )}
-      </AutoSizer>
+      <ReactModal isOpen={true} onRequestClose={() => this.setState({selection: null})} style={modalFullScreenWithVerticalScroll}>
+        <AutoSizer style={{marginTop: 20, margin: 10}}>
+          {({width, height}) => (
+            <Table
+              width={width}
+              height={height}
+              headerHeight={rowHeight}
+              headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
+              rowStyle={{display: 'flex'}}
+              style={{fontSize: 14}}
+              rowHeight={rowHeight}
+              rowCount={filteredStudents.length}
+              rowGetter={({index}) => filteredStudents[index]}
+              >
+                <Column
+                  label='Name'
+                  dataKey='name'
+                  cellRenderer={this.renderName}
+                  width={260}
+                />
+                <Column
+                  label='Grade'
+                  dataKey='grade'
+                  width={100}
+                />
+                <Column
+                  label='Value'
+                  dataKey='value'
+                  cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
+                  width={100}
+                />
+            </Table>
+          )}
+        </AutoSizer>
+      </ReactModal>
     );
   }
 
@@ -420,7 +408,7 @@ export class ReadingDebugView extends React.Component {
     return (
       <div>
         {dataPoints.map(d => (
-          <div key={d.id}>
+          <div key={d.id} style={{display: 'flex', flexDirection: 'row'}}>
             {renderFAndPLevel(d.json.value, student.grade, benchmarkPeriodKey)}
           </div>
         ))}
@@ -429,12 +417,7 @@ export class ReadingDebugView extends React.Component {
   }
 }
 ReadingDebugView.propTypes = {
-  readingBenchmarkDataPoints: PropTypes.arrayOf(PropTypes.shape({
-    benchmark_school_year: PropTypes.number.isRequired,
-    benchmark_period_key: PropTypes.string.isRequired,
-    benchmark_assessment_key: PropTypes.string.isRequired,
-    json: PropTypes.object.isRequired
-  })).isRequired,
+  groups: PropTypes.object.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -482,6 +465,7 @@ function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
   if (!level) return none();
 
   const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
+  console.log('classifyFAndPEnglish', category, level, grade, benchmarkPeriodKey);
   const color = {
     high,
     medium,
