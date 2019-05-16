@@ -127,7 +127,6 @@ export class ReadingDebugView extends React.Component {
   }
 
   onCellClicked(selection) {
-    console.log('onCellClicked', selection);
     this.setState({selection});
   }
 
@@ -465,7 +464,6 @@ function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
   if (!level) return none();
 
   const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
-  console.log('classifyFAndPEnglish', category, level, grade, benchmarkPeriodKey);
   const color = {
     high,
     medium,
