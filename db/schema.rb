@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_16_174253) do
+ActiveRecord::Schema.define(version: 2019_05_09_220552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -115,8 +115,12 @@ ActiveRecord::Schema.define(version: 2019_05_16_174253) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
+    t.text "iac_content_area"
+    t.text "iac_category"
+    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
+    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -211,7 +215,6 @@ ActiveRecord::Schema.define(version: 2019_05_16_174253) do
     t.boolean "can_view_restricted_notes", default: false, null: false
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
-    t.text "student_searchbar_json"
     t.text "login_name", null: false
     t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
@@ -436,8 +439,6 @@ ActiveRecord::Schema.define(version: 2019_05_16_174253) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "source"
-    t.text "benchmark_assessment_grade_level"
     t.index ["benchmark_assessment_key"], name: "index_reading_benchmark_data_points_on_benchmark_assessment_key"
     t.index ["benchmark_school_year", "benchmark_period_key"], name: "index_reading_benchmark_data_points_on_year_and_period_keys"
     t.index ["student_id"], name: "index_reading_benchmark_data_points_on_student_id"
@@ -685,6 +686,7 @@ ActiveRecord::Schema.define(version: 2019_05_16_174253) do
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
+  add_foreign_key "educator_searchbars", "educators"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
