@@ -27,11 +27,11 @@ export default class GradeTimeGrid extends React.Component {
         <table style={{width: '100%'}}>
           <thead>
             <tr>
-              <th>Grade</th>
+              <th style={styles.firstColumnCell}></th>
               {intervals.map(interval => {
                 const [year, period] = interval;
                 return (
-                  <th key={interval.join('-')}>
+                  <th style={styles.headCell} key={interval.join('-')}>
                     <div>{year}</div>
                     <div>{period}</div>
                   </th>
@@ -42,7 +42,7 @@ export default class GradeTimeGrid extends React.Component {
           <tbody>
             {grades.map(grade => (  
               <tr key={grade}>
-                <td>{gradeText(grade)}</td>
+                <td style={styles.firstColumnCell}>{gradeText(grade)} now</td>
                 {intervals.map(interval => {
                   const [year, period] = interval;
                   return (
@@ -75,10 +75,10 @@ export default class GradeTimeGrid extends React.Component {
         <table style={{width: '100%'}}>
           <thead>
             <tr>
-              <th>Time period</th>
+              <th style={styles.firstColumnCell}></th>
               {grades.map(grade => (
-                <th key={grade}>
-                  <td>{gradeText(grade)}</td>
+                <th style={styles.headCell} key={grade}>
+                  <td>{gradeText(grade)} now</td>
                 </th>
               ))}
             </tr>
@@ -88,10 +88,11 @@ export default class GradeTimeGrid extends React.Component {
               const [year, period] = interval;
               return (
                 <tr key={interval.join('-')}>
-                  <td><div>{year} {period}</div></td>
+                  <td style={styles.firstColumnCell}><div>{year} {period}</div></td>
                   {grades.map(grade => {
                     return (
                       <td
+                        style={{textAlign: 'center'}}
                         key={grade}>
                         <div 
                           style={_.isEqual(selection, {year, period, grade})
@@ -120,4 +121,12 @@ GradeTimeGrid.propTypes = {
   selection: PropTypes.object,
   onSelectionChanged: PropTypes.func.isRequired,
   isFlipped: PropTypes.bool
+};
+
+const styles = {
+  firstColumnCell: {
+    textAlign: 'left'
+  },
+  headCell: {
+  }
 };

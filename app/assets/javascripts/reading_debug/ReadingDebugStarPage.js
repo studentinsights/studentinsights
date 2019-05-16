@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import memoizer from '../helpers/memoizer';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {toSchoolYear} from '../helpers/schoolYear';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
+import HighchartsWrapper from '../components/HighchartsWrapper';
+import Histogram from '../components/Histogram';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import BreakdownBar from '../components/BreakdownBar';
 import SimpleFilterSelect from '../components/SimpleFilterSelect';
@@ -75,7 +78,7 @@ export class ReadingDebugStarView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visualization: 'BOX_AND_WHISKER',
+      visualization: 'HISTOGRAM',
       selection: null,
       isFlipped: false,
     };
@@ -84,6 +87,25 @@ export class ReadingDebugStarView extends React.Component {
     this.onCellClicked = this.onCellClicked.bind(this);
     this.onVisualizationChange = this.onVisualizationChange.bind(this);
     this.onFlippedClicked = this.onFlippedClicked.bind(this);
+    this.memoize = memoizer();
+  }
+
+  groups() {
+    return this.memoize(['groups', this.state, this.props], () => {
+      const {students, starReadings} = this.props;
+      const studentsById = students.reduce((map, student) => {
+        return {...map, [student.id]: student};
+      }, {});
+      return _.groupBy(starReadings, result => {
+        const student = studentsById[result.student_id];
+        const dateTakenMoment = toMomentFromTimestamp(result.date_taken);
+        return [
+          toSchoolYear(dateTakenMoment),
+          benchmarkPeriodKeyFor(dateTakenMoment),
+          student.grade,
+        ].join('-');
+      });
+    });
   }
 
   onCellClicked(selection) {
@@ -96,7 +118,7 @@ export class ReadingDebugStarView extends React.Component {
 
   onFlippedClicked() {
     const {isFlipped} = this.state;
-    this.setState({isFlipped: !isFlipped})
+    this.setState({isFlipped: !isFlipped});
   }
 
   render() {
@@ -109,7 +131,9 @@ export class ReadingDebugStarView extends React.Component {
             style={{paddingLeft: 10, cursor: 'pointer', fontWeight: isFlipped ? 'bold' : 'normal'}}
             onClick={this.onFlippedClicked}>Flip table</div>
         </div>
-        {this.renderList()}
+        <div style={{marginTop: 20}}>
+          {this.renderList()}
+        </div>
         <div style={{
           flex: 1,
           marginTop: 10,
@@ -123,6 +147,7 @@ export class ReadingDebugStarView extends React.Component {
     const {visualization} = this.state;
     const options = [
       {value: 'BOX_AND_WHISKER', label: 'Box and whisker'},
+      {value: 'HISTOGRAM', label: 'Histogram'},
       {value: 'COLOR_BUCKETS', label: 'Color buckets'},
       {value: 'ASSESSMENT_COUNT', label: 'Assessment count'}
     ];
@@ -134,42 +159,34 @@ export class ReadingDebugStarView extends React.Component {
         options={options} />
     );
   }
+
   renderList() {
-    const {grades, students, starReadings} = this.props;
-    const {selection, isFlipped} = this.state;
-    const studentsById = students.reduce((map, student) => {
-      return {...map, [student.id]: student};
-    }, {});
-    const groups = _.groupBy(starReadings, result => {
-      const student = studentsById[result.student_id];
-      const dateTakenMoment = toMomentFromTimestamp(result.date_taken);
-      return [
-        toSchoolYear(dateTakenMoment),
-        benchmarkPeriodKeyFor(dateTakenMoment),
-        student.grade,
-      ].join('-');
+    return this.memoize(['renderList', this.state, this.props], () => {
+      const {grades} = this.props;
+      const {selection, isFlipped} = this.state;
+      const groups = this.groups();
+
+      const intervals = [
+        [2017, 'winter'],
+        [2017, 'spring'],
+        [2018, 'fall'],
+        [2018, 'winter'],
+        [2018, 'spring'],
+        [2019, 'fall'],
+        [2019, 'winter']
+      ];
+
+      return (
+        <GradeTimeGrid
+          intervals={intervals}
+          grades={grades}
+          renderCellFn={cellParams => this.renderStarCell(groups, cellParams)}
+          selection={selection}
+          isFlipped={isFlipped}
+          onSelectionChanged={this.onCellClicked}
+        />
+      );
     });
-
-    const intervals = [
-      [2017, 'winter'],
-      [2017, 'spring'],
-      [2018, 'fall'],
-      [2018, 'winter'],
-      [2018, 'spring'],
-      [2019, 'fall'],
-      [2019, 'winter']
-    ];
-
-    return (
-      <GradeTimeGrid
-        intervals={intervals}
-        grades={grades}
-        renderCellFn={cellParams => this.renderStarCell(groups, cellParams)}
-        selection={selection}
-        isFlipped={isFlipped}
-        onSelectionChanged={this.onCellClicked}
-      />
-    );
   }
 
   renderStarCell(groups, {grade, year, period}) {
@@ -215,6 +232,10 @@ export class ReadingDebugStarView extends React.Component {
       );
     }
 
+    if (visualization === 'HISTOGRAM') {
+      return this.renderHistogram(starReadings);
+    }
+
     if (visualization === 'ASSESSMENT_COUNT') {
       return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -224,68 +245,29 @@ export class ReadingDebugStarView extends React.Component {
     }
   }
 
-  renderTable() {
-    return 'no yet!';
-    const {students, readingBenchmarkDataPoints} = this.props;
-    const {benchmarkAssessmentKey, selection} = this.state;
-    if (selection === null) {
-      return <div style={{fontSize: 14}}>Click a cell to see the list of students.</div>;
-    }
-
-    if (!selection) return null;
-
-    const {year, period, grade} = selection;
-    const dataPointsByStudentId = {};
-    readingBenchmarkDataPoints.forEach(d => {
-      if (benchmarkAssessmentKey !== null && benchmarkAssessmentKey !== d.benchmark_assessment_key) return;
-      if (d.benchmark_school_year !== year) return;
-      if (d.benchmark_period_key !== period) return;
-      dataPointsByStudentId[d.student_id] = (dataPointsByStudentId[d.student_id] || []).concat(d);
-    });
-
-    const filteredStudents = students.filter(student => {
-      if (!dataPointsByStudentId[student.id]) return false;
-      if (dataPointsByStudentId.length === 0) return false;
-      if (student.grade !== grade) return false;
-      return true;
-    });
-
-    const rowHeight = 40; // for two lines of student names
+  renderHistogram(starReadings) {
+    const values = starReadings.map(r => r.percentile_rank);
     return (
-      <AutoSizer style={{marginTop: 20, margin: 10}}>
-        {({width, height}) => (
-          <Table
-            width={width}
-            height={height}
-            headerHeight={rowHeight}
-            headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
-            rowStyle={{display: 'flex'}}
-            style={{fontSize: 14}}
-            rowHeight={rowHeight}
-            rowCount={filteredStudents.length}
-            rowGetter={({index}) => filteredStudents[index]}
-            >
-              <Column
-                label='Name'
-                dataKey='name'
-                cellRenderer={this.renderName}
-                width={260}
-              />
-              <Column
-                label='Grade'
-                dataKey='grade'
-                width={100}
-              />
-              <Column
-                label='F&P level'
-                dataKey='f_and_p_english'
-                cellRenderer={this.renderFAndP.bind(this, dataPointsByStudentId, period)}
-                width={100}
-              />
-          </Table>
-        )}
-      </AutoSizer>
+      <Histogram
+        bucketSize={10}
+        range={[0, 100]}
+        values={values}
+        height={50}
+        yScale={0.5}
+        style={{
+          minWidth: 80,
+          backgroundColor: '#f8f8f8'
+        }}
+        innerStyle={{
+          background: 'rgb(149,206,255)',
+          borderTop: '1px solid blue'
+        }}
+      />
     );
+  }
+
+  renderTable() {
+    return <div>Table not added yet.</div>;
   }
 
   renderName(cellProps) {
