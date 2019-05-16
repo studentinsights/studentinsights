@@ -94,9 +94,10 @@ export default class LightNotesDetails extends React.Component {
   }
 
   renderTransitionNoteDialog() {
-    const {isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
+    const {student, isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
     return (
       <TransitionNoteDialog
+        student={student}
         isWritingTransitionNote={isWritingTransitionNote}
         onWritingTransitionNoteChanged={onWritingTransitionNoteChanged}
       />
@@ -108,7 +109,7 @@ export default class LightNotesDetails extends React.Component {
       <div>
         <a
           href="#"
-          style={{marginRight: 15}}
+          style={{marginRight: 10}}
           onClick={this.onClickTransitionNote}>
           <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>transition</span></span>
         </a>
