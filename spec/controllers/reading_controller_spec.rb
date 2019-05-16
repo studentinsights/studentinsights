@@ -269,7 +269,7 @@ describe ReadingController, :type => :controller do
       json = JSON.parse(response.body)
       expect(json.keys).to contain_exactly(*[
         'students',
-        'reading_benchmark_data_points'
+        'groups'
       ])
       expect(json['students'].size).to eq 5
       expect(json['students'].first.keys).to contain_exactly(*[

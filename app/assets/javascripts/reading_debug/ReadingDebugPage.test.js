@@ -28,7 +28,7 @@ it('snapshots view', () => {
   const json = readingDebugJson;
   const props = testProps({
     students: json.students,
-    readingBenchmarkDataPoints: json.reading_benchmark_data_points
+    groups: json.groups
   });
   const tree = renderer
     .create(<ReadingDebugView {...props} />)

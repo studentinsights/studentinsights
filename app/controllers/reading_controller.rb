@@ -100,6 +100,7 @@ class ReadingController < ApplicationController
   def reading_debug_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
 
+    # query reading benchmark data for all authorized students
     students = authorized { Student.active.to_a }
     students_json = students.as_json(only: [
       :id,
@@ -112,9 +113,21 @@ class ReadingController < ApplicationController
       .where(student_id: students.pluck(:id))
       .order(updated_at: :asc)
 
+    # as an optimization, group these for the UI grid on server
+    students_by_id = {}
+    students.each {|student| students_by_id[student.id] = student }
+    groups = reading_benchmark_data_points.group_by do |d|
+      student = students_by_id[d.student_id]
+      [
+        d.benchmark_school_year,
+        d.benchmark_period_key,
+        student.grade,
+      ].join('-')
+    end
+
     render json: {
       students: students_json,
-      reading_benchmark_data_points: reading_benchmark_data_points.as_json
+      groups: groups
     }
   end
 

@@ -8,14 +8,14 @@ import MockStudentPhoto from '../components/MockStudentPhoto';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import FountasAndPinnellLevelChart from './FountasAndPinnellLevelChart';
 import SidebarDialog from './SidebarDialog';
+import {readDoc} from './readingData';
 import {
   DIBELS_DORF_WPM, 
   DIBELS_DORF_ACC,
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
-  readDoc,
   somervilleReadingThresholdsFor
-} from './readingData';
+} from './thresholds';
 import {
   reordered,
   insertedInto,
