@@ -14,7 +14,7 @@ import {
 export default class DibelsBreakdownBar extends React.Component {
   items() {
     const {coreCount, strategicCount, intensiveCount, missingCount} = this.props;
-    const missingItem = { left: 0, width: missingCount, color: missing, key: 'missing' };
+    const missingItem = (_.isNumber(missingCount)) ? { left: 0, width: missingCount, color: missing, key: 'missing' } : null;
     const missingCountOrZero = missingCount || 0;
     return _.compact([
       missingItem,
@@ -26,7 +26,7 @@ export default class DibelsBreakdownBar extends React.Component {
 
   itemsFlipped() {
     const {coreCount, strategicCount, intensiveCount, missingCount} = this.props;
-    const missingItem = { left: 0, width: missingCount, color: missing, key: 'missing' };
+    const missingItem = (_.isNumber(missingCount)) ? { left: 0, width: missingCount, color: missing, key: 'missing' } : null;
     const missingCountOrZero = missingCount || 0;
 
     return _.compact([
