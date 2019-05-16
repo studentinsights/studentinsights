@@ -1,0 +1,2749 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+      "margin": 10,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      className="Select has-value is-searchable Select--single"
+    >
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        style={
+          Object {
+            "marginLeft": 10,
+            "width": "10em",
+          }
+        }
+      >
+        <div
+          className="Select-multi-value-wrapper"
+          id="react-select-3--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-3--value-item"
+              role="option"
+            >
+              Histogram
+            </span>
+          </div>
+          <div
+            className="Select-input"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-activedescendant="react-select-3--value"
+              aria-expanded="false"
+              aria-haspopup="false"
+              aria-owns=""
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              role="combobox"
+              style={
+                Object {
+                  "boxSizing": "content-box",
+                  "width": "5px",
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </div>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "cursor": "pointer",
+          "fontWeight": "normal",
+          "paddingLeft": 10,
+        }
+      }
+    >
+      Flip table
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  >
+    <div>
+      <table
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      >
+        <thead>
+          <tr>
+            <th
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            />
+            <th
+              style={Object {}}
+            >
+              <div>
+                2017
+              </div>
+              <div>
+                winter
+              </div>
+            </th>
+            <th
+              style={Object {}}
+            >
+              <div>
+                2017
+              </div>
+              <div>
+                spring
+              </div>
+            </th>
+            <th
+              style={Object {}}
+            >
+              <div>
+                2018
+              </div>
+              <div>
+                fall
+              </div>
+            </th>
+            <th
+              style={Object {}}
+            >
+              <div>
+                2018
+              </div>
+              <div>
+                winter
+              </div>
+            </th>
+            <th
+              style={Object {}}
+            >
+              <div>
+                2018
+              </div>
+              <div>
+                spring
+              </div>
+            </th>
+            <th
+              style={Object {}}
+            >
+              <div>
+                2019
+              </div>
+              <div>
+                fall
+              </div>
+            </th>
+            <th
+              style={Object {}}
+            >
+              <div>
+                2019
+              </div>
+              <div>
+                winter
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              3rd grade
+               now
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="20-30 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "20%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 2 values, 25%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 26,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 2 values, 25%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 26,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="90-100 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "90%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="20-30 has 2 values, 25%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 26,
+                            "left": "20%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="40-50 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "40%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="50-60 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="20-30 has 2 values, 25%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 26,
+                            "left": "20%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 4 values, 50%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 50,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="40-50 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "40%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="50-60 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="80-90 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "80%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="90-100 has 1 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "90%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              4th grade
+               now
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              5th grade
+               now
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="20-30 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "20%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="40-50 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "40%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 4 values, 25%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 26,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="80-90 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "80%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="90-100 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "90%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="20-30 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "20%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="40-50 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "40%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="50-60 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="90-100 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "90%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 5 values, 31%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 32,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="20-30 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "20%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="40-50 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "40%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="90-100 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "90%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      title="10-20 has 2 values, 13%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 14,
+                            "left": "10%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="30-40 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "30%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="40-50 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "40%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="50-60 has 3 values, 19%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 20,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="60-70 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "60%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="70-80 has 5 values, 31%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 32,
+                            "left": "70%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      title="80-90 has 1 values, 6%"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "background": "rgb(149,206,255)",
+                            "borderTop": "1px solid blue",
+                            "bottom": 0,
+                            "height": 8,
+                            "left": "80%",
+                            "position": "absolute",
+                            "width": "10%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              6th grade
+               now
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              7th grade
+               now
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              8th grade
+               now
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "border": "2px solid white",
+                    "cursor": "pointer",
+                    "padding": 10,
+                  }
+                }
+              >
+                <div
+                  className="Histogram"
+                  style={
+                    Object {
+                      "backgroundColor": "#f8f8f8",
+                      "height": 50,
+                      "minWidth": 80,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 50,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "borderTop": "1px solid #ccc",
+        "flex": 1,
+        "marginTop": 10,
+        "paddingTop": 10,
+      }
+    }
+  >
+    <div>
+      Table not added yet.
+    </div>
+  </div>
+</div>
+`;
