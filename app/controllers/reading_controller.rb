@@ -109,21 +109,7 @@ class ReadingController < ApplicationController
       :grade,
       :has_photo
     ])
-    reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
-      .where(student_id: students.pluck(:id))
-      .order(updated_at: :asc)
-
-    # as an optimization, group these for the UI grid on server
-    students_by_id = {}
-    students.each {|student| students_by_id[student.id] = student }
-    groups = reading_benchmark_data_points.group_by do |d|
-      student = students_by_id[d.student_id]
-      [
-        d.benchmark_school_year,
-        d.benchmark_period_key,
-        student.grade,
-      ].join('-')
-    end
+    groups = ReadingQueries.new.groups_for_grid(students)
 
     render json: {
       students: students_json,

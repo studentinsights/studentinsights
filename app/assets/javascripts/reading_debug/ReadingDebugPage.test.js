@@ -8,7 +8,7 @@ import readingDebugJson from './reading_debug_json.fixture';
 beforeEach(() => {
   fetchMock.reset();
   fetchMock.restore();
-  fetchMock.get('express:/api/reading/reading_debug_json', readingDebugJson);
+  fetchMock.get('express:/api/reading_debug/reading_debug_json', readingDebugJson);
 });
 
 export function testProps(props = {}) {
