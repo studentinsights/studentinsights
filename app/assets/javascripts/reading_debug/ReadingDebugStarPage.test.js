@@ -9,7 +9,7 @@ import starReadingDebugJson from './star_reading_debug_json.fixture.js';
 beforeEach(() => {
   fetchMock.reset();
   fetchMock.restore();
-  fetchMock.get('express:/api/reading/star_reading_debug_json', starReadingDebugJson);
+  fetchMock.get('express:/api/reading_debug/star_reading_debug_json', starReadingDebugJson);
 });
 
 export function testProps(props = {}) {

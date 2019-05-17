@@ -48,8 +48,10 @@ Rails.application.routes.draw do
   put '/api/reading/update_data_point_json' => 'reading#update_data_point_json'
   get '/api/reading/teams_json' => 'reading#teams_json'
   post '/api/reading/grouping_snapshot_json/:grouping_workspace_id' => 'reading#grouping_snapshot_json'
-  get '/api/reading/reading_debug_json' => 'reading#reading_debug_json'
-  get '/api/reading/star_reading_debug_json' => 'reading#star_reading_debug_json'
+
+  # reading_debug
+  get '/api/reading_debug/reading_debug_json' => 'reading_debug#reading_debug_json'
+  get '/api/reading_debug/star_reading_debug_json' => 'reading_debug#star_reading_debug_json'
 
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
@@ -201,6 +203,7 @@ Rails.application.routes.draw do
     member do
       get '/debug' => 'ui#ui'
       get '/debug_star' => 'ui#ui'
+      get '/debug_csv' => 'reading_debug#reading_debug_csv'
     end
   end
 

@@ -16,6 +16,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import DownloadIcon from '../components/DownloadIcon';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
@@ -61,14 +62,17 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   fetchJson() {
-    return apiFetchJson('/api/reading/reading_debug_json');
+    return apiFetchJson('/api/reading_debug/reading_debug_json');
   }
 
   render() {
     return (
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
-        <SectionHeading>Benchmark Reading Data (DEBUG)</SectionHeading>
+        <SectionHeading titleStyle={styles.title}>
+          <div>Benchmark Reading Data (DEBUG)</div>
+          <a href="/reading/debug_csv"><DownloadIcon /></a>
+        </SectionHeading>
         <GenericLoader
           promiseFn={this.fetchJson}
           style={styles.flexVertical}

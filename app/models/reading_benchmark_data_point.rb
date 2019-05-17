@@ -63,4 +63,13 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
       :summer
     end
   end
+
+  # Relies on `student` for now
+  def grid_key(student)
+    [
+      self.benchmark_school_year,
+      self.benchmark_period_key,
+      student.grade, # migrate this to be on this model instead
+    ].join('-')
+  end
 end
