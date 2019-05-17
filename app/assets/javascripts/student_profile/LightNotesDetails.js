@@ -106,7 +106,13 @@ export default class LightNotesDetails extends React.Component {
 
   renderTakeNotesButton() {
     const {currentEducator} = this.props;
-    const showTransition = (currentEducator.labels.indexOf('k8_counselor') !== -1);
+
+    // Only K8 counselors with access can write transition notes.
+    const showTransition = (
+      (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
+      (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
+      (currentEducator.can_view_restricted_notes)
+    );
     return (
       <div>
         {showTransition && (

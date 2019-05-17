@@ -242,6 +242,10 @@ class TestPals
       educator: @west_counselor,
       label_key: 'k8_counselor'
     )
+    EducatorLabel.create!(
+      educator: @west_counselor,
+      label_key: 'enable_transition_note_features'
+    )
     @west_eighth_ryan = Student.create!(
       first_name: 'Ryan',
       last_name: 'Rodriguez',
@@ -265,6 +269,10 @@ class TestPals
       educator: @shs_sofia_counselor,
       label_key: 'use_counselor_based_feed'
     })
+    EducatorLabel.create!(
+      educator: @shs_sofia_counselor,
+      label_key: 'enable_transition_note_features'
+    )
     CounselorNameMapping.create!({
       counselor_field_text: 'sofia',
       educator_id: @shs_sofia_counselor.id
