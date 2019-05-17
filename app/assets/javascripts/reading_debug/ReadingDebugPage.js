@@ -223,7 +223,7 @@ export class ReadingDebugView extends React.Component {
             {this.renderCell(groups, cellParams)}
           </div>
         )}
-        isFlipped={isFlipped}
+        isFlipped={!isFlipped}
         selection={selection}
         onSelectionChanged={this.onCellClicked}
       />

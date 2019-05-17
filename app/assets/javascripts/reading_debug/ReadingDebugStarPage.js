@@ -180,7 +180,7 @@ export class ReadingDebugStarView extends React.Component {
           grades={grades}
           renderCellFn={cellParams => this.renderStarCell(groups, cellParams)}
           selection={selection}
-          isFlipped={isFlipped}
+          isFlipped={!isFlipped}
           onSelectionChanged={this.onCellClicked}
         />
       );
