@@ -78,7 +78,7 @@ export default class GradeTimeGrid extends React.Component {
               <th style={styles.firstColumnCell}></th>
               {grades.map(grade => (
                 <th style={styles.headCell} key={grade}>
-                  <td>{gradeText(grade)} now</td>
+                  {gradeText(grade)} now
                 </th>
               ))}
             </tr>

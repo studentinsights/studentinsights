@@ -8,7 +8,7 @@ import readingDebugJson from './reading_debug_json.fixture';
 beforeEach(() => {
   fetchMock.reset();
   fetchMock.restore();
-  fetchMock.get('express:/api/reading/reading_debug_json', readingDebugJson);
+  fetchMock.get('express:/api/reading_debug/reading_debug_json', readingDebugJson);
 });
 
 export function testProps(props = {}) {
@@ -28,7 +28,7 @@ it('snapshots view', () => {
   const json = readingDebugJson;
   const props = testProps({
     students: json.students,
-    readingBenchmarkDataPoints: json.reading_benchmark_data_points
+    groups: json.groups
   });
   const tree = renderer
     .create(<ReadingDebugView {...props} />)

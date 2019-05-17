@@ -11,14 +11,16 @@ import {
   renderMtss
 } from './chips';
 import {
+  readDoc,
+  dibelsColor
+} from './readingData';
+import {
   DIBELS_DORF_WPM, 
   DIBELS_DORF_ACC,
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
-  readDoc,
-  somervilleReadingThresholdsFor,
-  dibelsColor
-} from './readingData';
+  somervilleReadingThresholdsFor
+} from './thresholds';
 
 
 export default class SidebarDialog extends React.Component {

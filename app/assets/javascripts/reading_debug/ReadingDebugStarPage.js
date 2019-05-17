@@ -42,7 +42,7 @@ export default class ReadingDebugStarPage extends React.Component {
   }
 
   fetchJson() {
-    return apiFetchJson('/api/reading/star_reading_debug_json');
+    return apiFetchJson('/api/reading_debug/star_reading_debug_json');
   }
 
   render() {
@@ -180,7 +180,7 @@ export class ReadingDebugStarView extends React.Component {
           grades={grades}
           renderCellFn={cellParams => this.renderStarCell(groups, cellParams)}
           selection={selection}
-          isFlipped={isFlipped}
+          isFlipped={!isFlipped}
           onSelectionChanged={this.onCellClicked}
         />
       );
