@@ -37,7 +37,7 @@ class GoogleSheetsImporter
     drive_service.authorization = auth
 
     # Get folder ID
-    selected_folder = drive_service.list_files(
+    selected_folder = drive_service.list_files(q: "name = '#{folder_name}'",
                                         fields: 'files(id, name)')
     folder_id = selected_folder.files[0].id
 
@@ -56,7 +56,7 @@ class GoogleSheetsImporter
     sheet_ids.files.each do |spreadsheet| #each spreadsheet in the folder
       sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
         sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
-        CSV.open("#{File.dirname(__FILE__)}/csv/#{spreadsheet.name}-#{sheet.properties.title}.csv", "wb") do |csv|
+        return CSV.generate do |csv|
           sheet_values.each do |row|
             csv << row
           end
