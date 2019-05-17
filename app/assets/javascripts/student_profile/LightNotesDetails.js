@@ -105,14 +105,18 @@ export default class LightNotesDetails extends React.Component {
   }
 
   renderTakeNotesButton() {
+    const {currentEducator} = this.props;
+    const showTransition = (currentEducator.labels.indexOf('k8_counselor') !== -1);
     return (
       <div>
-        <a
-          href="#"
-          style={{marginRight: 10}}
-          onClick={this.onClickTransitionNote}>
-          <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>transition</span></span>
-        </a>
+        {showTransition && (
+          <a
+            href="#"
+            style={{marginRight: 10}}
+            onClick={this.onClickTransitionNote}>
+            <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>transition</span></span>
+          </a>
+        )}
         <button
           className="btn take-notes"
           style={{display: 'inline-block', margin: 0}}
@@ -147,7 +151,8 @@ LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   currentEducator: PropTypes.shape({
-    can_view_restricted_notes: PropTypes.bool.isRequired
+    can_view_restricted_notes: PropTypes.bool.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   actions: PropTypes.shape({
     onCreateNewNote: PropTypes.func.isRequired,
