@@ -1,4 +1,5 @@
-# Used to import Google Sheets as CVSs. Requires a Google Service Account, created as follows:
+# Returns array of CSVs from a Google Drive Folder. Requires a Google Service Account with read permissions for the folder 
+# Service account created as follows:
 # 1. Log into Google Developer Console with the account you wish to associate with this project
 # 2. Create a project
 # 3. Select "Enable APIs and Services"
@@ -53,10 +54,10 @@ class GoogleSheetsImporter
     sheet_service.authorization = auth
 
     # Get values from sheets
-    sheet_ids.files.each do |spreadsheet| #each spreadsheet in the folder
-      sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
-        sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
-        return CSV.generate do |csv|
+    sheet_ids.files.map do |spreadsheet| #each spreadsheet in the folder
+      CSV.generate do |csv|
+        sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
+          sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
           sheet_values.each do |row|
             csv << row
           end
