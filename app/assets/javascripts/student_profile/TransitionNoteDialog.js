@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 import SectionHeading from '../components/SectionHeading';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import LightHelpBubble  from '../student_profile/LightHelpBubble';
+import SecondTransitionNoteDocumentContext from './SecondTransitionNoteDocumentContext';
 
 const STRENGTHS = 'strengths';
 const CONNECTING = 'connecting';
@@ -14,21 +15,19 @@ const OTHER = 'other';
 export default class TransitionNoteDialog extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isStarred: false,
-      formJson: {
-        [STRENGTHS]: '',
-        [CONNECTING]: '',
-        [COMMUNITY]: '',
-        [PEERS]: '',
-        [OTHER]: ''
-      },
-      restrictedText: ''
-    };
 
     this.onStarClicked = this.onStarClicked.bind(this);
     this.onSaveClick = this.onSaveClick.bind(this);
     this.onSaveAndNextClick = this.onSaveAndNextClick.bind(this);
+    this.onRestrictedTextChanged = this.onRestrictedTextChanged.bind(this);
+  }
+
+  componentDidMount() {
+    // create
+  }
+
+  isDirty() {
+    // check
   }
 
   onStarClicked(e) {
@@ -37,18 +36,53 @@ export default class TransitionNoteDialog extends React.Component {
     this.setState({isStarred: !isStarred});
   }
 
-  onSaveAndNextClick(e) {
+  onRestrictedTextChanged(e) {
+    this.setState({restrictedText: e.target.value});
+  }
 
+  onDeleteNoteClicked(e) {
+    e.preventDefault();
+    // confirm
+    // freeze ui
+    // delete
+    // close ui
   }
 
   onSaveClick(e) {
-    
+    // update
+  }
+
+  onSaveAndNextClick(e) {
+    // freeze ui
+    // update
+    // navigate
   }
 
   render() {
-    const {student, isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
-    const {isStarred, restrictedText} = this.state;
+    const {student} = this.props;
 
+    return (
+      <SecondTransitionNoteDocumentContext
+        studentId={student.id}
+        initialDoc={{
+          isStarred: false,
+          formJson: {
+            [STRENGTHS]: '',
+            [CONNECTING]: '',
+            [COMMUNITY]: '',
+            [PEERS]: '',
+            [OTHER]: ''
+          },
+          restrictedText: ''
+        }}>{params => this.renderWith(params)}
+      </SecondTransitionNoteDocumentContext>
+    );    
+  }
+
+  renderWith(params) {
+    const {doc, onDocChanged, pending, failed} = params;
+    const {isStarred, restrictedText} = doc;
+    const {student, isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
     return (
       <ReactModal
         isOpen={isWritingTransitionNote}
@@ -65,13 +99,21 @@ export default class TransitionNoteDialog extends React.Component {
         onRequestClose={e => {
           e.preventDefault();
           e.stopPropagation();
+
+          // check dirty
           onWritingTransitionNoteChanged(false);
         }}
       >
         <div style={{fontSize: 14, flex: 1, display: 'flex', flexDirection: 'column'}}>
-          <SectionHeading style={{padding: 0, paddingBottom: 10}} titleStyle={{display: 'flex', alignItems: 'center'}}>
-            <StudentPhotoCropped studentId={student.id} />
-            <div style={{marginLeft: 10}}>Transition note for {student.first_name}</div>
+          <SectionHeading style={{padding: 0, paddingBottom: 10}} titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div>
+              <StudentPhotoCropped studentId={student.id} />
+              <div style={{marginLeft: 10}}>Transition note for {student.first_name}</div>
+            </div>
+            <div style={{display: 'flex'}}>
+              {pending.length > 0 ? <Pending /> : null}
+              {failed.length > 0 ? <Failure /> : null}
+            </div>
           </SectionHeading>
           <div style={{fontSize: 14, padding: 15, marginTop: 10, background: '#0366d61a', border: '1px solid #0366d61a'}}>
             "What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."
@@ -83,23 +125,23 @@ export default class TransitionNoteDialog extends React.Component {
                 <div style={styles.row}>
                   <div style={styles.question}>
                     <div style={styles.prompt}>What are {student.first_name}'s strengths?</div>
-                    {this.renderTextarea(STRENGTHS, {autoFocus: true, rows: 5})}
+                    {this.renderTextarea(doc, onDocChanged, STRENGTHS, {autoFocus: true, rows: 5})}
                   </div>
                   <div style={styles.spacer} />
                   <div style={styles.question}>
                     <div style={styles.prompt}>How would you suggest teachers connect with {student.first_name}?</div>
-                    {this.renderTextarea(CONNECTING, {rows: 5})}
+                    {this.renderTextarea(doc, onDocChanged, CONNECTING, {rows: 5})}
                   </div>
                 </div>
                 <div style={styles.row}>
                   <div style={styles.question}>
                     <div style={styles.prompt}>How has {student.first_name} become involved with the school community?</div>
-                    {this.renderTextarea(COMMUNITY, {rows: 4})}
+                    {this.renderTextarea(doc, onDocChanged, COMMUNITY, {rows: 4})}
                   </div>
                   <div style={styles.spacer} />
                   <div style={styles.question}>
                     <div style={styles.prompt}>How does {student.first_name} relate to their peers?</div>
-                    {this.renderTextarea(PEERS, {rows: 4})}
+                    {this.renderTextarea(doc, onDocChanged, PEERS, {rows: 4})}
                   </div>
                 </div>
                 <div style={styles.row}>
@@ -109,7 +151,7 @@ export default class TransitionNoteDialog extends React.Component {
                     justifyContent: 'space-between'
                   }}>
                     <div style={styles.prompt}>Any additional comments or good things to know?</div>
-                    {this.renderTextarea(OTHER, {rows: 6})}
+                    {this.renderTextarea(doc, onDocChanged, OTHER, {rows: 6})}
                     <a href="#" style={styles.starLine} onClick={this.onStarClicked}>
                       <span style={{
                         marginRight: 10,
@@ -131,7 +173,7 @@ export default class TransitionNoteDialog extends React.Component {
                           placeholder="None"
                           rows={3}
                           value={restrictedText}
-                          onChange={e => this.setState({restrictedText: e.target.value})}
+                          onChange={this.onRestrictedTextChanged}
                         />
                         <div style={{marginTop: 5}}>This will only be visible to educators with restricted access.</div>
                       </div>
@@ -150,6 +192,11 @@ export default class TransitionNoteDialog extends React.Component {
                     className="btn cancel"
                     style={styles.plainButton}
                     onClick={e => onWritingTransitionNoteChanged(false)}>Cancel</button>
+                  <a
+                    href="#"
+                    className="btn"
+                    style={styles.plainButton}
+                    onClick={this.onDeleteNoteClicked}>Delete note</a>
                 </div>
               </div>
             </div>
@@ -159,18 +206,18 @@ export default class TransitionNoteDialog extends React.Component {
     );
   }
 
-  renderTextarea(key, props = {}) {
-    const {formJson} = this.state;
-    const value = formJson[key] || '';
+  renderTextarea(doc, onDocChanged, key, props = {}) {
+    const value = doc.formJson[key] || '';
     return (
       <textarea
         {...props}
         style={styles.textarea}
         value={value}
         onChange={e => {
-          this.setState({
+          const {formJson} = doc;
+          onDocChanged({
             formJson: {
-              ...this.state.formJson,
+              ...formJson,
               [key]: e.target.value
             }
           });
@@ -225,3 +272,33 @@ const styles = {
     color: 'black'
   }
 };
+
+
+function Pending() {
+  return <span style={{
+    width: '8em',
+    textAlign: 'center',
+    color: '#333',
+    fontSize: 14,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginRight: 10,
+    padding: 5}}>...</span>;
+}
+
+function Failure() {
+  return <span style={{
+    width: '8em',
+    textAlign: 'center',
+    backgroundColor: 'red',
+    color: 'white',
+    fontSize: 14,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    padding: 5,
+    fontWeight: 'bold'
+  }}>network error</span>;
+}
