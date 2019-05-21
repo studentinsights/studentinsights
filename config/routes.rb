@@ -95,6 +95,12 @@ Rails.application.routes.draw do
   post '/api/students/:student_id/update_transition_note' => 'transition_notes#update'
   get '/api/students/:student_id/restricted_transition_note_json' => 'transition_notes#restricted_transition_note_json'
 
+  # second transition notes
+  post '/api/students/:student_id/second_transition_note/create_json' => 'second_transition_notes#create_json'
+  post '/api/students/:student_id/second_transition_note/:second_transition_note_id/update_json' => 'second_transition_notes#update_json'
+  get '/api/students/:student_id/second_transition_note/:second_transition_note_id/restricted_text_json' => 'second_transition_notes#restricted_text_json'
+  delete '/api/students/:student_id/second_transition_note/:second_transition_note_id' => 'second_transition_notes#delete_json'
+
   # event_notes: creating/updating notes, or reading restricted notes
   post '/api/event_notes' => 'event_notes#create'
   patch '/api/event_notes/:id' => 'event_notes#update'

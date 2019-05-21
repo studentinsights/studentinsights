@@ -110,7 +110,7 @@ export default class TransitionNoteDialog extends React.Component {
                   }}>
                     <div style={styles.prompt}>Any additional comments or good things to know?</div>
                     {this.renderTextarea(OTHER, {rows: 6})}
-                    <a href="#" style={{display: 'flex', marginTop: 15, marginBottom: 15}} onClick={this.onStarClicked}>
+                    <a href="#" style={styles.starLine} onClick={this.onStarClicked}>
                       <span style={{
                         marginRight: 10,
                         fontSize: 20,
@@ -212,6 +212,12 @@ const styles = {
     display: 'flex',
     fontWeight: 'bold',
     color: '#555'
+  },
+  starLine: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   plainButton: {
     marginLeft: 10,
