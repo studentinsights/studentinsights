@@ -25,12 +25,21 @@ export function mergedNotes(feed) {
     };
   });
 
-  // optional
+  // deprecated
   const transitionNotes = (feed.transition_notes || []).map(transitionNote => {
     return {
       ...transitionNote,
       type: 'transition_notes',
       sort_timestamp: transitionNote.created_at
+    };
+  });
+
+  // somerville 8th > 9th transition notes 2019 
+  const secondTransitionNotes = (feed.second_transition_notes || []).map(secondTransitionNote => {
+    return {
+      ...secondTransitionNote,
+      type: 'second_transition_notes',
+      sort_timestamp: secondTransitionNote.created_at
     };
   });
 
@@ -66,6 +75,7 @@ export function mergedNotes(feed) {
     ...eventNotes,
     ...deprecatedInterventions,
     ...transitionNotes,
+    ...secondTransitionNotes,
     ...homeworkHelpSessions,
     ...fallStudentVoiceInsights,
     ...flattenedForms

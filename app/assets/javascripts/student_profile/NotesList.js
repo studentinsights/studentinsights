@@ -52,6 +52,7 @@ export default class NotesList extends React.Component {
             switch (mergedNote.type) {
             case 'event_notes': return this.renderEventNote(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
+            case 'second_transition_notes': return this.renderSecondTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
@@ -149,6 +150,31 @@ export default class NotesList extends React.Component {
         educatorsIndex={this.props.educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        attachments={[]} />
+    );
+  }
+
+  renderSecondTransitionNote(secondTransitionNote) {
+    const {educatorsIndex} = this.props;
+    const text = [
+      `What are their strengths?\n${secondTransitionNote.form_json.strengths}`,
+      `How would you suggest teachers connect with them?\n${secondTransitionNote.form_json.connecting}`,
+      `How has their become involved with the school community?${secondTransitionNote.form_json.community}`,
+      `How do they relate to their peers?\n${secondTransitionNote.form_json.peers}`,
+      `Any additional comments or good things to know?\n${secondTransitionNote.form_json.other}`,
+      (secondTransitionNote.has_restricted_text) ? 'What other services do they receive?\nReach out to the counselor if you need to more about anything confidential or sensitive.' : ''
+    ].join('\n\n');
+
+    return (
+      <NoteCard
+        key={['second_transition_note', secondTransitionNote.id].join()}
+        noteMoment={toMomentFromRailsDate(secondTransitionNote.created_at)}
+        badge={<span style={styles.badge}>Transition note</span>}
+        educatorId={secondTransitionNote.educator_id}
+        text={text}
+        educatorsIndex={educatorsIndex}
+        showRestrictedNoteRedaction={false}
+        urlForRestrictedNoteContent={null}
         attachments={[]} />
     );
   }

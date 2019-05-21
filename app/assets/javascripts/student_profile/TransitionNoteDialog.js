@@ -5,15 +5,30 @@ import SectionHeading from '../components/SectionHeading';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import LightHelpBubble  from '../student_profile/LightHelpBubble';
 
+const STRENGTHS = 'strengths';
+const CONNECTING = 'connecting';
+const COMMUNITY = 'community';
+const PEERS = 'peers';
+const OTHER = 'other';
 
 export default class TransitionNoteDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isStarred: false
+      isStarred: false,
+      formJson: {
+        [STRENGTHS]: '',
+        [CONNECTING]: '',
+        [COMMUNITY]: '',
+        [PEERS]: '',
+        [OTHER]: ''
+      },
+      restrictedText: ''
     };
 
     this.onStarClicked = this.onStarClicked.bind(this);
+    this.onSaveClick = this.onSaveClick.bind(this);
+    this.onSaveAndNextClick = this.onSaveAndNextClick.bind(this);
   }
 
   onStarClicked(e) {
@@ -22,19 +37,24 @@ export default class TransitionNoteDialog extends React.Component {
     this.setState({isStarred: !isStarred});
   }
 
+  onSaveAndNextClick(e) {
+
+  }
+
+  onSaveClick(e) {
+    
+  }
+
   render() {
     const {student, isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
-    const {isStarred} = this.state;
+    const {isStarred, restrictedText} = this.state;
 
-    // const example = <a href="#" style={{display: 'inline-block', marginLeft: 10, color: '#ccc'}}>see example</a>;
-    // const example = <LightHelpBubble tabIndex={-1} style={{display: 'inline-block'}} title="Transition note examples" content={'... helpful example ...'} />;
-    const example = null;
     return (
       <ReactModal
         isOpen={isWritingTransitionNote}
         style={{
           content: {
-            top: 20,
+            top: 15,
             bottom: 20,
             left: 40,
             right: 40,
@@ -55,31 +75,31 @@ export default class TransitionNoteDialog extends React.Component {
           </SectionHeading>
           <div style={{fontSize: 14, padding: 15, marginTop: 10, background: '#0366d61a', border: '1px solid #0366d61a'}}>
             "What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."
-            <LightHelpBubble tabIndex={-1} style={{display: 'inline-block'}} title="Transition note examples" content={'... helpful example ...'} />
+            <LightHelpBubble style={{display: 'inline-block'}} title="Transition note examples" content={'... helpful example ...'} />
           </div>
           <div style={{display: 'flex', flex: 1}}>
             <div style={{marginTop: 10}}>
               <div>
                 <div style={styles.row}>
                   <div style={styles.question}>
-                    <div style={styles.prompt}>What are {student.first_name}'s strengths?{example}</div>
-                    <textarea style={styles.textarea} rows={5}></textarea>
+                    <div style={styles.prompt}>What are {student.first_name}'s strengths?</div>
+                    {this.renderTextarea(STRENGTHS, {autoFocus: true, rows: 5})}
                   </div>
                   <div style={styles.spacer} />
                   <div style={styles.question}>
-                    <div style={styles.prompt}>How would you suggest teachers connect with {student.first_name}?{example}</div>
-                    <textarea style={styles.textarea} rows={5}></textarea>
+                    <div style={styles.prompt}>How would you suggest teachers connect with {student.first_name}?</div>
+                    {this.renderTextarea(CONNECTING, {rows: 5})}
                   </div>
                 </div>
                 <div style={styles.row}>
                   <div style={styles.question}>
-                    <div style={styles.prompt}>How has {student.first_name} become involved with the school community?{example}</div>
-                    <textarea style={styles.textarea} rows={4}></textarea>
+                    <div style={styles.prompt}>How has {student.first_name} become involved with the school community?</div>
+                    {this.renderTextarea(COMMUNITY, {rows: 4})}
                   </div>
                   <div style={styles.spacer} />
                   <div style={styles.question}>
-                    <div style={styles.prompt}>How does {student.first_name} relate to their peers?{example}</div>
-                    <textarea style={styles.textarea} rows={4}></textarea>
+                    <div style={styles.prompt}>How does {student.first_name} relate to their peers?</div>
+                    {this.renderTextarea(PEERS, {rows: 4})}
                   </div>
                 </div>
                 <div style={styles.row}>
@@ -88,8 +108,8 @@ export default class TransitionNoteDialog extends React.Component {
                     flexDirection: 'column',
                     justifyContent: 'space-between'
                   }}>
-                    <div style={styles.prompt}>Any additional comments or good things to know?{example}</div>
-                    <textarea style={styles.textarea} rows={6}></textarea>
+                    <div style={styles.prompt}>Any additional comments or good things to know?</div>
+                    {this.renderTextarea(OTHER, {rows: 6})}
                     <a href="#" style={{display: 'flex', marginTop: 15, marginBottom: 15}} onClick={this.onStarClicked}>
                       <span style={{
                         marginRight: 10,
@@ -100,28 +120,61 @@ export default class TransitionNoteDialog extends React.Component {
                         {isStarred ? <b>Starred for discussion</b> : 'Star for discussion'}
                       </span>
                     </a>
-                    <div>
-                      <button className="btn save">Save and next student</button>
-                      <button className="btn" style={{marginLeft: 10, background: '#999'}}>Save</button>
-                      <button className="btn cancel" style={{marginLeft: 10, background: '#999'}}>Cancel</button>
-                    </div>
                   </div>
                   <div style={styles.spacer} />
                   <div style={styles.question}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 15, marginTop: 10, marginBottom: 20, background: '#d603031a', border: '1px solid #d603031a'}}>
                       <div>
-                        <div>What other services does {student.first_name} receive now, and who are the points of contact?  Include social workers, mental health counselors, or any other services.</div>
-                        <textarea placeholder="None" style={styles.textarea} rows={3}></textarea>
+                        <div style={{marginBottom: 5}}>What other services does {student.first_name} receive now, and who are the points of contact?  Include social workers, mental health counselors, or any other services.</div>
+                        <textarea
+                          style={styles.textarea}
+                          placeholder="None"
+                          rows={3}
+                          value={restrictedText}
+                          onChange={e => this.setState({restrictedText: e.target.value})}
+                        />
+                        <div style={{marginTop: 5}}>This will only be visible to educators with restricted access.</div>
                       </div>
-                      <div style={{fontSize: 12, marginTop: 10}}>This will only be visible to <b>educators with restricted access</b>, typically counselors, assistant principals, or district student support admin.</div>
                     </div>
                   </div>
+                </div>
+                <div>
+                  <button
+                    className="btn save"
+                    onClick={this.onSaveAndNextClick}>Save and next student</button>
+                  <button
+                    className="btn"
+                    style={styles.plainButton}
+                    onClick={this.onSaveClick}>Save</button>
+                  <button
+                    className="btn cancel"
+                    style={styles.plainButton}
+                    onClick={onWritingTransitionNoteChanged}>Cancel</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </ReactModal>
+    );
+  }
+
+  renderTextarea(key, props = {}) {
+    const {formJson} = this.state;
+    const value = formJson[key] || '';
+    return (
+      <textarea
+        style={styles.textarea}
+        value={value}
+        onChange={e => {
+          this.setState({
+            formJson: {
+              ...this.state.formJson,
+              [key]: e.target.value
+            }
+          });
+        }}
+      />
     );
   }
 }
@@ -137,7 +190,7 @@ const styles = {
   },
   textarea: {
     fontSize: 14,
-    marginTop: 3,
+    marginTop: 2,
     resize: 'none',
     color: '#333',
     border: '1px solid #eee',
@@ -156,8 +209,12 @@ const styles = {
   },
   prompt: {
     display: 'flex',
-    marginLeft: 5,
     fontWeight: 'bold',
-    color: '#444'
+    color: '#555'
+  },
+  plainButton: {
+    marginLeft: 10,
+    background: '#eee',
+    color: 'black'
   }
 };
