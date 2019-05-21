@@ -149,7 +149,7 @@ export default class TransitionNoteDialog extends React.Component {
                   <button
                     className="btn cancel"
                     style={styles.plainButton}
-                    onClick={onWritingTransitionNoteChanged}>Cancel</button>
+                    onClick={e => onWritingTransitionNoteChanged(false)}>Cancel</button>
                 </div>
               </div>
             </div>
