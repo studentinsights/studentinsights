@@ -164,6 +164,7 @@ export default class TransitionNoteDialog extends React.Component {
     const value = formJson[key] || '';
     return (
       <textarea
+        {...props}
         style={styles.textarea}
         value={value}
         onChange={e => {
