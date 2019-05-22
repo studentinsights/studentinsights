@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {apiPutJson} from '../helpers/apiFetchJson';
+import {apiPutJson, apiPostJson} from '../helpers/apiFetchJson';
 import WarnBeforeUnload from '../components/WarnBeforeUnload';
+import Loading from '../components/Loading';
 import uuidv4 from 'uuid/v4';
 
 
@@ -10,30 +11,52 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
   constructor(props) {
     super(props);
     this.state = {
-      doc: props.initialDoc,
+      id: null,
+      doc: {
+        isStarred: false,
+        formJson: {
+          [STRENGTHS]: '',
+          [CONNECTING]: '',
+          [COMMUNITY]: '',
+          [PEERS]: '',
+          [OTHER]: ''
+        },
+        restrictedText: ''
+      },
       pending: {},
       failed: {}
     };
 
     this.beforeUnloadMessage = this.beforeUnloadMessage.bind(this);
-    this.putChange = _.throttle(this.putChange.bind(this), props.throttleMs);
+    this.doUpdate = _.throttle(this.doUpdate.bind(this), props.throttleMs);
     this.onDocChanged = this.onDocChanged.bind(this);
   }
 
-  putChange(params = {}) {
-    console.log('putChange', params);
-    // const {studentId, benchmarkAssessmentKey, value} = params;
-    // const {schoolId, grade} = this.props;
-    // const url = `/api/reading/update_data_point_json`;
-    // return apiPutJson(url, {
-    //   student_id: studentId,
-    //   school_id: schoolId,
-    //   grade: grade,
-    //   benchmark_school_year: 2018,
-    //   benchmark_period_key: 'winter',
-    //   benchmark_assessment_key: benchmarkAssessmentKey,
-    //   value: value
-    // });
+  componentDidMount() {
+    const requestId = uuidv4();
+    this.doCreate()
+      .then(json => this.setState({id: json.id}))
+      .then(this.onRequestDone.bind(this, requestId))
+      .catch(this.onRequestError.bind(this, requestId));
+  }
+
+  doCreate() {
+    const {studentId} = this.props;
+    const {doc} = this.state;
+    const url = `/api/students/${studentId}/second_transition_note/create_json`;
+    return apiPostJson(url, {form_json: doc.formJson});
+  }
+
+  doUpdate(updatedDoc) {
+    const {studentId} = this.props;
+    const {id, doc} = this.state;
+    const url = `/api/students/${studentId}/second_transition_note/${id}/update_json`;
+    return apiPutJson(url, {
+      second_transition_note_id: id,
+      form_json: doc.formJson,
+      starred: doc.isStarred,
+      restricted_text: doc.restricted_text
+    });
   }
 
   // Doesn't catch changes within throttle window
@@ -58,8 +81,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
       }
     });
 
-    console.log('this.putChange', this.putChange, this);
-    this.putChange({updatedDoc})
+    this.doUpdate({updatedDoc})
       .then(this.onRequestDone.bind(this, requestId))
       .catch(this.onRequestError.bind(this, requestId));
   }
@@ -82,11 +104,12 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
 
   render() {
     const {children} = this.props;
-    const {doc, pending, failed} = this.state;
+    const {id, doc, pending, failed} = this.state;
 
     return (
       <WarnBeforeUnload messageFn={this.beforeUnloadMessage}>
         {children({
+          id,
           doc,
           pending: _.values(pending),
           failed: _.values(failed),
@@ -97,10 +120,16 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
   }
 }
 SecondTransitionNoteDocumentContext.propTypes = {
-  initialDoc: PropTypes.any.isRequired,
+  studentId: PropTypes.number.isRequired,
   children: PropTypes.func.isRequired,
   throttleMs: PropTypes.number
 };
 SecondTransitionNoteDocumentContext.defaultProps = {
   throttleMs: 2000
 };
+
+export const STRENGTHS = 'strengths';
+export const CONNECTING = 'connecting';
+export const COMMUNITY = 'community';
+export const PEERS = 'peers';
+export const OTHER = 'other';

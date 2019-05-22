@@ -12,7 +12,7 @@ class SecondTransitionNote < ApplicationRecord
       SOMERVILLE_8TH_TO_9TH_GRADE
     ]
   }
-  validate :validate_form_json_keys
+  # validate :validate_form_json_keys
 
   def has_restricted_text
     self.restricted_text.present?
@@ -37,10 +37,12 @@ class SecondTransitionNote < ApplicationRecord
     json.merge('restricted_text' => '<redacted>')
   end
 
-  private
-  def validate_form_json_keys
-    if self.form_key == SOMERVILLE_8TH_TO_9TH_GRADE && self.form_json.keys.size == 0
-      errors.add(:form_json, 'no keys found')
-    end
-  end
+  # private
+  # def validate_form_json_keys
+  #   if self.form_key == SOMERVILLE_8TH_TO_9TH_GRADE && self.form_json.keys.size == 0
+  #     errors.add(:form_json, 'no keys found')
+  #   end
+  # end  
+
+  
 end
