@@ -76,7 +76,6 @@ export class CounselorNotesPageView extends React.Component {
     const {students, meetings} = this.props;
     const {updatedMeetings} = this.state;
 
-    console.log('updatedMeetings', updatedMeetings);
     // Merge in `meetingMoment``
     const allMeetings = updatedMeetings.concat(meetings);
     const meetingsByStudentId = _.groupBy(allMeetings, 'student_id');
@@ -145,7 +144,6 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   render() {
-    console.log('render');
     const {districtKey} = this.context;
     const students = this.studentsWithMeetings();
 
@@ -287,7 +285,6 @@ export class CounselorNotesPageView extends React.Component {
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);
     const opacity = computeOpacity(daysAgo);
     
-    console.log('  renderLastSeen', student.meetingMoment, daysAgo);
     return (
       <div>
         <div style={{opacity: opacity, height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#1b82ea", borderRadius: "50%", display: "inline-block", float: "left"}}></div>
