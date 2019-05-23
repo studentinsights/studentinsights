@@ -320,9 +320,7 @@ export class CounselorNotesPageView extends React.Component {
     const student = cellProps.rowData;
     if (!student.meetingMoment) return null;
 
-    const daysAgo = this.howManyDaysAgo(student.meetingMoment);
-    const opacity = computeOpacity(daysAgo);
-    
+    const daysAgo = this.howManyDaysAgo(student.meetingMoment);    
     return (
       <div>
         {this.renderBubble(student.meetingMoment)}
