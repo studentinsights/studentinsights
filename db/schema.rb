@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_155619) do
+ActiveRecord::Schema.define(version: 2019_05_23_152056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -55,7 +55,19 @@ ActiveRecord::Schema.define(version: 2019_03_06_155619) do
     t.boolean "submitted", default: false
     t.json "principal_revisions_json"
     t.integer "revised_by_principal_educator_id"
+    t.string "list_type_text", default: "(default)"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
+  end
+
+  create_table "counselor_meetings", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.date "meeting_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["educator_id"], name: "index_counselor_meetings_on_educator_id"
+    t.index ["student_id", "educator_id", "meeting_date"], name: "counselor_meetings_unique_index", unique: true
+    t.index ["student_id"], name: "index_counselor_meetings_on_student_id"
   end
 
   create_table "counselor_name_mappings", force: :cascade do |t|
@@ -114,12 +126,8 @@ ActiveRecord::Schema.define(version: 2019_03_06_155619) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
-    t.text "iac_content_area"
-    t.text "iac_category"
-    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
-    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
