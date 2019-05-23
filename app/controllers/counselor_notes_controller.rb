@@ -8,10 +8,9 @@ class CounselorNotesController < ApplicationController
     student = authorized_or_raise! do
       Student.find(params[:student_id])
     end
-
     meeting = CounselorMeeting.create!({
       educator_id: current_educator.id,
-      meeting_date: params[:meeting_date],
+      meeting_date: Date.parse(params[:meeting_date]),
       student_id: params[:student_id]
     })
 
