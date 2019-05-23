@@ -51,6 +51,15 @@ class CounselorNotesController < ApplicationController
     current_educator.labels.include?('enable_counselor_notes_page')
   end
 
+  # Use time from value or fall back to Time.now
+  def time_now_or_param(params_time_now)
+    if params_time_now.present?
+      Time.at(params_time_now.to_i)
+    else
+      Time.now
+    end
+  end
+
   def students_json(students)
     students.as_json({
       only: [

@@ -14,7 +14,6 @@ import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from '../my_students/FilterStudentsBar';
 
-
 export default class CounselorNotesPage extends React.Component {
   constructor(props) {
     super(props);
@@ -58,6 +57,7 @@ export class CounselorNotesPageView extends React.Component {
     super(props);
     
     this.state = {
+      selectedStudent: null,
       sortBy: 'name',
       sortDirection: SortDirection.ASC,
     };
@@ -66,15 +66,17 @@ export class CounselorNotesPageView extends React.Component {
     this.renderSchool = this.renderSchool.bind(this);
     this.renderLastSeen = this.renderLastSeen.bind(this);
     this.renderTestButtons = this.renderTestButtons.bind(this);
+    this.renderStudentProfile = this.renderStudentProfile.bind(this);
+    this.renderArrow = this.renderArrow.bind(this);
   }
 
   
   studentsWithMeetings() {
     const {students, meetings} = this.props;
-    const {nowFn} = this.context;
-    const nowMoment = nowFn().clone();
-
+    
     // This is fake data for now.
+    // const {nowFn} = this.context;
+    // const nowMoment = nowFn().clone();
     // const useFakeMeetings = true;
     // if (useFakeMeetings) {
     //   return students.map((student, index) => {
@@ -160,8 +162,17 @@ export class CounselorNotesPageView extends React.Component {
           includeHouse={supportsHouse(districtKey)}
           includeTimeRange={true}
           includeCounselor={supportsCounselor(districtKey)}>
-          {filteredStudents => this.renderTable(filteredStudents)}
+          {filteredStudents => this.renderContents(filteredStudents)}
         </FilterStudentsBar>
+      </div>
+    );
+  }
+
+  renderContents(filteredStudents) {
+    return (
+      <div style={styles.flexVertical}>
+        {this.renderTable(filteredStudents)}
+        {this.renderSelectedStudent()}
       </div>
     );
   }
@@ -228,9 +239,48 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   renderArrow(cellProps) {
-    return(
-      <div style={{display: "flex", justifyContent: "center"/*, color: "#3177c9"*/}}>
+    const student = cellProps.rowData;
+    return (
+      <div
+        onClick={e => this.setState({selectedStudent: student})}
+        style={{cursor: 'pointer', display: "flex", justifyContent: "center"}}>
         ▶
+      </div>
+    );
+  }
+
+  renderSelectedStudent() {
+    const student = this.state.selectedStudent;
+    if (!student) return;
+
+    const fetchUrl = `/api/counselor_notes/inline_profile_json?student_id=${student.id}`;
+    console.log('renderSelected', student.id, fetchUrl);
+    return (
+      <div key={student.id}>
+        <GenericLoader
+          promiseFn={() => apiFetchJson(fetchUrl)}
+          render={this.renderStudentProfile.bind(this, student)}
+        />
+      </div>
+    );
+  }
+
+  renderStudentProfile(student, json) {
+    const feedCards = json.feed_cards;
+    return (
+      <div style={{
+        background: 'antiquewhite',
+        border: '4px solid red',
+        overflowY: 'scroll',
+        position: 'fixed',
+        right: 20,
+        top: 100,
+        bottom: 100,
+        width: 200
+      }}>
+        <div>{student.first_name}</div>
+        <div>{student.last_name}</div>
+        <div>There are {feedCards.length} other notes</div>
       </div>
     );
   }
