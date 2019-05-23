@@ -50,10 +50,11 @@ export default class Datepicker extends React.Component {
   }
 
   render() {
+    const className = this.props.className || '';
     return (
       <div
         ref={el => this.el = el}
-        className="Datepicker"
+        className={`Datepicker ${className}`}
         style={this.props.styles.datepicker}>
         <input
           className="datepicker"
@@ -66,6 +67,7 @@ export default class Datepicker extends React.Component {
 }
 
 Datepicker.propTypes = {
+  className: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   styles: PropTypes.shape({

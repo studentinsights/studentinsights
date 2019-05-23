@@ -13,7 +13,7 @@ import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from '../my_students/FilterStudentsBar';
-
+import Datepicker from '../components/Datepicker.js';
 
 export default class CounselorNotesPage extends React.Component {
   constructor(props) {
@@ -272,11 +272,34 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   renderCalendar(cellProps){
+    const dateText = '???';
+    const student = cellProps.rowData;
+    const disappear = {display: 'none'};
+    if (student.meetingMoment === null) return null;
+
     return (
       <div style={{display: "flex", justifyContent: "center"}}>
-        <img style={{width: "25px", height: "25px"}} src="https://banner2.kisspng.com/20180403/xqq/kisspng-solar-calendar-symbol-computer-icons-encapsulated-calendar-icon-5ac41db876fe09.0405027315228021044874.jpg"></img>
+        <Datepicker
+          className="no-padding"
+          styles={{
+            datepicker: styles.datepicker,
+            input: disappear
+          }}
+          value={dateText}
+          onChange={dateText}
+          datepickerOptions={{
+            showOn: 'both',
+            dateFormat: 'mm/dd/yy',
+            minDate: undefined,
+            maxDate: new Date
+          }} />
       </div>
     );
+    // return (
+    //   <div style={{display: "flex", justifyContent: "center"}}>
+    //     <img style={{width: "25px", height: "25px"}} src="https://banner2.kisspng.com/20180403/xqq/kisspng-solar-calendar-symbol-computer-icons-encapsulated-calendar-icon-5ac41db876fe09.0405027315228021044874.jpg"></img>
+    //   </div>
+    // );
   }
 
   renderName(cellProps) {
