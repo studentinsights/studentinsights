@@ -75,21 +75,21 @@ export class CounselorNotesPageView extends React.Component {
     const nowMoment = nowFn().clone();
 
     // This is fake data for now.
-    const useFakeMeetings = true;
-    if (useFakeMeetings) {
-      return students.map((student, index) => {
-        const nDaysAgo = ((index % 5) * (Math.random() * 20));
-        return {
-          ...student,
-          meetingMoment: (Math.random() < 0.80) ? nowMoment.clone().subtract(nDaysAgo, 'days') : null
-        };
-      });
-    }
+    // const useFakeMeetings = true;
+    // if (useFakeMeetings) {
+    //   return students.map((student, index) => {
+    //     const nDaysAgo = ((index % 5) * (Math.random() * 20));
+    //     return {
+    //       ...student,
+    //       meetingMoment: (Math.random() < 0.80) ? nowMoment.clone().subtract(nDaysAgo, 'days') : null
+    //     };
+    //   });
+    // }
 
     // Merge in `meetingMoment``
     const meetingsByStudentId = _.groupBy(meetings, 'student_id');
     return students.map((student, index) => {
-      const meetings = meetingsByStudentId[student.id];
+      const meetings = meetingsByStudentId[student.id] || [];
       const meetingMoments = meetings.map(meeting => toMomentFromTimestamp(meeting.recorded_at));
       const sortedMoments = _.sortBy(meetingMoments, moment => moment.getTime());
       const meetingMoment = _.last(sortedMoments);
@@ -254,7 +254,7 @@ export class CounselorNotesPageView extends React.Component {
 
   renderLastSeen(cellProps) {
     const student = cellProps.rowData;
-    if (student.meetingMoment === null) return null;
+    if (!student.meetingMoment) return null;
 
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);
     const opacity = computeOpacity(daysAgo);

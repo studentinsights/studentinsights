@@ -1,36 +1,28 @@
 class CounselorNotesController < ApplicationController
   before_action :ensure_authorized_for_feature!
 
-
   def create
-    # 1. check the browser sent the correct
-    #    data (params.require)
+    params.require(:student_id)
+    params.require(:meeting_date)
 
-    # 2. find the student they are talking about
-    #    (Student.find)
+    student = authorized_or_raise! do
+      Student.find(params[:student_id])
+    end
 
-    # 3. does this user have access to this
-    #    student? (authorized_or_raise!)
+    meeting = CounselorMeeting.create!({
+      educator_id: current_educator.id,
+      meeting_date: params[:meeting_date],
+      student_id: params[:student_id]
+    })
 
-    # 4. write a "migration" to create a new
-    #    table (use event_notes as a model).
-
-    # 5. add a new "model" to read from that table
-    #    (counselor_meeting.rb)
-
-    # 6. create the note in the
-    #    database! (CounselorMeeting)
-
-    # 7. Tell the browser we are done
-    render json: { status: 'ok' }
+    render json: {
+      id: meeting.id
+    }
   end
 
   def meetings_json
-    # 8. Read the meetings from the database
-    #    (CounselorMeeting)
-    meetings = []
-    
     students = authorized { Student.active.includes(:school, :student_photos).to_a }
+    meetings = CounselorMeeting.all.where(student_id: students.map(&:id))
     render json: {
       meetings: meetings,
       students: students_json(students)
