@@ -267,7 +267,7 @@ export class CounselorNotesPageView extends React.Component {
     return (
       <div style={{
         background: 'white',
-        border: '4px solid #1b82ea',
+        border: '0px solid #1b82ea',
         overflowY: 'scroll',
         position: 'fixed',
         right: 20,
@@ -287,16 +287,27 @@ export class CounselorNotesPageView extends React.Component {
               fallbackEl={<span>😃</span>}
             /></div>
         <div style={{
-          marginLeft: 10,
-          fontSize: 24,
-          marginTop: 5
-        }}>{this.renderBubble} {student.first_name} {student.last_name}</div>
+          display: 'flex',
+          flexDirection: 'row'
+        }}>
+          <div style={{
+            marginTop: 12,
+            marginLeft: 10
+          }}>
+          {this.renderBubble(student.meetingMoment)}
+          </div>
+          <div style={{
+            marginLeft: 10,
+            fontSize: 24,
+            marginTop: 5
+          }}> {student.first_name} {student.last_name}</div>
+        </div>
 
         <div style={{
           fontSize: 24,
           marginTop: 15,
           marginLeft: 10
-        }}>Notes for {student.first_name}</div>
+        }}><SectionHeading>Notes for {student.first_name}</SectionHeading></div>
         <div>
         <FeedView
           //style={style}
@@ -312,6 +323,7 @@ export class CounselorNotesPageView extends React.Component {
     if (!student.meetingMoment) return null;
 
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);
+    console.log('renderLastSeen', daysAgo, student.meetingMoment);
     return (
       <div>
         {this.renderBubble(student.meetingMoment)}
