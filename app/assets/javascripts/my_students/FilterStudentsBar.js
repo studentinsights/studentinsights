@@ -14,7 +14,7 @@ import {
   TIME_RANGE_30_DAYS_AGO,
   TIME_RANGE_45_DAYS_AGO,
   TIME_RANGE_90_DAYS_AGO
-} from '../components/SelectTimeRange'
+} from '../components/SelectTimeRange';
 
 // Takes a list of students, uses them to find values to sort by,
 // and then renders a filtering bar for different dimensions, yielding
@@ -126,7 +126,7 @@ export default class FilterStudentsBar extends React.Component {
   }
 
   renderTimeRangeSelect() {
-    const {students, includeTimeRange} = this.props;
+    const {includeTimeRange} = this.props;
     if (!includeTimeRange) return null;
 
     const {timeRangeKey} = this.state;

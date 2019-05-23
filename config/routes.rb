@@ -196,4 +196,6 @@ Rails.application.routes.draw do
   # counselor meeting
   get '/counselor_notes' =>'ui#ui'
   get '/api/counselor_notes/inline_profile_json' => 'counselor_notes#inline_profile_json'
+  get '/api/counselor_notes/meetings_json' => 'counselor_notes#meetings_json'
+  post '/api/counselor_notes' => 'counselor_notes#create'
 end

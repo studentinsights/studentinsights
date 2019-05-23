@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import _ from 'lodash';
 import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
-import {apiFetchJson} from '../helpers/apiFetchJson';
-import {rankedByGradeLevel} from '../helpers/SortHelpers';
+import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -14,6 +13,7 @@ import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from '../my_students/FilterStudentsBar';
+
 
 export default class CounselorNotesPage extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class CounselorNotesPage extends React.Component {
   }
 
   fetchStudents() {
-    const url = `/api/educators/my_students_json`;
+    const url = `/api/counselor_notes/meetings_json`;
     return apiFetchJson(url);
   }
 
@@ -43,8 +43,12 @@ export default class CounselorNotesPage extends React.Component {
   }
 
   renderStudents(json) {
-    const {students} = json;
-    return <CounselorNotesPageView students={students} />;
+    return (
+      <CounselorNotesPageView
+        students={json.students}
+        meetings={json.meetings}
+      />
+    );
   }
 }
 
@@ -61,17 +65,35 @@ export class CounselorNotesPageView extends React.Component {
     this.renderName = this.renderName.bind(this);
     this.renderSchool = this.renderSchool.bind(this);
     this.renderLastSeen = this.renderLastSeen.bind(this);
+    this.renderTestButtons = this.renderTestButtons.bind(this);
   }
 
-  // This is fake data for now.
+  
   studentsWithMeetings() {
-    const {students} = this.props;
+    const {students, meetings} = this.props;
+    const {nowFn} = this.context;
+    const nowMoment = nowFn().clone();
+
+    // This is fake data for now.
+    const useFakeMeetings = true;
+    if (useFakeMeetings) {
+      return students.map((student, index) => {
+        const nDaysAgo = ((index % 5) * (Math.random() * 20));
+        return {
+          ...student,
+          meetingMoment: (Math.random() < 0.80) ? nowMoment.clone().subtract(nDaysAgo, 'days') : null
+        };
+      });
+    }
+
+    // Merge in `meetingMoment``
+    const meetingsByStudentId = _.groupBy(meetings, 'student_id');
     return students.map((student, index) => {
-      const nDaysAgo = ((index % 5) * (Math.random() * 20));
-      return {
-        ...student,
-        meetingMoment: (Math.random() < 0.80) ? moment.utc().subtract(nDaysAgo, 'days') : null
-      };
+      const meetings = meetingsByStudentId[student.id];
+      const meetingMoments = meetings.map(meeting => toMomentFromTimestamp(meeting.recorded_at));
+      const sortedMoments = _.sortBy(meetingMoments, moment => moment.getTime());
+      const meetingMoment = _.last(sortedMoments);
+      return {...student, meetingMoment};
     });
   }
 
@@ -86,8 +108,6 @@ export class CounselorNotesPageView extends React.Component {
         const lastSeenNumber = (student.meetingMoment === null)
           ? 10000
           : this.howManyDaysAgo(student.meetingMoment);
-
-        console.log(student.meetingMoment, lastSeenNumber);
         return lastSeenNumber;
       }
     };
@@ -106,6 +126,15 @@ export class CounselorNotesPageView extends React.Component {
     const {nowFn} = this.context;
     return nowFn().clone().diff(meetingMoment, 'days');
   }
+
+  TellServer(studentId, eventNoteParams) {
+    return apiPostJson('/api/counselor_notes', {
+      counselor_note: {
+        student_name: "Steve Jobs",
+        date_info: "May 2, 2019 1:15 PM"
+      }
+    });
+  }  
 
   onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
     if (sortBy === this.state.sortBy) {
@@ -185,16 +214,40 @@ export class CounselorNotesPageView extends React.Component {
               cellRenderer={this.renderArrow}
               width={75}
             />
+            <Column
+              label=''
+              dataKey='buttons'
+              cellRenderer={this.renderTestButtons}
+              width={150}
+            />
             
           </Table>
         )}
       </AutoSizer>
     );
   }
+
   renderArrow(cellProps) {
     return(
       <div style={{display: "flex", justifyContent: "center"/*, color: "#3177c9"*/}}>
         ▶
+      </div>
+    );
+  }
+
+  renderTestButtons() {
+    return (
+      <div>
+        <button
+          style={styles.testButton}
+          onClick={() => alert("Let's make a car")}>
+          Delete a car
+        </button>
+        <button
+          style={styles.testButton}
+          onClick={() => this.TellServer("save")}>
+          Hit me
+        </button>
       </div>
     );
   }
@@ -217,6 +270,7 @@ export class CounselorNotesPageView extends React.Component {
       </div>
     );
   }
+
   renderCalendar(cellProps){
     return (
       <div style={{display: "flex", justifyContent: "center"}}>
@@ -224,6 +278,7 @@ export class CounselorNotesPageView extends React.Component {
       </div>
     );
   }
+
   renderName(cellProps) {
     const student = cellProps.rowData;
     return (
@@ -259,6 +314,7 @@ CounselorNotesPageView.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 CounselorNotesPageView.propTypes = {
+  meetings: PropTypes.array.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -290,6 +346,11 @@ const styles = {
     display: 'inline-block',
     marginLeft: 20,
     marginRight: 40
+  },
+  testButton: {
+    border: '1px solid #ccc',
+    background: '#eee',
+    padding: 5
   }
 };
 
