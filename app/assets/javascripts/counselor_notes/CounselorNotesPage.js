@@ -255,7 +255,6 @@ export class CounselorNotesPageView extends React.Component {
     if (!student) return;
 
     const fetchUrl = `/api/counselor_notes/inline_profile_json?student_id=${student.id}`;
-    console.log('renderSelected', student.id, fetchUrl);
     return (
       <div key={student.id}>
         <GenericLoader
