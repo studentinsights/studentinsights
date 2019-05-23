@@ -5,7 +5,7 @@ import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
-import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -61,6 +61,7 @@ export class CounselorNotesPageView extends React.Component {
     
     this.state = {
       selectedStudent: null,
+      updatedMeetings: [],
       sortBy: 'name',
       sortDirection: SortDirection.ASC,
     };
@@ -68,35 +69,23 @@ export class CounselorNotesPageView extends React.Component {
     this.renderName = this.renderName.bind(this);
     this.renderSchool = this.renderSchool.bind(this);
     this.renderLastSeen = this.renderLastSeen.bind(this);
-    this.renderTestButtons = this.renderTestButtons.bind(this);
     this.renderStudentProfile = this.renderStudentProfile.bind(this);
     this.renderArrow = this.renderArrow.bind(this);
+    this.renderCalendar = this.renderCalendar.bind(this);
   }
-
   
   studentsWithMeetings() {
     const {students, meetings} = this.props;
-    
-    // This is fake data for now.
-    // const {nowFn} = this.context;
-    // const nowMoment = nowFn().clone();
-    // const useFakeMeetings = true;
-    // if (useFakeMeetings) {
-    //   return students.map((student, index) => {
-    //     const nDaysAgo = ((index % 5) * (Math.random() * 20));
-    //     return {
-    //       ...student,
-    //       meetingMoment: (Math.random() < 0.80) ? nowMoment.clone().subtract(nDaysAgo, 'days') : null
-    //     };
-    //   });
-    // }
+    const {updatedMeetings} = this.state;
 
+    console.log('updatedMeetings', updatedMeetings);
     // Merge in `meetingMoment``
-    const meetingsByStudentId = _.groupBy(meetings, 'student_id');
+    const allMeetings = updatedMeetings.concat(meetings);
+    const meetingsByStudentId = _.groupBy(allMeetings, 'student_id');
     return students.map((student, index) => {
       const meetings = meetingsByStudentId[student.id] || [];
-      const meetingMoments = meetings.map(meeting => toMomentFromTimestamp(meeting.recorded_at));
-      const sortedMoments = _.sortBy(meetingMoments, moment => moment.getTime());
+      const meetingMoments = meetings.map(meeting => toMomentFromRailsDate(meeting.meeting_date));
+      const sortedMoments = _.sortBy(meetingMoments, moment => moment.unix());
       const meetingMoment = _.last(sortedMoments);
       return {...student, meetingMoment};
     });
@@ -132,12 +121,17 @@ export class CounselorNotesPageView extends React.Component {
     return nowFn().clone().diff(meetingMoment, 'days');
   }
 
-  TellServer(studentId, eventNoteParams) {
+  TellServer(studentId, meetingDateText) {
+    const {updatedMeetings} = this.state;
+    this.setState({
+      updatedMeetings: updatedMeetings.concat([{
+        student_id: studentId,
+        meeting_date: meetingDateText
+      }])
+    });
     return apiPostJson('/api/counselor_notes', {
-      counselor_note: {
-        student_name: "Steve Jobs",
-        date_info: "May 2, 2019 1:15 PM"
-      }
+      student_id: studentId,
+      meeting_date: meetingDateText,
     });
   }  
 
@@ -153,6 +147,7 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   render() {
+    console.log('render');
     const {districtKey} = this.context;
     const students = this.studentsWithMeetings();
 
@@ -312,29 +307,11 @@ export class CounselorNotesPageView extends React.Component {
     );
   }
 
-  renderTestButtons() {
-    return (
-      <div>
-        <button
-          style={styles.testButton}
-          onClick={() => alert("Let's make a car")}>
-          Delete a car
-        </button>
-        <button
-          style={styles.testButton}
-          onClick={() => this.TellServer("save")}>
-          Hit me
-        </button>
-      </div>
-    );
-  }
-
   renderLastSeen(cellProps) {
     const student = cellProps.rowData;
     if (!student.meetingMoment) return null;
 
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);
-
     return (
       <div>
         {this.renderBubble(student.meetingMoment)}
@@ -368,7 +345,7 @@ export class CounselorNotesPageView extends React.Component {
             input: disappear
           }}
           value={dateText}
-          onChange={dateText}
+          onChange={meetingDateText => this.TellServer(student.id, meetingDateText)}
           datepickerOptions={{
             showOn: 'both',
             dateFormat: 'mm/dd/yy',
