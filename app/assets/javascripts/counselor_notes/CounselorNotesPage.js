@@ -78,7 +78,6 @@ export class CounselorNotesPageView extends React.Component {
     const {students, meetings} = this.props;
     const {updatedMeetings} = this.state;
 
-    console.log('updatedMeetings', updatedMeetings);
     // Merge in `meetingMoment``
     const allMeetings = updatedMeetings.concat(meetings);
     const meetingsByStudentId = _.groupBy(allMeetings, 'student_id');
@@ -147,7 +146,6 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   render() {
-    console.log('render');
     const {districtKey} = this.context;
     const students = this.studentsWithMeetings();
 
@@ -323,7 +321,8 @@ export class CounselorNotesPageView extends React.Component {
     if (!student.meetingMoment) return null;
 
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);
-    console.log('renderLastSeen', daysAgo, student.meetingMoment);
+    const opacity = computeOpacity(daysAgo);
+    
     return (
       <div>
         {this.renderBubble(student.meetingMoment)}
