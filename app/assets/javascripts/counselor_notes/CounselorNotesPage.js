@@ -14,6 +14,8 @@ import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from '../my_students/FilterStudentsBar';
 import Datepicker from '../components/Datepicker.js';
+import StudentPhoto from '../components/StudentPhoto.js';
+import FeedView from '../feed/FeedView';
 
 export default class CounselorNotesPage extends React.Component {
   constructor(props) {
@@ -269,18 +271,43 @@ export class CounselorNotesPageView extends React.Component {
     const feedCards = json.feed_cards;
     return (
       <div style={{
-        background: 'antiquewhite',
-        border: '4px solid red',
+        background: 'white',
+        border: '4px solid #1b82ea',
         overflowY: 'scroll',
         position: 'fixed',
         right: 20,
-        top: 100,
-        bottom: 100,
-        width: 200
+        top: 250,
+        bottom: 0,
+        width: 600
       }}>
-        <div>{student.first_name}</div>
-        <div>{student.last_name}</div>
-        <div>There are {feedCards.length} other notes</div>
+        <div style={{
+          background: 'antiquewhite',
+          width: 200,
+          height: 200,
+          marginLeft: 10,
+          marginTop: 10
+        }}><StudentPhoto
+              style={{width: 200, height: 200, border: '2px solid #1b82ea'}}
+              student={student}
+              fallbackEl={<span>😃</span>}
+            /></div>
+        <div style={{
+          marginLeft: 10,
+          fontSize: 24,
+          marginTop: 5
+        }}>{this.renderBubble} {student.first_name} {student.last_name}</div>
+
+        <div style={{
+          fontSize: 24,
+          marginTop: 15,
+          marginLeft: 10
+        }}>Notes for {student.first_name}</div>
+        <div>
+        <FeedView
+          //style={style}
+          feedCards={feedCards}
+          cardPropsFn={this.cardPropsFn}
+        /></div>
       </div>
     );
   }
@@ -307,11 +334,10 @@ export class CounselorNotesPageView extends React.Component {
     if (!student.meetingMoment) return null;
 
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);
-    const opacity = computeOpacity(daysAgo);
 
     return (
       <div>
-        <div style={{opacity: opacity, height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#1b82ea", borderRadius: "50%", display: "inline-block", float: "left"}}></div>
+        {this.renderBubble(student.meetingMoment)}
         <div style={{fontSize: 14, float: "left", marginLeft: "15px"}}>
           {daysAgo === 0
             ? <div>Today</div>
@@ -319,6 +345,12 @@ export class CounselorNotesPageView extends React.Component {
         </div>
       </div>
     );
+  }
+
+  renderBubble(meetingMoment) {
+    const daysAgo = this.howManyDaysAgo(meetingMoment);
+    const opacity = computeOpacity(daysAgo);
+    return <div style={{opacity: opacity, height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#1b82ea", borderRadius: "50%", display: "inline-block", float: "left"}}></div>;
   }
 
   renderCalendar(cellProps){
