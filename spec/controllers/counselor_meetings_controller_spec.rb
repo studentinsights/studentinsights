@@ -150,7 +150,7 @@ describe CounselorMeetingsController, :type => :controller do
           text: 'blah',
           recorded_at: pals.time_now - 7.days
         })
-      
+
         get_student_feed_cards_json(pals.shs_sofia_counselor, student_id: pals.shs_freshman_mari.id)
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
@@ -158,7 +158,7 @@ describe CounselorMeetingsController, :type => :controller do
         expect(json['feed_cards'].map {|c| c['type']}).to contain_exactly(*[
           'birthday_card',
           'event_note_card'
-        ])        
+        ])
       end
     end
   end
