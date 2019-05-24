@@ -55,7 +55,7 @@ class CounselorMeetingsController < ApplicationController
 
   private
   def ensure_authorized_for_feature!
-    current_educator.labels.include?('enable_counselor_meetings_page')
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_counselor_meetings_page')
   end
 
   # Use time from value or fall back to Time.now
