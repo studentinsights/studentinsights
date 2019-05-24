@@ -86,6 +86,7 @@ exports[`matches snapshot 1`] = `
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
+            "textAlign": "right",
           }
         }
       >
