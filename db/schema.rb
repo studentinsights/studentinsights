@@ -447,8 +447,6 @@ ActiveRecord::Schema.define(version: 2019_05_23_152056) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "source"
-    t.text "benchmark_assessment_grade_level"
     t.index ["benchmark_assessment_key"], name: "index_reading_benchmark_data_points_on_benchmark_assessment_key"
     t.index ["benchmark_school_year", "benchmark_period_key"], name: "index_reading_benchmark_data_points_on_year_and_period_keys"
     t.index ["student_id"], name: "index_reading_benchmark_data_points_on_student_id"
@@ -475,19 +473,6 @@ ActiveRecord::Schema.define(version: 2019_05_23_152056) do
     t.string "local_id", null: false
     t.string "slug", null: false
     t.index ["local_id"], name: "index_schools_on_local_id"
-  end
-
-  create_table "second_transition_notes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "educator_id"
-    t.bigint "student_id"
-    t.text "form_key", null: false
-    t.json "form_json", null: false
-    t.text "restricted_text"
-    t.boolean "starred", default: false
-    t.index ["educator_id"], name: "index_second_transition_notes_on_educator_id"
-    t.index ["student_id"], name: "index_second_transition_notes_on_student_id"
   end
 
   create_table "sections", id: :serial, force: :cascade do |t|
@@ -745,8 +730,6 @@ ActiveRecord::Schema.define(version: 2019_05_23_152056) do
   add_foreign_key "reading_benchmark_data_points", "students"
   add_foreign_key "reading_grouping_snapshots", "educators"
   add_foreign_key "reading_grouping_snapshots", "schools"
-  add_foreign_key "second_transition_notes", "educators"
-  add_foreign_key "second_transition_notes", "students"
   add_foreign_key "sections", "courses", name: "sections_course_id_fk"
   add_foreign_key "service_uploads", "educators", column: "uploaded_by_educator_id", name: "service_uploads_uploaded_by_educator_id_fk"
   add_foreign_key "services", "educators", column: "recorded_by_educator_id", name: "services_recorded_by_educator_id_fk"

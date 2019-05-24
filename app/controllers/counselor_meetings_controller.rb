@@ -1,6 +1,7 @@
-class CounselorNotesController < ApplicationController
+class CounselorMeetingsController < ApplicationController
   before_action :ensure_authorized_for_feature!
 
+  # post
   def create
     params.require(:student_id)
     params.require(:meeting_date)
@@ -10,8 +11,8 @@ class CounselorNotesController < ApplicationController
     end
     meeting = CounselorMeeting.create!({
       educator_id: current_educator.id,
-      meeting_date: Date.parse(params[:meeting_date]),
-      student_id: params[:student_id]
+      student_id: student.id,
+      meeting_date: Date.parse(params[:meeting_date])
     })
 
     render json: {
@@ -23,18 +24,18 @@ class CounselorNotesController < ApplicationController
     students = authorized { Student.active.includes(:school, :student_photos).to_a }
     meetings = CounselorMeeting.all.where(student_id: students.map(&:id))
     render json: {
+      educators_index: Educator.to_index,
       meetings: meetings,
       students: students_json(students)
     }
   end
 
-  def inline_profile_json
+  def student_feed_cards_json
     params.require(:student_id)
     params.permit(:time_now)
-    params.permit(:limit)
     student = authorized_or_raise! { Student.find(params[:student_id]) }
     time_now = time_now_or_param(params[:time_now])
-    limit = params.has_key?(:limit) ? params[:limit].to_i : 10;
+    limit = 10
 
     # Load feed cards just for this student
     feed = Feed.new([student])
@@ -47,7 +48,7 @@ class CounselorNotesController < ApplicationController
 
   private
   def ensure_authorized_for_feature!
-    current_educator.labels.include?('enable_counselor_notes_page')
+    current_educator.labels.include?('enable_counselor_meetings_page')
   end
 
   # Use time from value or fall back to Time.now

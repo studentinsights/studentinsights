@@ -13,7 +13,9 @@ import {
   TIME_RANGE_7_DAYS_AGO,
   TIME_RANGE_30_DAYS_AGO,
   TIME_RANGE_45_DAYS_AGO,
-  TIME_RANGE_90_DAYS_AGO
+  TIME_RANGE_90_DAYS_AGO,
+  TIME_RANGE_FOUR_YEARS,
+  TIME_RANGE_ALL
 } from '../components/SelectTimeRange';
 
 // Takes a list of students, uses them to find values to sort by,
@@ -33,14 +35,15 @@ export default class FilterStudentsBar extends React.Component {
   }
 
   filteredStudents() {
-    const {students} = this.props;
-    const {searchText, grade, house, counselor} = this.state;
+    const {students, timeFilterFn} = this.props;
+    const {searchText, grade, house, counselor, timeRangeKey} = this.state;
 
     return students.filter(student => {
       if (shouldFilterOut(grade, student.grade)) return false;
       if (shouldFilterOut(house, student.house)) return false;
       if (shouldFilterOut(counselor, student.counselor)) return false;
       if (!searchTextMatches(searchText, student)) return false;
+      if (timeFilterFn && !timeFilterFn(student, timeRangeKey)) return false; // eg, interpret what time range means
       return true;
     });
   }
@@ -131,10 +134,12 @@ export default class FilterStudentsBar extends React.Component {
 
     const {timeRangeKey} = this.state;
     const timeRangeKeys = [
+      TIME_RANGE_ALL,
       TIME_RANGE_7_DAYS_AGO,
       TIME_RANGE_30_DAYS_AGO,
       TIME_RANGE_45_DAYS_AGO,
-      TIME_RANGE_90_DAYS_AGO
+      TIME_RANGE_90_DAYS_AGO,
+      TIME_RANGE_FOUR_YEARS
     ];
     
     return (
@@ -173,6 +178,7 @@ FilterStudentsBar.propTypes = {
     sped_liaison: PropTypes.string
   })).isRequired,
   children: PropTypes.func.isRequired,
+  timeFilterFn: PropTypes.func,
   style: PropTypes.object,
   barStyle: PropTypes.object
 };

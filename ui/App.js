@@ -33,7 +33,7 @@ import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
 import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
-import CounselorNotes from '../app/assets/javascripts/counselor_notes/CounselorNotesPage';
+import CounselorMeetingsPage from '../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
@@ -89,10 +89,7 @@ export default class App extends React.Component {
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_notes" render={this.renderMyNotesPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
-        
-
-        <Route exact path="/counselor_notes" render={this.renderCounselorNotes.bind(this)}/>
-
+        <Route exact path="/counselors/meetings" render={this.renderCounselorMeetingsPage.bind(this)}/>
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/search/notes" render={this.renderSearchNotesPage.bind(this)}/>
@@ -149,8 +146,9 @@ export default class App extends React.Component {
     return <MyStudentsPage />;
   }
 
-  renderCounselorNotes(routeProps) {
-    return <CounselorNotes />;
+  renderCounselorMeetingsPage(routeProps) {
+    const {currentEducator} = this.props;
+    return <CounselorMeetingsPage currentEducatorId={currentEducator.id} />;
   }
 
   renderMySectionsPage(routeProps) {

@@ -4,90 +4,71 @@ import _ from 'lodash';
 import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
-import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
-import {toMomentFromRailsDate} from '../helpers/toMoment';
-import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
-import GenericLoader from '../components/GenericLoader';
+import {toMoment, toMomentFromRailsDate} from '../helpers/toMoment';
+import GenericLoader, {flexVerticalStyle} from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import HouseBadge from '../components/HouseBadge';
-import School from '../components/School';
+import Educator from '../components/Educator';
+import {selection} from '../helpers/colors';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from '../my_students/FilterStudentsBar';
-import Datepicker from '../components/Datepicker.js';
-import StudentPhoto from '../components/StudentPhoto.js';
+import {TIME_RANGE_ALL} from '../components/SelectTimeRange';
+import Datepicker from '../components/Datepicker';
+import StudentPhoto from '../components/StudentPhoto';
+import {momentRange} from '../components/SelectTimeRange';
 import FeedView from '../feed/FeedView';
 
-export default class CounselorNotesPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.fetchStudents = this.fetchStudents.bind(this);
-    this.renderStudents = this.renderStudents.bind(this);
-  }
 
-  componentDidMount() {
-    updateGlobalStylesToTakeFullHeight();
-  }
-
-  fetchStudents() {
-    const url = `/api/counselor_notes/meetings_json`;
-    return apiFetchJson(url);
-  }
-
-  render() {
-    return (
-      <div className="CounselorNotesPage" style={styles.flexVertical}>
-        <GenericLoader
-          promiseFn={this.fetchStudents}
-          style={styles.flexVertical}
-          render={this.renderStudents} />
-      </div>
-    );
-  }
-
-  renderStudents(json) {
-    return (
-      <CounselorNotesPageView
-        students={json.students}
-        meetings={json.meetings}
-      />
-    );
-  }
-}
-
-
-export class CounselorNotesPageView extends React.Component {
+export default class CounselorMeetingsView extends React.Component {
   constructor(props) {
     super(props);
     
     this.state = {
       selectedStudent: null,
-      updatedMeetings: [],
+      updatedMeetings: [], // layered on top of server data
       sortBy: 'name',
       sortDirection: SortDirection.ASC,
     };
+
+    this.timeFilterFn = this.timeFilterFn.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
     this.renderName = this.renderName.bind(this);
-    this.renderSchool = this.renderSchool.bind(this);
     this.renderLastSeen = this.renderLastSeen.bind(this);
-    this.renderStudentProfile = this.renderStudentProfile.bind(this);
-    this.renderArrow = this.renderArrow.bind(this);
+    this.renderLastSeenBy = this.renderLastSeenBy.bind(this);
     this.renderCalendar = this.renderCalendar.bind(this);
+    this.renderArrow = this.renderArrow.bind(this);
+    this.renderStudentProfile = this.renderStudentProfile.bind(this);
+    this.onStudentClicked = this.onStudentClicked.bind(this);
   }
   
+  // Merge in `meetingMoment` and `meetingEducator`
+  // and also merge in local client updates.
   studentsWithMeetings() {
-    const {students, meetings} = this.props;
+    const {students, meetings, educatorsIndex} = this.props;
     const {updatedMeetings} = this.state;
 
-    // Merge in `meetingMoment``
     const allMeetings = updatedMeetings.concat(meetings);
     const meetingsByStudentId = _.groupBy(allMeetings, 'student_id');
     return students.map((student, index) => {
       const meetings = meetingsByStudentId[student.id] || [];
-      const meetingMoments = meetings.map(meeting => toMomentFromRailsDate(meeting.meeting_date));
-      const sortedMoments = _.sortBy(meetingMoments, moment => moment.unix());
-      const meetingMoment = _.last(sortedMoments);
-      return {...student, meetingMoment};
+      const meeting = _.last(_.sortBy(meetings, meeting => toMomentFromRailsDate(meeting.meeting_date).unix()));
+      const meetingMoment = (meeting)
+        ? toMomentFromRailsDate(meeting.meeting_date)
+        : null;
+      const meetingEducator = (meeting)
+        ? educatorsIndex[meeting.educator_id]
+        : null;
+      return {...student, meetingMoment, meetingEducator};
     });
+  }
+
+  timeFilterFn(student, timeRangeKey) {
+    if (!student.meetingMoment) return false;
+    if (timeRangeKey === TIME_RANGE_ALL) return true;
+
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
+    const range = momentRange(timeRangeKey, nowMoment);
+    return student.meetingMoment.isBetween(range[0], range[1]);
   }
 
   orderedStudents(students) {
@@ -97,7 +78,7 @@ export class CounselorNotesPageView extends React.Component {
     const sortFns = {
       fallback(student) { return student[sortBy]; },
       name(student) { return `${student.last_name}, ${student.first_name}`; },
-      lastseen: (student) => {
+      last_seen: (student) => {
         const lastSeenNumber = (student.meetingMoment === null)
           ? 10000
           : this.howManyDaysAgo(student.meetingMoment);
@@ -120,15 +101,19 @@ export class CounselorNotesPageView extends React.Component {
     return nowFn().clone().diff(meetingMoment, 'days');
   }
 
-  TellServer(studentId, meetingDateText) {
+  // optimistically update UI, and optimistically submit to server
+  tellServer(studentId, datepickerDateText) {
+    const {currentEducatorId} = this.props;
     const {updatedMeetings} = this.state;
+    const meetingDateText = toMoment(datepickerDateText).format('YYYY-MM-DD');
     this.setState({
       updatedMeetings: updatedMeetings.concat([{
         student_id: studentId,
+        educator_id: currentEducatorId,
         meeting_date: meetingDateText
       }])
     });
-    return apiPostJson('/api/counselor_notes', {
+    return apiPostJson('/api/counselor_meetings', {
       student_id: studentId,
       meeting_date: meetingDateText,
     });
@@ -145,50 +130,79 @@ export class CounselorNotesPageView extends React.Component {
     }
   }
 
+  // Toggle selection
+  onStudentClicked(student) {
+    const {selectedStudent} = this.state;
+    const updatedSelectedStudent = (selectedStudent && selectedStudent.id === student.id)
+      ? null
+      : student;
+    this.setState({selectedStudent: updatedSelectedStudent});
+  }
+
   render() {
     const {districtKey} = this.context;
     const students = this.studentsWithMeetings();
 
     return (
-      <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>Meetings 2019</SectionHeading>
+      <div style={{...flexVerticalStyle, margin: 10}}>
+        <SectionHeading>Counselor Meetings 2019</SectionHeading>
         <FilterStudentsBar
           students={students}
-          style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
+          style={{...flexVerticalStyle, marginLeft: 10, marginTop: 20}}
           includeHouse={supportsHouse(districtKey)}
           includeTimeRange={true}
-          includeCounselor={supportsCounselor(districtKey)}>
+          includeCounselor={supportsCounselor(districtKey)}
+          timeFilterFn={this.timeFilterFn}>
           {filteredStudents => this.renderContents(filteredStudents)}
         </FilterStudentsBar>
       </div>
     );
   }
 
+  // Fix the min width of the left, flex the student profile if
+  // there's more width.  This makes two parallel scrollable columns.
   renderContents(filteredStudents) {
     return (
-      <div style={styles.flexVertical}>
-        {this.renderTable(filteredStudents)}
-        {this.renderSelectedStudent()}
+      <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>
+        <div style={{minWidth: 700}}>{this.renderTable(filteredStudents)}</div>
+        <AutoSizer disableWidth>{({height}) => (
+          <div style={{height, flex: 1, overflowY: 'scroll'}}>
+            <div style={{paddingTop: 50, paddingLeft: 20, paddingRight: 10}}>
+              {this.renderSelectedStudent()}
+            </div>
+          </div>
+        )}</AutoSizer>
       </div>
     );
   }
 
   renderTable(filteredStudents) {
-    const {sortDirection, sortBy} = this.state;
+    const {selectedStudent, sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
     const rowHeight = 60; // for two lines of student names
 
-    // In conjuction with the filtering, this can lead to a warning in development.
-    // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
     return (
-      <AutoSizer style={{marginTop: 20}}>
+      <AutoSizer>
         {({width, height}) => (
           <Table
             width={width}
             height={height}
             headerHeight={rowHeight}
             headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
-            rowStyle={{display: 'flex', alignItems: 'center'}}
+            onRowClick={({rowData}) => this.onStudentClicked(rowData)}
+            rowStyle={({index}) => {
+              const isSelectedStudent = (
+                (index !== -1) && // header row
+                (selectedStudent) &&
+                (selectedStudent.id === sortedStudents[index].id)
+              );
+              return {
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'default',
+                backgroundColor: isSelectedStudent ? selection : null
+              };
+            }}
             style={{fontSize: 14}}
             rowHeight={rowHeight}
             rowCount={sortedStudents.length}
@@ -205,29 +219,30 @@ export class CounselorNotesPageView extends React.Component {
             />
             <Column
               label='Last Seen'
-              dataKey='lastseen'
+              dataKey='last_seen'
               cellRenderer={this.renderLastSeen}
-              width={160}
+              width={140}
+            />
+            <Column
+              label='Seen by'
+              dataKey='educator'
+              cellRenderer={this.renderLastSeenBy}
+              width={120}
             />
             <Column
               label='Meeting Date'
-              dataKey='meetingdate'
+              dataKey='meeting_date'
+              disableSort={true}
               cellRenderer={this.renderCalendar}
               width={100}
             />
             <Column
               label=''
               dataKey='arrows'
+              disableSort={true}
               cellRenderer={this.renderArrow}
-              width={75}
+              width={40}
             />
-            <Column
-              label=''
-              dataKey='buttons'
-              cellRenderer={this.renderTestButtons}
-              width={150}
-            />
-            
           </Table>
         )}
       </AutoSizer>
@@ -238,7 +253,7 @@ export class CounselorNotesPageView extends React.Component {
     const student = cellProps.rowData;
     return (
       <div
-        onClick={e => this.setState({selectedStudent: student})}
+        onClick={this.onStudentClicked.bind(this, student)}
         style={{cursor: 'pointer', display: "flex", justifyContent: "center"}}>
         ▶
       </div>
@@ -249,10 +264,11 @@ export class CounselorNotesPageView extends React.Component {
     const student = this.state.selectedStudent;
     if (!student) return;
 
-    const fetchUrl = `/api/counselor_notes/inline_profile_json?student_id=${student.id}`;
+    const fetchUrl = `/api/counselor_meetings/student_feed_cards_json?student_id=${student.id}`;
     return (
-      <div key={student.id}>
+      <div key={student.id} style={flexVerticalStyle}>
         <GenericLoader
+          style={flexVerticalStyle}
           promiseFn={() => apiFetchJson(fetchUrl)}
           render={this.renderStudentProfile.bind(this, student)}
         />
@@ -266,33 +282,28 @@ export class CounselorNotesPageView extends React.Component {
       <div style={{
         background: 'white',
         border: '0px solid #1b82ea',
-        overflowY: 'scroll',
-        position: 'fixed',
-        right: 20,
-        top: 250,
-        bottom: 0,
-        width: 600
+        // overflowY: 'scroll',
+        // position: 'fixed',
+        // right: 20,
+        // top: 250,
+        // bottom: 0,
+        // width: 600
       }}>
-        <div style={{
-          background: 'antiquewhite',
-          width: 200,
-          height: 200,
-          marginLeft: 10,
-          marginTop: 10
-        }}><StudentPhoto
-              style={{width: 200, height: 200, border: '2px solid #1b82ea'}}
-              student={student}
-              fallbackEl={<span>😃</span>}
-            /></div>
+        <StudentPhoto
+          style={{width: 200, height: 200, border: '2px solid #1b82ea'}}
+          student={student}
+          fallbackEl={<span>😃</span>}
+        />
         <div style={{
           display: 'flex',
           flexDirection: 'row'
         }}>
           <div style={{
-            marginTop: 12,
-            marginLeft: 10
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}>
-          {this.renderBubble(student.meetingMoment)}
+            {this.renderBubble(student.meetingMoment)}
           </div>
           <div style={{
             marginLeft: 10,
@@ -301,17 +312,10 @@ export class CounselorNotesPageView extends React.Component {
           }}> {student.first_name} {student.last_name}</div>
         </div>
 
-        <div style={{
-          fontSize: 24,
-          marginTop: 15,
-          marginLeft: 10
-        }}><SectionHeading>Notes for {student.first_name}</SectionHeading></div>
-        <div>
-        <FeedView
-          //style={style}
-          feedCards={feedCards}
-          cardPropsFn={this.cardPropsFn}
-        /></div>
+        <SectionHeading style={{marginTop: 15}}>
+          Notes for {student.first_name}
+        </SectionHeading>
+        <FeedView feedCards={feedCards} />
       </div>
     );
   }
@@ -322,9 +326,9 @@ export class CounselorNotesPageView extends React.Component {
 
     const daysAgo = this.howManyDaysAgo(student.meetingMoment);    
     return (
-      <div>
+      <div style={{display: 'flex'}}>
         {this.renderBubble(student.meetingMoment)}
-        <div style={{fontSize: 14, float: "left", marginLeft: "15px"}}>
+        <div style={{fontSize: 14, marginLeft: 15}}>
           {daysAgo === 0
             ? <div>Today</div>
             : <div>{daysAgo} {(daysAgo === 1 ? 'day' : 'days')}</div>}
@@ -333,28 +337,39 @@ export class CounselorNotesPageView extends React.Component {
     );
   }
 
+  renderLastSeenBy(cellProps) {
+    const {meetingEducator} = cellProps.rowData;
+    if (!meetingEducator) return null;
+
+    return <Educator educator={meetingEducator} />;
+  }
+
   renderBubble(meetingMoment) {
     const daysAgo = this.howManyDaysAgo(meetingMoment);
     const opacity = computeOpacity(daysAgo);
-    return <div style={{opacity: opacity, height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#1b82ea", borderRadius: "50%", display: "inline-block", float: "left"}}></div>;
+    return <div style={{
+      opacity,
+      height: 15,
+      width: 15,
+      marginTop: 3.5,
+      backgroundColor: '#1b82ea',
+      borderRadius: '50%',
+      display: 'inline-block',
+    }}></div>;
   }
 
   renderCalendar(cellProps){
-    const dateText = '???';
     const student = cellProps.rowData;
-    const disappear = {display: 'none'};
-    if (student.meetingMoment === null) return null;
-
     return (
       <div style={{display: "flex", justifyContent: "center"}}>
         <Datepicker
           className="no-padding"
           styles={{
-            datepicker: styles.datepicker,
-            input: disappear
+            datepicker: { cursor: 'pointer' },
+            input: { display: 'none' } // hide this visually
           }}
-          value={dateText}
-          onChange={meetingDateText => this.TellServer(student.id, meetingDateText)}
+          value={''} // default to today
+          onChange={datepickerDateText => this.tellServer(student.id, datepickerDateText)}
           datepickerOptions={{
             showOn: 'both',
             dateFormat: 'mm/dd/yy',
@@ -363,11 +378,6 @@ export class CounselorNotesPageView extends React.Component {
           }} />
       </div>
     );
-    // return (
-    //   <div style={{display: "flex", justifyContent: "center"}}>
-    //     <img style={{width: "25px", height: "25px"}} src="https://banner2.kisspng.com/20180403/xqq/kisspng-solar-calendar-symbol-computer-icons-encapsulated-calendar-icon-5ac41db876fe09.0405027315228021044874.jpg"></img>
-    //   </div>
-    // );
   }
 
   renderName(cellProps) {
@@ -384,27 +394,13 @@ export class CounselorNotesPageView extends React.Component {
       </div>
     );
   }
-
-  renderSchool(cellProps) {
-    const student = cellProps.rowData;
-    return <School {...student.school} style={{marginRight: 10}} />;
-  }
-
-  renderHouse(cellProps) {
-    const student = cellProps.rowData;
-    return student.house && <HouseBadge house={student.house} showNameOnly={true} />;
-  }
-
-  renderProgram(cellProps) {
-    const student = cellProps.rowData;
-    return <div style={{marginRight: 10}}>{prettyProgramOrPlacementText(student)}</div>;
-  }
 }
-CounselorNotesPageView.contextTypes = {
+CounselorMeetingsView.contextTypes = {
   districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
 };
-CounselorNotesPageView.propTypes = {
+CounselorMeetingsView.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired,
   meetings: PropTypes.array.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -418,16 +414,12 @@ CounselorNotesPageView.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
     }).isRequired,
-  })).isRequired
+  })).isRequired,
+  educatorsIndex: PropTypes.object.isRequired
 };
 
 
 const styles = {
-  flexVertical: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column'
-  },
   nameBlock: {
     display: 'flex',
     justifyContent: 'space-between',
