@@ -167,7 +167,7 @@ export default class FilterStudentsBar extends React.Component {
 FilterStudentsBar.propTypes = {
   includeCounselor: PropTypes.bool.isRequired,
   includeHouse: PropTypes.bool.isRequired,
-  includeTimeRange: PropTypes.bool.isRequired,
+  includeTimeRange: PropTypes.bool,
   students: PropTypes.arrayOf(PropTypes.shape({
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,

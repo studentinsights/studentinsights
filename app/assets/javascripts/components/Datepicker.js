@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 
 
 /*
@@ -50,11 +51,14 @@ export default class Datepicker extends React.Component {
   }
 
   render() {
-    const className = this.props.className || '';
+    const className = _.compact([
+      this.props.className,
+      'Datepicker'
+    ]).join(' ');
     return (
       <div
         ref={el => this.el = el}
-        className={`Datepicker ${className}`}
+        className={className}
         style={this.props.styles.datepicker}>
         <input
           className="datepicker"
@@ -67,7 +71,6 @@ export default class Datepicker extends React.Component {
 }
 
 Datepicker.propTypes = {
-  className: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   styles: PropTypes.shape({
@@ -75,7 +78,8 @@ Datepicker.propTypes = {
     input: PropTypes.object
   }),
   datepickerOptions: PropTypes.object,
-  dynamicUpdate: PropTypes.bool
+  dynamicUpdate: PropTypes.bool,
+  className: PropTypes.string
 };
 
 Datepicker.defaultProps = {
