@@ -17,7 +17,8 @@
   top: 2px !important;
 }
 
-.Datepicker.no-padding img.ui-datepicker-trigger {
+/* see CounselorMeetingView.js */
+.Datepicker.Datepicker-global-override-no-padding img.ui-datepicker-trigger {
   margin-left: 0 !important;
   top: 0 !important;
   width: 22px;

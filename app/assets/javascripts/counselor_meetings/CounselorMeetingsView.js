@@ -364,7 +364,7 @@ export default class CounselorMeetingsView extends React.Component {
     return (
       <div style={{display: "flex", justifyContent: "center"}}>
         <Datepicker
-          className="no-padding"
+          className="Datepicker-global-override-no-padding" // see jquery_ui_datepicker.scss
           styles={{
             datepicker: { cursor: 'pointer' },
             input: { display: 'none' } // hide this visually

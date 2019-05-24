@@ -16,6 +16,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
+import CounselorMeetingsPage from '../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -33,6 +34,7 @@ jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage'
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
 jest.mock('../app/assets/javascripts/student_profile/StudentProfilePage');
+jest.mock('../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage');
 
 
 function renderPath(path, options = {}) {
@@ -205,6 +207,13 @@ it('renders student profile v4', () => {
       queryParams={{foo: 'bar'}}
       history={window.history}
     />
+  )).toEqual(true);
+});
+
+it('renders counselor meetings page', () => {
+  const wrapper = mount(renderPath('/counselors/meetings'));
+  expect(wrapper.contains(
+    <CounselorMeetingsPage currentEducatorId={9999} />
   )).toEqual(true);
 });
 
