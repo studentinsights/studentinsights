@@ -38,7 +38,7 @@ describe CounselorMeetingsController, :type => :controller do
           student_id: student.id,
           meeting_date: '2017-03-21'
         })
-        expect(response.status).to eq 403
+        expect(response.status).to eq 404
       end
     end
 
@@ -137,7 +137,7 @@ describe CounselorMeetingsController, :type => :controller do
     it 'guards access by student' do
       [pals.healey_kindergarten_student, pals.west_eighth_ryan].each do |student|
         get_student_feed_cards_json(pals.shs_sofia_counselor, student_id: student.id)
-        expect(response.status).to eq 403
+        expect(response.status).to eq 404
       end
     end
 
