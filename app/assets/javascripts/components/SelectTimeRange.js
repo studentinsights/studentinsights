@@ -22,6 +22,7 @@ export default function SelectTimeRange(props) {
   return (
     <SimpleFilterSelect
       searchable={false}
+      placeholder="Time range..."
       value={timeRangeKey}
       onChange={onChange}
       options={options} 
@@ -53,12 +54,13 @@ export function momentRange(timeRangeKey, nowMoment) {
 // Translate to user-facing text
 export function timeRangeText(timeRangeKey) {
   return {
-    TIME_RANGE_7_DAYS_AGO: 'Last 7 days',
-    TIME_RANGE_30_DAYS_AGO: 'Last 30 days',
-    TIME_RANGE_45_DAYS_AGO: 'Last 45 days',
-    TIME_RANGE_90_DAYS_AGO: 'Last 90 days',
-    TIME_RANGE_SCHOOL_YEAR: 'This school year',
-    TIME_RANGE_FOUR_YEARS: 'Last four years'
+    [TIME_RANGE_7_DAYS_AGO]: 'Last 7 days',
+    [TIME_RANGE_30_DAYS_AGO]: 'Last 30 days',
+    [TIME_RANGE_45_DAYS_AGO]: 'Last 45 days',
+    [TIME_RANGE_90_DAYS_AGO]: 'Last 90 days',
+    [TIME_RANGE_SCHOOL_YEAR]: 'This school year',
+    [TIME_RANGE_FOUR_YEARS]: 'Last four years',
+    [TIME_RANGE_ALL]: 'Include all'
   }[timeRangeKey];
 }
 

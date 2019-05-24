@@ -39,6 +39,7 @@ export default class CounselorMeetingsPage extends React.Component {
     return (
       <CounselorMeetingsView
         currentEducatorId={currentEducatorId}
+        schoolYear={json.school_year}
         educatorsIndex={json.educators_index}
         students={json.students}
         meetings={json.meetings}

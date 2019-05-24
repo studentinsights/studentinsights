@@ -62,9 +62,9 @@ export default class CounselorMeetingsView extends React.Component {
   }
 
   timeFilterFn(student, timeRangeKey) {
+    if (timeRangeKey === TIME_RANGE_ALL) return true; // no filter
+    
     if (!student.meetingMoment) return false;
-    if (timeRangeKey === TIME_RANGE_ALL) return true;
-
     const {nowFn} = this.context;
     const nowMoment = nowFn();
     const range = momentRange(timeRangeKey, nowMoment);
@@ -141,11 +141,12 @@ export default class CounselorMeetingsView extends React.Component {
 
   render() {
     const {districtKey} = this.context;
+    const {schoolYear} = this.props;
     const students = this.studentsWithMeetings();
 
     return (
       <div style={{...flexVerticalStyle, margin: 10}}>
-        <SectionHeading>Counselor Meetings 2019</SectionHeading>
+        <SectionHeading>Counselor Meetings {schoolYear}-{schoolYear+1}</SectionHeading>
         <FilterStudentsBar
           students={students}
           style={{...flexVerticalStyle, marginLeft: 10, marginTop: 20}}
@@ -164,11 +165,11 @@ export default class CounselorMeetingsView extends React.Component {
   renderContents(filteredStudents) {
     return (
       <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>
-        <div style={{minWidth: 700}}>{this.renderTable(filteredStudents)}</div>
+        <div style={{minWidth: 600}}>{this.renderTable(filteredStudents)}</div>
         <AutoSizer disableWidth>{({height}) => (
           <div style={{height, flex: 1, overflowY: 'scroll'}}>
             <div style={{paddingTop: 50, paddingLeft: 20, paddingRight: 10}}>
-              {this.renderSelectedStudent()}
+              {this.renderSelectedStudent(filteredStudents)}
             </div>
           </div>
         )}</AutoSizer>
@@ -221,13 +222,13 @@ export default class CounselorMeetingsView extends React.Component {
               label='Last Seen'
               dataKey='last_seen'
               cellRenderer={this.renderLastSeen}
-              width={140}
+              width={120}
             />
             <Column
               label='Seen by'
               dataKey='educator'
               cellRenderer={this.renderLastSeenBy}
-              width={120}
+              width={100}
             />
             <Column
               label='Meeting Date'
@@ -260,9 +261,9 @@ export default class CounselorMeetingsView extends React.Component {
     );
   }
 
-  renderSelectedStudent() {
+  renderSelectedStudent(filteredStudents) {
     const student = this.state.selectedStudent;
-    if (!student) return;
+    if (!student || !_.find(filteredStudents, {id: student.id})) return;
 
     const fetchUrl = `/api/counselor_meetings/student_feed_cards_json?student_id=${student.id}`;
     return (
@@ -401,6 +402,7 @@ CounselorMeetingsView.contextTypes = {
 };
 CounselorMeetingsView.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
+  schoolYear: PropTypes.number.isRequired,
   meetings: PropTypes.array.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,

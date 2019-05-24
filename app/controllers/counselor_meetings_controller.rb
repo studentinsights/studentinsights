@@ -21,10 +21,17 @@ class CounselorMeetingsController < ApplicationController
   end
 
   def meetings_json
+    params.permit(:school_year)
+    school_year = params.fetch(:school_year, SchoolYear.to_school_year(Time.now))
+
     students = authorized { Student.active.includes(:school, :student_photos).to_a }
-    meetings = CounselorMeeting.all.where(student_id: students.map(&:id))
+    first_day_of_school = SchoolYear.first_day_of_school_for_year(school_year)
+    meetings = CounselorMeeting.all
+      .where(student_id: students.map(&:id))
+      .where('meeting_date >= ?', first_day_of_school)
     render json: {
       educators_index: Educator.to_index,
+      school_year: school_year,
       meetings: meetings,
       students: students_json(students)
     }

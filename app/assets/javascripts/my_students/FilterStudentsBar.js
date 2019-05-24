@@ -144,6 +144,7 @@ export default class FilterStudentsBar extends React.Component {
     
     return (
       <SelectTimeRange
+        style={{width: '9em'}}
         timeRangeKey={timeRangeKey}
         timeRangeKeys={timeRangeKeys}
         onChange={this.onTimeRangeChanged} />
@@ -209,7 +210,7 @@ function initialState() {
     grade: ALL,
     house: ALL,
     counselor: ALL,
-    timeRangeKey: TIME_RANGE_30_DAYS_AGO
+    timeRangeKey: TIME_RANGE_ALL
   };
 }
 
