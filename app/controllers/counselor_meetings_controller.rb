@@ -22,7 +22,7 @@ class CounselorMeetingsController < ApplicationController
     params.permit(:school_year)
     school_year = params.fetch(:school_year, SchoolYear.to_school_year(Time.now))
 
-    students = authorized do 
+    students = authorized do
       allowed_students.includes(:school, :student_photos).to_a
     end
     first_day_of_school = SchoolYear.first_day_of_school_for_year(school_year)
@@ -79,12 +79,12 @@ class CounselorMeetingsController < ApplicationController
   def allowed_students
     allowed_grades = ['9', '10', '11', '12']
     allowed_school_ids = [School.find_by_local_id('SHS').try(:id)].compact
-    
+
     Student.active
       .where(grade: allowed_grades)
       .where(school_id: allowed_school_ids)
   end
-  
+
   def students_json(students)
     students.as_json({
       only: [
