@@ -2,10 +2,10 @@
 # file_text = <<EOD
 # ...
 # EOD
-# importer = MtssReferralImporter.new
+# importer = MtssReferralProcessor.new
 # rows = importer.process(file_text);nil
 # event_notes = rows.map {|row| EventNote.create!(row) };nil
-class MtssReferralImporter
+class MtssReferralProcessor
   def initialize(options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
@@ -104,6 +104,6 @@ class MtssReferralImporter
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "MtssReferralImporter: #{text}"
+    @log.puts "MtssReferralProcessor: #{text}"
   end
 end

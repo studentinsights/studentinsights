@@ -47,6 +47,19 @@ export function gradeText(grade) {
   return grade;
 }
 
+// ordered
 export function allGrades() {
-  return Object.keys(ORDERED_GRADES);
+  return _.sortBy(Object.keys(ORDERED_GRADES), grade => ORDERED_GRADES[grade]);
+}
+
+export function nextGrade(grade) {
+  const grades = allGrades();
+  const index = grades.indexOf(grade);
+  return (index >= grades.length) ? null : grades[index + 1];
+}
+
+export function previousGrade(grade) {
+  const grades = allGrades();
+  const index = grades.indexOf(grade);
+  return (index <= 0) ? null : grades[index - 1];
 }

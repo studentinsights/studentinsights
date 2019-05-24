@@ -1,4 +1,12 @@
 module MockAwsS3
+  def self.create_real_or_mock
+    if EnvironmentVariable.is_true('USE_PLACEHOLDER_STUDENT_PHOTO')
+      MockAwsS3.with_student_photo_mocked
+    else
+      Aws::S3::Client.new
+    end
+  end
+
   def self.with_put_mocked
     MockClientForPut.new
   end

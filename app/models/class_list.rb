@@ -12,10 +12,11 @@ class ClassList < ApplicationRecord
   belongs_to :created_by_teacher_educator, class_name: 'Educator'
   belongs_to :revised_by_principal_educator, class_name: 'Educator'
 
-  validates :grade_level_next_year, presence: true
   validates :school_id, presence: true
+  validates :grade_level_next_year, presence: true
+  validates :list_type_text, presence: true
   validates :created_by_teacher_educator_id, presence: true
-  validate :validate_consistent_workspace_grade_school
+  validate :validate_consistent_workspace_grade_school_list_type_text
   validate :validate_single_writer_in_workspace
   validate :validate_submitted_not_undone
 
@@ -31,8 +32,12 @@ class ClassList < ApplicationRecord
 
   # Get latest by workspace_id.  See ClassListQueries#all_authorized_workspaces
   # for authorization-aware method.
-  def self.unsafe_all_workspaces_without_authorization_check
-    all_class_lists = ClassList.order(created_at: :desc)
+  def self.unsafe_all_workspaces_without_authorization_check(options = {})
+    all_class_lists = if options.has_key?(:created_after)
+      ClassList.order(created_at: :desc).where('created_at > ?', options[:created_after])
+    else
+      ClassList.order(created_at: :desc)
+    end
     all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
       most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
       ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
@@ -73,9 +78,10 @@ class ClassList < ApplicationRecord
   end
 
   # These shouldn't change over the life of a workspace, so if we find
-  # any workspace_id records with different grade or school, fail the validation.
-  def validate_consistent_workspace_grade_school
-    validate_consistent_values_within_workspace([:school_id, :grade_level_next_year])
+  # any workspace_id records with different grade or school or list_type_text,
+  # and then fail the validation.
+  def validate_consistent_workspace_grade_school_list_type_text
+    validate_consistent_values_within_workspace([:school_id, :grade_level_next_year, :list_type_text])
   end
 
   # Only one writer can write to a workspace

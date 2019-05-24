@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe FAndPImporter do
+RSpec.describe FAndPProcessor do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/f_and_p_importer/f_and_p_importer_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/reading/f_and_p_processor.csv")
   end
 
   describe 'integration test' do
@@ -10,7 +10,7 @@ RSpec.describe FAndPImporter do
       pals = TestPals.create!
       benchmark_date = Date.parse('2018/12/19')
       matcher = ImportMatcher.new
-      importer = FAndPImporter.new(benchmark_date, pals.uri.id, matcher: matcher)
+      importer = FAndPProcessor.new(benchmark_date, pals.uri.id, matcher: matcher)
       f_and_ps = importer.import(fixture_file_text)
 
       expect(f_and_ps.size).to eq 1

@@ -5,6 +5,7 @@ export default {
     "created_by_teacher_educator_id": 999999,
     "school_id": 2,
     "grade_level_next_year": "3",
+    "list_type_text": "homerooms",
     "submitted": false,
     "json": {
       "stepIndex": 1,

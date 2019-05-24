@@ -26,7 +26,7 @@ gem 'memory_profiler'       # Used in rake task so needs to be included in produ
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'net-ldap'
-gem 'nokogiri', '~> 1.8.1'  # Forcing patching version on transitive dependency
+gem 'nokogiri'
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'openssl'

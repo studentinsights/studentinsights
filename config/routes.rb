@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   get '/api/educators/view/:id' => 'educators#show'
   get '/api/educators/my_students_json' => 'educators#my_students_json'
+  get '/api/educators/student_searchbar_json' => 'educators#student_searchbar_json'
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards
@@ -48,6 +49,10 @@ Rails.application.routes.draw do
   get '/api/reading/teams_json' => 'reading#teams_json'
   post '/api/reading/grouping_snapshot_json/:grouping_workspace_id' => 'reading#grouping_snapshot_json'
 
+  # reading_debug
+  get '/api/reading_debug/reading_debug_json' => 'reading_debug#reading_debug_json'
+  get '/api/reading_debug/star_reading_debug_json' => 'reading_debug#star_reading_debug_json'
+
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
   get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
@@ -56,7 +61,10 @@ Rails.application.routes.draw do
   post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
   get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
   get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
-  get '/api/class_lists/experimental_workspaces_with_equity_json' => 'class_lists#experimental_workspaces_with_equity_json'
+
+  # equity
+  get '/api/equity/classlists_equity_index_json' => 'equity#classlists_equity_index_json'
+  get '/api/equity/stats_by_school_json' => 'equity#stats_by_school_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
@@ -96,6 +104,12 @@ Rails.application.routes.draw do
 
   # HS levels
   get '/api/levels/:school_id/show_json' => 'levels#show_json'
+
+  # shs counselor meetings
+  get '/api/counselor_meetings/meetings_json' => 'counselor_meetings#meetings_json'
+  post '/api/counselor_meetings' => 'counselor_meetings#create'
+  get '/api/counselor_meetings/student_feed_cards_json' => 'counselor_meetings#student_feed_cards_json'
+
 
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
@@ -143,8 +157,6 @@ Rails.application.routes.draw do
   # K8 homeroom page
   get '/homerooms/:id' => 'ui#ui', as: :homeroom
 
-  get '/students/names' => 'students#names'
-
   resources :students, only: [] do
     member do
       get '/' => 'ui#ui'
@@ -172,9 +184,10 @@ Rails.application.routes.draw do
     member do
       get '' => 'ui#ui'
       get '/new' => 'ui#ui'
-      get '/equity' => 'ui#ui'
+      get '/schools' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
       get '/:workspace_id/text' => 'class_lists#text'
+      get '/:workspace_id/students/:student_id/photo' => 'class_lists#student_photo'
     end
   end
 
@@ -187,15 +200,27 @@ Rails.application.routes.draw do
       get 'tardies' => 'ui#ui'
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
-      get 'equity/explore' => 'ui#ui'
       get 'reading/:grade/entry' => 'ui#ui'
       get 'reading/:grade/groups' => 'ui#ui'
     end
   end
 
-  # counselor meeting
-  get '/counselors/meetings' =>'ui#ui'
-  get '/api/counselor_meetings/meetings_json' => 'counselor_meetings#meetings_json'
-  post '/api/counselor_meetings' => 'counselor_meetings#create'
-  get '/api/counselor_meetings/student_feed_cards_json' => 'counselor_meetings#student_feed_cards_json'
+  resource :reading, only: [] do
+    member do
+      get '/debug' => 'ui#ui'
+      get '/debug_star' => 'ui#ui'
+      get '/debug_csv' => 'reading_debug#reading_debug_csv'
+    end
+  end
+
+  resource :equity, only: [] do
+    get '/stats_by_school' => 'ui#ui'
+    get '/classlists_index' => 'ui#ui'
+    get '/schools/:school_id/explore' => 'ui#ui'
+    get '/schools/:school_id/quilts' => 'ui#ui'
+  end
+
+  resource :counselors, only: [] do
+    get '/meetings' => 'ui#ui'
+  end
 end

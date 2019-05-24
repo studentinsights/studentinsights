@@ -1,3 +1,4 @@
+# deprecated, see MegaReadingProcessor and ReadingBenchmarkDataPoint
 # Used on the console to import data about F&P assessments.
 #
 # Usage:
@@ -6,8 +7,8 @@
 # EOD
 # benchmark_date = Date.parse('2018/12/19')
 # educator = Educator.find_by_login_name('...')
-# output = FAndPImporter.new(benchmark_date, educator.id).import(file_text);nil
-class FAndPImporter
+# output = FAndPProcessor.new(benchmark_date, educator.id).import(file_text);nil
+class FAndPProcessor
   def initialize(benchmark_date, educator_id, options = {})
     @benchmark_date = benchmark_date
     @educator_id = educator_id
@@ -51,6 +52,6 @@ class FAndPImporter
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "FandPImporter: #{text}"
+    @log.puts "FandPProcessor: #{text}"
   end
 end

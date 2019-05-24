@@ -1,5 +1,7 @@
 # Helper for fuzzily matching names to student records
 # Intended more for semi-automated console use, patching up data before import.
+# Includes inactive students by default so data is still imported (eg,
+# after a student moves).
 #
 # Example:
 #   matcher = FuzzyStudentMatcher.new
@@ -7,6 +9,7 @@
 class FuzzyStudentMatcher
   def initialize(options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @active_students_only = options.fetch(:active_students_only, false)
     reset_counters!
   end
 
@@ -55,21 +58,24 @@ class FuzzyStudentMatcher
     }
   end
 
+  def search_students
+    if @active_students_only then Student.active else Student.all end
+  end
+
   def guess_from_name(full_name)
     return nil if full_name.nil? || full_name.empty?
 
-    student = match_active_student_exactly(full_name)
+    student = match_student_exactly(full_name)
     return student.id if student.present?
 
-    fuzzy_matches = fuzzy_match_active_student_name(full_name)
+    fuzzy_matches = fuzzy_match_student_name(full_name)
     return fuzzy_matches.first[:id] if fuzzy_matches.size == 1
 
     nil
   end
 
-  def match_active_student_exactly(full_name)
-    first_name, last_name = full_name.split(' ')
-    students = Student.active.where(first_name: first_name, last_name: last_name)
+  def match_student_exactly(full_name)
+    students = search_students.where('concat(first_name, \' \', last_name) = ?', full_name)
     return students.first if students.size == 1
     nil
   end
@@ -106,11 +112,10 @@ class FuzzyStudentMatcher
     end
   end
 
-  # also check student is active
-  def fuzzy_match_active_student_name(full_name_text, options = {})
+  def fuzzy_match_student_name(full_name_text, options = {})
     results = fuzzy_match_any_student_name(full_name_text, options)
 
-    active_student_ids = Student.active.where(id: results.pluck(:id)).pluck(:id)
+    active_student_ids = search_students.where(id: results.pluck(:id)).pluck(:id)
     results.select do |result|
       active_student_ids.include?(result[:id])
     end

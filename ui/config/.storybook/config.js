@@ -47,6 +47,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/class_lists/ClassListCreatorPage.story');
   require('../../../app/assets/javascripts/class_lists/ClassListCreatorWorkflow.story');
   require('../../../app/assets/javascripts/class_lists/CreateYourLists.story');
+  require('../../../app/assets/javascripts/class_lists/ClassroomStats.story');
   require('../../../app/assets/javascripts/class_lists/StudentCard.story');
   require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story');
   require('../../../app/assets/javascripts/class_lists/ExportList.story');

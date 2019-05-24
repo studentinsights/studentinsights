@@ -7,11 +7,10 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import {IDLE} from '../helpers/requestStates';
-import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import NoteCard from './NoteCard';
 import {parseAndReRender} from './transitionNoteParser';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
-import CleanSlateMessage from './CleanSlateMessage';
+import CleanSlateMessage, {defaultSchoolYearsBack, filteredNotesForCleanSlate} from './CleanSlateMessage';
 
 
 /*
@@ -31,15 +30,10 @@ export default class NotesList extends React.Component {
   filteredNotes(mergedNotes) {
     const {isViewingAllNotes} = this.state;
     if (isViewingAllNotes) return mergedNotes;
-
+    
     const {nowFn} = this.context;
     const {defaultSchoolYearsBack} = this.props;
-    const nowMoment = nowFn();
-    const oldestSchoolYearToIncluce = toSchoolYear(nowMoment) - defaultSchoolYearsBack.number;
-    const schoolYearsBackCutoffMoment = firstDayOfSchool(oldestSchoolYearToIncluce);
-    return mergedNotes.filter(mergedNote => {
-      return toMomentFromRailsDate(mergedNote.sort_timestamp).isAfter(schoolYearsBackCutoffMoment);
-    });
+    return filteredNotesForCleanSlate(mergedNotes, defaultSchoolYearsBack.number, nowFn);
   }
 
   onToggleCaseHistory() {
@@ -237,10 +231,7 @@ NotesList.propTypes = {
 };
 NotesList.defaultProps = {
   forceShowingAllNotes: false,
-  defaultSchoolYearsBack: {
-    number: 1,
-    textYears: 'one year'
-  }
+  defaultSchoolYearsBack
 };
 NotesList.contextTypes = {
   nowFn: PropTypes.func.isRequired

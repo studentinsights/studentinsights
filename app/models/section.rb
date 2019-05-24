@@ -1,4 +1,5 @@
 class Section < ApplicationRecord
+  # Exclude term values that are empty strings
   VALID_TERM_VALUES = [
     '9', 'FY', # all year
     '1', 'S1', 'Q1', 'Q2', # first semester or first two quarters

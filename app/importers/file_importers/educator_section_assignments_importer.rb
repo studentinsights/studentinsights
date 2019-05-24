@@ -97,7 +97,11 @@ class EducatorSectionAssignmentsImporter
 
   def find_section_id(row)
     return nil if row[:section_number].nil?
-    Section.find_by_section_number(row[:section_number]).try(:id)
+    return nil if row[:term_local_id].nil? # export includes empty string (<10 records) but we disallow in model validations
+    Section.find_by({
+      section_number: row[:section_number],
+      term_local_id: row[:term_local_id]
+    }).try(:id)
   end
 
   def find_educator_id(row)

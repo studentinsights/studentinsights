@@ -38,6 +38,23 @@ export default class CreateYourListsView extends React.Component {
     this.setState({highlightKey});
   }
 
+  onSort(roomKey) {
+    const {students, studentIdsByRoom, onClassListsChanged} = this.props;
+    const roomStudentIdsSortedByName = _.sortBy(studentIdsByRoom[roomKey], studentId => {
+      const student = _.find(students, {id: studentId});
+      return (student) ? `${student.last_name}, ${student.first_name}` : null;
+    });
+
+    // alow clicking twice to reverse
+    const roomStudentIdsSortedByNameConsideringReverse = (_.isEqual(roomStudentIdsSortedByName, studentIdsByRoom[roomKey]))
+      ? roomStudentIdsSortedByName.slice().reverse()
+      : roomStudentIdsSortedByName;
+    onClassListsChanged({
+      ...studentIdsByRoom,
+      [roomKey]: roomStudentIdsSortedByNameConsideringReverse
+    });
+  }
+
   render() {
     const {
       students,
@@ -81,6 +98,7 @@ export default class CreateYourListsView extends React.Component {
                 <div>
                   <div style={styles.roomTitle}>
                     <span style={{fontWeight: 'bold'}}>{roomName}</span>
+                    <span style={styles.roomSortLink} onClick={this.onSort.bind(this, roomKey)}>sort</span>
                     <span style={styles.roomStudentCount}>({classroomStudents.length})</span>
                   </div>
                 </div>
@@ -108,16 +126,21 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    const {fetchProfile, isEditable, styleStudentFn} = this.props;
+    const {fetchProfile, studentPhotoUrlFn, gradeLevelNextYear, isEditable, styleStudentFn} = this.props;
     const {highlightKey} = this.state;
-    return <StudentCard
-      key={student.id}
-      highlightKey={highlightKey}
-      style={styleStudentFn && styleStudentFn(student)}
-      student={student}
-      index={index}
-      fetchProfile={fetchProfile}
-      isEditable={isEditable} />;
+    return (
+      <StudentCard
+        key={student.id}
+        highlightKey={highlightKey}
+        style={styleStudentFn && styleStudentFn(student)}
+        studentPhotoUrl={studentPhotoUrlFn(student.id)}
+        student={student}
+        gradeLevelNextYear={gradeLevelNextYear}
+        index={index}
+        fetchProfile={fetchProfile}
+        isEditable={isEditable}
+      />
+    );
   }
 }
 CreateYourListsView.propTypes = {
@@ -128,6 +151,7 @@ CreateYourListsView.propTypes = {
   students: PropTypes.array.isRequired,
   studentIdsByRoom: PropTypes.object.isRequired,
   fetchProfile: PropTypes.func.isRequired,
+  studentPhotoUrlFn: PropTypes.func.isRequired,
   styleStudentFn: PropTypes.func,
   onClassListsChanged: PropTypes.func.isRequired,
   onExpandVerticallyToggled: PropTypes.func.isRequired,
@@ -204,6 +228,12 @@ const styles = {
     // to place this over the rounded border right below
     position: 'relative',
     top: 3
+  },
+  roomSortLink: {
+    cursor: 'pointer',
+    paddingLeft: 10,
+    color: '#666',
+    fontSize: 12
   },
   roomStudentCount: {
     float: 'right',

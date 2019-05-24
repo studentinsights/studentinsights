@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import ExportList from './ExportList';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
-import {exportPropsWithTeacherNames} from './ClassListCreatorWorkflow.test';
+import {exportPropsWithTeacherNames} from './ClassListCreatorWorkflow.fixtures';
 
 
 export function testProps(props = {}) {
