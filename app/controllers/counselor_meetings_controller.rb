@@ -62,7 +62,7 @@ class CounselorMeetingsController < ApplicationController
   # Also restrict by grade
   def find_authorized_student_or_raise!(student_id)
     authorized_or_raise! do
-      allowed_students.find(student_id)
+      allowed_students.find(student_id) # can raise a 404
     end
   end
 
