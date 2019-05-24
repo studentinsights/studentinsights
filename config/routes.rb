@@ -105,6 +105,12 @@ Rails.application.routes.draw do
   # HS levels
   get '/api/levels/:school_id/show_json' => 'levels#show_json'
 
+  # shs counselor meetings
+  get '/api/counselor_meetings/meetings_json' => 'counselor_meetings#meetings_json'
+  post '/api/counselor_meetings' => 'counselor_meetings#create'
+  get '/api/counselor_meetings/student_feed_cards_json' => 'counselor_meetings#student_feed_cards_json'
+
+
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
@@ -117,7 +123,7 @@ Rails.application.routes.draw do
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
-  get '/educators/my_notes'=> 'ui#ui'
+  get '/educators/my_notes' => 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/probe'=> 'educators#probe'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
@@ -212,5 +218,9 @@ Rails.application.routes.draw do
     get '/classlists_index' => 'ui#ui'
     get '/schools/:school_id/explore' => 'ui#ui'
     get '/schools/:school_id/quilts' => 'ui#ui'
+  end
+
+  resource :counselors, only: [] do
+    get '/meetings' => 'ui#ui'
   end
 end

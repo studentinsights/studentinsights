@@ -11,7 +11,7 @@ import Loading from './Loading';
 // <GenericLoader
 //    promiseFn={fetch('/foos').then(response => response.json())}
 //    render={foos => this.renderFoos(foo)} />
-class GenericLoader extends React.Component {
+export default class GenericLoader extends React.Component {
   constructor(props) {
     super(props);
     this.renderGeneric = this.renderGeneric.bind(this);
@@ -50,4 +50,9 @@ GenericLoader.propTypes = {
   style: PropTypes.object
 };
 
-export default GenericLoader;
+// sugar, commonly used with this component
+export const flexVerticalStyle = {
+  display: 'flex',
+  flex: 1,
+  flexDirection: 'column'
+};

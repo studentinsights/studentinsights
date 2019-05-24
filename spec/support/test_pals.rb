@@ -265,6 +265,10 @@ class TestPals
       educator: @shs_sofia_counselor,
       label_key: 'use_counselor_based_feed'
     })
+    EducatorLabel.create!({
+      educator: @shs_sofia_counselor,
+      label_key: 'enable_counselor_meetings_page'
+    })
     CounselorNameMapping.create!({
       counselor_field_text: 'sofia',
       educator_id: @shs_sofia_counselor.id
