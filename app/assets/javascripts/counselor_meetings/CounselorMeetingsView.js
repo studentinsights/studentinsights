@@ -68,7 +68,7 @@ export default class CounselorMeetingsView extends React.Component {
     const {nowFn} = this.context;
     const nowMoment = nowFn();
     const range = momentRange(timeRangeKey, nowMoment);
-    return student.meetingMoment.isBetween(range[0], range[1]);
+    return student.meetingMoment.isBetween(range[0], range[1], null, '[]'); // inclusive check
   }
 
   orderedStudents(students) {
@@ -280,18 +280,9 @@ export default class CounselorMeetingsView extends React.Component {
   renderStudentProfile(student, json) {
     const feedCards = json.feed_cards;
     return (
-      <div style={{
-        background: 'white',
-        border: '0px solid #1b82ea',
-        // overflowY: 'scroll',
-        // position: 'fixed',
-        // right: 20,
-        // top: 250,
-        // bottom: 0,
-        // width: 600
-      }}>
+      <div style={{background: 'white', fontSize: 14}}>
         <StudentPhoto
-          style={{width: 200, height: 200, border: '2px solid #1b82ea'}}
+          style={{height: 200, border: '2px solid #1b82ea'}}
           student={student}
           fallbackEl={<span>😃</span>}
         />

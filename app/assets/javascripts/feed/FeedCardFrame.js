@@ -103,7 +103,8 @@ const styles = {
   by: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    textAlign: 'right'
   },
   footer: {
     display: 'flex',
