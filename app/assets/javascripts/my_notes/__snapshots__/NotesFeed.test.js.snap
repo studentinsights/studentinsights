@@ -40,7 +40,7 @@ exports[`snapshots view 1`] = `
     }
   >
     Showing 
-    5
+    2
      notes
   </div>
   <div
@@ -57,128 +57,166 @@ exports[`snapshots view 1`] = `
       className="notes-list"
       style={
         Object {
-          "flex": 2,
+          "flex": 1,
         }
       }
     >
       <div>
         <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
+          className="EventNoteCard"
         >
           <div
+            className="Card FeedCardFrame"
             style={
               Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/79"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                White
-                , 
-                Elsa
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/9"
-              >
-                Somerville High
-              </a>
-            </p>
-            <p>
-              10
-              th Grade
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
+                "border": "1px solid #ccc",
+                "borderRadius": 3,
+                "marginTop": 20,
+                "padding": 10,
               }
             }
           >
             <div
+              className="FeedCardFrame-FrameHeader"
               style={
                 Object {
+                  "alignItems": "flex-start",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "space-between",
                 }
               }
             >
-              <span
-                className="date"
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
+                    "display": "flex",
                   }
                 }
               >
-                August 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
+                <div
+                  className="StudentPhotoCropped"
+                  style={
+                    Object {
+                      "backgroundColor": "#ddd",
+                      "backgroundImage": "url(/students/46/photo)",
+                      "backgroundPosition": "center top",
+                      "backgroundPositionY": -10,
+                      "backgroundRepeat": "no-repeat",
+                      "backgroundSize": "150%",
+                      "border": "1px solid #ddd",
+                      "borderRadius": 3,
+                      "height": 58,
+                      "marginRight": 10,
+                      "overflow": "hidden",
+                      "width": 58,
+                    }
                   }
-                }
-              >
-                SST Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
                   }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
                 >
-                  Uri Disney
-                </a>
-              </span>
+                  <div>
+                    <a
+                      href="/students/46"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Pocahontas
+                       
+                      White
+                    </a>
+                  </div>
+                  <div>
+                    5th grade
+                  </div>
+                  <div>
+                    <span
+                      className="Homeroom"
+                      style={Object {}}
+                    >
+                      <a
+                        href="/homerooms/3"
+                      >
+                        WSNS 501
+                      </a>
+                      <span>
+                        <span>
+                           
+                        </span>
+                         with 
+                        <a
+                          className="Educator"
+                          href="mailto:marcus@demo.studentinsights.org"
+                          style={Object {}}
+                        >
+                          Marcus Teacher
+                        </a>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "flexDirection": "column",
+                  }
+                }
+              >
+                <div>
+                  <div>
+                    <span>
+                      by 
+                    </span>
+                    <a
+                      className="Educator"
+                      href="mailto:uri@demo.studentinsights.org"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Uri Disney
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    in 
+                    Parent conversation
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="Timestamp"
+                    style={Object {}}
+                  >
+                    in a year
+                     on 
+                    5/25
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               style={
                 Object {
-                  "marginTop": 10,
+                  "marginBottom": 20,
+                  "marginTop": 20,
                 }
               }
             >
@@ -239,670 +277,191 @@ exports[`snapshots view 1`] = `
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/79"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                White
-                , 
-                Elsa
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/9"
-              >
-                Somerville High
-              </a>
-            </p>
-            <p>
-              10
-              th Grade
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
-              }
-            }
-          >
             <div
+              className="FeedCardFrame-footer"
               style={
                 Object {
                   "display": "flex",
                   "justifyContent": "space-between",
+                  "marginBottom": 5,
                 }
               }
             >
-              <span
-                className="date"
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
-                  }
-                }
-              >
-                August 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                MTSS Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
-                }
-              }
-            >
+              <div />
               <div>
-                <div
-                  className="RestrictedNotePresence"
-                >
-                  <div>
-                    <div
-                      className="NoteText"
-                      style={
-                        Object {
-                          "border": 0,
-                          "color": "#999",
-                          "fontFamily": "'Open Sans', sans-serif",
-                          "fontSize": 14,
-                          "marginTop": 5,
-                          "outline": "1px solid transparent",
-                          "overflowX": "hidden",
-                          "padding": 0,
-                          "whiteSpace": "pre-wrap",
-                          "wordBreak": "break-word",
-                        }
-                      }
-                    >
-                      To respect their privacy, Uri or an administrator marked this note as restricted.
-                    </div>
-                  </div>
-                </div>
-                <div
+                <span
+                  className="Badge"
                   style={
                     Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "justifyContent": "space-between",
-                      "marginTop": 15,
+                      "backgroundColor": "#CDD71A",
+                      "color": "white",
+                      "marginLeft": 5,
+                      "opacity": 0.5,
+                      "padding": 5,
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                </div>
+                  Parent conversation
+                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
+          className="EventNoteCard"
         >
           <div
+            className="Card FeedCardFrame"
             style={
               Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/79"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                White
-                , 
-                Elsa
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/9"
-              >
-                Somerville High
-              </a>
-            </p>
-            <p>
-              10
-              th Grade
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
+                "border": "1px solid #ccc",
+                "borderRadius": 3,
+                "marginTop": 20,
+                "padding": 10,
               }
             }
           >
             <div
+              className="FeedCardFrame-FrameHeader"
               style={
                 Object {
+                  "alignItems": "flex-start",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "space-between",
                 }
               }
             >
-              <span
-                className="date"
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
+                    "display": "flex",
                   }
                 }
               >
-                August 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                MTSS Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
-                }
-              }
-            >
-              <div>
                 <div
-                  className="RestrictedNotePresence"
-                >
-                  <div>
-                    <div
-                      className="NoteText"
-                      style={
-                        Object {
-                          "border": 0,
-                          "color": "#999",
-                          "fontFamily": "'Open Sans', sans-serif",
-                          "fontSize": 14,
-                          "marginTop": 5,
-                          "outline": "1px solid transparent",
-                          "overflowX": "hidden",
-                          "padding": 0,
-                          "whiteSpace": "pre-wrap",
-                          "wordBreak": "break-word",
-                        }
-                      }
-                    >
-                      To respect their privacy, Uri or an administrator marked this note as restricted.
-                    </div>
-                  </div>
-                </div>
+                  className="StudentPhotoCropped"
+                  style={
+                    Object {
+                      "backgroundColor": "#ddd",
+                      "backgroundImage": "url(/students/46/photo)",
+                      "backgroundPosition": "center top",
+                      "backgroundPositionY": -10,
+                      "backgroundRepeat": "no-repeat",
+                      "backgroundSize": "150%",
+                      "border": "1px solid #ddd",
+                      "borderRadius": 3,
+                      "height": 58,
+                      "marginRight": 10,
+                      "overflow": "hidden",
+                      "width": 58,
+                    }
+                  }
+                />
                 <div
                   style={
                     Object {
-                      "alignItems": "center",
+                      "alignItems": "flex-start",
                       "display": "flex",
-                      "justifyContent": "space-between",
-                      "marginTop": 15,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
                     }
                   }
-                >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/10"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                Disney
-                , 
-                Donald
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/2"
-              >
-                Arthur D Healey
-              </a>
-            </p>
-            <p>
-              <a
-                className="homeroom-link"
-                href="/homerooms/1"
-              >
-                Homeroom HEA 003
-              </a>
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "display": "flex",
-                  "justifyContent": "space-between",
-                }
-              }
-            >
-              <span
-                className="date"
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
-                  }
-                }
-              >
-                August 20, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                SST Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
-                }
-              }
-            >
-              <div>
-                <div
-                  className="RestrictedNotePresence"
                 >
                   <div>
-                    <div
-                      className="NoteText"
+                    <a
+                      href="/students/46"
                       style={
                         Object {
-                          "border": 0,
-                          "color": "#999",
-                          "fontFamily": "'Open Sans', sans-serif",
-                          "fontSize": 14,
-                          "marginTop": 5,
-                          "outline": "1px solid transparent",
-                          "overflowX": "hidden",
-                          "padding": 0,
-                          "whiteSpace": "pre-wrap",
-                          "wordBreak": "break-word",
+                          "fontWeight": "bold",
                         }
                       }
                     >
-                      To respect their privacy, Uri or an administrator marked this note as restricted.
-                    </div>
+                      Pocahontas
+                       
+                      White
+                    </a>
+                  </div>
+                  <div>
+                    5th grade
+                  </div>
+                  <div>
+                    <span
+                      className="Homeroom"
+                      style={Object {}}
+                    >
+                      <a
+                        href="/homerooms/3"
+                      >
+                        WSNS 501
+                      </a>
+                      <span>
+                        <span>
+                           
+                        </span>
+                         with 
+                        <a
+                          className="Educator"
+                          href="mailto:marcus@demo.studentinsights.org"
+                          style={Object {}}
+                        >
+                          Marcus Teacher
+                        </a>
+                      </span>
+                    </span>
                   </div>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "justifyContent": "space-between",
-                      "marginTop": 15,
-                    }
+              </div>
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "flexDirection": "column",
                   }
-                >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
+                }
+              >
+                <div>
+                  <div>
+                    <span>
+                      by 
+                    </span>
+                    <a
+                      className="Educator"
+                      href="mailto:uri@demo.studentinsights.org"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
                       }
-                    }
+                    >
+                      Uri Disney
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    in 
+                    SST Meeting
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="Timestamp"
+                    style={Object {}}
                   >
-                     
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
+                    in a year
+                     on 
+                    5/25
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/10"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                Disney
-                , 
-                Donald
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/2"
-              >
-                Arthur D Healey
-              </a>
-            </p>
-            <p>
-              <a
-                className="homeroom-link"
-                href="/homerooms/1"
-              >
-                Homeroom HEA 003
-              </a>
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
-              }
-            }
-          >
             <div
               style={
                 Object {
-                  "display": "flex",
-                  "justifyContent": "space-between",
-                }
-              }
-            >
-              <span
-                className="date"
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
-                  }
-                }
-              >
-                July 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                BBST Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
+                  "marginBottom": 20,
+                  "marginTop": 20,
                 }
               }
             >
@@ -923,7 +482,348 @@ exports[`snapshots view 1`] = `
                     }
                   }
                 >
-                  Note
+                  hi there this is working
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#aaa",
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                    <span>
+                      Revised 
+                    </span>
+                    in a year
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="FeedCardFrame-footer"
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              <div />
+              <div>
+                <span
+                  className="Badge"
+                  style={
+                    Object {
+                      "backgroundColor": "#31AB39",
+                      "color": "white",
+                      "marginLeft": 5,
+                      "opacity": 0.5,
+                      "padding": 5,
+                    }
+                  }
+                >
+                  SST Meeting
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 1,
+          "paddingLeft": 20,
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`snapshots view for restricted 1`] = `
+<div
+  className="NotesFeed"
+  style={
+    Object {
+      "fontSize": 14,
+      "margin": 10,
+    }
+  }
+>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      My notes
+    </h4>
+  </div>
+  <div
+    style={
+      Object {
+        "color": "#aaa",
+        "margin": 10,
+        "marginTop": 20,
+      }
+    }
+  >
+    Showing 
+    2
+     notes
+  </div>
+  <div
+    className="feed"
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+        "margin": 10,
+      }
+    }
+  >
+    <div
+      className="notes-list"
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <div>
+        <div
+          className="EventNoteCard"
+        >
+          <div
+            className="Card FeedCardFrame"
+            style={
+              Object {
+                "border": "1px solid #ccc",
+                "borderRadius": 3,
+                "marginTop": 20,
+                "padding": 10,
+              }
+            }
+          >
+            <div
+              className="FeedCardFrame-FrameHeader"
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  className="StudentPhotoCropped"
+                  style={
+                    Object {
+                      "backgroundColor": "#ddd",
+                      "backgroundImage": "url(/students/46/photo)",
+                      "backgroundPosition": "center top",
+                      "backgroundPositionY": -10,
+                      "backgroundRepeat": "no-repeat",
+                      "backgroundSize": "150%",
+                      "border": "1px solid #ddd",
+                      "borderRadius": 3,
+                      "height": 58,
+                      "marginRight": 10,
+                      "overflow": "hidden",
+                      "width": 58,
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <div>
+                    <a
+                      href="/students/46"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Pocahontas
+                       
+                      White
+                    </a>
+                  </div>
+                  <div>
+                    5th grade
+                  </div>
+                  <div>
+                    <span
+                      className="Homeroom"
+                      style={Object {}}
+                    >
+                      <a
+                        href="/homerooms/3"
+                      >
+                        WSNS 501
+                      </a>
+                      <span>
+                        <span>
+                           
+                        </span>
+                         with 
+                        <a
+                          className="Educator"
+                          href="mailto:marcus@demo.studentinsights.org"
+                          style={Object {}}
+                        >
+                          Marcus Teacher
+                        </a>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "flexDirection": "column",
+                  }
+                }
+              >
+                <div>
+                  <div>
+                    <span>
+                      by 
+                    </span>
+                    <a
+                      className="Educator"
+                      href="mailto:uri@demo.studentinsights.org"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Uri Disney
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    in 
+                    Parent conversation
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="Timestamp"
+                    style={Object {}}
+                  >
+                    in a year
+                     on 
+                    5/25
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "marginBottom": 20,
+                  "marginTop": 20,
+                }
+              }
+            >
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "color": "#999",
+                          "cursor": "pointer",
+                          "display": "inline-block",
+                          "fontSize": 12,
+                          "paddingTop": 5,
+                          "textDecoration": "underline",
+                        }
+                      }
+                    >
+                      show restricted note
+                    </a>
+                  </div>
                 </div>
                 <div
                   style={
@@ -954,6 +854,276 @@ exports[`snapshots view 1`] = `
                      
                   </span>
                 </div>
+              </div>
+            </div>
+            <div
+              className="FeedCardFrame-footer"
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              <div />
+              <div>
+                <span
+                  className="Badge"
+                  style={
+                    Object {
+                      "backgroundColor": "#CDD71A",
+                      "color": "white",
+                      "marginLeft": 5,
+                      "opacity": 0.5,
+                      "padding": 5,
+                    }
+                  }
+                >
+                  Parent conversation
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="EventNoteCard"
+        >
+          <div
+            className="Card FeedCardFrame"
+            style={
+              Object {
+                "border": "1px solid #ccc",
+                "borderRadius": 3,
+                "marginTop": 20,
+                "padding": 10,
+              }
+            }
+          >
+            <div
+              className="FeedCardFrame-FrameHeader"
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  className="StudentPhotoCropped"
+                  style={
+                    Object {
+                      "backgroundColor": "#ddd",
+                      "backgroundImage": "url(/students/46/photo)",
+                      "backgroundPosition": "center top",
+                      "backgroundPositionY": -10,
+                      "backgroundRepeat": "no-repeat",
+                      "backgroundSize": "150%",
+                      "border": "1px solid #ddd",
+                      "borderRadius": 3,
+                      "height": 58,
+                      "marginRight": 10,
+                      "overflow": "hidden",
+                      "width": 58,
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <div>
+                    <a
+                      href="/students/46"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Pocahontas
+                       
+                      White
+                    </a>
+                  </div>
+                  <div>
+                    5th grade
+                  </div>
+                  <div>
+                    <span
+                      className="Homeroom"
+                      style={Object {}}
+                    >
+                      <a
+                        href="/homerooms/3"
+                      >
+                        WSNS 501
+                      </a>
+                      <span>
+                        <span>
+                           
+                        </span>
+                         with 
+                        <a
+                          className="Educator"
+                          href="mailto:marcus@demo.studentinsights.org"
+                          style={Object {}}
+                        >
+                          Marcus Teacher
+                        </a>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "flexDirection": "column",
+                  }
+                }
+              >
+                <div>
+                  <div>
+                    <span>
+                      by 
+                    </span>
+                    <a
+                      className="Educator"
+                      href="mailto:uri@demo.studentinsights.org"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Uri Disney
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    in 
+                    SST Meeting
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="Timestamp"
+                    style={Object {}}
+                  >
+                    in a year
+                     on 
+                    5/25
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "marginBottom": 20,
+                  "marginTop": 20,
+                }
+              }
+            >
+              <div>
+                <div
+                  className="NoteText"
+                  style={
+                    Object {
+                      "border": 0,
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "outline": "1px solid transparent",
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
+                    }
+                  }
+                >
+                  hi there this is working
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#aaa",
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                    <span>
+                      Revised 
+                    </span>
+                    in a year
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="FeedCardFrame-footer"
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              <div />
+              <div>
+                <span
+                  className="Badge"
+                  style={
+                    Object {
+                      "backgroundColor": "#31AB39",
+                      "color": "white",
+                      "marginLeft": 5,
+                      "opacity": 0.5,
+                      "padding": 5,
+                    }
+                  }
+                >
+                  SST Meeting
+                </span>
               </div>
             </div>
           </div>
@@ -1012,7 +1182,7 @@ exports[`snapshots view with wordcloud 1`] = `
     }
   >
     Showing 
-    5
+    2
      notes
   </div>
   <div
@@ -1029,128 +1199,166 @@ exports[`snapshots view with wordcloud 1`] = `
       className="notes-list"
       style={
         Object {
-          "flex": 2,
+          "flex": 1,
         }
       }
     >
       <div>
         <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
+          className="EventNoteCard"
         >
           <div
+            className="Card FeedCardFrame"
             style={
               Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/79"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                White
-                , 
-                Elsa
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/9"
-              >
-                Somerville High
-              </a>
-            </p>
-            <p>
-              10
-              th Grade
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
+                "border": "1px solid #ccc",
+                "borderRadius": 3,
+                "marginTop": 20,
+                "padding": 10,
               }
             }
           >
             <div
+              className="FeedCardFrame-FrameHeader"
               style={
                 Object {
+                  "alignItems": "flex-start",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "space-between",
                 }
               }
             >
-              <span
-                className="date"
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
+                    "display": "flex",
                   }
                 }
               >
-                August 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
+                <div
+                  className="StudentPhotoCropped"
+                  style={
+                    Object {
+                      "backgroundColor": "#ddd",
+                      "backgroundImage": "url(/students/46/photo)",
+                      "backgroundPosition": "center top",
+                      "backgroundPositionY": -10,
+                      "backgroundRepeat": "no-repeat",
+                      "backgroundSize": "150%",
+                      "border": "1px solid #ddd",
+                      "borderRadius": 3,
+                      "height": 58,
+                      "marginRight": 10,
+                      "overflow": "hidden",
+                      "width": 58,
+                    }
                   }
-                }
-              >
-                SST Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
                   }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
                 >
-                  Uri Disney
-                </a>
-              </span>
+                  <div>
+                    <a
+                      href="/students/46"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Pocahontas
+                       
+                      White
+                    </a>
+                  </div>
+                  <div>
+                    5th grade
+                  </div>
+                  <div>
+                    <span
+                      className="Homeroom"
+                      style={Object {}}
+                    >
+                      <a
+                        href="/homerooms/3"
+                      >
+                        WSNS 501
+                      </a>
+                      <span>
+                        <span>
+                           
+                        </span>
+                         with 
+                        <a
+                          className="Educator"
+                          href="mailto:marcus@demo.studentinsights.org"
+                          style={Object {}}
+                        >
+                          Marcus Teacher
+                        </a>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "flexDirection": "column",
+                  }
+                }
+              >
+                <div>
+                  <div>
+                    <span>
+                      by 
+                    </span>
+                    <a
+                      className="Educator"
+                      href="mailto:uri@demo.studentinsights.org"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
+                      }
+                    >
+                      Uri Disney
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    in 
+                    Parent conversation
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="Timestamp"
+                    style={Object {}}
+                  >
+                    in a year
+                     on 
+                    5/25
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               style={
                 Object {
-                  "marginTop": 10,
+                  "marginBottom": 20,
+                  "marginTop": 20,
                 }
               }
             >
@@ -1211,670 +1419,191 @@ exports[`snapshots view with wordcloud 1`] = `
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/79"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                White
-                , 
-                Elsa
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/9"
-              >
-                Somerville High
-              </a>
-            </p>
-            <p>
-              10
-              th Grade
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
-              }
-            }
-          >
             <div
+              className="FeedCardFrame-footer"
               style={
                 Object {
                   "display": "flex",
                   "justifyContent": "space-between",
+                  "marginBottom": 5,
                 }
               }
             >
-              <span
-                className="date"
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
-                  }
-                }
-              >
-                August 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                MTSS Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
-                }
-              }
-            >
+              <div />
               <div>
-                <div
-                  className="RestrictedNotePresence"
-                >
-                  <div>
-                    <div
-                      className="NoteText"
-                      style={
-                        Object {
-                          "border": 0,
-                          "color": "#999",
-                          "fontFamily": "'Open Sans', sans-serif",
-                          "fontSize": 14,
-                          "marginTop": 5,
-                          "outline": "1px solid transparent",
-                          "overflowX": "hidden",
-                          "padding": 0,
-                          "whiteSpace": "pre-wrap",
-                          "wordBreak": "break-word",
-                        }
-                      }
-                    >
-                      To respect their privacy, Uri or an administrator marked this note as restricted.
-                    </div>
-                  </div>
-                </div>
-                <div
+                <span
+                  className="Badge"
                   style={
                     Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "justifyContent": "space-between",
-                      "marginTop": 15,
+                      "backgroundColor": "#CDD71A",
+                      "color": "white",
+                      "marginLeft": 5,
+                      "opacity": 0.5,
+                      "padding": 5,
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                </div>
+                  Parent conversation
+                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
+          className="EventNoteCard"
         >
           <div
+            className="Card FeedCardFrame"
             style={
               Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/79"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                White
-                , 
-                Elsa
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/9"
-              >
-                Somerville High
-              </a>
-            </p>
-            <p>
-              10
-              th Grade
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
+                "border": "1px solid #ccc",
+                "borderRadius": 3,
+                "marginTop": 20,
+                "padding": 10,
               }
             }
           >
             <div
+              className="FeedCardFrame-FrameHeader"
               style={
                 Object {
+                  "alignItems": "flex-start",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "space-between",
                 }
               }
             >
-              <span
-                className="date"
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
+                    "display": "flex",
                   }
                 }
               >
-                August 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                MTSS Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
-                }
-              }
-            >
-              <div>
                 <div
-                  className="RestrictedNotePresence"
-                >
-                  <div>
-                    <div
-                      className="NoteText"
-                      style={
-                        Object {
-                          "border": 0,
-                          "color": "#999",
-                          "fontFamily": "'Open Sans', sans-serif",
-                          "fontSize": 14,
-                          "marginTop": 5,
-                          "outline": "1px solid transparent",
-                          "overflowX": "hidden",
-                          "padding": 0,
-                          "whiteSpace": "pre-wrap",
-                          "wordBreak": "break-word",
-                        }
-                      }
-                    >
-                      To respect their privacy, Uri or an administrator marked this note as restricted.
-                    </div>
-                  </div>
-                </div>
+                  className="StudentPhotoCropped"
+                  style={
+                    Object {
+                      "backgroundColor": "#ddd",
+                      "backgroundImage": "url(/students/46/photo)",
+                      "backgroundPosition": "center top",
+                      "backgroundPositionY": -10,
+                      "backgroundRepeat": "no-repeat",
+                      "backgroundSize": "150%",
+                      "border": "1px solid #ddd",
+                      "borderRadius": 3,
+                      "height": 58,
+                      "marginRight": 10,
+                      "overflow": "hidden",
+                      "width": 58,
+                    }
+                  }
+                />
                 <div
                   style={
                     Object {
-                      "alignItems": "center",
+                      "alignItems": "flex-start",
                       "display": "flex",
-                      "justifyContent": "space-between",
-                      "marginTop": 15,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
                     }
                   }
-                >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/10"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                Disney
-                , 
-                Donald
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/2"
-              >
-                Arthur D Healey
-              </a>
-            </p>
-            <p>
-              <a
-                className="homeroom-link"
-                href="/homerooms/1"
-              >
-                Homeroom HEA 003
-              </a>
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "display": "flex",
-                  "justifyContent": "space-between",
-                }
-              }
-            >
-              <span
-                className="date"
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
-                  }
-                }
-              >
-                August 20, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                SST Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
-                }
-              }
-            >
-              <div>
-                <div
-                  className="RestrictedNotePresence"
                 >
                   <div>
-                    <div
-                      className="NoteText"
+                    <a
+                      href="/students/46"
                       style={
                         Object {
-                          "border": 0,
-                          "color": "#999",
-                          "fontFamily": "'Open Sans', sans-serif",
-                          "fontSize": 14,
-                          "marginTop": 5,
-                          "outline": "1px solid transparent",
-                          "overflowX": "hidden",
-                          "padding": 0,
-                          "whiteSpace": "pre-wrap",
-                          "wordBreak": "break-word",
+                          "fontWeight": "bold",
                         }
                       }
                     >
-                      To respect their privacy, Uri or an administrator marked this note as restricted.
-                    </div>
+                      Pocahontas
+                       
+                      White
+                    </a>
+                  </div>
+                  <div>
+                    5th grade
+                  </div>
+                  <div>
+                    <span
+                      className="Homeroom"
+                      style={Object {}}
+                    >
+                      <a
+                        href="/homerooms/3"
+                      >
+                        WSNS 501
+                      </a>
+                      <span>
+                        <span>
+                           
+                        </span>
+                         with 
+                        <a
+                          className="Educator"
+                          href="mailto:marcus@demo.studentinsights.org"
+                          style={Object {}}
+                        >
+                          Marcus Teacher
+                        </a>
+                      </span>
+                    </span>
                   </div>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "justifyContent": "space-between",
-                      "marginTop": 15,
-                    }
+              </div>
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "flexDirection": "column",
                   }
-                >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
+                }
+              >
+                <div>
+                  <div>
+                    <span>
+                      by 
+                    </span>
+                    <a
+                      className="Educator"
+                      href="mailto:uri@demo.studentinsights.org"
+                      style={
+                        Object {
+                          "fontWeight": "bold",
+                        }
                       }
-                    }
+                    >
+                      Uri Disney
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    in 
+                    SST Meeting
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="Timestamp"
+                    style={Object {}}
                   >
-                     
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 12,
-                      }
-                    }
-                  >
-                     
-                  </span>
+                    in a year
+                     on 
+                    5/25
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "25%",
-              }
-            }
-          >
-            <p>
-              <a
-                href="/students/10"
-                style={
-                  Object {
-                    "color": "#3177c9",
-                    "fontSize": 18,
-                    "fontWeight": "bold",
-                    "marginBottom": "5%",
-                  }
-                }
-              >
-                Disney
-                , 
-                Donald
-              </a>
-            </p>
-            <p>
-              <a
-                className="school-link"
-                href="/schools/2"
-              >
-                Arthur D Healey
-              </a>
-            </p>
-            <p>
-              <a
-                className="homeroom-link"
-                href="/homerooms/1"
-              >
-                Homeroom HEA 003
-              </a>
-            </p>
-          </div>
-          <div
-            className="NoteCard"
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "padding": 15,
-                "width": "100%",
-              }
-            }
-          >
             <div
               style={
                 Object {
-                  "display": "flex",
-                  "justifyContent": "space-between",
-                }
-              }
-            >
-              <span
-                className="date"
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontWeight": "bold",
-                    "paddingRight": 10,
-                    "width": "11em",
-                  }
-                }
-              >
-                July 23, 2018
-              </span>
-              <span
-                style={
-                  Object {
-                    "background": "#eee",
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "outline": "3px solid #eee",
-                    "textAlign": "center",
-                    "width": "10em",
-                  }
-                }
-              >
-                BBST Meeting
-              </span>
-              <span
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "paddingLeft": 5,
-                  }
-                }
-              >
-                <a
-                  className="Educator"
-                  href="mailto:uri@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Uri Disney
-                </a>
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "marginTop": 10,
+                  "marginBottom": 20,
+                  "marginTop": 20,
                 }
               }
             >
@@ -1895,7 +1624,7 @@ exports[`snapshots view with wordcloud 1`] = `
                     }
                   }
                 >
-                  Note
+                  hi there this is working
                 </div>
                 <div
                   style={
@@ -1910,11 +1639,15 @@ exports[`snapshots view with wordcloud 1`] = `
                   <span
                     style={
                       Object {
+                        "color": "#aaa",
                         "fontSize": 12,
                       }
                     }
                   >
-                     
+                    <span>
+                      Revised 
+                    </span>
+                    in a year
                   </span>
                   <span
                     style={
@@ -1926,6 +1659,34 @@ exports[`snapshots view with wordcloud 1`] = `
                      
                   </span>
                 </div>
+              </div>
+            </div>
+            <div
+              className="FeedCardFrame-footer"
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginBottom": 5,
+                }
+              }
+            >
+              <div />
+              <div>
+                <span
+                  className="Badge"
+                  style={
+                    Object {
+                      "backgroundColor": "#31AB39",
+                      "color": "white",
+                      "marginLeft": 5,
+                      "opacity": 0.5,
+                      "padding": 5,
+                    }
+                  }
+                >
+                  SST Meeting
+                </span>
               </div>
             </div>
           </div>

@@ -98,7 +98,7 @@ const styles = {
 };
 
 
-export function FrameHeader(props) {
+function FrameHeader(props) {
   const {student, byEl, whereEl, whenEl, hidePhoto} = props;
   const {homeroom, school} = student;
   const shouldShowHomeroom = homeroom && school && isHomeroomMeaningful(school.school_type);

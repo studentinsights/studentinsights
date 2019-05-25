@@ -99,17 +99,16 @@ class EducatorsController < ApplicationController
         .order('recorded_at DESC')
     end
 
-    # merge in note with feed card bits
-    notes_json = authorized_notes.first(batch_size).map do |event_note|
+    # event_notes merged with feed card json
+    mixed_event_notes_json = authorized_notes.first(batch_size).map do |event_note|
       event_note_json = EventNoteSerializer.safe(event_note).serialize_event_note
       card_json = FeedCard.event_note_card(event_note).json
       event_note_json.merge(card_json)
     end
 
     render json: {
-      educators_index: Educator.to_index,
       current_educator: current_educator.as_json(only: [:id, :can_view_restricted_notes]),
-      notes: notes_json,
+      mixed_event_notes: mixed_event_notes_json,
       total_notes_count: authorized_notes.size
     }
   end

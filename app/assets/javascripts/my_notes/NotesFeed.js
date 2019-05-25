@@ -1,35 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import * as Routes from '../helpers/Routes';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import BoxCard from '../components/BoxCard';
-import Card from '../components/Card';
 import SectionHeading from '../components/SectionHeading';
 import WordCloud from '../components/WordCloud';
-import NoteCard from '../student_profile/NoteCard';
-import {urlForRestrictedEventNoteContent} from '../student_profile/RestrictedNotePresence';
-
-import Educator from '../components/Educator';
-import HouseBadge from '../components/HouseBadge';
-import NoteBadge from '../components/NoteBadge';
-import Timestamp from '../components/Timestamp';
-import {FrameHeader} from '../feed/FeedCardFrame';
 import EventNoteCard from '../feed/EventNoteCard';
+import {urlForRestrictedEventNoteContent} from '../student_profile/RestrictedNotePresence';
+import NoteCard from '../student_profile/NoteCard';
 
-
-
+// Shows the feed of notes
 export default class NotesFeed extends React.Component {
   render() {
-    const {eventNotes} = this.props;
+    const {mixedEventNotes} = this.props;
     return (
       <div className="NotesFeed" style={styles.root}>
         <SectionHeading>My notes</SectionHeading>
-        <div style={styles.subTitle}>Showing {eventNotes.length} notes</div>
+        <div style={styles.subTitle}>Showing {mixedEventNotes.length} notes</div>
         <div className="feed" style={styles.feed}>
           <div style={styles.leftColumn} className="notes-list">
-            {this.renderAgain()}
+            {this.renderNotes()}
           </div>
           <div style={styles.rightColumn}>
             {this.renderSidebar()}
@@ -40,50 +31,19 @@ export default class NotesFeed extends React.Component {
     );
   }
 
-  renderAgain() {
-    const {eventNotes} = this.props;
-
+  // Provide an alternate "substance" to <EventNoteCard />
+  renderNotes() {
+    const {mixedEventNotes} = this.props;
     return (
       <div>
-        {eventNotes.map(eventNoteWithStudent => {
-          const {student} = eventNoteWithStudent;
+        {mixedEventNotes.map(mixedEventNote => {
           return (
             <EventNoteCard
-              key={eventNoteWithStudent.id}
+              key={mixedEventNote.id}
               style={styles.card}
-              eventNoteCardJson={eventNoteWithStudent}>
-              {this.renderEventNote(eventNoteWithStudent, student)}
+              eventNoteCardJson={mixedEventNote}>
+              {this.renderEventNoteCard(mixedEventNote, mixedEventNote.student, mixedEventNote.educator)}
             </EventNoteCard>
-          );
-
-          // return (
-          //   <Card key={eventNoteWithStudent.id} style={styles.card}>
-          //     <CardFrame
-          //       student={student}
-          //       eventNote={eventNoteWithStudent}
-          //       educator={educator}
-          //     />
-          //     {this.renderEventNote(eventNoteWithStudent, student)}
-          //   </Card>
-          // );
-        })}
-      </div>
-    );
-  }
-
-
-  renderNotesList() {
-    const {eventNotes} = this.props;
-
-    return (
-      <div>
-        {eventNotes.map(eventNoteWithStudent => {
-          const {student} = eventNoteWithStudent;
-          return (
-            <div key={eventNoteWithStudent.id} style={styles.wrapper}>
-              {this.renderStudentCard(eventNoteWithStudent, student)}
-              {this.renderEventNote(eventNoteWithStudent, student)}
-            </div>
           );
         })}
       </div>
@@ -91,10 +51,10 @@ export default class NotesFeed extends React.Component {
   }
 
   // Readonly, but let people view restricted note redactions if they
-  // have access.  Need to factor this out so it can either take all the
-  // pieces from the student profile, or be untangled from that complexity.
-  renderEventNote(eventNote, student) {
-    const {educator, canUserAccessRestrictedNotes} = this.props;
+  // have access.
+  // This requires `eventNote` not just the json from the card.
+  renderEventNoteCard(eventNote, student, educator) {
+    const {canUserAccessRestrictedNotes} = this.props;
     const isRedacted = eventNote.is_restricted;
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes && isRedacted)
       ? urlForRestrictedEventNoteContent(eventNote)
@@ -110,69 +70,16 @@ export default class NotesFeed extends React.Component {
         attachments={eventNote.attachments}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
-        withoutShell={true}
+        substanceOnly={true} // no shell
       />
     );
   }
 
-  // renderHomeroomOrGrade(student) {
-  //   if (student.grade < 9) {
-  //     if (student.homeroom_id) {
-  //       return (
-  //         <p><a
-  //           className="homeroom-link"
-  //           href={Routes.homeroom(student.homeroom_id)}>
-  //           {'Homeroom ' + student.homeroom_name}
-  //         </a></p>
-  //       );
-  //     }
-  //     else {
-  //       return (
-  //         <p>No Homeroom</p>
-  //       );
-  //     }
-  //   }
-  //   else {
-  //     return (
-  //       <p>{student.grade}th Grade</p>
-  //     );
-  //   }
-  // }
-
-  // renderSchool(student) {
-  //   if (student.school_id) {
-  //     return (
-  //       <p><a
-  //         className="school-link"
-  //         href={Routes.school(student.school_id)}>
-  //         {student.school_name}
-  //       </a></p>
-  //     );
-  //   }
-  //   else {
-  //     return (
-  //       <p>No School</p>
-  //     );
-  //   }
-  // }
-
-  // renderStudentCard(eventNote, student) {
-  //   return (
-  //     <div style={styles.studentCard}>
-  //       <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
-  //         {student.last_name}, {student.first_name}
-  //       </a></p>
-  //       {this.renderSchool(student)}
-  //       {this.renderHomeroomOrGrade(student)}
-  //     </div>
-  //   );
-  // }
-
   renderSidebar() {
-    const {showWordCloud, eventNotes} = this.props;
+    const {showWordCloud, mixedEventNotes} = this.props;
     if (!showWordCloud && window.location.search.indexOf('wordcloud') === -1) return null;
     
-    const words = wordsFromEventNotes(eventNotes);
+    const words = wordsFromEventNotes(mixedEventNotes);
     return (
       <div style={styles.flexVertical}>
         <BoxCard title="Most common words" style={{marginTop: 10}}>
@@ -187,13 +94,14 @@ export default class NotesFeed extends React.Component {
   }
 
   renderFooter() {
-    if (this.props.eventNotes.length != this.props.totalNotesCount) {
+    const {mixedEventNotes, totalNotesCount, onClickLoadMoreNotes} = this.props;
+    if (mixedEventNotes.length != totalNotesCount) {
       return (
         <div style={styles.footer}>
           <button
             className="btn"
             style={styles.button}
-            onClick={this.props.onClickLoadMoreNotes}>
+            onClick={onClickLoadMoreNotes}>
             Load 30 More Notes
           </button>
         </div>
@@ -202,10 +110,9 @@ export default class NotesFeed extends React.Component {
   }
 }
 NotesFeed.propTypes = {
-  educator: PropTypes.object.isRequired,
   canUserAccessRestrictedNotes: PropTypes.bool.isRequired,
-  totalNotesCount: PropTypes.number.isRequired,
-  eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mixedEventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalNotesCount: PropTypes.number.isRequired,  
   onClickLoadMoreNotes: PropTypes.func.isRequired,
   showWordCloud: PropTypes.bool
 };
@@ -275,31 +182,3 @@ function wordsFromEventNotes(eventNotes) {
 
 
 
-function CardFrame(props) {
-  const {student, educator, eventNote} = props;
-  return (
-    <FrameHeader
-      student={student}
-      byEl={
-        <div>
-          <span>by </span>
-          <Educator
-            style={styles.person}
-            educator={educator} />
-        </div>
-      }
-      whereEl={<div>in {eventNoteTypeText(eventNote.event_note_type_id)}</div>}
-      whenEl={<Timestamp railsTimestamp={eventNote.recorded_at} />}
-      badgesEl={<div>
-        {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
-        <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNote.event_note_type_id} />
-      </div>
-      }
-    />
-  );
-}
-CardFrame.propTypes = {
-  student: PropTypes.object.isRequired,
-  educator: PropTypes.object.isRequired,
-  eventNote: PropTypes.object.isRequired
-};
