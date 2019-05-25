@@ -220,7 +220,9 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                className="NoteCard-substance"
+              >
                 <div
                   className="RestrictedNotePresence"
                 >
@@ -465,7 +467,9 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                className="NoteCard-substance"
+              >
                 <div
                   className="NoteText"
                   style={
@@ -783,7 +787,9 @@ exports[`snapshots view for restricted 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                className="NoteCard-substance"
+              >
                 <div
                   className="RestrictedNotePresence"
                 >
@@ -1044,7 +1050,9 @@ exports[`snapshots view for restricted 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                className="NoteCard-substance"
+              >
                 <div
                   className="NoteText"
                   style={
@@ -1362,7 +1370,9 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                className="NoteCard-substance"
+              >
                 <div
                   className="RestrictedNotePresence"
                 >
@@ -1607,7 +1617,9 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                className="NoteCard-substance"
+              >
                 <div
                   className="NoteText"
                   style={
