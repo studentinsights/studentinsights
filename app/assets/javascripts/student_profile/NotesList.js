@@ -6,12 +6,12 @@ import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
-import {IDLE} from '../helpers/requestStates';
-import NoteCard from './NoteCard';
+import NoteCard, {EmptyContainer, EducatorCard} from './NoteCard';
+import SecondTransitionNoteInline from './SecondTransitionNoteInline';
 import {parseAndReRender} from './transitionNoteParser';
-import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
+import {urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage, {defaultSchoolYearsBack, filteredNotesForCleanSlate} from './CleanSlateMessage';
-
+import ProfileListEventNote from './ProfileListEventNote';
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -74,7 +74,6 @@ export default class NotesList extends React.Component {
 
   renderEventNote(eventNote) {
     const {
-      includeStudentPanel,
       educatorsIndex,
       onSaveNote,
       onEventNoteAttachmentDeleted,
@@ -82,39 +81,61 @@ export default class NotesList extends React.Component {
       currentEducatorId,
       requests
     } = this.props;
-    const isRedacted = eventNote.is_restricted;
-    const isReadonly = (
-      !onSaveNote ||
-      !onEventNoteAttachmentDeleted ||
-      (currentEducatorId !== eventNote.educator_id) ||
-      isRedacted
-    );
-    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
-      ? urlForRestrictedEventNoteContent(eventNote)
-      : null;
-    const requestState = (isReadonly || !requests)
-      ? IDLE
-      : requests.updateNote[eventNote.id];
+
     return (
-      <NoteCard
-        key={['event_note', eventNote.id].join()}
-        eventNoteId={eventNote.id}
-        student={eventNote.student} /* really only for my notes page */
-        eventNoteTypeId={eventNote.event_note_type_id}
-        noteMoment={moment.utc(eventNote.recorded_at)}
-        badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
-        educatorId={eventNote.educator_id}
-        text={eventNote.text || ''}
-        lastRevisedAtMoment={eventNote.latest_revision_at ? moment.utc(eventNote.latest_revision_at) : null}
-        attachments={isRedacted ? [] : eventNote.attachments}
+      <ProfileListEventNote
+        eventNote={eventNote}
         educatorsIndex={educatorsIndex}
-        showRestrictedNoteRedaction={isRedacted}
-        includeStudentPanel={includeStudentPanel}
-        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
-        onSave={isReadonly ? null : onSaveNote}
-        requestState={requestState}
-        onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
+        onSaveNote={onSaveNote}
+        onEventNoteAttachmentDeleted={onEventNoteAttachmentDeleted}
+        canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
+        currentEducatorId={currentEducatorId}
+        requests={requests}
+      />
     );
+
+    // const {
+    //   includeStudentPanel,
+    //   educatorsIndex,
+    //   onSaveNote,
+    //   onEventNoteAttachmentDeleted,
+    //   canUserAccessRestrictedNotes,
+    //   currentEducatorId,
+    //   requests
+    // } = this.props;
+    // const isRedacted = eventNote.is_restricted;
+    // const isReadonly = (
+    //   !onSaveNote ||
+    //   !onEventNoteAttachmentDeleted ||
+    //   (currentEducatorId !== eventNote.educator_id) ||
+    //   isRedacted
+    // );
+    // const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
+    //   ? urlForRestrictedEventNoteContent(eventNote)
+    //   : null;
+    // const requestState = (isReadonly || !requests)
+    //   ? IDLE
+    //   : requests.updateNote[eventNote.id];
+    // return (
+    //   <NoteCard
+    //     key={['event_note', eventNote.id].join()}
+    //     eventNoteId={eventNote.id}
+    //     student={eventNote.student} //really only for my notes page
+    //     eventNoteTypeId={eventNote.event_note_type_id}
+    //     noteMoment={moment.utc(eventNote.recorded_at)}
+    //     badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
+    //     educatorId={eventNote.educator_id}
+    //     text={eventNote.text || ''}
+    //     lastRevisedAtMoment={eventNote.latest_revision_at ? moment.utc(eventNote.latest_revision_at) : null}
+    //     attachments={isRedacted ? [] : eventNote.attachments}
+    //     educatorsIndex={educatorsIndex}
+    //     showRestrictedNoteRedaction={isRedacted}
+    //     includeStudentPanel={includeStudentPanel}
+    //     urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+    //     onSave={isReadonly ? null : onSaveNote}
+    //     requestState={requestState}
+    //     onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
+    // );
   }
 
   // TODO(kr) support custom intervention type
@@ -156,27 +177,32 @@ export default class NotesList extends React.Component {
 
   renderSecondTransitionNote(secondTransitionNote) {
     const {educatorsIndex} = this.props;
-    const text = [
-      `What are their strengths?\n${secondTransitionNote.form_json.strengths}`,
-      `How would you suggest teachers connect with them?\n${secondTransitionNote.form_json.connecting}`,
-      `How has their become involved with the school community?${secondTransitionNote.form_json.community}`,
-      `How do they relate to their peers?\n${secondTransitionNote.form_json.peers}`,
-      `Any additional comments or good things to know?\n${secondTransitionNote.form_json.other}`,
-      (secondTransitionNote.has_restricted_text) ? 'What other services do they receive?\nReach out to the counselor if you need to more about anything confidential or sensitive.' : ''
-    ].join('\n\n');
-
+    const educator = educatorsIndex[secondTransitionNote.educator_id];
+    const whenText = toMomentFromRailsDate(secondTransitionNote.created_at).format('MMMM D, YYYY');
     return (
-      <NoteCard
+      <EmptyContainer
         key={['second_transition_note', secondTransitionNote.id].join()}
-        noteMoment={toMomentFromRailsDate(secondTransitionNote.created_at)}
-        badge={<span style={styles.badge}>Transition note</span>}
-        educatorId={secondTransitionNote.educator_id}
-        text={text}
-        educatorsIndex={educatorsIndex}
-        showRestrictedNoteRedaction={false}
-        urlForRestrictedNoteContent={null}
-        attachments={[]} />
+        whenEl={whenText}
+        badgeEl={<span style={styles.badge}>Transition note</span>}
+        educatorEl={<EducatorCard educator={educator} />}
+        substanceEl={<SecondTransitionNoteInline json={secondTransitionNote} />}
+        studentPanelEl={null}
+        attachmentsEl={null}
+      />
     );
+
+    // return (
+    //   <NoteCard
+    //     key={['second_transition_note', secondTransitionNote.id].join()}
+    //     noteMoment={toMomentFromRailsDate(secondTransitionNote.created_at)}
+    //     badge={<span style={styles.badge}>Transition note</span>}
+    //     educatorId={secondTransitionNote.educator_id}
+    //     text={el}
+    //     educatorsIndex={educatorsIndex}
+    //     showRestrictedNoteRedaction={false}
+    //     urlForRestrictedNoteContent={null}
+    //     attachments={[]} />
+    // );
   }
 
   renderFallStudentVoiceSurvey(fallStudentVoiceSurvey) {
@@ -245,7 +271,6 @@ NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   requests: InsightsPropTypes.requests,
   educatorsIndex: PropTypes.object.isRequired,
-  includeStudentPanel: PropTypes.bool,
   canUserAccessRestrictedNotes: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func,

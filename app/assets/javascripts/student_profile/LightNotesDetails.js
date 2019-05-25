@@ -5,7 +5,7 @@ import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import DraftNote from './DraftNote';
-import TransitionNoteDialog from './TransitionNoteDialog';
+import SecondTransitionNoteDialog from './SecondTransitionNoteDialog';
 
 
 /*
@@ -18,7 +18,7 @@ export default class LightNotesDetails extends React.Component {
   constructor(props){
     super(props);
 
-    this.onClickTransitionNote = this.onClickTransitionNote.bind(this);
+    this.onClickSecondTransitionNoteLink = this.onClickSecondTransitionNoteLink.bind(this);
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
@@ -32,7 +32,7 @@ export default class LightNotesDetails extends React.Component {
     );
   }
 
-  onClickTransitionNote(event) {
+  onClickSecondTransitionNoteLink(event) {
     event.preventDefault();
     this.props.onWritingTransitionNoteChanged(true);
   }
@@ -68,7 +68,7 @@ export default class LightNotesDetails extends React.Component {
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
-        {this.renderTransitionNoteDialog()}
+        {this.renderSecondTransitionNoteDialog()}
         {<SectionHeading titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           <div style={{display: 'flex', alignItems: 'center', padding: 2}}>
             <span>{title} for {student.first_name}</span>
@@ -81,6 +81,7 @@ export default class LightNotesDetails extends React.Component {
         <div>
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
+            student={student}
             currentEducatorId={currentEducator.id}
             feed={feed}
             requests={requests}
@@ -93,33 +94,36 @@ export default class LightNotesDetails extends React.Component {
     );
   }
 
-  renderTransitionNoteDialog() {
+  renderSecondTransitionNoteDialog() {
     const {student, isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
+
+    if (!isWritingTransitionNote) return null;
     return (
-      <TransitionNoteDialog
+      <SecondTransitionNoteDialog
         student={student}
-        isWritingTransitionNote={isWritingTransitionNote}
-        onWritingTransitionNoteChanged={onWritingTransitionNoteChanged}
+        onClose={() => onWritingTransitionNoteChanged(false)}
       />
     );
   }
 
   renderTakeNotesButton() {
-    const {currentEducator} = this.props;
+    const {currentEducator, student} = this.props;
 
-    // Only K8 counselors with access can write transition notes.
-    const showTransition = (
+    // Only K8 counselors with access can write transition notes,
+    // and only for 8th graders.
+    const showSecondTransitionNoteLink = (
       (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
       (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
-      (currentEducator.can_view_restricted_notes)
+      (currentEducator.can_view_restricted_notes) &&
+      (student.grade === '8')
     );
     return (
       <div>
-        {showTransition && (
+        {showSecondTransitionNoteLink && (
           <a
             href="#"
             style={{marginRight: 10}}
-            onClick={this.onClickTransitionNote}>
+            onClick={this.onClickSecondTransitionNoteLink}>
             <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>transition</span></span>
           </a>
         )}

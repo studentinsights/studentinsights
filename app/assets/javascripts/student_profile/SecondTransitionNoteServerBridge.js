@@ -6,7 +6,7 @@ import WarnBeforeUnload from '../components/WarnBeforeUnload';
 import uuidv4 from 'uuid/v4';
 
 
-export default class SecondTransitionNoteDocumentContext extends React.Component {
+export default class SecondTransitionNoteServerBridge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -123,7 +123,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
     );
   }
 }
-SecondTransitionNoteDocumentContext.propTypes = {
+SecondTransitionNoteServerBridge.propTypes = {
   studentId: PropTypes.number.isRequired,
   initialDoc: PropTypes.any.isRequired,
   children: PropTypes.func.isRequired

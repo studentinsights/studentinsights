@@ -53,33 +53,28 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
-    const {includeStudentPanel} = this.props;
-    const educator = this.educator();
+    const {includeStudentPanel, student, noteMoment, badge} = this.props;
     return (
-      <div className="wrapper" style={styles.wrapper}>
-        {includeStudentPanel && this.renderStudentCard()}
-        <div className="NoteCard" style={styles.note}>
-          <div style={styles.titleLine}>
-            <span className="date" style={styles.date}>
-              {this.props.noteMoment.format('MMMM D, YYYY')}
-            </span>
-            {this.props.badge}
-            {educator && (
-              <span style={styles.educator}>
-                <Educator educator={educator} />
-              </span>
-            )}
-          </div>
-          <div style={styles.text}>
-            {this.renderNoteSubstanceOrRedaction()}
-            <div style={styles.footer}>
-              {this.renderLastRevisedAt()}
-              {this.renderRequestState()}
-            </div>
-          </div>
-          {this.renderAttachmentUrls()}
+      <EmptyContainer
+        studentPanelEl={includeStudentPanel && <StudentCard student={student} />}
+        whenEl={noteMoment.format('MMMM D, YYYY')}
+        badgeEl={badge}
+        educatorEl={<EducatorCard educator={this.educator()} />}
+        substanceEl={this.renderSubstanceEl()}
+        attachmentsEl={this.renderAttachmentUrls()}
+      />
+    );
+  }
+
+  renderSubstanceEl() {
+    return (
+      <div style={styles.text}>
+        {this.renderNoteSubstanceOrRedaction()}
+        <div style={styles.footer}>
+          {this.renderLastRevisedAt()}
+          {this.renderRequestState()}
         </div>
-      </div>        
+      </div>
     );
   }
 
@@ -225,61 +220,61 @@ export default class NoteCard extends React.Component {
     );
   }
 
-  renderHomeroomOrGrade(student) {
-    if (student.grade < 9) {
-      if (student.homeroom_id) {
-        return (
-          <p><a
-            className="homeroom-link"
-            href={Routes.homeroom(student.homeroom_id)}>
-            {'Homeroom ' + student.homeroom_name}
-          </a></p>
-        );
-      }
-      else {
-        return (
-          <p>No Homeroom</p>
-        );
-      }
-    }
-    else {
-      return (
-        <p>{student.grade}th Grade</p>
-      );
-    }
-  }
+  // renderHomeroomOrGrade(student) {
+  //   if (student.grade < 9) {
+  //     if (student.homeroom_id) {
+  //       return (
+  //         <p><a
+  //           className="homeroom-link"
+  //           href={Routes.homeroom(student.homeroom_id)}>
+  //           {'Homeroom ' + student.homeroom_name}
+  //         </a></p>
+  //       );
+  //     }
+  //     else {
+  //       return (
+  //         <p>No Homeroom</p>
+  //       );
+  //     }
+  //   }
+  //   else {
+  //     return (
+  //       <p>{student.grade}th Grade</p>
+  //     );
+  //   }
+  // }
 
-  renderSchool(student) {
-    if (student.school_id) {
-      return (
-        <p><a
-          className="school-link"
-          href={Routes.school(student.school_id)}>
-          {student.school_name}
-        </a></p>
-      );
-    }
-    else {
-      return (
-        <p>No School</p>
-      );
-    }
-  }
+  // renderSchool(student) {
+  //   if (student.school_id) {
+  //     return (
+  //       <p><a
+  //         className="school-link"
+  //         href={Routes.school(student.school_id)}>
+  //         {student.school_name}
+  //       </a></p>
+  //     );
+  //   }
+  //   else {
+  //     return (
+  //       <p>No School</p>
+  //     );
+  //   }
+  // }
 
-  renderStudentCard() {
-    const {student} = this.props;
-    if (student) {
-      return (
-        <div className="studentCard" style={styles.studentCard}>
-          <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
-            {student.last_name}, {student.first_name}
-          </a></p>
-          {this.renderSchool(student)}
-          {this.renderHomeroomOrGrade(student)}
-        </div>
-      );
-    }
-  }
+  // renderStudentCard() {
+  //   const {student} = this.props;
+  //   if (student) {
+  //     return (
+  //       <div className="studentCard" style={styles.studentCard}>
+  //         <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
+  //           {student.last_name}, {student.first_name}
+  //         </a></p>
+  //         {/*this.renderSchool(student)*/}
+  //         {/*this.renderHomeroomOrGrade(student)*/}
+  //       </div>
+  //     );
+  //   }
+  // }
 }
 NoteCard.contextTypes = {
   nowFn: PropTypes.func.isRequired
@@ -375,4 +370,64 @@ const styles = {
     color: '#aaa',
     fontSize: 12
   }
+};
+
+
+// The shell with no substance, leaving that to callers
+export function EmptyContainer(props) {
+  const {studentPanelEl, whenEl, badgeEl, educatorEl, substanceEl, attachmentsEl} = props;
+  return (
+    <div className="wrapper" style={styles.wrapper}>
+      {studentPanelEl}
+      <div className="NoteCard" style={styles.note}>
+        <div style={styles.titleLine}>
+          <span className="date" style={styles.date}>
+            {whenEl}
+          </span>
+          {badgeEl}
+          {educatorEl}
+        </div>
+        {substanceEl}
+        {attachmentsEl}
+      </div>
+    </div>
+  );
+}
+EmptyContainer.propTypes = {
+  whenEl: PropTypes.node.isRequired,
+  badgeEl: PropTypes.node.isRequired,
+  educatorEl: PropTypes.node.isRequired,
+  substanceEl: PropTypes.node.isRequired,
+  studentPanelEl: PropTypes.node,
+  attachmentsEl: PropTypes.node
+};
+
+export function EducatorCard({educator}) {
+  if (!educator) return null;
+  return (
+    <span style={styles.educator}>
+      <Educator educator={educator} />
+    </span>
+  );
+}
+EducatorCard.propTypes = {
+  educator: PropTypes.object.isRequired
+};
+
+function StudentCard({student}) {
+  if (!student) return null;
+  return (
+    <div className="studentCard" style={styles.studentCard}>
+      <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
+        {student.last_name}, {student.first_name}
+      </a></p>
+    </div>
+  );
+}
+StudentCard.propTypes = {
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired
+  }).isRequired
 };

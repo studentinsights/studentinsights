@@ -264,6 +264,7 @@ class TestPals
         connecting: 'Asking him about scouting can work well talking 1:1, or in the classroom he sometimes like being seen as a leader with setting up the computer or projector system.',
         community: "He doesn't always feel like he can relate to every in his grade easily, and so hasn't become involved within school, but is in scouts outside school.",
         peers: 'Ryan has a small circle of friends that he spends most of his time with.',
+        family: 'Although Ryan lives primarily with his mother, his father is very involved with education and it makes a big difference if he is updated regularly. The best way to reach the mother is through email and the father by phone.',
         other: "Ryan is caring and thoughtful and has many strengths, but school seems tough for him a lot of the time.  He needs consistent support to stay focused and motivated on schoolwork, which this year has been with redirect.  He has done some counseling in the past as well, but redirect has been the most effective day-to-day."
       },
       restricted_text: 'Ryan has worked with a counselor at Riverside in the past, Mikayla, but has not this year.  Contact 8th grade counselor for more.'

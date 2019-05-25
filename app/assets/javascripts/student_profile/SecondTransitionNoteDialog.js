@@ -4,16 +4,17 @@ import ReactModal from 'react-modal';
 import SectionHeading from '../components/SectionHeading';
 import Button, {PlainButton} from '../components/Button';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
+import {Pending, Failure} from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import * as Routes from '../helpers/Routes';
-import SecondTransitionNoteDocumentContext from './SecondTransitionNoteDocumentContext';
+import SecondTransitionNoteServerBridge from './SecondTransitionNoteServerBridge';
 
 
 
-export default class TransitionNoteDialog extends React.Component {
-  onStarClicked(params, e) {
+export default class SecondTransitionNoteDialog extends React.Component {
+  onStarClicked(bridge, e) {
     e.preventDefault();
-    const {doc, onDocChanged} = params;
+    const {doc, onDocChanged} = bridge;
     const {isStarred} = doc;
     onDocChanged({isStarred: !isStarred});
   }
@@ -25,8 +26,8 @@ export default class TransitionNoteDialog extends React.Component {
 
   onDeleteNoteClicked(doDelete, e) {
     e.preventDefault();
-    const {onWritingTransitionNoteChanged} = this.props;
-    doDelete().then(() => onWritingTransitionNoteChanged(false));
+    const {onClose} = this.props;
+    doDelete().then(() => onClose());
   }
 
   onSaveClick(doSave, e) {
@@ -43,28 +44,26 @@ export default class TransitionNoteDialog extends React.Component {
     });
   }
 
-  onRequestClose(params, e) {
+  onRequestClose(bridge, e) {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
 
     // Warn about pending changes
-    const {isDirty, pending, failed} = params;
+    const {isDirty, pending, failed} = bridge;
     if (isDirty || pending.length > 0 || failed.length > 0) {
       if (!confirm('You have unsaved changes, discard them?')) return;
     }
-    const {onWritingTransitionNoteChanged} = this.props;
-    onWritingTransitionNoteChanged(false);
+    const {onClose} = this.props;
+    onClose();
   }
 
   render() {
-    const {student, isWritingTransitionNote} = this.props;
-    if (!isWritingTransitionNote) return null;
-
+    const {student, initialDoc} = this.props;
     return (
-      <SecondTransitionNoteDocumentContext initialDoc={createInitialDoc()} studentId={student.id}>
-        {params => (
+      <SecondTransitionNoteServerBridge initialDoc={initialDoc} studentId={student.id}>
+        {bridge => (
           <ReactModal
             isOpen={true}
             style={{
@@ -77,38 +76,38 @@ export default class TransitionNoteDialog extends React.Component {
                 flexDirection: 'column'
               }
             }}
-            onRequestClose={this.onRequestClose.bind(this, params)}
+            onRequestClose={this.onRequestClose.bind(this, bridge)}
           >
-            {this.renderDialogContent(params)}
+            {this.renderDialogContent(bridge)}
           </ReactModal>
         )}
-      </SecondTransitionNoteDocumentContext>
+      </SecondTransitionNoteServerBridge>
     );
   }
 
-  renderDialogContent(params) {
+  renderDialogContent(bridge) {
     return (
       <div style={styles.root}>
-        {this.renderDialogTitle(params)}
+        {this.renderDialogTitle(bridge)}
         <div style={styles.quote}>
           <span>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers."</span>
           <a style={{marginLeft: 10}} href="http://schooltalking.org/schooltalk/" target="_blank" rel="noopener noreferrer">Schooltalk</a>
         </div>
         <div style={{display: 'flex', flex: 1}}>
           <div style={styles.columnsContainer}>
-            {this.renderLeftColumn(params)}
+            {this.renderLeftColumn(bridge)}
             <div style={styles.spacer} />
-            {this.renderRightColumn(params)}
+            {this.renderRightColumn(bridge)}
           </div>
         </div>
-        {this.renderButtonStrip(params)}
+        {this.renderButtonStrip(bridge)}
       </div>
     );
   }
 
-  renderDialogTitle(params) {
+  renderDialogTitle(bridge) {
     const {student} = this.props;
-    const {pending, failed} = params;
+    const {pending, failed} = bridge;
 
     return (
       <SectionHeading style={{padding: 0, paddingBottom: 10}} titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
@@ -119,15 +118,15 @@ export default class TransitionNoteDialog extends React.Component {
         <div style={{display: 'flex'}}>
           {pending.length > 0 ? <Pending /> : null}
           {failed.length > 0 ? <Failure /> : null}
-          <a href="#" onClick={this.onRequestClose.bind(this, params)}>Close</a>
+          <a href="#" onClick={this.onRequestClose.bind(this, bridge)}>Close</a>
         </div>
       </SectionHeading>
     );
   }
 
-  renderLeftColumn(params) {
+  renderLeftColumn(bridge) {
     const {student} = this.props;
-    const {doc, onDocChanged} = params;
+    const {doc, onDocChanged} = bridge;
 
     return (
       <div style={styles.column}>
@@ -146,9 +145,9 @@ export default class TransitionNoteDialog extends React.Component {
     );
   }
 
-  renderRightColumn(params) {
+  renderRightColumn(bridge) {
     const {student} = this.props;
-    const {doc, onDocChanged} = params;
+    const {doc, onDocChanged} = bridge;
     const {restrictedText, isStarred} = doc;
 
     return (
@@ -171,7 +170,7 @@ export default class TransitionNoteDialog extends React.Component {
         <div style={styles.prompt}>Any additional comments or good things to know?</div>
         {this.renderTextarea(doc, onDocChanged, OTHER, {rows: 6})}
         
-        <a href="#" style={styles.starLine} onClick={this.onStarClicked.bind(this, params)}>
+        <a href="#" style={styles.starLine} onClick={this.onStarClicked.bind(this, bridge)}>
           <span style={{
             marginRight: 10,
             fontSize: 20,
@@ -185,8 +184,8 @@ export default class TransitionNoteDialog extends React.Component {
     );
   }
 
-  renderButtonStrip(params) {
-    const {isDirty, doDelete, doSave} = params;
+  renderButtonStrip(bridge) {
+    const {isDirty, doDelete, doSave} = bridge;
 
     return (
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -197,7 +196,7 @@ export default class TransitionNoteDialog extends React.Component {
             onClick={this.onSaveClick.bind(this, doSave)}>Save</Button>
           <PlainButton
             containerStyle={styles.buttonSpacing}
-            onClick={this.onRequestClose.bind(this, params)}>Close</PlainButton>
+            onClick={this.onRequestClose.bind(this, bridge)}>Close</PlainButton>
           <PlainButton
             isDisabled={isDirty}
             containerStyle={{...styles.buttonSpacing, marginLeft: 20}}
@@ -232,10 +231,16 @@ export default class TransitionNoteDialog extends React.Component {
     );
   }
 }
-TransitionNoteDialog.propTypes = {
-  student: PropTypes.object.isRequired,
-  isWritingTransitionNote: PropTypes.bool.isRequired,
-  onWritingTransitionNoteChanged: PropTypes.func.isRequired
+SecondTransitionNoteDialog.propTypes = {
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  initialDoc: PropTypes.object
+};
+SecondTransitionNoteDialog.defaultProps = {
+  initialDoc: createInitialDoc()
 };
 
 const styles = {
@@ -302,43 +307,12 @@ const styles = {
   }
 };
 
-
-function Pending() {
-  return <span style={{
-    width: '8em',
-    textAlign: 'center',
-    color: '#333',
-    fontSize: 14,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginRight: 10,
-    padding: 5}}>...</span>;
-}
-
-function Failure() {
-  return <span style={{
-    width: '8em',
-    textAlign: 'center',
-    backgroundColor: 'red',
-    color: 'white',
-    fontSize: 14,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-    padding: 5,
-    fontWeight: 'bold'
-  }}>network error</span>;
-}
-
 const STRENGTHS = 'strengths';
 const CONNECTING = 'connecting';
 const COMMUNITY = 'community';
 const PEERS = 'peers';
 const FAMILY = 'family';
 const OTHER = 'other';
-
 
 function createInitialDoc() {
   return {
@@ -348,6 +322,7 @@ function createInitialDoc() {
       [CONNECTING]: '',
       [COMMUNITY]: '',
       [PEERS]: '',
+      [FAMILY]: '',
       [OTHER]: ''
     },
     restrictedText: ''

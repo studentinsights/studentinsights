@@ -27,14 +27,8 @@ export default class NotesFeed extends React.Component {
         <div style={styles.subTitle}>Showing {eventNotes.length} notes</div>
         <div className="feed" style={styles.feed}>
           <div style={styles.leftColumn} className="notes-list">
-            <NotesList
-              currentEducatorId={currentEducatorId}
-              includeStudentPanel={true}
-              forceShowingAllNotes={true}
-              canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
-              educatorsIndex={educatorsIndex}
-              feed={feed}
-            />
+          {this.renderNotesList()}
+            
           </div>
           <div style={styles.rightColumn}>
             {this.renderSidebar()}
@@ -42,6 +36,19 @@ export default class NotesFeed extends React.Component {
         </div>
           {this.renderFooter()}
       </div>
+    );
+  }
+
+  renderNotesList() {
+    return (
+      <NotesList
+        currentEducatorId={currentEducatorId}
+        includeStudentPanel={true}
+        forceShowingAllNotes={true}
+        canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
+        educatorsIndex={educatorsIndex}
+        feed={feed}
+      />
     );
   }
 
