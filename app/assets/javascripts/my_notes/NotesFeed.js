@@ -16,6 +16,7 @@ import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import Timestamp from '../components/Timestamp';
 import {FrameHeader} from '../feed/FeedCardFrame';
+import EventNoteCard from '../feed/EventNoteCard';
 
 
 
@@ -40,16 +41,23 @@ export default class NotesFeed extends React.Component {
   }
 
   renderAgain() {
-    const {eventNotes, educator} = this.props;
+    const {eventNotes} = this.props;
 
     return (
       <div>
         {eventNotes.map(eventNoteWithStudent => {
           const {student} = eventNoteWithStudent;
-          return this.renderEventNote(eventNoteWithStudent, student);
+          return (
+            <EventNoteCard
+              key={eventNoteWithStudent.id}
+              style={styles.card}
+              eventNoteCardJson={eventNoteWithStudent}>
+              {this.renderEventNote(eventNoteWithStudent, student)}
+            </EventNoteCard>
+          );
 
           // return (
-          //   <Card key={eventNoteWithStudent.id} style={styles.sim}>
+          //   <Card key={eventNoteWithStudent.id} style={styles.card}>
           //     <CardFrame
           //       student={student}
           //       eventNote={eventNoteWithStudent}
@@ -102,16 +110,7 @@ export default class NotesFeed extends React.Component {
         attachments={eventNote.attachments}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
-        shellFn={substanceEl => 
-          <Card style={styles.card} key={['event_note', eventNote.id].join()}>
-            <CardFrame
-              student={student}
-              eventNote={eventNote}
-              educator={educator}
-            />
-            {substanceEl}
-          </Card>
-        }
+        withoutShell={true}
       />
     );
   }
@@ -218,7 +217,7 @@ const styles = {
     margin: 10
   },
   card: {
-    marginTop: 10
+    marginTop: 20
   },
   wrapper: {
     display: 'flex'
@@ -280,7 +279,7 @@ function CardFrame(props) {
   const {student, educator, eventNote} = props;
   return (
     <FrameHeader
-      student={{...student, has_photo: true}}
+      student={student}
       byEl={
         <div>
           <span>by </span>

@@ -48,9 +48,9 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
-    const {noteMoment, badgeEl, educator, shellFn} = this.props;
+    const {noteMoment, badgeEl, educator, withoutShell} = this.props;
 
-    if (shellFn) return shellFn(this.renderSubstanceEl());
+    if (withoutShell) return this.renderSubstanceEl();
 
     return (
       <NoteShell
@@ -239,7 +239,7 @@ NoteCard.propTypes = {
   // Configuring for different uses
   showRestrictedNoteRedaction: PropTypes.bool,
   urlForRestrictedNoteContent: PropTypes.string,
-  shellFn: PropTypes.func
+  withoutShell: PropTypes.bool
 };
 
 
