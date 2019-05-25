@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {apiPutJson, apiPostJson} from '../helpers/apiFetchJson';
+import {apiPutJson, apiPostJson, apiDeleteJson} from '../helpers/apiFetchJson';
 import WarnBeforeUnload from '../components/WarnBeforeUnload';
-import Loading from '../components/Loading';
 import uuidv4 from 'uuid/v4';
 
 
@@ -28,50 +27,51 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
     };
 
     this.beforeUnloadMessage = this.beforeUnloadMessage.bind(this);
-    this.doUpdate = _.throttle(this.doUpdate.bind(this), props.throttleMs);
+    this.doSave = this.doSave.bind(this);
+    this.doDelete = this.doDelete.bind(this);
     this.onDocChanged = this.onDocChanged.bind(this);
   }
 
-  componentDidMount() {
-    const requestId = uuidv4();
-    this.doCreate()
-      .then(json => this.setState({id: json.id}))
-      .then(this.onRequestDone.bind(this, requestId))
-      .catch(this.onRequestError.bind(this, requestId));
+  anyOutstandingRequests() {
+    const {pending, failed} = this.state;
+    if (_.values(pending).length > 0) return true;
+    if (_.values(failed).length > 0) return true;
+    return false;
   }
 
-  doCreate() {
-    const {studentId} = this.props;
-    const {doc} = this.state;
-    const url = `/api/students/${studentId}/second_transition_note/create_json`;
-    return apiPostJson(url, {form_json: doc.formJson});
+  beforeUnloadMessage() {
+    return this.anyOutstandingRequests()
+      ? 'You have unsaved changes.'
+      : undefined;
   }
 
-  doUpdate(updatedDoc) {
+  doSave() {
     const {studentId} = this.props;
     const {id, doc} = this.state;
-    const url = `/api/students/${studentId}/second_transition_note/${id}/update_json`;
-    return apiPutJson(url, {
+    const url = `/api/students/${studentId}/second_transition_note/save_json`;
+    const postParams =  {
       second_transition_note_id: id,
       form_json: doc.formJson,
       starred: doc.isStarred,
-      restricted_text: doc.restricted_text
-    });
-  }
-
-  // Doesn't catch changes within throttle window
-  beforeUnloadMessage() {
-    const {pending} = this.state;
-    return _.values(pending).length > 0 ? 'You have unsaved changes.' : undefined;
-  }
-
-  onDocChanged(docDiff) {
-    const {doc} = this.state;
-    const updatedDoc = {
-      ...doc,
-      ...docDiff
+      restricted_text: doc.restrictedText
     };
+    return this.trackRequest(doc, () => (
+      apiPostJson(url, postParams)
+        .then(json => this.setState({id: json.id}))
+    ));
+  }
 
+  doDelete() {
+    const {studentId} = this.props;
+    const {id, doc} = this.state;
+    const url = `/api/students/${studentId}/second_transition_note/${id}`;
+    return this.trackRequest(doc, () => (
+      apiDeleteJson(url)
+        .then(json => this.setState({id: null}))
+    ));
+  }
+
+  trackRequest(updatedDoc, requestFn) {
     const requestId = uuidv4();
     this.setState({
       doc: updatedDoc,
@@ -80,8 +80,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
         [requestId]: {updatedDoc}
       }
     });
-
-    this.doUpdate({updatedDoc})
+    return requestFn()
       .then(this.onRequestDone.bind(this, requestId))
       .catch(this.onRequestError.bind(this, requestId));
   }
@@ -102,15 +101,21 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
     });
   }
 
+  onDocChanged(docDiff) {
+    const {doc} = this.state;
+    this.setState({doc: {...doc, ...docDiff}});
+  }
+
   render() {
     const {children} = this.props;
     const {id, doc, pending, failed} = this.state;
-
+    
     return (
       <WarnBeforeUnload messageFn={this.beforeUnloadMessage}>
         {children({
-          id,
           doc,
+          doSave: this.doSave,
+          doDelete: id ? this.doDelete : null,
           pending: _.values(pending),
           failed: _.values(failed),
           onDocChanged: this.onDocChanged
@@ -121,11 +126,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
 }
 SecondTransitionNoteDocumentContext.propTypes = {
   studentId: PropTypes.number.isRequired,
-  children: PropTypes.func.isRequired,
-  throttleMs: PropTypes.number
-};
-SecondTransitionNoteDocumentContext.defaultProps = {
-  throttleMs: 2000
+  children: PropTypes.func.isRequired
 };
 
 export const STRENGTHS = 'strengths';

@@ -15,111 +15,104 @@ import SecondTransitionNoteDocumentContext, {
 
 
 export default class TransitionNoteDialog extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onStarClicked = this.onStarClicked.bind(this);
-    this.onSaveClick = this.onSaveClick.bind(this);
-    this.onSaveAndNextClick = this.onSaveAndNextClick.bind(this);
-    this.onRestrictedTextChanged = this.onRestrictedTextChanged.bind(this);
-  }
-
-  componentDidMount() {
-    // create
-  }
-
-  isDirty() {
-    // check
-  }
-
-  onStarClicked(e) {
+  onStarClicked(params, e) {
     e.preventDefault();
-    const {isStarred} = this.state;
-    this.setState({isStarred: !isStarred});
+    const {doc, onDocChanged} = params;
+    const {isStarred} = doc;
+    onDocChanged({isStarred: !isStarred});
   }
 
-  onRestrictedTextChanged(e) {
-    this.setState({restrictedText: e.target.value});
-  }
-
-  onDeleteNoteClicked(e) {
+  onRestrictedTextChanged(onDocChanged, e) {
     e.preventDefault();
-    // confirm
-    // freeze ui
-    // delete
-    // close ui
+    onDocChanged({restrictedText: e.target.value});
   }
 
-  onSaveClick(e) {
-    // update
+  onDeleteNoteClicked(doDelete, e) {
+    e.preventDefault();
+    const {onWritingTransitionNoteChanged} = this.props;
+    doDelete().then(() => onWritingTransitionNoteChanged(false));
   }
 
-  onSaveAndNextClick(e) {
-    // freeze ui
-    // update
-    // navigate
+  onSaveClick(doSave, e) {
+    e.preventDefault();
+    doSave();
+  }
+
+  onSaveAndNextClick(doSave, e) {
+    e.preventDefault();
+    doSave().then(() => alert('next student!'));
+  }
+
+  onRequestClose(params, e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Warn about pending changes
+    const {pending, failed} = params;
+    if (pending.length > 0 || failed.length > 0) {
+      if (!confirm('You have unsaved changes, discard them?')) return;
+    }
+    const {onWritingTransitionNoteChanged} = this.props;
+    onWritingTransitionNoteChanged(false);
   }
 
   render() {
-    const {student} = this.props;
+    const {student, isWritingTransitionNote} = this.props;
+    if (!isWritingTransitionNote) return null;
 
     return (
       <SecondTransitionNoteDocumentContext studentId={student.id}>
-        {params => this.renderWith(params)}
+        {params => (
+          <ReactModal
+            isOpen={true}
+            style={{
+              content: {
+                top: 15,
+                bottom: 20,
+                left: 40,
+                right: 40,
+                display: 'flex',
+                flexDirection: 'column'
+              }
+            }}
+            onRequestClose={this.onRequestClose.bind(this, params)}
+          >
+            {this.renderDialogContent(params)}
+          </ReactModal>
+        )}
       </SecondTransitionNoteDocumentContext>
-    );    
-  }
-
-  renderWith(params) {
-    const {isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
-
-    return (
-      <ReactModal
-        isOpen={isWritingTransitionNote}
-        style={{
-          content: {
-            top: 15,
-            bottom: 20,
-            left: 40,
-            right: 40,
-            display: 'flex',
-            flexDirection: 'column'
-          }
-        }}
-        onRequestClose={e => {
-          e.preventDefault();
-          e.stopPropagation();
-          // TODO check dirty
-          onWritingTransitionNoteChanged(false);
-        }}
-      >{this.renderDialogContent(params)}
-      </ReactModal>
-
     );
   }
 
   renderDialogContent(params) {
-    const {id, doc, onDocChanged, pending, failed} = params;
+    const {
+      doc,
+      onDocChanged,
+      doSave,
+      doDelete,
+      pending,
+      failed
+    } = params;
 
-    if (!id) return <Loading />;
-
-    const {student, onWritingTransitionNoteChanged} = this.props;
+    const {student} = this.props;
     const {isStarred, restrictedText} = doc;
     return (
       <div style={{fontSize: 14, flex: 1, display: 'flex', flexDirection: 'column'}}>
         <SectionHeading style={{padding: 0, paddingBottom: 10}} titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-          <div>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <StudentPhotoCropped studentId={student.id} />
             <div style={{marginLeft: 10}}>Transition note for {student.first_name}</div>
           </div>
           <div style={{display: 'flex'}}>
             {pending.length > 0 ? <Pending /> : null}
             {failed.length > 0 ? <Failure /> : null}
+            <a href="#" onClick={this.onRequestClose.bind(this, params)}>Close</a>
           </div>
         </SectionHeading>
         <div style={{fontSize: 14, padding: 15, marginTop: 10, background: '#0366d61a', border: '1px solid #0366d61a'}}>
-          "What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."
-          <LightHelpBubble style={{display: 'inline-block'}} title="Transition note examples" content={'... helpful example ...'} />
+          "What we say shapes how adults think about and treat students, how students feel about themselves and their peers."<br/>Adapted from <a href="http://schooltalking.org/schooltalk/" target="_blank" rel="noopener noreferrer">Schooltalk</a>
         </div>
         <div style={{display: 'flex', flex: 1}}>
           <div style={{marginTop: 10}}>
@@ -131,7 +124,7 @@ export default class TransitionNoteDialog extends React.Component {
                 </div>
                 <div style={styles.spacer} />
                 <div style={styles.question}>
-                  <div style={styles.prompt}>How would you suggest teachers connect with {student.first_name}?</div>
+                  <div style={styles.prompt}>What works well for connecting with {student.first_name}?</div>
                   {this.renderTextarea(doc, onDocChanged, CONNECTING, {rows: 5})}
                 </div>
               </div>
@@ -154,7 +147,7 @@ export default class TransitionNoteDialog extends React.Component {
                 }}>
                   <div style={styles.prompt}>Any additional comments or good things to know?</div>
                   {this.renderTextarea(doc, onDocChanged, OTHER, {rows: 6})}
-                  <a href="#" style={styles.starLine} onClick={this.onStarClicked}>
+                  <a href="#" style={styles.starLine} onClick={this.onStarClicked.bind(this, params)}>
                     <span style={{
                       marginRight: 10,
                       fontSize: 20,
@@ -175,30 +168,32 @@ export default class TransitionNoteDialog extends React.Component {
                         placeholder="None"
                         rows={3}
                         value={restrictedText}
-                        onChange={this.onRestrictedTextChanged}
+                        onChange={this.onRestrictedTextChanged.bind(this, onDocChanged)}
                       />
                       <div style={{marginTop: 5}}>This will only be visible to educators with restricted access.</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <button
-                  className="btn save"
-                  onClick={this.onSaveAndNextClick}>Save and next student</button>
-                <button
-                  className="btn"
-                  style={styles.plainButton}
-                  onClick={this.onSaveClick}>Save</button>
-                <button
-                  className="btn cancel"
-                  style={styles.plainButton}
-                  onClick={e => onWritingTransitionNoteChanged(false)}>Cancel</button>
-                <a
-                  href="#"
-                  className="btn"
-                  style={styles.plainButton}
-                  onClick={this.onDeleteNoteClicked}>Delete note</a>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  <button
+                    className="btn save"
+                    onClick={this.onSaveClick.bind(this, doSave)}>Save</button>
+                  <button
+                    className="btn"
+                    style={styles.plainButton}
+                    onClick={this.onSaveAndNextClick.bind(this, doSave)}>Save and next student</button>
+                  <button
+                    className="btn cancel"
+                    style={styles.plainButton}
+                    onClick={this.onRequestClose.bind(this, params)}>Close</button>
+                  </div>
+                {doDelete && (
+                  <a
+                    href="#"
+                    onClick={this.onDeleteNoteClicked.bind(this, doDelete)}>Delete transition note</a>
+                )}
               </div>
             </div>
           </div>
