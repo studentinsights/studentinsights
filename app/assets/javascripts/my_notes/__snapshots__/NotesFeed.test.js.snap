@@ -61,11 +61,8 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      <div
-        className="NotesList"
-      >
+      <div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -73,7 +70,6 @@ exports[`snapshots view 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -90,7 +86,7 @@ exports[`snapshots view 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -186,65 +182,66 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Elsa's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -252,7 +249,6 @@ exports[`snapshots view 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -269,7 +265,7 @@ exports[`snapshots view 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -365,65 +361,66 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Elsa's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -431,7 +428,6 @@ exports[`snapshots view 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -448,7 +444,7 @@ exports[`snapshots view 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -544,65 +540,66 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Elsa's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -610,7 +607,6 @@ exports[`snapshots view 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -627,7 +623,7 @@ exports[`snapshots view 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -727,65 +723,66 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Donald's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -793,7 +790,6 @@ exports[`snapshots view 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -810,7 +806,7 @@ exports[`snapshots view 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -910,52 +906,54 @@ exports[`snapshots view 1`] = `
                 }
               }
             >
-              <div
-                className="NoteText"
-                style={
-                  Object {
-                    "border": 0,
-                    "fontFamily": "'Open Sans', sans-serif",
-                    "fontSize": 14,
-                    "marginTop": 5,
-                    "outline": "1px solid transparent",
-                    "overflowX": "hidden",
-                    "padding": 0,
-                    "whiteSpace": "pre-wrap",
-                    "wordBreak": "break-word",
-                  }
-                }
-              >
-                Note
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
+                  className="NoteText"
                   style={
                     Object {
-                      "fontSize": 12,
+                      "border": 0,
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "outline": "1px solid transparent",
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
                     }
                   }
                 >
-                   
-                </span>
-                <span
+                  Note
+                </div>
+                <div
                   style={
                     Object {
-                      "fontSize": 12,
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
                     }
                   }
                 >
-                   
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -1035,11 +1033,8 @@ exports[`snapshots view with wordcloud 1`] = `
         }
       }
     >
-      <div
-        className="NotesList"
-      >
+      <div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -1047,7 +1042,6 @@ exports[`snapshots view with wordcloud 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -1064,7 +1058,7 @@ exports[`snapshots view with wordcloud 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -1160,65 +1154,66 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Elsa's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -1226,7 +1221,6 @@ exports[`snapshots view with wordcloud 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -1243,7 +1237,7 @@ exports[`snapshots view with wordcloud 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -1339,65 +1333,66 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Elsa's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -1405,7 +1400,6 @@ exports[`snapshots view with wordcloud 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -1422,7 +1416,7 @@ exports[`snapshots view with wordcloud 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -1518,65 +1512,66 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Elsa's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -1584,7 +1579,6 @@ exports[`snapshots view with wordcloud 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -1601,7 +1595,7 @@ exports[`snapshots view with wordcloud 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -1701,65 +1695,66 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div
-                className="RestrictedNotePresence"
-              >
-                <div>
-                  <div
-                    className="NoteText"
+              <div>
+                <div
+                  className="RestrictedNotePresence"
+                >
+                  <div>
+                    <div
+                      className="NoteText"
+                      style={
+                        Object {
+                          "border": 0,
+                          "color": "#999",
+                          "fontFamily": "'Open Sans', sans-serif",
+                          "fontSize": 14,
+                          "marginTop": 5,
+                          "outline": "1px solid transparent",
+                          "overflowX": "hidden",
+                          "padding": 0,
+                          "whiteSpace": "pre-wrap",
+                          "wordBreak": "break-word",
+                        }
+                      }
+                    >
+                      To respect their privacy, Uri or an administrator marked this note as restricted.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "border": 0,
-                        "color": "#999",
-                        "fontFamily": "'Open Sans', sans-serif",
-                        "fontSize": 14,
-                        "marginTop": 5,
-                        "outline": "1px solid transparent",
-                        "overflowX": "hidden",
-                        "padding": 0,
-                        "whiteSpace": "pre-wrap",
-                        "wordBreak": "break-word",
+                        "fontSize": 12,
                       }
                     }
                   >
-                    To respect Donald's privacy, Uri or an administrator marked this note as restricted.
-                  </div>
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
                 </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
-                <span
-                  style={
-                    Object {
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                   
-                </span>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="wrapper"
           style={
             Object {
               "display": "flex",
@@ -1767,7 +1762,6 @@ exports[`snapshots view with wordcloud 1`] = `
           }
         >
           <div
-            className="studentCard"
             style={
               Object {
                 "border": "1px solid #eee",
@@ -1784,7 +1778,7 @@ exports[`snapshots view with wordcloud 1`] = `
                 style={
                   Object {
                     "color": "#3177c9",
-                    "fontSize": "18px",
+                    "fontSize": 18,
                     "fontWeight": "bold",
                     "marginBottom": "5%",
                   }
@@ -1884,52 +1878,54 @@ exports[`snapshots view with wordcloud 1`] = `
                 }
               }
             >
-              <div
-                className="NoteText"
-                style={
-                  Object {
-                    "border": 0,
-                    "fontFamily": "'Open Sans', sans-serif",
-                    "fontSize": 14,
-                    "marginTop": 5,
-                    "outline": "1px solid transparent",
-                    "overflowX": "hidden",
-                    "padding": 0,
-                    "whiteSpace": "pre-wrap",
-                    "wordBreak": "break-word",
-                  }
-                }
-              >
-                Note
-              </div>
-              <div
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "marginTop": 15,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
+                  className="NoteText"
                   style={
                     Object {
-                      "fontSize": 12,
+                      "border": 0,
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "outline": "1px solid transparent",
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
                     }
                   }
                 >
-                   
-                </span>
-                <span
+                  Note
+                </div>
+                <div
                   style={
                     Object {
-                      "fontSize": 12,
+                      "alignItems": "center",
+                      "display": "flex",
+                      "justifyContent": "space-between",
+                      "marginTop": 15,
                     }
                   }
                 >
-                   
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                     
+                  </span>
+                </div>
               </div>
             </div>
           </div>

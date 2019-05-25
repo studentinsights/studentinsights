@@ -39,7 +39,7 @@ export default class NotesFeed extends React.Component {
         {eventNotes.map(eventNoteWithStudent => {
           const {student} = eventNoteWithStudent;
           return (
-            <div key={eventNoteWithStudent.id} className="wrapper" style={styles.wrapper}>
+            <div key={eventNoteWithStudent.id} style={styles.wrapper}>
               {this.renderStudentCard(student)}
               {this.renderEventNote(eventNoteWithStudent, student)}
             </div>
@@ -116,7 +116,7 @@ export default class NotesFeed extends React.Component {
 
   renderStudentCard(student) {
     return (
-      <div className="studentCard" style={styles.studentCard}>
+      <div style={styles.studentCard}>
         <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
           {student.last_name}, {student.first_name}
         </a></p>
@@ -147,9 +147,9 @@ export default class NotesFeed extends React.Component {
   renderFooter() {
     if (this.props.eventNotes.length != this.props.totalNotesCount) {
       return (
-        <div className="footer" style={styles.footer}>
+        <div style={styles.footer}>
           <button
-            className="btn load-more-notes"
+            className="btn"
             style={styles.button}
             onClick={this.props.onClickLoadMoreNotes}>
             Load 30 More Notes
@@ -178,7 +178,7 @@ const styles = {
     display: 'flex'
   },
   button: {
-    marginTop: '10px',
+    marginTop: 10,
     display: 'inline'
   },
   feed: {
@@ -209,7 +209,7 @@ const styles = {
     width: '25%'
   },
   studentName: {
-    fontSize: '18px',
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#3177c9',
     marginBottom: '5%'
