@@ -5,13 +5,15 @@ import moment from 'moment';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
+import {IDLE} from '../helpers/requestStates';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
-import NoteCard, {EmptyContainer, EducatorCard} from './NoteCard';
+import NoteShell from '../components/NoteShell';
+import Educator from '../components/Educator';
+import NoteCard from './NoteCard';
 import SecondTransitionNoteInline from './SecondTransitionNoteInline';
 import {parseAndReRender} from './transitionNoteParser';
-import {urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
+import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage, {defaultSchoolYearsBack, filteredNotesForCleanSlate} from './CleanSlateMessage';
-import ProfileListEventNote from './ProfileListEventNote';
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -64,14 +66,6 @@ export default class NotesList extends React.Component {
     );
   }
 
-  renderEventNoteTypeBadge(eventNoteTypeId) {
-    return (
-      <span style={styles.badge}>
-        {eventNoteTypeText(eventNoteTypeId)}
-      </span>
-    );
-  }
-
   renderEventNote(eventNote) {
     const {
       educatorsIndex,
@@ -81,173 +75,128 @@ export default class NotesList extends React.Component {
       currentEducatorId,
       requests
     } = this.props;
-
-    return (
-      <ProfileListEventNote
-        eventNote={eventNote}
-        educatorsIndex={educatorsIndex}
-        onSaveNote={onSaveNote}
-        onEventNoteAttachmentDeleted={onEventNoteAttachmentDeleted}
-        canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
-        currentEducatorId={currentEducatorId}
-        requests={requests}
-      />
+    const isRedacted = eventNote.is_restricted;
+    const isReadonly = (
+      !onSaveNote ||
+      !onEventNoteAttachmentDeleted ||
+      (currentEducatorId !== eventNote.educator_id) ||
+      isRedacted
     );
-
-    // const {
-    //   includeStudentPanel,
-    //   educatorsIndex,
-    //   onSaveNote,
-    //   onEventNoteAttachmentDeleted,
-    //   canUserAccessRestrictedNotes,
-    //   currentEducatorId,
-    //   requests
-    // } = this.props;
-    // const isRedacted = eventNote.is_restricted;
-    // const isReadonly = (
-    //   !onSaveNote ||
-    //   !onEventNoteAttachmentDeleted ||
-    //   (currentEducatorId !== eventNote.educator_id) ||
-    //   isRedacted
-    // );
-    // const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
-    //   ? urlForRestrictedEventNoteContent(eventNote)
-    //   : null;
-    // const requestState = (isReadonly || !requests)
-    //   ? IDLE
-    //   : requests.updateNote[eventNote.id];
-    // return (
-    //   <NoteCard
-    //     key={['event_note', eventNote.id].join()}
-    //     eventNoteId={eventNote.id}
-    //     student={eventNote.student} //really only for my notes page
-    //     eventNoteTypeId={eventNote.event_note_type_id}
-    //     noteMoment={moment.utc(eventNote.recorded_at)}
-    //     badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
-    //     educatorId={eventNote.educator_id}
-    //     text={eventNote.text || ''}
-    //     lastRevisedAtMoment={eventNote.latest_revision_at ? moment.utc(eventNote.latest_revision_at) : null}
-    //     attachments={isRedacted ? [] : eventNote.attachments}
-    //     educatorsIndex={educatorsIndex}
-    //     showRestrictedNoteRedaction={isRedacted}
-    //     includeStudentPanel={includeStudentPanel}
-    //     urlForRestrictedNoteContent={urlForRestrictedNoteContent}
-    //     onSave={isReadonly ? null : onSaveNote}
-    //     requestState={requestState}
-    //     onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
-    // );
-  }
-
-  // TODO(kr) support custom intervention type
-  // This assumes that the `end_date` field is not accurate enough to be worth splitting
-  // this out into two note entries.
-  renderDeprecatedIntervention(deprecatedIntervention) {
+    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
+      ? urlForRestrictedEventNoteContent(eventNote)
+      : null;
+    const requestState = (isReadonly || !requests)
+      ? IDLE
+      : requests.updateNote[eventNote.id];
     return (
       <NoteCard
-        key={['deprecated_intervention', deprecatedIntervention.id].join()}
-        noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp, 'MMMM-YY-DD')}
-        badge={<span style={styles.badge}>Old intervention</span>}
-        educatorId={deprecatedIntervention.educator_id}
-        text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}
-        educatorsIndex={this.props.educatorsIndex}
-        // deprecated interventions have no attachments
-        attachments={[]} />
+        key={['event_note', eventNote.id].join()}
+        noteMoment={toMomentFromRailsDate(eventNote.recorded_at)}
+        badgeEl={eventNoteTypeText(eventNote.event_note_type_id)}
+        educator={educatorsIndex[eventNote.educator_id]}
+        text={eventNote.text || ''}
+        eventNoteId={eventNote.id}
+        eventNoteTypeId={eventNote.event_note_type_id}
+        lastRevisedAtMoment={eventNote.latest_revision_at ? toMomentFromRailsDate(eventNote.latest_revision_at) : null}
+        attachments={isRedacted ? [] : eventNote.attachments}
+        requestState={requestState}
+        onSave={isReadonly ? null : onSaveNote}
+        showRestrictedNoteRedaction={isRedacted}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
   }
 
+  // Deprecated, see `SecondTransitionNote`
   renderTransitionNote(transitionNote) {
-    const {canUserAccessRestrictedNotes} = this.props;
+    const {canUserAccessRestrictedNotes, educatorsIndex} = this.props;
     const isRedacted = transitionNote.is_restricted;
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
       ? urlForRestrictedTransitionNoteContent(transitionNote)
       : null;
+    
     return (
       <NoteCard
         key={['transition_note', transitionNote.id].join()}
         noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
-        badge={<span style={styles.badge}>Transition note</span>}
-        educatorId={transitionNote.educator_id}
+        badgeEl="Transition note"
+        educator={educatorsIndex[transitionNote.educator_id]}
         text={parseAndReRender(transitionNote.text)}
-        educatorsIndex={this.props.educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
         attachments={[]} />
     );
   }
 
+  // Deprecated
+  // This assumes that the `end_date` field is not accurate enough to
+  // be worth splitting this out into two note entries.
+  renderDeprecatedIntervention(deprecatedIntervention) {
+    const {educatorsIndex} = this.props;
+    const educator = educatorsIndex[deprecatedIntervention.educator_id];
+    const noteMoment = moment.utc(deprecatedIntervention.start_date_timestamp, 'MMMM-YY-DD');
+    const text = _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n');
+    return (
+      <NoteShell
+        key={['deprecated_intervention', deprecatedIntervention.id].join()}
+        whenEl={noteMoment.format('MMMM D, YYYY')}
+        badgeEl="Old intervention"
+        educatorEl={<Educator educator={educator} />}
+        substanceEl={text}
+      />
+    );
+  }
+
   renderSecondTransitionNote(secondTransitionNote) {
     const {educatorsIndex} = this.props;
     const educator = educatorsIndex[secondTransitionNote.educator_id];
-    const whenText = toMomentFromRailsDate(secondTransitionNote.created_at).format('MMMM D, YYYY');
     return (
-      <EmptyContainer
+      <NoteShell
         key={['second_transition_note', secondTransitionNote.id].join()}
-        whenEl={whenText}
-        badgeEl={<span style={styles.badge}>Transition note</span>}
-        educatorEl={<EducatorCard educator={educator} />}
+        whenEl={whenText(secondTransitionNote.created_at)}
+        badgeEl="Transition note"
+        educatorEl={<Educator educator={educator} />}
         substanceEl={<SecondTransitionNoteInline json={secondTransitionNote} />}
-        studentPanelEl={null}
-        attachmentsEl={null}
       />
     );
-
-    // return (
-    //   <NoteCard
-    //     key={['second_transition_note', secondTransitionNote.id].join()}
-    //     noteMoment={toMomentFromRailsDate(secondTransitionNote.created_at)}
-    //     badge={<span style={styles.badge}>Transition note</span>}
-    //     educatorId={secondTransitionNote.educator_id}
-    //     text={el}
-    //     educatorsIndex={educatorsIndex}
-    //     showRestrictedNoteRedaction={false}
-    //     urlForRestrictedNoteContent={null}
-    //     attachments={[]} />
-    // );
   }
 
   renderFallStudentVoiceSurvey(fallStudentVoiceSurvey) {
     return (
-      <NoteCard
+      <NoteShell
         key={['fall_completed_survey', fallStudentVoiceSurvey.id].join()}
-        noteMoment={toMomentFromRailsDate(fallStudentVoiceSurvey.form_timestamp)}
-        badge={<span style={styles.badge}>What I want my teacher to know about me</span>}
-        text={`💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceSurvey.flat_text}`}
-        educatorId={null}
-        educatorsIndex={{}}
-        showRestrictedNoteRedaction={false}
-        urlForRestrictedNoteContent={null}
-        attachments={[]} />
+        whenEl={whenText(fallStudentVoiceSurvey.form_timestamp)}
+        badgeEl="What I want my teacher to know about me"
+        educatorEl={null}
+        substanceEl={`💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceSurvey.flat_text}`}
+      />
     );
   }
 
   renderHomeworkHelpSession(homeworkHelpSession) {
+    const {educatorsIndex} = this.props;
     const text = 'Went to homework help for ' + homeworkHelpSession.courses.map(course => course.course_description).join(' and ') + '.';
+    const educator = educatorsIndex[homeworkHelpSession.recorded_by_educator_id];
     return (
-      <NoteCard
+      <NoteShell
         key={['homework_help_session', homeworkHelpSession.id].join()}
-        noteMoment={toMomentFromRailsDate(homeworkHelpSession.form_timestamp)}
-        badge={<span style={styles.badge}>Homework Help</span>}
-        educatorId={homeworkHelpSession.recorded_by_educator_id}
-        text={text}
-        educatorsIndex={this.props.educatorsIndex}
-        showRestrictedNoteRedaction={false}
-        urlForRestrictedNoteContent={null}
-        attachments={[]} />
+        whenEl={whenText(homeworkHelpSession.form_timestamp)}
+        badgeEl="Homework Help"
+        educatorEl={<Educator educator={educator} />}
+        substanceEl={text}
+      />
     );
   }
 
   renderFlattenedForm(flattenedForm) {
     return (
-      <NoteCard
+      <NoteShell
         key={['flattened_form', flattenedForm.id].join()}
-        noteMoment={toMomentFromRailsDate(flattenedForm.form_timestamp)}
-        badge={<span style={styles.badge}>{flattenedForm.form_title}</span>}
-        text={`💬 From the "${flattenedForm.form_title}" student voice survey 💬\n\n${flattenedForm.text}`}
-        educatorId={null}
-        educatorsIndex={{}}
-        showRestrictedNoteRedaction={false}
-        urlForRestrictedNoteContent={null}
-        attachments={[]} />
+        whenEl={whenText(flattenedForm.form_timestamp)}
+        badgeEl={flattenedForm.form_title}
+        educatorEl={null}
+        substanceEl={`💬 From the "${flattenedForm.form_title}" student voice survey 💬\n\n${flattenedForm.text}`}
+      />
     );
   }
 
@@ -291,16 +240,11 @@ NotesList.contextTypes = {
 const styles = {
   noItems: {
     margin: 10
-  },
-  badge: {
-    display: 'inline-block',
-    background: '#eee',
-    outline: '3px solid #eee',
-    width: '10em',
-    textAlign: 'center',
-    marginLeft: 10,
-    marginRight: 10
   }
 };
 
 export const badgeStyle = styles.badge;
+
+function whenText(railsDate) {
+  return toMomentFromRailsDate(railsDate).format('MMMM D, YYYY');
+}

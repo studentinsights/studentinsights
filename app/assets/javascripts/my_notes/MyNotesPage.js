@@ -59,11 +59,11 @@ export default class MyNotesPage extends React.Component {
     } = this.state;
     if (!hasFetched) return <Loading style={{padding: 10}} />;
     
+    const educator = educatorsIndex[currentEducator.id];
     return (
       <NotesFeed
-        currentEducatorId={currentEducator.id}
+        educator={educator}
         canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
-        educatorsIndex={educatorsIndex}
         eventNotes={eventNotes}
         onClickLoadMoreNotes={this.onClickLoadMoreNotes}
         totalNotesCount={totalNotesCount} />

@@ -5,6 +5,8 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import NoteCard from './NoteCard';
 import {IDLE} from '../helpers/requestStates';
 import {urlForRestrictedEventNoteContent} from './RestrictedNotePresence';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
+
 
 // For the profile list only
 export default class ProfileListEventNote extends React.Component {
@@ -37,7 +39,7 @@ export default class ProfileListEventNote extends React.Component {
         eventNoteId={eventNote.id}
         eventNoteTypeId={eventNote.event_note_type_id}
         noteMoment={toMomentFromRailsDate(eventNote.recorded_at)}
-        badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
+        badgeEl={eventNoteTypeText(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
         lastRevisedAtMoment={eventNote.latest_revision_at ? toMomentFromRailsDate(eventNote.latest_revision_at) : null}
