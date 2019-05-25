@@ -64,7 +64,7 @@ export default class NoteCard extends React.Component {
 
   renderSubstanceEl() {
     return (
-      <div>
+      <div className="NoteCard-substance">
         {this.renderNoteSubstanceOrRedaction()}
         <div style={styles.footer}>
           {this.renderLastRevisedAt()}

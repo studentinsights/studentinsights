@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 export default function NoteShell(props) {
   const {whenEl, badgeEl, educatorEl, substanceEl} = props;
   return (
-    <div className="NoteCard" style={styles.note}>
+    <div className="NoteShell" style={styles.note}>
       <div style={styles.titleLine}>
         <span className="date" style={styles.date}>{whenEl}</span>
         <span style={styles.badge}>{badgeEl}</span>
