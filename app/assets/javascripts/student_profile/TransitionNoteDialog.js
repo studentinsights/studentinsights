@@ -4,7 +4,8 @@ import ReactModal from 'react-modal';
 import SectionHeading from '../components/SectionHeading';
 import Button, {PlainButton} from '../components/Button';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import LightHelpBubble  from '../student_profile/LightHelpBubble';
+import {apiFetchJson} from '../helpers/apiFetchJson';
+import * as Routes from '../helpers/Routes';
 import SecondTransitionNoteDocumentContext from './SecondTransitionNoteDocumentContext';
 
 
@@ -35,7 +36,11 @@ export default class TransitionNoteDialog extends React.Component {
 
   onNextClick(doSave, e) {
     e.preventDefault();
-    alert('next student!');
+    const {student} = this.props;
+    const url = `/api/students/${student.id}/second_transition_notes/next_student_json`;
+    apiFetchJson(url).then(json => {
+      window.location = Routes.studentProfile(json.next_student_id);
+    });
   }
 
   onRequestClose(params, e) {

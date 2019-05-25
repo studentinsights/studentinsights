@@ -45,7 +45,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
   doSave() {
     const {studentId} = this.props;
     const {id, doc} = this.state;
-    const url = `/api/students/${studentId}/second_transition_note/save_json`;
+    const url = `/api/students/${studentId}/second_transition_notes/save_json`;
     const postParams =  {
       second_transition_note_id: id,
       form_json: doc.formJson,
@@ -61,7 +61,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
   doDelete() {
     const {studentId} = this.props;
     const {id, doc} = this.state;
-    const url = `/api/students/${studentId}/second_transition_note/${id}`;
+    const url = `/api/students/${studentId}/second_transition_notes/${id}`;
     return this.trackRequest(doc, () => (
       apiDeleteJson(url)
         .then(json => this.setState({id: null}))

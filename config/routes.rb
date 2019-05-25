@@ -96,9 +96,10 @@ Rails.application.routes.draw do
   get '/api/students/:student_id/restricted_transition_note_json' => 'transition_notes#restricted_transition_note_json'
 
   # second transition notes
-  post '/api/students/:student_id/second_transition_note/save_json' => 'second_transition_notes#save_json'
-  delete '/api/students/:student_id/second_transition_note/:second_transition_note_id' => 'second_transition_notes#delete_json'
-  get '/api/students/:student_id/second_transition_note/:second_transition_note_id/restricted_text_json' => 'second_transition_notes#restricted_text_json'
+  post '/api/students/:student_id/second_transition_notes/save_json' => 'second_transition_notes#save_json'
+  delete '/api/students/:student_id/second_transition_notes/:second_transition_note_id' => 'second_transition_notes#delete_json'
+  get '/api/students/:student_id/second_transition_notes/:second_transition_note_id/restricted_text_json' => 'second_transition_notes#restricted_text_json'
+  get '/api/students/:student_id/second_transition_notes/next_student_json' => 'second_transition_notes#next_student_json'
 
   # event_notes: creating/updating notes, or reading restricted notes
   post '/api/event_notes' => 'event_notes#create'
