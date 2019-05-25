@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {apiPutJson, apiPostJson, apiDeleteJson} from '../helpers/apiFetchJson';
+import {apiPostJson, apiDeleteJson} from '../helpers/apiFetchJson';
 import WarnBeforeUnload from '../components/WarnBeforeUnload';
 import uuidv4 from 'uuid/v4';
 
@@ -11,19 +11,10 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
     super(props);
     this.state = {
       id: null,
-      doc: {
-        isStarred: false,
-        formJson: {
-          [STRENGTHS]: '',
-          [CONNECTING]: '',
-          [COMMUNITY]: '',
-          [PEERS]: '',
-          [OTHER]: ''
-        },
-        restrictedText: ''
-      },
+      doc: props.initialDoc,
       pending: {},
-      failed: {}
+      failed: {},
+      lastSyncedDoc: props.initialDoc
     };
 
     this.beforeUnloadMessage = this.beforeUnloadMessage.bind(this);
@@ -39,8 +30,14 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
     return false;
   }
 
+  isDirty() {
+    const {lastSyncedDoc, doc} = this.state;
+    if (!_.isEqual(lastSyncedDoc, doc)) return true;
+    return false;
+  }
+
   beforeUnloadMessage() {
-    return this.anyOutstandingRequests()
+    return (this.isDirty() || this.anyOutstandingRequests())
       ? 'You have unsaved changes.'
       : undefined;
   }
@@ -81,13 +78,14 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
       }
     });
     return requestFn()
-      .then(this.onRequestDone.bind(this, requestId))
+      .then(this.onRequestDone.bind(this, requestId, updatedDoc))
       .catch(this.onRequestError.bind(this, requestId));
   }
 
-  onRequestDone(requestId) {
+  onRequestDone(requestId, updatedDoc) {
     this.setState({
-      pending: _.omit(this.state.pending, requestId)
+      pending: _.omit(this.state.pending, requestId),
+      lastSyncedDoc: updatedDoc
     });
   }
   
@@ -116,6 +114,7 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
           doc,
           doSave: this.doSave,
           doDelete: id ? this.doDelete : null,
+          isDirty: this.isDirty(),
           pending: _.values(pending),
           failed: _.values(failed),
           onDocChanged: this.onDocChanged
@@ -126,11 +125,6 @@ export default class SecondTransitionNoteDocumentContext extends React.Component
 }
 SecondTransitionNoteDocumentContext.propTypes = {
   studentId: PropTypes.number.isRequired,
+  initialDoc: PropTypes.any.isRequired,
   children: PropTypes.func.isRequired
 };
-
-export const STRENGTHS = 'strengths';
-export const CONNECTING = 'connecting';
-export const COMMUNITY = 'community';
-export const PEERS = 'peers';
-export const OTHER = 'other';
