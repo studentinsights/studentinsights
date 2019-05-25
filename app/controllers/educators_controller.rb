@@ -91,23 +91,24 @@ class EducatorsController < ApplicationController
   end
 
   def my_notes_json
-    safe_params = params.permit(:batch_size)
-    batch_size = safe_params[:batch_size].to_i
-    authorized_notes = authorized do
-      EventNote.includes(:student)
-        .where(educator_id: current_educator.id)
-        .order('recorded_at DESC')
-    end
+    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-05-25-my-notes/my_notes.json'))
+    # safe_params = params.permit(:batch_size)
+    # batch_size = safe_params[:batch_size].to_i
+    # authorized_notes = authorized do
+    #   EventNote.includes(:student)
+    #     .where(educator_id: current_educator.id)
+    #     .order('recorded_at DESC')
+    # end
 
-    notes_json = authorized_notes.first(batch_size).map do |event_note|
-      EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note_with_student
-    end
-    render json: {
-      educators_index: Educator.to_index,
-      current_educator: current_educator.as_json(only: [:id, :can_view_restricted_notes]),
-      notes: notes_json,
-      total_notes_count: authorized_notes.size
-    }
+    # notes_json = authorized_notes.first(batch_size).map do |event_note|
+    #   EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note_with_student
+    # end
+    # render json: {
+    #   educators_index: Educator.to_index,
+    #   current_educator: current_educator.as_json(only: [:id, :can_view_restricted_notes]),
+    #   notes: notes_json,
+    #   total_notes_count: authorized_notes.size
+    # }
   end
 
   # Send arbitrary request to reset Devise Timeoutable

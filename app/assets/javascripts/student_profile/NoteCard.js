@@ -48,7 +48,10 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
-    const {noteMoment, badgeEl, educator} = this.props;
+    const {noteMoment, badgeEl, educator, shellFn} = this.props;
+
+    if (shellFn) return shellFn(this.renderSubstanceEl());
+
     return (
       <NoteShell
         whenEl={noteMoment.format('MMMM D, YYYY')}
@@ -235,7 +238,8 @@ NoteCard.propTypes = {
 
   // Configuring for different uses
   showRestrictedNoteRedaction: PropTypes.bool,
-  urlForRestrictedNoteContent: PropTypes.string
+  urlForRestrictedNoteContent: PropTypes.string,
+  shellFn: PropTypes.func
 };
 
 

@@ -5,10 +5,18 @@ import * as Routes from '../helpers/Routes';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import BoxCard from '../components/BoxCard';
+import Card from '../components/Card';
 import SectionHeading from '../components/SectionHeading';
 import WordCloud from '../components/WordCloud';
 import NoteCard from '../student_profile/NoteCard';
 import {urlForRestrictedEventNoteContent} from '../student_profile/RestrictedNotePresence';
+
+import Educator from '../components/Educator';
+import HouseBadge from '../components/HouseBadge';
+import NoteBadge from '../components/NoteBadge';
+import Timestamp from '../components/Timestamp';
+import {FrameHeader} from '../feed/FeedCardFrame';
+
 
 
 export default class NotesFeed extends React.Component {
@@ -20,7 +28,7 @@ export default class NotesFeed extends React.Component {
         <div style={styles.subTitle}>Showing {eventNotes.length} notes</div>
         <div className="feed" style={styles.feed}>
           <div style={styles.leftColumn} className="notes-list">
-            {this.renderNotesList()}
+            {this.renderAgain()}
           </div>
           <div style={styles.rightColumn}>
             {this.renderSidebar()}
@@ -31,6 +39,31 @@ export default class NotesFeed extends React.Component {
     );
   }
 
+  renderAgain() {
+    const {eventNotes, educator} = this.props;
+
+    return (
+      <div>
+        {eventNotes.map(eventNoteWithStudent => {
+          const {student} = eventNoteWithStudent;
+          return this.renderEventNote(eventNoteWithStudent, student);
+
+          // return (
+          //   <Card key={eventNoteWithStudent.id} style={styles.sim}>
+          //     <CardFrame
+          //       student={student}
+          //       eventNote={eventNoteWithStudent}
+          //       educator={educator}
+          //     />
+          //     {this.renderEventNote(eventNoteWithStudent, student)}
+          //   </Card>
+          // );
+        })}
+      </div>
+    );
+  }
+
+
   renderNotesList() {
     const {eventNotes} = this.props;
 
@@ -40,7 +73,7 @@ export default class NotesFeed extends React.Component {
           const {student} = eventNoteWithStudent;
           return (
             <div key={eventNoteWithStudent.id} style={styles.wrapper}>
-              {this.renderStudentCard(student)}
+              {this.renderStudentCard(eventNoteWithStudent, student)}
               {this.renderEventNote(eventNoteWithStudent, student)}
             </div>
           );
@@ -69,62 +102,72 @@ export default class NotesFeed extends React.Component {
         attachments={eventNote.attachments}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        shellFn={substanceEl => 
+          <Card style={styles.card} key={['event_note', eventNote.id].join()}>
+            <CardFrame
+              student={student}
+              eventNote={eventNote}
+              educator={educator}
+            />
+            {substanceEl}
+          </Card>
+        }
       />
     );
   }
 
-  renderHomeroomOrGrade(student) {
-    if (student.grade < 9) {
-      if (student.homeroom_id) {
-        return (
-          <p><a
-            className="homeroom-link"
-            href={Routes.homeroom(student.homeroom_id)}>
-            {'Homeroom ' + student.homeroom_name}
-          </a></p>
-        );
-      }
-      else {
-        return (
-          <p>No Homeroom</p>
-        );
-      }
-    }
-    else {
-      return (
-        <p>{student.grade}th Grade</p>
-      );
-    }
-  }
+  // renderHomeroomOrGrade(student) {
+  //   if (student.grade < 9) {
+  //     if (student.homeroom_id) {
+  //       return (
+  //         <p><a
+  //           className="homeroom-link"
+  //           href={Routes.homeroom(student.homeroom_id)}>
+  //           {'Homeroom ' + student.homeroom_name}
+  //         </a></p>
+  //       );
+  //     }
+  //     else {
+  //       return (
+  //         <p>No Homeroom</p>
+  //       );
+  //     }
+  //   }
+  //   else {
+  //     return (
+  //       <p>{student.grade}th Grade</p>
+  //     );
+  //   }
+  // }
 
-  renderSchool(student) {
-    if (student.school_id) {
-      return (
-        <p><a
-          className="school-link"
-          href={Routes.school(student.school_id)}>
-          {student.school_name}
-        </a></p>
-      );
-    }
-    else {
-      return (
-        <p>No School</p>
-      );
-    }
-  }
+  // renderSchool(student) {
+  //   if (student.school_id) {
+  //     return (
+  //       <p><a
+  //         className="school-link"
+  //         href={Routes.school(student.school_id)}>
+  //         {student.school_name}
+  //       </a></p>
+  //     );
+  //   }
+  //   else {
+  //     return (
+  //       <p>No School</p>
+  //     );
+  //   }
+  // }
 
-  renderStudentCard(student) {
-    return (
-      <div style={styles.studentCard}>
-        <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
-          {student.last_name}, {student.first_name}
-        </a></p>
-        {this.renderSchool(student)}
-        {this.renderHomeroomOrGrade(student)}
-      </div>
-    );
-  }
+  // renderStudentCard(eventNote, student) {
+  //   return (
+  //     <div style={styles.studentCard}>
+  //       <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
+  //         {student.last_name}, {student.first_name}
+  //       </a></p>
+  //       {this.renderSchool(student)}
+  //       {this.renderHomeroomOrGrade(student)}
+  //     </div>
+  //   );
+  // }
 
   renderSidebar() {
     const {showWordCloud, eventNotes} = this.props;
@@ -174,6 +217,9 @@ const styles = {
     fontSize: 14,
     margin: 10
   },
+  card: {
+    marginTop: 10
+  },
   wrapper: {
     display: 'flex'
   },
@@ -187,7 +233,7 @@ const styles = {
     margin: 10
   },
   leftColumn: {
-    flex: 2
+    flex: 1
   },
   rightColumn: {
     paddingLeft: 20,
@@ -206,13 +252,16 @@ const styles = {
     padding: 15,
     marginTop: 10,
     marginBottom: 10,
-    width: '25%'
+    width: 250
   },
   studentName: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#3177c9',
     marginBottom: '5%'
+  },
+  person: {
+    fontWeight: 'bold'
   }
 };
 
@@ -223,3 +272,35 @@ function wordsFromEventNotes(eventNotes) {
     return eventNote.text.split(' ');
   });
 }
+
+
+
+
+function CardFrame(props) {
+  const {student, educator, eventNote} = props;
+  return (
+    <FrameHeader
+      student={{...student, has_photo: true}}
+      byEl={
+        <div>
+          <span>by </span>
+          <Educator
+            style={styles.person}
+            educator={educator} />
+        </div>
+      }
+      whereEl={<div>in {eventNoteTypeText(eventNote.event_note_type_id)}</div>}
+      whenEl={<Timestamp railsTimestamp={eventNote.recorded_at} />}
+      badgesEl={<div>
+        {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
+        <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNote.event_note_type_id} />
+      </div>
+      }
+    />
+  );
+}
+CardFrame.propTypes = {
+  student: PropTypes.object.isRequired,
+  educator: PropTypes.object.isRequired,
+  eventNote: PropTypes.object.isRequired
+};
