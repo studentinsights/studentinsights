@@ -15,6 +15,7 @@ exports[`matches snapshot 1`] = `
     }
   >
     <div
+      className="FeedCardFrame-FrameHeader"
       style={
         Object {
           "alignItems": "flex-start",

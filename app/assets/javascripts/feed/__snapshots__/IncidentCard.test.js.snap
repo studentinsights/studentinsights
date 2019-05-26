@@ -15,6 +15,7 @@ exports[`matches snapshot 1`] = `
     }
   >
     <div
+      className="FeedCardFrame-FrameHeader"
       style={
         Object {
           "alignItems": "flex-start",
@@ -185,6 +186,7 @@ exports[`matches when no location 1`] = `
     }
   >
     <div
+      className="FeedCardFrame-FrameHeader"
       style={
         Object {
           "alignItems": "flex-start",
