@@ -2416,32 +2416,34 @@ exports[`snapshots works for aladdin notes 1`] = `
                 </a>
               </div>
             </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
+            <div>
+              <button
+                className="btn take-notes"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "margin": 0,
                   }
-                >
-                  +
-                </span>
+                }
+              >
                 <span>
-                  note
+                  <span
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                        "paddingRight": 5,
+                      }
+                    }
+                  >
+                    +
+                  </span>
+                  <span>
+                    note
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+            </div>
           </h4>
         </div>
         <div>
@@ -6254,32 +6256,34 @@ exports[`snapshots works for olaf notes 1`] = `
                 </a>
               </div>
             </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
+            <div>
+              <button
+                className="btn take-notes"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "margin": 0,
                   }
-                >
-                  +
-                </span>
+                }
+              >
                 <span>
-                  note
+                  <span
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                        "paddingRight": 5,
+                      }
+                    }
+                  >
+                    +
+                  </span>
+                  <span>
+                    note
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+            </div>
           </h4>
         </div>
         <div>
@@ -11250,32 +11254,34 @@ exports[`snapshots works for pluto notes 1`] = `
                 </a>
               </div>
             </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
+            <div>
+              <button
+                className="btn take-notes"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "margin": 0,
                   }
-                >
-                  +
-                </span>
+                }
+              >
                 <span>
-                  note
+                  <span
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                        "paddingRight": 5,
+                      }
+                    }
+                  >
+                    +
+                  </span>
+                  <span>
+                    note
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+            </div>
           </h4>
         </div>
         <div>
