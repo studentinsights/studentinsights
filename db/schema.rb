@@ -222,7 +222,6 @@ ActiveRecord::Schema.define(version: 2019_05_26_170939) do
     t.boolean "can_view_restricted_notes", default: false, null: false
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
-    t.text "student_searchbar_json"
     t.text "login_name", null: false
     t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
@@ -710,6 +709,7 @@ ActiveRecord::Schema.define(version: 2019_05_26_170939) do
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
+  add_foreign_key "educator_searchbars", "educators"
   add_foreign_key "educator_searchbars", "educators", name: "educator_searchbars_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
