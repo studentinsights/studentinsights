@@ -34,7 +34,8 @@ class EducatorLabel < ApplicationRecord
         'enable_searching_notes',
         'can_mark_notes_as_restricted',
         'enable_equity_experiments',
-        'enable_transition_note_features'
+        'enable_transition_note_features',
+        'enable_counselor_meetings_page'
       ]
     }
   }

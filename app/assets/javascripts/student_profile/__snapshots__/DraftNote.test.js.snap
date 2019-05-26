@@ -95,6 +95,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -406,6 +407,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -818,6 +820,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -1129,6 +1132,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -1541,6 +1545,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >

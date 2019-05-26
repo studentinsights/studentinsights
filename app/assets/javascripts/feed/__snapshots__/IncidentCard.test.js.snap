@@ -87,6 +87,7 @@ exports[`matches snapshot 1`] = `
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
+            "textAlign": "right",
           }
         }
       >
@@ -258,6 +259,7 @@ exports[`matches when no location 1`] = `
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
+            "textAlign": "right",
           }
         }
       >

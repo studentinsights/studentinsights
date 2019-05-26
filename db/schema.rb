@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_152352) do
+
+ActiveRecord::Schema.define(version: 2019_05_24_190130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -57,6 +58,17 @@ ActiveRecord::Schema.define(version: 2019_05_21_152352) do
     t.integer "revised_by_principal_educator_id"
     t.string "list_type_text", default: "(default)"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
+  end
+
+  create_table "counselor_meetings", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.date "meeting_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["educator_id"], name: "index_counselor_meetings_on_educator_id"
+    t.index ["student_id", "educator_id", "meeting_date"], name: "counselor_meetings_unique_index", unique: true
+    t.index ["student_id"], name: "index_counselor_meetings_on_student_id"
   end
 
   create_table "counselor_name_mappings", force: :cascade do |t|
@@ -690,6 +702,8 @@ ActiveRecord::Schema.define(version: 2019_05_21_152352) do
   add_foreign_key "class_lists", "educators", column: "created_by_teacher_educator_id", name: "classrooms_for_created_by_educator_id_fk"
   add_foreign_key "class_lists", "educators", column: "revised_by_principal_educator_id", name: "class_lists_revised_by_principal_educator_id_fk"
   add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
+  add_foreign_key "counselor_meetings", "educators", name: "counselor_meetings_educator_id_fk"
+  add_foreign_key "counselor_meetings", "students", name: "counselor_meetings_student_id_fk"
   add_foreign_key "counselor_name_mappings", "educators", name: "counselor_name_mappings_educator_id_fk"
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
   add_foreign_key "dibels_results", "students"
@@ -698,6 +712,7 @@ ActiveRecord::Schema.define(version: 2019_05_21_152352) do
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
+  add_foreign_key "educator_searchbars", "educators", name: "educator_searchbars_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"

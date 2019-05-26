@@ -50,6 +50,8 @@ GenericLoader.propTypes = {
   style: PropTypes.object
 };
 
+
+// sugars, commonly used with this component
 export function Pending() {
   return <span style={{
     width: '8em',
@@ -78,3 +80,9 @@ export function Failure() {
     fontWeight: 'bold'
   }}>network error</span>;
 }
+
+export const flexVerticalStyle = {
+  display: 'flex',
+  flex: 1,
+  flexDirection: 'column'
+};
