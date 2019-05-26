@@ -13,12 +13,11 @@ import NoteCard from './NoteCard';
 export function testProps(props = {}) {
   return {
     noteMoment: moment.utc('2018-02-22T08:22:22.123Z'),
-    educatorId: 1,
-    badge: <span>[props.badge]</span>,
+    educator: studentProfile.educatorsIndex[1],
+    badgeEl: 'SST Meeting',
     onSave: jest.fn(),
     eventNoteId: 111,
     eventNoteTypeId: 300,
-    educatorsIndex: studentProfile.educatorsIndex,
     attachments: [],
     requestState: IDLE,
     ...props
@@ -151,12 +150,22 @@ describe('saving', () => {
 });
 
 
-describe('snapshots across scenarios', () => {
-  const el = testScenarios().map(scenario => (
-    <div key={scenario.label}>
-      <h3>scenario for snapshot: {scenario.label}</h3>
-      {testEl(testProps({text: 'hello!', ...scenario.propsDiff}))}
-    </div>
-  ));
-  expect(renderer.create(el).toJSON()).toMatchSnapshot();
+describe('snapshots', () => {
+  it('works across all scenarios at once', () => {
+    const el = testScenarios().map(scenario => (
+      <div key={scenario.label}>
+        <h3>scenario for snapshot: {scenario.label}</h3>
+        {testEl(testProps({text: 'hello!', ...scenario.propsDiff}))}
+      </div>
+    ));
+    expect(renderer.create(el).toJSON()).toMatchSnapshot();
+  });
+
+  it('can render substanceOnly so callers can use their own frame', () => {
+    const el = testEl(testProps({
+      substanceOnly: true,
+      text: 'hello'
+    }));
+    expect(renderer.create(el).toJSON()).toMatchSnapshot();
+  });
 });

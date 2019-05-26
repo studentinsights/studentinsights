@@ -25,6 +25,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -334,6 +335,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -746,6 +748,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -1057,6 +1060,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -1469,6 +1473,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",

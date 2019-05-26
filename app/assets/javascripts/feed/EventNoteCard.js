@@ -12,7 +12,7 @@ import FeedCardFrame from './FeedCardFrame';
 // Render a card in the feed for an EventNote
 export default class EventNoteCard extends React.Component {
   render() {
-    const {eventNoteCardJson, iconsEl, style} = this.props;
+    const {eventNoteCardJson, iconsEl, style, children} = this.props;
     const {student, educator} = eventNoteCardJson;
 
     return (
@@ -36,7 +36,7 @@ export default class EventNoteCard extends React.Component {
           </div>}
           iconsEl={iconsEl}
         >
-          <NoteText text={eventNoteCardJson.text} />
+          {children || <NoteText text={eventNoteCardJson.text} />}
         </FeedCardFrame>
       </div>
     );
@@ -67,7 +67,8 @@ EventNoteCard.propTypes = {
     })
   }).isRequired,
   iconsEl: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
+  children: PropTypes.node
 };
 
 

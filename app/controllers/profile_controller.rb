@@ -90,6 +90,10 @@ class ProfileController < ApplicationController
       event_notes: student.event_notes
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes,
+      second_transition_notes: student.second_transition_notes.as_json({
+        except: [:restricted_text],
+        methods: [:has_restricted_text]
+      }),
       fall_student_voice_surveys: fall_student_voice_surveys_json(student.id),
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       flattened_forms: flattened_forms_json(student.id),

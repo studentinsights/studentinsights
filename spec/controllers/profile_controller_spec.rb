@@ -198,7 +198,7 @@ describe ProfileController, :type => :controller do
             "strengths_quote_text"=>"everything!",
             "transition_note"=>{
               "id"=>transition_note.id,
-              "created_at"=>a_kind_of(String),
+              "recorded_at"=>a_kind_of(String),
               "educator"=>{
                 "id"=>transition_note.educator.id,
                 "full_name"=>transition_note.educator.full_name,
@@ -276,6 +276,7 @@ describe ProfileController, :type => :controller do
           expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],
+            'second_transition_notes' => [],
             'fall_student_voice_surveys' => [],
             'homework_help_sessions' => [],
             'flattened_forms' => [],
@@ -579,6 +580,7 @@ describe ProfileController, :type => :controller do
         :services,
         :deprecated,
         :transition_notes,
+        :second_transition_notes,
         :fall_student_voice_surveys,
         :homework_help_sessions,
         :flattened_forms
@@ -648,6 +650,29 @@ describe ProfileController, :type => :controller do
         :form_timestamp,
         :text,
         :updated_at
+      ])
+    end
+
+    it 'returns second_transition_notes with expected shape' do
+      pals = TestPals.create!
+      feed = controller.send(:student_feed, pals.west_eighth_ryan)
+      second_transition_notes = feed[:second_transition_notes]
+
+      expect(second_transition_notes.size).to eq 1
+      expect(second_transition_notes.first['student_id']).to eq(pals.west_eighth_ryan.id)
+      expect(second_transition_notes.first['has_restricted_text']).to eq true
+      expect(second_transition_notes.first.has_key?('restricted_text')).to eq false
+      expect(second_transition_notes.first.keys).to contain_exactly(*[
+        'id',
+        'educator_id',
+        'student_id',
+        'form_key',
+        'has_restricted_text',
+        'starred',
+        'form_json',
+        'recorded_at',
+        'created_at',
+        'updated_at'
       ])
     end
   end

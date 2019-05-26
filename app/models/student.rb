@@ -21,6 +21,7 @@ class Student < ApplicationRecord
   has_many :interventions, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :transition_notes, dependent: :destroy
+  has_many :second_transition_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_many :tardies, dependent: :destroy
   has_many :absences, dependent: :destroy

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_24_190130) do
+ActiveRecord::Schema.define(version: 2019_05_26_170939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -222,7 +222,6 @@ ActiveRecord::Schema.define(version: 2019_05_24_190130) do
     t.boolean "can_view_restricted_notes", default: false, null: false
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
-    t.text "student_searchbar_json"
     t.text "login_name", null: false
     t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
@@ -475,6 +474,20 @@ ActiveRecord::Schema.define(version: 2019_05_24_190130) do
     t.index ["local_id"], name: "index_schools_on_local_id"
   end
 
+  create_table "second_transition_notes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "educator_id"
+    t.bigint "student_id"
+    t.text "form_key", null: false
+    t.json "form_json", null: false
+    t.text "restricted_text"
+    t.boolean "starred", default: false
+    t.datetime "recorded_at", null: false
+    t.index ["educator_id"], name: "index_second_transition_notes_on_educator_id"
+    t.index ["student_id"], name: "index_second_transition_notes_on_student_id"
+  end
+
   create_table "sections", id: :serial, force: :cascade do |t|
     t.string "section_number", null: false
     t.string "term_local_id", null: false
@@ -696,6 +709,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_190130) do
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
+  add_foreign_key "educator_searchbars", "educators"
   add_foreign_key "educator_searchbars", "educators", name: "educator_searchbars_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
@@ -733,6 +747,8 @@ ActiveRecord::Schema.define(version: 2019_05_24_190130) do
   add_foreign_key "reading_benchmark_data_points", "students"
   add_foreign_key "reading_grouping_snapshots", "educators"
   add_foreign_key "reading_grouping_snapshots", "schools"
+  add_foreign_key "second_transition_notes", "educators"
+  add_foreign_key "second_transition_notes", "students"
   add_foreign_key "sections", "courses", name: "sections_course_id_fk"
   add_foreign_key "service_uploads", "educators", column: "uploaded_by_educator_id", name: "service_uploads_uploaded_by_educator_id_fk"
   add_foreign_key "services", "educators", column: "recorded_by_educator_id", name: "services_recorded_by_educator_id_fk"

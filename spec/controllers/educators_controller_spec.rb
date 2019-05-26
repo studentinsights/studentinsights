@@ -343,43 +343,75 @@ describe EducatorsController, :type => :controller do
   end
 
   describe '#my_notes_json' do
+    let!(:pals) { TestPals.create! }
+
     def make_request
       request.env['HTTPS'] = 'on'
       get :my_notes_json, params: { format: :json, 'batch_size': '60' }
     end
 
+    it 'redacts restricted note content' do
+      educator = pals.healey_laura_principal
+      note = FactoryBot.create(:event_note, {
+        student: pals.healey_kindergarten_student,
+        educator: educator,
+        text: 'DANGEROUS_restricted',
+        is_restricted: true,
+        recorded_at: Date.today - 4.years
+      })
+      sign_in(educator)
+      make_request
+
+      expect(response).to be_successful
+      json = JSON.parse(response.body)
+      expect(response.body).not_to include('DANGEROUS')
+      mixed_note = json['mixed_event_notes'].first
+      expect(mixed_note['id']).to eq(note.id)
+      expect(mixed_note['text']).to eq('<redacted>')
+    end
+
     context 'educator with homeroom' do
-      let!(:pals) { TestPals.create! }
       let!(:educator) { pals.healey_laura_principal }
       let!(:ryan_event_note) { FactoryBot.create(:event_note, { student: pals.west_eighth_ryan, educator: educator, recorded_at: Date.today - 4.years }) }
       let!(:garfield_event_note) { FactoryBot.create(:event_note, { student: pals.healey_kindergarten_student, educator: educator, recorded_at: Date.today }) }
 
-      it 'can access notes they wrote for current sutdents, but not past students' do
+      it 'can access notes they wrote for current students, but not past students' do
         sign_in(educator)
         make_request
         expect(response).to be_successful
         body = JSON.parse!(response.body)
-        expect(body['notes'].map {|n| n['id'] }).to eq([garfield_event_note.id])
-
-        expect(body).to have_key("educators_index")
-        expect(body).to have_key("current_educator")
-        expect(body).to have_key("notes")
-        expect(body["notes"].length).to eq 1
-        event_note = body["notes"][0]
-        expect(event_note).to have_key("id")
-        expect(event_note).to have_key("student_id")
-        expect(event_note).to have_key("educator_id")
-        expect(event_note).to have_key("event_note_type_id")
-        expect(event_note).to have_key("recorded_at")
-        expect(event_note).to have_key("student")
-        expect(event_note["student"]).to have_key("id")
-        expect(event_note["student"]).to have_key("first_name")
-        expect(event_note["student"]).to have_key("last_name")
-        expect(event_note["student"]).to have_key("school_id")
-        expect(event_note["student"]).to have_key("school_name")
-        expect(event_note["student"]).to have_key("homeroom_id")
-        expect(event_note["student"]).to have_key("homeroom_name")
-        expect(event_note["student"]).to have_key("grade")
+        expect(body.keys).to contain_exactly(*[
+          'mixed_event_notes',
+          'current_educator',
+          'total_notes_count'
+        ])
+        expect(body['total_notes_count']).to eq 1
+        expect(body['mixed_event_notes'].map {|n| n['id'] }).to eq([garfield_event_note.id])
+        mixed_event_note = body['mixed_event_notes'].first
+        expect(mixed_event_note.keys).to contain_exactly(*[
+          'id',
+          'student_id',
+          'educator_id',
+          'event_note_type_id',
+          'text',
+          'recorded_at',
+          'is_restricted',
+          'event_note_revisions_count',
+          'latest_revision_at',
+          'attachments',
+          'educator',
+          'student'
+        ])
+        expect(mixed_event_note['student'].keys).to contain_exactly(*[
+          'id',
+          'first_name',
+          'last_name',
+          'grade',
+          'house',
+          'has_photo',
+          'homeroom',
+          'school'
+        ])
       end
 
       it 'guards when not signed in' do

@@ -1,40 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import SectionHeading from '../components/SectionHeading';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
 import BoxCard from '../components/BoxCard';
+import SectionHeading from '../components/SectionHeading';
 import WordCloud from '../components/WordCloud';
-import NotesList from '../student_profile/NotesList'; // refactor to feed
+import EventNoteCard from '../feed/EventNoteCard';
+import {urlForRestrictedEventNoteContent} from '../student_profile/RestrictedNotePresence';
+import NoteCard from '../student_profile/NoteCard';
 
-
+// Shows the feed of notes
 export default class NotesFeed extends React.Component {
   render() {
-    const {currentEducatorId, eventNotes, educatorsIndex, canUserAccessRestrictedNotes} = this.props;
-    const feed = {
-      event_notes: eventNotes,
-      deprecated: {
-        interventions: []
-      },
-      services: {
-        active: [],
-        discontinued: []
-      }
-    };
-
+    const {mixedEventNotes} = this.props;
     return (
       <div className="NotesFeed" style={styles.root}>
         <SectionHeading>My notes</SectionHeading>
-        <div style={styles.subTitle}>Showing {eventNotes.length} notes</div>
+        <div style={styles.subTitle}>Showing {mixedEventNotes.length} notes</div>
         <div className="feed" style={styles.feed}>
           <div style={styles.leftColumn} className="notes-list">
-            <NotesList
-              currentEducatorId={currentEducatorId}
-              includeStudentPanel={true}
-              forceShowingAllNotes={true}
-              canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
-              educatorsIndex={educatorsIndex}
-              feed={feed}
-            />
+            {this.renderNotes()}
           </div>
           <div style={styles.rightColumn}>
             {this.renderSidebar()}
@@ -45,11 +31,55 @@ export default class NotesFeed extends React.Component {
     );
   }
 
+  // Provide an alternate "substance" to <EventNoteCard />
+  renderNotes() {
+    const {mixedEventNotes} = this.props;
+    return (
+      <div>
+        {mixedEventNotes.map(mixedEventNote => {
+          return (
+            <EventNoteCard
+              key={mixedEventNote.id}
+              style={styles.card}
+              eventNoteCardJson={mixedEventNote}>
+              {this.renderEventNoteCard(mixedEventNote, mixedEventNote.student, mixedEventNote.educator)}
+            </EventNoteCard>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // Readonly, but let people view restricted note redactions if they
+  // have access.
+  // This requires `eventNote` not just the json from the card.
+  renderEventNoteCard(eventNote, student, educator) {
+    const {canUserAccessRestrictedNotes} = this.props;
+    const isRedacted = eventNote.is_restricted;
+    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes && isRedacted)
+      ? urlForRestrictedEventNoteContent(eventNote)
+      : null;
+    return (
+      <NoteCard
+        key={['event_note', eventNote.id].join()}
+        noteMoment={toMomentFromRailsDate(eventNote.recorded_at)}
+        badgeEl={eventNoteTypeText(eventNote.event_note_type_id)}
+        educator={educator}
+        text={eventNote.text || ''}
+        lastRevisedAtMoment={eventNote.latest_revision_at ? toMomentFromRailsDate(eventNote.latest_revision_at) : null}
+        attachments={eventNote.attachments}
+        showRestrictedNoteRedaction={isRedacted}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        substanceOnly={true} // no shell
+      />
+    );
+  }
+
   renderSidebar() {
-    const {showWordCloud, eventNotes} = this.props;
+    const {showWordCloud, mixedEventNotes} = this.props;
     if (!showWordCloud && window.location.search.indexOf('wordcloud') === -1) return null;
     
-    const words = wordsFromEventNotes(eventNotes);
+    const words = wordsFromEventNotes(mixedEventNotes);
     return (
       <div style={styles.flexVertical}>
         <BoxCard title="Most common words" style={{marginTop: 10}}>
@@ -64,13 +94,14 @@ export default class NotesFeed extends React.Component {
   }
 
   renderFooter() {
-    if (this.props.eventNotes.length != this.props.totalNotesCount) {
+    const {mixedEventNotes, totalNotesCount, onClickLoadMoreNotes} = this.props;
+    if (mixedEventNotes.length != totalNotesCount) {
       return (
-        <div className="footer" style={styles.footer}>
+        <div style={styles.footer}>
           <button
-            className="btn load-more-notes"
+            className="btn"
             style={styles.button}
-            onClick={this.props.onClickLoadMoreNotes}>
+            onClick={onClickLoadMoreNotes}>
             Load 30 More Notes
           </button>
         </div>
@@ -79,12 +110,10 @@ export default class NotesFeed extends React.Component {
   }
 }
 NotesFeed.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired,
   canUserAccessRestrictedNotes: PropTypes.bool.isRequired,
-  educatorsIndex: PropTypes.object.isRequired,
-  eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mixedEventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalNotesCount: PropTypes.number.isRequired,  
   onClickLoadMoreNotes: PropTypes.func.isRequired,
-  totalNotesCount: PropTypes.number.isRequired,
   showWordCloud: PropTypes.bool
 };
 
@@ -94,8 +123,11 @@ const styles = {
     fontSize: 14,
     margin: 10
   },
+  card: {
+    marginTop: 20
+  },
   button: {
-    marginTop: '10px',
+    marginTop: 10,
     display: 'inline'
   },
   feed: {
@@ -104,7 +136,7 @@ const styles = {
     margin: 10
   },
   leftColumn: {
-    flex: 2
+    flex: 1
   },
   rightColumn: {
     paddingLeft: 20,

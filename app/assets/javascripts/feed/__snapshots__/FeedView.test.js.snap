@@ -53,6 +53,7 @@ exports[`FeedView pure component matches snapshot 1`] = `
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -243,6 +244,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -440,6 +442,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -637,6 +640,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -844,6 +848,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1041,6 +1046,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1238,6 +1244,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1435,6 +1442,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1623,6 +1631,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1830,6 +1839,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2027,6 +2037,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2224,6 +2235,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2421,6 +2433,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2628,6 +2641,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2825,6 +2839,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3022,6 +3037,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3219,6 +3235,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3416,6 +3433,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3604,6 +3622,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",

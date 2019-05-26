@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div>
+  <span
+    style={
+      Object {
+        "alignItems": "center",
+        "color": "#333",
+        "display": "flex",
+        "fontSize": 14,
+        "justifyContent": "flex-end",
+        "marginRight": 10,
+        "padding": 5,
+        "textAlign": "center",
+        "width": "8em",
+      }
+    }
+  >
+    ...
+  </span>
+  <span
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "red",
+        "color": "white",
+        "display": "flex",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "justifyContent": "center",
+        "marginRight": 10,
+        "padding": 5,
+        "textAlign": "center",
+        "width": "8em",
+      }
+    }
+  >
+    network error
+  </span>
+</div>
+`;

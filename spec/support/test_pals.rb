@@ -242,6 +242,10 @@ class TestPals
       educator: @west_counselor,
       label_key: 'k8_counselor'
     )
+    EducatorLabel.create!(
+      educator: @west_counselor,
+      label_key: 'enable_transition_note_features'
+    )
     @west_eighth_ryan = Student.create!(
       first_name: 'Ryan',
       last_name: 'Rodriguez',
@@ -251,6 +255,21 @@ class TestPals
       state_id: '993333333',
       enrollment_status: 'Active'
     )
+    SecondTransitionNote.create!({
+      recorded_at: time_now - 4.days,
+      educator: @west_counselor,
+      student: @west_eighth_ryan,
+      form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE,
+      form_json: {
+        strengths: 'Ryan is polite and able to diffuse difficult social situations or potential conflicts.  He enjoys playing with technology and swimming.',
+        connecting: 'Asking him about scouting can work well talking 1:1, or in the classroom he sometimes like being seen as a leader with setting up the computer or projector system.',
+        community: "He doesn't always feel like he can relate to every in his grade easily, and so hasn't become involved within school, but is in scouts outside school.",
+        peers: 'Ryan has a small circle of friends that he spends most of his time with.',
+        family: 'Although Ryan lives primarily with his mother, his father is very involved with education and it makes a big difference if he is updated regularly. The best way to reach the mother is through email and the father by phone.',
+        other: "Ryan is caring and thoughtful and has many strengths, but school seems tough for him a lot of the time.  He needs consistent support to stay focused and motivated on schoolwork, which this year has been with redirect.  He has done some counseling in the past as well, but redirect has been the most effective day-to-day."
+      },
+      restricted_text: 'Ryan has worked with a counselor at Riverside in the past, Mikayla, but has not this year.  Contact 8th grade counselor for more.'
+    })
 
     # high school
     @shs = School.find_by_local_id!('SHS')
@@ -265,6 +284,10 @@ class TestPals
       educator: @shs_sofia_counselor,
       label_key: 'use_counselor_based_feed'
     })
+    EducatorLabel.create!(
+      educator: @shs_sofia_counselor,
+      label_key: 'enable_transition_note_features'
+    )
     EducatorLabel.create!({
       educator: @shs_sofia_counselor,
       label_key: 'enable_counselor_meetings_page'

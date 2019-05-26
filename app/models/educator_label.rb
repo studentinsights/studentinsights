@@ -33,8 +33,9 @@ class EducatorLabel < ApplicationRecord
         'should_show_levels_shs_link',
         'enable_searching_notes',
         'can_mark_notes_as_restricted',
-        'enable_counselor_meetings_page',
-        'enable_equity_experiments'
+        'enable_equity_experiments',
+        'enable_transition_note_features',
+        'enable_counselor_meetings_page'
       ]
     }
   }

@@ -5,7 +5,6 @@ import EventNoteCard from './EventNoteCard';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 
-
 function testProps(props = {}) {
   return {
     eventNoteCardJson: {
@@ -61,6 +60,14 @@ it('renders without crashing', () => {
 
 it('matches snapshot', () => {
   const props = testProps();
+  const tree = renderer
+    .create(testEl(props))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snaphots when passing alternate children', () => {
+  const props = testProps({children: <b>hello!</b>});
   const tree = renderer
     .create(testEl(props))
     .toJSON();

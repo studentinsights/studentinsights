@@ -33,10 +33,10 @@ export default class HelpBubble extends React.Component {
   }
 
   render(){
-    const {style, linkStyle, tooltip} = this.props;
+    const {style, linkStyle, tooltip, tabIndex} = this.props;
     return (
       <div style={{...styles.root, ...style}}>
-        <a href="#" title={tooltip} onClick={this.openModal} style={{...styles.link, ...linkStyle}}>
+        <a tabIndex={tabIndex} href="#" title={tooltip} onClick={this.openModal} style={{...styles.link, ...linkStyle}}>
           {this.props.teaser}
         </a>
         {// The modal is not logically here, but even while not displayed it needs a location in the DOM.
@@ -100,6 +100,7 @@ HelpBubble.propTypes = {
   dialogStyle: PropTypes.object,
   tooltip: PropTypes.string,
   withoutSpacer: PropTypes.bool,
+  tabIndex: PropTypes.any,
   withoutContentWrapper: PropTypes.bool
 };
 

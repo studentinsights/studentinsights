@@ -30,7 +30,7 @@ class ProfileInsights
     return [] if strengths_quote_text.nil? || strengths_quote_text.empty?
 
     transition_note_json = transition_note.as_json({
-      only: [:id, :text, :created_at],
+      only: [:id, :text, :recorded_at],
       include: {
         educator: {
           only: [:id, :full_name, :email]
