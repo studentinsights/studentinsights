@@ -660,6 +660,8 @@ describe ProfileController, :type => :controller do
 
       expect(second_transition_notes.size).to eq 1
       expect(second_transition_notes.first['student_id']).to eq(pals.west_eighth_ryan.id)
+      expect(second_transition_notes.first['has_restricted_text']).to eq true
+      expect(second_transition_notes.first.has_key?('restricted_text')).to eq false
       expect(second_transition_notes.first.keys).to contain_exactly(*[
         'id',
         'educator_id',

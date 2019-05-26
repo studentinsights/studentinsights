@@ -1,21 +1,30 @@
 class SecondTransitionNote < ApplicationRecord
   SOMERVILLE_8TH_TO_9TH_GRADE = 'somerville_8th_to_9th_grade'
+  SOMERVILLE_8TH_TO_9TH_GRADE_KEYS = [
+    'strengths',
+    'connecting',
+    'community',
+    'peers',
+    'family',
+    'other'
+  ]
 
   belongs_to :educator
   belongs_to :student
 
   validates :educator, presence: true
   validates :student, presence: true
+  validates :recorded_at, presence: true
   validates :form_json, presence: true
   validates :form_key, inclusion: {
     in: [
       SOMERVILLE_8TH_TO_9TH_GRADE
     ]
   }
-  # validate :validate_form_json_keys
+  validate :validate_form_json_keys
 
   def has_restricted_text
-    self.restricted_text.present?
+    self.restricted_text.strip.present?
   end
 
   # override
@@ -34,15 +43,13 @@ class SecondTransitionNote < ApplicationRecord
     return json if options[:dangerously_include_restricted_text]
 
     # silently redact
-    json.merge('restricted_text' => '<redacted>')
+    json.merge('restricted_text' => EventNote::REDACTED)
   end
 
-  # private
-  # def validate_form_json_keys
-  #   if self.form_key == SOMERVILLE_8TH_TO_9TH_GRADE && self.form_json.keys.size == 0
-  #     errors.add(:form_json, 'no keys found')
-  #   end
-  # end  
-
-  
+  private
+  def validate_form_json_keys
+    if self.form_key == SOMERVILLE_8TH_TO_9TH_GRADE && self.form_json.keys != SOMERVILLE_8TH_TO_9TH_GRADE_KEYS
+      errors.add(:form_json, 'missing expected keys')
+    end
+  end
 end

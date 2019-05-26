@@ -1,28 +1,9 @@
 class SecondTransitionNotesController < ApplicationController
   before_action :ensure_authorized_to_read!
-  before_action :ensure_authorized_to_write!, except: [:restricted_text]
-
-  # get
-  def next_student_json
-    params.require(:student_id)
-    student_id = params[:student_id]
-
-    student = authorized_or_raise! { Student.find(student_id) }
-    students = authorized do
-      Student.active.where(grade: '8').to_a.sort_by do |s|
-        "#{s.last_name}, #{s.first_name}"
-      end
-    end
-
-    # find ids
-    index = students.index(student)
-    previous_student = index == 0 ? students.last : students[index - 1]
-    next_student = index == students.size - 1 ? students.first : students[index + 1]
-    render json: {
-      previous_student_id: previous_student.id,
-      next_student_id: next_student.id
-    }
-  end
+  before_action :ensure_authorized_to_write!, except: [
+    :restricted_text,
+    :next_student_json
+  ]
 
   # post
   def save_json
@@ -79,8 +60,7 @@ class SecondTransitionNotesController < ApplicationController
   end
 
   # get
-  def restricted_text
-    ensure_authorized_to_read!
+  def restricted_text_json
     safe_params = params.permit(*[
       :student_id,
       :second_transition_note_id,
@@ -91,6 +71,28 @@ class SecondTransitionNotesController < ApplicationController
       dangerously_include_restricted_text: true,
       only: [:restricted_text]
     })
+  end
+
+  # get
+  def next_student_json
+    params.require(:student_id)
+    student_id = params[:student_id]
+
+    student = authorized_or_raise! { Student.find(student_id) }
+    students = authorized do
+      Student.active.where(grade: '8').to_a.sort_by do |s|
+        "#{s.last_name}, #{s.first_name}"
+      end
+    end
+
+    # find ids
+    index = students.index(student)
+    previous_student = index == 0 ? students.last : students[index - 1]
+    next_student = index == students.size - 1 ? students.first : students[index + 1]
+    render json: {
+      previous_student_id: previous_student.id,
+      next_student_id: next_student.id
+    }
   end
 
   private
