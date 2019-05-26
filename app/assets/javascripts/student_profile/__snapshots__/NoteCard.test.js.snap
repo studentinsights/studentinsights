@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`snapshots works across all scenarios at once 1`] = `
 Array [
   <div>
     <h3>
@@ -8,72 +8,79 @@ Array [
       kitchen sink!
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -171,50 +178,50 @@ Array [
               </div>
             </span>
           </div>
-        </div>
-        <div>
-          <p
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "display": "flex",
-                "fontSize": 12,
-                "marginTop": 10,
-              }
-            }
-          >
-            <a
-              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
-              rel="noopener noreferrer"
+          <div>
+            <p
               style={
                 Object {
-                  "display": "inline-block",
+                  "alignItems": "flex-start",
+                  "display": "flex",
                   "fontSize": 12,
-                  "marginRight": 10,
-                  "overflow": "hidden",
-                  "textOverflow": "ellipsis",
-                }
-              }
-              target="_blank"
-            >
-              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
-            </a>
-            <a
-              href="#"
-              onClick={[Function]}
-              style={
-                Object {
-                  "color": "#999",
-                  "display": "inline-block",
-                  "fontSize": 12,
-                  "marginLeft": 10,
-                  "textDecoration": "underline",
+                  "marginTop": 10,
                 }
               }
             >
-              remove
-            </a>
-          </p>
+              <a
+                href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "textOverflow": "ellipsis",
+                  }
+                }
+                target="_blank"
+              >
+                https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+              </a>
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "#999",
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "marginLeft": 10,
+                    "textDecoration": "underline",
+                  }
+                }
+              >
+                remove
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -225,72 +232,79 @@ Array [
       readonly
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="NoteText"
@@ -349,72 +363,79 @@ Array [
       readonly, recentRevision
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="NoteText"
@@ -477,72 +498,79 @@ Array [
       readonly, oldRevision
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="NoteText"
@@ -605,72 +633,79 @@ Array [
       readonly, readonlyAttachments
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="NoteText"
@@ -719,35 +754,35 @@ Array [
                
             </span>
           </div>
-        </div>
-        <div>
-          <p
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "display": "flex",
-                "fontSize": 12,
-                "marginTop": 10,
-              }
-            }
-          >
-            <a
-              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
-              rel="noopener noreferrer"
+          <div>
+            <p
               style={
                 Object {
-                  "display": "inline-block",
+                  "alignItems": "flex-start",
+                  "display": "flex",
                   "fontSize": 12,
-                  "marginRight": 10,
-                  "overflow": "hidden",
-                  "textOverflow": "ellipsis",
+                  "marginTop": 10,
                 }
               }
-              target="_blank"
             >
-              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
-            </a>
-          </p>
+              <a
+                href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "textOverflow": "ellipsis",
+                  }
+                }
+                target="_blank"
+              >
+                https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -758,72 +793,79 @@ Array [
       editable
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -889,72 +931,79 @@ Array [
       editable, recentRevision
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -1024,72 +1073,79 @@ Array [
       editable, oldRevision
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -1159,72 +1215,79 @@ Array [
       editable, readonlyAttachments
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -1280,35 +1343,35 @@ Array [
                
             </span>
           </div>
-        </div>
-        <div>
-          <p
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "display": "flex",
-                "fontSize": 12,
-                "marginTop": 10,
-              }
-            }
-          >
-            <a
-              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
-              rel="noopener noreferrer"
+          <div>
+            <p
               style={
                 Object {
-                  "display": "inline-block",
+                  "alignItems": "flex-start",
+                  "display": "flex",
                   "fontSize": 12,
-                  "marginRight": 10,
-                  "overflow": "hidden",
-                  "textOverflow": "ellipsis",
+                  "marginTop": 10,
                 }
               }
-              target="_blank"
             >
-              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
-            </a>
-          </p>
+              <a
+                href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "textOverflow": "ellipsis",
+                  }
+                }
+                target="_blank"
+              >
+                https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1319,72 +1382,79 @@ Array [
       editable, removableAttachments
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -1440,50 +1510,50 @@ Array [
                
             </span>
           </div>
-        </div>
-        <div>
-          <p
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "display": "flex",
-                "fontSize": 12,
-                "marginTop": 10,
-              }
-            }
-          >
-            <a
-              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
-              rel="noopener noreferrer"
+          <div>
+            <p
               style={
                 Object {
-                  "display": "inline-block",
+                  "alignItems": "flex-start",
+                  "display": "flex",
                   "fontSize": 12,
-                  "marginRight": 10,
-                  "overflow": "hidden",
-                  "textOverflow": "ellipsis",
-                }
-              }
-              target="_blank"
-            >
-              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
-            </a>
-            <a
-              href="#"
-              onClick={[Function]}
-              style={
-                Object {
-                  "color": "#999",
-                  "display": "inline-block",
-                  "fontSize": 12,
-                  "marginLeft": 10,
-                  "textDecoration": "underline",
+                  "marginTop": 10,
                 }
               }
             >
-              remove
-            </a>
-          </p>
+              <a
+                href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "textOverflow": "ellipsis",
+                  }
+                }
+                target="_blank"
+              >
+                https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+              </a>
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "#999",
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "marginLeft": 10,
+                    "textDecoration": "underline",
+                  }
+                }
+              >
+                remove
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1494,72 +1564,79 @@ Array [
       editable, saving
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -1626,72 +1703,79 @@ Array [
       editable, error
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="EditableNoteText"
@@ -1795,72 +1879,79 @@ Array [
       redacted
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
@@ -1926,72 +2017,79 @@ Array [
       redacted, recentRevision
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
@@ -2061,72 +2159,79 @@ Array [
       redacted, oldRevision
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
@@ -2196,72 +2301,79 @@ Array [
       redacted, readonlyAttachments
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
@@ -2327,72 +2439,79 @@ Array [
       redacted, removableAttachments
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
@@ -2458,72 +2577,79 @@ Array [
       redacted, canShowRedacted, urlForRestrictedNoteContent
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
@@ -2605,72 +2731,79 @@ Array [
       buggy call, editable, redacted
     </h3>
     <div
-      className="wrapper"
+      className="NoteShell"
       style={
         Object {
-          "display": "flex",
+          "border": "1px solid #eee",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 15,
+          "width": "100%",
         }
       }
     >
       <div
-        className="NoteCard"
         style={
           Object {
-            "border": "1px solid #eee",
-            "marginBottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <span
+          className="date"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": "bold",
+              "paddingRight": 10,
+              "width": "11em",
+            }
+          }
+        >
+          February 22, 2018
+        </span>
+        <span
+          style={
+            Object {
+              "background": "#eee",
+              "display": "inline-block",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "outline": "3px solid #eee",
+              "textAlign": "center",
+              "width": "10em",
+            }
+          }
+        >
+          SST Meeting
+        </span>
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            className="Educator"
+            href="mailto:demo@example.com"
+            style={Object {}}
+          >
+            demo@
+          </a>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
             "marginTop": 10,
-            "padding": 15,
-            "width": "100%",
           }
         }
       >
         <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "space-between",
-            }
-          }
-        >
-          <span
-            className="date"
-            style={
-              Object {
-                "display": "inline-block",
-                "fontWeight": "bold",
-                "paddingRight": 10,
-                "width": "11em",
-              }
-            }
-          >
-            February 22, 2018
-          </span>
-          <span>
-            [props.badge]
-          </span>
-          <span
-            style={
-              Object {
-                "display": "inline-block",
-                "paddingLeft": 5,
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:demo@example.com"
-              style={Object {}}
-            >
-              demo@
-            </a>
-          </span>
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": 10,
-            }
-          }
+          className="NoteCard-substance"
         >
           <div
             className="RestrictedNotePresence"
