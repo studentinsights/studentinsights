@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SecondTransitionNoteDialog, {renderAsText} from './SecondTransitionNoteDialog';
+import {apiFetchJson} from '../helpers/apiFetchJson';
+import SecondTransitionNoteDialog, {
+  renderAsText,
+  docFromJson,
+  enableTransitionNoteDialog
+} from './SecondTransitionNoteDialog';
+import GenericLoader from '../components/GenericLoader';
 import NoteText from '../components/NoteText';
 
 
@@ -13,34 +19,63 @@ export default class SecondTransitionNoteInline extends React.Component {
   }
 
   render() {
-    const {json, studentFirstName} = this.props;
+    const {json, student, currentEducator} = this.props;
     const {isOpen} = this.state;
-    const text = renderAsText(studentFirstName, json);
+    const text = renderAsText(student.first_name, json);
+    const showEditLink = (
+      (window.location.search.indexOf('enable_editing') !== -1) &&
+      enableTransitionNoteDialog(currentEducator, student.grade)
+    );
 
     return (
       <div className="SecondTransitionNoteInline">
         <NoteText text={text} />
-        <a style={styles.link} href="#" onClick={e => {
-          e.preventDefault();
-          this.setState({isOpen: true});
-        }}>Edit transition note</a>
-        {isOpen && (
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          {showEditLink && (
+            <a style={styles.link} href="#" onClick={e => {
+              e.preventDefault();
+              this.setState({isOpen: true});
+            }}>Edit transition note</a>
+          )}
+          <div style={{display: 'inline-block'}}>
+            {isOpen && this.renderTransitionNoteDialog()}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Before loading, fetching the actual content of the 
+  renderTransitionNoteDialog() {
+    const {student, json} = this.props;
+    const studentId = json.student_id;
+    const url = `/api/students/${studentId}/second_transition_notes/${json.id}/restricted_text_json`;
+    
+    return (
+      <GenericLoader
+        promiseFn={() => apiFetchJson(url)}
+        render={restrictedTextJson => (
           <SecondTransitionNoteDialog
-            student={{
-              id: json.student_id,
-              first_name: studentFirstName
+            student={student}
+            initialId={json.id}
+            initialDoc={{
+              ...docFromJson(json),
+              restrictedText: restrictedTextJson.restricted_text
             }}
-            initialDoc={docFromJson(json)}
             onClose={() => this.setState({isOpen: false})}
           />
         )}
-      </div>
+      />
     );
   }
 }
 SecondTransitionNoteInline.propTypes = {
   json: PropTypes.object.isRequired,
-  studentFirstName: PropTypes.string.isRequired
+  currentEducator: PropTypes.object.isRequired,
+  student: PropTypes.shape({
+    first_name: PropTypes.string.isRequired,
+    grade: PropTypes.string.isRequired
+  }).isRequired
 };
 
 const styles = {
@@ -52,17 +87,3 @@ const styles = {
   }
 };
 
-function docFromJson(json) {
-  return {
-    isStarred: json.form_json.is_starred,
-    formJson: {
-      strengths: json.form_json.strengths,
-      connecting: json.form_json.connecting,
-      community: json.form_json.community,
-      peers: json.form_json.peers,
-      family: json.form_json.family,
-      other: json.form_json.other
-    },
-    restrictedText: json.form_json.restricted_text
-  };
-}

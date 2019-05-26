@@ -10,7 +10,7 @@ export default class SecondTransitionNoteServerBridge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      id: props.initialId,
       doc: props.initialDoc,
       pending: {},
       failed: {},
@@ -126,5 +126,6 @@ export default class SecondTransitionNoteServerBridge extends React.Component {
 SecondTransitionNoteServerBridge.propTypes = {
   studentId: PropTypes.number.isRequired,
   initialDoc: PropTypes.any.isRequired,
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
+  initialId: PropTypes.number
 };

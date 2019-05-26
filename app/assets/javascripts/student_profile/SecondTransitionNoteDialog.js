@@ -69,9 +69,12 @@ export default class SecondTransitionNoteDialog extends React.Component {
   }
 
   render() {
-    const {student, initialDoc} = this.props;
+    const {student, initialId, initialDoc} = this.props;
     return (
-      <SecondTransitionNoteServerBridge initialDoc={initialDoc} studentId={student.id}>
+      <SecondTransitionNoteServerBridge
+        initialId={initialId}
+        initialDoc={initialDoc}
+        studentId={student.id}>
         {bridge => (
           <ReactModal
             isOpen={true}
@@ -239,9 +242,11 @@ SecondTransitionNoteDialog.propTypes = {
     first_name: PropTypes.string.isRequired
   }).isRequired,
   onClose: PropTypes.func.isRequired,
+  initialId: PropTypes.number,
   initialDoc: PropTypes.object
 };
 SecondTransitionNoteDialog.defaultProps = {
+  initialId: null,
   initialDoc: createInitialDoc()
 };
 
@@ -348,4 +353,32 @@ export function renderAsText(studentFirstName, json) {
     ? 'What other services do they receive?\nReach out to the counselor if you need to more about anything confidential or sensitive.'
     : '';
   return pieces.concat(maybeRestrictedPiece).join('\n\n').trim();
+}
+
+// restricted text is not included here
+export function docFromJson(json) {
+  return {
+    isStarred: json.form_json.starred,
+    formJson: {
+      [STRENGTHS]: json.form_json.strengths,
+      [CONNECTING]: json.form_json.connecting,
+      [COMMUNITY]: json.form_json.community,
+      [PEERS]: json.form_json.peers,
+      [FAMILY]: json.form_json.family,
+      [OTHER]: json.form_json.other
+    },
+    restrictedText: '<redacted>'
+  };
+}
+
+
+// Only K8 counselors with access can write or edit transition notes,
+// and only for 8th graders.
+export function enableTransitionNoteDialog(currentEducator, studentGrade) {
+  return (
+    (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
+    (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
+    (currentEducator.can_view_restricted_notes) &&
+    (studentGrade === '8')
+  );
 }

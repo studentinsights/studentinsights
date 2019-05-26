@@ -73,14 +73,14 @@ export default class NotesList extends React.Component {
       onSaveNote,
       onEventNoteAttachmentDeleted,
       canUserAccessRestrictedNotes,
-      currentEducatorId,
+      currentEducator,
       requests
     } = this.props;
     const isRedacted = eventNote.is_restricted;
     const isReadonly = (
       !onSaveNote ||
       !onEventNoteAttachmentDeleted ||
-      (currentEducatorId !== eventNote.educator_id) ||
+      (currentEducator.id !== eventNote.educator_id) ||
       isRedacted
     );
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
@@ -149,7 +149,7 @@ export default class NotesList extends React.Component {
   }
 
   renderSecondTransitionNote(secondTransitionNote) {
-    const {educatorsIndex, student} = this.props;
+    const {educatorsIndex, currentEducator, student} = this.props;
     const educator = educatorsIndex[secondTransitionNote.educator_id];
     return (
       <NoteShell
@@ -159,9 +159,9 @@ export default class NotesList extends React.Component {
         educatorEl={<Educator educator={educator} />}
         substanceEl={
           <SecondTransitionNoteInline
-            studentFirstName={student.first_name}
+            currentEducator={currentEducator}
+            student={student}
             json={secondTransitionNote}
-
           />
         }
       />
@@ -228,7 +228,7 @@ NotesList.propTypes = {
   student: PropTypes.shape({
     first_name: PropTypes.string.isRequired
   }).isRequired,
-  currentEducatorId: PropTypes.number.isRequired,
+  currentEducator: PropTypes.object.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
   requests: InsightsPropTypes.requests,
   educatorsIndex: PropTypes.object.isRequired,

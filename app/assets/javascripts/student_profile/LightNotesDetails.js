@@ -5,7 +5,7 @@ import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import DraftNote from './DraftNote';
-import SecondTransitionNoteDialog from './SecondTransitionNoteDialog';
+import SecondTransitionNoteDialog, {enableTransitionNoteDialog} from './SecondTransitionNoteDialog';
 
 
 /*
@@ -82,7 +82,7 @@ export default class LightNotesDetails extends React.Component {
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             student={student}
-            currentEducatorId={currentEducator.id}
+            currentEducator={currentEducator}
             feed={feed}
             requests={requests}
             canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
@@ -111,12 +111,7 @@ export default class LightNotesDetails extends React.Component {
 
     // Only K8 counselors with access can write transition notes,
     // and only for 8th graders.
-    const showSecondTransitionNoteLink = (
-      (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
-      (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
-      (currentEducator.can_view_restricted_notes) &&
-      (student.grade === '8')
-    );
+    const showSecondTransitionNoteLink = enableTransitionNoteDialog(currentEducator, student.grade);
     return (
       <div>
         {showSecondTransitionNoteLink && (

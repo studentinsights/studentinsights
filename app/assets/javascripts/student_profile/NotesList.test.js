@@ -11,7 +11,7 @@ import NotesList from './NotesList';
 
 function testProps(props = {}) {
   return {
-    currentEducatorId: 1,
+    currentEducator: studentProfile.educatorsIndex[1],
     student: studentProfile.student,
     feed: feedForTestingNotes,
     educatorsIndex: studentProfile.educatorsIndex,
