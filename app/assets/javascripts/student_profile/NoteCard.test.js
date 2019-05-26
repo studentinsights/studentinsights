@@ -160,4 +160,12 @@ describe('snapshots', () => {
     ));
     expect(renderer.create(el).toJSON()).toMatchSnapshot();
   });
+
+  it('can render substanceOnly so callers can use their own frame', () => {
+    const el = testEl(testProps({
+      substanceOnly: true,
+      text: 'hello'
+    }));
+    expect(renderer.create(el).toJSON()).toMatchSnapshot();
+  });
 });

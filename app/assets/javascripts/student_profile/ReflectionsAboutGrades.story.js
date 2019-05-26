@@ -5,7 +5,7 @@ import ReflectionsAboutGrades from './ReflectionsAboutGrades';
 
 function storyProps(props = {}) {
   return {
-    profileInsights: [{
+    gradesReflectionInsights: [{
       type: 'imported_form_insight',
       json: {
         form_key: 'shs_q2_self_reflection',

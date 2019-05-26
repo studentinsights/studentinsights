@@ -50,4 +50,12 @@ storiesOf('profile/NoteCard', module) // eslint-disable-line no-undef
         ))}
       </div>
     );
-  });
+  })
+  .add('substanceOnly', () => (
+    <div>
+      {storyRender(storyProps({
+        ...testScenarios()[0].propsDiff,
+        substanceOnly: true
+      }))}
+    </div>
+  ));
