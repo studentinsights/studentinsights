@@ -126,9 +126,6 @@ const styles = {
   card: {
     marginTop: 20
   },
-  wrapper: {
-    display: 'flex'
-  },
   button: {
     marginTop: 10,
     display: 'inline'
@@ -152,22 +149,6 @@ const styles = {
     margin: 10,
     marginTop: 20,
     color: '#aaa'
-  },
-  studentCard: {
-    border: '1px solid #eee',
-    padding: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    width: 250
-  },
-  studentName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#3177c9',
-    marginBottom: '5%'
-  },
-  person: {
-    fontWeight: 'bold'
   }
 };
 
@@ -178,7 +159,3 @@ function wordsFromEventNotes(eventNotes) {
     return eventNote.text.split(' ');
   });
 }
-
-
-
-
