@@ -72,7 +72,7 @@ function renderForEndToEnd() {
 
   // click open full history
   helpers.showFullCaseHistory(el);
-  expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
+  expect($(el).find('.NoteShell').length).toBeGreaterThan(2);
 
   return {el};
 }
@@ -104,7 +104,7 @@ const helpers = {
   },
 
   editNoteText(el, noteIndex, uiParams) {
-    const $noteCard = $(el).find('.NotesList .NoteCard').eq(noteIndex);
+    const $noteCard = $(el).find('.NotesList .NoteShell').eq(noteIndex);
     const $text = $noteCard.find('.ResizingTextArea');
     changeTextValue($text.get(0), uiParams.text);
   },
@@ -162,7 +162,7 @@ describe('integration tests', () => {
 
     // click open full history
     helpers.showFullCaseHistory(el);
-    expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
+    expect($(el).find('.NoteShell').length).toBeGreaterThan(2);
 
     // edit note inline, triggering save
     const noteIndex = 1;
@@ -304,10 +304,15 @@ describe('end-to-end through the network', () => {
       fetchMock.restore();
       fetchMock.post('express:/api/event_notes', {
         id: 999,
+        student_id: 8,
+        educator_id: 1,
         event_note_type_id: 300,
         is_restricted: false,
         text: 'hello world!',
-        attachments: []
+        attachments: [],
+        recorded_at: testTimeMoment.toString(),
+        event_note_revisions_count: 0,
+        latest_revision_at: null
       });
     });
 
