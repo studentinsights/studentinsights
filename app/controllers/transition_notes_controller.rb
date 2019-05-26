@@ -1,5 +1,7 @@
 class TransitionNotesController < ApplicationController
   def restricted_transition_note_json
+    raise DeprecatedFeatureError
+
     safe_params = params.permit(:student_id)
     transition_note = authorized_or_raise! do
       TransitionNote.find_by({
@@ -18,6 +20,8 @@ class TransitionNotesController < ApplicationController
 
   # post
   def update
+    raise DeprecatedFeatureError
+    
     raise Exceptions::EducatorNotAuthorized unless authorizer.is_authorized_to_write_transition_notes?
 
     safe_params = params.permit(:student_id, :is_restricted, :text)

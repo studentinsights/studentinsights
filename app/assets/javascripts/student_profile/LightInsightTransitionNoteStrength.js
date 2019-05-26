@@ -16,7 +16,7 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
     const strengthsQuoteText = insightPayload.strengths_quote_text;
     const transitionNote = insightPayload.transition_note;
     const {educator} = transitionNote;
-    const dateText = toMomentFromTimestamp(transitionNote.created_at).format('M/D/YY');
+    const dateText = toMomentFromTimestamp(transitionNote.recorded_at).format('M/D/YY');
 
     return (
       <LightInsightQuote
@@ -48,7 +48,7 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
     const text = parseAndReRender(transitionNote.text);
     return (
       <NoteShell
-        whenEl={toMomentFromRailsDate(transitionNote.created_at).format('MMMM D, YYYY')}
+        whenEl={toMomentFromRailsDate(transitionNote.recorded_at).format('MMMM D, YYYY')}
         badgeEl="Transition note"
         educatorEl={<Educator educator={educator} />}
         substanceEl={<NoteText text={text} />}
@@ -61,7 +61,7 @@ LightInsightTransitionNoteStrength.propTypes = {
     strengths_quote_text: PropTypes.string.isRequired,
     transition_note: PropTypes.shape({
       text: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired,
+      recorded_at: PropTypes.string.isRequired,
       educator: PropTypes.shape({
         id: PropTypes.number.isRequired,
         full_name: PropTypes.string.isRequired,

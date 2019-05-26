@@ -53,6 +53,7 @@ class SecondTransitionNotesController < ApplicationController
     if id.nil?
       authorized_or_raise! { Student.find(student_id) }
       second_transition_note = SecondTransitionNote.create!(attrs.merge({
+        recorded_at: Time.now,
         educator_id: current_educator.id,
         student_id: student_id,
         form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE

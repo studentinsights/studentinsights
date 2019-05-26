@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2019_05_24_190130) do
+ActiveRecord::Schema.define(version: 2019_05_26_170939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -487,6 +486,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_190130) do
     t.json "form_json", null: false
     t.text "restricted_text"
     t.boolean "starred", default: false
+    t.datetime "recorded_at", null: false
     t.index ["educator_id"], name: "index_second_transition_notes_on_educator_id"
     t.index ["student_id"], name: "index_second_transition_notes_on_student_id"
   end

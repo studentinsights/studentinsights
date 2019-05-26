@@ -30,7 +30,7 @@ export function mergedNotes(feed) {
     return {
       ...transitionNote,
       type: 'transition_notes',
-      sort_timestamp: transitionNote.created_at
+      sort_timestamp: transitionNote.recorded_at
     };
   });
 
@@ -39,7 +39,7 @@ export function mergedNotes(feed) {
     return {
       ...secondTransitionNote,
       type: 'second_transition_notes',
-      sort_timestamp: secondTransitionNote.created_at
+      sort_timestamp: secondTransitionNote.recorded_at
     };
   });
 
