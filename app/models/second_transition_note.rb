@@ -24,7 +24,7 @@ class SecondTransitionNote < ApplicationRecord
   validate :validate_form_json_keys
 
   def has_restricted_text
-    self.restricted_text.strip.present?
+    self.restricted_text.try(:strip).present?
   end
 
   # override

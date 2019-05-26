@@ -15,7 +15,7 @@ export default class SecondTransitionNoteInline extends React.Component {
   render() {
     const {json, studentFirstName} = this.props;
     const {isOpen} = this.state;
-    const text = renderAsText(json);
+    const text = renderAsText(studentFirstName, json);
 
     return (
       <div className="SecondTransitionNoteInline">
