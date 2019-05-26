@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {toMomentFromRailsDate, toMomentFromTimestamp} from '../helpers/toMoment';
 import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import Educator from '../components/Educator';
-import NoteCard from './NoteCard';
-import {badgeStyle} from './NotesList';
+import NoteShell from '../components/NoteShell';
+import NoteText from '../components/NoteText';
 import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
 import {parseAndReRender} from './transitionNoteParser';
 
@@ -45,14 +45,14 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
   
   // Look similar to profile view
   renderTransitionNoteDialog(transitionNote, educator) {
+    const text = parseAndReRender(transitionNote.text);
     return (
-      <NoteCard
-        noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
-        badge={<span style={badgeStyle}>Transition note</span>}
-        educatorId={educator.id}
-        text={parseAndReRender(transitionNote.text)}
-        educatorsIndex={{[educator.id]: educator}}
-        attachments={[]} />
+      <NoteShell
+        whenEl={toMomentFromRailsDate(transitionNote.created_at).format('MMMM D, YYYY')}
+        badgeEl="Transition note"
+        educatorEl={<Educator educator={educator} />}
+        substanceEl={<NoteText text={text} />}
+      />
     );
   }
 }
