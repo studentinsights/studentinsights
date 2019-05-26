@@ -12,6 +12,7 @@ import NotesList from './NotesList';
 function testProps(props = {}) {
   return {
     currentEducatorId: 1,
+    student: studentProfile.student,
     feed: feedForTestingNotes,
     educatorsIndex: studentProfile.educatorsIndex,
     onSaveNote: jest.fn(),

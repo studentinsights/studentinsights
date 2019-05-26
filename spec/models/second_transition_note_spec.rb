@@ -23,7 +23,7 @@ RSpec.describe SecondTransitionNote, type: :model do
         },
         restricted_text: 'DANGEROUS restricted foo'
       })
-      expect(note.errors.details).to eq(form_json: [{:error=>"missing expected keys"}])
+      expect(note.errors.details).to eq(form_json: [{:error=>'missing expected keys: family'}])
     end
   end
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SecondTransitionNoteDialog from './SecondTransitionNoteDialog';
+import SecondTransitionNoteDialog, {renderAsText} from './SecondTransitionNoteDialog';
 import NoteText from '../components/NoteText';
 
 
@@ -15,14 +15,7 @@ export default class SecondTransitionNoteInline extends React.Component {
   render() {
     const {json, studentFirstName} = this.props;
     const {isOpen} = this.state;
-    const text = [
-      `What are their strengths?\n${json.form_json.strengths}`,
-      `How would you suggest teachers connect with them?\n${json.form_json.connecting}`,
-      `How has their become involved with the school community?${json.form_json.community}`,
-      `How do they relate to their peers?\n${json.form_json.peers}`,
-      `Any additional comments or good things to know?\n${json.form_json.other}`,
-      (json.has_restricted_text) ? 'What other services do they receive?\nReach out to the counselor if you need to more about anything confidential or sensitive.' : ''
-    ].join('\n\n');
+    const text = renderAsText(json);
 
     return (
       <div className="SecondTransitionNoteInline">

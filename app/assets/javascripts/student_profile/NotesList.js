@@ -149,7 +149,7 @@ export default class NotesList extends React.Component {
   }
 
   renderSecondTransitionNote(secondTransitionNote) {
-    const {educatorsIndex} = this.props;
+    const {educatorsIndex, student} = this.props;
     const educator = educatorsIndex[secondTransitionNote.educator_id];
     return (
       <NoteShell
@@ -157,7 +157,13 @@ export default class NotesList extends React.Component {
         whenEl={whenText(secondTransitionNote.created_at)}
         badgeEl="Transition note"
         educatorEl={<Educator educator={educator} />}
-        substanceEl={<SecondTransitionNoteInline json={secondTransitionNote} />}
+        substanceEl={
+          <SecondTransitionNoteInline
+            studentFirstName={student.first_name}
+            json={secondTransitionNote}
+
+          />
+        }
       />
     );
   }
@@ -219,6 +225,9 @@ export default class NotesList extends React.Component {
   }
 }
 NotesList.propTypes = {
+  student: PropTypes.shape({
+    first_name: PropTypes.string.isRequired
+  }).isRequired,
   currentEducatorId: PropTypes.number.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
   requests: InsightsPropTypes.requests,

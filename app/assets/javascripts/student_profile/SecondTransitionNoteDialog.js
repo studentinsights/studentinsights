@@ -134,22 +134,12 @@ export default class SecondTransitionNoteDialog extends React.Component {
   }
 
   renderLeftColumn(bridge) {
-    const {student} = this.props;
-    const {doc, onDocChanged} = bridge;
-
     return (
       <div style={styles.column}>
-        <div style={styles.prompt}>What are {student.first_name}'s strengths?</div>
-        {this.renderTextarea(doc, onDocChanged, STRENGTHS, {autoFocus: true, rows: 4})}
-        
-        <div style={styles.prompt}>What works well for connecting with {student.first_name}?</div>
-        {this.renderTextarea(doc, onDocChanged, CONNECTING, {rows: 4})}
-        
-        <div style={styles.prompt}>How does {student.first_name} relate to their peers?</div>
-        {this.renderTextarea(doc, onDocChanged, PEERS, {rows: 4})}
-
-        <div style={styles.prompt}>How has {student.first_name} become involved with the school community?</div>
-        {this.renderTextarea(doc, onDocChanged, COMMUNITY, {rows: 4})}
+        {this.renderPrompt(bridge, STRENGTHS, {autoFocus: true})}
+        {this.renderPrompt(bridge, CONNECTING)}
+        {this.renderPrompt(bridge, PEERS)}
+        {this.renderPrompt(bridge, COMMUNITY)}
       </div>
     );
   }
@@ -173,11 +163,8 @@ export default class SecondTransitionNoteDialog extends React.Component {
           <div style={{marginTop: 5}}>This will only be visible to educators with restricted access.</div>
         </div>
 
-        <div style={styles.prompt}>What works well for communicating with Ryan’s family?</div>
-        {this.renderTextarea(doc, onDocChanged, FAMILY, {rows: 4})}
-
-        <div style={styles.prompt}>Any additional comments or good things to know?</div>
-        {this.renderTextarea(doc, onDocChanged, OTHER, {rows: 6})}
+        {this.renderPrompt(bridge, FAMILY)}
+        {this.renderPrompt(bridge, OTHER, {rows: 6})}
         
         <a href="#" style={styles.starLine} onClick={this.onStarClicked.bind(this, bridge)}>
           <span style={{
@@ -220,23 +207,29 @@ export default class SecondTransitionNoteDialog extends React.Component {
     );
   }
 
-  renderTextarea(doc, onDocChanged, key, props = {}) {
+  renderPrompt(bridge, key, textAreaProps = {}) {
+    const {student} = this.props;
+    const {doc, onDocChanged} = bridge;
     const value = doc.formJson[key] || '';
     return (
-      <textarea
-        {...props}
-        style={styles.textarea}
-        value={value}
-        onChange={e => {
-          const {formJson} = doc;
-          onDocChanged({
-            formJson: {
-              ...formJson,
-              [key]: e.target.value
-            }
-          });
-        }}
-      />
+      <div key={key}>
+        <div style={styles.prompt}>{promptFor(student.first_name, key)}</div>
+        <textarea
+          rows={4}
+          style={styles.textarea}
+          {...textAreaProps}
+          value={value}
+          onChange={e => {
+            const {formJson} = doc;
+            onDocChanged({
+              formJson: {
+                ...formJson,
+                [key]: e.target.value
+              }
+            });
+          }}
+        />
+      </div>
     );
   }
 }
@@ -330,4 +323,29 @@ function createInitialDoc() {
     },
     restrictedText: ''
   };
+}
+
+function promptFor(firstName, key) {
+  return {
+    [STRENGTHS]: `What are ${firstName}'s strengths?`,
+    [CONNECTING]: `What works well for connecting with ${firstName}?`,
+    [COMMUNITY]: `How does ${firstName} relate to their peers?`,
+    [PEERS]: `How has ${firstName} become involved with the school community?`,
+    [FAMILY]: `What works well for communicating with ${firstName}’s family?`,
+    [OTHER]: `Any additional comments or good things to know?`
+  }[key];
+}
+
+export function renderAsText(studentFirstName, json) {
+  const keys = [STRENGTHS, CONNECTING, COMMUNITY, PEERS, FAMILY, OTHER];
+  const pieces = keys.map(key => {
+    return [
+      promptFor(studentFirstName, key),
+      json.form_json[key]
+    ].join("\n");
+  });
+  const maybeRestrictedPiece = (json.has_restricted_text)
+    ? 'What other services do they receive?\nReach out to the counselor if you need to more about anything confidential or sensitive.'
+    : '';
+  return pieces.concat(maybeRestrictedPiece).join('\n\n').trim();
 }
