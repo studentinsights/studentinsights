@@ -91,8 +91,7 @@ Rails.application.routes.draw do
   # student profile
   get '/api/students/:id/profile_json' => 'profile#json'
 
-  # transition notes: creating/updating, or reading restricted notes
-  post '/api/students/:student_id/update_transition_note' => 'transition_notes#update'
+  # transition notes: reading restricted notes (create was deprecated and removed, see `second_transition_note`)
   get '/api/students/:student_id/restricted_transition_note_json' => 'transition_notes#restricted_transition_note_json'
 
   # second transition notes
