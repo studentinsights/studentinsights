@@ -8,6 +8,7 @@ import * as FeedHelpers from '../helpers/FeedHelpers';
 import {IDLE} from '../helpers/requestStates';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import NoteShell from '../components/NoteShell';
+import NoteText from '../components/NoteText';
 import Educator from '../components/Educator';
 import NoteCard from './NoteCard';
 import SecondTransitionNoteInline from './SecondTransitionNoteInline';
@@ -142,7 +143,7 @@ export default class NotesList extends React.Component {
         whenEl={noteMoment.format('MMMM D, YYYY')}
         badgeEl="Old intervention"
         educatorEl={<Educator educator={educator} />}
-        substanceEl={text}
+        substanceEl={<NoteText text={text} />}
       />
     );
   }
@@ -162,13 +163,14 @@ export default class NotesList extends React.Component {
   }
 
   renderFallStudentVoiceSurvey(fallStudentVoiceSurvey) {
+    const text = `💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceSurvey.flat_text}`;
     return (
       <NoteShell
         key={['fall_completed_survey', fallStudentVoiceSurvey.id].join()}
         whenEl={whenText(fallStudentVoiceSurvey.form_timestamp)}
         badgeEl="What I want my teacher to know about me"
         educatorEl={null}
-        substanceEl={`💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceSurvey.flat_text}`}
+        substanceEl={<NoteText text={text} />}
       />
     );
   }
@@ -183,19 +185,20 @@ export default class NotesList extends React.Component {
         whenEl={whenText(homeworkHelpSession.form_timestamp)}
         badgeEl="Homework Help"
         educatorEl={<Educator educator={educator} />}
-        substanceEl={text}
+        substanceEl={<NoteText text={text} />}
       />
     );
   }
 
   renderFlattenedForm(flattenedForm) {
+    const text = `💬 From the "${flattenedForm.form_title}" student voice survey 💬\n\n${flattenedForm.text}`;
     return (
       <NoteShell
         key={['flattened_form', flattenedForm.id].join()}
         whenEl={whenText(flattenedForm.form_timestamp)}
         badgeEl={flattenedForm.form_title}
         educatorEl={null}
-        substanceEl={`💬 From the "${flattenedForm.form_title}" student voice survey 💬\n\n${flattenedForm.text}`}
+        substanceEl={<NoteText text={text} />}
       />
     );
   }

@@ -92,7 +92,7 @@ function testRender(props) {
 }
 
 function readNoteTimestamps(el) {
-  return $(el).find('.NoteCard .date').toArray().map(dateEl => {
+  return $(el).find('.NoteShell .date').toArray().map(dateEl => {
     return moment.parseZone($(dateEl).text(), 'MMM DD, YYYY').toDate().getTime();
   });
 }
@@ -108,7 +108,7 @@ it('with full historical data, renders everything on the happy path', () => {
   const noteTimestamps = readNoteTimestamps(el);
   expect(_.head(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
   expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
-  expect($(el).find('.NoteCard').length).toEqual(5);
+  expect($(el).find('.NoteShell').length).toEqual(5);
 
   expect(el.innerHTML).toContain('Behavior Plan');
   expect(el.innerHTML).toContain('Attendance Officer');
@@ -124,15 +124,15 @@ it('with full historical data, renders everything on the happy path', () => {
 
 it('limits visible notes by default', () => {
   const el = testRender(testProps());
-  expect($(el).find('.NoteCard').length).toEqual(1);
+  expect($(el).find('.NoteShell').length).toEqual(1);
   expect($(el).find('.CleanSlateMessage').length).toEqual(1);
 });
 
 it('allows anyone to click and see older notes', () => {
   const el = testRender(testProps());
-  expect($(el).find('.NoteCard').length).toEqual(1);
+  expect($(el).find('.NoteShell').length).toEqual(1);
   ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage a').get(0));
-  expect($(el).find('.NoteCard').length).toEqual(5);
+  expect($(el).find('.NoteShell').length).toEqual(5);
 });
 
 it('allows editing a note you wrote', () => {
@@ -222,7 +222,7 @@ describe('flattened forms', () => {
     expect($(el).find('.NoteText').length).toEqual(1);
     expect($(el).find('.EditableNoteText').length).toEqual(0);
     expect($(el).text()).toContain('What I want my teachers to know');
-    expect($(el).find('.NoteCard a').length).toEqual(0);
+    expect($(el).find('.NoteShell a').length).toEqual(0);
     expect($(el).find('.NoteText').text()).toEqual('💬 From the "What I want my teachers to know" student voice survey 💬\n\n<text>');
   });
 });

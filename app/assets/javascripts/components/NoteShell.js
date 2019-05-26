@@ -20,7 +20,7 @@ export default function NoteShell(props) {
 NoteShell.propTypes = {
   whenEl: PropTypes.node.isRequired,
   badgeEl: PropTypes.node.isRequired,
-  educatorEl: PropTypes.node.isRequired,
+  educatorEl: PropTypes.node,
   substanceEl: PropTypes.node.isRequired
 };
 

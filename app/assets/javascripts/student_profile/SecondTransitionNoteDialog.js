@@ -9,8 +9,17 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import * as Routes from '../helpers/Routes';
 import SecondTransitionNoteServerBridge from './SecondTransitionNoteServerBridge';
 
+const STRENGTHS = 'strengths';
+const CONNECTING = 'connecting';
+const COMMUNITY = 'community';
+const PEERS = 'peers';
+const FAMILY = 'family';
+const OTHER = 'other';
 
 
+// This is the dialog for writing, and then later editing, a
+// second transition note.  Writing is intended to only be open
+// for a window of time at the end of the school year.
 export default class SecondTransitionNoteDialog extends React.Component {
   onStarClicked(bridge, e) {
     e.preventDefault();
@@ -307,12 +316,6 @@ const styles = {
   }
 };
 
-const STRENGTHS = 'strengths';
-const CONNECTING = 'connecting';
-const COMMUNITY = 'community';
-const PEERS = 'peers';
-const FAMILY = 'family';
-const OTHER = 'other';
 
 function createInitialDoc() {
   return {
