@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import Button, {SeriousButton} from './Button';
+import Button, {SeriousButton, PlainButton} from './Button';
 
 
 storiesOf('components/Button', module) // eslint-disable-line no-undef
@@ -11,6 +11,7 @@ storiesOf('components/Button', module) // eslint-disable-line no-undef
         <Button onClick={action('click')}>Share</Button>
         <Button isDisabled={true} onClick={action('click')}>Open</Button>
         <SeriousButton onClick={action('click')}>Delete</SeriousButton>
+        <PlainButton onClick={action('click')}>Close</PlainButton>
       </div>
     );
   });
