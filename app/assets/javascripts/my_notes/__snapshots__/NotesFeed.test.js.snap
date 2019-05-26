@@ -173,6 +173,7 @@ exports[`snapshots view 1`] = `
                     "alignItems": "flex-end",
                     "display": "flex",
                     "flexDirection": "column",
+                    "textAlign": "right",
                   }
                 }
               >
@@ -420,6 +421,7 @@ exports[`snapshots view 1`] = `
                     "alignItems": "flex-end",
                     "display": "flex",
                     "flexDirection": "column",
+                    "textAlign": "right",
                   }
                 }
               >
@@ -740,6 +742,7 @@ exports[`snapshots view for restricted 1`] = `
                     "alignItems": "flex-end",
                     "display": "flex",
                     "flexDirection": "column",
+                    "textAlign": "right",
                   }
                 }
               >
@@ -1003,6 +1006,7 @@ exports[`snapshots view for restricted 1`] = `
                     "alignItems": "flex-end",
                     "display": "flex",
                     "flexDirection": "column",
+                    "textAlign": "right",
                   }
                 }
               >
@@ -1323,6 +1327,7 @@ exports[`snapshots view with wordcloud 1`] = `
                     "alignItems": "flex-end",
                     "display": "flex",
                     "flexDirection": "column",
+                    "textAlign": "right",
                   }
                 }
               >
@@ -1570,6 +1575,7 @@ exports[`snapshots view with wordcloud 1`] = `
                     "alignItems": "flex-end",
                     "display": "flex",
                     "flexDirection": "column",
+                    "textAlign": "right",
                   }
                 }
               >
