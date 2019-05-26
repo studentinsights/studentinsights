@@ -18,6 +18,7 @@ class SecondTransitionNotesController < ApplicationController
           :connecting,
           :community,
           :peers,
+          :family,
           :other
         ]
       }
