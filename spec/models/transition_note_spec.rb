@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe ClassList do
   def create_transition_note(params = {})
-    TransitionNote.create({
+    TransitionNote.create!({
       educator_id: pals.west_counselor.id,
       student_id: pals.west_eighth_ryan.id,
       text: 'foo',

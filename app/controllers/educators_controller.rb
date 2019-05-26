@@ -99,7 +99,7 @@ class EducatorsController < ApplicationController
         .order('recorded_at DESC')
     end
 
-    # event_notes merged with feed card json
+    # Merged both event_notes and feed_card json
     mixed_event_notes_json = authorized_notes.first(batch_size).map do |event_note|
       event_note_json = EventNoteSerializer.safe(event_note).serialize_event_note
       card_json = FeedCard.event_note_card(event_note).json

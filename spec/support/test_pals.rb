@@ -256,6 +256,7 @@ class TestPals
       enrollment_status: 'Active'
     )
     SecondTransitionNote.create!({
+      recorded_at: time_now - 4.days,
       educator: @west_counselor,
       student: @west_eighth_ryan,
       form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE,

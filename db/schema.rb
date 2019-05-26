@@ -447,8 +447,6 @@ ActiveRecord::Schema.define(version: 2019_05_26_170939) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "source"
-    t.text "benchmark_assessment_grade_level"
     t.index ["benchmark_assessment_key"], name: "index_reading_benchmark_data_points_on_benchmark_assessment_key"
     t.index ["benchmark_school_year", "benchmark_period_key"], name: "index_reading_benchmark_data_points_on_year_and_period_keys"
     t.index ["student_id"], name: "index_reading_benchmark_data_points_on_student_id"
