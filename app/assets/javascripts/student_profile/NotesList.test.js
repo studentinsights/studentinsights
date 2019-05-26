@@ -138,7 +138,9 @@ it('allows anyone to click and see older notes', () => {
 
 it('allows editing a note you wrote', () => {
   const el = testRender(testProps({
-    currentEducatorId: 1,
+    currentEducator: {
+      id: 1
+    },
     feed: feedWithEventNotesJson([{
       "id": 3,
       "student_id": 5,
@@ -159,7 +161,9 @@ it('allows editing a note you wrote', () => {
 
 it('does not allow editing notes written by someone else', () => {
   const el = testRender(testProps({
-    currentEducatorId: 999,
+    currentEducator: {
+      id: 999
+    },
     feed: feedWithEventNotesJson([{
       "id": 3,
       "student_id": 5,
