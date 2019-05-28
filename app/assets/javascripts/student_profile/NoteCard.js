@@ -99,7 +99,7 @@ export default class NoteCard extends React.Component {
   }
 
   renderRestrictedNoteRedaction() {
-    const {educator, urlForRestrictedNoteContent} = this.props;
+    const {educator, fetchRestrictedText} = this.props;
     const educatorName = formatEducatorName(educator);
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
@@ -109,7 +109,7 @@ export default class NoteCard extends React.Component {
       <RestrictedNotePresence
         studentFirstName={null} // The student name isn't passed
         educatorName={educatorFirstNameOrEmail}
-        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        fetchRestrictedText={fetchRestrictedText}
       />
     );
   }
@@ -238,7 +238,7 @@ NoteCard.propTypes = {
 
   // Configuring for different uses
   showRestrictedNoteRedaction: PropTypes.bool,
-  urlForRestrictedNoteContent: PropTypes.string,
+  fetchRestrictedText: PropTypes.func,
   substanceOnly: PropTypes.bool
 };
 

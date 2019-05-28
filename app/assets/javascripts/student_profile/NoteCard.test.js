@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import _ from 'lodash';
 import moment from 'moment';
 import {IDLE, PENDING, ERROR} from '../helpers/requestStates';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 import {studentProfile} from './fixtures/fixtures';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import changeTextValue from '../testing/changeTextValue';
@@ -27,7 +28,7 @@ export function testProps(props = {}) {
 // Different scenarios for test/story
 export function testScenarios() {
   const attachments = [{id: 789, url: 'https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link'}];
-  const urlForRestrictedNoteContent = '/mocked-url-for-restricted-note-content';
+  const fetchRestrictedText = () => apiFetchJson('/mocked-url-for-restricted-note-content');
 
   const readonly = { onSave: null };
   const recentRevision = { lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z') };
@@ -40,7 +41,7 @@ export function testScenarios() {
   const removableAttachments = { attachments, onEventNoteAttachmentDeleted: _.identity };
 
   const redacted = { showRestrictedNoteRedaction: true };
-  const canShowRedacted = { urlForRestrictedNoteContent };
+  const canShowRedacted = { fetchRestrictedText };
   
 
   return [
@@ -65,7 +66,7 @@ export function testScenarios() {
     { label: 'redacted, oldRevision', propsDiff: {...redacted, ...oldRevision} },
     { label: 'redacted, readonlyAttachments', propsDiff: {...redacted, ...readonlyAttachments} },
     { label: 'redacted, removableAttachments', propsDiff: {...redacted, ...removableAttachments} },
-    { label: 'redacted, canShowRedacted, urlForRestrictedNoteContent', propsDiff: {...redacted, ...canShowRedacted, ...urlForRestrictedNoteContent} },
+    { label: 'redacted, canShowRedacted, fetchRestrictedText', propsDiff: {...redacted, ...canShowRedacted, ...fetchRestrictedText} },
 
     { label: 'buggy call, editable, redacted', propsDiff: {...editable,...redacted} }
   ];

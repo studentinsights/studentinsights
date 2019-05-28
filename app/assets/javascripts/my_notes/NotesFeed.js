@@ -7,7 +7,7 @@ import BoxCard from '../components/BoxCard';
 import SectionHeading from '../components/SectionHeading';
 import WordCloud from '../components/WordCloud';
 import EventNoteCard from '../feed/EventNoteCard';
-import {urlForRestrictedEventNoteContent} from '../student_profile/RestrictedNotePresence';
+import {fetchRestrictedNoteText} from '../student_profile/RestrictedNotePresence';
 import NoteCard from '../student_profile/NoteCard';
 
 // Shows the feed of notes
@@ -56,8 +56,8 @@ export default class NotesFeed extends React.Component {
   renderEventNoteCard(eventNote, student, educator) {
     const {canUserAccessRestrictedNotes} = this.props;
     const isRedacted = eventNote.is_restricted;
-    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes && isRedacted)
-      ? urlForRestrictedEventNoteContent(eventNote)
+    const fetchRestrictedText = (canUserAccessRestrictedNotes && isRedacted)
+      ? () => fetchRestrictedNoteText(eventNote)
       : null;
     return (
       <NoteCard
@@ -69,7 +69,7 @@ export default class NotesFeed extends React.Component {
         lastRevisedAtMoment={eventNote.latest_revision_at ? toMomentFromRailsDate(eventNote.latest_revision_at) : null}
         attachments={eventNote.attachments}
         showRestrictedNoteRedaction={isRedacted}
-        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        fetchRestrictedText={fetchRestrictedText}
         substanceOnly={true} // no shell
       />
     );

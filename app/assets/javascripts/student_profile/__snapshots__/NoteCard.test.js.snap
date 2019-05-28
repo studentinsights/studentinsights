@@ -2635,7 +2635,7 @@ Array [
   <div>
     <h3>
       scenario for snapshot: 
-      redacted, canShowRedacted, urlForRestrictedNoteContent
+      redacted, canShowRedacted, fetchRestrictedText
     </h3>
     <div
       className="NoteShell"

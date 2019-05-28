@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
-import RestrictedNotePresence from './RestrictedNotePresence';
+import RestrictedNotePresence, {
+  fetchRestrictedTransitionNoteText,
+  fetchRestrictedNoteText
+} from './RestrictedNotePresence';
 
 
 export function testProps(props = {}) {
   return {
     studentFirstName: 'Cassandra',
     educatorName: 'Darnell',
-    urlForRestrictedNoteContent: null,
+    fetchRestrictedText: null,
     ...props
   };
 }
@@ -37,10 +40,10 @@ it('renders without crashing', () => {
   expect(el.innerHTML).not.toContain('RESTRICTED');
 });
 
-it('allows viewing by EventNote URL', done => {
+it('works with fetchRestrictedNoteText', done => {
   mockFetch();
-  const urlForRestrictedNoteContent = '/api/event_notes/42/restricted_note_json';
-  const props = testProps({urlForRestrictedNoteContent});
+  const fetchRestrictedText = () => fetchRestrictedNoteText({id: 42 });
+  const props = testProps({fetchRestrictedText});
   const el = document.createElement('div');
   ReactDOM.render(testEl(props), el);
   expect(el.innerHTML).toContain('show restricted note');
@@ -54,10 +57,10 @@ it('allows viewing by EventNote URL', done => {
   }, 0);
 });
 
-it('allows viewing TransitionNote', done => {
+it('works with fetchRestrictedTransitionNoteText', done => {
   mockFetch();
-  const urlForRestrictedNoteContent = '/api/students/73/restricted_transition_note_json';
-  const props = testProps({urlForRestrictedNoteContent});
+  const fetchRestrictedText = () => fetchRestrictedTransitionNoteText({student_id: 63 });
+  const props = testProps({fetchRestrictedText});
   const el = document.createElement('div');
   ReactDOM.render(testEl(props), el);
   expect(el.innerHTML).toContain('show restricted note');
