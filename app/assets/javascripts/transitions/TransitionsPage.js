@@ -48,13 +48,6 @@ export default class TransitionsPage extends React.Component {
     return <TransitionsView students={students} />;
   }
 }
-TransitionsPage.propTypes = {
-  currentEducator: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired
-};
-
 
 export class TransitionsView extends React.Component {
   constructor(props) {

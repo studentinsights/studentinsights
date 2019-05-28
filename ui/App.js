@@ -162,8 +162,7 @@ export default class App extends React.Component {
   }
 
   renderTransitionsPage(routeProps) {
-    const {currentEducator} = this.props;
-    return <TransitionsPage currentEducator={currentEducator} />; 
+    return <TransitionsPage />; 
   }
 
   renderMySectionsPage(routeProps) {

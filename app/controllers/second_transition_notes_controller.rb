@@ -9,7 +9,7 @@ class SecondTransitionNotesController < ApplicationController
         :school,
         :student_photos,
         :second_transition_notes
-      ])
+      ]).to_a
     end
     students_json = students.as_json({
       only: [
