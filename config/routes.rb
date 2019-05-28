@@ -98,7 +98,7 @@ Rails.application.routes.draw do
   post '/api/students/:student_id/second_transition_notes/save_json' => 'second_transition_notes#save_json'
   delete '/api/students/:student_id/second_transition_notes/:second_transition_note_id' => 'second_transition_notes#delete_json'
   get '/api/students/:student_id/second_transition_notes/:second_transition_note_id/restricted_text_json' => 'second_transition_notes#restricted_text_json'
-  get '/api/students/:student_id/second_transition_notes/next_student_json' => 'second_transition_notes#next_student_json'
+  get '/api/second_transition_notes/transition_students_json' => 'second_transition_notes#transition_students_json'
 
   # event_notes: creating/updating notes, or reading restricted notes
   post '/api/event_notes' => 'event_notes#create'
@@ -114,7 +114,6 @@ Rails.application.routes.draw do
   get '/api/counselor_meetings/meetings_json' => 'counselor_meetings#meetings_json'
   post '/api/counselor_meetings' => 'counselor_meetings#create'
   get '/api/counselor_meetings/student_feed_cards_json' => 'counselor_meetings#student_feed_cards_json'
-
 
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'

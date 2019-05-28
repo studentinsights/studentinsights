@@ -4,9 +4,9 @@ import _ from 'lodash';
 import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
+import {toSchoolYear} from '../helpers/schoolYear';
 import {maybeCapitalize} from '../helpers/pretty';
-import {supportsHouse, supportsCounselor, supportsSpedLiaison} from '../helpers/PerDistrict';
-import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
+import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -28,7 +28,7 @@ export default class TransitionsPage extends React.Component {
   }
 
   fetchStudents() {
-    const url = `/api/educators/my_students_json`;
+    const url = `/api/second_transition_notes/transition_students_json`;
     return apiFetchJson(url);
   }
 
@@ -67,6 +67,8 @@ export class TransitionsView extends React.Component {
     this.onTableSort = this.onTableSort.bind(this);
     this.renderName = this.renderName.bind(this);
     this.renderSchool = this.renderSchool.bind(this);
+    this.renderNote = this.renderNote.bind(this);
+    this.renderStarred = this.renderStarred.bind(this);
   }
 
   orderedStudents(students) {
@@ -77,7 +79,9 @@ export class TransitionsView extends React.Component {
       fallback(student) { return student[sortBy]; },
       grade(student) { return rankedByGradeLevel(student.grade); },
       school(student) { return student.school.name; },
-      name(student) { return `${student.last_name}, ${student.first_name}`; }
+      name(student) { return `${student.last_name}, ${student.first_name}`; },
+      note(student) { return hasNote(student); } ,
+      starred(student) { return isStarred(student); }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);
@@ -100,12 +104,13 @@ export class TransitionsView extends React.Component {
   }
 
   render() {
-    const {districtKey} = this.context;
+    const {nowFn, districtKey} = this.context;
+    const schoolYear = toSchoolYear(nowFn());
     const {students} = this.props;
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>Transition notes</SectionHeading>
+        <SectionHeading>School transitions for {schoolYear + 1}</SectionHeading>
         <FilterStudentsBar
           students={students}
           style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
@@ -159,12 +164,6 @@ export class TransitionsView extends React.Component {
               dataKey='grade'
               width={100}
             />
-            <Column
-             label='Program'
-             dataKey='program'
-             cellRenderer={this.renderProgram}
-             width={150}
-            />
             {supportsHouse(districtKey) &&
               <Column
                 label='House'
@@ -180,25 +179,39 @@ export class TransitionsView extends React.Component {
                 width={100}
               />
             }
-            {supportsSpedLiaison(districtKey) && 
-              <Column
-                label='SPED Liaison'
-                dataKey='sped_liaison'
-                cellDataGetter={({rowData}) => maybeCapitalize(rowData.sped_liaison)}
-                width={100}
-              />
-            }
+            <Column
+              label='Note?'
+              dataKey='note'
+              cellRenderer={this.renderNote}
+              width={120} />
+            <Column
+              label={<span>Starred<br/> for discussion?</span>}
+              dataKey='starred'
+              cellRenderer={this.renderStarred}
+              width={120} />
           </Table>
         )}
       </AutoSizer>
     );
   }
 
+  renderNote(cellProps) {
+    const student = cellProps.rowData;
+    if (!hasNote(student)) return null;
+    return this.renderStudentLink(student, <span style={{fontSize: 20}}>📝</span>);
+  }
+
+  renderStarred(cellProps) {
+    const student = cellProps.rowData;
+    if (!isStarred(student)) return null;
+    return this.renderStudentLink(student, <span style={{fontSize: 20}}>⭐</span>);
+  }
+
   renderName(cellProps) {
     const student = cellProps.rowData;
     return (
       <div style={styles.nameBlock}>
-        <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+        {this.renderStudentLink(student, `${student.first_name} ${student.last_name}`)}
         {student.has_photo && (
           <StudentPhotoCropped
             studentId={student.id}
@@ -219,13 +232,13 @@ export class TransitionsView extends React.Component {
     return student.house && <HouseBadge house={student.house} showNameOnly={true} />;
   }
 
-  renderProgram(cellProps) {
-    const student = cellProps.rowData;
-    return <div style={{marginRight: 10}}>{prettyProgramOrPlacementText(student)}</div>;
+  renderStudentLink(student, children) {
+    return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{children}</a>;
   }
 }
 TransitionsView.contextTypes = {
-  districtKey: PropTypes.string.isRequired
+  districtKey: PropTypes.string.isRequired,
+  nowFn: PropTypes.func.isRequired
 };
 TransitionsView.propTypes = {
   students: PropTypes.arrayOf(PropTypes.shape({
@@ -261,3 +274,11 @@ const styles = {
     marginRight: 20
   }
 };
+
+function hasNote(student) {
+  return student.second_transition_notes.length > 0;
+}
+
+function isStarred(student) {
+  return _.some(student.second_transition_notes, {starred: true});
+}

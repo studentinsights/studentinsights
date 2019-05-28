@@ -1,9 +1,43 @@
 class SecondTransitionNotesController < ApplicationController
-  before_action :ensure_authorized_to_read!
-  before_action :ensure_authorized_to_write!, except: [
-    :restricted_text,
-    :next_student_json
-  ]
+  before_action :ensure_authorized_for_feature!
+
+  # The full list for the transition note page.
+  def transition_students_json
+    # This allows 9th grade counselors
+    # to view 8th grade students, even if they don't normally have access.
+    students = students_within_scope.includes(*[
+      :school,
+      :student_photos,
+      :second_transition_notes
+    ])
+    students_json = students.as_json({
+      only: [
+        :id,
+        :first_name,
+        :last_name,
+        :grade,
+        :house,
+        :counselor,
+        :sped_liaison,
+        :program_assigned,
+        :sped_placement
+      ],
+      methods: [
+        :has_photo
+      ],
+      include: {
+        second_transition_notes: {
+          only: [:id, :starred, :educator_id, :recorded_at]
+        },
+        school: {
+          only: [:id, :name]
+        }
+      }
+    })
+    render json: {
+      students: students_json
+    }
+  end
 
   # post
   def save_json
@@ -81,7 +115,7 @@ class SecondTransitionNotesController < ApplicationController
 
     student = authorized_or_raise! { Student.find(student_id) }
     students = authorized do
-      Student.active.where(grade: '8').to_a.sort_by do |s|
+      students_within_scope.to_a.sort_by do |s|
         "#{s.last_name}, #{s.first_name}"
       end
     end
@@ -97,14 +131,22 @@ class SecondTransitionNotesController < ApplicationController
   end
 
   private
-  def ensure_authorized_to_read!
-    student = Student.find(params[:student_id])
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
-    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
+  def students_within_scope
+    Student.active.where(grade: '8')
+  end
+
+  def ensure_authorized_for_feature!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_transition_note_features')
   end
 
+  def ensure_authorized_to_read!
+    ensure_authorized_for_feature!
+    student = Student.find(params[:student_id])
+    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
+  end
+
   def ensure_authorized_to_write!
+    ensure_authorized_for_feature!
     ensure_authorized_to_read!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('k8_counselor')
   end
