@@ -81,7 +81,7 @@ export default class RestrictedNotePresence extends React.Component {
 RestrictedNotePresence.propTypes = {
   studentFirstName: PropTypes.string,
   educatorName: PropTypes.string,
-  fetchRestrictedText: PropTypes.string
+  fetchRestrictedText: PropTypes.func
 };
 
 const styles = {

@@ -341,7 +341,7 @@ function promptFor(firstName, key) {
   }[key];
 }
 
-export function renderAsText(studentFirstName, json) {
+export function renderAsTextWithoutRestrictedText(studentFirstName, json) {
   const keys = [STRENGTHS, CONNECTING, COMMUNITY, PEERS, FAMILY, OTHER];
   const pieces = keys.map(key => {
     return [
@@ -349,10 +349,7 @@ export function renderAsText(studentFirstName, json) {
       json.form_json[key]
     ].join("\n");
   });
-  const maybeRestrictedPiece = (json.has_restricted_text)
-    ? 'What other services do they receive?\nReach out to the counselor if you need to more about anything confidential or sensitive.'
-    : '';
-  return pieces.concat(maybeRestrictedPiece).join('\n\n').trim();
+  return pieces.join('\n\n').trim();
 }
 
 // restricted text is not included here
