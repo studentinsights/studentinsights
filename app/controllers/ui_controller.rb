@@ -5,12 +5,7 @@ class UiController < ApplicationController
   # run and take over rendering, fetching what data it needs, etc.
   def ui
     current_educator_json = current_educator.as_json({
-      only: [
-        :id,
-        :admin,
-        :school_id,
-        :can_view_restricted_notes
-      ],
+      only: [:id, :admin, :school_id],
       methods: [:labels]
     })
     @serialized_data = {
