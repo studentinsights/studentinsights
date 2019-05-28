@@ -9,8 +9,8 @@ function setupSearchBarAutocomplete(names) {
   // 3. set max-height and scroll overflow
   $(".student-searchbar").autocomplete({
     source: names,
-    delay: (names.length > 1000) ? 500 : 100,
-    minLength: (names.length > 1000) ? 3 : 1,
+    delay: (names.length > 5000) ? 500 : 100,
+    minLength: (names.length > 5000) ? 3 : 1,
     select(e, ui) {
       window.location.pathname = '/students/' + ui.item.id;
     }
