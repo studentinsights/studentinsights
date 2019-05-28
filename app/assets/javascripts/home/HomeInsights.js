@@ -7,7 +7,6 @@ import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
 import TransitionNotesBox from './TransitionNotesBox';
 import ReadingDataEntryBox from './ReadingDataEntryBox';
 import {shouldShowLowGradesBox} from '../helpers/PerDistrict';
-import {anyTransitionNotesAllowed} from '../student_profile/SecondTransitionNoteDialog';
 
 
 // On the home page, show users the answers to their most
@@ -16,14 +15,16 @@ export default class HomeInsights extends React.Component {
   render() {
     const {currentEducator} = this.props;
     const {id, labels} = currentEducator;
-    const showTransitionNotes = anyTransitionNotesAllowed(currentEducator);
     return (
       <div className="HomeInsights" style={styles.root}>
         {shouldShowLowGradesBox(labels) &&
           <CheckStudentsWithLowGrades educatorId={id} />}
         <CheckStudentsWithHighAbsences educatorId={id} />
-        {showTransitionNotes &&
-          <TransitionNotesBox educatorId={id} />}
+        <TransitionNotesBox
+          style={styles.card}
+          titleStyle={styles.cardTitle}
+          educatorLabels={labels}
+        />
         <ReadingDataEntryBox
           style={styles.card}
           titleStyle={styles.cardTitle}
