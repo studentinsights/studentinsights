@@ -227,5 +227,6 @@ Rails.application.routes.draw do
 
   resource :counselors, only: [] do
     get '/meetings' => 'ui#ui'
+    get '/transitions' => 'ui#ui'
   end
 end
