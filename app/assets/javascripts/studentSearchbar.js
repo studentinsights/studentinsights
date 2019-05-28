@@ -5,6 +5,7 @@ const STUDENT_NAMES_CACHE_KEY = 'studentInsights.studentSearchbar.studentNamesCa
 function setupSearchBarAutocomplete (names) {
   $(".student-searchbar").autocomplete({
     source: names,
+    minLength: (names.length > 1000) ? 0 : 3,
     select(e, ui) {
       window.location.pathname = '/students/' + ui.item.id;
     },
