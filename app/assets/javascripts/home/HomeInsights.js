@@ -4,24 +4,30 @@ import Card from '../components/Card';
 import {Email} from '../components/PublicLinks';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
+import TransitionNotesBox from './TransitionNotesBox';
 import ReadingDataEntryBox from './ReadingDataEntryBox';
 import {shouldShowLowGradesBox} from '../helpers/PerDistrict';
+import {anyTransitionNotesAllowed} from '../student_profile/SecondTransitionNoteDialog';
 
 
 // On the home page, show users the answers to their most
 // important questions.  Branches depending on role and labels.
-class HomeInsights extends React.Component {
+export default class HomeInsights extends React.Component {
   render() {
-    const {educatorId, educatorLabels} = this.props;
+    const {currentEducator} = this.props;
+    const {id, labels} = currentEducator;
+    const showTransitionNotes = anyTransitionNotesAllowed(currentEducator);
     return (
       <div className="HomeInsights" style={styles.root}>
-        {shouldShowLowGradesBox(educatorLabels) &&
-          <CheckStudentsWithLowGrades educatorId={educatorId} />}
-        <CheckStudentsWithHighAbsences educatorId={educatorId} />
+        {shouldShowLowGradesBox(labels) &&
+          <CheckStudentsWithLowGrades educatorId={id} />}
+        <CheckStudentsWithHighAbsences educatorId={id} />
+        {showTransitionNotes &&
+          <TransitionNotesBox educatorId={id} />}
         <ReadingDataEntryBox
           style={styles.card}
           titleStyle={styles.cardTitle}
-          educatorLabels={educatorLabels} />
+          educatorLabels={labels} />
         {this.renderPlaceholder()}
       </div>
     );
@@ -39,8 +45,11 @@ class HomeInsights extends React.Component {
   }
 }
 HomeInsights.propTypes = {
-  educatorId: PropTypes.number.isRequired,
-  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
+  currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+    can_view_restricted_notes: PropTypes.bool.isRequired
+  }).isRequired
 };
 
 const styles = {
@@ -62,6 +71,3 @@ const styles = {
     justifyContent: 'space-between'
   }
 };
-
-
-export default HomeInsights;

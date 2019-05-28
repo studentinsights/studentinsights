@@ -376,9 +376,15 @@ export function docFromJson(json) {
 // and only for 8th graders.
 export function enableTransitionNoteDialog(currentEducator, studentGrade) {
   return (
+    (studentGrade === '8') &&
+    anyTransitionNotesAllowed(currentEducator)
+  );
+}
+
+export function anyTransitionNotesAllowed(currentEducator) {
+  return (
     (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
     (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
-    (currentEducator.can_view_restricted_notes) &&
-    (studentGrade === '8')
+    (currentEducator.can_view_restricted_notes)
   );
 }
