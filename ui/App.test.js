@@ -223,9 +223,7 @@ it('renders counselor meetings page', () => {
 it('renders counselor meetings page', () => {
   const educator = createSerializedDataEducator();
   const wrapper = mount(renderPath('/counselors/transitions', {educator}));
-  expect(wrapper.contains(
-    <TransitionsPage currentEducator={educator} />
-  )).toEqual(true);
+  expect(wrapper.contains(<TransitionsPage />)).toEqual(true);
 });
 
 
