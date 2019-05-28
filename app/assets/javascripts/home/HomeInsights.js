@@ -13,22 +13,21 @@ import {shouldShowLowGradesBox} from '../helpers/PerDistrict';
 // important questions.  Branches depending on role and labels.
 export default class HomeInsights extends React.Component {
   render() {
-    const {currentEducator} = this.props;
-    const {id, labels} = currentEducator;
+    const {educatorId, educatorLabels} = this.props;
     return (
       <div className="HomeInsights" style={styles.root}>
-        {shouldShowLowGradesBox(labels) &&
-          <CheckStudentsWithLowGrades educatorId={id} />}
-        <CheckStudentsWithHighAbsences educatorId={id} />
+        {shouldShowLowGradesBox(educatorLabels) &&
+          <CheckStudentsWithLowGrades educatorId={educatorId} />}
+        <CheckStudentsWithHighAbsences educatorId={educatorId} />
         <TransitionNotesBox
           style={styles.card}
           titleStyle={styles.cardTitle}
-          educatorLabels={labels}
+          educatorLabels={educatorLabels}
         />
         <ReadingDataEntryBox
           style={styles.card}
           titleStyle={styles.cardTitle}
-          educatorLabels={labels} />
+          educatorLabels={educatorLabels} />
         {this.renderPlaceholder()}
       </div>
     );
@@ -46,11 +45,8 @@ export default class HomeInsights extends React.Component {
   }
 }
 HomeInsights.propTypes = {
-  currentEducator: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-    can_view_restricted_notes: PropTypes.bool.isRequired
-  }).isRequired
+  educatorId: PropTypes.number.isRequired,
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const styles = {

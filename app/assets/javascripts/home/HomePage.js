@@ -9,9 +9,9 @@ This is the home page for all user roles, focused on
 "What is happening with my students?" and helping focus attention on 
 "How can we adapt?"
 */
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   render() {
-    const {currentEducator} = this.props;
+    const {educatorId, educatorLabels} = this.props;
     return (
       <div className="HomePage">
         <div style={styles.columnsContainer}>
@@ -20,11 +20,11 @@ export default class HomePage extends React.Component {
               <div>What's happening?</div>
               {this.renderSearch()}
             </SectionHeading>
-            <HomeFeed educatorId={currentEducator.id} />
+            <HomeFeed educatorId={educatorId} />
           </div>
           <div style={styles.column}>
             <SectionHeading>How can we adapt?</SectionHeading>
-            <HomeInsights currentEducator={currentEducator} />
+            <HomeInsights educatorId={educatorId} educatorLabels={educatorLabels} />
           </div>
         </div>
       </div>
@@ -32,18 +32,14 @@ export default class HomePage extends React.Component {
   }
 
   renderSearch() {
-    const {currentEducator} = this.props;
-    const {labels} = currentEducator;
-    if (labels.indexOf('enable_searching_notes') === -1) return null;
+    const {educatorLabels} = this.props;
+    if (educatorLabels.indexOf('enable_searching_notes') === -1) return null;
     return <a href="/search/notes">Search notes</a>;
   }
 }
 HomePage.propTypes = {
-  currentEducator: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-    can_view_restricted_notes: PropTypes.bool.isRequired
-  }).isRequired
+  educatorId: PropTypes.number.isRequired,
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 const styles = {
@@ -61,3 +57,5 @@ const styles = {
     margin: 10
   }
 };
+
+export default HomePage;

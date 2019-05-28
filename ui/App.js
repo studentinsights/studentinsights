@@ -132,7 +132,10 @@ export default class App extends React.Component {
 
   renderHomePage(routeProps) {
     const {currentEducator} = this.props;
-    return <HomePage currentEducator={currentEducator} />;
+    const {id, labels} = currentEducator;
+    return <HomePage
+      educatorId={id}
+      educatorLabels={labels} />;
   }
 
   renderSearchNotesPage(routeProps) {
@@ -341,7 +344,6 @@ App.propTypes = {
     id: PropTypes.number.isRequired,
     admin: PropTypes.bool.isRequired,
     school_id: PropTypes.number,
-    can_view_restricted_notes: PropTypes.bool.isRequired,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   rollbarErrorFn: PropTypes.func.isRequired,
