@@ -14,14 +14,8 @@ export default class RestrictedNotePresence extends React.Component {
       isViewing: false
     };
 
-    this.fetchRestrictedContent = this.fetchRestrictedContent.bind(this);
     this.onViewClicked = this.onViewClicked.bind(this);
-    this.renderRestrictedContent = this.renderRestrictedContent.bind(this);
-  }
-
-  fetchRestrictedContent() {
-    const {urlForRestrictedNoteContent} = this.props;
-    return apiFetchJson(urlForRestrictedNoteContent);
+    this.renderRestrictedText = this.renderRestrictedText.bind(this);
   }
 
   onViewClicked(e) {
@@ -30,10 +24,10 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   render() {
-    const {isViewing, urlForRestrictedNoteContent} = this.state;
+    const {isViewing, fetchRestrictedText} = this.state;
     return (
       <div className="RestrictedNotePresence">
-        {isViewing && !urlForRestrictedNoteContent
+        {isViewing && !fetchRestrictedText
           ? this.renderViewing()
           : this.renderRedaction()}
       </div>
@@ -41,7 +35,7 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   renderRedaction() {
-    const {studentFirstName, educatorName, urlForRestrictedNoteContent} = this.props;
+    const {studentFirstName, educatorName, fetchRestrictedText} = this.props;
     const educatorNameOrAdministrator = (educatorName)
       ? `${educatorName} or an administrator`
       : 'an administrator';
@@ -55,7 +49,7 @@ export default class RestrictedNotePresence extends React.Component {
           style={styles.restrictedNoteRedaction}
           text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorNameOrAdministrator} marked this note as restricted.`}
         />
-        {urlForRestrictedNoteContent && 
+        {fetchRestrictedText && 
           <a
             href="#"
             style={styles.showLink}
@@ -66,19 +60,19 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   renderViewing() {
+    const {fetchRestrictedText} = this.props;
     return (
       <GenericLoader
-        promiseFn={this.fetchRestrictedContent}
-        render={this.renderRestrictedContent}
+        promiseFn={fetchRestrictedText}
+        render={this.renderRestrictedText}
       />
     );
   }
 
-  renderRestrictedContent(json) {
-    const {text} = json;
+  renderRestrictedText(restrictedText) {
     return (
       <div>
-        <NoteText text={text} />
+        <NoteText text={restrictedText} />
         <div style={styles.restrictedNoteLabel}>This is a restricted note.</div>
       </div>
     );
@@ -87,7 +81,7 @@ export default class RestrictedNotePresence extends React.Component {
 RestrictedNotePresence.propTypes = {
   studentFirstName: PropTypes.string,
   educatorName: PropTypes.string,
-  urlForRestrictedNoteContent: PropTypes.string
+  fetchRestrictedText: PropTypes.string
 };
 
 const styles = {
@@ -109,10 +103,12 @@ const styles = {
   }
 };
 
-export function urlForRestrictedTransitionNoteContent(transitionNote) {
-  return `/api/students/${transitionNote.student_id}/restricted_transition_note_json`;
+export function fetchRestrictedTransitionNoteText(transitionNote) {
+  const url = `/api/students/${transitionNote.student_id}/restricted_transition_note_json`;
+  return apiFetchJson(url).then(json => json.text);
 }
 
-export function urlForRestrictedEventNoteContent(eventNote) {
-  return `/api/event_notes/${eventNote.id}/restricted_note_json`;
+export function fetchRestrictedNoteText(eventNote) {
+  const url = `/api/event_notes/${eventNote.id}/restricted_note_json`;
+  return apiFetchJson(url).then(json => json.text);
 }

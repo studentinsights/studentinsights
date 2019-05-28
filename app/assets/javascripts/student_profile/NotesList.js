@@ -13,7 +13,7 @@ import Educator from '../components/Educator';
 import NoteCard from './NoteCard';
 import SecondTransitionNoteInline from './SecondTransitionNoteInline';
 import {parseAndReRender} from './transitionNoteParser';
-import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
+import {fetchRestrictedTransitionNoteText, fetchRestrictedNoteText} from './RestrictedNotePresence';
 import CleanSlateMessage, {defaultSchoolYearsBack, filteredNotesForCleanSlate} from './CleanSlateMessage';
 
 /*
@@ -83,8 +83,8 @@ export default class NotesList extends React.Component {
       (currentEducator.id !== eventNote.educator_id) ||
       isRedacted
     );
-    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
-      ? urlForRestrictedEventNoteContent(eventNote)
+    const fetchRestrictedText = (canUserAccessRestrictedNotes)
+      ? () => fetchRestrictedNoteText(eventNote)
       : null;
     const requestState = (isReadonly || !requests)
       ? IDLE
@@ -103,7 +103,7 @@ export default class NotesList extends React.Component {
         requestState={requestState}
         onSave={isReadonly ? null : onSaveNote}
         showRestrictedNoteRedaction={isRedacted}
-        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        fetchRestrictedText={fetchRestrictedText}
         onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
   }
@@ -112,8 +112,8 @@ export default class NotesList extends React.Component {
   renderTransitionNote(transitionNote) {
     const {canUserAccessRestrictedNotes, educatorsIndex} = this.props;
     const isRedacted = transitionNote.is_restricted;
-    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
-      ? urlForRestrictedTransitionNoteContent(transitionNote)
+    const fetchRestrictedText = (canUserAccessRestrictedNotes)
+      ? () => fetchRestrictedTransitionNoteText(transitionNote)
       : null;
     
     return (
@@ -124,7 +124,7 @@ export default class NotesList extends React.Component {
         educator={educatorsIndex[transitionNote.educator_id]}
         text={parseAndReRender(transitionNote.text)}
         showRestrictedNoteRedaction={isRedacted}
-        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        fetchRestrictedText={fetchRestrictedText}
         attachments={[]} />
     );
   }
