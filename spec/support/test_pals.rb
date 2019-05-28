@@ -288,6 +288,10 @@ class TestPals
       educator: @shs_sofia_counselor,
       label_key: 'enable_transition_note_features'
     )
+    EducatorLabel.create!(
+      educator: @shs_sofia_counselor,
+      label_key: 'high_school_house_master'
+    )
     EducatorLabel.create!({
       educator: @shs_sofia_counselor,
       label_key: 'enable_counselor_meetings_page'

@@ -17,6 +17,7 @@ import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassLis
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
 import CounselorMeetingsPage from '../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage';
+import TransitionsPage from '../app/assets/javascripts/transitions/TransitionsPage';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -35,6 +36,8 @@ jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
 jest.mock('../app/assets/javascripts/student_profile/StudentProfilePage');
 jest.mock('../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage');
+jest.mock('../app/assets/javascripts/transitions/TransitionsPage');
+
 
 
 function renderPath(path, options = {}) {
@@ -216,6 +219,13 @@ it('renders counselor meetings page', () => {
     <CounselorMeetingsPage currentEducatorId={9999} />
   )).toEqual(true);
 });
+
+it('renders counselor meetings page', () => {
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/counselors/transitions', {educator}));
+  expect(wrapper.contains(<TransitionsPage />)).toEqual(true);
+});
+
 
 describe('unknown route', () => {
   it('reports to Rollbar', () => {

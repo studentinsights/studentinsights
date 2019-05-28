@@ -20,6 +20,55 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
     }.merge(attrs)
   end
 
+  describe '#transition_students_json' do
+    def get_transition_students_json(educator, params = {})
+      sign_in(educator)
+      request.env['HTTPS'] = 'on'
+      get :transition_students_json, params: params.merge(format: :json)
+    end
+
+    def expect_single_transition_note_for_student_id(response, student_id)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to eq ['students']
+      expect(json['students'].size).to eq 1
+      expect(json['students'].first['id']).to eq student_id
+      expect(json['students'].first['second_transition_notes'].size).to eq 1
+      expect(json['students'].first['second_transition_notes'].first['student_id']).to eq student_id
+    end
+
+    def expect_no_students(response)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to eq ['students']
+      expect(json['students'].size).to eq 0
+    end
+
+    it 'guards access' do
+      (Educator.all - [pals.west_counselor, pals.shs_sofia_counselor]).each do |educator|
+        get_transition_students_json(educator)
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'returns no students for Sofia if HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 not set' do
+      get_transition_students_json(pals.shs_sofia_counselor)
+      expect_no_students(response)
+    end
+    
+    it 'includes student for Les, with proper switches' do
+      get_transition_students_json(pals.west_counselor)
+      expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
+    end
+
+    it 'includes student for Sofia, with proper switches' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
+      get_transition_students_json(pals.shs_sofia_counselor)
+      expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
+    end
+  end
+
   describe '#save_json' do
     def post_save_json(educator, student_id, params = {})
       sign_in(educator)
