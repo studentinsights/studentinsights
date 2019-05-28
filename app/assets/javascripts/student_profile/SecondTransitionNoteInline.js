@@ -26,9 +26,36 @@ export default class SecondTransitionNoteInline extends React.Component {
 
     return (
       <div className="SecondTransitionNoteInline">
+        {this.renderStarred()}
         <NoteText text={text} />
         {this.renderRestrictedInline()}
         {this.renderEditLink()}
+      </div>
+    );
+  }
+
+  renderStarred() {
+    const {json} = this.props;
+
+    if (!json.starred) return null;
+    return (
+      <div style={{
+        display: 'inline-block',
+        marginTop: 5,
+        marginBottom: 10
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          border: '1px solid #ffe10080',
+          borderRadius: 3,
+          padding: 5,
+          paddingRight: 15,
+          background: '#ffe1001a'
+        }}>
+          <span style={{fontSize: 20, marginRight: 5}}>⭐</span>
+          <span>Starred for transition discussion</span>
+        </div>
       </div>
     );
   }
