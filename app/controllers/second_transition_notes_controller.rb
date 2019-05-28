@@ -3,13 +3,14 @@ class SecondTransitionNotesController < ApplicationController
 
   # The full list for the transition note page.
   def transition_students_json
-    # This allows 9th grade counselors
-    # to view 8th grade students, even if they don't normally have access.
-    students = students_within_scope.includes(*[
-      :school,
-      :student_photos,
-      :second_transition_notes
-    ])
+    ensure_authorized_for_feature!
+    students = authorized do
+      students_within_scope.includes(*[
+        :school,
+        :student_photos,
+        :second_transition_notes
+      ])
+    end
     students_json = students.as_json({
       only: [
         :id,
@@ -27,7 +28,7 @@ class SecondTransitionNotesController < ApplicationController
       ],
       include: {
         second_transition_notes: {
-          only: [:id, :starred, :educator_id, :recorded_at]
+          only: [:id, :starred, :educator_id, :student_id, :recorded_at]
         },
         school: {
           only: [:id, :name]
@@ -96,6 +97,7 @@ class SecondTransitionNotesController < ApplicationController
 
   # get
   def restricted_text_json
+    ensure_authorized_to_read!
     safe_params = params.permit(*[
       :student_id,
       :second_transition_note_id,
@@ -110,6 +112,7 @@ class SecondTransitionNotesController < ApplicationController
 
   # get
   def next_student_json
+    ensure_authorized_to_read!
     params.require(:student_id)
     student_id = params[:student_id]
 
@@ -131,6 +134,7 @@ class SecondTransitionNotesController < ApplicationController
   end
 
   private
+  # This is about 8th > 9th grade students
   def students_within_scope
     Student.active.where(grade: '8')
   end
@@ -146,7 +150,6 @@ class SecondTransitionNotesController < ApplicationController
   end
 
   def ensure_authorized_to_write!
-    ensure_authorized_for_feature!
     ensure_authorized_to_read!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('k8_counselor')
   end
