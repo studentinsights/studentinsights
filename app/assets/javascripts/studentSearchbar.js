@@ -2,16 +2,25 @@ import {apiFetchJson} from './helpers/apiFetchJson';
 
 const STUDENT_NAMES_CACHE_KEY = 'studentInsights.studentSearchbar.studentNamesCacheKey';
 
-function setupSearchBarAutocomplete (names) {
+function setupSearchBarAutocomplete(names) {
+  // Ways to mitigate impact of large lists:
+  // 1. increased delay until searching happens
+  // 2. add min length for typing
+  // 3. set max-height and scroll overflow
   $(".student-searchbar").autocomplete({
     source: names,
+    delay: (names.length > 1000) ? 500 : 100,
+    minLength: (names.length > 1000) ? 3 : 1,
     select(e, ui) {
       window.location.pathname = '/students/' + ui.item.id;
-    },
-  });
+    }
+  }).css({
+    'max-height': '400px',
+    'overflow-y': 'scroll'
+  }); 
 }
 
-function downloadStudentNames () {
+function downloadStudentNames() {
   apiFetchJson('/api/educators/student_searchbar_json').then(data => {
     setupSearchBarAutocomplete(data);
 
