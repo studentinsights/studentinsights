@@ -55,7 +55,7 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
       get_transition_students_json(pals.shs_sofia_counselor)
       expect_no_students(response)
     end
-    
+
     it 'includes student for Les, with proper switches' do
       get_transition_students_json(pals.west_counselor)
       expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
