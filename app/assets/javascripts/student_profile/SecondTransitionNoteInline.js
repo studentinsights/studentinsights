@@ -35,13 +35,14 @@ export default class SecondTransitionNoteInline extends React.Component {
 
   renderRestrictedInline() {
     const {student, currentEducator, json} = this.props;
+    if (!json.has_restricted_text) return null;
+    
     const educatorName = formatEducatorName(currentEducator);
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
       : educatorName;
     const url = `/api/students/${student.id}/second_transition_notes/${json.id}/restricted_text_json`;
     const fetchRestrictedText = () => apiFetchJson(url).then(json => json.restricted_text);
-    
     return (
       <div>
         <div><br/>What other services does {student.first_name} receive now, and who are the points of contact (eg, social workers, mental health counselors)?</div>

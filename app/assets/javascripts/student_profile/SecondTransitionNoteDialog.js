@@ -41,7 +41,8 @@ export default class SecondTransitionNoteDialog extends React.Component {
 
   onSaveClick(doSave, e) {
     e.preventDefault();
-    doSave();
+    const {onSavedJson} = this.props;
+    doSave().then(json => onSavedJson && onSavedJson(json));
   }
 
   onNextClick(doSave, e) {
@@ -69,12 +70,13 @@ export default class SecondTransitionNoteDialog extends React.Component {
   }
 
   render() {
-    const {student, initialId, initialDoc} = this.props;
+    const {student, initialId, initialDoc, educatorId} = this.props;
     return (
       <SecondTransitionNoteServerBridge
         initialId={initialId}
         initialDoc={initialDoc}
-        studentId={student.id}>
+        studentId={student.id}
+        educatorId={educatorId}>
         {bridge => (
           <ReactModal
             isOpen={true}
@@ -237,10 +239,12 @@ export default class SecondTransitionNoteDialog extends React.Component {
   }
 }
 SecondTransitionNoteDialog.propTypes = {
+  educatorId: PropTypes.number.isRequired,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired
   }).isRequired,
+  onSavedJson: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   initialId: PropTypes.number,
   initialDoc: PropTypes.object

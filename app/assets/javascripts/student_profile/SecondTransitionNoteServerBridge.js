@@ -43,7 +43,8 @@ export default class SecondTransitionNoteServerBridge extends React.Component {
   }
 
   doSave() {
-    const {studentId} = this.props;
+    const {nowFn} = this.context;
+    const {studentId, educatorId} = this.props;
     const {id, doc} = this.state;
     const url = `/api/students/${studentId}/second_transition_notes/save_json`;
     const postParams =  {
@@ -52,10 +53,23 @@ export default class SecondTransitionNoteServerBridge extends React.Component {
       starred: doc.isStarred,
       restricted_text: doc.restrictedText
     };
-    return this.trackRequest(doc, () => (
-      apiPostJson(url, postParams)
-        .then(json => this.setState({id: json.id}))
-    ));
+
+    // Returns a promise that yields the JSON for the server model,
+    // while also letting `trackRequest` do its thing.
+    return this.trackRequest(doc, () => {
+      return apiPostJson(url, postParams).then(json => {
+        this.setState({id: json.id});
+        return {
+          id: json.id,
+          form_json: doc.formJson,
+          starred: doc.isStarred,
+          student_id: studentId,
+          educator_id: educatorId,
+          has_restricted_text: !_.isEmpty(doc.restrictedText.trim()),
+          recorded_at: nowFn().format()
+        };
+      });
+    });
   }
 
   doDelete() {
@@ -77,9 +91,10 @@ export default class SecondTransitionNoteServerBridge extends React.Component {
         [requestId]: {updatedDoc}
       }
     });
-    return requestFn()
-      .then(this.onRequestDone.bind(this, requestId, updatedDoc))
-      .catch(this.onRequestError.bind(this, requestId));
+    return requestFn().then(json => {
+      this.onRequestDone(requestId, updatedDoc);
+      return json;
+    }).catch(this.onRequestError.bind(this, requestId));
   }
 
   onRequestDone(requestId, updatedDoc) {
@@ -123,7 +138,11 @@ export default class SecondTransitionNoteServerBridge extends React.Component {
     );
   }
 }
+SecondTransitionNoteServerBridge.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 SecondTransitionNoteServerBridge.propTypes = {
+  educatorId: PropTypes.number.isRequired,
   studentId: PropTypes.number.isRequired,
   initialDoc: PropTypes.any.isRequired,
   children: PropTypes.func.isRequired,
