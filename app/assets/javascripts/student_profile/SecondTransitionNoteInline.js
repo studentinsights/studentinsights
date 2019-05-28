@@ -26,6 +26,7 @@ export default class SecondTransitionNoteInline extends React.Component {
 
     return (
       <div className="SecondTransitionNoteInline">
+        {this.renderStarred()}
         <NoteText text={text} />
         {this.renderRestrictedInline()}
         {this.renderEditLink()}
@@ -33,15 +34,42 @@ export default class SecondTransitionNoteInline extends React.Component {
     );
   }
 
+  renderStarred() {
+    const {json} = this.props;
+
+    if (!json.starred) return null;
+    return (
+      <div style={{
+        display: 'inline-block',
+        marginTop: 5,
+        marginBottom: 10
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          border: '1px solid #ffe10080',
+          borderRadius: 3,
+          padding: 5,
+          paddingRight: 15,
+          background: '#ffe1001a'
+        }}>
+          <span style={{fontSize: 20, marginRight: 5}}>⭐</span>
+          <span>Starred for transition discussion</span>
+        </div>
+      </div>
+    );
+  }
+
   renderRestrictedInline() {
     const {student, currentEducator, json} = this.props;
+    if (!json.has_restricted_text) return null;
+    
     const educatorName = formatEducatorName(currentEducator);
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
       : educatorName;
     const url = `/api/students/${student.id}/second_transition_notes/${json.id}/restricted_text_json`;
     const fetchRestrictedText = () => apiFetchJson(url).then(json => json.restricted_text);
-    
     return (
       <div>
         <div><br/>What other services does {student.first_name} receive now, and who are the points of contact (eg, social workers, mental health counselors)?</div>

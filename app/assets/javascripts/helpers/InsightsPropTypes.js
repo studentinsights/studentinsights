@@ -8,7 +8,8 @@ export const actions = PropTypes.shape({
   onCreateNewNote: PropTypes.func.isRequired,
   onDeleteEventNoteAttachment: PropTypes.func.isRequired,
   onSaveService: PropTypes.func.isRequired,
-  onDiscontinueService: PropTypes.func.isRequired
+  onDiscontinueService: PropTypes.func.isRequired,
+  onSecondTransitionNoteAdded: PropTypes.func.isRequired
 });
 
 export const requests = PropTypes.shape({

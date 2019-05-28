@@ -119,7 +119,7 @@ export default class NotesList extends React.Component {
     return (
       <NoteCard
         key={['transition_note', transitionNote.id].join()}
-        noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
+        noteMoment={toMomentFromRailsDate(transitionNote.recorded_at)}
         badgeEl="Transition note"
         educator={educatorsIndex[transitionNote.educator_id]}
         text={parseAndReRender(transitionNote.text)}
@@ -154,7 +154,7 @@ export default class NotesList extends React.Component {
     return (
       <NoteShell
         key={['second_transition_note', secondTransitionNote.id].join()}
-        whenEl={whenText(secondTransitionNote.created_at)}
+        whenEl={whenText(secondTransitionNote.recorded_at)}
         badgeEl="Transition note"
         educatorEl={<Educator educator={educator} />}
         substanceEl={

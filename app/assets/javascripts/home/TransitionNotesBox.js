@@ -15,7 +15,7 @@ export default class TransitionNotesBox extends React.Component {
       <div style={style}>
         <div style={titleStyle}>School transitions for {schoolYear+1}</div>
         <Card style={{border: 'none'}}>
-          <div>Add <a style={{fontWeight: 'bold'}} href="/counselors/transitions">transition notes</a> and introduce your students to the educators working with them next year.</div>
+          <div>Add <a style={{fontWeight: 'bold'}} href="/counselors/transitions">transition notes</a> to introduce your colleagues to the students you worked with this year.</div>
         </Card>
       </div>
     );

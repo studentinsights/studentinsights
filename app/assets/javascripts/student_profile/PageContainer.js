@@ -26,6 +26,7 @@ export default class PageContainer extends React.Component {
     this.onUpdateExistingNoteDone = this.onUpdateExistingNoteDone.bind(this);
     this.onUpdateExistingNoteFail = this.onUpdateExistingNoteFail.bind(this);
     this.onDeleteEventNoteAttachment = this.onDeleteEventNoteAttachment.bind(this);
+    this.onSecondTransitionNoteAdded = this.onSecondTransitionNoteAdded.bind(this);
 
     this.onSaveService = this.onSaveService.bind(this);
     this.onSaveServiceDone = this.onSaveServiceDone.bind(this);
@@ -142,6 +143,19 @@ export default class PageContainer extends React.Component {
     }));
   }
 
+  // The transition note UI handles server communication, state changes, etc.
+  // but notifies back when this is done so the profile notes list can update.
+  onSecondTransitionNoteAdded(secondTransitionNote) {
+    const {feed} = this.state;
+    const secondTransitionNotes = feed.second_transition_notes;
+    this.setState({
+      feed: {
+        ...feed,
+        second_transition_notes: [secondTransitionNote].concat(secondTransitionNotes)
+      }
+    });
+  }
+
   // TODO(kr) does this work for not-yet-created notes?
   onDeleteEventNoteAttachment(eventNoteAttachmentId) {
     // optimistically update the UI
@@ -244,6 +258,7 @@ export default class PageContainer extends React.Component {
       onColumnClicked: this.onColumnClicked,
       onUpdateExistingNote: this.onUpdateExistingNote,
       onCreateNewNote: this.onCreateNewNote,
+      onSecondTransitionNoteAdded: this.onSecondTransitionNoteAdded,
       onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
       onSaveService: this.onSaveService,
       onDiscontinueService: this.onDiscontinueService,

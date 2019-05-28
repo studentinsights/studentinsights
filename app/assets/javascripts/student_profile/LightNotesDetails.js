@@ -95,12 +95,20 @@ export default class LightNotesDetails extends React.Component {
   }
 
   renderSecondTransitionNoteDialog() {
-    const {student, isWritingTransitionNote, onWritingTransitionNoteChanged} = this.props;
+    const {
+      actions,
+      student,
+      currentEducator,
+      isWritingTransitionNote,
+      onWritingTransitionNoteChanged
+    } = this.props;
 
     if (!isWritingTransitionNote) return null;
     return (
       <SecondTransitionNoteDialog
         student={student}
+        educatorId={currentEducator.id}
+        onSavedJson={json => actions.onSecondTransitionNoteAdded(json)}
         onClose={() => onWritingTransitionNoteChanged(false)}
       />
     );
