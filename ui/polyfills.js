@@ -24,6 +24,13 @@ import 'array.prototype.fill';
 import ArrayFindPolyfill from 'array.prototype.find';
 ArrayFindPolyfill.shim();
 
+// Polyfill NodeList#forEach for IE11, to
+// support document.querySelectorAll(selector).forEach.
+// see https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
+if (window.NodeList && !NodeList.prototype.forEach) {
+  NodeList.prototype.forEach = Array.prototype.forEach;
+}
+
 // For React 16 in IE
 // see https://reactjs.org/docs/javascript-environment-requirements.html
 import 'core-js/es6/map';
