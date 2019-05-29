@@ -14,7 +14,7 @@ if (!$('body').hasClass('educator-signed-in')) {
 }
 
 // Make searchbar interactive
-document.querySelectorAll('.StudentSearchbar-root').forEach(el => {
+document.querySelectorAll('.NavbarSignedIn-StudentSearchbar').forEach(el => {
   ReactDOM.render(<StudentSearchbar />, el);
 });
 
