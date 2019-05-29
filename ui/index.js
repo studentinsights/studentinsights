@@ -16,10 +16,10 @@ if (!$('body').hasClass('educator-signed-in')) {
 // Make searchbar interactive, and grab any text the user already typed
 // in the placeholder <input />
 document.querySelectorAll('.NavbarSignedIn-StudentSearchbar').forEach(el => {
-  const initialText = document.querySelector('.NavbarSignedIn-StudentSearchbar-placeholder').value || '';
+  const placeholderEl = document.querySelector('.NavbarSignedIn-StudentSearchbar-placeholder');
+  const initialText = (placeholderEl && placeholderEl.value) || '';
   ReactDOM.render(<StudentSearchbar initialText={initialText} />, el);
 });
-
 
 // Routing
 // Some pages are server-rendered and have a different structure
