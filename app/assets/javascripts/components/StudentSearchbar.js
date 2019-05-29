@@ -109,7 +109,7 @@ export default class StudentSearchbar extends React.Component {
     // the number of suggestions and we need to do that for large lists.
     const {studentsForList, studentsForListById, countOverLimit} = this.filteredAndTruncated();
     const maybeMoreItemsEl = (countOverLimit === 0) ? null : (
-      <div style={styles.more}>
+      <div key="more-items" style={styles.more}>
         <span>+ {countOverLimit} more {countOverLimit === 1 ? 'student' : 'students'}</span>
         <a style={{marginLeft: 10}} href="/educators/my_students">view all</a>
       </div>
