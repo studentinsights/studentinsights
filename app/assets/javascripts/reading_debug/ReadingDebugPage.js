@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import ReactModal from 'react-modal';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import memoizer from '../helpers/memoizer';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {
   high,
@@ -105,6 +106,7 @@ export class ReadingDebugView extends React.Component {
     this.onBenchmarkAssessmentKeyChanged = this.onBenchmarkAssessmentKeyChanged.bind(this);
     this.onFlippedClicked = this.onFlippedClicked.bind(this);
     this.onVisualizationChanged = this.onVisualizationChanged.bind(this);
+    this.memoize = memoizer();
   }
 
   componentWillMount(){

@@ -48,12 +48,7 @@
     width: 15px;
   }
 
-  .NavbarSignedIn-StudentSearchbar {
-    width: 160px;
-  }
-
-  /* while the JS loads and inits, show the same thing */
-  .NavbarSignedIn-StudentSearchbar-placeholder {
+  .NavbarSignedIn-student-searchbar.student-searchbar {
     font-size: 14px;
     width: 160px;
     padding: 3px 5px;
