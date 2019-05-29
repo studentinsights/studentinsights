@@ -130,7 +130,8 @@ export default class StudentSearchbar extends React.Component {
         renderItem={(item, isHighlighted) => (
           <div key={item.id} style={{
             ...styles.itemStyle,
-            background: isHighlighted ? colors.selection : 'white'
+            background: isHighlighted ? colors.linkBlue : 'white',
+            color: isHighlighted ? 'white' : '#333',
           }}>{item.label}</div>
         )}
         renderMenu={function(items, value, style) {
@@ -145,7 +146,8 @@ export default class StudentSearchbar extends React.Component {
               style={{
                 ...this.menuStyle, // defaults
                 ...style, // positioning
-                ...styles.menu // our styling
+                ...styles.menu, // our styling
+                display: (studentsForList.length === 0) ? 'none' : 'block'
               }}
               children={items.concat(maybeMoreItemsEl)}
             />
@@ -179,7 +181,6 @@ StudentSearchbar.propTypes = {
   onStudentSelected: PropTypes.func
 };
 StudentSearchbar.defaultProps = {
-
   matchesLimit: 500,
   cacheKey: 'studentInsights.studentSearchbar.studentNamesCacheKey',
   sessionStorage: window.sessionStorage
@@ -187,6 +188,7 @@ StudentSearchbar.defaultProps = {
 
 const styles = {
   menu: {
+    border: '1px solid #ccc',
     position: 'absolute', // changed from the default
     zIndex: 1 // changed from the default
   },
