@@ -48,20 +48,17 @@
     width: 15px;
   }
 
-  .NavbarSignedIn-student-searchbar.student-searchbar {
+  .NavbarSignedIn-StudentSearchbar {
+    width: 160px;
+  }
+
+  /* while the JS loads and inits, show the same thing */
+  .NavbarSignedIn-StudentSearchbar-placeholder {
     font-size: 14px;
     width: 160px;
     padding: 3px 5px;
     margin-top: 1px;
     border: 1px solid $light-line;
-    border-radius: 3px;
-  }
-
-  .NavbarSignedIn-StudentSearchbar-placeholder {
-    font-size: 14px;
-    padding: 3px 5px;
-    margin-top: 1px;
-    border: 1px solid #ccc;
     border-radius: 3px;
   }
 }

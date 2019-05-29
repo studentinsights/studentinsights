@@ -14,7 +14,7 @@ export default class StudentSearchbar extends React.Component {
 
     this.state = {
       students: [],
-      text: ''
+      text: props.initialText || ''
     };
 
     this.fetchStudentsJson = this.fetchStudentsJson.bind(this);
@@ -166,6 +166,7 @@ export default class StudentSearchbar extends React.Component {
   }
 }
 StudentSearchbar.propTypes = {
+  initialText: PropTypes.string,
   autocompleteProps: PropTypes.object,
   inputStyles: PropTypes.object,
   matchesLimit: PropTypes.number,
@@ -178,6 +179,7 @@ StudentSearchbar.propTypes = {
   onStudentSelected: PropTypes.func
 };
 StudentSearchbar.defaultProps = {
+
   matchesLimit: 500,
   cacheKey: 'studentInsights.studentSearchbar.studentNamesCacheKey',
   sessionStorage: window.sessionStorage
@@ -190,6 +192,7 @@ const styles = {
   },
   input: {
     fontSize: 14,
+    width: '100%',
     padding: '3px 5px',
     marginTop: 1,
     border: '1px solid #ccc',
