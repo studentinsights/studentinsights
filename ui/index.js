@@ -2,23 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {readEnv} from '../app/assets/javascripts/envForJs';
-import StudentSearchbar, {clearStorage} from '../app/assets/javascripts/components/StudentSearchbar';
+import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
 import App from './App';
 
 
-// Clear browser cache on sign out, and add extra guard that
-// there's no browser storage if not signed in.
+// Student searchbar
+if ($('.student-searchbar').length > 0) {
+  initSearchBar();
+}
+
+// Clear browser cache on sign out
 $('.navbar-sign-out').click(clearStorage);
+
+// Extra guard that there's no browser storage if not signed in
 if (!$('body').hasClass('educator-signed-in')) {
   clearStorage(); 
 }
-
-// Make searchbar interactive, and grab any text the user already typed
-// in the placeholder <input />
-document.querySelectorAll('.NavbarSignedIn-StudentSearchbar').forEach(el => {
-  const initialText = document.querySelector('.NavbarSignedIn-StudentSearchbar-placeholder').value || '';
-  ReactDOM.render(<StudentSearchbar initialText={initialText} />, el);
-});
 
 
 // Routing
