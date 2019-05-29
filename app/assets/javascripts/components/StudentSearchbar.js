@@ -32,11 +32,12 @@ export default class StudentSearchbar extends React.Component {
   }
 
   fetchStudentsJson() {
+    const {sessionStorage, cacheKey} = this.props;
     // If no sessionStorage, always have to fetch
-    if (!(window.sessionStorage)) return this.fetchStudentsJsonFromServer();
+    if (!sessionStorage) return this.fetchStudentsJsonFromServer();
 
     // If sessionStorage is empty, fetch
-    const namesCache = window.sessionStorage.student_names_cache;
+    const namesCache = sessionStorage.getItem(cacheKey);
     if (!namesCache) return this.fetchStudentsJsonFromServer();
 
     // Read from cache
@@ -45,9 +46,10 @@ export default class StudentSearchbar extends React.Component {
 
   // Fetch and also update the sessionStorage cache
   fetchStudentsJsonFromServer() {
+    const {sessionStorage, cacheKey} = this.props;
     const url = '/api/educators/student_searchbar_json';
     return apiFetchJson(url).then(json => {
-      window.sessionStorage.student_names_cache = JSON.stringify(json);
+      sessionStorage.setItem(cacheKey, JSON.stringify(json));
       return json;
     });
   }
@@ -56,14 +58,15 @@ export default class StudentSearchbar extends React.Component {
   // This can be more than 10k items, and rendering them all is
   // expensive and not useful.  This caches 
   filteredAndTruncated() {
-    return this.memoize(['filteredAndTruncated', this.state], () => {
+    return this.memoize(['filteredAndTruncated', this.state, this.props], () => {
+      const {matchesLimit} = this.props;
       const {students, text} = this.state;
 
       // don't popup all students
       if (text === '') {
         return {
           studentsForList: [],
-          studentsForListById: [],
+          studentsForListById: {},
           countOverLimit: 0
         };
       }
@@ -73,10 +76,9 @@ export default class StudentSearchbar extends React.Component {
       // character).
       const tokens = text.split(' ').map(token => token.toLowerCase());
       const studentsForList = [];
-      const MATCHES_LIMIT = 500;
       var countOverLimit = 0; // eslint-disable-line no-var
       students.forEach(student => {
-        if (studentsForList.length > MATCHES_LIMIT) {
+        if (studentsForList.length >= matchesLimit) {
           countOverLimit = countOverLimit + 1;
           return;
         }
@@ -87,6 +89,7 @@ export default class StudentSearchbar extends React.Component {
       const studentsForListById = studentsForList.reduce((map, student) => {
         return {...map, [student.id]: true};
       }, {});
+
       return {
         studentsForList,
         studentsForListById,
@@ -116,7 +119,6 @@ export default class StudentSearchbar extends React.Component {
     );
     return (
       <Autocomplete
-        className="StudentSearchbar-autocomplete"
         value={text}
         items={studentsForList}
         getItemValue={item => item.label}
@@ -166,7 +168,19 @@ export default class StudentSearchbar extends React.Component {
 StudentSearchbar.propTypes = {
   autocompleteProps: PropTypes.object,
   inputStyles: PropTypes.object,
-  onStudentSelected: PropTypes.object // eg, for testing
+  matchesLimit: PropTypes.number,
+  cacheKey: PropTypes.string,
+  // eg, for testing
+  sessionStorage: PropTypes.shape({
+    getItem: PropTypes.func.isRequired,
+    setItem: PropTypes.func.isRequired
+  }),
+  onStudentSelected: PropTypes.func
+};
+StudentSearchbar.defaultProps = {
+  matchesLimit: 500,
+  cacheKey: 'studentInsights.studentSearchbar.studentNamesCacheKey',
+  sessionStorage: window.sessionStorage
 };
 
 const styles = {
@@ -205,16 +219,16 @@ function matchStateToTerm(student, tokens) {
   return _.every(tokens, token => student.label.toLowerCase().indexOf(token) !== -1);
 }
 
-export function clearStorage() {
-  if (window.sessionStorage && window.sessionStorage.clear) {
-    window.sessionStorage.clear();
-  }
-}
-
 function reportToRollbar(msg, err) {
   if (window.Rollbar && window.Rollbar.error) {
     window.Rollbar.error(msg, err);
   } else {
     console.error('Could not report to Rollbar', msg, err); // eslint-disable-line no-console
+  }
+}
+
+export function clearStorage() {
+  if (window.sessionStorage && window.sessionStorage.clear) {
+    window.sessionStorage.clear();
   }
 }
