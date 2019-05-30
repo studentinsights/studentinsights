@@ -504,15 +504,14 @@ class PerDistrict
     end
   end
 
-  def include_bedford_end_of_year_transition?  
-    # if @district_key == NEW_BEDFORD
-    #   true
-    # elsif @district_key == DEMO
-    #   true
-    # else
-    #   false
-    # end     
-    true  
+  def include_bedford_end_of_year_transition?
+    if @district_key == NEW_BEDFORD
+      true
+    elsif @district_key == DEMO
+      true
+    else
+      false
+    end
   end
 
   private
