@@ -185,15 +185,15 @@ describe ProfileController, :type => :controller do
         json = JSON.parse(response.body)
         expect(json['profile_insights'].size).to eq 6
         expect(json['profile_insights'].map {|insight| insight['type'] }).to contain_exactly(*[
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'transition_note_strength'
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_transition_note_strength'
         ])
         expect(json['profile_insights']).to include({
-          "type"=>"transition_note_strength",
+          "type"=>"from_first_transition_note_strength",
           "json"=> {
             "strengths_quote_text"=>"everything!",
             "transition_note"=>{
@@ -209,7 +209,7 @@ describe ProfileController, :type => :controller do
           }
         })
         expect(json['profile_insights']).to include({
-          "type"=>"student_voice_survey_response",
+          "type"=>"from_first_student_voice_survey",
           "json"=>{
             "prompt_key"=>"proud",
             "prompt_text"=>"I am proud that I....",
@@ -280,6 +280,7 @@ describe ProfileController, :type => :controller do
             'fall_student_voice_surveys' => [],
             'homework_help_sessions' => [],
             'flattened_forms' => [],
+            'bedford_end_of_year_transitions' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -581,6 +582,7 @@ describe ProfileController, :type => :controller do
         :deprecated,
         :transition_notes,
         :second_transition_notes,
+        :bedford_end_of_year_transitions,
         :fall_student_voice_surveys,
         :homework_help_sessions,
         :flattened_forms

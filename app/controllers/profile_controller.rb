@@ -156,10 +156,11 @@ class ProfileController < ApplicationController
 
     form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
     imported_form = ImportedForm.latest_for_student_id(student_id, form_key)
+    return [] if imported_form.nil?
     json = imported_form.as_json({
       include: {
         educator: {
-          only: [:id, :full_name]
+          only: [:id, :email, :full_name]
         }
       }
     })

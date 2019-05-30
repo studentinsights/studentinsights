@@ -13,7 +13,7 @@ export default function InsightPlaceholder(props) {
       quoteEl={
         <div>
           <div style={{fontSize: 18, marginBottom: 5}}>Insights about {studentFirstName}</div>
-          <div style={fontSizeStyle}>When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.</div>
+          <div style={fontSizeStyle}>How do you think {studentFirstName} wants adults to perceive them?  Student voice means giving young people power over how they are represented.</div>
         </div>
       }
       sourceEl={<span>See examples at <WebsiteInsightExample style={fontSizeStyle}/> and email <Email style={fontSizeStyle} /> to try this with your students.</span>}

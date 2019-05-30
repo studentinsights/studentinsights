@@ -103,7 +103,7 @@ class ProfileInsights
       student_voice_completed_survey_json = most_recent_survey.as_json({
         only: [:id, :form_timestamp, :created_at]
       }).merge(survey_text: survey_text)
-      survey_insights << ProfileInsight.new('student_voice_survey_response', {
+      survey_insights << ProfileInsight.new(FROM_FIRST_STUDENT_VOICE_SURVEY, {
         prompt_key: prompt_key,
         prompt_text: StudentVoiceCompletedSurvey.columns_for_form_v2[prompt_key],
         survey_response_text: survey_response_text,

@@ -71,6 +71,15 @@ export function mergedNotes(feed) {
     };
   });
 
+  // bedford_end_of_year_transitions
+  const bedfordEndOfYearTransitions = (feed.bedford_end_of_year_transitions || []).map(importedForm => {
+    return {
+      ...importedForm,
+      type: 'bedford_end_of_year_transitions',
+      sort_timestamp: importedForm.form_timestamp
+    };
+  });
+
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
@@ -78,7 +87,8 @@ export function mergedNotes(feed) {
     ...secondTransitionNotes,
     ...homeworkHelpSessions,
     ...fallStudentVoiceInsights,
-    ...flattenedForms
+    ...flattenedForms,
+    ...bedfordEndOfYearTransitions
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }
