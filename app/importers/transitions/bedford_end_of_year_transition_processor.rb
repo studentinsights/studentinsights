@@ -66,13 +66,13 @@ class BedfordEndOfYearTransitionProcessor
     # whitelist prompts and responses
     form_json = row.to_h.slice(*ImportedForm.prompts(@form_key))
 
-    # convert checkboxes to boolean
+    # convert checkboxes to 'yes', or nil
     [
       'LLI',
       'Reading Intervention (w/ specialist)',
       'Math Intervention (w/ consult from SD)'
     ].each do |key|
-      form_json[key] = form_json[key].upcase === 'TRUE' ? true : false
+      form_json[key] = form_json[key].upcase === 'TRUE' ? 'yes' : nil
     end
 
     {

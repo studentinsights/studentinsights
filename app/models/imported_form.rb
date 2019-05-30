@@ -80,6 +80,7 @@ class ImportedForm < ApplicationRecord
     form_title = case form_key
       when SHS_Q2_SELF_REFLECTION then 'Q2 Self-reflection'
       when SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR then 'What I want my teachers to know'
+      when BEDFORD_END_OF_YEAR_TRANSITION_FORM then 'Transition Information'
       else 'Student voice survey'
     end
 

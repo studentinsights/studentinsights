@@ -136,7 +136,8 @@ class ProfileController < ApplicationController
   def flattened_forms_json(student_id)
     form_keys = [
       ImportedForm::SHS_Q2_SELF_REFLECTION,
-      ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
+      ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR,
+      ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
     ]
     imported_forms = form_keys.map do |form_key|
       ImportedForm.latest_for_student_id(student_id, form_key)
