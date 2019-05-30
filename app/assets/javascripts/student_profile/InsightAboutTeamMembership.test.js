@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import LightInsightTeamMembership from './LightInsightTeamMembership';
+import InsightAboutTeamMembership from './InsightAboutTeamMembership';
 
 
 function testProps(props = {}) {
@@ -19,7 +19,7 @@ function testProps(props = {}) {
 }
 
 function testEl(props = {}) {
-  return withDefaultNowContext(<LightInsightTeamMembership {...props} />);
+  return withDefaultNowContext(<InsightAboutTeamMembership {...props} />);
 }
 
 

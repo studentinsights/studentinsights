@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Routes from '../helpers/Routes';
-import LightInsightQuote, {Resizing, fontSizeStyle} from './LightInsightQuote';
+import InsightQuote, {Resizing, fontSizeStyle} from './InsightQuote';
 
 
 // Render an insight from a student with direct quote.
 export default function InsightFromStudent(props) {
-  const {promptText, responseText, student, inWhatWhenEl} = props;
+  const {className, promptText, responseText, student, inWhatWhenEl} = props;
   return (
-    <LightInsightQuote
-      className="InsightFromStudent"
+    <InsightQuote
+      className={['InsightFromStudent', className].join(' ')}
       quoteEl={
         <Resizing
           promptText={promptText}
@@ -33,5 +33,6 @@ InsightFromStudent.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
   }).isRequired,
-  inWhatWhenEl: PropTypes.node.isRequired
+  inWhatWhenEl: PropTypes.node.isRequired,
+  className: PropTypes.string
 };

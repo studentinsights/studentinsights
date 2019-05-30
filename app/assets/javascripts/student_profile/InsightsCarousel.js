@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import LightComingSoonInsight from './LightComingSoonInsight';
-import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
-import LightInsightStudentVoiceSurveyResponse, {STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE} from './LightInsightStudentVoiceSurveyResponse';
-import LightInsightImportedForm, {IMPORTED_FORM_INSIGHT_TYPE} from './LightInsightImportedForm';
-import LightInsightTeamMembership, {TEAM_MEMBERSHIP_INSIGHT_TYPE} from './LightInsightTeamMembership';
-import LightInsightsTransitionConnecting, {BEDFORD_END_OF_YEAR_TRANSITION_CONNECTING_INSIGHT_TYPE} from './LightInsightsTransitionConnecting';
+import InsightPlaceholder from './InsightPlaceholder';
+import InsightFromFirstTransitionNoteStrength, {FROM_FIRST_TRANSITION_NOTE_STRENGTH} from './InsightFromFirstTransitionNoteStrength';
+import InsightFromFirstStudentVoiceSurvey, {FROM_FIRST_STUDENT_VOICE_SURVEY} from './InsightFromFirstStudentVoiceSurvey';
+import InsightFromGenericImportedForm, {FROM_GENERIC_IMPORTED_FORM} from './InsightFromGenericImportedForm';
+import InsightAboutTeamMembership, {ABOUT_TEAM_MEMBERSHIP} from './InsightAboutTeamMembership';
+import InsightFromBedfordTransition, {FROM_BEDFORD_TRANSITION} from './InsightFromBedfordTransition';
 
 
 // A component that rotates through the `quotes` passed.
-export default class LightCarousel extends React.Component {
+export default class InsightsCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,8 +40,10 @@ export default class LightCarousel extends React.Component {
 
   // Insights that we know how to render
   insightsThatCanBeRendered() {
-    const {profileInsights} = this.props;
-    return _.compact(profileInsights.map(insight => this.renderInsightByType(insight)));
+    const {student, profileInsights} = this.props;
+    return _.compact(profileInsights.map(insight => {
+      return renderInsightByType(student, insight);
+    }));
   }
 
   onIntervalTicked() {
@@ -65,10 +67,10 @@ export default class LightCarousel extends React.Component {
     const insightsThatCanBeRendered = this.insightsThatCanBeRendered();
 
     return (
-      <div className="LightCarousel" style={{...styles.root, ...style}}>
+      <div className="InsightsCarousel" style={{...styles.root, ...style}}>
         {(insightsThatCanBeRendered.length > 0)
           ? insightsThatCanBeRendered[insightToRenderIndex]
-          : <LightComingSoonInsight studentFirstName={student.first_name} />
+          : <InsightPlaceholder studentFirstName={student.first_name} />
         }
         {insightsThatCanBeRendered.length > 1 && (
           <div style={styles.rotating}>
@@ -79,49 +81,8 @@ export default class LightCarousel extends React.Component {
       </div>
     );
   }
-
-  // Silently ignore unexpected types
-  renderInsightByType(insight, options = {}) {
-    const {student} = this.props;
-    const insightPayload = insight.json;
-    const insightType = insight.type;
-    
-    if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
-      <LightInsightTransitionNoteStrength
-        student={student}
-        insightPayload={insightPayload}
-      />
-    );
-
-    if (insightType === TEAM_MEMBERSHIP_INSIGHT_TYPE) return (
-      <LightInsightTeamMembership firstName={student.first_name} insightPayload={insightPayload} />
-    );
-
-    if (insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (
-      <LightInsightStudentVoiceSurveyResponse
-        student={student}
-        insightPayload={insightPayload} 
-      />
-    );
-
-    if (insightType === IMPORTED_FORM_INSIGHT_TYPE) return (
-      <LightInsightImportedForm
-        student={student}
-        insightPayload={insightPayload} 
-      />
-    );
-
-    if (insightType === BEDFORD_END_OF_YEAR_TRANSITION_CONNECTING_INSIGHT_TYPE) return (
-      <LightInsightsTransitionConnecting
-        student={student}
-        insightPayload={insightPayload} 
-      />
-    );
-
-    return null;
-  }
 }
-LightCarousel.propTypes = {
+InsightsCarousel.propTypes = {
   profileInsights: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.string.isRequired,
     json: PropTypes.object.isRequired
@@ -156,3 +117,45 @@ const styles = {
     fontSize: 12,
   }
 };
+
+
+// Silently ignore unexpected types
+// See profile_insights.rb
+function renderInsightByType(student, insight, options = {}) {
+  const insightPayload = insight.json;
+  const insightType = insight.type;
+  
+  if (insightType === FROM_FIRST_TRANSITION_NOTE_STRENGTH) return (
+    <InsightFromFirstTransitionNoteStrength
+      student={student}
+      insightPayload={insightPayload}
+    />
+  );
+
+  if (insightType === ABOUT_TEAM_MEMBERSHIP) return (
+    <InsightAboutTeamMembership firstName={student.first_name} insightPayload={insightPayload} />
+  );
+
+  if (insightType === FROM_FIRST_STUDENT_VOICE_SURVEY) return (
+    <InsightFromFirstStudentVoiceSurvey
+      student={student}
+      insightPayload={insightPayload} 
+    />
+  );
+
+  if (insightType === FROM_GENERIC_IMPORTED_FORM) return (
+    <InsightFromGenericImportedForm
+      student={student}
+      insightPayload={insightPayload} 
+    />
+  );
+
+  if (insightType === FROM_BEDFORD_TRANSITION) return (
+    <InsightFromBedfordTransition
+      student={student}
+      insightPayload={insightPayload} 
+    />
+  );
+
+  return null;
+}

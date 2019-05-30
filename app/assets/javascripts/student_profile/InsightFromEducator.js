@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Educator from '../components/Educator';
-import LightInsightQuote, {Resizing, fontSizeStyle} from './LightInsightQuote';
+import InsightQuote, {Resizing, fontSizeStyle} from './InsightQuote';
 
 
 // Render an insight from an educator (eg, from transition note).
@@ -9,7 +9,7 @@ import LightInsightQuote, {Resizing, fontSizeStyle} from './LightInsightQuote';
 export default function InsightFromEducator(props) {
   const {promptText, responseText, educator, inWhatWhenEl} = props;
   return (
-    <LightInsightQuote
+    <InsightQuote
       className="InsightFromEducator"
       quoteEl={
         <Resizing
@@ -32,6 +32,7 @@ InsightFromEducator.propTypes = {
   responseText: PropTypes.string.isRequired,
   educator: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
     full_name: PropTypes.string.isRequired
   }).isRequired,
   inWhatWhenEl: PropTypes.node.isRequired

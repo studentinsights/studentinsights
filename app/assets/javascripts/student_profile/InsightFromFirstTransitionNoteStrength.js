@@ -5,13 +5,13 @@ import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import Educator from '../components/Educator';
 import NoteShell from '../components/NoteShell';
 import NoteText from '../components/NoteText';
-import {fontSizeStyle} from './LightInsightQuote';
+import {fontSizeStyle} from './InsightQuote';
 import InsightFromEducator from './InsightFromEducator';
 import {parseAndReRender} from './transitionNoteParser';
 
 
 // Render an insight about a strength from a transition note
-export default class LightInsightTransitionNoteStrength extends React.Component {
+export default class InsightFromFirstTransitionNoteStrength extends React.Component {
   render() {
     const {student, insightPayload} = this.props;
     const promptText = `What are ${student.first_name}'s strengths?`;
@@ -56,7 +56,7 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
     );
   }
 }
-LightInsightTransitionNoteStrength.propTypes = {
+InsightFromFirstTransitionNoteStrength.propTypes = {
   student: PropTypes.shape({
     first_name: PropTypes.string.isRequired
   }).isRequired,
@@ -75,4 +75,4 @@ LightInsightTransitionNoteStrength.propTypes = {
 };
 
 
-export const TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE = 'transition_note_strength';
+export const FROM_FIRST_TRANSITION_NOTE_STRENGTH = 'from_first_transition_note_strength';

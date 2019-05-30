@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {fontSizeStyle} from './LightInsightQuote';
+import {fontSizeStyle} from './InsightQuote';
 import InsightFromEducator from './InsightFromEducator';
 
 
 
 // Render the "connecting" bit for Bedford transition notes
-export default class LightInsightTransitionConnecting extends React.Component {
+export default class InsightFromBedfordTransition extends React.Component {
   render() {
     const {student, insightPayload} = this.props;
     const promptText = `What helped you connect with ${student.first_name}?`;
@@ -34,7 +34,7 @@ export default class LightInsightTransitionConnecting extends React.Component {
     );
   }
 }
-LightInsightTransitionConnecting.propTypes = {
+InsightFromBedfordTransition.propTypes = {
   student: PropTypes.shape({
     first_name: PropTypes.string.isRequired,
   }).isRequired,
@@ -49,4 +49,4 @@ LightInsightTransitionConnecting.propTypes = {
 };
 
 
-export const BEDFORD_END_OF_YEAR_TRANSITION_CONNECTING_INSIGHT_TYPE = 'bedford_end_of_year_transition_connecting';
+export const FROM_BEDFORD_TRANSITION = 'from_bedford_transition';

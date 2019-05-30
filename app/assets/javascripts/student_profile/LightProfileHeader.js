@@ -16,7 +16,7 @@ import HelpBubble, {
 import StudentPhoto from '../components/StudentPhoto';
 import {TeamIcon} from '../components/Team';
 import Homeroom from '../components/Homeroom';
-import LightCarousel from './LightCarousel';
+import InsightsCarousel from './InsightsCarousel';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import LightHeaderSupportBits from './LightHeaderSupportBits';
 
@@ -48,7 +48,7 @@ export default class LightProfileHeader extends React.Component {
           {this.renderOverview()}
         </div>
         <div style={{flex: 2, display: 'flex', flexDirection: 'row', marginTop: 10}}>
-          {this.renderGlance()}
+          {this.renderInsights()}
           {this.renderButtons()}
         </div>
       </div>
@@ -287,11 +287,11 @@ export default class LightProfileHeader extends React.Component {
     );
   }
 
-  renderGlance() {
+  renderInsights() {
     const {profileInsights, student} = this.props;
     return (
       <div style={styles.carousel}>
-        <LightCarousel
+        <InsightsCarousel
           profileInsights={profileInsights}
           student={student}
         />

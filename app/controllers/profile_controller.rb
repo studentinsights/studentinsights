@@ -20,7 +20,7 @@ class ProfileController < ApplicationController
       teams: teams_json(student),
       ed_plans: ed_plans_json(student),
       profile_insights: ProfileInsights.new(student).as_json,
-      grades_reflection_insights: ProfileInsights.new(student).grades_reflection_insights.as_json,
+      grades_reflection_insights: ProfileInsights.new(student).from_q2_self_reflection.as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
@@ -153,7 +153,7 @@ class ProfileController < ApplicationController
 
   def bedford_end_of_year_transitions(student_id)
     return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
-    
+
     form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
     imported_form = ImportedForm.latest_for_student_id(student_id, form_key)
     json = imported_form.as_json({

@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import HelpBubble, {modalFromRightWithVerticalScroll} from '../components/HelpBubble';
 import NoteText from '../components/NoteText';
+import {fontSizeStyle} from './InsightQuote';
 import InsightFromStudent from './InsightFromStudent';
-import {fontSizeStyle} from './LightInsightQuote';
-
 
 
 // Render an insight from a student voice survey response
-export default class LightInsightImportedForm extends React.Component {
+export default class InsightFromFirstStudentVoiceSurvey extends React.Component {
   render() {
     const {student, insightPayload} = this.props;
     const promptText = insightPayload.prompt_text;
-    const responseText = insightPayload.response_text;
-    const flattenedForm = insightPayload.flattened_form_json;
-    const surveyMoment = toMomentFromTimestamp(flattenedForm.form_timestamp);
+    const responseText = insightPayload.survey_response_text;
+    const completedSurvey = insightPayload.student_voice_completed_survey;
+    const surveyMoment = toMomentFromTimestamp(completedSurvey.form_timestamp);
 
     return (
       <InsightFromStudent
@@ -29,9 +28,9 @@ export default class LightInsightImportedForm extends React.Component {
               style={{margin: 0}}
               modalStyle={modalFromRightWithVerticalScroll}
               linkStyle={fontSizeStyle}
-              teaser={flattenedForm.form_title}
-              title={flattenedForm.form_title}
-              content={this.renderDialog(flattenedForm)}
+              teaser="What I want my teachers to know"
+              title="What I want my teachers to know"
+              content={this.renderStudentSurveyDialog(completedSurvey)}
             />
             <span> on {surveyMoment.format('M/D/YY')}</span>
           </div>
@@ -40,30 +39,30 @@ export default class LightInsightImportedForm extends React.Component {
     );
   }
   
-  renderDialog(flattenedForm) {
+  renderStudentSurveyDialog(completedSurvey) {
     return (
       <div style={{display: 'flex', flexDirection: 'column', overflowY: 'scroll'}}>
-        <NoteText text={flattenedForm.text} />
+        <NoteText text={completedSurvey.survey_text} />
       </div>
     );
   }
 }
-LightInsightImportedForm.propTypes = {
+InsightFromFirstStudentVoiceSurvey.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired
   }).isRequired,
   insightPayload: PropTypes.shape({
+    prompt_key: PropTypes.string.isRequired,
     prompt_text: PropTypes.string.isRequired,
-    response_text: PropTypes.string.isRequired,
-    flattened_form_json: PropTypes.shape({
-      form_title: PropTypes.string.isRequired,
+    survey_response_text: PropTypes.string.isRequired,
+    student_voice_completed_survey: PropTypes.shape({
       form_timestamp: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
+      survey_text: PropTypes.string.isRequired
     }).isRequired
   })
 };
 
 
-export const IMPORTED_FORM_INSIGHT_TYPE = 'imported_form_insight';
+export const FROM_FIRST_STUDENT_VOICE_SURVEY = 'from_first_student_voice_survey';

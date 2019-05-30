@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import LightInsightImportedForm from './LightInsightImportedForm';
+import InsightFromGenericImportedForm from './InsightFromGenericImportedForm';
 
 
 function storyProps(props = {}) {
@@ -25,8 +25,8 @@ function storyProps(props = {}) {
 }
 
 function storyEl(props = {}) {
-  return withDefaultNowContext(<LightInsightImportedForm {...props} />);
+  return withDefaultNowContext(<InsightFromGenericImportedForm {...props} />);
 }
 
-storiesOf('profile/LightInsightImportedForm', module) // eslint-disable-line no-undef
+storiesOf('profile/InsightFromGenericImportedForm', module) // eslint-disable-line no-undef
   .add('normal', () => storyEl(storyProps()));

@@ -5,23 +5,23 @@ import FitText from '../components/FitText';
 
 
 // Render a large quote with smaller notes about where it came from
-export default class LightInsightQuote extends React.Component {
+export default class InsightQuote extends React.Component {
   render() {
     const {quoteEl, sourceEl, className, style, containerStyle} = this.props;
-    const classNameText = _.compact(['LightInsightQuote', className]).join(' ');
+    const classNameText = _.compact(['InsightQuote', className]).join(' ');
     return (
-      <div className={classNameText} style={{...styles.flexVertical, style}}>
+      <div className={classNameText} style={{...styles.flexVertical, ...style}}>
         <div style={{...styles.quoteContainer, ...containerStyle}}>
           <div style={styles.quote}>{quoteEl}</div>
         </div>
         <div style={styles.underQuoteContainer}>
-          <div style={{color: '#333'}}>{sourceEl}</div>
+          <div>{sourceEl}</div>
         </div>
       </div>
     );
   }
 }
-LightInsightQuote.propTypes = {
+InsightQuote.propTypes = {
   quoteEl: PropTypes.node.isRequired,
   sourceEl: PropTypes.node.isRequired,
   className: PropTypes.string,

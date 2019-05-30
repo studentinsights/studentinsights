@@ -72,7 +72,7 @@ class BedfordEndOfYearTransitionProcessor
       'Reading Intervention (w/ specialist)',
       'Math Intervention (w/ consult from SD)'
     ].each do |key|
-      form_json[key] = form_json[key].upcase === 'TRUE' ? 'yes' : nil
+      form_json[key] = form_json[key].upcase == 'TRUE' ? 'yes' : nil
     end
 
     {

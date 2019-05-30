@@ -373,7 +373,7 @@ exports[`snapshots works for aladdin grades 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -386,13 +386,13 @@ exports[`snapshots works for aladdin grades 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -426,7 +426,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Aladdin
                   </div>
                   <div
@@ -436,7 +436,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -455,50 +455,31 @@ exports[`snapshots works for aladdin grades 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -1616,7 +1597,7 @@ exports[`snapshots works for aladdin notes 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -1629,13 +1610,13 @@ exports[`snapshots works for aladdin notes 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -1669,7 +1650,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Aladdin
                   </div>
                   <div
@@ -1679,7 +1660,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -1698,50 +1679,31 @@ exports[`snapshots works for aladdin notes 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -3008,7 +2970,7 @@ exports[`snapshots works for aladdin testing 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -3021,13 +2983,13 @@ exports[`snapshots works for aladdin testing 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -3061,7 +3023,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Aladdin
                   </div>
                   <div
@@ -3071,7 +3033,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -3090,50 +3052,31 @@ exports[`snapshots works for aladdin testing 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -4183,7 +4126,7 @@ exports[`snapshots works for olaf math 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -4196,13 +4139,13 @@ exports[`snapshots works for olaf math 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -4236,7 +4179,7 @@ exports[`snapshots works for olaf math 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Olaf
                   </div>
                   <div
@@ -4246,7 +4189,7 @@ exports[`snapshots works for olaf math 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -4265,50 +4208,31 @@ exports[`snapshots works for olaf math 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -5456,7 +5380,7 @@ exports[`snapshots works for olaf notes 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -5469,13 +5393,13 @@ exports[`snapshots works for olaf notes 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -5509,7 +5433,7 @@ exports[`snapshots works for olaf notes 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Olaf
                   </div>
                   <div
@@ -5519,7 +5443,7 @@ exports[`snapshots works for olaf notes 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -5538,50 +5462,31 @@ exports[`snapshots works for olaf notes 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -6800,7 +6705,7 @@ exports[`snapshots works for olaf reading 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -6813,13 +6718,13 @@ exports[`snapshots works for olaf reading 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -6853,7 +6758,7 @@ exports[`snapshots works for olaf reading 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Olaf
                   </div>
                   <div
@@ -6863,7 +6768,7 @@ exports[`snapshots works for olaf reading 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -6882,50 +6787,31 @@ exports[`snapshots works for olaf reading 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -8066,7 +7952,7 @@ exports[`snapshots works for pluto attendance 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -8079,13 +7965,13 @@ exports[`snapshots works for pluto attendance 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -8119,7 +8005,7 @@ exports[`snapshots works for pluto attendance 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Pluto
                   </div>
                   <div
@@ -8129,7 +8015,7 @@ exports[`snapshots works for pluto attendance 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -8148,50 +8034,31 @@ exports[`snapshots works for pluto attendance 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -9210,7 +9077,7 @@ exports[`snapshots works for pluto behavior 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -9223,13 +9090,13 @@ exports[`snapshots works for pluto behavior 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -9263,7 +9130,7 @@ exports[`snapshots works for pluto behavior 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Pluto
                   </div>
                   <div
@@ -9273,7 +9140,7 @@ exports[`snapshots works for pluto behavior 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -9292,50 +9159,31 @@ exports[`snapshots works for pluto behavior 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
@@ -10454,7 +10302,7 @@ exports[`snapshots works for pluto notes 1`] = `
         }
       >
         <div
-          className="LightCarousel"
+          className="InsightsCarousel"
           style={
             Object {
               "background": "#eee",
@@ -10467,13 +10315,13 @@ exports[`snapshots works for pluto notes 1`] = `
           }
         >
           <div
-            className="LightInsightQuote"
+            className="InsightQuote"
             style={
               Object {
                 "display": "flex",
                 "flex": 1,
                 "flexDirection": "column",
-                "style": undefined,
+                "opacity": 0.5,
               }
             }
           >
@@ -10507,7 +10355,7 @@ exports[`snapshots works for pluto notes 1`] = `
                       }
                     }
                   >
-                    Share an insight about 
+                    Insights about 
                     Pluto
                   </div>
                   <div
@@ -10517,7 +10365,7 @@ exports[`snapshots works for pluto notes 1`] = `
                       }
                     }
                   >
-                    This is being piloted at Somerville High School to start the 2018 school year.
+                    When you were the same age as your students, what would you have wanted adults to know about you?  Student voice surveys give young people power over how they are represented.
                   </div>
                 </div>
               </div>
@@ -10536,50 +10384,31 @@ exports[`snapshots works for pluto notes 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "color": "#333",
-                  }
-                }
-              >
+              <div>
                 <span>
-                  <span>
-                    If you're curious, talk with 
-                    <a
-                      href="mailto:uharel@k12.somerville.ma.us"
-                      style={
-                        Object {
-                          "fontSize": 12,
-                        }
-                      }
-                    >
-                      Uri
-                    </a>
-                     or check out an 
-                  </span>
-                  <div
+                  See examples at 
+                  <a
+                    href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child"
                     style={
                       Object {
-                        "display": "inline",
-                        "marginLeft": 0,
+                        "fontSize": 12,
                       }
                     }
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 12,
-                          "outline": "none",
-                        }
+                    studentinsights.org
+                  </a>
+                   and email 
+                  <a
+                    href="mailto://ideas@studentinsights.org"
+                    style={
+                      Object {
+                        "fontSize": 12,
                       }
-                    >
-                      example
-                    </a>
-                  </div>
-                  .
+                    }
+                  >
+                    ideas@studentinsights.org
+                  </a>
+                   to try this with your students.
                 </span>
               </div>
             </div>
