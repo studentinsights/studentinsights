@@ -21,6 +21,9 @@
     <% if links.has_key?(:levels_shs) %>
       <%= link_to 'Levels', links[:levels_shs] %>
     <% end %>
+    <% if links.has_key?(:counselor_meetings) %>
+      <%= link_to 'Meetings', links[:counselor_meetings] %>
+    <% end %>
     <% if links.has_key?(:absences) %>
       <%= link_to "Absences", links[:absences] %>
     <% end %>
