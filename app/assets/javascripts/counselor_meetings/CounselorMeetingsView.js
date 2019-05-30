@@ -78,9 +78,14 @@ export default class CounselorMeetingsView extends React.Component {
     const sortFns = {
       fallback(student) { return student[sortBy]; },
       name(student) { return `${student.last_name}, ${student.first_name}`; },
+      educator(student) {
+        return (student.meetingEducator === null)
+          ? ''
+          : student.meetingEducator.full_name;
+      },
       last_seen: (student) => {
         const lastSeenNumber = (student.meetingMoment === null)
-          ? 10000
+          ? Number.MAX_VALUE
           : this.howManyDaysAgo(student.meetingMoment);
         return lastSeenNumber;
       }

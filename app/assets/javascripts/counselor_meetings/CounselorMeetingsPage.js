@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader, {flexVerticalStyle} from '../components/GenericLoader';
+import ExperimentalBanner from '../components/ExperimentalBanner';
 import CounselorMeetingsView from './CounselorMeetingsView';
 
 
@@ -26,6 +27,7 @@ export default class CounselorMeetingsPage extends React.Component {
   render() {
     return (
       <div className="CounselorMeetingsPage" style={flexVerticalStyle}>
+        <ExperimentalBanner />
         <GenericLoader
           promiseFn={this.fetchStudents}
           style={flexVerticalStyle}
