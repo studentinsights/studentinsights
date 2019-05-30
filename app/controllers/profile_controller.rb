@@ -97,6 +97,7 @@ class ProfileController < ApplicationController
       fall_student_voice_surveys: fall_student_voice_surveys_json(student.id),
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       flattened_forms: flattened_forms_json(student.id),
+      bedford_end_of_year_transitions: bedford_end_of_year_transitions(student.id),
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
@@ -136,8 +137,7 @@ class ProfileController < ApplicationController
   def flattened_forms_json(student_id)
     form_keys = [
       ImportedForm::SHS_Q2_SELF_REFLECTION,
-      ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR,
-      ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+      ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
     ]
     imported_forms = form_keys.map do |form_key|
       ImportedForm.latest_for_student_id(student_id, form_key)
@@ -149,5 +149,20 @@ class ProfileController < ApplicationController
     most_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
     return [] if most_recent_survey.nil?
     [most_recent_survey].as_json(methods: [:flat_text])
+  end
+
+  def bedford_end_of_year_transitions(student_id)
+    return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
+    
+    form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    imported_form = ImportedForm.latest_for_student_id(student_id, form_key)
+    json = imported_form.as_json({
+      include: {
+        educator: {
+          only: [:id, :full_name]
+        }
+      }
+    })
+    [json]
   end
 end

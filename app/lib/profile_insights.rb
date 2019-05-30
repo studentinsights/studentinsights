@@ -8,7 +8,8 @@ class ProfileInsights
     all_insights = (
       student_voice_survey_insights +
       transition_note_profile_insights +
-      team_membership_insights
+      team_membership_insights +
+      bedford_end_of_year_transition_insights
     )
     all_insights.as_json(options)
   end
@@ -119,5 +120,24 @@ class ProfileInsights
         methods: [:active]
       }))
     end
+  end
+
+  # For showing the "connecting" as an educator insight
+  def bedford_end_of_year_transition_insights
+    return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
+
+    prompt = 'Please share anything that helped you connect with this student that might be helpful to the next teacher.'
+    form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    imported_form = ImportedForm.latest_for_student_id(@student.id, form_key)
+    return [] if imported_form.nil?
+    insight_text = imported_form.form_json.fetch(prompt, nil)
+    return [] unless insight_text.present?
+
+    insight = ProfileInsight.new('bedford_end_of_year_transition_connecting', {
+      insight_text: insight_text,
+      form_url: imported_form.form_url,
+      educator: imported_form.educator.as_json
+    })
+    [insight]
   end
 end

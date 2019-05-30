@@ -6,6 +6,7 @@ import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYP
 import LightInsightStudentVoiceSurveyResponse, {STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE} from './LightInsightStudentVoiceSurveyResponse';
 import LightInsightImportedForm, {IMPORTED_FORM_INSIGHT_TYPE} from './LightInsightImportedForm';
 import LightInsightTeamMembership, {TEAM_MEMBERSHIP_INSIGHT_TYPE} from './LightInsightTeamMembership';
+import LightInsightsTransitionConnecting, {BEDFORD_END_OF_YEAR_TRANSITION_CONNECTING_INSIGHT_TYPE} from './LightInsightsTransitionConnecting';
 
 
 // A component that rotates through the `quotes` passed.
@@ -86,7 +87,10 @@ export default class LightCarousel extends React.Component {
     const insightType = insight.type;
     
     if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
-      <LightInsightTransitionNoteStrength insightPayload={insightPayload} />
+      <LightInsightTransitionNoteStrength
+        student={student}
+        insightPayload={insightPayload}
+      />
     );
 
     if (insightType === TEAM_MEMBERSHIP_INSIGHT_TYPE) return (
@@ -102,6 +106,13 @@ export default class LightCarousel extends React.Component {
 
     if (insightType === IMPORTED_FORM_INSIGHT_TYPE) return (
       <LightInsightImportedForm
+        student={student}
+        insightPayload={insightPayload} 
+      />
+    );
+
+    if (insightType === BEDFORD_END_OF_YEAR_TRANSITION_CONNECTING_INSIGHT_TYPE) return (
+      <LightInsightsTransitionConnecting
         student={student}
         insightPayload={insightPayload} 
       />

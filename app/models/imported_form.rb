@@ -1,3 +1,4 @@
+# Storage mechanism for a variety of form types
 class ImportedForm < ApplicationRecord
   SHS_Q2_SELF_REFLECTION = 'shs_q2_self_reflection';
   SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR = 'shs_what_i_want_my_teacher_to_know_mid_year';

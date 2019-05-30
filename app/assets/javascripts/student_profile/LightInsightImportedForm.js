@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
-import * as Routes from '../helpers/Routes';
 import HelpBubble, {modalFromRightWithVerticalScroll} from '../components/HelpBubble';
 import NoteText from '../components/NoteText';
-import FitText from '../components/FitText';
-import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
+import InsightFromStudent from './InsightFromStudent';
+import {fontSizeStyle} from './LightInsightQuote';
 
 
 
@@ -19,35 +18,22 @@ export default class LightInsightImportedForm extends React.Component {
     const surveyMoment = toMomentFromTimestamp(flattenedForm.form_timestamp);
 
     return (
-      <LightInsightQuote
-        className="LightInsightImportedForm"
-        quoteEl={
-          <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
-            <div style={fontSizeStyle}>{promptText}</div>
-            <div style={{marginTop: 5, flex: 1, display: 'flex', flexDirection: 'column'}}>
-              <FitText
-                minFontSize={12}
-                maxFontSize={48}
-                fontSizeStep={6}
-                text={`“${responseText}”`} />
-            </div>
-          </div>
-        }
-        sourceEl={
+      <InsightFromStudent
+        promptText={promptText}
+        responseText={responseText}
+        student={student}
+        inWhatWhenEl={
           <div>
-            <div>from <a style={fontSizeStyle} href={Routes.studentProfile(student.id)} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a></div>
-            <div>
-              <span>in </span>
-              <HelpBubble
-                style={{margin: 0}}
-                modalStyle={modalFromRightWithVerticalScroll}
-                linkStyle={fontSizeStyle}
-                teaser={flattenedForm.form_title}
-                title={flattenedForm.form_title}
-                content={this.renderDialog(flattenedForm)}
-              />
-              <span> on {surveyMoment.format('M/D/YY')}</span>
-            </div>
+            <span>in </span>
+            <HelpBubble
+              style={{margin: 0}}
+              modalStyle={modalFromRightWithVerticalScroll}
+              linkStyle={fontSizeStyle}
+              teaser={flattenedForm.form_title}
+              title={flattenedForm.form_title}
+              content={this.renderDialog(flattenedForm)}
+            />
+            <span> on {surveyMoment.format('M/D/YY')}</span>
           </div>
         }
       />

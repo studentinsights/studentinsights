@@ -49,14 +49,14 @@ class BedfordEndOfYearTransitionProcessor
     # warn if homeroom doesn't match
     student = Student.find(student_id)
     if student.homeroom.id != @homeroom.id
-      puts "  homeroom does not match for student_id: #{student_id}"
+      @log.puts "BedfordEndOfYearTransitionProcessor: homeroom does not match for student_id: #{student_id}"
       return nil
     end
 
     # warn if teacher name doesn't match
     teacher_last_name = row['Teacher'].split(' ').last
     if !@educator.full_name.downcase.include?(teacher_last_name.downcase)
-      puts "  provided educator does not match teacher name on sheet: #{teacher_last_name}"
+      @log.puts "BedfordEndOfYearTransitionProcessor: provided educator does not match teacher name on sheet: #{teacher_last_name}"
       nil
     end
 

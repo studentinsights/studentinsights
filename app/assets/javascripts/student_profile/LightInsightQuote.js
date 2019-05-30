@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import FitText from '../components/FitText';
+
 
 // Render a large quote with smaller notes about where it came from
 export default class LightInsightQuote extends React.Component {
@@ -64,3 +66,39 @@ const styles = {
 
 
 export const fontSizeStyle = { fontSize: 12 };
+
+
+// For a prompt, response with resizing font size for the response.
+export function Resizing(props) {
+  const {promptText, responseText, responseStyle} = props;
+  return (
+    <div style={{
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <div style={fontSizeStyle}>{promptText}</div>
+      <div style={{
+        marginTop: 5,
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        ...responseStyle
+      }}>
+        <FitText
+          minFontSize={12}
+          maxFontSize={48}
+          fontSizeStep={4}
+          text={responseText} />
+      </div>
+    </div>
+  );
+}
+Resizing.propTypes = {
+  promptText: PropTypes.string.isRequired, 
+  responseText: PropTypes.string.isRequired,
+  responseStyle: PropTypes.object
+};
+Resizing.defaultProps = {
+  responseStyle: {}
+};
