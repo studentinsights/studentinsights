@@ -268,8 +268,17 @@ export function enhancedStudentPhotoStyles(districtKey) {
       backgroundPositionY: -5
     };
   }
+  
+  if (districtKey === NEW_BEDFORD) {
+    return {
+      backgroundSize: '110%',
+      backgroundPositionY: -10
+    };
+  }
 
-  return {};
+  return {
+    backgroundSize: '100%'
+  };
 }
 
 // For shorter names and prettier UI
