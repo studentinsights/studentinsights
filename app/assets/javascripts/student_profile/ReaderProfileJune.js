@@ -71,19 +71,19 @@ export default class ReaderProfileJune extends React.Component {
   renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey) {
     return (
       <div style={{marginTop: 10}}>
-        <Ingredient name="Engagement and identity" color="#ccc">
+        <Ingredient name="Engagement and identity" color="lightskyblue">
           <Sub name="within class" />
           <Sub name="outside school" />
         </Ingredient>
-        <Ingredient name="Communicate with oral language" color="#ccc">
+        <Ingredient name="Communicate with oral language" color="lightsalmon">
           <Sub name="expressive" />
           <Sub name="receptive" />
         </Ingredient>
-        <Ingredient name="Speak and listen in English" color="#ccc">
+        <Ingredient name="Speak and listen in English" color="#f06060">
           <Sub name="spoken" />
           <Sub name="written" />
         </Ingredient>
-        <Ingredient name="Discriminate Sounds in Words" color="rgb(237, 141, 76)">
+        <Ingredient name="Discriminate Sounds in Words" color="rgba(140, 17, 140, 0.57)">
           <Sub
             name="blending"
             diagnostic="PAST"
@@ -457,7 +457,6 @@ function Ingredient(props) {
       <div style={{
         marginLeft: 15,
         marginRight: 15,
-        paddingTop: 5,
         paddingLeft: 10,
         borderLeft: `3px solid ${color}`,
         borderRight: `1px solid ${color}`,
@@ -470,14 +469,15 @@ function Ingredient(props) {
 function Sub(props) {
   const {name, screener, diagnostic, interventions, notes} = props;
   const nameCell = { width: 100, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' };
-  const cell = { width: 200, height: 40, color: '#ccc' };
+  const cell = { width: 200, height: 40, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' };
+  const missingEl = (text) => <div style={{...cell, color: '#ccc'}}>+{text}</div>;
   return (
     <div className="Sub" style={{display: 'flex', flexDirection: 'row'}}>
       <div style={nameCell}>{name}</div>
-      <div style={cell}>{screener || 'screener'}</div>
-      <div style={cell}>{diagnostic || 'diagnostic'}</div>
-      <div style={cell}>{interventions || 'interventions'}</div>
-      <div style={cell}>{notes || 'notes'}</div>
+      <div style={cell}>{screener || missingEl('screener')}</div>
+      <div style={cell}>{diagnostic || missingEl('diagnostic')}</div>
+      <div style={cell}>{interventions || missingEl('interventions')}</div>
+      <div style={cell}>{notes || missingEl('notes')}</div>
     </div>
   );
 }
