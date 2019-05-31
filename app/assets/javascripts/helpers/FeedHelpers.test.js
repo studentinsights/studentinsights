@@ -23,6 +23,10 @@ function testFeed() {
     flattened_forms: [{
       fooFlattenedForm: 'example',
       form_timestamp: '2018-12-15T00:00:00.000Z'
+    }],
+    bedford_end_of_year_transitions: [{
+      fooBedfordTransition: 'yoyoyo',
+      form_timestamp: '2018-12-11T00:00:00.000Z'
     }]
   };
 }
@@ -55,6 +59,11 @@ describe('#mergedNotes', () => {
       sort_timestamp: "2018-12-13T00:00:00.000Z",
       recorded_at: "2018-12-13T00:00:00.000Z",
       type: "event_notes",
+    }, {
+      fooBedfordTransition: 'yoyoyo',
+      form_timestamp: '2018-12-11T00:00:00.000Z',
+      sort_timestamp: '2018-12-11T00:00:00.000Z',
+      type: "bedford_end_of_year_transitions",
     }]);
   });
 });

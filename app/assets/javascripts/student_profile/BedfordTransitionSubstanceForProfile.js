@@ -16,10 +16,11 @@ export default function BedfordTransitionSubstanceForProfile(props) {
     maybeRender(`What helped you connect with ${studentFirstName}?`, formJson[HELPED_CONNECT])
   ]);
   return (
-    <div>
+    <div className="BedfordTransitionSubstanceForProfile">
       {itemEls.map((itemEl, index) => (
         <div style={{marginBottom: 15}} key={index}>{itemEl}</div>
       ))}
+      <div><a href={importedForm.form_url} target="_blank" rel="noopener noreferrer">Source</a></div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ export const feedForTestingNotes = {
       "is_restricted": false
     }
   ],
+  "bedford_end_of_year_transitions": [],
   "second_transition_notes": [],
   "event_notes": [
     {

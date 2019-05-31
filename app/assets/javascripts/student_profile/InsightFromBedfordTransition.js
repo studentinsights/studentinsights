@@ -43,6 +43,7 @@ InsightFromBedfordTransition.propTypes = {
     form_url: PropTypes.string.isRequired,
     educator: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      email: PropTypes.string.isRequired,
       full_name: PropTypes.string.isRequired
     }).isRequired
   })

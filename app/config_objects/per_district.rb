@@ -505,7 +505,7 @@ class PerDistrict
   end
 
   def include_bedford_end_of_year_transition?
-    if @district_key == NEW_BEDFORD
+    if @district_key == BEDFORD
       true
     elsif @district_key == DEMO
       true

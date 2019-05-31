@@ -677,5 +677,28 @@ describe ProfileController, :type => :controller do
         'updated_at'
       ])
     end
+
+    it 'returns bedford_end_of_year_transitions with expected shape' do
+      pals = TestPals.create!
+      
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      feed = controller.send(:student_feed, pals.healey_kindergarten_student)
+      bedford_end_of_year_transitions = feed[:bedford_end_of_year_transitions]
+
+      expect(bedford_end_of_year_transitions.size).to eq 1
+      expect(bedford_end_of_year_transitions.first['student_id']).to eq(pals.healey_kindergarten_student.id)
+      expect(bedford_end_of_year_transitions.first.keys).to contain_exactly(*[
+        'id',
+        'educator',
+        'educator_id',
+        'form_json',
+        'form_key',
+        'form_timestamp',
+        'form_url',
+        'student_id',
+        'created_at',
+        'updated_at'
+      ])
+    end
   end
 end
