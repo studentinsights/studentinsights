@@ -51,8 +51,6 @@ class SomervilleMegaReadingImporter
     raise 'unfinished'
     # TODO read from google or mock and return `streaming_csv` that responds
     # to #each_with_index
-    sheetsFetcher = GoogleSheetsImporter.new
-    sheetsFetcher.getSheetsFromFolder("Folder Name") #TODO get folder based on district/school setup
   end
 
   def import_row(row, index)
