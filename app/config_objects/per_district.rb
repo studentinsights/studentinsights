@@ -344,6 +344,7 @@ class PerDistrict
   def import_student_photos?
     return true if @district_key == SOMERVILLE
     return true if @district_key == BEDFORD
+    return true if @district_key == NEW_BEDFORD
     false
   end
 
