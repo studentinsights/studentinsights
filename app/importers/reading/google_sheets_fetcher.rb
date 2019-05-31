@@ -19,7 +19,7 @@ require 'googleauth'
 require 'fileutils'
 require 'csv'
 
-class GoogleSheetsImporter
+class GoogleSheetsFetcher
 
   APPLICATION_NAME = 'Student Insights'.freeze
   SCOPE = [Google::Apis::DriveV3::AUTH_DRIVE_READONLY, Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY]
@@ -53,10 +53,10 @@ class GoogleSheetsImporter
     sheet_service.client_options.application_name = APPLICATION_NAME
     sheet_service.authorization = auth
 
-    # Get values from sheets
-    sheet_ids.files.map do |spreadsheet| #each spreadsheet in the folder
-      CSV.generate do |csv|
-        sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
+    # Get values from sheets indexed by sheet name
+    sheet_ids.files.each_with_object({}) do |spreadsheet, hash| #each spreadsheet in the folder
+      sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
+        hash[sheet.properties.title] = CSV.generate do |csv|
           sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
           sheet_values.each do |row|
             csv << row
