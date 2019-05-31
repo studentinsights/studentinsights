@@ -44,9 +44,10 @@ RSpec.describe PerDistrict do
   end
 
   describe '#import_student_photos?' do
-    it 'only works in Somerville' do
+    it 'works in all districts except demo' do
       expect(for_somerville.import_student_photos?).to eq(true)
-      expect(for_new_bedford.import_student_photos?).to eq(false)
+      expect(for_new_bedford.import_student_photos?).to eq(true)
+      expect(for_bedford.import_student_photos?).to eq(true)
       expect(for_demo.import_student_photos?).to eq(false)
     end
   end
