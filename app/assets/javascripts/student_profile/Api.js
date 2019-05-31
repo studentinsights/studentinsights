@@ -42,14 +42,6 @@ export default class Api {
     return apiDeleteJson(url);
   }
 
-  saveTransitionNote(studentId, noteParams) {
-    const url = `/api/students/${studentId}/update_transition_note`;
-    return apiPostJson(url, {
-      text: noteParams.text,
-      is_restricted: noteParams.is_restricted,
-    });
-  }
-
   saveService(studentId, serviceParams) {
     const url = '/students/' + studentId + '/service.json';
     const body = {

@@ -7,6 +7,7 @@ RSpec.describe ClassList do
       created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
       grade_level_next_year: '6',
+      list_type_text: 'homerooms',
       json: { foo: 'bar' }
     }.merge(params))
   end
@@ -44,14 +45,17 @@ RSpec.describe ClassList do
     end
   end
 
-  describe 'validate_consistent_workspace_grade_school' do
-    it 'rejects new records in workspace with different school_id or grade_level_next_year' do
+  describe 'validate_consistent_workspace_grade_school_list_type_text' do
+    it 'rejects new records in workspace with different school_id, grade_level_next_year, or list_type_text (these should be stable across revisions)' do
       expect(create_class_list_from(pals.uri).errors.details).to eq({})
       expect(create_class_list_from(pals.uri, grade_level_next_year: '3').errors.details).to eq({
         grade_level_next_year: [{:error=>"cannot add different grade_level_next_year to existing workspace_id"}]
       })
       expect(create_class_list_from(pals.uri, school_id: pals.west.id).errors.details).to eq({
         school_id: [{:error=>"cannot add different school_id to existing workspace_id"}]
+      })
+      expect(create_class_list_from(pals.uri, list_type_text: 'science').errors.details).to eq({
+        list_type_text: [{:error=>"cannot add different list_type_text to existing workspace_id"}]
       })
     end
   end

@@ -11,4 +11,8 @@ storiesOf('classlists/ClassListsViewPage', module) // eslint-disable-line no-und
   .add('normal', () => {
     mockWithFixtures();
     return widthFrame(<ClassListsViewPage {...testProps()} />);
+  })
+  .add('text links', () => {
+    mockWithFixtures();
+    return widthFrame(<ClassListsViewPage {...testProps({useTextLinks: true})} />);
   });

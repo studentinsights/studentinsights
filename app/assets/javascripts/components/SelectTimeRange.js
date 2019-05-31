@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SimpleFilterSelect from './SimpleFilterSelect';
+import SimpleFilterSelect, {ALL} from './SimpleFilterSelect';
 import {
   firstDayOfSchoolForMoment,
   toSchoolYear,
   firstDayOfSchool
 } from '../helpers/schoolYear';
-
 
 // A UI component for selecting a time range.  It limits date range choices
 // to ones that are most relevant or useful for teachers (ie, it's opinionated about
@@ -23,6 +22,7 @@ export default function SelectTimeRange(props) {
   return (
     <SimpleFilterSelect
       searchable={false}
+      placeholder="Time range..."
       value={timeRangeKey}
       onChange={onChange}
       options={options} 
@@ -31,8 +31,8 @@ export default function SelectTimeRange(props) {
 }
 SelectTimeRange.propTypes = {
   timeRangeKey: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  timeRangeKeys: PropTypes.arrayOf(PropTypes.string)
+  timeRangeKeys: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func.isRequired
 };
 
 
@@ -40,6 +40,8 @@ SelectTimeRange.propTypes = {
 // at the given `nowMoment`.
 export function momentRange(timeRangeKey, nowMoment) {
   const startMoment = {
+    [TIME_RANGE_7_DAYS_AGO]: nowMoment.clone().subtract(7, 'days'), 
+    [TIME_RANGE_30_DAYS_AGO]: nowMoment.clone().subtract(30, 'days'),
     [TIME_RANGE_45_DAYS_AGO]: nowMoment.clone().subtract(45, 'days'),
     [TIME_RANGE_90_DAYS_AGO]: nowMoment.clone().subtract(90, 'days'),
     [TIME_RANGE_SCHOOL_YEAR]: firstDayOfSchoolForMoment(nowMoment),
@@ -52,13 +54,20 @@ export function momentRange(timeRangeKey, nowMoment) {
 // Translate to user-facing text
 export function timeRangeText(timeRangeKey) {
   return {
-    TIME_RANGE_45_DAYS_AGO: 'Last 45 days',
-    TIME_RANGE_90_DAYS_AGO: 'Last 90 days',
-    TIME_RANGE_SCHOOL_YEAR: 'This school year',
-    TIME_RANGE_FOUR_YEARS: 'Last four years'
+    [TIME_RANGE_7_DAYS_AGO]: 'Last 7 days',
+    [TIME_RANGE_30_DAYS_AGO]: 'Last 30 days',
+    [TIME_RANGE_45_DAYS_AGO]: 'Last 45 days',
+    [TIME_RANGE_90_DAYS_AGO]: 'Last 90 days',
+    [TIME_RANGE_SCHOOL_YEAR]: 'This school year',
+    [TIME_RANGE_FOUR_YEARS]: 'Last four years',
+    [TIME_RANGE_ALL]: 'Include all'
   }[timeRangeKey];
 }
+
+export const TIME_RANGE_7_DAYS_AGO = 'TIME_RANGE_7_DAYS_AGO';
+export const TIME_RANGE_30_DAYS_AGO = 'TIME_RANGE_30_DAYS_AGO';
 export const TIME_RANGE_45_DAYS_AGO = 'TIME_RANGE_45_DAYS_AGO';
 export const TIME_RANGE_90_DAYS_AGO = 'TIME_RANGE_90_DAYS_AGO';
 export const TIME_RANGE_SCHOOL_YEAR = 'TIME_RANGE_SCHOOL_YEAR';
 export const TIME_RANGE_FOUR_YEARS = 'TIME_RANGE_FOUR_YEARS';
+export const TIME_RANGE_ALL = ALL;

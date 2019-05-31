@@ -21,6 +21,7 @@ class Student < ApplicationRecord
   has_many :interventions, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :transition_notes, dependent: :destroy
+  has_many :second_transition_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_many :tardies, dependent: :destroy
   has_many :absences, dependent: :destroy
@@ -200,6 +201,12 @@ class Student < ApplicationRecord
 
   def latest_mcas_ela
     latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "ELA") || MissingStudentAssessment.new
+  end
+
+  def winter_reading_doc(options = {})
+    time_now = options.fetch(:time_now, Time.now)
+    benchmark_school_year = SchoolYear.to_school_year(time_now)
+    ReadingBenchmarkDataPoint.doc_for(self.id, benchmark_school_year, :winter)
   end
 
   def update_recent_student_assessments

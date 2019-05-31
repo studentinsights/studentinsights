@@ -44,9 +44,10 @@ RSpec.describe PerDistrict do
   end
 
   describe '#import_student_photos?' do
-    it 'only works in Somerville' do
+    it 'works in all districts except demo' do
       expect(for_somerville.import_student_photos?).to eq(true)
-      expect(for_new_bedford.import_student_photos?).to eq(false)
+      expect(for_new_bedford.import_student_photos?).to eq(true)
+      expect(for_bedford.import_student_photos?).to eq(true)
       expect(for_demo.import_student_photos?).to eq(false)
     end
   end
@@ -139,6 +140,12 @@ RSpec.describe PerDistrict do
       expect(PerDistrict.new.current_quarter(DateTime.new(2018, 2, 26))).to eq 'Q3'
       expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 1))).to eq 'Q4'
       expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 24))).to eq 'SUMMER'
+    end
+
+    it 'works for demo but raises for Bedford and New Bedford' do
+      expect { for_demo.current_quarter(Time.now) }.not_to raise_error
+      expect { for_bedford.current_quarter(Time.now) }.to raise_error(Exceptions::DistrictKeyNotHandledError)
+      expect { for_new_bedford.current_quarter(Time.now) }.to raise_error(Exceptions::DistrictKeyNotHandledError)
     end
   end
 

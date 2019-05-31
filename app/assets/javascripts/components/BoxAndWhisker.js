@@ -14,7 +14,7 @@ function percentiles(values) {
 }
 
 
-export default function BoxAndWhisker({values, boxStyle, whiskerStyle, labelStyle, style}) {
+export default function BoxAndWhisker({values, boxStyle, whiskerStyle, labelStyle, showQuartiles, quartileLabelStyle, style}) {
   const [min, p25, p50, p75, max] = percentiles(values);
   const labelWidth = 50; // arbitrary
 
@@ -67,6 +67,26 @@ export default function BoxAndWhisker({values, boxStyle, whiskerStyle, labelStyl
           top: midTop+barHeight/2,
           color: '#333',
           ...labelStyle}}>{p50}</div>
+        {showQuartiles && <div>
+          <div style={{
+            position: 'absolute',
+            left: scale(p25 - labelWidth/2),
+            width: scale(labelWidth),
+            textAlign: 'center',
+            fontSize: 10,
+            top: midTop+barHeight/2,
+            color: '#333',
+            ...quartileLabelStyle}}>{p25}</div>
+          <div style={{
+            position: 'absolute',
+            left: scale(p75 - labelWidth/2),
+            width: scale(labelWidth),
+            textAlign: 'center',
+            fontSize: 10,
+            top: midTop+barHeight/2,
+            color: '#333',
+            ...quartileLabelStyle}}>{p75}</div>
+        </div>}
       </div>
     </div>
   );
@@ -76,5 +96,7 @@ BoxAndWhisker.propTypes = {
   style: PropTypes.object,
   boxStyle: PropTypes.object,
   whiskerStyle: PropTypes.object,
-  labelStyle: PropTypes.object
+  labelStyle: PropTypes.object,
+  showQuartiles: PropTypes.bool,
+  quartileLabelStyle: PropTypes.object
 };

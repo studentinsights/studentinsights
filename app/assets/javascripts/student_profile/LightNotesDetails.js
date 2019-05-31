@@ -5,6 +5,7 @@ import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import DraftNote from './DraftNote';
+import SecondTransitionNoteDialog, {enableTransitionNoteDialog} from './SecondTransitionNoteDialog';
 
 
 /*
@@ -17,6 +18,7 @@ export default class LightNotesDetails extends React.Component {
   constructor(props){
     super(props);
 
+    this.onClickSecondTransitionNoteLink = this.onClickSecondTransitionNoteLink.bind(this);
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
@@ -28,6 +30,11 @@ export default class LightNotesDetails extends React.Component {
       this.props.isTakingNotes ||
       this.props.requests.createNote !== null
     );
+  }
+
+  onClickSecondTransitionNoteLink(event) {
+    event.preventDefault();
+    this.props.onWritingTransitionNoteChanged(true);
   }
 
   onClickTakeNotes(event) {
@@ -61,6 +68,7 @@ export default class LightNotesDetails extends React.Component {
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
+        {this.renderSecondTransitionNoteDialog()}
         {<SectionHeading titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           <div style={{display: 'flex', alignItems: 'center', padding: 2}}>
             <span>{title} for {student.first_name}</span>
@@ -73,7 +81,8 @@ export default class LightNotesDetails extends React.Component {
         <div>
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
-            currentEducatorId={currentEducator.id}
+            student={student}
+            currentEducator={currentEducator}
             feed={feed}
             requests={requests}
             canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
@@ -85,14 +94,49 @@ export default class LightNotesDetails extends React.Component {
     );
   }
 
-  renderTakeNotesButton() {
+  renderSecondTransitionNoteDialog() {
+    const {
+      actions,
+      student,
+      currentEducator,
+      isWritingTransitionNote,
+      onWritingTransitionNoteChanged
+    } = this.props;
+
+    if (!isWritingTransitionNote) return null;
     return (
-      <button
-        className="btn take-notes"
-        style={{display: 'inline-block', margin: 0}}
-        onClick={this.onClickTakeNotes}>
-        <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
-      </button>
+      <SecondTransitionNoteDialog
+        student={student}
+        educatorId={currentEducator.id}
+        onSavedJson={json => actions.onSecondTransitionNoteAdded(json)}
+        onClose={() => onWritingTransitionNoteChanged(false)}
+      />
+    );
+  }
+
+  renderTakeNotesButton() {
+    const {currentEducator, student} = this.props;
+
+    // Only K8 counselors with access can write transition notes,
+    // and only for 8th graders.
+    const showSecondTransitionNoteLink = enableTransitionNoteDialog(currentEducator, student.grade);
+    return (
+      <div>
+        {showSecondTransitionNoteLink && (
+          <a
+            href="#"
+            style={{marginRight: 10}}
+            onClick={this.onClickSecondTransitionNoteLink}>
+            <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>transition</span></span>
+          </a>
+        )}
+        <button
+          className="btn take-notes"
+          style={{display: 'inline-block', margin: 0}}
+          onClick={this.onClickTakeNotes}>
+          <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
+        </button>
+      </div>
     );
   }
 
@@ -120,7 +164,8 @@ LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   currentEducator: PropTypes.shape({
-    can_view_restricted_notes: PropTypes.bool.isRequired
+    can_view_restricted_notes: PropTypes.bool.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   actions: PropTypes.shape({
     onCreateNewNote: PropTypes.func.isRequired,
@@ -134,7 +179,9 @@ LightNotesDetails.propTypes = {
   helpContent: PropTypes.node.isRequired,
   helpTitle: PropTypes.string.isRequired,
   isTakingNotes: PropTypes.bool.isRequired,
-  onTakingNotesChanged: PropTypes.func.isRequired
+  onTakingNotesChanged: PropTypes.func.isRequired,
+  isWritingTransitionNote: PropTypes.bool.isRequired,
+  onWritingTransitionNoteChanged: PropTypes.func.isRequired
 };
 
 

@@ -15,6 +15,7 @@ exports[`matches snapshot 1`] = `
     }
   >
     <div
+      className="FeedCardFrame-FrameHeader"
       style={
         Object {
           "alignItems": "flex-start",
@@ -86,6 +87,7 @@ exports[`matches snapshot 1`] = `
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
+            "textAlign": "right",
           }
         }
       >
@@ -151,6 +153,191 @@ exports[`matches snapshot 1`] = `
       >
         hello!
       </div>
+    </div>
+    <div
+      className="FeedCardFrame-footer"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div />
+      <div>
+        <span
+          className="HouseBadge"
+          style={
+            Object {
+              "backgroundColor": "#333",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          Beacon house
+        </span>
+        <span
+          className="Badge"
+          style={
+            Object {
+              "backgroundColor": "#139DEA",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          9th Grade Experience
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snaphots when passing alternate children 1`] = `
+<div
+  className="EventNoteCard"
+>
+  <div
+    className="Card FeedCardFrame"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div
+      className="FeedCardFrame-FrameHeader"
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+          }
+        }
+      >
+        <div
+          className="StudentPhotoCropped"
+          style={
+            Object {
+              "backgroundColor": "#ddd",
+              "backgroundImage": "url(/students/55/photo)",
+              "backgroundPosition": "center top",
+              "backgroundPositionY": -10,
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "150%",
+              "border": "1px solid #ddd",
+              "borderRadius": 3,
+              "height": 58,
+              "marginRight": 10,
+              "overflow": "hidden",
+              "width": 58,
+            }
+          }
+        />
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+            }
+          }
+        >
+          <div>
+            <a
+              href="/students/55"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mari
+               
+              Skywalker
+            </a>
+          </div>
+          <div>
+            9th grade
+          </div>
+          <div />
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+            "textAlign": "right",
+          }
+        }
+      >
+        <div>
+          <div>
+            <span>
+              by 
+            </span>
+            <a
+              className="Educator"
+              href="mailto:kt@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Kevin Teacher
+            </a>
+          </div>
+        </div>
+        <div>
+          <div>
+            in 
+            9th Grade Experience
+          </div>
+        </div>
+        <div>
+          <div
+            className="Timestamp"
+            style={Object {}}
+          >
+            14 years ago
+             on 
+            3/5
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginTop": 20,
+        }
+      }
+    >
+      <b>
+        hello!
+      </b>
     </div>
     <div
       className="FeedCardFrame-footer"

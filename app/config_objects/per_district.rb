@@ -105,6 +105,14 @@ class PerDistrict
     end
   end
 
+  def enabled_counselor_meetings?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_COUNSELOR_MEETINGS')
+    else
+      false
+    end
+  end
+
   def student_voice_survey_form_url
     return nil unless enabled_student_voice_survey_uploads?
     ENV.fetch('STUDENT_VOICE_SURVEY_FORM_URL', nil)
@@ -336,6 +344,7 @@ class PerDistrict
   def import_student_photos?
     return true if @district_key == SOMERVILLE
     return true if @district_key == BEDFORD
+    return true if @district_key == NEW_BEDFORD
     false
   end
 
@@ -378,16 +387,18 @@ class PerDistrict
   end
 
   def current_quarter(date_time)
-    raise_not_handled! unless @district_key == SOMERVILLE
-
-    # See https://docs.google.com/document/d/1HCWMlbzw1KzniitW24aeo_IgjzNDSR-U9Rx_md1Qto8/edit
-    year = SchoolYear.to_school_year(date_time)
-    return 'SUMMER' if date_time < DateTime.new(year, 8, 29)
-    return 'Q1' if date_time < DateTime.new(year, 11, 5)
-    return 'Q2' if date_time < DateTime.new(year + 1, 1, 23)
-    return 'Q3' if date_time < DateTime.new(year + 1, 4, 3)
-    return 'Q4' if date_time < DateTime.new(year + 1, 6, 12)
-    'SUMMER'
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      # See https://docs.google.com/document/d/1HCWMlbzw1KzniitW24aeo_IgjzNDSR-U9Rx_md1Qto8/edit
+      year = SchoolYear.to_school_year(date_time)
+      return 'SUMMER' if date_time < DateTime.new(year, 8, 29)
+      return 'Q1' if date_time < DateTime.new(year, 11, 5)
+      return 'Q2' if date_time < DateTime.new(year + 1, 1, 23)
+      return 'Q3' if date_time < DateTime.new(year + 1, 4, 3)
+      return 'Q4' if date_time < DateTime.new(year + 1, 6, 12)
+      'SUMMER'
+    else
+      raise_not_handled!
+    end
   end
 
   # When importing data from Google Forms, educator emails may not be the same
@@ -499,6 +510,16 @@ class PerDistrict
       }
     else
       raise_not_handled!
+    end
+  end
+
+  def include_bedford_end_of_year_transition?
+    if @district_key == BEDFORD
+      true
+    elsif @district_key == DEMO
+      true
+    else
+      false
     end
   end
 

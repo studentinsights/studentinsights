@@ -80,7 +80,7 @@ GEM
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
-    brakeman (4.5.0)
+    brakeman (4.5.1)
     builder (3.2.3)
     bundler-audit (0.6.1)
       bundler (>= 1.2.0, < 3)
@@ -171,7 +171,7 @@ GEM
     method_source (0.9.2)
     mimemagic (0.3.3)
     mini_mime (1.0.1)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
@@ -183,8 +183,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
     nio4r (2.3.1)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
     oj (3.5.0)
     oj_mimic_json (1.0.1)
     openssl (2.1.0)
@@ -369,7 +369,7 @@ DEPENDENCIES
   net-ldap
   net-sftp
   net-ssh
-  nokogiri (~> 1.8.1)
+  nokogiri
   oj
   oj_mimic_json
   openssl

@@ -4,13 +4,14 @@ import Card from '../components/Card';
 import {Email} from '../components/PublicLinks';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
+import TransitionNotesBox from './TransitionNotesBox';
 import ReadingDataEntryBox from './ReadingDataEntryBox';
 import {shouldShowLowGradesBox} from '../helpers/PerDistrict';
 
 
 // On the home page, show users the answers to their most
 // important questions.  Branches depending on role and labels.
-class HomeInsights extends React.Component {
+export default class HomeInsights extends React.Component {
   render() {
     const {educatorId, educatorLabels} = this.props;
     return (
@@ -18,6 +19,11 @@ class HomeInsights extends React.Component {
         {shouldShowLowGradesBox(educatorLabels) &&
           <CheckStudentsWithLowGrades educatorId={educatorId} />}
         <CheckStudentsWithHighAbsences educatorId={educatorId} />
+        <TransitionNotesBox
+          style={styles.card}
+          titleStyle={styles.cardTitle}
+          educatorLabels={educatorLabels}
+        />
         <ReadingDataEntryBox
           style={styles.card}
           titleStyle={styles.cardTitle}
@@ -40,7 +46,7 @@ class HomeInsights extends React.Component {
 }
 HomeInsights.propTypes = {
   educatorId: PropTypes.number.isRequired,
-  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const styles = {
@@ -62,6 +68,3 @@ const styles = {
     justifyContent: 'space-between'
   }
 };
-
-
-export default HomeInsights;

@@ -3,34 +3,33 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
 import Button from '../components/Button';
-import School from '../components/School';
 import Educator from '../components/Educator';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import SuccessLabel from '../components/SuccessLabel';
 import tableStyles from '../components/tableStyles';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {shortSchoolName} from '../helpers/PerDistrict';
 import {gradeText} from '../helpers/gradeText';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import IntroCopy from './IntroCopy';
 import {fetchAllWorkspaces} from './api';
 
-
 // Show users their class lists.  More useful for principals, building admin,
 // or ELL/SPED teachers than classroom teachers (who are typically
 // making a single list).
-
 export default class ClassListsViewPage extends React.Component {
   render() {
-    const {currentEducatorId} = this.props;
+    const {currentEducatorId, useTextLinks, includeHistorical} = this.props;
     return (
       <div className="ClassListsViewPage">
         <GenericLoader
           style={styles.root}
-          promiseFn={fetchAllWorkspaces}
+          promiseFn={() => fetchAllWorkspaces({includeHistorical})}
           render={json => (
             <ClassListsViewPageView
               currentEducatorId={currentEducatorId}
+              useTextLinks={useTextLinks}
               {...json} />
           )} />
       </div>
@@ -38,7 +37,9 @@ export default class ClassListsViewPage extends React.Component {
   }
 }
 ClassListsViewPage.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired
+  currentEducatorId: PropTypes.number.isRequired,
+  useTextLinks: PropTypes.bool,
+  includeHistorical: PropTypes.bool
 };
 
 // View component
@@ -53,6 +54,11 @@ export class ClassListsViewPageView extends React.Component {
     window.location.href = Routes.newClassList();
   }
 
+  onViewClicked(href, e) {
+    e.preventDefault();
+    window.location.href = href;
+  }
+
   render() {
     return (
       <div>
@@ -63,18 +69,20 @@ export class ClassListsViewPageView extends React.Component {
   }
 
   renderTable() {
+    const {districtKey} = this.context;
     const {workspaces, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
     const sortedWorkspaces = _.orderBy(workspaces, workspace => {
       const classList = workspace.class_list;
       return [
-        classList.school.name,
+        shortSchoolName(districtKey, classList.school.local_id),
         rankedByGradeLevel(classList.grade_level_next_year),
         classList.submitted
       ];
     });
 
+    const cell = {...tableStyles.cell, verticalAlign: 'middle'};
     return (
       <div>
         <div style={{marginLeft: 10}}>{this.renderNewButton()}</div>
@@ -83,6 +91,7 @@ export class ClassListsViewPageView extends React.Component {
             <tr>
               <th style={tableStyles.headerCell}>School</th>
               <th style={tableStyles.headerCell}>Grade next year</th>
+              <th style={tableStyles.headerCell}>Lists for?</th>
               <th style={tableStyles.headerCell}>Owner</th>
               <th style={tableStyles.headerCell}>Last updated</th>
               <th style={tableStyles.headerCell}>Status</th>
@@ -97,21 +106,29 @@ export class ClassListsViewPageView extends React.Component {
               : {};
             return (
               <tr key={workspace.workspace_id}>
-                <td style={tableStyles.cell}><School {...classList.school} /></td>
-                <td style={tableStyles.cell}>
+                <td style={cell}>{shortSchoolName(districtKey, classList.school.local_id)}</td>
+                <td style={cell}>
                   {gradeText(classList.grade_level_next_year)}
                 </td>
-                <td style={tableStyles.cell}>
+                <td style={cell}>
+                  {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text.toLowerCase()) !== -1
+                    ? <span style={{color: '#aaa'}}>{classList.list_type_text}</span>
+                    : classList.list_type_text
+                  }
+                </td>
+                <td style={cell}>
                   <Educator educator={classList.created_by_teacher_educator} style={educatorStyle} />
                 </td>
-                <td style={tableStyles.cell} title={`Revisions: ${workspace.revisions_count}`}>
-                  {createdAtMoment.format('dddd M/D, h:mma')}
+                <td style={cell} title={`Revisions: ${workspace.revisions_count}`}>
+                  {createdAtMoment.format('ddd M/D, h:mma')}
                 </td>
-                <td style={tableStyles.cell}>
-                  {classList.submitted && <SuccessLabel style={{padding: 5}} text="submitted" />}
+                <td style={cell}>
+                  {classList.submitted 
+                    ? <SuccessLabel style={{padding: 5}} text="submitted" />
+                    : 'in progress'}
                 </td>
-                <td style={tableStyles.cell}>
-                  <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}/text`}>view text</a>
+                <td style={{...cell, padding: 5}}>
+                  {this.renderViewButton(classList.workspace_id)}
                 </td>
               </tr>
             );
@@ -125,6 +142,21 @@ export class ClassListsViewPageView extends React.Component {
     return <Button style={styles.newButton} onClick={this.onNewClicked}>New list</Button>;
   }
 
+  renderViewButton(workspaceId) {
+    const {useTextLinks} = this.props;
+    const {text, href} = (useTextLinks)
+      ? {text: 'view text', href: `/classlists/${workspaceId}/text`}
+      : {text: 'view', href: `/classlists/${workspaceId}`};
+    
+    return (
+      <Button
+        style={styles.openButton}
+        onClick={this.onViewClicked.bind(this, href)}
+      >{text}
+      </Button>
+    );
+  }
+
   renderOverview() {
     return (
       <div style={styles.overview}>
@@ -134,6 +166,9 @@ export class ClassListsViewPageView extends React.Component {
     );
   }
 }
+ClassListsViewPageView.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 ClassListsViewPageView.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   workspaces: PropTypes.arrayOf(PropTypes.shape({
@@ -149,7 +184,8 @@ ClassListsViewPageView.propTypes = {
       created_by_teacher_educator: PropTypes.object.isRequired,
       school: PropTypes.object.isRequired,
     }).isRequired
-  })).isRequired
+  })).isRequired,
+  useTextLinks: PropTypes.bool
 };
 
 
@@ -166,5 +202,11 @@ const styles = {
   },
   p: {
     marginBottom: 10
+  },
+  openButton: {
+
+  },
+  openLink: {
+    color: 'white'
   }
 };

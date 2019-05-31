@@ -21,6 +21,9 @@
     <% if links.has_key?(:levels_shs) %>
       <%= link_to 'Levels', links[:levels_shs] %>
     <% end %>
+    <% if links.has_key?(:counselor_meetings) %>
+      <%= link_to 'Meetings', links[:counselor_meetings] %>
+    <% end %>
     <% if links.has_key?(:absences) %>
       <%= link_to "Absences", links[:absences] %>
     <% end %>
@@ -47,7 +50,9 @@
     <%= link_to "My notes", educators_my_notes_path %>
     <%= link_to 'My students', educators_my_students_path %>
     <span class="NavbarSignedIn-spacer"></span>
-    <input class="NavbarSignedIn-student-searchbar student-searchbar" placeholder="Search..." />
+    <div class="NavbarSignedIn-StudentSearchbar">
+      <input class="NavbarSignedIn-StudentSearchbar-placeholder" />
+    </div>
     <span class="NavbarSignedIn-spacer"></span>
     <div>
       <% if masquerade.authorized? %>

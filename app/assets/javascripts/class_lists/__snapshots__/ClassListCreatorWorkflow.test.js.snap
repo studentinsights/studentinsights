@@ -319,7 +319,7 @@ When Student Insights was being developed, some teachers started asking whether 
             >
               This 
               <a
-                href="https://drive.google.com/file/d/1OmsB-9K1cgo1g6l21rnu0xL8H4KDyVAk/view"
+                href="https://drive.google.com/file/d/1Xm7idNsxyry2agV9-cZoRkutF0dvAEAA/view"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -327,7 +327,7 @@ When Student Insights was being developed, some teachers started asking whether 
               </a>
                and a 
               <a
-                href="https://drive.google.com/file/d/1NHztne6tGz16qbIIeoeL8aNvTLQ0UTHj/view"
+                href="https://drive.google.com/file/d/1mXbSjrL010JUwONQ-Dj-3GvzxDuAXCjo/view"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -569,6 +569,34 @@ When Student Insights was being developed, some teachers started asking whether 
                 </span>
               </div>
             </div>
+          </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              Are these homeroom lists, or another kind of class list (eg, social studies groups?)
+            </div>
+            <input
+              onChange={[Function]}
+              placeholder="homerooms"
+              readOnly={false}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "borderRadius": 3,
+                  "fontSize": 14,
+                  "paddingBottom": 7,
+                  "paddingLeft": 10,
+                  "paddingTop": 7,
+                  "width": "100%",
+                }
+              }
+              value="homeroom"
+            />
           </div>
         </div>
       </div>
@@ -948,7 +976,7 @@ When Student Insights was being developed, some teachers started asking whether 
             >
               This 
               <a
-                href="https://drive.google.com/file/d/1OmsB-9K1cgo1g6l21rnu0xL8H4KDyVAk/view"
+                href="https://drive.google.com/file/d/1Xm7idNsxyry2agV9-cZoRkutF0dvAEAA/view"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -956,7 +984,7 @@ When Student Insights was being developed, some teachers started asking whether 
               </a>
                and a 
               <a
-                href="https://drive.google.com/file/d/1NHztne6tGz16qbIIeoeL8aNvTLQ0UTHj/view"
+                href="https://drive.google.com/file/d/1mXbSjrL010JUwONQ-Dj-3GvzxDuAXCjo/view"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -1114,6 +1142,34 @@ When Student Insights was being developed, some teachers started asking whether 
                 </span>
               </div>
             </div>
+          </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              Are these homeroom lists, or another kind of class list (eg, social studies groups?)
+            </div>
+            <input
+              onChange={[Function]}
+              placeholder="homerooms"
+              readOnly={true}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "borderRadius": 3,
+                  "fontSize": 14,
+                  "paddingBottom": 7,
+                  "paddingLeft": 10,
+                  "paddingTop": 7,
+                  "width": "100%",
+                }
+              }
+              value="homeroom"
+            />
           </div>
         </div>
       </div>
@@ -1477,7 +1533,7 @@ When Student Insights was being developed, some teachers started asking whether 
             >
               This 
               <a
-                href="https://drive.google.com/file/d/1OmsB-9K1cgo1g6l21rnu0xL8H4KDyVAk/view"
+                href="https://drive.google.com/file/d/1Xm7idNsxyry2agV9-cZoRkutF0dvAEAA/view"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -1485,7 +1541,7 @@ When Student Insights was being developed, some teachers started asking whether 
               </a>
                and a 
               <a
-                href="https://drive.google.com/file/d/1NHztne6tGz16qbIIeoeL8aNvTLQ0UTHj/view"
+                href="https://drive.google.com/file/d/1mXbSjrL010JUwONQ-Dj-3GvzxDuAXCjo/view"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -1643,6 +1699,34 @@ When Student Insights was being developed, some teachers started asking whether 
                 </span>
               </div>
             </div>
+          </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              Are these homeroom lists, or another kind of class list (eg, social studies groups?)
+            </div>
+            <input
+              onChange={[Function]}
+              placeholder="homerooms"
+              readOnly={true}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "borderRadius": 3,
+                  "fontSize": 14,
+                  "paddingBottom": 7,
+                  "paddingLeft": 10,
+                  "paddingTop": 7,
+                  "width": "100%",
+                }
+              }
+              value="homeroom"
+            />
           </div>
           <div
             style={
@@ -4345,7 +4429,7 @@ exports[`exportProps snapshots with teachers 1`] = `
               <a
                 className="DownloadCsvLink btn"
                 download="Class list: 1st grade at E Somerville Community 2018-03-13.csv"
-                href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Uri%22"
+                href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Kevin%22"
                 onClick={[Function]}
                 style={
                   Object {

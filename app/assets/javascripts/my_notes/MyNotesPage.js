@@ -12,8 +12,7 @@ export default class MyNotesPage extends React.Component {
       batchSizeMultiplier: 2,
       hasFetched: false,
       currentEducator: null,
-      educatorsIndex: null,
-      eventNotes: null,
+      mixedEventNotes: null,
       totalNotesCount: null
     };
 
@@ -38,8 +37,7 @@ export default class MyNotesPage extends React.Component {
     this.setState({
       hasFetched: true,
       currentEducator: json.current_educator, // fetched for can_view_restricted_notes
-      eventNotes: json.notes,
-      educatorsIndex: json.educators_index,
+      mixedEventNotes: json.mixed_event_notes,
       totalNotesCount: json.total_notes_count,
       batchSizeMultiplier: batchSizeMultiplier + 1
     });
@@ -53,20 +51,18 @@ export default class MyNotesPage extends React.Component {
     const {
       hasFetched,
       currentEducator,
-      educatorsIndex,
-      eventNotes,
+      mixedEventNotes,
       totalNotesCount
     } = this.state;
     if (!hasFetched) return <Loading style={{padding: 10}} />;
     
     return (
       <NotesFeed
-        currentEducatorId={currentEducator.id}
         canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
-        educatorsIndex={educatorsIndex}
-        eventNotes={eventNotes}
+        totalNotesCount={totalNotesCount}
+        mixedEventNotes={mixedEventNotes}
         onClickLoadMoreNotes={this.onClickLoadMoreNotes}
-        totalNotesCount={totalNotesCount} />
+      />
     );
   }
 }

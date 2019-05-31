@@ -22,7 +22,9 @@ export const HighlightKeys = {
   HIGH_DISCIPLINE: 'HIGH_DISCIPLINE',
   STAR_MATH: 'STAR_MATH',
   STAR_READING: 'STAR_READING',
-  DIBELS: 'DIBELS'
+  DIBELS: 'DIBELS',
+  DIVERSITY_GROUP: 'DIVERSITY_GROUP',
+  F_AND_P_WINTER: 'F_AND_P_WINTER'
 };
 
 // Bucket STAR percentiles into high/medium/low

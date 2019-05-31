@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
 
 
 // UI component, showing a message about "clean slate", and allows folks with
@@ -65,4 +67,30 @@ const styles = {
     cursor: 'pointer',
     color: '#999'
   }
+};
+
+
+// Limit how back notes are shown
+export function filteredNotesForCleanSlate(mergedNotes, nSchoolYearsBack, nowFn) {
+  const nowMoment = nowFn();
+  const oldestSchoolYearToInclude = toSchoolYear(nowMoment) - nSchoolYearsBack;
+  const schoolYearsBackCutoffMoment = firstDayOfSchool(oldestSchoolYearToInclude);
+  return mergedNotes.filter(mergedNote => {
+    return toMomentFromRailsDate(mergedNote.sort_timestamp).isAfter(schoolYearsBackCutoffMoment);
+  });
+}
+
+// Limit how back feed cards are shown
+export function filteredFeedCardsForCleanSlate(feedCards, nSchoolYearsBack, nowFn) {
+  const nowMoment = nowFn();
+  const oldestSchoolYearToInclude = toSchoolYear(nowMoment) - nSchoolYearsBack;
+  const schoolYearsBackCutoffMoment = firstDayOfSchool(oldestSchoolYearToInclude);
+  return feedCards.filter(feedCard => {
+    return toMomentFromRailsDate(feedCard.timestamp).isAfter(schoolYearsBackCutoffMoment);
+  });
+}
+
+export const defaultSchoolYearsBack = {
+  number: 1,
+  textYears: 'one year'
 };

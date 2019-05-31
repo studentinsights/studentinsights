@@ -32,10 +32,12 @@ export default class LightProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isTakingNotes: false
+      isTakingNotes: false,
+      isWritingTransitionNote: false
     };
 
     this.onTakingNotesChanged = this.onTakingNotesChanged.bind(this);
+    this.onWritingTransitionNoteChanged = this.onWritingTransitionNoteChanged.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +64,10 @@ export default class LightProfilePage extends React.Component {
 
   onTakingNotesChanged(isTakingNotes) {
     this.setState({isTakingNotes});
+  }
+
+  onWritingTransitionNoteChanged(isWritingTransitionNote) {
+    this.setState({isWritingTransitionNote});
   }
 
   render() {
@@ -389,13 +395,15 @@ export default class LightProfilePage extends React.Component {
   renderNotes() {
     const {feed, actions, requests} = this.props;
     const {student, educatorsIndex, serviceTypesIndex, currentEducator} = this.props.profileJson;
-    const {isTakingNotes} = this.state;
+    const {isTakingNotes, isWritingTransitionNote} = this.state;
 
     return (
       <div className="LightProfilePage-notes" style={{display: 'flex', flexDirection: 'row'}}>
         <LightNotesDetails
           isTakingNotes={isTakingNotes}
           onTakingNotesChanged={this.onTakingNotesChanged}
+          isWritingTransitionNote={isWritingTransitionNote}
+          onWritingTransitionNoteChanged={this.onWritingTransitionNoteChanged}
           student={student}
           educatorsIndex={educatorsIndex}
           currentEducator={currentEducator}

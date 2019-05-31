@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe ClassList do
+RSpec.describe TransitionNote do
+  let!(:pals) { TestPals.create! }
+
   def create_transition_note(params = {})
     TransitionNote.create({
       educator_id: pals.west_counselor.id,
@@ -9,8 +11,6 @@ RSpec.describe ClassList do
       is_restricted: false
     }.merge(params))
   end
-
-  let!(:pals) { TestPals.create! }
 
   describe 'validations' do
     it 'requires presence of educator, student' do

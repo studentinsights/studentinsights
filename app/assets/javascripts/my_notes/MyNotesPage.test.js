@@ -38,7 +38,9 @@ describe('integration tests', () => {
 
     setTimeout(() => {
       expect(wrapper.html()).toContain('My notes');
-      expect($(wrapper.html()).find('.NoteCard').length).toEqual(60);
+      expect($(wrapper.html()).find('.EventNoteCard').length).toEqual(2);
+      expect($(wrapper.html()).find('.NoteCard-substance').length).toEqual(2);
+      expect(wrapper.html()).not.toContain('redacted');
       done();
     }, 0);
   });

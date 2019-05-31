@@ -82,9 +82,11 @@ export default class ClassListCreatorWorkflow extends React.Component {
       gradeLevelsNextYear,
       schoolId,
       gradeLevelNextYear,
+      listTypeText,
       onSchoolIdChanged,
       canChangeSchoolOrGrade,
-      onGradeLevelNextYearChanged
+      onGradeLevelNextYearChanged,
+      onListTypeTextChanged
     } = this.props;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
@@ -126,6 +128,16 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 })}
               />
           </div>
+          <div>
+            <div style={styles.heading}>Are these homeroom lists, or another kind of class list (eg, social studies groups?)</div>
+              <input
+                style={styles.inputText}
+                placeholder="homerooms"
+                readOnly={!isEditable || !canChangeSchoolOrGrade}
+                value={listTypeText}
+                onChange={event => onListTypeTextChanged(event.target.value)} />
+          </div>
+          
           {!canChangeSchoolOrGrade &&
             <div style={{marginTop: 20}}>You can't change the school or grade level once you've moved forward.  If you need to change this, <a href="/classlists">create a new class list</a> instead.</div>
           }
@@ -160,7 +172,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             value={authors}
             valueKey="id"
             labelKey="full_name"
-            options={educators}
+            options={_.sortBy(educators, 'full_name')}
             onChange={onEducatorsChanged}
             disabled={!isEditable}
           />
@@ -223,6 +235,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        studentPhotoUrlFn={studentId => classListPhotoUrl(workspaceId, studentId)}
         isEditable={isEditable}
         isExpandedVertically={isExpandedVertically}
         onExpandVerticallyToggled={this.onExpandVerticallyToggled}
@@ -309,6 +322,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={resolveDriftForStudents(principalStudentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        studentPhotoUrlFn={studentId => classListPhotoUrl(workspaceId, studentId)}
         styleStudentFn={student => styleStudentFn(movedStudentIds, student)}
         isExpandedVertically={isExpandedVertically}
         onExpandVerticallyToggled={this.onExpandVerticallyToggled}
@@ -375,6 +389,7 @@ ClassListCreatorWorkflow.propTypes = {
   workspaceId: PropTypes.string.isRequired,
   schoolId: PropTypes.number,
   gradeLevelNextYear: PropTypes.string,
+  listTypeText: PropTypes.string,
   authors: PropTypes.array.isRequired,
   classroomsCount: PropTypes.number.isRequired,
   planText: PropTypes.string.isRequired,
@@ -392,6 +407,7 @@ ClassListCreatorWorkflow.propTypes = {
   onStepChanged: PropTypes.func.isRequired,
   onSchoolIdChanged: PropTypes.func.isRequired,
   onGradeLevelNextYearChanged: PropTypes.func.isRequired,
+  onListTypeTextChanged: PropTypes.func.isRequired,
   onEducatorsChanged: PropTypes.func.isRequired,
   onClassroomsCountIncremented: PropTypes.func.isRequired,
   onPlanTextChanged: PropTypes.func.isRequired,
@@ -446,11 +462,20 @@ const styles = {
     flexDirection: 'column'
   },
   horizontalStepperExpanded: {
-    
+    height: 'auto'
   },
   horizontalStepperContent: {
     borderTop: '1px solid #ccc',
     marginTop: 10
+  },
+  inputText: {
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingLeft: 10,
+    fontSize: 14,
+    width: '100%',
+    borderRadius: 3,
+    border: '1px solid #ccc'
   },
   textarea: {
     border: '1px solid #ccc',
@@ -466,3 +491,9 @@ const styles = {
     marginTop: 20
   }
 };
+
+
+
+function classListPhotoUrl(workspaceId, studentId) {
+  return `/classlists/${workspaceId}/students/${studentId}/photo`;
+}

@@ -1,0 +1,252 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches all snapshots 1`] = `
+<div>
+  <div
+    className="Card FeedCardFrame"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div
+      className="FeedCardFrame-FrameHeader"
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+            }
+          }
+        >
+          <div>
+            <a
+              href="/students/55"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mari
+               
+              Skywalker
+            </a>
+          </div>
+          <div>
+            9th grade
+          </div>
+          <div />
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+            "textAlign": "right",
+          }
+        }
+      >
+        <div>
+          <div>
+            by
+          </div>
+        </div>
+        <div>
+          <div>
+            where
+          </div>
+        </div>
+        <div>
+          <div>
+            when
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginTop": 20,
+        }
+      }
+    >
+      kids
+    </div>
+    <div
+      className="FeedCardFrame-footer"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div />
+      <div>
+        badges
+      </div>
+    </div>
+  </div>
+  <div
+    className="Card FeedCardFrame"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div
+      className="FeedCardFrame-FrameHeader"
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+            }
+          }
+        >
+          <div>
+            <a
+              href="/students/32"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Pluto
+               
+              Skywalker
+            </a>
+          </div>
+          <div>
+            3rd grade
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/32"
+              >
+                HEA-011
+              </a>
+              <span>
+                <span>
+                   
+                </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:alex@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Alex Teacher
+                </a>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+            "textAlign": "right",
+          }
+        }
+      >
+        <div>
+          <div>
+            by
+          </div>
+        </div>
+        <div>
+          <div>
+            where
+          </div>
+        </div>
+        <div>
+          <div>
+            when
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginTop": 20,
+        }
+      }
+    >
+      kids
+    </div>
+    <div
+      className="FeedCardFrame-footer"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div />
+      <div>
+        badges
+      </div>
+    </div>
+  </div>
+</div>
+`;

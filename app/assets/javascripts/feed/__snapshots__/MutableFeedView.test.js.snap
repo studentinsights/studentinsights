@@ -53,6 +53,7 @@ exports[`MutableFeedView pure component matches snapshot 1`] = `
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -129,6 +130,7 @@ exports[`MutableFeedView pure component matches snapshot 1`] = `
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -263,6 +265,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -334,6 +337,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -480,6 +484,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -551,6 +556,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -697,6 +703,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -792,6 +799,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -924,6 +932,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -995,6 +1004,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -1141,6 +1151,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1212,6 +1223,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -1358,6 +1370,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1429,6 +1442,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -1575,6 +1589,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1651,6 +1666,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -1783,6 +1799,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -1878,6 +1895,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -2010,6 +2028,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2081,6 +2100,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -2227,6 +2247,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2298,6 +2319,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -2444,6 +2466,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2515,6 +2538,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -2661,6 +2685,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2756,6 +2781,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -2888,6 +2914,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -2959,6 +2986,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -3105,6 +3133,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3176,6 +3205,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -3322,6 +3352,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3393,6 +3424,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -3539,6 +3571,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3610,6 +3643,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -3756,6 +3790,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -3832,6 +3867,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >
@@ -3964,6 +4000,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       }
     >
       <div
+        className="FeedCardFrame-FrameHeader"
         style={
           Object {
             "alignItems": "flex-start",
@@ -4035,6 +4072,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "alignItems": "flex-end",
               "display": "flex",
               "flexDirection": "column",
+              "textAlign": "right",
             }
           }
         >

@@ -16,6 +16,8 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
+import CounselorMeetingsPage from '../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage';
+import TransitionsPage from '../app/assets/javascripts/transitions/TransitionsPage';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -33,6 +35,9 @@ jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage'
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
 jest.mock('../app/assets/javascripts/student_profile/StudentProfilePage');
+jest.mock('../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage');
+jest.mock('../app/assets/javascripts/transitions/TransitionsPage');
+
 
 
 function renderPath(path, options = {}) {
@@ -167,7 +172,22 @@ it('renders edit classlist', () => {
 it('renders list of classlists', () => {
   const wrapper = mount(renderPath('/classlists'));
   expect(wrapper.contains(
-    <ClassListsViewPage currentEducatorId={9999} />
+    <ClassListsViewPage
+      currentEducatorId={9999}
+      useTextLinks={false}
+      includeHistorical={false}
+    />
+  )).toEqual(true);
+});
+
+it('renders list of classlists, respecting query', () => {
+  const wrapper = mount(renderPath('/classlists?text&historical'));
+  expect(wrapper.contains(
+    <ClassListsViewPage
+      currentEducatorId={9999}
+      useTextLinks={true}
+      includeHistorical={true}
+    />
   )).toEqual(true);
 });
 
@@ -192,6 +212,20 @@ it('renders student profile v4', () => {
     />
   )).toEqual(true);
 });
+
+it('renders counselor meetings page', () => {
+  const wrapper = mount(renderPath('/counselors/meetings'));
+  expect(wrapper.contains(
+    <CounselorMeetingsPage currentEducatorId={9999} />
+  )).toEqual(true);
+});
+
+it('renders counselor meetings page', () => {
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/counselors/transitions', {educator}));
+  expect(wrapper.contains(<TransitionsPage />)).toEqual(true);
+});
+
 
 describe('unknown route', () => {
   it('reports to Rollbar', () => {

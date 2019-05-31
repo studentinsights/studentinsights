@@ -11,7 +11,8 @@ import NotesList from './NotesList';
 
 function testProps(props = {}) {
   return {
-    currentEducatorId: 1,
+    currentEducator: studentProfile.educatorsIndex[1],
+    student: studentProfile.student,
     feed: feedForTestingNotes,
     educatorsIndex: studentProfile.educatorsIndex,
     onSaveNote: jest.fn(),
@@ -25,6 +26,8 @@ function feedWithEventNotesJson(eventNotesJson) {
   return {
     transition_notes: [],
     homework_help_sessions: [],
+    bedford_end_of_year_transitions: [],
+    second_transition_notes: [],
     services: {
       active: [],
       discontinued: []
@@ -92,7 +95,7 @@ function testRender(props) {
 }
 
 function readNoteTimestamps(el) {
-  return $(el).find('.NoteCard .date').toArray().map(dateEl => {
+  return $(el).find('.NoteShell .date').toArray().map(dateEl => {
     return moment.parseZone($(dateEl).text(), 'MMM DD, YYYY').toDate().getTime();
   });
 }
@@ -108,7 +111,7 @@ it('with full historical data, renders everything on the happy path', () => {
   const noteTimestamps = readNoteTimestamps(el);
   expect(_.head(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
   expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
-  expect($(el).find('.NoteCard').length).toEqual(5);
+  expect($(el).find('.NoteShell').length).toEqual(5);
 
   expect(el.innerHTML).toContain('Behavior Plan');
   expect(el.innerHTML).toContain('Attendance Officer');
@@ -124,20 +127,22 @@ it('with full historical data, renders everything on the happy path', () => {
 
 it('limits visible notes by default', () => {
   const el = testRender(testProps());
-  expect($(el).find('.NoteCard').length).toEqual(1);
+  expect($(el).find('.NoteShell').length).toEqual(1);
   expect($(el).find('.CleanSlateMessage').length).toEqual(1);
 });
 
 it('allows anyone to click and see older notes', () => {
   const el = testRender(testProps());
-  expect($(el).find('.NoteCard').length).toEqual(1);
+  expect($(el).find('.NoteShell').length).toEqual(1);
   ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage a').get(0));
-  expect($(el).find('.NoteCard').length).toEqual(5);
+  expect($(el).find('.NoteShell').length).toEqual(5);
 });
 
 it('allows editing a note you wrote', () => {
   const el = testRender(testProps({
-    currentEducatorId: 1,
+    currentEducator: {
+      id: 1
+    },
     feed: feedWithEventNotesJson([{
       "id": 3,
       "student_id": 5,
@@ -158,7 +163,9 @@ it('allows editing a note you wrote', () => {
 
 it('does not allow editing notes written by someone else', () => {
   const el = testRender(testProps({
-    currentEducatorId: 999,
+    currentEducator: {
+      id: 999
+    },
     feed: feedWithEventNotesJson([{
       "id": 3,
       "student_id": 5,
@@ -222,7 +229,41 @@ describe('flattened forms', () => {
     expect($(el).find('.NoteText').length).toEqual(1);
     expect($(el).find('.EditableNoteText').length).toEqual(0);
     expect($(el).text()).toContain('What I want my teachers to know');
-    expect($(el).find('.NoteCard a').length).toEqual(0);
+    expect($(el).find('.NoteShell a').length).toEqual(0);
     expect($(el).find('.NoteText').text()).toEqual('💬 From the "What I want my teachers to know" student voice survey 💬\n\n<text>');
   });
+});
+
+it('works for Bedford transition notes', () => {
+  const el = testRender(testProps({
+    feed: {
+      ...feedWithEventNotesJson([]),
+      bedford_end_of_year_transitions: [{
+        "id": 3,
+        "student_id": 5,
+        "form_timestamp": "2018-03-13T11:03:00.000Z",
+        "form_key": "bedford_end_of_year_transition_one",
+        "form_url": "https://example.com/form_url",
+        "form_json": {
+          "LLI": "yes",
+          "Reading Intervention (w/ specialist)": null,
+          "Math Intervention (w/ consult from SD)": "yes",
+          "Please share any specific information you want the teacher to know beyond the report card. This could include notes on interventions, strategies, academic updates that aren't documented in an IEP or 504. If information is in a file please be sure to link it here or share w/ Jess via google doc folder or paper copy": "Nov- Dec: 3x30 1:4 pull out Reading group (PA and fundations)",
+          "Is there any key information that you wish you knew about this student in September?": null,
+          "Please share anything that helped you connect with this student that might be helpful to the next teacher.": "Garfield enjoyed sharing special time reading together for a few minutes at the end of the day."
+        },
+        "educator_id": 2,
+        "created_at": "2016-05-30T17:09:26.029Z",
+        "updated_at": "2016-05-30T17:25:17.623Z",
+        "educator": {
+          "id": 2,
+          "email": "vivian@demo.studentinsights.org",
+          "full_name": "Teacher, Vivian"
+        }
+      }]
+    }
+  }));
+  expect($(el).find('.BedfordTransitionSubstanceForProfile').length).toEqual(1);
+  expect($(el).find('.EditableNoteText').length).toEqual(0);
+  expect($(el).text()).toContain('Transition information');
 });

@@ -7,23 +7,64 @@ exports[`snapshots 1`] = `
       onClick={[Function]}
       style={
         Object {
+          "alignItems": "center",
           "backgroundColor": "white",
           "border": "1px solid #eee",
           "borderRadius": 3,
           "cursor": "default",
           "display": "flex",
           "fontSize": 14,
-          "justifyContent": "space-between",
-          "padding": 6,
+          "padding": 5,
         }
       }
     >
-      <span>
-        Skywalker
-        , 
-        Garfield
-      </span>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+          }
+        }
+      >
+        <div
+          className="StudentPhotoCropped"
+          style={
+            Object {
+              "backgroundColor": "#ddd",
+              "backgroundImage": "url(/classlists/foo-workspace-id/students/1/photo)",
+              "backgroundPosition": "center top",
+              "backgroundPositionY": -10,
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "150%",
+              "border": "1px solid #ddd",
+              "borderRadius": 3,
+              "height": 32,
+              "marginRight": 10,
+              "overflow": "hidden",
+              "width": 32,
+            }
+          }
+        />
+        <div
+          style={
+            Object {
+              "alignContent": "center",
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "justifyContent": "center",
+            }
+          }
+        >
+          Skywalker
+          , 
+          Garfield
+        </div>
+      </div>
       <svg
+        className="MoreDots"
         fill="#ccc"
         height="18"
         viewBox="0 0 24 24"

@@ -8,7 +8,8 @@ export const actions = PropTypes.shape({
   onCreateNewNote: PropTypes.func.isRequired,
   onDeleteEventNoteAttachment: PropTypes.func.isRequired,
   onSaveService: PropTypes.func.isRequired,
-  onDiscontinueService: PropTypes.func.isRequired
+  onDiscontinueService: PropTypes.func.isRequired,
+  onSecondTransitionNoteAdded: PropTypes.func.isRequired
 });
 
 export const requests = PropTypes.shape({
@@ -31,6 +32,7 @@ export const feed = PropTypes.shape({
   homework_help_sessions: PropTypes.array,
   fall_student_voice_surveys: PropTypes.array,
   flattened_forms: PropTypes.array,
+  bedford_end_of_year_transitions: PropTypes.array,
   services: PropTypes.shape({
     active: PropTypes.array.isRequired,
     discontinued: PropTypes.array.isRequired

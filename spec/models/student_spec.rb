@@ -117,6 +117,46 @@ RSpec.describe Student do
     end
   end
 
+  describe '#winter_reading_doc' do
+    let!(:pals) { TestPals.create! }
+    let!(:time_now) { pals.time_now }
+    let!(:school_year) { SchoolYear.to_school_year(time_now) }
+    let!(:student) { FactoryBot.create(:student, grade: '1') }
+    before do
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :dibels_dorf_wpm,
+        json: { value: 101 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :dibels_dorf_acc,
+        json: { value: 96 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :spring,
+        benchmark_assessment_key: :f_and_p_english,
+        json: { value: 'B' }
+      })
+    end
+
+    it 'queries correctly, only for period' do
+      expect(student.winter_reading_doc(time_now: time_now)).to eq({
+        'dibels_dorf_acc' => 96,
+        'dibels_dorf_wpm' => 101,
+      })
+    end
+  end
+
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryBot.create(:student) }
     let(:assessment_family) { "MCAS" }

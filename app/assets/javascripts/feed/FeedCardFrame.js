@@ -12,33 +12,15 @@ import {gradeText} from '../helpers/gradeText';
 export default class FeedCardFrame extends React.Component {
   render() {
     const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl, hidePhoto} = this.props;
-    const {homeroom, school} = student;
-    const shouldShowHomeroom = homeroom && school && isHomeroomMeaningful(school.school_type);
-    const shouldShowPhoto = (student.has_photo && !hidePhoto);
     return (
       <Card className="FeedCardFrame" style={style}>
-        <div style={styles.header}>
-          <div style={{display: 'flex'}}>
-            {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
-            <div style={styles.studentHeader}>
-              <div>
-                <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
-              </div>
-              <div>{gradeText(student.grade)}</div>
-              <div>
-                {shouldShowHomeroom && <Homeroom
-                  id={homeroom.id}
-                  name={homeroom.name}
-                  educator={homeroom.educator} />}
-              </div>
-            </div>
-          </div>
-          <div style={styles.by}>
-            <div>{byEl}</div>
-            <div>{whereEl}</div>
-            <div>{whenEl}</div>
-          </div>
-        </div>
+        <FrameHeader
+          student={student}
+          byEl={byEl}
+          whereEl={whereEl}
+          whenEl={whenEl}
+          hidePhoto={hidePhoto}
+        />
         <div style={styles.body}>
           {children}
         </div>
@@ -103,7 +85,8 @@ const styles = {
   by: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    textAlign: 'right'
   },
   footer: {
     display: 'flex',
@@ -114,3 +97,59 @@ const styles = {
     fontWeight: 'bold'
   }
 };
+
+
+function FrameHeader(props) {
+  const {student, byEl, whereEl, whenEl, hidePhoto} = props;
+  const {homeroom, school} = student;
+  const shouldShowHomeroom = homeroom && school && isHomeroomMeaningful(school.school_type);
+  const shouldShowPhoto = (student.has_photo && !hidePhoto);
+  return (
+    <div style={styles.header} className="FeedCardFrame-FrameHeader">
+      <div style={{display: 'flex'}}>
+        {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
+        <div style={styles.studentHeader}>
+          <div>
+            <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+          </div>
+          <div>{gradeText(student.grade)}</div>
+          <div>
+            {shouldShowHomeroom && <Homeroom
+              id={homeroom.id}
+              name={homeroom.name}
+              educator={homeroom.educator} />}
+          </div>
+        </div>
+      </div>
+      <div style={styles.by}>
+        <div>{byEl}</div>
+        <div>{whereEl}</div>
+        <div>{whenEl}</div>
+      </div>
+    </div>
+  );
+}
+FrameHeader.propTypes = {
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    grade: PropTypes.any.isRequired,
+    house: PropTypes.string,
+    has_photo: PropTypes.bool,
+    school: PropTypes.shape({
+      local_id: PropTypes.string.isRequired,
+      school_type: PropTypes.string.isRequired
+    }),
+    homeroom: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      educator: PropTypes.object
+    })
+  }).isRequired,
+  byEl: PropTypes.node,
+  whereEl: PropTypes.node,
+  whenEl: PropTypes.node,
+  hidePhoto: PropTypes.bool
+};
+

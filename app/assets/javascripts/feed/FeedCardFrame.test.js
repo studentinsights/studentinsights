@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import FeedCardFrame from './FeedCardFrame';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
@@ -62,14 +63,18 @@ function testProps(student) {
   };
 }
 
-function testRender(props = {}, context = {}) {
+function testEl(props = {}, context = {}) {
   const districtKey = context.districtKey || 'somerville';
-  const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(
+  return withDefaultNowContext(
     <PerDistrictContainer districtKey={districtKey}>
       <FeedCardFrame {...props} />
     </PerDistrictContainer>
-  ), el);
+  );
+}
+
+function testRender(props = {}, context = {}) {
+  const el = document.createElement('div');
+  ReactDOM.render(testEl(props, context), el);
   return el;
 }
 
@@ -92,3 +97,15 @@ it('renders homeroom for ESMS', () => {
   expect($(el).text()).toContain('with Alex Teacher');
 });
 
+
+it('matches all snapshots', () => {
+  const tree = renderer
+    .create(
+      <div>
+        {testEl(testProps(testStudent()))}
+        {testEl(testProps(testStudentElementary()))}
+      </div>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});

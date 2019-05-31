@@ -10,7 +10,7 @@ export const DEMO = 'demo';
 export function hasStudentPhotos(districtKey) {
   if (districtKey === SOMERVILLE) return true;
   if (districtKey === BEDFORD) return true;
-  if (districtKey === NEW_BEDFORD) return false;
+  if (districtKey === NEW_BEDFORD) return true;
   return false;
 }
 
@@ -268,6 +268,38 @@ export function enhancedStudentPhotoStyles(districtKey) {
       backgroundPositionY: -5
     };
   }
+  
+  if (districtKey === NEW_BEDFORD) {
+    return {
+      backgroundSize: '110%',
+      backgroundPositionY: -10
+    };
+  }
 
-  return {};
+  return {
+    backgroundSize: '100%'
+  };
+}
+
+// For shorter names and prettier UI
+export function shortSchoolName(districtKey, schoolLocalId) {
+  if (districtKey !== SOMERVILLE) {
+    throw new Error(`unsupported districtKey: ${districtKey}`);
+  }
+
+  return {
+    BRN: 'Brown',
+    HEA: 'Healey',
+    KDY: 'Kennedy',
+    AFAS: 'Argenziano',
+    ESCS: 'East',
+    WSNS: 'West',
+    WHCS: 'Winter Hill',
+    NW: 'Next Wave',
+    SHS: 'Somerville High',
+    FC: 'Full Circle',
+    CAP: 'Capuano',
+    PIC: 'Parent PIC',
+    SPED: 'Special Education'
+  }[schoolLocalId] || 'Unknown school';
 }

@@ -6,12 +6,14 @@ import {
   low
 } from '../helpers/colors';
 
+// See also `readingData.js`
 const range = [
   'A'.charCodeAt(),
   'Z'.charCodeAt()
 ];
 
 // Not generalized; fixed to one particular grade and period right now.
+// See also `readingData.js`
 export default function FountasAndPinnellLevelChart({levels, height, markerWidth = 3, style = {}}) {
   const risk = ('J'.charCodeAt() - range[0]) / (range[1] - range[0]);
   const benchmark = ('N'.charCodeAt() - range[0]) / (range[1] - range[0]);

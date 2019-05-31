@@ -243,11 +243,21 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     it 'works when match' do
       maybe_assignment_record = make_importer.send(:matching_insights_record_for_row, {
         login_name: 'pmartinez',
-        section_number: section.section_number
+        section_number: section.section_number,
+        term_local_id: section.term_local_id
       })
       expect(maybe_assignment_record.persisted?).to eq false
       expect(maybe_assignment_record.educator_id).to eq educator.id
       expect(maybe_assignment_record.section_id).to eq section.id
+    end
+
+    it 'does not match when different term_local_id' do
+      maybe_assignment_record = make_importer.send(:matching_insights_record_for_row, {
+        login_name: 'pmartinez',
+        section_number: section.section_number,
+        term_local_id: 'Q1'
+      })
+      expect(maybe_assignment_record).to eq nil
     end
   end
 end

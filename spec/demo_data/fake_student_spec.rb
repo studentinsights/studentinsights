@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe FakeStudent do
-
+  before { TestPals.create! }
   let!(:school) { FactoryBot.create(:school) }
   let!(:homeroom) { FactoryBot.create(:homeroom, grade: '5') }
   before { FactoryBot.create(:educator, :admin) }

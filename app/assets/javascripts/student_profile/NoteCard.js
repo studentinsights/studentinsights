@@ -2,17 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import * as Routes from '../helpers/Routes';
 import {linkBlue, strongOrange} from '../helpers/colors';
 import {ERROR, PENDING} from '../helpers/requestStates';
 import {formatEducatorName} from '../helpers/educatorName';
 import Nbsp from '../components/Nbsp';
-import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
+import NoteShell from '../components/NoteShell';
+import Educator from '../components/Educator';
 import NotifyAboutError from '../components/NotifyAboutError';
 import EditableNoteText from '../components/EditableNoteText';
 import RestrictedNotePresence from './RestrictedNotePresence';
 import ModalSmall from './ModalSmall';
+
 
 // This renders a single card for a Note of any type.
 export default class NoteCard extends React.Component {
@@ -21,12 +22,6 @@ export default class NoteCard extends React.Component {
 
     this.onTextChanged = this.onTextChanged.bind(this);
     this.debouncedSave = _.debounce(this.debouncedSave, 500);
-  }
-
-  educator() {
-    const {educatorId, educatorsIndex} = this.props;
-    if (!educatorId) return null;
-    return educatorsIndex[educatorId];
   }
 
   // <EditableNoteText /> is uncontrolled, so it tracks
@@ -53,33 +48,30 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
-    const {includeStudentPanel} = this.props;
-    const educator = this.educator();
+    const {noteMoment, badgeEl, educator, substanceOnly} = this.props;
+
+    if (substanceOnly) return this.renderSubstanceEl();
+
     return (
-      <div className="wrapper" style={styles.wrapper}>
-        {includeStudentPanel && this.renderStudentCard()}
-        <div className="NoteCard" style={styles.note}>
-          <div style={styles.titleLine}>
-            <span className="date" style={styles.date}>
-              {this.props.noteMoment.format('MMMM D, YYYY')}
-            </span>
-            {this.props.badge}
-            {educator && (
-              <span style={styles.educator}>
-                <Educator educator={educator} />
-              </span>
-            )}
-          </div>
-          <div style={styles.text}>
-            {this.renderNoteSubstanceOrRedaction()}
-            <div style={styles.footer}>
-              {this.renderLastRevisedAt()}
-              {this.renderRequestState()}
-            </div>
-          </div>
-          {this.renderAttachmentUrls()}
+      <NoteShell
+        whenEl={noteMoment.format('MMMM D, YYYY')}
+        badgeEl={badgeEl}
+        educatorEl={<Educator educator={educator} />}
+        substanceEl={this.renderSubstanceEl()}
+      />
+    );
+  }
+
+  renderSubstanceEl() {
+    return (
+      <div className="NoteCard-substance">
+        {this.renderNoteSubstanceOrRedaction()}
+        <div style={styles.footer}>
+          {this.renderLastRevisedAt()}
+          {this.renderRequestState()}
         </div>
-      </div>        
+        {this.renderAttachmentUrls()}
+      </div>
     );
   }
 
@@ -106,19 +98,18 @@ export default class NoteCard extends React.Component {
     );
   }
 
-  // The student name may or not be present.
   renderRestrictedNoteRedaction() {
-    const {student, urlForRestrictedNoteContent} = this.props;
-    const educatorName = formatEducatorName(this.educator());
+    const {educator, fetchRestrictedText} = this.props;
+    const educatorName = formatEducatorName(educator);
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
       : educatorName;
     
     return (
       <RestrictedNotePresence
-        studentFirstName={student ? student.first_name : null}
+        studentFirstName={null} // The student name isn't passed
         educatorName={educatorFirstNameOrEmail}
-        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        fetchRestrictedText={fetchRestrictedText}
       />
     );
   }
@@ -224,74 +215,19 @@ export default class NoteCard extends React.Component {
       </a>
     );
   }
-
-  renderHomeroomOrGrade(student) {
-    if (student.grade < 9) {
-      if (student.homeroom_id) {
-        return (
-          <p><a
-            className="homeroom-link"
-            href={Routes.homeroom(student.homeroom_id)}>
-            {'Homeroom ' + student.homeroom_name}
-          </a></p>
-        );
-      }
-      else {
-        return (
-          <p>No Homeroom</p>
-        );
-      }
-    }
-    else {
-      return (
-        <p>{student.grade}th Grade</p>
-      );
-    }
-  }
-
-  renderSchool(student) {
-    if (student.school_id) {
-      return (
-        <p><a
-          className="school-link"
-          href={Routes.school(student.school_id)}>
-          {student.school_name}
-        </a></p>
-      );
-    }
-    else {
-      return (
-        <p>No School</p>
-      );
-    }
-  }
-
-  renderStudentCard() {
-    const {student} = this.props;
-    if (student) {
-      return (
-        <div className="studentCard" style={styles.studentCard}>
-          <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
-            {student.last_name}, {student.first_name}
-          </a></p>
-          {this.renderSchool(student)}
-          {this.renderHomeroomOrGrade(student)}
-        </div>
-      );
-    }
-  }
 }
 NoteCard.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 NoteCard.propTypes = {
-  attachments: PropTypes.array.isRequired,
-  badge: PropTypes.element.isRequired,
-  educatorId: PropTypes.number,
-  educatorsIndex: PropTypes.object.isRequired,
   noteMoment: PropTypes.instanceOf(moment).isRequired,
+  badgeEl: PropTypes.node.isRequired,
+  educator: PropTypes.object.isRequired,
+
+  // Substance
   text: PropTypes.string.isRequired,
   lastRevisedAtMoment: PropTypes.instanceOf(moment),
+  attachments: PropTypes.array.isRequired,
 
   // For editing eventNote only
   eventNoteId: PropTypes.number,
@@ -302,57 +238,14 @@ NoteCard.propTypes = {
 
   // Configuring for different uses
   showRestrictedNoteRedaction: PropTypes.bool,
-  urlForRestrictedNoteContent: PropTypes.string,
-  
-  // For side panel for my notes page
-  includeStudentPanel: PropTypes.bool,
-  student: PropTypes.object
+  fetchRestrictedText: PropTypes.func,
+  substanceOnly: PropTypes.bool
 };
 
 
 const styles = {
-  note: {
-    border: '1px solid #eee',
-    padding: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    width: '100%'
-  },
-  titleLine: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  date: {
-    display: 'inline-block',
-    width: '11em',
-    paddingRight: 10,
-    fontWeight: 'bold'
-  },
-  educator: {
-    paddingLeft: 5,
-    display: 'inline-block'
-  },
-  studentCard: {
-    border: '1px solid #eee',
-    padding: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    width: '25%'
-  },
-  studentName: {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    color: '#3177c9',
-    marginBottom: '5%'
-  },
-  wrapper: {
-    display: 'flex'
-  },
   restrictedNoteRedaction: {
     color: '#999'
-  },
-  text: {
-    marginTop: 10
   },
   footer: {
     display: 'flex',
