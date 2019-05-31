@@ -266,6 +266,4 @@ it('works for Bedford transition notes', () => {
   expect($(el).find('.BedfordTransitionSubstanceForProfile').length).toEqual(1);
   expect($(el).find('.EditableNoteText').length).toEqual(0);
   expect($(el).text()).toContain('Transition information');
-  expect($(el).find('.NoteShell a').length).toEqual(0);
-  expect($(el).find('.NoteText').text()).toEqual('💬 From the "What I want my teachers to know" student voice survey 💬\n\n<text>');
-})
+});

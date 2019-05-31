@@ -680,7 +680,7 @@ describe ProfileController, :type => :controller do
 
     it 'returns bedford_end_of_year_transitions with expected shape' do
       pals = TestPals.create!
-      
+
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
       feed = controller.send(:student_feed, pals.healey_kindergarten_student)
       bedford_end_of_year_transitions = feed[:bedford_end_of_year_transitions]
