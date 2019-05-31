@@ -6,7 +6,7 @@ import chroma from 'chroma-js';
 import lunr from 'lunr';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {high, medium, low} from '../helpers/colors';
-import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {toMoment, toMomentFromTimestamp} from '../helpers/toMoment';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import tableStyles from '../components/tableStyles';
@@ -29,7 +29,7 @@ export default class ReaderProfileJune extends React.Component {
     const {id} = student;
     return (
       <div className="ReaderProfileJune">
-        <SectionHeading>Reader Profile (June)</SectionHeading>
+        <SectionHeading>Reader Profile (June v2)</SectionHeading>
         <GenericLoader
           promiseFn={() => apiFetchJson(`/api/students/${id}/reader_profile_json`)}
           render={json => this.renderJson(json)} />
@@ -65,42 +65,54 @@ export default class ReaderProfileJune extends React.Component {
 
     // return this.renderTable(notes, grade, currentSchoolYear, dataPointsByAssessmentKey);
 
-    return this.renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey)
+    return this.renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey);
   }
 
   renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey) {
+    const {nowFn} = this.context;
+    console.log('renderChart', nowFn(), toMoment('2018-12-19'));
     return (
       <div style={{marginTop: 10}}>
-        <Ingredient name="Engagement and identity" color="lightskyblue">
+        <Ingredient name="Engage as a reader" color="#4db1f0">
           <Sub name="within class" />
           <Sub name="outside school" />
         </Ingredient>
-        <Ingredient name="Communicate with oral language" color="lightsalmon">
+        <Ingredient name="Communicate with oral language" color="#f06060">
           <Sub name="expressive" />
           <Sub name="receptive" />
         </Ingredient>
-        <Ingredient name="Speak and listen in English" color="#f06060">
+        <Ingredient name="Speak and listen in English" color="rgba(140, 17, 140, 0.57)">
           <Sub name="spoken" />
           <Sub name="written" />
         </Ingredient>
-        <Ingredient name="Discriminate Sounds in Words" color="rgba(140, 17, 140, 0.57)">
+        <Ingredient name="Discriminate Sounds in Words" color="rgb(227, 121, 58)">
           <Sub
             name="blending"
-            diagnostic="PAST"
+            diagnostic={<Chip
+              nowMoment={nowFn()}
+              concernKey="high"
+              atMoment={toMoment('12/19/2018')}
+              el="PAST"
+            />}
             interventions="Heggerty" />
           <Sub
             name="deleting"
-            diagnostic="PAST"
             interventions="Heggerty" />
           <Sub
             name="substituting"
-            diagnostic="PAST"
-            interventions="Heggerty" />
+            interventions="Heggerty"
+            diagnostic={<Chip
+              nowMoment={nowFn()}
+              concernKey="medium"
+              atMoment={toMoment('5/19/2019')}
+              el="PAST"
+            />}
+          />
         </Ingredient>
         <Ingredient
           name="Represent Sounds with Letters"
-          color="rgb(93, 214, 79)"
-          childrenStyle={{borderBottom: '3px solid rgb(93, 214, 79)'}}>
+          color="rgb(100, 186, 91)"
+          childrenStyle={{borderBottom: '3px solid rgb(100, 186, 91)'}}>
           <Sub name="letters" diagnostic="Lively letters" />
           <Sub name="accurate" />
           <Sub name="fluent" />
@@ -323,7 +335,9 @@ export default class ReaderProfileJune extends React.Component {
     );
   }
 }
-
+ReaderProfileJune.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 ReaderProfileJune.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -441,8 +455,10 @@ function createHighlight(text, start, length) {
   );
 }
 
+
 function Ingredient(props) {
-  const {name, color, children, childrenStyle} = props;
+  const {name, children, childrenStyle} = props;
+  const color = chroma(props.color).alpha(0.25).desaturate(0.75).hex();
   return (
     <div className="Ingredient">
       <div style={{padding: 2, background: color, borderRadius: 30}}>
@@ -468,8 +484,8 @@ function Ingredient(props) {
 
 function Sub(props) {
   const {name, screener, diagnostic, interventions, notes} = props;
-  const nameCell = { width: 100, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' };
-  const cell = { width: 200, height: 40, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' };
+  const nameCell = { width: 150, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' };
+  const cell = { width: 180, height: 40, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' };
   const missingEl = (text) => <div style={{...cell, color: '#ccc'}}>+{text}</div>;
   return (
     <div className="Sub" style={{display: 'flex', flexDirection: 'row'}}>
@@ -477,7 +493,40 @@ function Sub(props) {
       <div style={cell}>{screener || missingEl('screener')}</div>
       <div style={cell}>{diagnostic || missingEl('diagnostic')}</div>
       <div style={cell}>{interventions || missingEl('interventions')}</div>
-      <div style={cell}>{notes || missingEl('notes')}</div>
+      <div style={{...cell, flex: 1}}>{notes || missingEl('notes')}</div>
     </div>
   );
+}
+
+function Chip(props) {
+  const {nowMoment, atMoment, concernKey, el} = props;
+  const daysAgo = nowMoment.clone().diff(atMoment, 'days');
+  const bucket = bucketForChip(daysAgo);
+  const freshnessStyle = {
+    months: {opacity: 1.0},
+    year: {opacity: 0.4},
+    old: {opacity: 0.1}
+  }[bucket];
+  const concernStyle = {
+    low: {backgroundColor: high},
+    medium: {backgroundColor: medium},
+    high: {backgroundColor: low}
+  }[concernKey];
+  const title = [
+    `Freshness: ${daysAgo} days ago`,
+    `Concern: ${concernKey}`
+  ].join("\n");
+  return (
+    <div className="Chip" title={title} style={{
+      padding: 5,
+      ...freshnessStyle,
+      ...concernStyle
+    }}>{el}</div>
+  );
+}
+
+function bucketForChip(daysAgo) {
+  if (daysAgo <= 90) return 'months';
+  if (daysAgo <= 365) return 'year';
+  return 'old';
 }
