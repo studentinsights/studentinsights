@@ -10,9 +10,7 @@ class ReaderProfile
     profile = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/profile.json'))
     event_notes = profile['feed']['event_notes']
 
-    # student_id = benchmark_data_points.sample(1).first['student_id']
-    # student_id = 5738 7204
-    student_id = 7204
+    student_id = benchmark_data_points.sample(1).first['student_id']
     {
       student_id: student_id,
       grade: 'KF',
