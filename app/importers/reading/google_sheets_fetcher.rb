@@ -10,7 +10,7 @@
 # 8. Create Key - this will provide the values used in the environment variables
 # 9. Create a folder on Google Drive to group items for the script to download
 # 10. Share this folder with the service account email (found on the project page or in the key in step 8)
-# 11. Add the folder name to the list of folders in reading_sheets_fetcher.rb
+# 11. Use the folder id (the last part of the folder url) reading_sheets_fetcher.rb
 # 12. Set the following environment variables from the key in step 8: GOOGLE_ACCOUNT_TYPE, GOOGLE_CLIENT_EMAIL, GOOGLE_CLIENT_ID, GOOGLE_PRIVATE_KEY
 
 require 'google/apis/drive_v3'
@@ -24,25 +24,19 @@ class GoogleSheetsFetcher
   APPLICATION_NAME = 'Student Insights'.freeze
   SCOPE = [Google::Apis::DriveV3::AUTH_DRIVE_READONLY, Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY]
 
-  def getSheetsFromFolder(folder_name)
+  def getSheetsFromFolder(folder_id)
     auth = Google::Auth.get_application_default(scope: SCOPE)
-    sheet_ids = getSheetIds(auth, folder_name)
+    sheet_ids = getSheetIds(auth, folder_id)
     downloadSheetsAsCVS(auth, sheet_ids)
   end
 
   private
-  def getSheetIds(auth, folder_name)
+  def getSheetIds(auth, folder_id)
     # initialize drive API
     drive_service = Google::Apis::DriveV3::DriveService.new
     drive_service.client_options.application_name = APPLICATION_NAME
     drive_service.authorization = auth
 
-    # Get folder ID
-    selected_folder = drive_service.list_files(q: "name = '#{folder_name}'",
-                                        fields: 'files(id, name)')
-    folder_id = selected_folder.files[0].id
-
-    # Get GIDs for all Spreadsheets in folder
     drive_service.list_files(q: "'#{folder_id}' in parents",
                                       fields: 'files(id, name)')
   end
