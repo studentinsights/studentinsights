@@ -24,14 +24,14 @@ class GoogleSheetsFetcher
   APPLICATION_NAME = 'Student Insights'.freeze
   SCOPE = [Google::Apis::DriveV3::AUTH_DRIVE_READONLY, Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY]
 
-  def getSheetsFromFolder(folder_id)
+  def get_sheets_from_folder(folder_id)
     auth = Google::Auth.get_application_default(scope: SCOPE)
-    sheet_ids = getSheetIds(auth, folder_id)
-    downloadSheetsAsCVS(auth, sheet_ids)
+    sheet_ids = get_sheet_ids(auth, folder_id)
+    download_csvs(auth, sheet_ids)
   end
 
   private
-  def getSheetIds(auth, folder_id)
+  def get_sheet_ids(auth, folder_id)
     # initialize drive API
     drive_service = Google::Apis::DriveV3::DriveService.new
     drive_service.client_options.application_name = APPLICATION_NAME
@@ -41,7 +41,7 @@ class GoogleSheetsFetcher
                                       fields: 'files(id, name)')
   end
 
-  def downloadSheetsAsCVS(auth, sheet_ids)
+  def download_csvs(auth, sheet_ids)
     #Initialize sheets API
     sheet_service = Google::Apis::SheetsV4::SheetsService.new
     sheet_service.client_options.application_name = APPLICATION_NAME
