@@ -20,7 +20,7 @@ class ProfileController < ApplicationController
       teams: teams_json(student),
       ed_plans: ed_plans_json(student),
       profile_insights: ProfileInsights.new(student).as_json,
-      grades_reflection_insights: ProfileInsights.new(student).grades_reflection_insights.as_json,
+      grades_reflection_insights: ProfileInsights.new(student).from_q2_self_reflection.as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
@@ -97,6 +97,7 @@ class ProfileController < ApplicationController
       fall_student_voice_surveys: fall_student_voice_surveys_json(student.id),
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       flattened_forms: flattened_forms_json(student.id),
+      bedford_end_of_year_transitions: bedford_end_of_year_transitions(student.id),
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
@@ -148,5 +149,21 @@ class ProfileController < ApplicationController
     most_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
     return [] if most_recent_survey.nil?
     [most_recent_survey].as_json(methods: [:flat_text])
+  end
+
+  def bedford_end_of_year_transitions(student_id)
+    return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
+
+    form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    imported_form = ImportedForm.latest_for_student_id(student_id, form_key)
+    return [] if imported_form.nil?
+    json = imported_form.as_json({
+      include: {
+        educator: {
+          only: [:id, :email, :full_name]
+        }
+      }
+    })
+    [json]
   end
 end

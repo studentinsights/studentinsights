@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LightInsightQuote from './LightInsightQuote';
+import InsightQuote from './InsightQuote';
 import Team from '../components/Team';
 import FitText from '../components/FitText';
 
 
-// Render an insight about a strength from a transition note
-export default class LightInsightTeamMembership extends React.Component {
+// Render an insight about sports team membership
+export default class InsightAboutTeamMembership extends React.Component {
   render() {
     const {insightPayload, firstName} = this.props;
     const team = insightPayload;
     const isOrWas = team.active ? 'is' : 'was';
     return (
-      <LightInsightQuote
-        className="LightInsightTeamMembership"
+      <InsightQuote
+        className="InsightAboutTeamMembership"
         quoteEl={
           <FitText
             minFontSize={12}
@@ -32,7 +32,7 @@ export default class LightInsightTeamMembership extends React.Component {
     );
   }
 }
-LightInsightTeamMembership.propTypes = {
+InsightAboutTeamMembership.propTypes = {
   firstName: PropTypes.string.isRequired,
   insightPayload: PropTypes.shape({
     activity_text: PropTypes.string.isRequired,
@@ -43,4 +43,4 @@ LightInsightTeamMembership.propTypes = {
 };
 
 
-export const TEAM_MEMBERSHIP_INSIGHT_TYPE = 'team_membership';
+export const ABOUT_TEAM_MEMBERSHIP = 'about_team_membership';

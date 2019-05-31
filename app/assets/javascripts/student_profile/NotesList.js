@@ -13,6 +13,7 @@ import Educator from '../components/Educator';
 import NoteCard from './NoteCard';
 import SecondTransitionNoteInline from './SecondTransitionNoteInline';
 import {parseAndReRender} from './transitionNoteParser';
+import BedfordTransitionSubstanceForProfile from './BedfordTransitionSubstanceForProfile';
 import {fetchRestrictedTransitionNoteText, fetchRestrictedNoteText} from './RestrictedNotePresence';
 import CleanSlateMessage, {defaultSchoolYearsBack, filteredNotesForCleanSlate} from './CleanSlateMessage';
 
@@ -60,6 +61,7 @@ export default class NotesList extends React.Component {
             case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
             case 'flattened_forms': return this.renderFlattenedForm(mergedNote);
+            case 'bedford_end_of_year_transitions': return this.renderBedfordEndOfYearTransition(mergedNote);
             }
           })}
         {this.renderCleanSlateMessage()}
@@ -192,6 +194,25 @@ export default class NotesList extends React.Component {
         badgeEl="Homework Help"
         educatorEl={<Educator educator={educator} />}
         substanceEl={<NoteText text={text} />}
+      />
+    );
+  }
+
+  renderBedfordEndOfYearTransition(importedForm) {
+    const {educatorsIndex, student} = this.props;
+    const educator = educatorsIndex[importedForm.educator_id];
+    return (
+      <NoteShell
+        key={['bedford_end_of_year_transitions',importedForm.id].join()}
+        whenEl={whenText(importedForm.form_timestamp)}
+        badgeEl="Transition information"
+        educatorEl={<Educator educator={educator} />}
+        substanceEl={
+          <BedfordTransitionSubstanceForProfile
+            studentFirstName={student.first_name}
+            importedForm={importedForm}
+          />
+        }
       />
     );
   }

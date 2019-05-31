@@ -1,6 +1,8 @@
+# Storage mechanism for a variety of form types
 class ImportedForm < ApplicationRecord
   SHS_Q2_SELF_REFLECTION = 'shs_q2_self_reflection';
   SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR = 'shs_what_i_want_my_teacher_to_know_mid_year';
+  BEDFORD_END_OF_YEAR_TRANSITION_FORM = 'bedford_end_of_year_transition_one'
 
   belongs_to :student
   belongs_to :educator
@@ -13,7 +15,8 @@ class ImportedForm < ApplicationRecord
   validates :form_key, inclusion: {
     in: [
       SHS_Q2_SELF_REFLECTION,
-      SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
+      SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR,
+      BEDFORD_END_OF_YEAR_TRANSITION_FORM
     ]
   }
 
@@ -61,6 +64,15 @@ class ImportedForm < ApplicationRecord
         "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?",
         "What other information is important for your teachers to know so that we can support you and your learning? (For example, tutor, mentor, before school HW help, study group, etc)"
       ]
+    elsif form_key == BEDFORD_END_OF_YEAR_TRANSITION_FORM
+      [
+        'LLI',
+        'Reading Intervention (w/ specialist)',
+        'Math Intervention (w/ consult from SD)',
+        "Please share any specific information you want the teacher to know beyond the report card. This could include notes on interventions, strategies, academic updates that aren't documented in an IEP or 504. If information is in a file please be sure to link it here or share w/ Jess via google doc folder or paper copy",
+        "Is there any key information that you wish you knew about this student in September?",
+        "Please share anything that helped you connect with this student that might be helpful to the next teacher."
+      ]
     end
   end
 
@@ -69,6 +81,7 @@ class ImportedForm < ApplicationRecord
     form_title = case form_key
       when SHS_Q2_SELF_REFLECTION then 'Q2 Self-reflection'
       when SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR then 'What I want my teachers to know'
+      when BEDFORD_END_OF_YEAR_TRANSITION_FORM then 'Transition Information'
       else 'Student voice survey'
     end
 

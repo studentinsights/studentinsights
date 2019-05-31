@@ -5,38 +5,38 @@ import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import Educator from '../components/Educator';
 import NoteShell from '../components/NoteShell';
 import NoteText from '../components/NoteText';
-import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
+import {fontSizeStyle} from './InsightQuote';
+import InsightFromEducator from './InsightFromEducator';
 import {parseAndReRender} from './transitionNoteParser';
 
 
 // Render an insight about a strength from a transition note
-export default class LightInsightTransitionNoteStrength extends React.Component {
+export default class InsightFromFirstTransitionNoteStrength extends React.Component {
   render() {
-    const {insightPayload} = this.props;
-    const strengthsQuoteText = insightPayload.strengths_quote_text;
+    const {student, insightPayload} = this.props;
+    const promptText = `What are ${student.first_name}'s strengths?`;
+    const responseText = insightPayload.strengths_quote_text;
     const transitionNote = insightPayload.transition_note;
     const {educator} = transitionNote;
     const dateText = toMomentFromTimestamp(transitionNote.recorded_at).format('M/D/YY');
 
     return (
-      <LightInsightQuote
-        className="LightInsightTransitionNoteStrength"
-        quoteEl={`“${strengthsQuoteText}”`}
-        sourceEl={
+      <InsightFromEducator
+        promptText={promptText}
+        responseText={responseText}
+        educator={educator}
+        inWhatWhenEl={
           <div>
-            <div>from <Educator style={fontSizeStyle} educator={educator} /></div>
-            <div>
-              <span>in </span>
-              <HelpBubble
-                style={{margin: 0}}
-                modalStyle={modalFromRight}
-                linkStyle={fontSizeStyle}
-                teaser="Transition note"
-                title="Transition note"
-                content={this.renderTransitionNoteDialog(transitionNote, educator)}
-              />
-              <span> on {dateText}</span>
-            </div>
+            <span>in </span>
+            <HelpBubble
+              style={{margin: 0}}
+              modalStyle={modalFromRight}
+              linkStyle={fontSizeStyle}
+              teaser="Transition note"
+              title="Transition note"
+              content={this.renderTransitionNoteDialog(transitionNote, educator)}
+            />
+            <span> on {dateText}</span>
           </div>
         }
       />
@@ -56,7 +56,10 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
     );
   }
 }
-LightInsightTransitionNoteStrength.propTypes = {
+InsightFromFirstTransitionNoteStrength.propTypes = {
+  student: PropTypes.shape({
+    first_name: PropTypes.string.isRequired
+  }).isRequired,
   insightPayload: PropTypes.shape({
     strengths_quote_text: PropTypes.string.isRequired,
     transition_note: PropTypes.shape({
@@ -72,4 +75,4 @@ LightInsightTransitionNoteStrength.propTypes = {
 };
 
 
-export const TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE = 'transition_note_strength';
+export const FROM_FIRST_TRANSITION_NOTE_STRENGTH = 'from_first_transition_note_strength';

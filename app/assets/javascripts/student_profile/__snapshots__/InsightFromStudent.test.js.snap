@@ -2,13 +2,12 @@
 
 exports[`snapshots view 1`] = `
 <div
-  className="LightInsightQuote LightInsightImportedForm"
+  className="InsightQuote InsightFromStudent "
   style={
     Object {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
-      "style": undefined,
     }
   }
 >
@@ -49,7 +48,7 @@ exports[`snapshots view 1`] = `
             }
           }
         >
-          At the end of the quarter 3, what would make you most proud of your accomplishments in your course?
+          What are you excited about this year?
         </div>
         <div
           style={
@@ -62,10 +61,10 @@ exports[`snapshots view 1`] = `
           }
         >
           <mocked-fit-text
-            fontSizeStep={6}
+            fontSizeStep={4}
             maxFontSize={48}
             minFontSize={12}
-            text="“Keeping grades high in all classes since I'm worried about college”"
+            text="“I'm mostly looking forward to basketball season, we have a lot of good players this year.  And also graphic design, getting better at making digital art in Illustrator.”"
           />
         </div>
       </div>
@@ -85,18 +84,12 @@ exports[`snapshots view 1`] = `
       }
     }
   >
-    <div
-      style={
-        Object {
-          "color": "#333",
-        }
-      }
-    >
+    <div>
       <div>
         <div>
           from 
           <a
-            href="/students/9"
+            href="/students/42"
             rel="noopener noreferrer"
             style={
               Object {
@@ -113,32 +106,9 @@ exports[`snapshots view 1`] = `
         <div>
           <span>
             in 
-          </span>
-          <div
-            style={
-              Object {
-                "display": "inline",
-                "margin": 0,
-                "marginLeft": 10,
-              }
-            }
-          >
-            <a
-              href="#"
-              onClick={[Function]}
-              style={
-                Object {
-                  "fontSize": 12,
-                  "outline": "none",
-                }
-              }
-            >
-              Q2 Self-reflection
-            </a>
-          </div>
-          <span>
-             on 
-            3/6/18
+            <b>
+              Student voice survey
+            </b>
           </span>
         </div>
       </div>

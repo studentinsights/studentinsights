@@ -2,13 +2,12 @@
 
 exports[`snapshots view 1`] = `
 <div
-  className="LightInsightQuote LightInsightTeamMembership"
+  className="InsightQuote InsightAboutTeamMembership"
   style={
     Object {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
-      "style": undefined,
     }
   }
 >
@@ -73,13 +72,7 @@ exports[`snapshots view 1`] = `
       }
     }
   >
-    <div
-      style={
-        Object {
-          "color": "#333",
-        }
-      }
-    >
+    <div>
       <div>
         <div>
           with coach 

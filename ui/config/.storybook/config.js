@@ -24,16 +24,17 @@ function loadStories() {
   require('../../../app/assets/javascripts/feed/StudentVoiceCard.story');
 
   // student profile
+  require('../../../app/assets/javascripts/student_profile/BedfordTransitionSubstanceForProfile.story');
   require('../../../app/assets/javascripts/student_profile/DraftNote.story');
+  require('../../../app/assets/javascripts/student_profile/IepDialogLink.story');
+  require('../../../app/assets/javascripts/student_profile/InsightFromGenericImportedForm.story');
+  require('../../../app/assets/javascripts/student_profile/LanguageStatusLink.story');
+  require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
   require('../../../app/assets/javascripts/student_profile/NoteCard.story');
   require('../../../app/assets/javascripts/student_profile/RecordService.story');
-  require('../../../app/assets/javascripts/student_profile/StudentSectionsRoster.story');
-  require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
-  require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
-  require('../../../app/assets/javascripts/student_profile/LanguageStatusLink.story');
-  require('../../../app/assets/javascripts/student_profile/IepDialogLink.story');
-  require('../../../app/assets/javascripts/student_profile/LightInsightImportedForm.story');
   require('../../../app/assets/javascripts/student_profile/ReflectionsAboutGrades.story');
+  require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
+  require('../../../app/assets/javascripts/student_profile/StudentSectionsRoster.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');

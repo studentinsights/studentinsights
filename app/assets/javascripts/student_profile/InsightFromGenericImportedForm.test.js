@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import LightInsightImportedForm from './LightInsightImportedForm';
+import InsightFromGenericImportedForm from './InsightFromGenericImportedForm';
 
 
 function testProps(props = {}) {
@@ -26,7 +26,7 @@ function testProps(props = {}) {
 }
 
 function testEl(props = {}) {
-  return withDefaultNowContext(<LightInsightImportedForm {...props} />);
+  return withDefaultNowContext(<InsightFromGenericImportedForm {...props} />);
 }
 
 
