@@ -6,11 +6,10 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {maybeCapitalize} from '../helpers/pretty';
-import {shortSchoolName, supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
+import {shortSchoolName, supportsCounselor} from '../helpers/PerDistrict';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from './FilterStudentsBar';
@@ -108,7 +107,6 @@ export class TransitionsView extends React.Component {
         <FilterStudentsBar
           students={students}
           style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
-          includeHouse={supportsHouse(districtKey)}
           includeCounselor={supportsCounselor(districtKey)}>
           {filteredStudents => this.renderTable(filteredStudents)}
         </FilterStudentsBar>
@@ -145,7 +143,7 @@ export class TransitionsView extends React.Component {
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
-              width={250}
+              width={280}
             />
             <Column
               label='School'
@@ -158,13 +156,6 @@ export class TransitionsView extends React.Component {
               dataKey='grade'
               width={100}
             />
-            {supportsHouse(districtKey) &&
-              <Column
-                label='House'
-                dataKey='house'
-                cellRenderer={this.renderHouse}
-                width={120} />
-            }
             {supportsCounselor(districtKey) && 
               <Column
                 label='Counselor'
@@ -241,12 +232,12 @@ TransitionsView.propTypes = {
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
-    house: PropTypes.string,
     counselor: PropTypes.string,
     grade: PropTypes.string.isRequired,
     has_photo: PropTypes.bool.isRequired,
     school: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      local_id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
     }).isRequired,
   })).isRequired

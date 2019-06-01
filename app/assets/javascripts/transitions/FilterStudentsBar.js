@@ -71,8 +71,8 @@ export default class FilterStudentsBar extends React.Component {
       <EscapeListener className="FilterStudentsBar" style={style} onEscape={this.onEscape}>
         <FilterBar style={barStyle}>
           {this.renderSearch(filteredStudents)}
-          {this.renderGradeSelect()}
           {this.renderSchoolSelect()}
+          {this.renderGradeSelect()}
           {this.renderCounselorSelect()}
           {this.renderHasNoteSelect()}
           {this.renderIsStarredSelect()}
@@ -111,7 +111,8 @@ export default class FilterStudentsBar extends React.Component {
     const {districtKey} = this.context;
     const {students} = this.props;
     const {schoolId} = this.state;
-    const schools = _.uniq(_.compact(students.map(student => student.school))).map(school => {
+    const uniqueSchools = _.uniqBy(_.compact(students.map(student => student.school)), 'id');
+    const schools = uniqueSchools.map(school => {
       return {
         id: school.id,
         label: shortSchoolName(districtKey, school.local_id)
@@ -199,7 +200,7 @@ const styles = {
     marginLeft: 20,
     marginRight: 10,
     fontSize: 14,
-    width: 200
+    width: 180
   },
 };
 
