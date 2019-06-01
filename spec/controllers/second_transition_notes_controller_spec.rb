@@ -67,6 +67,31 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
       get_transition_students_json(pals.shs_sofia_counselor)
       expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
     end
+
+    it 'returns expected shape' do
+      get_transition_students_json(pals.west_counselor)
+      expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to eq ['students']
+      expect(json['students'].first.keys).to contain_exactly(*[
+        'id',
+        'has_photo',
+        'first_name',
+        'last_name',
+        'counselor',
+        'grade',
+        'school',
+        'second_transition_notes'
+      ])
+      expect(json['students'].first['second_transition_notes'].first.keys).to contain_exactly(*[
+        'id',
+        'educator_id',
+        'recorded_at',
+        'starred',
+        'student_id'
+      ])
+    end
   end
 
   describe '#save_json' do

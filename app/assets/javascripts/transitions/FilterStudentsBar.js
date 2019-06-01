@@ -1,22 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import {shortSchoolName} from '../helpers/PerDistrict';
 import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
-import SelectHouse from '../components/SelectHouse';
+import SelectSchool from '../components/SelectSchool';
 import SelectGrade from '../components/SelectGrade';
-import SelectTimeRange from '../components/SelectTimeRange';
 import SelectCounselor from '../components/SelectCounselor';
+import SelectBoolean from '../components/SelectBoolean';
 import {ALL} from '../components/SimpleFilterSelect';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {
-  TIME_RANGE_7_DAYS_AGO,
-  TIME_RANGE_30_DAYS_AGO,
-  TIME_RANGE_45_DAYS_AGO,
-  TIME_RANGE_90_DAYS_AGO,
-  TIME_RANGE_FOUR_YEARS,
-  TIME_RANGE_ALL
-} from '../components/SelectTimeRange';
+import {hasNote, isStarred} from './helpers';
+
 
 // Takes a list of students, uses them to find values to sort by,
 // and then renders a filtering bar for different dimensions, yielding
@@ -26,24 +21,24 @@ export default class FilterStudentsBar extends React.Component {
     super(props);
     this.state = initialState();
 
-    this.onTimeRangeChanged = this.onTimeRangeChanged.bind(this);
     this.onEscape = this.onEscape.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
-    this.onHouseChanged = this.onHouseChanged.bind(this);
+    this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onCounselorChanged = this.onCounselorChanged.bind(this);
   }
 
   filteredStudents() {
-    const {students, timeFilterFn} = this.props;
-    const {searchText, grade, house, counselor, timeRangeKey} = this.state;
+    const {students} = this.props;
+    const {searchText, grade, schoolId, counselor} = this.state;
 
     return students.filter(student => {
       if (shouldFilterOut(grade, student.grade)) return false;
-      if (shouldFilterOut(house, student.house)) return false;
+      if (shouldFilterOut(schoolId, student.school.id)) return false;
       if (shouldFilterOut(counselor, student.counselor)) return false;
+      if (shouldFilterOut(this.state.isStarred, isStarred(student))) return false;
+      if (shouldFilterOut(this.state.hasNote, hasNote(student))) return false;
       if (!searchTextMatches(searchText, student)) return false;
-      if (timeFilterFn && !timeFilterFn(student, timeRangeKey)) return false; // eg, interpret what time range means
       return true;
     });
   }
@@ -60,16 +55,12 @@ export default class FilterStudentsBar extends React.Component {
     this.setState({grade});
   }
 
-  onHouseChanged(house) {
-    this.setState({house});
+  onSchoolIdChanged(schoolId) {
+    this.setState({schoolId});
   }
 
   onCounselorChanged(counselor) {
     this.setState({counselor});
-  }
-
-  onTimeRangeChanged(timeRangeKey) {
-    this.setState({timeRangeKey});
   }
 
   render() {
@@ -81,9 +72,10 @@ export default class FilterStudentsBar extends React.Component {
         <FilterBar style={barStyle}>
           {this.renderSearch(filteredStudents)}
           {this.renderGradeSelect()}
-          {this.renderHouseSelect()}
+          {this.renderSchoolSelect()}
           {this.renderCounselorSelect()}
-          {this.renderTimeRangeSelect()}
+          {this.renderHasNoteSelect()}
+          {this.renderIsStarredSelect()}
         </FilterBar>
         {children(filteredStudents)}
       </EscapeListener>
@@ -108,46 +100,29 @@ export default class FilterStudentsBar extends React.Component {
     const sortedGrades = _.sortBy(_.uniq(students.map(student => student.grade)), rankedByGradeLevel);
     return (
       <SelectGrade
+        style={styles.select}
         grade={grade}
         grades={sortedGrades}
         onChange={this.onGradeChanged} />
     );
   }
 
-  renderHouseSelect() {
-    const {students, includeHouse} = this.props;
-    if (!includeHouse) return null;
-
-    const {house} = this.state;
-    const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
+  renderSchoolSelect() {
+    const {districtKey} = this.context;
+    const {students} = this.props;
+    const {schoolId} = this.state;
+    const schools = _.uniq(_.compact(students.map(student => student.school))).map(school => {
+      return {
+        id: school.id,
+        label: shortSchoolName(districtKey, school.local_id)
+      };
+    });
     return (
-      <SelectHouse
-        house={house}
-        houses={sortedHouses}
-        onChange={this.onHouseChanged} />
-    );
-  }
-
-  renderTimeRangeSelect() {
-    const {includeTimeRange} = this.props;
-    if (!includeTimeRange) return null;
-
-    const {timeRangeKey} = this.state;
-    const timeRangeKeys = [
-      TIME_RANGE_ALL,
-      TIME_RANGE_7_DAYS_AGO,
-      TIME_RANGE_30_DAYS_AGO,
-      TIME_RANGE_45_DAYS_AGO,
-      TIME_RANGE_90_DAYS_AGO,
-      TIME_RANGE_FOUR_YEARS
-    ];
-    
-    return (
-      <SelectTimeRange
-        style={{width: '9em'}}
-        timeRangeKey={timeRangeKey}
-        timeRangeKeys={timeRangeKeys}
-        onChange={this.onTimeRangeChanged} />
+      <SelectSchool
+        style={styles.select}
+        schoolId={schoolId}
+        schools={schools}
+        onChange={this.onSchoolIdChanged} />
     );
   }
 
@@ -158,35 +133,60 @@ export default class FilterStudentsBar extends React.Component {
     const sortedCounselors = _.sortBy(_.uniq(_.compact(students.map(student => student.counselor))));
     return (
       <SelectCounselor
+        style={styles.select}
         counselor={counselor}
         counselors={sortedCounselors}
         onChange={this.onCounselorChanged} />
     );
   }
+
+  renderHasNoteSelect() {
+    const {hasNote} = this.state;
+    return (
+      <SelectBoolean
+        style={styles.select}
+        placeholder="Note?"
+        value={hasNote}
+        onChange={hasNote => this.setState({hasNote})}
+      />
+    );
+  }
+
+  renderIsStarredSelect() {
+    const {isStarred} = this.state;
+    return (
+      <SelectBoolean
+        style={styles.select}
+        placeholder="Starred?"
+        value={isStarred}
+        onChange={isStarred => this.setState({isStarred})}
+      />
+    );
+  }
 }
+FilterStudentsBar.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 FilterStudentsBar.propTypes = {
   includeCounselor: PropTypes.bool.isRequired,
-  includeHouse: PropTypes.bool.isRequired,
-  includeTimeRange: PropTypes.bool,
   students: PropTypes.arrayOf(PropTypes.shape({
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired,
-    program_assigned: PropTypes.string,
-    sped_placement: PropTypes.string,
-    house: PropTypes.string,
     counselor: PropTypes.string,
-    sped_liaison: PropTypes.string
+    school: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired
   })).isRequired,
   children: PropTypes.func.isRequired,
-  timeFilterFn: PropTypes.func,
   style: PropTypes.object,
   barStyle: PropTypes.object
 };
 
 const styles = {
   select: {
-    width: '10em',
+    width: '8em',
     marginRight: 10
   },
 
@@ -199,7 +199,7 @@ const styles = {
     marginLeft: 20,
     marginRight: 10,
     fontSize: 14,
-    width: 220
+    width: 200
   },
 };
 
@@ -208,9 +208,10 @@ function initialState() {
   return {
     searchText: '',
     grade: ALL,
-    house: ALL,
+    schoolId: ALL,
     counselor: ALL,
-    timeRangeKey: TIME_RANGE_ALL
+    hasNote: ALL,
+    isStarred: ALL
   };
 }
 
@@ -226,12 +227,8 @@ export function searchTextMatches(searchText, student) {
     student.first_name,
     student.last_name,
     student.grade,
-    student.house,
     student.counselor,
-    student.sped_liaison,
-    student.school.name,
-    student.program_assigned,
-    student.sped_placement
+    student.school.name
   ]).join(' ').toLowerCase();
   return _.every(tokens, token => studentText.indexOf(token) !== -1);
 }
