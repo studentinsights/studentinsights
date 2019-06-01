@@ -114,7 +114,7 @@ export default class FilterStudentsBar extends React.Component {
     const schools = _.uniq(_.compact(students.map(student => student.school))).map(school => {
       return {
         id: school.id,
-        label: shortSchoolName(districtKey, school.local_id) 
+        label: shortSchoolName(districtKey, school.local_id)
       };
     });
     return (

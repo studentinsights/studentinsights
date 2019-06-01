@@ -6,7 +6,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {maybeCapitalize} from '../helpers/pretty';
-import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
+import {shortSchoolName, supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -55,7 +55,7 @@ export class TransitionsView extends React.Component {
     super(props);
     
     this.state = {
-      sortBy: 'name',
+      sortBy: 'starred',
       sortDirection: SortDirection.ASC,
     };
     this.onTableSort = this.onTableSort.bind(this);
@@ -145,13 +145,13 @@ export class TransitionsView extends React.Component {
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
-              width={260}
+              width={250}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={160}
+              width={150}
             />
             <Column
               label='Grade'
@@ -182,7 +182,7 @@ export class TransitionsView extends React.Component {
               label={<span>Starred<br/> for discussion?</span>}
               dataKey='starred'
               cellRenderer={this.renderStarred}
-              width={120} />
+              width={140} />
           </Table>
         )}
       </AutoSizer>
@@ -217,8 +217,10 @@ export class TransitionsView extends React.Component {
   }
 
   renderSchool(cellProps) {
-    const student = cellProps.rowData;
-    return <School {...student.school} style={{marginRight: 10}} />;
+    const {school} = cellProps.rowData;
+    const {districtKey} = this.context;
+    const shortName = shortSchoolName(districtKey, school.local_id);
+    return <School id={school.id} name={shortName} style={{marginRight: 10}} />;
   }
 
   renderHouse(cellProps) {
