@@ -17,11 +17,7 @@ class SecondTransitionNotesController < ApplicationController
         :first_name,
         :last_name,
         :grade,
-        :house,
         :counselor,
-        :sped_liaison,
-        :program_assigned,
-        :sped_placement
       ],
       methods: [
         :has_photo
