@@ -32,7 +32,6 @@ export default class FilterStudentsBar extends React.Component {
     const {students} = this.props;
     const {searchText, grade, schoolId, counselor} = this.state;
 
-    console.log('bools', this.state.isStarred, this.state.hasNote);
     return students.filter(student => {
       if (shouldFilterOut(grade, student.grade)) return false;
       if (shouldFilterOut(schoolId, student.school.id)) return false;

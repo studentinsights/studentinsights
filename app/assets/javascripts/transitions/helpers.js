@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export function hasNote(student) {
   return student.second_transition_notes.length > 0;
 }
