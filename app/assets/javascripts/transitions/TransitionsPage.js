@@ -77,7 +77,8 @@ export class TransitionsView extends React.Component {
       starred(student) { return isStarred(student); }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
-    const sortedRows = _.sortBy(students, sortFn);
+    const studentsByName = _.sortBy(students, sortFns.name);
+    const sortedRows = _.sortBy(studentsByName, sortFn);
 
     // respect direction
     return (sortDirection == SortDirection.DESC) 
