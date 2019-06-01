@@ -14,6 +14,7 @@ import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from './FilterStudentsBar';
+import {hasNote, isStarred} from './helpers';
 
 
 export default class TransitionsPage extends React.Component {
@@ -267,11 +268,3 @@ const styles = {
     marginRight: 20
   }
 };
-
-function hasNote(student) {
-  return student.second_transition_notes.length > 0;
-}
-
-function isStarred(student) {
-  return _.some(student.second_transition_notes, {starred: true});
-}

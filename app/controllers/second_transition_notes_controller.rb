@@ -31,7 +31,7 @@ class SecondTransitionNotesController < ApplicationController
           only: [:id, :starred, :educator_id, :student_id, :recorded_at]
         },
         school: {
-          only: [:id, :name]
+          only: [:id, :local_id, :name]
         }
       }
     })
