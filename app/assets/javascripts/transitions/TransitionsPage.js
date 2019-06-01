@@ -65,14 +65,17 @@ export class TransitionsView extends React.Component {
   }
 
   orderedStudents(students) {
+    const {districtKey} = this.context;
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
     const sortFns = {
       fallback(student) { return student[sortBy]; },
-      grade(student) { return rankedByGradeLevel(student.grade); },
-      school(student) { return student.school.name; },
+      
       name(student) { return `${student.last_name}, ${student.first_name}`; },
+      school(student) { return shortSchoolName(districtKey, student.school.local_id); },
+      grade(student) { return rankedByGradeLevel(student.grade); },
+      counselor(student) { return maybeCapitalize(student.counselor); },
       note(student) { return hasNote(student); } ,
       starred(student) { return isStarred(student); }
     };
