@@ -1,4 +1,4 @@
-# Returns array of CSVs from a Google Drive Folder. Requires a Google Service Account with read permissions for the folder 
+# Returns array of CSVs from a Google Drive Folder. Requires a Google Service Account with read permissions for the folder
 # Service account created as follows:
 # 1. Log into Google Developer Console with the account you wish to associate with this project
 # 2. Create a project
