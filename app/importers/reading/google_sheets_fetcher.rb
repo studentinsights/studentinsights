@@ -23,38 +23,42 @@ class GoogleSheetsFetcher
 
   APPLICATION_NAME = 'Student Insights'.freeze
   SCOPE = [Google::Apis::DriveV3::AUTH_DRIVE_READONLY, Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY]
+  AUTH = Google::Auth.get_application_default(scope: SCOPE)
 
   def get_sheets_from_folder(folder_id)
-    auth = Google::Auth.get_application_default(scope: SCOPE)
-    sheet_ids = get_sheet_ids(auth, folder_id)
-    download_csvs(auth, sheet_ids)
+    sheet_ids = get_sheet_ids(folder_id)
+    sheet_ids.files.each_with_object({}) do |spreadsheet, hash|
+      hash[spreadsheet.name] = download_csvs(spreadsheet.id)
+    end
+  end
+
+  def get_spreadsheet(sheet_id)
+    download_csvs(sheet_id)
   end
 
   private
-  def get_sheet_ids(auth, folder_id)
+  def get_sheet_ids(folder_id)
     # initialize drive API
     drive_service = Google::Apis::DriveV3::DriveService.new
     drive_service.client_options.application_name = APPLICATION_NAME
-    drive_service.authorization = auth
+    drive_service.authorization = AUTH
 
     drive_service.list_files(q: "'#{folder_id}' in parents",
                                       fields: 'files(id, name)')
   end
 
-  def download_csvs(auth, sheet_ids)
+  def download_csvs(sheet_id)
     #Initialize sheets API
     sheet_service = Google::Apis::SheetsV4::SheetsService.new
     sheet_service.client_options.application_name = APPLICATION_NAME
-    sheet_service.authorization = auth
+    sheet_service.authorization = AUTH
 
     # Get values from sheets indexed by sheet name
-    sheet_ids.files.each_with_object({}) do |spreadsheet, hash| #each spreadsheet in the folder
-      sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
-        hash[sheet.properties.title] = CSV.generate do |csv|
-          sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
-          sheet_values.each do |row|
-            csv << row
-          end
+    sheet_service.get_spreadsheet(sheet_id).sheets.each_with_object({}) do |sheet, hash| #each sheet in the spreadsheet
+      hash[sheet.properties.title] = CSV.generate do |csv|
+        sheet_values = sheet_service.get_spreadsheet_values(sheet_id, sheet.properties.title).values
+        sheet_values.each do |row|
+          csv << row
         end
       end
     end
