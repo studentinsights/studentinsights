@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
+import RollbarErrorBoundary from '../components/RollbarErrorBoundary';
 import ReaderProfileJune from './ReaderProfileJune';
 
 
@@ -25,13 +26,15 @@ export default class ReaderProfileJunePage extends React.Component {
   renderJson(json) {
     const {student} = this.props;
     return (
-      <ReaderProfileJune
-        student={student}
-        access={json.access}
-        feedCards={json.feed_cards}
-        currentSchoolYear={json.current_school_year}
-        dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
-      />
+      <RollbarErrorBoundary>
+        <ReaderProfileJune
+          student={student}
+          access={json.access}
+          feedCards={json.feed_cards}
+          currentSchoolYear={json.current_school_year}
+          dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
+        />
+      </RollbarErrorBoundary>
     );
   }
 }
