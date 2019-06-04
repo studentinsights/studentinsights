@@ -26,124 +26,33 @@ import ReaderProfileDialog from './ReaderProfileDialog';
 import {Ingredient, Sub, MultipleChips} from './layout';
 
 /* todo
-<h1>older grades, or still need to add in somewhere</h1>
-<div>3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>)}</div>
-<div>3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>)}</div>
-<h2>other bits</h2>
-<div>sped eval from melissa's chart</div>
-<div>TOWRE in older grades?</div>
-<div>maybe CTOPP naming in older grades (instead of SPS RAN)?</div>
-<div>CELF maybe for older grades? speech eval?</div>
-<div>working memory: WISC-5 maybe in older grades? not K</div>
+screeners:
+- 3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>)}</div>
+- 3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>)}</div>
 
-review search:
+other bits:
+- sped eval from melissa's chart
+- TOWRE in older grades?
+- maybe CTOPP naming in older grades (instead of SPS RAN)?
+- CELF maybe for older grades? speech eval?
+- working memory: WISC-5 maybe in older grades? not K
+
+review search heuristics:
 - sight words?
 - special education evaluation?
 */
-
-
-/*
-ChipContainer
-  onClick
-  dialogEl
-
-Freshness
-  freshnessKey
-  children
-
-Concern
-  concernKey
-  children
-
-Hover
-  hoverEl
-  children
-
-TwoLineChip
-  firstLine(isSmall)
-  secondLine(isSmall)
-  
-NotesChip
-  children
-*/
 export default class ReaderProfileJune extends React.Component {
   render() {
-    const {nowFn, districtKey} = this.context;
-    const {
-      student,
-      access,
-      feedCards,
-      currentSchoolYear,
-      dataPointsByAssessmentKey
-    } = this.props;
-    const nowMoment = nowFn();
+    const {feedCards} = this.props;
     const notes = feedCards.map(card => card.json);
     const lunrIndex = buildLunrIndexForNotes(notes);
-
-    function chipForNotes(words) {
-      return (
-        <ReaderProfileDialog
-          title={`Notes for ${student.first_name}`}
-          content={<CleanSlateFeedView feedCards={feedCards} style={{fontSize: 14}} />}
-          modalStyle={{
-            content: {
-              right: 40,
-              left: 'auto',
-              width: '55%',
-              top: 40,
-              bottom: 40
-            }
-          }}
-          icon={
-            <ChipForNotes
-              nowMoment={nowMoment}
-              matches={findNotes(lunrIndex, notes, words)}
-            />
-          }
-        />
-      );
-    }
-
-    function chipForLanguage(accessKey) {
-      return (
-        <ChipForLanguage
-          accessKey={accessKey}
-          nowMoment={nowMoment}
-          districtKey={districtKey}
-          student={student}
-          access={access}
-        />
-      );
-    }
-
-    function chipForDibels(ingredientName, benchmarkAssessmentKey) {
-      return (
-        <ReaderProfileDialog
-          title={ingredientName}
-          content={<DibelsDialog
-            benchmarkAssessmentKey={benchmarkAssessmentKey}
-            currentSchoolYear={currentSchoolYear}
-            dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-            currentGrade={student.grade}
-          />}
-          icon={
-            <ChipForDibels
-              benchmarkAssessmentKey={benchmarkAssessmentKey}
-              student={student}
-              nowMoment={nowMoment}
-              dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-            />
-          }
-        />
-      );
-    }
 
     return (
       <div style={{marginTop: 10}}>
         <Ingredient
           name="See themselves as a reader"
           color="#4db1f0"
-          notes={chipForNotes(SEE_AS_READER_SEARCH)}
+          notes={this.renderChipForNotes(SEE_AS_READER_SEARCH, lunrIndex)}
           subs={[
             <Sub name="in small groups" />,
             <Sub name="independently" />
@@ -153,7 +62,7 @@ export default class ReaderProfileJune extends React.Component {
         <Ingredient
           name="Communicate with oral language"
           color="#f06060"
-          notes={chipForNotes(ORAL_LANGUAGE_SEARCH)}
+          notes={this.renderChipForNotes(ORAL_LANGUAGE_SEARCH, lunrIndex)}
           subs={[
             <Sub name="expressive" />,
             <Sub name="receptive" />
@@ -163,13 +72,13 @@ export default class ReaderProfileJune extends React.Component {
         <Ingredient
           name="Speak and listen in English"
           color="rgba(140, 17, 140, 0.57)"
-          notes={chipForNotes(ENGLISH_SEARCH)}
+          notes={this.renderChipForNotes(ENGLISH_SEARCH, lunrIndex)}
           subs={[
             <Sub name="spoken"
-              screener={chipForLanguage('oral')}
+              screener={this.renderChipForLanguage('oral')}
             />,
             <Sub name="written"
-              screener={chipForLanguage('literacy')}
+              screener={this.renderChipForLanguage('literacy')}
             />
           ]}
         />
@@ -177,11 +86,11 @@ export default class ReaderProfileJune extends React.Component {
         <Ingredient
           name="Discriminate Sounds in Words"
           color="rgb(227, 121, 58)"
-          notes={chipForNotes(SOUNDS_IN_WORDS_SEARCH)}
+          notes={this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
           subs={[
             <Sub
               name="blending"
-              screener={chipForDibels('blending', DIBELS_PSF)}
+              screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
             <Sub name="deleting" />,
             <Sub name="substituting" />
@@ -192,20 +101,20 @@ export default class ReaderProfileJune extends React.Component {
           name="Represent Sounds with Letters"
           color="rgb(100, 186, 91)"
           isLast={true}
-          notes={chipForNotes(SOUNDS_AND_LETTERS_SEARCH)}
+          notes={this.renderChipForNotes(SOUNDS_AND_LETTERS_SEARCH, lunrIndex)}
           subs={[
             <Sub name="letters"
-              screener={chipForDibels('letters', DIBELS_LNF)}
+              screener={this.renderChipForDibels('letters', DIBELS_LNF)}
             />,
             <Sub name="accurate"
-              screener={chipForDibels('accurate', DIBELS_DORF_ACC)}
+              screener={this.renderChipForDibels('accurate', DIBELS_DORF_ACC)}
             />,
             <Sub name="fluent"
               screener={
                 <MultipleChips chips={[
-                  chipForDibels('fluent', DIBELS_DORF_WPM),
-                  chipForDibels('fluent', DIBELS_NWF_WWR),
-                  chipForDibels('fluent', DIBELS_NWF_CLS)
+                  this.renderChipForDibels('fluent', DIBELS_DORF_WPM),
+                  this.renderChipForDibels('fluent', DIBELS_NWF_WWR),
+                  this.renderChipForDibels('fluent', DIBELS_NWF_CLS)
                 ]} />
               }
             />,
@@ -213,6 +122,71 @@ export default class ReaderProfileJune extends React.Component {
           ]}
         />
       </div>
+    );
+  }
+
+  renderChipForNotes(words, lunrIndex) {
+    const {nowFn} = this.context;
+    const {student, feedCards} = this.props;
+    const notes = feedCards.map(card => card.json);
+
+    return (
+      <ReaderProfileDialog
+        title={`Notes for ${student.first_name}`}
+        content={<CleanSlateFeedView feedCards={feedCards} style={{fontSize: 14}} />}
+        modalStyle={{
+          content: {
+            right: 40,
+            left: 'auto',
+            width: '55%',
+            top: 40,
+            bottom: 40
+          }
+        }}
+        icon={
+          <ChipForNotes
+            nowMoment={nowFn()}
+            matches={findNotes(lunrIndex, notes, words)}
+          />
+        }
+      />
+    );
+  }
+
+  renderChipForLanguage(accessKey) {
+    const {student, access} = this.props;
+    return (
+      <ChipForLanguage
+        accessKey={accessKey}
+        student={student}
+        access={access}
+      />
+    );
+  }
+
+  renderChipForDibels(ingredientName, benchmarkAssessmentKey) {
+    const {
+      student,
+      currentSchoolYear,
+      dataPointsByAssessmentKey
+    } = this.props;
+    return (
+      <ReaderProfileDialog
+        title={ingredientName}
+        content={<DibelsDialog
+          benchmarkAssessmentKey={benchmarkAssessmentKey}
+          currentSchoolYear={currentSchoolYear}
+          dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+          currentGrade={student.grade}
+        />}
+        icon={
+          <ChipForDibels
+            benchmarkAssessmentKey={benchmarkAssessmentKey}
+            student={student}
+            dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+          />
+        }
+      />
     );
   }
 }

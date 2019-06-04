@@ -1,6 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+// UI for showing a summary when hovering over 
+// part of the reading profile, in a somewhat similar
+// style.
 export default function HoverSummary(props) {
   const {name, atMoment, period, score, thresholds, concernKey} = props;
   const title = _.compact([
@@ -16,6 +20,14 @@ export default function HoverSummary(props) {
 
   return <pre>{title}</pre>;
 }
+HoverSummary.propTypes = {
+  name: PropTypes.node.isRequired,
+  atMoment: PropTypes.object,
+  period: PropTypes.string,
+  score: PropTypes.any,
+  thresholds: PropTypes.string,
+  concernKey: PropTypes.string
+};
 
 
 export function secondLineDaysAgo(daysAgo, width) {

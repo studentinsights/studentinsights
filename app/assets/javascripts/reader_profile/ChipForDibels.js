@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {AutoSizer} from 'react-virtualized';
 import {gradeText, adjustedGrade} from '../helpers/gradeText';
 import {
   prettyDibelsText,
@@ -21,78 +21,86 @@ import Freshness from './Freshness';
 
 // TODO(kr) unroll to show historical
 // TODO(kr) schoolYear/gradeThen?
-export default function ChipForDibels(props) {
-  const {ingredientName, student, nowMoment, benchmarkAssessmentKey, dataPointsByAssessmentKey} = props;
+export default class ChipForDibels extends React.Component {
+  render() {
+    const nowMoment = this.context.nowFn();
+    const {student, benchmarkAssessmentKey, dataPointsByAssessmentKey} = this.props;
 
-  // const currentSchoolYear = toSchoolYear(nowMoment.toDate());
+    // const currentSchoolYear = toSchoolYear(nowMoment.toDate());
 
-  // pick latest
-  const dataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];
-  const mostRecentDataPoint = _.last(_.sortBy(dataPoints, d => {
-    const assessmentMoment = dataPointMoment(d);
-    return (assessmentMoment) ? assessmentMoment.unix() : Number.MIN_VALUE;
-  }));
-  if (!mostRecentDataPoint) return null;
+    // pick latest
+    const dataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];
+    const mostRecentDataPoint = _.last(_.sortBy(dataPoints, d => {
+      const assessmentMoment = dataPointMoment(d);
+      return (assessmentMoment) ? assessmentMoment.unix() : Number.MIN_VALUE;
+    }));
+    if (!mostRecentDataPoint) return null;
 
-  // guess as grade at time of assessment
-  const gradeThen = adjustedGrade(mostRecentDataPoint.benchmark_school_year, student.grade, nowMoment);
+    // guess as grade at time of assessment
+    const gradeThen = adjustedGrade(mostRecentDataPoint.benchmark_school_year, student.grade, nowMoment);
 
-  // determine color
-  const dibelsBucket = bucketForDibels(...[
-    mostRecentDataPoint.json.value,
-    mostRecentDataPoint.benchmark_assessment_key,
-    gradeThen,
-    mostRecentDataPoint.benchmark_period_key
-  ]);
-  const concernKey = {
-    [DIBELS_GREEN]: 'low',
-    [DIBELS_YELLOW]: 'medium',
-    [DIBELS_RED]: 'high',
-    [DIBELS_UNKNOWN]: 'unknown'
-  }[dibelsBucket];
+    // determine color
+    const dibelsBucket = bucketForDibels(...[
+      mostRecentDataPoint.json.value,
+      mostRecentDataPoint.benchmark_assessment_key,
+      gradeThen,
+      mostRecentDataPoint.benchmark_period_key
+    ]);
+    const concernKey = {
+      [DIBELS_GREEN]: 'low',
+      [DIBELS_YELLOW]: 'medium',
+      [DIBELS_RED]: 'high',
+      [DIBELS_UNKNOWN]: 'unknown'
+    }[dibelsBucket];
 
-  // also show cut points
-  const thresholds = somervilleReadingThresholdsFor(...[
-    mostRecentDataPoint.benchmark_assessment_key,
-    gradeThen,
-    mostRecentDataPoint.benchmark_period_key
-  ]);
+    // also show cut points
+    const thresholds = somervilleReadingThresholdsFor(...[
+      mostRecentDataPoint.benchmark_assessment_key,
+      gradeThen,
+      mostRecentDataPoint.benchmark_period_key
+    ]);
 
-  const score = mostRecentDataPoint.json.value;
-  const prettyAssessmentText = prettyDibelsText(benchmarkAssessmentKey);
-  const atMoment = dataPointMoment(mostRecentDataPoint);
-  const daysAgo = atMoment ? nowMoment.clone().diff(atMoment, 'days') : null
-  const WIDTH_THRESHOLD_PIXELS = 80;
-  return (
-    <Freshness daysAgo={daysAgo}>
-      <Concern concernKey={concernKey}>
-        <Tooltip title={
-          <HoverSummary
-            name={prettyAssessmentText}
-            atMoment={dataPointMoment(mostRecentDataPoint)}
-            period={`${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`}
-            score={score}
-            thresholds={thresholdsExplanation(thresholds)}
-            concernKey={concernKey}
-          />
-        }>
-          <TwoLineChip
-            firstLine={({width}) => {
-              return (width > WIDTH_THRESHOLD_PIXELS)
-                ? prettyAssessmentText
-                : shortDibelsText(mostRecentDataPoint.benchmark_assessment_key);
-            }}
-            secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
-          />
-        </Tooltip>
-      </Concern>
-    </Freshness>
-  );
+    const score = mostRecentDataPoint.json.value;
+    const prettyAssessmentText = prettyDibelsText(benchmarkAssessmentKey);
+    const atMoment = dataPointMoment(mostRecentDataPoint);
+    const daysAgo = atMoment ? nowMoment.clone().diff(atMoment, 'days') : null;
+    const WIDTH_THRESHOLD_PIXELS = 80;
+    return (
+      <Freshness daysAgo={daysAgo}>
+        <Concern concernKey={concernKey}>
+          <Tooltip title={
+            <HoverSummary
+              name={prettyAssessmentText}
+              atMoment={dataPointMoment(mostRecentDataPoint)}
+              period={`${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`}
+              score={score}
+              thresholds={thresholdsExplanation(thresholds)}
+              concernKey={concernKey}
+            />
+          }>
+            <TwoLineChip
+              firstLine={({width}) => {
+                return (width > WIDTH_THRESHOLD_PIXELS)
+                  ? prettyAssessmentText
+                  : shortDibelsText(mostRecentDataPoint.benchmark_assessment_key);
+              }}
+              secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
+            />
+          </Tooltip>
+        </Concern>
+      </Freshness>
+    );
+  }
 }
-        
+ChipForDibels.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
+ChipForDibels.propTypes = {
+  student: PropTypes.object.isRequired,
+  benchmarkAssessmentKey: PropTypes.string.isRequired,
+  dataPointsByAssessmentKey: PropTypes.object.isRequired
+};
 
 function dataPointMoment(dataPoint) {
   return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year);
 }
-
-

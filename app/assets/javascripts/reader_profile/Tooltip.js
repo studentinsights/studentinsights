@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
+// Full components as tooltips
 export default class Tooltip extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +25,8 @@ export default class Tooltip extends React.Component {
   }
 
   onMouseEnter(e) {
-    this.timer = window.setTimeout(this.onTimedTriggered, 500);
+    const {delayMs} = this.props;
+    this.timer = window.setTimeout(this.onTimedTriggered, delayMs);
   }
 
   onMouseLeave(e) {
@@ -37,7 +40,7 @@ export default class Tooltip extends React.Component {
   }
 
   render() {
-    const {title, style, children} = this.props;
+    const {title, style, children, tooltipStyle} = this.props;
     const {isVisible} = this.state;
     return (
       <div
@@ -57,10 +60,21 @@ export default class Tooltip extends React.Component {
             left: 20,
             top: 20,
             border: '1px solid #ccc',
-            zIndex: 10 // above other siblings
+            zIndex: 10, // above other siblings
+            ...tooltipStyle
           }}>{title}</div>
         }
       </div>
     );
   }
 }
+Tooltip.propTypes = {
+  title: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
+  delayMs: PropTypes.number,
+  style: PropTypes.object,
+  tooltipStyle: PropTypes.object
+};
+Tooltip.defaultProps = {
+  delayMs: 500
+};

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import ModalSmall from '../student_profile/ModalSmall';
 
 
+// UI props for dialog
 export default function ReaderProfileDialog(props) {
-  console.log('render', props);
   return (
     <ModalSmall
       style={{

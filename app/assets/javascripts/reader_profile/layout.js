@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Hover from '../components/Hover';
 import {AutoSizer} from 'react-virtualized';
 import {high, medium, low} from '../helpers/colors';
 
 
+// An main "ingredient" of reading (eg, phonics).
 export function Ingredient(props) {
   const {name, notes, subs, isLast} = props;
-  // const color = chroma(props.color).alpha(0.25).desaturate(0.75).hex();
   const color = '#eee';
   return (
     <div className="Ingredient">
@@ -39,7 +40,15 @@ export function Ingredient(props) {
     </div>
   );
 }
+Ingredient.propTypes = {
+  name: PropTypes.node.isRequired,
+  notes: PropTypes.node.isRequired,
+  subs: PropTypes.arrayOf(PropTypes.node).isRequired,
+  isLast: PropTypes.bool
+};
 
+
+// A part of an 'ingredient' (eg, "blending")
 export function Sub(props) {
   const {name, screener, diagnostic, interventions} = props;  
   return (
@@ -51,8 +60,15 @@ export function Sub(props) {
     </div>
   );
 }
+Sub.propTypes = {
+  name: PropTypes.node.isRequired,
+  screener: PropTypes.node,
+  diagnostic: PropTypes.node,
+  interventions: PropTypes.node,
+};
 
 
+// The UI layout for multiple chips, side-by-side
 export function MultipleChips(props) {
   const {chips} = props;
   return <div style={{
@@ -71,25 +87,12 @@ export function MultipleChips(props) {
     }}>{chip}</div>
   ))}</div>;
 }
-
-
-const styles = {
-  nameCell: {
-    width: 150,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  cell: {
-    width: 160,
-    height: 40,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  }
+MultipleChips.propTypes = {
+  chips: PropTypes.arrayOf(PropTypes.node).isRequired
 };
 
 
+// TODO(kr) placeholder
 function missingEl(text) {
   return (
     <Hover>{isHovering => {
@@ -107,30 +110,9 @@ function missingEl(text) {
 }
 
 
-// export function Layered(props) {
-//   const {tooltip, chips} = props;
-//   return (
-//     <Hover>
-//       {isHovering => (
-//         <Tooltip tooltip={tooltip}>
-//           <MultipleChips chips={chips} />
-//         </Tooltip>
-//       )}
-//     </Hover>
-//   );
-// }
-
-// function FlavoredChip(props) {
-//   const {freshnessKey, concernKey, sub} = props;
-//   return (
-//     <Freshness freshnessKey={freshnessKey}>
-//       <Concern concernKey={concernKey}>
-//         {sub}
-//       </Concern>
-//     </Freshness>
-//   );
-// }
-
+// Color the background of the children based
+// on the `concernKey`, keeping this the same
+// color scheme.
 export function Concern(props) {
   const {concernKey, children, style} = props;
   const concernStyle = {
@@ -150,8 +132,17 @@ export function Concern(props) {
     }}>{children}</div>
   );
 }
+Concern.propTypes = {
+  concernKey: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object
+};
 
 
+
+// A chip that's two lines, truncated if overflowing.
+// Can also pass functions that can render different content
+// based on the width (eg, if multiple chips).
 export function TwoLineChip(props) {
   const {firstLine, secondLine, style} = props;
   
@@ -181,4 +172,25 @@ export function TwoLineChip(props) {
     }}</AutoSizer>
   );
 }
+TwoLineChip.propTypes = {
+  firstLine: PropTypes.any.isRequired,
+  secondLine: PropTypes.any,
+  style: PropTypes.object
+};
 
+
+const styles = {
+  nameCell: {
+    width: 150,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  cell: {
+    width: 160,
+    height: 40,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  }
+};
