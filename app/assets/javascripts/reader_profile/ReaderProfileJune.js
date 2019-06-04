@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import chroma from 'chroma-js';
 import {AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {high, medium, low} from '../helpers/colors';
 import {isEnglishLearner, roundedWidaLevel} from '../helpers/language';
 import {gradeText, adjustedGrade} from '../helpers/gradeText';
-import {toMoment, toMomentFromTimestamp} from '../helpers/toMoment';
+import {toSchoolYear} from '../helpers/schoolYear';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import Hover from '../components/Hover';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import {
-  SearchResults,
-  findNotes,
-  SEE_AS_READER_SEARCH,
-  ORAL_LANGUAGE_SEARCH,
-  ENGLISH_SEARCH,
-  SOUNDS_IN_WORDS_SEARCH,
-  SOUNDS_AND_LETTERS_SEARCH
-} from './readingSearch';
+import ModalSmall from '../student_profile/ModalSmall';
+import LanguageStatusLink from '../student_profile/LanguageStatusLink';
 import {
   DIBELS_LNF,
   DIBELS_PSF,
@@ -39,9 +32,16 @@ import {
   DIBELS_RED,
   DIBELS_UNKNOWN
 } from '../reading/readingData';
+import {
+  SearchResults,
+  findNotes,
+  SEE_AS_READER_SEARCH,
+  ORAL_LANGUAGE_SEARCH,
+  ENGLISH_SEARCH,
+  SOUNDS_IN_WORDS_SEARCH,
+  SOUNDS_AND_LETTERS_SEARCH
+} from './readingSearch';
 import DibelsMegaChart from './DibelsMegaChart';
-import SliderChart from '../reading/SliderChart';
-import LanguageStatusLink from './LanguageStatusLink';
 
 
 /* todo
@@ -54,6 +54,10 @@ import LanguageStatusLink from './LanguageStatusLink';
 <div>maybe CTOPP naming in older grades (instead of SPS RAN)?</div>
 <div>CELF maybe for older grades? speech eval?</div>
 <div>working memory: WISC-5 maybe in older grades? not K</div>
+
+review search:
+- sight words?
+- special education evaluation?
 */
 export default class ReaderProfileJune extends React.Component {
   render() {
@@ -74,6 +78,7 @@ export default class ReaderProfileJune extends React.Component {
     const notes = json.feed_cards.map(card => card.json);
     const benchmarkDataPoints = json.benchmark_data_points;
     const currentSchoolYear = json.current_school_year;
+    console.log('benchmarkDataPoints', benchmarkDataPoints);
     const dataPointsByAssessmentKey = _.groupBy(benchmarkDataPoints, 'benchmark_assessment_key');
 
     return this.renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey);
@@ -83,6 +88,7 @@ export default class ReaderProfileJune extends React.Component {
     const {nowFn, districtKey} = this.context;
     const {student, access} = this.props;
     const nowMoment = nowFn();
+    console.log('dataPointsByAssessmentKey', dataPointsByAssessmentKey);
     return (
       <div style={{marginTop: 10}}>
         <Ingredient
@@ -156,6 +162,7 @@ export default class ReaderProfileJune extends React.Component {
           <Sub
             name="blending"
             screener={<ChipForDibels
+              ingredientName="Discriminate Sounds in Words: Blending"
               benchmarkAssessmentKey={DIBELS_PSF}
               student={student}
               nowMoment={nowMoment}
@@ -194,6 +201,7 @@ export default class ReaderProfileJune extends React.Component {
           <Sub name="letters"
             /* visual diagnostic="Lively letters" */
             screener={<ChipForDibels
+              ingredientName="Represent Sounds with Letters: letters"
               benchmarkAssessmentKey={DIBELS_LNF}
               student={student}
               nowMoment={nowMoment}
@@ -203,6 +211,7 @@ export default class ReaderProfileJune extends React.Component {
           <Sub name="accurate"
             screener={<MultipleChips chips={[
               <ChipForDibels
+                ingredientName="Represent Sounds with Letters: accurate"
                 benchmarkAssessmentKey={DIBELS_DORF_ACC}
                 student={student}
                 nowMoment={nowMoment}
@@ -213,18 +222,21 @@ export default class ReaderProfileJune extends React.Component {
           <Sub name="fluent"
             screener={<MultipleChips chips={[
               <ChipForDibels
+                ingredientName="Represent Sounds with Letters: fluent"
                 benchmarkAssessmentKey={DIBELS_DORF_WPM}
                 student={student}
                 nowMoment={nowMoment}
                 dataPointsByAssessmentKey={dataPointsByAssessmentKey}
               />,
               <ChipForDibels
+                ingredientName="Represent Sounds with Letters: fluent"
                 benchmarkAssessmentKey={DIBELS_NWF_WWR}
                 student={student}
                 nowMoment={nowMoment}
                 dataPointsByAssessmentKey={dataPointsByAssessmentKey}
               />,
               <ChipForDibels
+                ingredientName="Represent Sounds with Letters: fluent"
                 benchmarkAssessmentKey={DIBELS_NWF_CLS}
                 student={student}
                 nowMoment={nowMoment}
@@ -234,34 +246,6 @@ export default class ReaderProfileJune extends React.Component {
           />
           <Sub name="spelling" />
         </Ingredient>
-      </div>
-    );
-  }
-
-  renderDibels(benchmarkAssessmentKey, currentSchoolYear, dataPointsByAssessmentKey, grade) {
-    const labelText = prettyDibelsText(benchmarkAssessmentKey);
-    const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey];
-    return (
-      <div style={{display: 'flex', flexDirection: 'column', marginBottom: 15}}>
-        <div style={{fontSize: 12, marginBottom: 2, textAlign: 'left'}}>{labelText}</div>
-        {/*<SliderChart
-          risk={thresholds.risk}
-          benchmark={thresholds.benchmark}
-          range={{
-            [DIBELS_FSF_WPM]: [0, 100],
-            [DIBELS_LNF_WPM]: [0, 100],
-            [DIBELS_PSF_WPM]: [0, 100],
-            [DIBELS_NWF_CLS]: [0, 200]
-          }[benchmarkAssessmentKey]}
-          values={benchmarkDataPoints.map(d => d.json.data_point)}
-          height={100}
-        />*/}
-        <DibelsMegaChart
-          currentGrade={grade}
-          benchmarkDataPoints={benchmarkDataPoints}
-          currentSchoolYear={currentSchoolYear}
-          benchmarkAssessmentKey={benchmarkAssessmentKey}
-        />
       </div>
     );
   }
@@ -399,7 +383,7 @@ function Chip(props) {
 
   return (
     <Freshness daysAgo={daysAgo}>
-      <div className="Chip" title={title} onClick={() => alert('not finished yet...')} style={{
+      <div className="Chip" title={title} style={{
         fontSize: 12,
         height: '100%',
         width: '100%',
@@ -463,7 +447,9 @@ function dataPointMoment(dataPoint) {
 
 // TODO(kr) unroll to show historical
 function ChipForDibels(props) {
-  const {student, nowMoment, benchmarkAssessmentKey, dataPointsByAssessmentKey} = props;
+  const {ingredientName, student, nowMoment, benchmarkAssessmentKey, dataPointsByAssessmentKey} = props;
+
+  const currentSchoolYear = toSchoolYear(nowMoment.toDate());
 
   // pick latest
   const dataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];
@@ -502,21 +488,35 @@ function ChipForDibels(props) {
   const WIDTH_THRESHOLD_PIXELS = 80;
   return (
     <AutoSizer disableHeight>{({width}) => (
-      <Chip
-        style={{width}}
-        nowMoment={nowMoment}
-        atMoment={dataPointMoment(mostRecentDataPoint)}
-        periodThen={
-          `${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`
-        }
-        prettyAssessmentText={prettyAssessmentText}
-        score={mostRecentDataPoint.json.value}
-        thresholds={thresholds}
-        concernKey={concernKey}
-        el={
-          <div title={JSON.stringify(dataPoints, null, 2)}>
-            {width > WIDTH_THRESHOLD_PIXELS ? prettyAssessmentText : shortDibelsText(mostRecentDataPoint.benchmark_assessment_key)}
-          </div>
+      <ModalSmall
+        style={{fontSize: 12, marginLeft: 0}}
+        modalStyle={{content: {}}}
+        title={ingredientName}
+        content={<DibelsDialog
+          benchmarkAssessmentKey={benchmarkAssessmentKey}
+          currentSchoolYear={currentSchoolYear}
+          dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+          currentGrade={student.grade}
+        />}
+        iconStyle={{color: 'black'}}
+        icon={
+          <Chip
+            style={{width}}
+            nowMoment={nowMoment}
+            atMoment={dataPointMoment(mostRecentDataPoint)}
+            periodThen={
+              `${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`
+            }
+            prettyAssessmentText={prettyAssessmentText}
+            score={mostRecentDataPoint.json.value}
+            thresholds={thresholds}
+            concernKey={concernKey}
+            el={
+              <div title={JSON.stringify(dataPoints, null, 2)}>
+                {width > WIDTH_THRESHOLD_PIXELS ? prettyAssessmentText : shortDibelsText(mostRecentDataPoint.benchmark_assessment_key)}
+              </div>
+            }
+          />
         }
       />
     )}</AutoSizer>
@@ -613,5 +613,34 @@ function Freshness(props) {
         ...(isHovering ? {} : freshnessStyle)
       }}>{children}</div>
     )}</Hover>
+  );
+}
+
+function DibelsDialog(props) {
+  const {benchmarkAssessmentKey, currentSchoolYear, dataPointsByAssessmentKey, currentGrade} = props;
+  const labelText = prettyDibelsText(benchmarkAssessmentKey);
+  const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey];
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', marginBottom: 15}}>
+      <div style={{fontSize: 12, marginBottom: 2, textAlign: 'left'}}>{labelText}</div>
+      {/*<SliderChart
+        risk={thresholds.risk}
+        benchmark={thresholds.benchmark}
+        range={{
+          [DIBELS_FSF_WPM]: [0, 100],
+          [DIBELS_LNF_WPM]: [0, 100],
+          [DIBELS_PSF_WPM]: [0, 100],
+          [DIBELS_NWF_CLS]: [0, 200]
+        }[benchmarkAssessmentKey]}
+        values={benchmarkDataPoints.map(d => d.json.data_point)}
+        height={100}
+      />*/}
+      <DibelsMegaChart
+        currentGrade={currentGrade}
+        benchmarkDataPoints={benchmarkDataPoints}
+        currentSchoolYear={currentSchoolYear}
+        benchmarkAssessmentKey={benchmarkAssessmentKey}
+      />
+    </div>
   );
 }

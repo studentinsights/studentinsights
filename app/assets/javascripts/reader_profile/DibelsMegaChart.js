@@ -7,17 +7,19 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {allGrades} from '../helpers/gradeText';
 import {high, medium, low} from '../helpers/colors';
 import HighchartsWrapper from '../components/HighchartsWrapper';
-import {xAxisWithGrades} from './highchartsXAxisWithGrades';
-import {lineChartOptions} from './highchartsLineChart';
-import {yAxisPercentileOptions} from './highchartsYAxisPercentileOptions';
+import {xAxisWithGrades} from '../student_profile/highchartsXAxisWithGrades';
+import {lineChartOptions} from '../student_profile/highchartsLineChart';
 import {
-  DIBELS_FSF_WPM,
-  DIBELS_PSF_WPM,
-  DIBELS_LNF_WPM,
+  DIBELS_FSF,
+  DIBELS_PSF,
+  DIBELS_LNF,
   DIBELS_NWF_CLS,
-  somervilleDibelsThresholdsFor
-} from '../reading/readingData';
-import DibelsSparkline from '../reading/DibelsSparkline';
+  DIBELS_NWF_WWR,
+  DIBELS_DORF_ACC,
+  DIBELS_DORF_WPM,
+  somervilleReadingThresholdsFor
+} from '../reading/thresholds';
+import DibelsSparkline from './DibelsSparkline';
 
 export default class DibelsMegaChart extends React.Component {
   render() {
@@ -94,7 +96,7 @@ export default class DibelsMegaChart extends React.Component {
       valueFor(benchmarkDataPoints, benchmarkAssessmentKey, currentSchoolYear, 'winter'),
       valueFor(benchmarkDataPoints, benchmarkAssessmentKey, currentSchoolYear, 'spring')
     ];
-    const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, currentGrade, nowPeriodKey);
+    const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, currentGrade, nowPeriodKey);
     return (
       <div className="DibelsMegaChart" title={values} style={{height: 40, padding: 5}}>
         <div style={{position: 'relative', width: 300, height: 40}}>
@@ -112,8 +114,8 @@ export default class DibelsMegaChart extends React.Component {
             height={40}
             yPad={0}
             values={values}
-            benchmark={thresholds.benchmark}
-            risk={thresholds.risk}
+            benchmark={thresholds ? thresholds.benchmark : null}
+            risk={thresholds ? thresholds.risk : null}
             domain={[0, 100]}
           />
           <div style={{opacity: 0.5, fontSize: 10, width: 50, textAlign: 'right', paddingRight: 5, position: 'absolute', top: 0}}>100 wpm</div>
@@ -139,7 +141,9 @@ export default class DibelsMegaChart extends React.Component {
 
   renderBadge(values, thresholds) {
     const value = _.last(values.filter(value => value));
-    const {color} = classifyLevel(value, thresholds);
+    const color = (thresholds)
+      ? classifyLevel(value, thresholds).color
+      : '#eee';
     return <div style={{
       display: 'flex',
       backgroundColor: color,
@@ -160,7 +164,7 @@ DibelsMegaChart.propTypes = {
   benchmarkDataPoints: PropTypes.arrayOf(PropTypes.shape({
     benchmark_period_key: PropTypes.string.isRequired,
     json: PropTypes.shape({
-      data_point: PropTypes.any.isRequired
+      value: PropTypes.any.isRequired
     }).isRequired
   })).isRequired,
   currentGrade: PropTypes.any.isRequired,
@@ -172,7 +176,7 @@ function toDataPoints(benchmarkDataPoints, currentSchoolYear) {
   const dataPoints = (benchmarkDataPoints || []).map(dataPoint => {
     return {
       x: toMoment(currentSchoolYear, dataPoint.benchmark_period_key).valueOf(),
-      y: parseInt(dataPoint.json.data_point, 10)
+      y: parseInt(dataPoint.json.value, 10)
     };
   });
 
@@ -187,7 +191,7 @@ function toThresholdSeries(benchmarkDataPoints, currentSchoolYear, currentGrade,
     const nYearsBack = currentSchoolYear - dataPoint.benchmark_school_year;
     const currentGradeIndex = grades.indexOf(currentGrade);
     const gradeThen = grades[currentGradeIndex - nYearsBack];
-    const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, gradeThen, dataPoint.benchmark_period_key);
+    const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, gradeThen, dataPoint.benchmark_period_key);
     // console.log('thresholds', thresholds, benchmarkAssessmentKey, gradeThen, dataPoint.benchmark_period_key);
     return {
       x: toMoment(currentSchoolYear, dataPoint.benchmark_period_key).valueOf(),
@@ -216,10 +220,13 @@ function toMoment(currentSchoolYear, benchmarkPeriodKey) {
 
 function yAxis(benchmarkAssessmentKey) {
   const allTimeRange = {
-    [DIBELS_FSF_WPM]: [0, 100],
-    [DIBELS_LNF_WPM]: [0, 100],
-    [DIBELS_PSF_WPM]: [0, 100],
-    [DIBELS_NWF_CLS]: [0, 200]
+    [DIBELS_FSF]: [0, 100],
+    [DIBELS_LNF]: [0, 100],
+    [DIBELS_PSF]: [0, 100],
+    [DIBELS_NWF_CLS]: [0, 200],
+    [DIBELS_NWF_WWR]: [0, 100],
+    [DIBELS_DORF_ACC]: [0, 100],
+    [DIBELS_DORF_WPM]: [0, 200],
   }[benchmarkAssessmentKey];
 
   return {
@@ -248,15 +255,17 @@ function valueFor(benchmarkDataPoints, benchmarkAssessmentKey, schoolYear, bench
     benchmark_period_key: benchmarkPeriodKey,
     benchmark_assessment_key: benchmarkAssessmentKey
   });
-  return (dataPoint && dataPoint.json) ? parseInt(dataPoint.json.data_point, 10) : null;
+  return (dataPoint && dataPoint.json) ? parseInt(dataPoint.json.value, 10) : null;
 }
 
 
 
 function classifyLevel(value, thresholds) {
-  const {risk, benchmark} = thresholds;
-  const isRisk = value <= risk;
-  const isBenchmark = value >= benchmark;
-  const color = (!value) ? null : isBenchmark ? '#85b985' : isRisk ? 'orange' : '#ccc';
-  return {isRisk, isBenchmark, color};
+  // TODO(kr) move to bucketForDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey)
+  // const {risk, benchmark} = thresholds;
+  // const isRisk = value <= risk;
+  // const isBenchmark = value >= benchmark;
+  // const color = (!value) ? null : isBenchmark ? '#85b985' : isRisk ? 'orange' : '#ccc';
+  // return {isRisk, isBenchmark, color};
+  return {isRisk: false, isBenchmark: false, color: '#ccc'};
 }

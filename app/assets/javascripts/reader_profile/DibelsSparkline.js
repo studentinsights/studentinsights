@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import d3 from 'd3';
 import _ from 'lodash';
 
@@ -50,8 +51,8 @@ export default function DibelsSparkline(props) {
   // const color = isGrowing ? 'green' : '#666';
 
   // third grade dorf wpm
-  const aboveBenchmark = (_.last(_.compact(values)) >= benchmark);
-  const belowRisk = (_.last(_.compact(values)) <= risk);
+  const aboveBenchmark = benchmark ? (_.last(_.compact(values)) >= benchmark) : false;
+  const belowRisk = risk ? (_.last(_.compact(values)) <= risk) : false;
   const strokeWidth = 1;
   const color = aboveBenchmark ? '#85b985' : belowRisk ? 'orange' : '#ccc';
   return (
@@ -60,3 +61,7 @@ export default function DibelsSparkline(props) {
     </svg>
   );
 }
+DibelsSparkline.propTypes = {
+  risk: PropTypes.number,
+  benchmark: PropTypes.number
+};

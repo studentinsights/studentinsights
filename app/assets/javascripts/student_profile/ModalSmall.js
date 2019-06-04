@@ -32,10 +32,10 @@ export default class ModalSmall extends React.Component {
   }
 
   render() {
-    const {style, icon} = this.props;
+    const {style, iconStyle, icon} = this.props;
     return (
       <div style={{display: 'inline', marginLeft: 10, ...style}} className='click-event-modal'>
-        <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none'}}>
+        <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none', ...iconStyle}}>
           {icon}
         </a>
         {
@@ -85,6 +85,7 @@ ModalSmall.propTypes = {
   content: PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
   icon: PropTypes.object.isRequired, // React DOM object which will be clicked to open the modal.
   style: PropTypes.object,
+  iconStyle: PropTypes.object,
   modalStyle: PropTypes.object
 };
 

@@ -7,13 +7,12 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {isStudentActive, shouldUseStarData} from '../helpers/PerDistrict';
+import ReaderProfileJune from '../reader_profile/ReaderProfileJune';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import LightAttendanceDetails from './LightAttendanceDetails';
 import LightBehaviorDetails from './LightBehaviorDetails';
 import ElaDetails from './ElaDetails';
-import ReaderProfile from './ReaderProfile';
-import ReaderProfileJune from './ReaderProfileJune';
 import MathDetails from './MathDetails';
 import LightNotesDetails from './LightNotesDetails';
 import LightServiceDetails from './LightServiceDetails';
@@ -470,9 +469,7 @@ export default class LightProfilePage extends React.Component {
     const {student, access, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
     const readerProfileEl = (showMinimalReadingData
-      ? (window.location.search.indexOf('older_profile') !== -1)
-        ? <ReaderProfile student={student} />
-        : <ReaderProfileJune student={student} access={access} />
+      ? <ReaderProfileJune student={student} access={access} />
       : null
     );
     return (
