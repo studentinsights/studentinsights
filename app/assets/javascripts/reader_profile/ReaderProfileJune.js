@@ -33,16 +33,17 @@ import {
   DIBELS_UNKNOWN
 } from '../reading/readingData';
 import {
-  SearchResults,
+  buildLunrIndexForNotes,
   findNotes,
   SEE_AS_READER_SEARCH,
   ORAL_LANGUAGE_SEARCH,
   ENGLISH_SEARCH,
   SOUNDS_IN_WORDS_SEARCH,
   SOUNDS_AND_LETTERS_SEARCH
-} from './readingSearch';
+} from './NotesSearchForReading';
 import DibelsMegaChart from './DibelsMegaChart';
-
+import ChipForNotes from './ChipForNotes';
+import Freshness from './Freshness';
 
 /* todo
 <h1>older grades, or still need to add in somewhere</h1>
@@ -58,6 +59,31 @@ import DibelsMegaChart from './DibelsMegaChart';
 review search:
 - sight words?
 - special education evaluation?
+*/
+
+/*
+ChipContainer
+  onClick
+  dialogEl
+
+Freshness
+  freshnessKey
+  children
+
+Concern
+  concernKey
+  children
+
+Hover
+  hoverEl
+  children
+
+TwoLineChip
+  firstLine(isSmall)
+  secondLine(isSmall)
+  
+NotesChip
+  children
 */
 export default class ReaderProfileJune extends React.Component {
   render() {
@@ -78,7 +104,6 @@ export default class ReaderProfileJune extends React.Component {
     const notes = json.feed_cards.map(card => card.json);
     const benchmarkDataPoints = json.benchmark_data_points;
     const currentSchoolYear = json.current_school_year;
-    console.log('benchmarkDataPoints', benchmarkDataPoints);
     const dataPointsByAssessmentKey = _.groupBy(benchmarkDataPoints, 'benchmark_assessment_key');
 
     return this.renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey);
@@ -88,164 +113,115 @@ export default class ReaderProfileJune extends React.Component {
     const {nowFn, districtKey} = this.context;
     const {student, access} = this.props;
     const nowMoment = nowFn();
-    console.log('dataPointsByAssessmentKey', dataPointsByAssessmentKey);
+    const lunrIndex = buildLunrIndexForNotes(notes);
+
+    function chipForNotes(words) {
+      return (
+        <ChipForNotes
+          nowMoment={nowMoment}
+          matches={findNotes(lunrIndex, notes, words)}
+        />
+      );
+    }
+
+    function chipForLanguage(accessKey) {
+      return (
+        <ChipForLanguage
+          accessKey={accessKey}
+          nowMoment={nowMoment}
+          districtKey={districtKey}
+          student={student}
+          access={access}
+        />
+      );
+    }
+
+    function chipForDibels(ingredientName, assessmentKey) {
+      return (
+        <ChipForDibels
+          ingredientName={ingredientName}
+          benchmarkAssessmentKey={assessmentKey}
+          student={student}
+          nowMoment={nowMoment}
+          dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+        />
+      );
+    }
+
     return (
       <div style={{marginTop: 10}}>
         <Ingredient
           name="See themselves as a reader"
           color="#4db1f0"
-          notes={
-            <ChipForNotes
-              nowMoment={nowMoment}
-              matches={findNotes(SEE_AS_READER_SEARCH, notes)}
-            />
-          }
-        >
-          <Sub name="in small groups" />
-          <Sub name="independently" />
-        </Ingredient>
+          notes={chipForNotes(SEE_AS_READER_SEARCH)}
+          subs={[
+            <Sub name="in small groups" />,
+            <Sub name="independently" />
+          ]}
+        />
+
         <Ingredient
           name="Communicate with oral language"
           color="#f06060"
-          notes={
-            <ChipForNotes
-              nowMoment={nowMoment}
-              matches={findNotes(ORAL_LANGUAGE_SEARCH, notes)}
-            />
-          }
-        >
-          <Sub name="expressive" />
-          <Sub name="receptive" />
-        </Ingredient>
+          notes={chipForNotes(ORAL_LANGUAGE_SEARCH)}
+          subs={[
+            <Sub name="expressive" />,
+            <Sub name="receptive" />
+          ]}
+        />
+
         <Ingredient
           name="Speak and listen in English"
           color="rgba(140, 17, 140, 0.57)"
-          notes={
-            <ChipForNotes
-              nowMoment={nowMoment}
-              matches={findNotes(ENGLISH_SEARCH, notes)}
+          notes={chipForNotes(ENGLISH_SEARCH)}
+          subs={[
+            <Sub name="spoken"
+              screener={chipForLanguage('oral')}
+            />,
+            <Sub name="written"
+              screener={chipForLanguage('literacy')}
             />
-          }
-        >
-          <Sub name="spoken"
-            screener={
-              <ChipForLanguage
-                accessKey="oral"
-                nowMoment={nowMoment}
-                districtKey={districtKey}
-                student={student}
-                access={access}
-              />
-            }
-          />
-          <Sub name="written"
-            screener={
-              <ChipForLanguage
-                accessKey="literacy"
-                nowMoment={nowMoment}
-                districtKey={districtKey}
-                student={student}
-                access={access}
-              />
-            }
-          />
-        </Ingredient>
+          ]}
+        />
+
         <Ingredient
           name="Discriminate Sounds in Words"
           color="rgb(227, 121, 58)"
-          notes={
-            <ChipForNotes
-              nowMoment={nowMoment}
-              matches={findNotes(SOUNDS_IN_WORDS_SEARCH, notes)}
-            />
-          }>
-          <Sub
-            name="blending"
-            screener={<ChipForDibels
-              ingredientName="Discriminate Sounds in Words: Blending"
-              benchmarkAssessmentKey={DIBELS_PSF}
-              student={student}
-              nowMoment={nowMoment}
-              dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-            />}
-            /* visual diagnostic={<Chip
-              nowMoment={nowMoment}
-              concernKey="high"
-              atMoment={toMoment('12/19/2018')}
-              el="PAST"
-            />}*/
-          />
-          <Sub
-            name="deleting"
-          />
-          <Sub
-            name="substituting"
-            /* visual diagnostic={<Chip
-              nowMoment={nowMoment}
-              concernKey="medium"
-              atMoment={toMoment('5/19/2019')}
-              el="PAST"
-            />}*/
-          />
-        </Ingredient>
+          notes={chipForNotes(SOUNDS_IN_WORDS_SEARCH)}
+          subs={[
+            <Sub
+              name="blending"
+              screener={chipForDibels('blending', DIBELS_PSF)}
+            />,
+            <Sub name="deleting" />,
+            <Sub name="substituting" />
+          ]}
+        />
+
         <Ingredient
           name="Represent Sounds with Letters"
           color="rgb(100, 186, 91)"
-          notes={
-            <ChipForNotes
-              nowMoment={nowMoment}
-              matches={findNotes(SOUNDS_AND_LETTERS_SEARCH, notes)}
-            />
-          }
-          isLast={true}>
-          <Sub name="letters"
-            /* visual diagnostic="Lively letters" */
-            screener={<ChipForDibels
-              ingredientName="Represent Sounds with Letters: letters"
-              benchmarkAssessmentKey={DIBELS_LNF}
-              student={student}
-              nowMoment={nowMoment}
-              dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-            />}
-          />
-          <Sub name="accurate"
-            screener={<MultipleChips chips={[
-              <ChipForDibels
-                ingredientName="Represent Sounds with Letters: accurate"
-                benchmarkAssessmentKey={DIBELS_DORF_ACC}
-                student={student}
-                nowMoment={nowMoment}
-                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-              />
-            ]}/>}
-          />
-          <Sub name="fluent"
-            screener={<MultipleChips chips={[
-              <ChipForDibels
-                ingredientName="Represent Sounds with Letters: fluent"
-                benchmarkAssessmentKey={DIBELS_DORF_WPM}
-                student={student}
-                nowMoment={nowMoment}
-                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-              />,
-              <ChipForDibels
-                ingredientName="Represent Sounds with Letters: fluent"
-                benchmarkAssessmentKey={DIBELS_NWF_WWR}
-                student={student}
-                nowMoment={nowMoment}
-                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-              />,
-              <ChipForDibels
-                ingredientName="Represent Sounds with Letters: fluent"
-                benchmarkAssessmentKey={DIBELS_NWF_CLS}
-                student={student}
-                nowMoment={nowMoment}
-                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-              />
-            ]}/>}
-          />
-          <Sub name="spelling" />
-        </Ingredient>
+          isLast={true}
+          notes={chipForNotes(SOUNDS_AND_LETTERS_SEARCH)}
+          subs={[
+            <Sub name="letters"
+              screener={chipForDibels('letters', DIBELS_LNF)}
+            />,
+            <Sub name="accurate"
+              screener={chipForDibels('accurate', DIBELS_DORF_ACC)}
+            />,
+            <Sub name="fluent"
+              screener={
+                <MultipleChips chips={[
+                  chipForDibels('fluent', DIBELS_DORF_WPM),
+                  chipForDibels('fluent', DIBELS_NWF_WWR),
+                  chipForDibels('fluent', DIBELS_NWF_CLS)
+                ]} />
+              }
+            />,
+            <Sub name="spelling" />
+          ]}
+        />
       </div>
     );
   }
@@ -295,7 +271,7 @@ function missingEl(text) {
 }
 
 function Ingredient(props) {
-  const {name, notes, children, isLast} = props;
+  const {name, notes, subs, isLast} = props;
   // const color = chroma(props.color).alpha(0.25).desaturate(0.75).hex();
   const color = '#eee';
   return (
@@ -319,7 +295,7 @@ function Ingredient(props) {
         <div style={{
           paddingLeft: 10,
           borderLeft: `3px solid ${color}`,
-        }}>{children}</div>
+        }}>{subs.map((sub, index) => <div key={index}>{sub}</div>)}</div>
         <div style={{
           flex: 1,
           borderRight: `1px solid ${color}`
@@ -399,8 +375,8 @@ function Chip(props) {
       }}>
         <AutoSizer disableHeight>{({width}) => (
           <div style={{width}}>
-            <div style={{overflowX: 'hidden', height: 20}}>{el}</div>
-            {freshnessText && <div style={{overflowX: 'hidden', height: 20}}>
+            <div style={{overflow: 'hidden', height: 20}}>{el}</div>
+            {freshnessText && <div style={{overflow: 'hidden', height: 20}}>
               {(width > 80) ? `${daysAgo} days ago` : `${daysAgo}d`}
             </div>}  
           </div>
@@ -410,36 +386,6 @@ function Chip(props) {
   );
 }
 
-function bucketForChip(daysAgo) {
-  if (daysAgo === null || daysAgo ===  undefined) return 'unknown';
-  if (daysAgo <= 90) return 'months';
-  if (daysAgo <= 365) return 'year';
-  return 'old';
-}
-
-function stylesForFreshness(daysAgo) {
-  const bucket = bucketForChip(daysAgo);
-  return {
-    months: {opacity: 1.0},
-    unknown: {opacity: 0.8},
-    year: {opacity: 0.4},
-    old: {opacity: 0.2}
-  }[bucket];
-}
-
-
-function ChipForNotes(props) {
-  const {nowMoment, matches} = props;
-  const mostRecentMoment = _.last(matches.map(match => toMomentFromTimestamp(match.note.recorded_at)).sort());
-  const daysAgo = mostRecentMoment ? nowMoment.clone().diff(mostRecentMoment, 'days') : null;
-  return (
-    <Freshness daysAgo={daysAgo}>
-      <SearchResults
-        style={{border: '1px solid white', cursor: 'pointer'}}
-        matches={matches} />
-    </Freshness>
-  );
-}
 
 function dataPointMoment(dataPoint) {
   return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year);
@@ -537,7 +483,7 @@ function MultipleChips(props) {
   }}>{chips.map((chip, index) => (
     <div key={index} style={{
       flex: 1,
-      overflowY: 'hidden',
+      overflow: 'hidden',
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
@@ -593,28 +539,6 @@ function languageAssessmentMoment(dataPoint) {
   return toMomentFromTimestamp(dataPoint.date_taken);
 }
 
-function Freshness(props) {
-  const {daysAgo, style, innerStyle, children} = props;
-  const freshnessStyle = stylesForFreshness(daysAgo);
-  return (
-    <Hover style={{
-      height: '100%',
-      width: '100%',
-      display: 'flex',
-      flex: 1,
-      ...style
-    }}>{isHovering => (
-      <div style={{
-        ...innerStyle,
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flex: 1,
-        ...(isHovering ? {} : freshnessStyle)
-      }}>{children}</div>
-    )}</Hover>
-  );
-}
 
 function DibelsDialog(props) {
   const {benchmarkAssessmentKey, currentSchoolYear, dataPointsByAssessmentKey, currentGrade} = props;

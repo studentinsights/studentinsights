@@ -187,17 +187,18 @@ function toDataPoints(benchmarkDataPoints, currentSchoolYear) {
 
 function toThresholdSeries(benchmarkDataPoints, currentSchoolYear, currentGrade, benchmarkAssessmentKey, thresholdKey) {
   const grades = allGrades();
-  const dataPoints = (benchmarkDataPoints || []).map(dataPoint => {
+  const dataPoints = _.compact((benchmarkDataPoints || []).map(dataPoint => {
     const nYearsBack = currentSchoolYear - dataPoint.benchmark_school_year;
     const currentGradeIndex = grades.indexOf(currentGrade);
     const gradeThen = grades[currentGradeIndex - nYearsBack];
     const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, gradeThen, dataPoint.benchmark_period_key);
+    if (!thresholds) return null;
     // console.log('thresholds', thresholds, benchmarkAssessmentKey, gradeThen, dataPoint.benchmark_period_key);
     return {
       x: toMoment(currentSchoolYear, dataPoint.benchmark_period_key).valueOf(),
       y: parseInt(thresholds[thresholdKey], 10)
     };
-  });
+  }));
   
   // HighCharts wants time series data sorted in ascending x order
   return _.sortBy(dataPoints, 'x');
