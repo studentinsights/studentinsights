@@ -5,30 +5,36 @@ import lunr from 'lunr';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import Timestamp from '../components/Timestamp';
 import NoteBadge from '../components/NoteBadge';
+import NoteText from '../components/NoteText';
+import Tooltip from './Tooltip';
 
 
 export default function NotesSearchForReading(props) {
-  const {matches} = props;
+  const {matches, style} = props;
   
   // sort by date, not relevance
   const sortedMatches = _.sortBy(matches, match => -1 * toMomentFromTimestamp(match.note.recorded_at).unix());
   return (
-    <div style={{maxHeight: 120, overflowY: 'scroll'}}>
+    <div className="NotesSearchForReading" style={{height: '100%', ...style}}>
       {sortedMatches.map((match, index) => (
          <div key={index} style={{textAlign: 'left', fontSize: 10, marginBottom: 20}}>
           <div>
             <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
             <Timestamp style={{fontWeight: 'bold', display: 'inline', marginLeft: 5}} railsTimestamp={match.note.recorded_at} />
           </div>
-          <div title={match.note.text}>{match.positions.map(position => (
-            <span key={position[0]} style={{marginRight: 5}}>
-              <Highlight
-                text={match.note.text}
-                start={position[0]}
-                length={position[1]}
-              />
-            </span>
-          ))}</div>
+          <Tooltip title={<NoteText text={match.note.text} style={{fontSize: 12}} />}>
+            <div style={{maxHeight: '100%', overflowY: 'scroll'}}>
+              {match.positions.map(position => (
+                <span key={position[0]} style={{marginRight: 5}}>
+                  <Highlight
+                    text={match.note.text}
+                    start={position[0]}
+                    length={position[1]}
+                  />
+                </span>
+              ))}
+            </div>
+          </Tooltip>
         </div>
       ))}
     </div>
@@ -38,7 +44,8 @@ NotesSearchForReading.propTypes = {
   matches: PropTypes.arrayOf(PropTypes.shape({
     note: PropTypes.object.isRequired,
     positions: PropTypes.array.isRequired
-  })).isRequired
+  })).isRequired,
+  style: PropTypes.object
 };
 
 

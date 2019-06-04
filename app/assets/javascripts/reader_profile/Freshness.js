@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Hover from '../components/Hover';
 
 
+// Fade out the components based on how many `daysAgo`
+// the information is from.  Add a `Hover` to show full
+// opacity on hover.
 export default function Freshness(props) {
   const {daysAgo, style, innerStyle, children} = props;
   const freshnessStyle = stylesForFreshness(daysAgo);
