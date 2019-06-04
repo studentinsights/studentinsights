@@ -466,10 +466,10 @@ export default class LightProfilePage extends React.Component {
 
   renderReading() {
     const {districtKey} = this.context;
-    const {student, access, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
+    const {student, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
     const readerProfileEl = (showMinimalReadingData
-      ? <ReaderProfileJunePage student={student} access={access} />
+      ? <ReaderProfileJunePage student={student} />
       : null
     );
     return (

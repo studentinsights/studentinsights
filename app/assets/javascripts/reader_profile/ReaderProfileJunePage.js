@@ -23,11 +23,11 @@ export default class ReaderProfileJunePage extends React.Component {
   }
 
   renderJson(json) {
-    const {student, access} = this.props;
+    const {student} = this.props;
     return (
       <ReaderProfileJune
         student={student}
-        access={access}
+        access={json.access}
         feedCards={json.feed_cards}
         currentSchoolYear={json.current_school_year}
         dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
@@ -36,7 +36,6 @@ export default class ReaderProfileJunePage extends React.Component {
   }
 }
 ReaderProfileJunePage.propTypes = {
-  access: PropTypes.object,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     grade: PropTypes.any.isRequired
