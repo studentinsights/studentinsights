@@ -7,6 +7,7 @@ import Timestamp from '../components/Timestamp';
 import NoteBadge from '../components/NoteBadge';
 
 // TODO sight words?
+// TODO special education evaluation?
 
 export const SEE_AS_READER_SEARCH = [
   'books',
@@ -25,6 +26,8 @@ export const ORAL_LANGUAGE_SEARCH = [
   '+verbal +comprehension',
   'vocabulary',
   'listening',
+  '+speech +language',
+  '+speech +language +evaluation'
 ];
 export const ENGLISH_SEARCH = [
   'WIDA',
@@ -48,7 +51,7 @@ export const SOUNDS_AND_LETTERS_SEARCH = [
   'reading',
   '+reading +intervention',
   'correspondence', // 1-1
-  'letter',
+  'letter -attendance -tardy', // not "attendance letter"
   '+letter +sounds',
   '+Lively +Letters',
   'LNF',

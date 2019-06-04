@@ -371,7 +371,6 @@ function Chip(props) {
     el
   } = props;
   const daysAgo = atMoment ? nowMoment.clone().diff(atMoment, 'days') : null;
-  const freshnessStyle = stylesForFreshness(daysAgo);
   const freshnessText = (daysAgo && !disableWhenText)
     ? `${daysAgo} days ago`
     : null;
@@ -410,18 +409,19 @@ function Chip(props) {
       border: '1px solid white',
       paddingLeft: 8,
       cursor: 'pointer',
-      ...freshnessStyle,
       ...concernStyle,
       ...style
     }}>
-      <AutoSizer disableHeight>{({width}) => (
-        <div style={{width}}>
-          <div style={{overflowX: 'hidden', height: 20}}>{el}</div>
-          {freshnessText && <div style={{overflowX: 'hidden', height: 20}}>
-            {(width > 80) ? `${daysAgo} days ago` : `${daysAgo}d`}
-          </div>}  
-        </div>
-      )}</AutoSizer>
+      <Freshness daysAgo={daysAgo}>
+        <AutoSizer disableHeight>{({width}) => (
+          <div style={{width}}>
+            <div style={{overflowX: 'hidden', height: 20}}>{el}</div>
+            {freshnessText && <div style={{overflowX: 'hidden', height: 20}}>
+              {(width > 80) ? `${daysAgo} days ago` : `${daysAgo}d`}
+            </div>}  
+          </div>
+        )}</AutoSizer>
+      </Freshness>
     </div>
   );
 }
@@ -439,7 +439,7 @@ function stylesForFreshness(daysAgo) {
     months: {opacity: 1.0},
     unknown: {opacity: 0.8},
     year: {opacity: 0.4},
-    old: {opacity: 0.1}
+    old: {opacity: 0.2}
   }[bucket];
 }
 
@@ -448,11 +448,12 @@ function ChipForNotes(props) {
   const {nowMoment, matches} = props;
   const mostRecentMoment = _.last(matches.map(match => toMomentFromTimestamp(match.note.recorded_at)).sort());
   const daysAgo = mostRecentMoment ? nowMoment.clone().diff(mostRecentMoment, 'days') : null;
-  const freshnessStyle = stylesForFreshness(daysAgo);
   return (
-    <div style={freshnessStyle}>
-      <SearchResults matches={matches} />
-    </div>
+    <Freshness daysAgo={daysAgo}>
+      <SearchResults
+        style={{border: '1px solid white', cursor: 'pointer'}}
+        matches={matches} />
+    </Freshness>
   );
 }
 
@@ -590,4 +591,25 @@ function languageAssessmentMoment(dataPoint) {
   if (!dataPoint) return null;
   if (!dataPoint.date_taken) return null;
   return toMomentFromTimestamp(dataPoint.date_taken);
+}
+
+function Freshness(props) {
+  const {daysAgo, style, innerStyle, children} = props;
+  const freshnessStyle = stylesForFreshness(daysAgo);
+  return (
+    <Hover style={{
+      height: '100%',
+      width: '100%',
+      display: 'flex',
+      ...style
+    }}>{isHovering => (
+      <div style={{
+        ...innerStyle,
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        ...(isHovering ? {} : freshnessStyle)
+      }}>{children}</div>
+    )}</Hover>
+  );
 }
