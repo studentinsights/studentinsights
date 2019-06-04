@@ -14,27 +14,27 @@ export default class ReaderProfileJunePage extends React.Component {
     const url = `/api/students/${student.id}/reader_profile_json`;
 
     return (
-      <div className="ReaderProfileJunePage">
-        <SectionHeading>Reader Profile (June v2)</SectionHeading>
-        <GenericLoader
-          promiseFn={() => apiFetchJson(url)}
-          render={json => this.renderJson(json)} />
-      </div>
+      <RollbarErrorBoundary>
+        <div className="ReaderProfileJunePage">
+          <SectionHeading>Reader Profile (June v2)</SectionHeading>
+          <GenericLoader
+            promiseFn={() => apiFetchJson(url)}
+            render={json => this.renderJson(json)} />
+        </div>
+      </RollbarErrorBoundary>
     );
   }
 
   renderJson(json) {
     const {student} = this.props;
     return (
-      <RollbarErrorBoundary>
-        <ReaderProfileJune
-          student={student}
-          access={json.access}
-          feedCards={json.feed_cards}
-          currentSchoolYear={json.current_school_year}
-          dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
-        />
-      </RollbarErrorBoundary>
+      <ReaderProfileJune
+        student={student}
+        access={json.access}
+        feedCards={json.feed_cards}
+        currentSchoolYear={json.current_school_year}
+        dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
+      />
     );
   }
 }
