@@ -6,6 +6,8 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import Timestamp from '../components/Timestamp';
 import NoteBadge from '../components/NoteBadge';
 
+// TODO sight words?
+
 export const SEE_AS_READER_SEARCH = [
   'books',
   'readaloud',
@@ -14,11 +16,15 @@ export const SEE_AS_READER_SEARCH = [
   'motivated',
   'engage',
   'identity'
+  // not 'engagement', other social, behavioral, etc?
 ];
 export const ORAL_LANGUAGE_SEARCH = [
-  'oral language',
-  'expressive',
-  'receptive'
+  '+oral +language',
+  '+expressive +language',
+  '+receptive +language',
+  '+verbal +comprehension',
+  'vocabulary',
+  'listening',
 ];
 export const ENGLISH_SEARCH = [
   'WIDA',
@@ -28,21 +34,30 @@ export const ENGLISH_SEARCH = [
 export const SOUNDS_IN_WORDS_SEARCH = [
   'phonological',
   'phonemic',
-  'sounds',
   'phoneme',
   'PSF',
-  'phonemic segmentation fluency',
+  '+phonemic +segmentation +fluency',
   'FSF',
-  'first sound fluency',
+  '+first +sound +fluency',
   'segment',
   'blend',
   'delete',
   'substitution'
 ];
 export const SOUNDS_AND_LETTERS_SEARCH = [
+  'reading',
+  '+reading +intervention',
+  'correspondence', // 1-1
   'letter',
+  '+letter +sounds',
+  '+Lively +Letters',
   'LNF',
-  'letter naming fluency',
+  '+letter +naming +fluency',
+  'NWF',
+  '+nonsene +word +fluency',
+  'ORF',
+  'DORF',
+  '+oral +reading +fluency',
   'phonics',
   'decoding',
   'orthography',
@@ -66,25 +81,46 @@ export function findNotes(words, notes) {
   });
 
   // search
+  // window.index = index;   console.log('wat');
+  // console.log(words, 'results', results);
   const results = _.flatMap(words, word => index.search(word));
-  return _.flatMap(results, result => {
-    const note = notes.filter(note => note.id === parseInt(result.ref, 10))[0]; // need a better way :)
-    if (!note) {
-      // console.log('no note for result:', results);
-      return [];
-    }
-    const positions = _.first(_.values(result.matchData.metadata)).text.position;
-    return {note, positions};
-    // // console.log('ok', note, positions);
-    // return positions.map(position => {
-    //   // console.log('>> note.text', note.text);
-    //   const highlight = createHighlight(note.text, position[0], position[1]);
-    //   return {
-    //     note,
-    //     highlight
-    //   };
-    // });
+  const resultsByRef = _.groupBy(results, r => r.ref);
+  return Object.keys(resultsByRef).map(ref => {
+    const eventNoteId = parseInt(ref, 10);
+    const resultsForRef = resultsByRef[ref];
+
+    const note = notes.filter(note => note.id === eventNoteId)[0]; // need a better way :)
+    if (!note) return []; // shouldn't happen
+
+    const positions = resultsForRef.map(result => {
+      return _.first(_.values(result.matchData.metadata)).text.position[0];
+    });
+    const uniqueSortedPositions = _.sortBy(_.uniqWith(positions, _.isEqual), position => position[0]);
+    // console.log(eventNoteId, note.text, 'uniqueSortedPositions', uniqueSortedPositions);
+    return {note, positions: uniqueSortedPositions};
+
   });
+
+  // seach, each term match shown
+  // const results = _.flatMap(words, word => index.search(word));
+  // return _.flatMap(results, result => {
+  //   const note = notes.filter(note => note.id === parseInt(result.ref, 10))[0]; // need a better way :)
+  //   if (!note) {
+  //     // console.log('no note for result:', results);
+  //     return [];
+  //   }
+  //   const positions = _.first(_.values(result.matchData.metadata)).text.position;
+  //   return {note, positions};
+  //   // // console.log('ok', note, positions);
+  //   // return positions.map(position => {
+  //   //   // console.log('>> note.text', note.text);
+  //   //   const highlight = createHighlight(note.text, position[0], position[1]);
+  //   //   return {
+  //   //     note,
+  //   //     highlight
+  //   //   };
+  //   // });
+  // });
 }
 
 export function SearchResults(props) {
@@ -100,7 +136,7 @@ export function SearchResults(props) {
             <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
             <Timestamp style={{fontWeight: 'bold', display: 'inline', marginLeft: 5}} railsTimestamp={match.note.recorded_at} />
           </div>
-          <div>{match.positions.map(position => (
+          <div title={match.note.text}>{match.positions.map(position => (
             <span key={position[0]} style={{marginRight: 5}}>
               <Highlight
                 text={match.note.text}

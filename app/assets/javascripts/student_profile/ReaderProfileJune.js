@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import chroma from 'chroma-js';
+import {AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {high, medium, low} from '../helpers/colors';
+import {isEnglishLearner, roundedWidaLevel} from '../helpers/language';
+import {gradeText, adjustedGrade} from '../helpers/gradeText';
 import {toMoment, toMomentFromTimestamp} from '../helpers/toMoment';
 import Hover from '../components/Hover';
 import GenericLoader from '../components/GenericLoader';
@@ -18,15 +21,28 @@ import {
   SOUNDS_AND_LETTERS_SEARCH
 } from './readingSearch';
 import {
-  DIBELS_FSF_WPM,
-  DIBELS_PSF_WPM,
-  DIBELS_LNF_WPM,
+  DIBELS_LNF,
+  DIBELS_PSF,
   DIBELS_NWF_CLS,
+  DIBELS_NWF_WWR,
+  DIBELS_DORF_ACC,
+  DIBELS_DORF_WPM,
+  somervilleReadingThresholdsFor
+} from '../reading/thresholds';
+import {
   prettyDibelsText,
-  somervilleDibelsThresholdsFor
+  shortDibelsText,
+  benchmarkPeriodToMoment,
+  bucketForDibels,
+  DIBELS_GREEN,
+  DIBELS_YELLOW,
+  DIBELS_RED,
+  DIBELS_UNKNOWN
 } from '../reading/readingData';
 import DibelsMegaChart from './DibelsMegaChart';
 import SliderChart from '../reading/SliderChart';
+import LanguageStatusLink from './LanguageStatusLink';
+
 
 /* todo
 <h1>older grades, or still need to add in somewhere</h1>
@@ -55,7 +71,7 @@ export default class ReaderProfileJune extends React.Component {
 
   renderJson(json) {
     const grade = json.grade;
-    const notes = json.event_notes;
+    const notes = json.feed_cards.map(card => card.json);
     const benchmarkDataPoints = json.benchmark_data_points;
     const currentSchoolYear = json.current_school_year;
     const dataPointsByAssessmentKey = _.groupBy(benchmarkDataPoints, 'benchmark_assessment_key');
@@ -64,7 +80,9 @@ export default class ReaderProfileJune extends React.Component {
   }
 
   renderChart(notes, grade, currentSchoolYear, dataPointsByAssessmentKey) {
-    const {nowFn} = this.context;
+    const {nowFn, districtKey} = this.context;
+    const {student, access} = this.props;
+    const nowMoment = nowFn();
     return (
       <div style={{marginTop: 10}}>
         <Ingredient
@@ -72,7 +90,7 @@ export default class ReaderProfileJune extends React.Component {
           color="#4db1f0"
           notes={
             <ChipForNotes
-              nowMoment={nowFn()}
+              nowMoment={nowMoment}
               matches={findNotes(SEE_AS_READER_SEARCH, notes)}
             />
           }
@@ -85,7 +103,7 @@ export default class ReaderProfileJune extends React.Component {
           color="#f06060"
           notes={
             <ChipForNotes
-              nowMoment={nowFn()}
+              nowMoment={nowMoment}
               matches={findNotes(ORAL_LANGUAGE_SEARCH, notes)}
             />
           }
@@ -98,43 +116,69 @@ export default class ReaderProfileJune extends React.Component {
           color="rgba(140, 17, 140, 0.57)"
           notes={
             <ChipForNotes
-              nowMoment={nowFn()}
+              nowMoment={nowMoment}
               matches={findNotes(ENGLISH_SEARCH, notes)}
             />
           }
         >
-          <Sub name="spoken" />
-          <Sub name="written" />
+          <Sub name="spoken"
+            screener={
+              <ChipForLanguage
+                accessKey="oral"
+                nowMoment={nowMoment}
+                districtKey={districtKey}
+                student={student}
+                access={access}
+              />
+            }
+          />
+          <Sub name="written"
+            screener={
+              <ChipForLanguage
+                accessKey="literacy"
+                nowMoment={nowMoment}
+                districtKey={districtKey}
+                student={student}
+                access={access}
+              />
+            }
+          />
         </Ingredient>
         <Ingredient
           name="Discriminate Sounds in Words"
           color="rgb(227, 121, 58)"
           notes={
             <ChipForNotes
-              nowMoment={nowFn()}
+              nowMoment={nowMoment}
               matches={findNotes(SOUNDS_IN_WORDS_SEARCH, notes)}
             />
           }>
           <Sub
             name="blending"
-            diagnostic={<Chip
-              nowMoment={nowFn()}
+            screener={<ChipForDibels
+              benchmarkAssessmentKey={DIBELS_PSF}
+              student={student}
+              nowMoment={nowMoment}
+              dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+            />}
+            /* visual diagnostic={<Chip
+              nowMoment={nowMoment}
               concernKey="high"
               atMoment={toMoment('12/19/2018')}
               el="PAST"
-            />}
+            />}*/
           />
           <Sub
             name="deleting"
           />
           <Sub
             name="substituting"
-            diagnostic={<Chip
-              nowMoment={nowFn()}
+            /* visual diagnostic={<Chip
+              nowMoment={nowMoment}
               concernKey="medium"
               atMoment={toMoment('5/19/2019')}
               el="PAST"
-            />}
+            />}*/
           />
         </Ingredient>
         <Ingredient
@@ -142,14 +186,52 @@ export default class ReaderProfileJune extends React.Component {
           color="rgb(100, 186, 91)"
           notes={
             <ChipForNotes
-              nowMoment={nowFn()}
+              nowMoment={nowMoment}
               matches={findNotes(SOUNDS_AND_LETTERS_SEARCH, notes)}
             />
           }
           isLast={true}>
-          <Sub name="letters" diagnostic="Lively letters" />
-          <Sub name="accurate" />
-          <Sub name="fluent" />
+          <Sub name="letters"
+            /* visual diagnostic="Lively letters" */
+            screener={<ChipForDibels
+              benchmarkAssessmentKey={DIBELS_LNF}
+              student={student}
+              nowMoment={nowMoment}
+              dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+            />}
+          />
+          <Sub name="accurate"
+            screener={<MultipleChips chips={[
+              <ChipForDibels
+                benchmarkAssessmentKey={DIBELS_DORF_ACC}
+                student={student}
+                nowMoment={nowMoment}
+                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+              />
+            ]}/>}
+          />
+          <Sub name="fluent"
+            screener={<MultipleChips chips={[
+              <ChipForDibels
+                benchmarkAssessmentKey={DIBELS_DORF_WPM}
+                student={student}
+                nowMoment={nowMoment}
+                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+              />,
+              <ChipForDibels
+                benchmarkAssessmentKey={DIBELS_NWF_WWR}
+                student={student}
+                nowMoment={nowMoment}
+                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+              />,
+              <ChipForDibels
+                benchmarkAssessmentKey={DIBELS_NWF_CLS}
+                student={student}
+                nowMoment={nowMoment}
+                dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+              />
+            ]}/>}
+          />
           <Sub name="spelling" />
         </Ingredient>
       </div>
@@ -185,9 +267,11 @@ export default class ReaderProfileJune extends React.Component {
   }
 }
 ReaderProfileJune.contextTypes = {
-  nowFn: PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired,
+  districtKey: PropTypes.string.isRequired
 };
 ReaderProfileJune.propTypes = {
+  access: PropTypes.object,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     grade: PropTypes.any.isRequired
@@ -204,6 +288,7 @@ const styles = {
   cell: {
     width: 160,
     height: 40,
+    overflow: 'hidden',
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'
@@ -227,7 +312,8 @@ function missingEl(text) {
 
 function Ingredient(props) {
   const {name, notes, children, isLast} = props;
-  const color = chroma(props.color).alpha(0.25).desaturate(0.75).hex();
+  // const color = chroma(props.color).alpha(0.25).desaturate(0.75).hex();
+  const color = '#eee';
   return (
     <div className="Ingredient">
       <div style={{padding: 2, background: color, borderRadius: 30}}>
@@ -272,52 +358,236 @@ function Sub(props) {
 }
 
 function Chip(props) {
-  const {nowMoment, atMoment, concernKey, disableWhenText, el} = props;
-  const daysAgo = nowMoment.clone().diff(atMoment, 'days');
-  const bucket = bucketForChip(daysAgo);
-  const freshnessStyle = {
-    months: {opacity: 1.0},
-    year: {opacity: 0.4},
-    old: {opacity: 0.1}
-  }[bucket];
+  const {
+    nowMoment,
+    style,
+    atMoment,
+    concernKey,
+    disableWhenText,
+    score,
+    thresholds,
+    prettyAssessmentText,
+    periodThen,
+    el
+  } = props;
+  const daysAgo = atMoment ? nowMoment.clone().diff(atMoment, 'days') : null;
+  const freshnessStyle = stylesForFreshness(daysAgo);
+  const freshnessText = (daysAgo && !disableWhenText)
+    ? `${daysAgo} days ago`
+    : null;
   const concernStyle = {
     low: {backgroundColor: high},
     medium: {backgroundColor: medium},
-    high: {backgroundColor: low}
+    high: {backgroundColor: low},
+    unknown: {backgroundColor: '#eee'}
   }[concernKey];
+
+  // hover text
+  const thresholdsText = (thresholds)
+    ? `risk: ${thresholds.risk} / benchmark: ${thresholds.benchmark}`
+    : null;
   const title = _.compact([
-    `Freshness: ${daysAgo} days ago`,
+    prettyAssessmentText,
+    '---------------------------------',
+    `Freshness: ${freshnessText || 'unknown'}`,
+    `Updated: ${periodThen}`,
+    ((score || thresholds) ? '' : null),
+    (score ? `Score: ${score}` : null),
+    (thresholds ? `Cut points: ${thresholdsText}` : null),
     concernKey ? `Concern: ${concernKey}` : null
   ]).join("\n");
 
 
-  const whenText = (disableWhenText) ? null : ` ${daysAgo} days`;
   return (
     <div className="Chip" title={title} onClick={() => alert('not finished yet...')} style={{
-      padding: 5,
       fontSize: 12,
+      height: '100%',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      border: '1px solid white',
+      paddingLeft: 8,
       cursor: 'pointer',
       ...freshnessStyle,
       ...concernStyle,
-    }}>{el}{whenText}</div>
+      ...style
+    }}>
+      <AutoSizer disableHeight>{({width}) => (
+        <div style={{width}}>
+          <div style={{overflowX: 'hidden', height: 20}}>{el}</div>
+          {freshnessText && <div style={{overflowX: 'hidden', height: 20}}>
+            {(width > 80) ? `${daysAgo} days ago` : `${daysAgo}d`}
+          </div>}  
+        </div>
+      )}</AutoSizer>
+    </div>
   );
 }
 
 function bucketForChip(daysAgo) {
+  if (daysAgo === null || daysAgo ===  undefined) return 'unknown';
   if (daysAgo <= 90) return 'months';
   if (daysAgo <= 365) return 'year';
   return 'old';
 }
 
+function stylesForFreshness(daysAgo) {
+  const bucket = bucketForChip(daysAgo);
+  return {
+    months: {opacity: 1.0},
+    unknown: {opacity: 0.8},
+    year: {opacity: 0.4},
+    old: {opacity: 0.1}
+  }[bucket];
+}
+
+
 function ChipForNotes(props) {
   const {nowMoment, matches} = props;
   const mostRecentMoment = _.last(matches.map(match => toMomentFromTimestamp(match.note.recorded_at)).sort());
+  const daysAgo = mostRecentMoment ? nowMoment.clone().diff(mostRecentMoment, 'days') : null;
+  const freshnessStyle = stylesForFreshness(daysAgo);
+  return (
+    <div style={freshnessStyle}>
+      <SearchResults matches={matches} />
+    </div>
+  );
+}
+
+function dataPointMoment(dataPoint) {
+  return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year);
+}
+
+// TODO(kr) unroll to show historical
+function ChipForDibels(props) {
+  const {student, nowMoment, benchmarkAssessmentKey, dataPointsByAssessmentKey} = props;
+
+  // pick latest
+  const dataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];
+  console.log(benchmarkAssessmentKey, 'dataPoints', dataPoints);
+  const mostRecentDataPoint = _.last(_.sortBy(dataPoints, d => {
+    const assessmentMoment = dataPointMoment(d);
+    return (assessmentMoment) ? assessmentMoment.unix() : Number.MIN_VALUE;
+  }));
+  if (!mostRecentDataPoint) return null;
+
+  // guess as grade at time of assessment
+  const gradeThen = adjustedGrade(mostRecentDataPoint.benchmark_school_year, student.grade, nowMoment);
+
+  // determine color
+  const dibelsBucket = bucketForDibels(...[
+    mostRecentDataPoint.json.value,
+    mostRecentDataPoint.benchmark_assessment_key,
+    gradeThen,
+    mostRecentDataPoint.benchmark_period_key
+  ]);
+  const concernKey = {
+    [DIBELS_GREEN]: 'low',
+    [DIBELS_YELLOW]: 'medium',
+    [DIBELS_RED]: 'high',
+    [DIBELS_UNKNOWN]: 'unknown'
+  }[dibelsBucket];
+
+  // also show cut points
+  const thresholds = somervilleReadingThresholdsFor(...[
+    mostRecentDataPoint.benchmark_assessment_key,
+    gradeThen,
+    mostRecentDataPoint.benchmark_period_key
+  ]);
+
+  const prettyAssessmentText = prettyDibelsText(benchmarkAssessmentKey);
+  const WIDTH_THRESHOLD_PIXELS = 80;
+  return (
+    <AutoSizer disableHeight>{({width}) => (
+      <Chip
+        style={{width}}
+        nowMoment={nowMoment}
+        atMoment={dataPointMoment(mostRecentDataPoint)}
+        periodThen={
+          `${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`
+        }
+        prettyAssessmentText={prettyAssessmentText}
+        score={mostRecentDataPoint.json.value}
+        thresholds={thresholds}
+        concernKey={concernKey}
+        el={
+          <div title={JSON.stringify(dataPoints, null, 2)}>
+            {width > WIDTH_THRESHOLD_PIXELS ? prettyAssessmentText : shortDibelsText(mostRecentDataPoint.benchmark_assessment_key)}
+          </div>
+        }
+      />
+    )}</AutoSizer>
+  );
+}
+              
+
+
+function MultipleChips(props) {
+  const {chips} = props;
+  return <div style={{
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden'
+  }}>{chips.map((chip, index) => (
+    <div key={index} style={{
+      flex: 1,
+      overflowY: 'hidden',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      height: '100%'
+    }}>{chip}</div>
+  ))}</div>;
+}
+
+
+function ChipForLanguage(props) {
+  const {student, access, accessKey, nowMoment, districtKey} = props;
+  const limitedEnglishProficiency = student.limited_english_proficiency;
+  const languageStatusLink = (
+    <LanguageStatusLink
+      style={{fontSize: 12}}
+      studentFirstName={student.first_name}
+      ellTransitionDate={student.ell_transition_date}
+      limitedEnglishProficiency={limitedEnglishProficiency}
+      access={access} 
+    />
+  );
+
+  // TODO(kr) improve to split oral / written
+  const concernKey = isEnglishLearner(districtKey, limitedEnglishProficiency)
+    ? 'medium'
+    : 'low';
+
+  // TODO(kr) improve
+  const dataPoint = (access || {})[accessKey];
+  const mostRecentMoment = languageAssessmentMoment(dataPoint);
+  
+  // render as score, use fractions for composites
+  const score = (!dataPoint)
+    ? null 
+    : roundedWidaLevel(dataPoint.performance_level, {shouldRenderFractions: true});
   return (
     <Chip
       nowMoment={nowMoment}
       atMoment={mostRecentMoment}
-      disableWhenText={true}
-      el={<SearchResults matches={matches} />}
+      periodThen={mostRecentMoment ? mostRecentMoment.format('M/D/YY') : null} // TODO(kr) in grade level?
+      prettyAssessmentText={`ACCESS ${accessKey}`}
+      score={score}
+      // thresholds={thresholds}
+      concernKey={concernKey}
+      el={languageStatusLink}
     />
   );
+}
+
+function languageAssessmentMoment(dataPoint) {
+  if (!dataPoint) return null;
+  if (!dataPoint.date_taken) return null;
+  return toMomentFromTimestamp(dataPoint.date_taken);
 }

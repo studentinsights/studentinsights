@@ -19,6 +19,7 @@ import {
   DIBELS_LNF,
   DIBELS_PSF,
   DIBELS_NWF_CLS,
+  DIBELS_NWF_WWR,
   somervilleReadingThresholdsFor
 } from './thresholds';
 
@@ -65,9 +66,21 @@ export function prettyDibelsText(benchmarkAssessmentKey) {
     [DIBELS_FSF]: 'First Sound Fluency',
     [DIBELS_LNF]: 'Letter Naming Fluency',
     [DIBELS_PSF]: 'Phonemic Segmentation Fluency',
-    [DIBELS_NWF_CLS]: 'Nonsense Word Fluency',
+    [DIBELS_NWF_CLS]: 'Nonsense Word Fluency Correct Letter Sounds',
+    [DIBELS_NWF_WWR]: 'Nonsense Word Fluency Whole Words Read',
     [DIBELS_DORF_WPM]: 'Oral Reading Fluency',
     [DIBELS_DORF_ACC]: 'Oral Reading Accuracy'
+  }[benchmarkAssessmentKey];
+}
+export function shortDibelsText(benchmarkAssessmentKey) {
+  return {
+    [DIBELS_FSF]: 'FSF',
+    [DIBELS_LNF]: 'LNF',
+    [DIBELS_PSF]: 'PSF',
+    [DIBELS_NWF_CLS]: 'NWF cls',
+    [DIBELS_NWF_WWR]: 'NWF wwr',
+    [DIBELS_DORF_WPM]: 'ORF wpm',
+    [DIBELS_DORF_ACC]: 'ORF acc'
   }[benchmarkAssessmentKey];
 }
 
@@ -85,10 +98,13 @@ are consistent across grades and times of year, the percent of
 students at or above benchmark can be compared, even though the
 mean scores are not comparable."
 */
+
 export const DIBELS_CORE = 'DIBELS_CORE';
 export const DIBELS_STRATEGIC = 'DIBELS_STRATEGIC';
 export const DIBELS_INTENSIVE = 'DIBELS_INTENSIVE';
 export const DIBELS_UNKNOWN = 'DIBELS_UNKNOWN';
+
+// deprecated
 export function classifyDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   // interpret
   if (!text) return DIBELS_UNKNOWN;
@@ -102,6 +118,24 @@ export function classifyDibels(text, benchmarkAssessmentKey, grade, benchmarkPer
   if (value <= thresholds.risk) return DIBELS_INTENSIVE;
   return DIBELS_STRATEGIC;
 }
+
+export const DIBELS_GREEN = 'dibels_green';
+export const DIBELS_YELLOW = 'dibels_yellow';
+export const DIBELS_RED = 'dibels_red';
+export function bucketForDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+  // interpret
+  if (!text) return DIBELS_UNKNOWN;
+  const value = interpretDibels(text);
+  if (value === null || value === undefined) return DIBELS_UNKNOWN;
+
+  // classify
+  const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  if (!thresholds) return DIBELS_UNKNOWN;
+  if (value >= thresholds.benchmark) return DIBELS_GREEN;
+  if (value <= thresholds.risk) return DIBELS_RED;
+  return DIBELS_YELLOW;
+}
+
 
 export function interpretDibels(text) {
   return parseInt(text.replace(/%/g, '').toUpperCase().trim(), 10);
@@ -163,6 +197,14 @@ export function benchmarkPeriodKeyFor(timeMoment) {
   if (timeMoment.isBetween(winterStart, springStart)) return 'winter';
   if (timeMoment.isBetween(springStart, summerStart)) return 'spring';
   return 'summer';
+}
+
+export function benchmarkPeriodToMoment(benchmarkPeriodKey, schoolYear) {
+  if (benchmarkPeriodKey === 'fall') return firstDayOfSchool(schoolYear);
+  if (benchmarkPeriodKey === 'winter') return toMoment([schoolYear+1, 1, 1]);
+  if (benchmarkPeriodKey === 'spring') return toMoment([schoolYear+1, 5, 1]);
+  if (benchmarkPeriodKey === 'summer') return lastDayOfSchool(schoolYear);
+  return null;
 }
 
 function toMoment(triple) {
