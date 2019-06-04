@@ -13,7 +13,8 @@ import {
   DIBELS_UNKNOWN
 } from '../reading/readingData';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
-import {Summary, Concern, TwoLineChip, thresholdsExplanation, secondLineDaysAgo} from './layout';
+import {Concern, TwoLineChip} from './layout';
+import HoverSummary, {thresholdsExplanation, secondLineDaysAgo} from './HoverSummary';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
 
@@ -66,7 +67,7 @@ export default function ChipForDibels(props) {
     <Freshness daysAgo={daysAgo}>
       <Concern concernKey={concernKey}>
         <Tooltip title={
-          <Summary
+          <HoverSummary
             name={prettyAssessmentText}
             atMoment={dataPointMoment(mostRecentDataPoint)}
             period={`${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`}

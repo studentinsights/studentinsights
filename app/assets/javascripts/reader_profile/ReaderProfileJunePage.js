@@ -11,7 +11,7 @@ export default class ReaderProfileJunePage extends React.Component {
   render() {
     const {student} = this.props;
     const url = `/api/students/${student.id}/reader_profile_json`;
-    
+
     return (
       <div className="ReaderProfileJunePage">
         <SectionHeading>Reader Profile (June v2)</SectionHeading>
@@ -28,7 +28,7 @@ export default class ReaderProfileJunePage extends React.Component {
       <ReaderProfileJune
         student={student}
         access={access}
-        notes={json.feed_cards.map(card => card.json)}
+        feedCards={json.feed_cards}
         currentSchoolYear={json.current_school_year}
         dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
       />

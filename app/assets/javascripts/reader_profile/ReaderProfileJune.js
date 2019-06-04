@@ -1,11 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
-import {apiFetchJson} from '../helpers/apiFetchJson';
-import {toMomentFromTimestamp} from '../helpers/toMoment';
-import Hover from '../components/Hover';
-import GenericLoader from '../components/GenericLoader';
-import SectionHeading from '../components/SectionHeading';
 import {
   DIBELS_LNF,
   DIBELS_PSF,
@@ -25,8 +19,9 @@ import {
 } from './NotesSearchForReading';
 import ChipForNotes from './ChipForNotes';
 import ChipForLanguage from './ChipForLanguage';
-import DibelsDialog from './DibelsDialog';
 import ChipForDibels from './ChipForDibels';
+import DibelsDialog from './DibelsDialog';
+import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 import ReaderProfileDialog from './ReaderProfileDialog';
 import {Ingredient, Sub, MultipleChips} from './layout';
 
@@ -77,23 +72,34 @@ export default class ReaderProfileJune extends React.Component {
     const {
       student,
       access,
-      notes,
+      feedCards,
       currentSchoolYear,
       dataPointsByAssessmentKey
     } = this.props;
     const nowMoment = nowFn();
+    const notes = feedCards.map(card => card.json);
     const lunrIndex = buildLunrIndexForNotes(notes);
 
     function chipForNotes(words) {
-      // return (
-      //   <Layered
-      //     tooltip="hi"
-      //     chips={}
-      
       return (
-        <ChipForNotes
-          nowMoment={nowMoment}
-          matches={findNotes(lunrIndex, notes, words)}
+        <ReaderProfileDialog
+          title={`Notes for ${student.first_name}`}
+          content={<CleanSlateFeedView feedCards={feedCards} style={{fontSize: 14}} />}
+          modalStyle={{
+            content: {
+              right: 40,
+              left: 'auto',
+              width: '55%',
+              top: 40,
+              bottom: 40
+            }
+          }}
+          icon={
+            <ChipForNotes
+              nowMoment={nowMoment}
+              matches={findNotes(lunrIndex, notes, words)}
+            />
+          }
         />
       );
     }
@@ -220,7 +226,7 @@ ReaderProfileJune.propTypes = {
     id: PropTypes.number.isRequired,
     grade: PropTypes.any.isRequired
   }).isRequired,
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  feedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentSchoolYear: PropTypes.number.isRequired,
   dataPointsByAssessmentKey: PropTypes.object.isRequired
 };

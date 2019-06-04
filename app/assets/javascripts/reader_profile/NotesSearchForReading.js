@@ -17,12 +17,12 @@ export default function NotesSearchForReading(props) {
   return (
     <div className="NotesSearchForReading" style={{height: '100%', ...style}}>
       {sortedMatches.map((match, index) => (
-         <div key={index} style={{textAlign: 'left', fontSize: 10, marginBottom: 20}}>
-          <div>
-            <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
-            <Timestamp style={{fontWeight: 'bold', display: 'inline', marginLeft: 5}} railsTimestamp={match.note.recorded_at} />
-          </div>
-          <Tooltip title={<NoteText text={match.note.text} style={{fontSize: 12}} />}>
+         <Tooltip key={index} title={<NoteText text={match.note.text} style={{fontSize: 12}} />}>
+          <div key={index} style={{textAlign: 'left', fontSize: 10, marginBottom: 20}}>
+            <div>
+              <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
+              <Timestamp style={{display: 'inline', marginLeft: 5}} railsTimestamp={match.note.recorded_at} />
+            </div>
             <div style={{maxHeight: '100%', overflowY: 'scroll'}}>
               {match.positions.map(position => (
                 <span key={position[0]} style={{marginRight: 5}}>
@@ -34,8 +34,8 @@ export default function NotesSearchForReading(props) {
                 </span>
               ))}
             </div>
-          </Tooltip>
-        </div>
+          </div>
+        </Tooltip>
       ))}
     </div>
   );

@@ -4,6 +4,7 @@ import ModalSmall from '../student_profile/ModalSmall';
 
 
 export default function ReaderProfileDialog(props) {
+  console.log('render', props);
   return (
     <ModalSmall
       style={{
