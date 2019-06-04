@@ -95,8 +95,8 @@ export default class ReaderProfileJune extends React.Component {
             />
           }
         >
-          <Sub name="within class" />
-          <Sub name="outside school" />
+          <Sub name="in small groups" />
+          <Sub name="independently" />
         </Ingredient>
         <Ingredient
           name="Communicate with oral language"
@@ -398,21 +398,21 @@ function Chip(props) {
 
 
   return (
-    <div className="Chip" title={title} onClick={() => alert('not finished yet...')} style={{
-      fontSize: 12,
-      height: '100%',
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      border: '1px solid white',
-      paddingLeft: 8,
-      cursor: 'pointer',
-      ...concernStyle,
-      ...style
-    }}>
-      <Freshness daysAgo={daysAgo}>
+    <Freshness daysAgo={daysAgo}>
+      <div className="Chip" title={title} onClick={() => alert('not finished yet...')} style={{
+        fontSize: 12,
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        border: '1px solid white',
+        paddingLeft: 8,
+        cursor: 'pointer',
+        ...concernStyle,
+        ...style
+      }}>
         <AutoSizer disableHeight>{({width}) => (
           <div style={{width}}>
             <div style={{overflowX: 'hidden', height: 20}}>{el}</div>
@@ -421,8 +421,8 @@ function Chip(props) {
             </div>}  
           </div>
         )}</AutoSizer>
-      </Freshness>
-    </div>
+      </div>
+    </Freshness>
   );
 }
 
@@ -601,6 +601,7 @@ function Freshness(props) {
       height: '100%',
       width: '100%',
       display: 'flex',
+      flex: 1,
       ...style
     }}>{isHovering => (
       <div style={{
@@ -608,6 +609,7 @@ function Freshness(props) {
         height: '100%',
         width: '100%',
         display: 'flex',
+        flex: 1,
         ...(isHovering ? {} : freshnessStyle)
       }}>{children}</div>
     )}</Hover>

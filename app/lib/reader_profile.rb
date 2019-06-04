@@ -6,14 +6,6 @@ class ReaderProfile
   end
 
   def reader_profile_json
-    json_by_student_id = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/reader_profiles_by_student_id.json'))
-    student_ids = json_by_student_id.keys
-    student_id = student_ids.sample
-    # student_id = '5531' # 1st
-    # student_id = '5684' # 1st
-    student_id = '5682' # 1st
-    return json_by_student_id[student_id]
-
     benchmark_data_points = ReadingBenchmarkDataPoint.all.where(student_id: @student.id)
     feed_cards = Feed.new([@student]).all_cards(@time_now, @cards_limit)
 
