@@ -6,14 +6,14 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {maybeCapitalize} from '../helpers/pretty';
-import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
+import {shortSchoolName, supportsCounselor} from '../helpers/PerDistrict';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from './FilterStudentsBar';
+import {hasNote, isStarred} from './helpers';
 
 
 export default class TransitionsPage extends React.Component {
@@ -54,7 +54,7 @@ export class TransitionsView extends React.Component {
     super(props);
     
     this.state = {
-      sortBy: 'name',
+      sortBy: 'starred',
       sortDirection: SortDirection.ASC,
     };
     this.onTableSort = this.onTableSort.bind(this);
@@ -65,19 +65,23 @@ export class TransitionsView extends React.Component {
   }
 
   orderedStudents(students) {
+    const {districtKey} = this.context;
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
     const sortFns = {
       fallback(student) { return student[sortBy]; },
-      grade(student) { return rankedByGradeLevel(student.grade); },
-      school(student) { return student.school.name; },
+      
       name(student) { return `${student.last_name}, ${student.first_name}`; },
+      school(student) { return shortSchoolName(districtKey, student.school.local_id); },
+      grade(student) { return rankedByGradeLevel(student.grade); },
+      counselor(student) { return maybeCapitalize(student.counselor); },
       note(student) { return hasNote(student); } ,
       starred(student) { return isStarred(student); }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
-    const sortedRows = _.sortBy(students, sortFn);
+    const studentsByName = _.sortBy(students, sortFns.name);
+    const sortedRows = _.sortBy(studentsByName, sortFn);
 
     // respect direction
     return (sortDirection == SortDirection.DESC) 
@@ -107,7 +111,6 @@ export class TransitionsView extends React.Component {
         <FilterStudentsBar
           students={students}
           style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
-          includeHouse={supportsHouse(districtKey)}
           includeCounselor={supportsCounselor(districtKey)}>
           {filteredStudents => this.renderTable(filteredStudents)}
         </FilterStudentsBar>
@@ -144,26 +147,19 @@ export class TransitionsView extends React.Component {
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
-              width={260}
+              width={280}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={160}
+              width={150}
             />
             <Column
               label='Grade'
               dataKey='grade'
               width={100}
             />
-            {supportsHouse(districtKey) &&
-              <Column
-                label='House'
-                dataKey='house'
-                cellRenderer={this.renderHouse}
-                width={120} />
-            }
             {supportsCounselor(districtKey) && 
               <Column
                 label='Counselor'
@@ -181,7 +177,7 @@ export class TransitionsView extends React.Component {
               label={<span>Starred<br/> for discussion?</span>}
               dataKey='starred'
               cellRenderer={this.renderStarred}
-              width={120} />
+              width={140} />
           </Table>
         )}
       </AutoSizer>
@@ -216,8 +212,10 @@ export class TransitionsView extends React.Component {
   }
 
   renderSchool(cellProps) {
-    const student = cellProps.rowData;
-    return <School {...student.school} style={{marginRight: 10}} />;
+    const {school} = cellProps.rowData;
+    const {districtKey} = this.context;
+    const shortName = shortSchoolName(districtKey, school.local_id);
+    return <School id={school.id} name={shortName} style={{marginRight: 10}} />;
   }
 
   renderHouse(cellProps) {
@@ -238,12 +236,12 @@ TransitionsView.propTypes = {
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
-    house: PropTypes.string,
     counselor: PropTypes.string,
     grade: PropTypes.string.isRequired,
     has_photo: PropTypes.bool.isRequired,
     school: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      local_id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
     }).isRequired,
   })).isRequired
@@ -267,11 +265,3 @@ const styles = {
     marginRight: 20
   }
 };
-
-function hasNote(student) {
-  return student.second_transition_notes.length > 0;
-}
-
-function isStarred(student) {
-  return _.some(student.second_transition_notes, {starred: true});
-}
