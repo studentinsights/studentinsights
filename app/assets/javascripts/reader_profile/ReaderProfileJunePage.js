@@ -31,6 +31,8 @@ export default class ReaderProfileJunePage extends React.Component {
       <ReaderProfileJune
         student={student}
         access={json.access}
+        services={json.services}
+        iepContents={json.iep_contents}
         feedCards={json.feed_cards}
         currentSchoolYear={json.current_school_year}
         dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}

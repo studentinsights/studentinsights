@@ -34,7 +34,7 @@ export default class ModalSmall extends React.Component {
   render() {
     const {style, iconStyle, icon} = this.props;
     return (
-      <div style={{display: 'inline', marginLeft: 10, ...style}} className='click-event-modal'>
+      <div style={{display: 'inline', marginLeft: 10, ...style}} className="ModalSmall">
         <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none', ...iconStyle}}>
           {icon}
         </a>

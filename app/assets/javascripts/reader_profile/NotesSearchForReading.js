@@ -24,7 +24,7 @@ export default function NotesSearchForReading(props) {
         >
           <div key={index} style={{textAlign: 'left', fontSize: 12, marginBottom: 20}}>
             <div>
-              <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
+              <NoteBadge style={{display: 'inline-block', padding: 3}} eventNoteTypeId={match.note.event_note_type_id} />
               <Timestamp style={{display: 'inline', marginLeft: 5}} railsTimestamp={match.note.recorded_at} />
             </div>
             <div style={{maxHeight: '100%', overflowY: 'scroll'}}>
@@ -54,12 +54,11 @@ NotesSearchForReading.propTypes = {
 
 
 export const SEE_AS_READER_SEARCH = [
-  'books',
+  '+reading +books',
   'readaloud',
   'story',
   'stories',
   'motivated',
-  'engage',
   'identity'
   // not 'engagement', other social, behavioral, etc?
 ];
@@ -71,11 +70,12 @@ export const ORAL_LANGUAGE_SEARCH = [
   'vocabulary',
   'listening',
   '+speech +language',
-  '+speech +language +evaluation'
+  '+speech +language +evaluation',
+  '+Primary +Disability +Communication'
 ];
 export const ENGLISH_SEARCH = [
   'WIDA',
-  'ACCESS',
+  '+ACCESS +level',
   'English'
 ];
 export const SOUNDS_IN_WORDS_SEARCH = [
@@ -89,10 +89,11 @@ export const SOUNDS_IN_WORDS_SEARCH = [
   'segment',
   'blend',
   'delete',
-  'substitution'
+  '+phoneme +substitution',
+  '+sound +substitution'
 ];
 export const SOUNDS_AND_LETTERS_SEARCH = [
-  'reading',
+  '+reading -books',
   '+reading +intervention',
   'correspondence', // 1-1
   'letter -attendance -tardy', // not "attendance letter"
@@ -113,7 +114,6 @@ export const SOUNDS_AND_LETTERS_SEARCH = [
 
 
 export function buildLunrIndexForNotes(notes) {
-  // naively rebuild index each time
   const documents = notes.map(note => {
     return {
       id: note.id,
@@ -148,9 +148,18 @@ export function findNotes(lunrIndex, notes, words) {
   });
 }
 
+// leading whitespace screws up lunr's position matching
+export function trimmedIepPages(iepPages) {
+  return iepPages.map(page => {
+    return {
+      ...page,
+      text: page.text.trim()
+    };
+  });
+}
 
 // highlighting a search result, using lunr position data
-function Highlight(props) {
+export function Highlight(props) {
   const {text, start, length} = props;
   const highlight = text.slice(start, start + length);
   const beforeIndex = Math.max(start - 30, 0);

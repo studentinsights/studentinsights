@@ -25,10 +25,6 @@ export default class ChipForLanguage extends React.Component {
       />
     );
 
-    // TODO(kr) improve to split oral / written
-    const concernKey = isEnglishLearner(districtKey, limitedEnglishProficiency)
-      ? 'medium'
-      : 'low';
 
     // TODO(kr) improve
     const dataPoint = (access || {})[accessKey];
@@ -38,6 +34,11 @@ export default class ChipForLanguage extends React.Component {
     const score = (!dataPoint)
       ? null 
       : roundedWidaLevel(dataPoint.performance_level, {shouldRenderFractions: true});
+
+    // TODO(kr) improve to split oral / written
+    const concernKey = isEnglishLearner(districtKey, limitedEnglishProficiency)
+      ? languageConcern(score)
+      : 'low';
 
     const daysAgo = mostRecentMoment ? nowMoment.clone().diff(mostRecentMoment, 'days') : null;
     return (
@@ -61,12 +62,6 @@ export default class ChipForLanguage extends React.Component {
     );
   }
 }
-
-function languageAssessmentMoment(dataPoint) {
-  if (!dataPoint) return null;
-  if (!dataPoint.date_taken) return null;
-  return toMomentFromTimestamp(dataPoint.date_taken);
-}
 ChipForLanguage.contextTypes = {
   districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
@@ -76,3 +71,16 @@ ChipForLanguage.propTypes = {
   access: PropTypes.object,
   accessKey: PropTypes.string.isRequired
 };
+
+
+function languageConcern(score) {
+  if (score >= 5) return 'low';
+  if (score >= 3) return 'medium';
+  return 'high';
+}
+
+function languageAssessmentMoment(dataPoint) {
+  if (!dataPoint) return null;
+  if (!dataPoint.date_taken) return null;
+  return toMomentFromTimestamp(dataPoint.date_taken);
+}

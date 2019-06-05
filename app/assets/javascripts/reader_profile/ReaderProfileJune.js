@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CleanSlateFeedView from '../feed/CleanSlateFeedView';
+import NoteText from '../components/NoteText';
 import {
   DIBELS_LNF,
   DIBELS_PSF,
@@ -9,21 +11,20 @@ import {
   DIBELS_DORF_WPM
 } from '../reading/thresholds';
 import {
-  buildLunrIndexForNotes,
-  findNotes,
   SEE_AS_READER_SEARCH,
   ORAL_LANGUAGE_SEARCH,
   ENGLISH_SEARCH,
   SOUNDS_IN_WORDS_SEARCH,
   SOUNDS_AND_LETTERS_SEARCH
-} from './NotesSearchForReading';
-import ChipForNotes from './ChipForNotes';
+} from './TextSearchForReading';
+import ChipForIEP, {buildLunrIndexForIEP, findWithinIEP, cleanedIepFullText} from './ChipForIEP';
+import ChipForNotes, {buildLunrIndexForNotes, findWithinNotes} from './ChipForNotes';
 import ChipForLanguage from './ChipForLanguage';
 import ChipForDibels from './ChipForDibels';
+import ChipForService from './ChipForService';
 import DibelsDialog from './DibelsDialog';
-import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 import ReaderProfileDialog from './ReaderProfileDialog';
-import {Ingredient, Sub, MultipleChips, Suggestion} from './layout';
+import {Ingredient, Sub, MultipleChips, Suggestion, NotesContainer} from './layout';
 
 /* todo
 screeners:
@@ -43,16 +44,23 @@ review search heuristics:
 */
 export default class ReaderProfileJune extends React.Component {
   render() {
-    const {feedCards} = this.props;
+    const {feedCards, iepContents} = this.props;
     const notes = feedCards.map(card => card.json);
     const lunrIndex = buildLunrIndexForNotes(notes);
+    const cleanIepFullText = cleanedIepFullText(iepContents.pages.map(page => page.text).join('\n'));
+    const iepLunrIndex = buildLunrIndexForIEP(cleanIepFullText);
 
     return (
       <div style={{marginTop: 10}}>
         <Ingredient
           name="See themselves as a reader"
           color="#4db1f0"
-          notes={this.renderChipForNotes(SEE_AS_READER_SEARCH, lunrIndex)}
+          notes={
+            <NotesContainer>
+              {this.renderChipForNotes(SEE_AS_READER_SEARCH, lunrIndex)}
+              {this.renderChipForIEP(SEE_AS_READER_SEARCH, iepLunrIndex, cleanIepFullText)}
+            </NotesContainer>
+          }
           subs={[
             <Sub name="in small groups" />,
             <Sub name="independently" />
@@ -62,7 +70,12 @@ export default class ReaderProfileJune extends React.Component {
         <Ingredient
           name="Communicate with oral language"
           color="#f06060"
-          notes={this.renderChipForNotes(ORAL_LANGUAGE_SEARCH, lunrIndex)}
+          notes={
+            <NotesContainer>
+              {this.renderChipForNotes(ORAL_LANGUAGE_SEARCH, lunrIndex)}
+              {this.renderChipForIEP(ORAL_LANGUAGE_SEARCH, iepLunrIndex, cleanIepFullText)}
+            </NotesContainer>
+          }
           subs={[
             <Sub name="expressive" />,
             <Sub name="receptive" />
@@ -72,13 +85,20 @@ export default class ReaderProfileJune extends React.Component {
         <Ingredient
           name="Speak and listen in English"
           color="rgba(140, 17, 140, 0.57)"
-          notes={this.renderChipForNotes(ENGLISH_SEARCH, lunrIndex)}
+          notes={
+            <NotesContainer>
+              {this.renderChipForNotes(ENGLISH_SEARCH, lunrIndex)}
+              {this.renderChipForIEP(ENGLISH_SEARCH, iepLunrIndex, cleanIepFullText)}
+            </NotesContainer>
+          }
           subs={[
             <Sub name="spoken"
               screener={this.renderChipForLanguage('oral')}
+              intervention={this.renderChipForService(510)}
             />,
             <Sub name="written"
               screener={this.renderChipForLanguage('literacy')}
+              intervention={this.renderChipForService(510)}
             />
           ]}
         />
@@ -86,7 +106,12 @@ export default class ReaderProfileJune extends React.Component {
         <Ingredient
           name="Discriminate Sounds in Words"
           color="rgb(227, 121, 58)"
-          notes={this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
+          notes={
+            <NotesContainer>
+              {this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
+              {this.renderChipForIEP(SOUNDS_IN_WORDS_SEARCH, iepLunrIndex, cleanIepFullText)}
+            </NotesContainer>
+          }
           subs={[
             <Sub
               name="blending"
@@ -103,7 +128,12 @@ export default class ReaderProfileJune extends React.Component {
           name="Represent Sounds with Letters"
           color="rgb(100, 186, 91)"
           isLast={true}
-          notes={this.renderChipForNotes(SOUNDS_AND_LETTERS_SEARCH, lunrIndex)}
+          notes={
+            <NotesContainer>
+              {this.renderChipForNotes(SOUNDS_AND_LETTERS_SEARCH, lunrIndex)}
+              {this.renderChipForIEP(SOUNDS_AND_LETTERS_SEARCH, iepLunrIndex, cleanIepFullText)}
+            </NotesContainer>
+          }
           subs={[
             <Sub name="letters"
               screener={this.renderChipForDibels('letters', DIBELS_LNF)}
@@ -130,6 +160,13 @@ export default class ReaderProfileJune extends React.Component {
                   this.renderChipForDibels('fluent', DIBELS_NWF_CLS)
                 ]} />
               }
+              intervention={
+                <MultipleChips chips={[
+                  this.renderChipForService(507),
+                  this.renderChipForService(514),
+                  this.renderChipForService(511)
+                ]} />
+              }
             />,
             <Sub name="spelling" />
           ]}
@@ -138,13 +175,38 @@ export default class ReaderProfileJune extends React.Component {
     );
   }
 
+  renderChipForIEP(words, iepLunrIndex, cleanIepFullText) {
+    const {student} = this.props;
+    const iepMatchPositions = findWithinIEP(iepLunrIndex, words);
+    if (iepMatchPositions.length === 0) return null;
+    
+    return (
+      <ReaderProfileDialog
+        icon={<ChipForIEP iepMatchPositions={iepMatchPositions} iepFullText={cleanIepFullText} />}
+        title={`IEP at-a-glance for ${student.first_name}`}
+        content={<NoteText text={cleanIepFullText} />}
+        modalStyle={{
+          content: {
+            right: 40,
+            left: 'auto',
+            width: '55%',
+            top: 40,
+            bottom: 40
+          }
+        }}
+      />
+    );
+  }
+
   renderChipForNotes(words, lunrIndex) {
-    const {nowFn} = this.context;
     const {student, feedCards} = this.props;
     const notes = feedCards.map(card => card.json);
+    const notesMatches = findWithinNotes(lunrIndex, notes, words);
+    if (notesMatches.length === 0) return null;
 
     return (
       <ReaderProfileDialog
+        icon={<ChipForNotes notesMatches={notesMatches} />}
         title={`Notes for ${student.first_name}`}
         content={<CleanSlateFeedView feedCards={feedCards} style={{fontSize: 14}} />}
         modalStyle={{
@@ -156,12 +218,6 @@ export default class ReaderProfileJune extends React.Component {
             bottom: 40
           }
         }}
-        icon={
-          <ChipForNotes
-            nowMoment={nowFn()}
-            matches={findNotes(lunrIndex, notes, words)}
-          />
-        }
       />
     );
   }
@@ -202,6 +258,16 @@ export default class ReaderProfileJune extends React.Component {
       />
     );
   }
+
+  renderChipForService(serviceTypeId) {
+    const {services} = this.props;
+    return (
+      <ChipForService
+        serviceTypeId={serviceTypeId}
+        services={services}
+      />
+    );
+  }
 }
 ReaderProfileJune.contextTypes = {
   nowFn: PropTypes.func.isRequired,
@@ -209,6 +275,8 @@ ReaderProfileJune.contextTypes = {
 };
 ReaderProfileJune.propTypes = {
   access: PropTypes.object,
+  services: PropTypes.array.isRequired,
+  iepContents: PropTypes.object.isRequired,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     grade: PropTypes.any.isRequired

@@ -10,7 +10,7 @@ export default function Freshness(props) {
   const {daysAgo, style, innerStyle, children} = props;
   const freshnessStyle = stylesForFreshness(daysAgo);
   return (
-    <Hover style={{
+    <Hover className="Freshness" style={{
       height: '100%',
       width: '100%',
       display: 'flex',

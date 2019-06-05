@@ -7,6 +7,8 @@ import {high, medium, low} from '../helpers/colors';
 import ReaderProfileDialog from './ReaderProfileDialog';
 
 
+const SUPPORT_COLOR = '#1b82ea42';
+
 // An main "ingredient" of reading (eg, phonics).
 export function Ingredient(props) {
   const {name, notes, subs, isLast} = props;
@@ -72,13 +74,13 @@ Sub.propTypes = {
 // The UI layout for multiple chips, side-by-side
 export function MultipleChips(props) {
   const {chips} = props;
-  return <div style={{
+  return <div className="MultipleChips" style={{
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
     height: '100%',
     width: '100%'
-  }}>{chips.map((chip, index) => (
+  }}>{_.compact(chips).map((chip, index) => (
     <div key={index} style={{
       flex: 1,
       display: 'flex',
@@ -92,6 +94,22 @@ export function MultipleChips(props) {
 MultipleChips.propTypes = {
   chips: PropTypes.arrayOf(PropTypes.node).isRequired
 };
+
+
+export function NotesContainer(props) {
+  const {children} = props;
+  return <div className="NotesContainer" style={{
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    height: '100%',
+    width: '100%'
+  }}>{_.compact(children)}</div>;
+}
+NotesContainer.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
 
 function PlaceholderSuggestion(props) {
   const {text} = props;
@@ -107,7 +125,7 @@ export function Suggestion(props) {
         ...styles.cell, 
         padding: 5,
         cursor: 'pointer',
-        ...(isHovering ? {color: 'black', background: '#1b82ea42'} : {color: '#ccc'})
+        ...(isHovering ? {color: 'black', background: SUPPORT_COLOR} : {color: '#ccc'})
       };
       return (
         <ReaderProfileDialog
@@ -149,6 +167,23 @@ Concern.propTypes = {
   style: PropTypes.object
 };
 
+export function Support(props) {
+  const {children, style} = props;
+  return (
+    <div className="Support" style={{
+      display: 'flex',
+      flex: 1,
+      height: '100%',
+      backgroundColor: SUPPORT_COLOR,
+      ...style
+    }}>{children}</div>
+  );
+}
+Support.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object
+};
+
 
 
 // A chip that's two lines, truncated if overflowing.
@@ -165,7 +200,7 @@ export function TwoLineChip(props) {
       ]);
 
       return (
-        <div style={{
+        <div className="TwoLineChip" style={{
           fontSize: 12,
           border: '1px solid white',
           paddingLeft: 8,
