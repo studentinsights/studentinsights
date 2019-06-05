@@ -45,6 +45,7 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     doc.as_json
   end
 
+  # see {benchmarkPeriodKeyFor} from readingData
   def self.benchmark_period_key_at(time_now)
     year = SchoolYear.to_school_year(time_now)
     fall_start = SchoolYear.first_day_of_school_for_year(year)
@@ -61,5 +62,14 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     else
       :summer
     end
+  end
+
+  # Relies on `student` for now
+  def grid_key(student)
+    [
+      self.benchmark_school_year,
+      self.benchmark_period_key,
+      student.grade, # migrate this to be on this model instead
+    ].join('-')
   end
 end

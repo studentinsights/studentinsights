@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import EscapeListener from '../components/EscapeListener';
+import DownloadIcon from '../components/DownloadIcon';
 import FilterBar from '../components/FilterBar';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
 import SelectGrade from '../components/SelectGrade';
@@ -259,7 +260,7 @@ export default class LevelsView extends React.Component {
               style={modalFromRight}>
               {this.renderLinkWithCsvDataInline(columns, students)}
             </ReactModal>
-          : <svg style={{fill: "#3177c9", opacity: 0.5, cursor: 'pointer'}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          : <DownloadIcon />
         }
       </div>
     );

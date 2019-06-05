@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots if label is set 1`] = `
+<div
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "color": "purple",
+      }
+    }
+  >
+    School transitions for 
+    2018
+  </div>
+  <div
+    className="Card "
+    style={
+      Object {
+        "border": "none",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div>
+      Add 
+      <a
+        href="/counselors/transitions"
+        style={
+          Object {
+            "fontWeight": "bold",
+          }
+        }
+      >
+        transition notes
+      </a>
+       to introduce your colleagues to the students you worked with this year.
+    </div>
+  </div>
+</div>
+`;

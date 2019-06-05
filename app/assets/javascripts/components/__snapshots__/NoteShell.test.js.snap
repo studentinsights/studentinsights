@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots across all scenarios at once 1`] = `
+<div
+  className="NoteShell"
+  style={
+    Object {
+      "border": "1px solid #eee",
+      "marginBottom": 10,
+      "marginTop": 10,
+      "padding": 15,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <span
+      className="date"
+      style={
+        Object {
+          "display": "inline-block",
+          "fontWeight": "bold",
+          "paddingRight": 10,
+          "width": "11em",
+        }
+      }
+    >
+      when!
+    </span>
+    <span
+      style={
+        Object {
+          "background": "#eee",
+          "display": "inline-block",
+          "marginLeft": 10,
+          "marginRight": 10,
+          "outline": "3px solid #eee",
+          "textAlign": "center",
+          "width": "10em",
+        }
+      }
+    >
+      what!
+    </span>
+    <span
+      style={
+        Object {
+          "display": "inline-block",
+          "paddingLeft": 5,
+        }
+      }
+    >
+      who!
+    </span>
+  </div>
+  <div
+    style={
+      Object {
+        "marginTop": 10,
+      }
+    }
+  >
+    <div
+      className="test-substacne"
+    >
+      substance
+    </div>
+  </div>
+</div>
+`;

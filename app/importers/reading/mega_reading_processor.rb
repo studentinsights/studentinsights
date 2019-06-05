@@ -74,16 +74,14 @@ class MegaReadingProcessor
     end
 
     # match student
-    last_first_name = row['Name']
-    fuzzy_match = @fuzzy_student_matcher.match_from_last_first(last_first_name)
-    if fuzzy_match.nil?
+    student_id, student_match_failure = match_student(row)
+    if student_id.nil?
       @invalid_student_name_count += 1
-      @invalid_student_names_list << last_first_name
+      @invalid_student_names_list << student_match_failure
       return nil
     end
-    student_id = fuzzy_match[:student_id]
-
     @valid_student_name += 1
+
     shared = {
       student_id: student_id,
       imported_by_educator_id: @educator_id
@@ -96,6 +94,25 @@ class MegaReadingProcessor
       data_points_for_second(shared, row) +
       data_points_for_third(shared, row)
     )
+  end
+
+  # returns [student_id, debug_match_failure_text]
+  def match_student(row)
+    # exactprimary key
+    student = if row.has_key?('LASID')
+      Student.find_by_local_id(row['LASID'])
+    elsif row.has_key?('local_id')
+      Student.find_by_local_id(row['local_id'])
+    end
+    return [student.id, nil] if student.present?
+
+    # fuzzy
+    last_first_name = row['Name']
+    fuzzy_match = @fuzzy_student_matcher.match_from_last_first(last_first_name)
+    return [fuzzy_match[:student_id], nil] if fuzzy_match.present?
+
+    # no match
+    return [nil, last_first_name]
   end
 
   def data_points_for_kindergarten(shared, row)

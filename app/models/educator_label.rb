@@ -24,16 +24,22 @@ class EducatorLabel < ApplicationRecord
         'enable_reading_benchmark_data_entry',
         'enable_reading_debug',
 
-        # other
+        # transition notes
         'k8_counselor',
         'high_school_house_master',
+        'enable_transition_note_features',
+
+        # class lists
         'class_list_maker_finalizer_principal',
         'enable_class_lists_override',
+
+        # other
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_searching_notes',
         'can_mark_notes_as_restricted',
-        'enable_equity_experiments'
+        'enable_equity_experiments',
+        'enable_counselor_meetings_page'
       ]
     }
   }

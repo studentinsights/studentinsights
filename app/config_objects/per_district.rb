@@ -105,6 +105,14 @@ class PerDistrict
     end
   end
 
+  def enabled_counselor_meetings?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_COUNSELOR_MEETINGS')
+    else
+      false
+    end
+  end
+
   def student_voice_survey_form_url
     return nil unless enabled_student_voice_survey_uploads?
     ENV.fetch('STUDENT_VOICE_SURVEY_FORM_URL', nil)
@@ -336,6 +344,7 @@ class PerDistrict
   def import_student_photos?
     return true if @district_key == SOMERVILLE
     return true if @district_key == BEDFORD
+    return true if @district_key == NEW_BEDFORD
     false
   end
 
@@ -501,6 +510,16 @@ class PerDistrict
       }
     else
       raise_not_handled!
+    end
+  end
+
+  def include_bedford_end_of_year_transition?
+    if @district_key == BEDFORD
+      true
+    elsif @district_key == DEMO
+      true
+    else
+      false
     end
   end
 

@@ -14,10 +14,12 @@ export const feedForTestingNotes = {
       "educator_id": 1,
       "student_id": 5,
       "text": "What are this student's strengths?\neverything!\n\nWhat is this student's involvement in the school community like?\nreally good\n\nHow does this student relate to their peers?\nnot sure\n\nWho is the student's primary guardian?\nokay\n\nAny additional comments or good things to know about this student?\nnope :)",
-      "recorded_at": null,
+      "recorded_at": '2016-08-20T11:52:47.814Z',
       "is_restricted": false
     }
   ],
+  "bedford_end_of_year_transitions": [],
+  "second_transition_notes": [],
   "event_notes": [
     {
       "id": 3,

@@ -1,0 +1,624 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+      "margin": 10,
+    }
+  }
+>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Counselor Meetings 
+      2018
+      -
+      2019
+    </h4>
+  </div>
+  <div
+    className="FilterStudentsBar EscapeListener"
+    onKeyDown={[Function]}
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "flexDirection": "column",
+        "marginLeft": 10,
+        "marginTop": 20,
+      }
+    }
+  >
+    <div
+      className="FilterBar"
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "marginRight": 10,
+            }
+          }
+        >
+          Filter by
+        </span>
+        <input
+          onChange={[Function]}
+          placeholder="Search 70 students..."
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 4,
+              "display": "inline-block",
+              "fontSize": 14,
+              "marginLeft": 20,
+              "marginRight": 10,
+              "padding": "7px 7px 7px 12px",
+              "width": 220,
+            }
+          }
+          value=""
+        />
+        <div
+          className="Select is-searchable Select--single"
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "marginLeft": 10,
+                "width": "10em",
+              }
+            }
+          >
+            <div
+              className="Select-multi-value-wrapper"
+              id="react-select-6--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Grade...
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-6--value"
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-owns=""
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </div>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+        <div
+          className="Select is-searchable Select--single"
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "marginLeft": 10,
+                "width": "10em",
+              }
+            }
+          >
+            <div
+              className="Select-multi-value-wrapper"
+              id="react-select-7--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                House...
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-7--value"
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-owns=""
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </div>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+        <div
+          className="Select is-searchable Select--single"
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "marginLeft": 10,
+                "width": "10em",
+              }
+            }
+          >
+            <div
+              className="Select-multi-value-wrapper"
+              id="react-select-8--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Counselor...
+              </div>
+              <div
+                className="Select-input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-activedescendant="react-select-8--value"
+                  aria-expanded="false"
+                  aria-haspopup="false"
+                  aria-owns=""
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  role="combobox"
+                  style={
+                    Object {
+                      "boxSizing": "content-box",
+                      "width": "5px",
+                    }
+                  }
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </div>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+        <div
+          className="Select Select--single"
+        >
+          <div
+            className="Select-control"
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "marginLeft": 10,
+                "width": "9em",
+              }
+            }
+          >
+            <div
+              className="Select-multi-value-wrapper"
+              id="react-select-9--value"
+            >
+              <div
+                className="Select-placeholder"
+              >
+                Time range...
+              </div>
+              <div
+                aria-activedescendant="react-select-9--value"
+                aria-disabled="false"
+                aria-expanded={false}
+                aria-owns=""
+                className="Select-input"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                style={
+                  Object {
+                    "border": 0,
+                    "display": "inline-block",
+                    "width": 1,
+                  }
+                }
+                tabIndex={0}
+              />
+            </div>
+            <span
+              className="Select-arrow-zone"
+              onMouseDown={[Function]}
+            >
+              <span
+                className="Select-arrow"
+                onMouseDown={[Function]}
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "minWidth": 600,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "height": 0,
+              "overflow": "visible",
+              "width": 0,
+            }
+          }
+        >
+          <div
+            className="ReactVirtualized__Table"
+            role="grid"
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            <div
+              className="ReactVirtualized__Table__headerRow"
+              role="row"
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": null,
+                  "cursor": "default",
+                  "display": "flex",
+                  "height": 60,
+                  "overflow": "hidden",
+                  "paddingRight": 0,
+                  "width": 0,
+                }
+              }
+            >
+              <div
+                aria-label="Name"
+                aria-sort="ascending"
+                className="ReactVirtualized__Table__headerColumn ReactVirtualized__Table__sortableHeaderColumn"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="columnheader"
+                style={
+                  Object {
+                    "WebkitFlex": "0 1 260px",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "flex": "0 1 260px",
+                    "fontWeight": "bold",
+                    "msFlex": "0 1 260px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="ReactVirtualized__Table__headerTruncatedText"
+                  title="Name"
+                >
+                  Name
+                </span>
+                <svg
+                  className="ReactVirtualized__Table__sortableHeaderIcon ReactVirtualized__Table__sortableHeaderIcon--ASC"
+                  height={18}
+                  viewBox="0 0 24 24"
+                  width={18}
+                >
+                  <path
+                    d="M7 14l5-5 5 5z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+              <div
+                aria-label="Last Seen"
+                className="ReactVirtualized__Table__headerColumn ReactVirtualized__Table__sortableHeaderColumn"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="columnheader"
+                style={
+                  Object {
+                    "WebkitFlex": "0 1 120px",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "flex": "0 1 120px",
+                    "fontWeight": "bold",
+                    "msFlex": "0 1 120px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="ReactVirtualized__Table__headerTruncatedText"
+                  title="Last Seen"
+                >
+                  Last Seen
+                </span>
+              </div>
+              <div
+                aria-label="Seen by"
+                className="ReactVirtualized__Table__headerColumn ReactVirtualized__Table__sortableHeaderColumn"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="columnheader"
+                style={
+                  Object {
+                    "WebkitFlex": "0 1 100px",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "flex": "0 1 100px",
+                    "fontWeight": "bold",
+                    "msFlex": "0 1 100px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="ReactVirtualized__Table__headerTruncatedText"
+                  title="Seen by"
+                >
+                  Seen by
+                </span>
+              </div>
+              <div
+                className="ReactVirtualized__Table__headerColumn"
+                role="columnheader"
+                style={
+                  Object {
+                    "WebkitFlex": "0 1 100px",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "flex": "0 1 100px",
+                    "fontWeight": "bold",
+                    "msFlex": "0 1 100px",
+                  }
+                }
+              >
+                <span
+                  className="ReactVirtualized__Table__headerTruncatedText"
+                  title="Meeting Date"
+                >
+                  Meeting Date
+                </span>
+              </div>
+              <div
+                className="ReactVirtualized__Table__headerColumn"
+                role="columnheader"
+                style={
+                  Object {
+                    "WebkitFlex": "0 1 40px",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "flex": "0 1 40px",
+                    "fontWeight": "bold",
+                    "msFlex": "0 1 40px",
+                  }
+                }
+              >
+                <span
+                  className="ReactVirtualized__Table__headerTruncatedText"
+                  title=""
+                >
+                  
+                </span>
+              </div>
+            </div>
+            <div
+              aria-label="grid"
+              aria-readonly={true}
+              className="ReactVirtualized__Grid ReactVirtualized__Table__Grid"
+              onScroll={[Function]}
+              role="rowgroup"
+              style={
+                Object {
+                  "WebkitOverflowScrolling": "touch",
+                  "boxSizing": "border-box",
+                  "direction": "ltr",
+                  "height": -60,
+                  "overflowX": "hidden",
+                  "overflowY": "auto",
+                  "position": "relative",
+                  "width": 0,
+                  "willChange": "transform",
+                }
+              }
+              tabIndex={0}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "flex": 1,
+              "height": 0,
+              "overflowY": "scroll",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 20,
+                "paddingRight": 10,
+                "paddingTop": 50,
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

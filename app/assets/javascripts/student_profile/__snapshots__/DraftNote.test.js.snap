@@ -25,6 +25,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -48,7 +49,9 @@ Array [
                   "backgroundColor": "#ddd",
                   "backgroundImage": "url(/students/2/photo)",
                   "backgroundPosition": "center top",
+                  "backgroundPositionY": -10,
                   "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "110%",
                   "border": "1px solid #ddd",
                   "borderRadius": 3,
                   "height": 58,
@@ -94,6 +97,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -333,6 +337,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -404,6 +409,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -744,6 +750,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -815,6 +822,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -1054,6 +1062,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -1125,6 +1134,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >
@@ -1465,6 +1475,7 @@ Array [
         }
       >
         <div
+          className="FeedCardFrame-FrameHeader"
           style={
             Object {
               "alignItems": "flex-start",
@@ -1536,6 +1547,7 @@ Array [
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
+                "textAlign": "right",
               }
             }
           >

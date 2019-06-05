@@ -7,7 +7,8 @@ export function createSpyActions() {
     onCreateNewNote: jest.fn(),
     onDeleteEventNoteAttachment: jest.fn(),
     onSaveService: jest.fn(),
-    onDiscontinueService: jest.fn()
+    onDiscontinueService: jest.fn(),
+    onSecondTransitionNoteAdded: jest.fn()
   };
 }
 

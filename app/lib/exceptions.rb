@@ -4,4 +4,5 @@ module Exceptions
   class EducatorNotAuthorized < StandardError; end
   class DistrictKeyNotHandledError < StandardError; end
   class InvalidConfiguration < StandardError; end
+  class DeprecatedFeatureError < StandardError; end
 end

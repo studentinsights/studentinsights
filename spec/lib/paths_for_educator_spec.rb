@@ -67,6 +67,7 @@ RSpec.describe PathsForEducator do
         })
         expect(navbar_links(pals.shs_sofia_counselor)).to eq({
           levels_shs: '/levels/shs',
+          counselor_meetings: '/counselors/meetings',
           school: '/schools/shs',
           absences: '/schools/shs/absences',
           tardies: '/schools/shs/tardies',

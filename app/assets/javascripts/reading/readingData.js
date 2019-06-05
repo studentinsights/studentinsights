@@ -3,19 +3,19 @@ import moment from 'moment';
 import {
   high,
   medium,
-  low
+  low,
+  missing
 } from '../helpers/colors';
 import {
   toSchoolYear,
   firstDayOfSchool,
   lastDayOfSchool
 } from '../helpers/schoolYear';
+import {
+  F_AND_P_ENGLISH,
+  somervilleReadingThresholdsFor
+} from './thresholds';
 
-
-export const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
-export const DIBELS_DORF_ACC = 'dibels_dorf_acc';
-export const F_AND_P_ENGLISH = 'f_and_p_english';
-export const INSTRUCTIONAL_NEEDS = 'instructional_needs';
 
 const ORDERED_F_AND_P_ENGLISH_LEVELS = {
   'NR': 50,
@@ -54,54 +54,37 @@ export function readDoc(doc, studentId, benchmarkAssessmentKey) {
   return (doc[studentId] || {})[benchmarkAssessmentKey] || '';
 }
 
-// all thresholds are "greater than or equal to" / "less than or equal to"
-const somervilleThresholds = {
-  [F_AND_P_ENGLISH]: { // based on colors from mega sheet
-    'KF:winter': {
-      benchmark: 'C',
-      risk: 'A'
-    },
-    '1:winter': {
-      benchmark: 'G',
-      risk: 'D'
-    }
-  },
-  [DIBELS_DORF_WPM]: {
-    '3:fall': {
-      benchmark: 93,
-      risk: 72
-    },
-    '3:winter': {
-      benchmark: 108,
-      risk: 88
-    },
-    '3:spring': {
-      benchmark: 123,
-      risk: 100
-    }
-  },
-  [DIBELS_DORF_ACC]: {
-    '3:fall': {
-      benchmark: 96,
-      risk: 91
-    },
-    '3:winter': {
-      benchmark: 97,
-      risk: 93
-    },
-    '3:spring': {
-      benchmark: 98,
-      risk: 95
-    }
-  }
-};
 
+// classifications
+export const DIBELS_CORE = 'DIBELS_CORE';
+export const DIBELS_STRATEGIC = 'DIBELS_STRATEGIC';
+export const DIBELS_INTENSIVE = 'DIBELS_INTENSIVE';
+export const DIBELS_UNKNOWN = 'DIBELS_UNKNOWN';
+export function classifyDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+  // interpret
+  if (!text) return DIBELS_UNKNOWN;
+  const value = interpretDibels(text);
+  if (!value) return DIBELS_UNKNOWN;
 
-export function somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
-  const thresholds = somervilleThresholds[benchmarkAssessmentKey];
-  if (!thresholds) return null;
-  const periodKey = [grade, benchmarkPeriodKey].join(':');
-  return thresholds[periodKey] || null;
+  // classify
+  const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  if (!thresholds) return DIBELS_UNKNOWN;
+  if (value >= thresholds.benchmark) return DIBELS_CORE;
+  if (value <= thresholds.risk) return DIBELS_INTENSIVE;
+  return DIBELS_STRATEGIC;
+}
+
+export function interpretDibels(text) {
+  return parseInt(text.replace(/%/g, '').toUpperCase().trim(), 10);
+}
+
+export function colorForDibelsCategory(category) {
+  return {
+    [DIBELS_CORE]: high,
+    [DIBELS_STRATEGIC]: medium,
+    [DIBELS_INTENSIVE]: low,
+    [DIBELS_UNKNOWN]: missing
+  }[category] || missing;
 }
 
 export function dibelsColor(value, thresholds) {
@@ -116,7 +99,9 @@ export function classifyFAndPEnglish(level, grade, benchmarkPeriodKey) {
   if (!thresholds) return null;
 
   if (ORDERED_F_AND_P_ENGLISH_LEVELS[level] >= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.benchmark]) return 'high';
-  if (ORDERED_F_AND_P_ENGLISH_LEVELS[level] <= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.risk]) return 'low';
+
+  // might not be a "risk"
+  if (thresholds.risk && ORDERED_F_AND_P_ENGLISH_LEVELS[level] <= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.risk]) return 'low';
   return 'medium';
 }
 
@@ -137,6 +122,7 @@ export function orderedFAndPLevels() {
   return _.sortBy(Object.keys(ORDERED_F_AND_P_ENGLISH_LEVELS), level => ORDERED_F_AND_P_ENGLISH_LEVELS[level]);
 }
 
+// see ReadingBenchmarkDataPoint#benchmark_period_key_at
 export function benchmarkPeriodKeyFor(timeMoment) {
   const year = toSchoolYear(timeMoment);
   const fallStart = firstDayOfSchool(year);

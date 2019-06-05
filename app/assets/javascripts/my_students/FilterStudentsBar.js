@@ -5,9 +5,18 @@ import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
 import SelectHouse from '../components/SelectHouse';
 import SelectGrade from '../components/SelectGrade';
+import SelectTimeRange from '../components/SelectTimeRange';
 import SelectCounselor from '../components/SelectCounselor';
 import {ALL} from '../components/SimpleFilterSelect';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
+import {
+  TIME_RANGE_7_DAYS_AGO,
+  TIME_RANGE_30_DAYS_AGO,
+  TIME_RANGE_45_DAYS_AGO,
+  TIME_RANGE_90_DAYS_AGO,
+  TIME_RANGE_FOUR_YEARS,
+  TIME_RANGE_ALL
+} from '../components/SelectTimeRange';
 
 // Takes a list of students, uses them to find values to sort by,
 // and then renders a filtering bar for different dimensions, yielding
@@ -17,6 +26,7 @@ export default class FilterStudentsBar extends React.Component {
     super(props);
     this.state = initialState();
 
+    this.onTimeRangeChanged = this.onTimeRangeChanged.bind(this);
     this.onEscape = this.onEscape.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
@@ -25,14 +35,15 @@ export default class FilterStudentsBar extends React.Component {
   }
 
   filteredStudents() {
-    const {students} = this.props;
-    const {searchText, grade, house, counselor} = this.state;
+    const {students, timeFilterFn} = this.props;
+    const {searchText, grade, house, counselor, timeRangeKey} = this.state;
 
     return students.filter(student => {
       if (shouldFilterOut(grade, student.grade)) return false;
       if (shouldFilterOut(house, student.house)) return false;
       if (shouldFilterOut(counselor, student.counselor)) return false;
       if (!searchTextMatches(searchText, student)) return false;
+      if (timeFilterFn && !timeFilterFn(student, timeRangeKey)) return false; // eg, interpret what time range means
       return true;
     });
   }
@@ -57,6 +68,10 @@ export default class FilterStudentsBar extends React.Component {
     this.setState({counselor});
   }
 
+  onTimeRangeChanged(timeRangeKey) {
+    this.setState({timeRangeKey});
+  }
+
   render() {
     const {children, style, barStyle} = this.props;
     const filteredStudents = this.filteredStudents();
@@ -68,6 +83,7 @@ export default class FilterStudentsBar extends React.Component {
           {this.renderGradeSelect()}
           {this.renderHouseSelect()}
           {this.renderCounselorSelect()}
+          {this.renderTimeRangeSelect()}
         </FilterBar>
         {children(filteredStudents)}
       </EscapeListener>
@@ -112,6 +128,29 @@ export default class FilterStudentsBar extends React.Component {
     );
   }
 
+  renderTimeRangeSelect() {
+    const {includeTimeRange} = this.props;
+    if (!includeTimeRange) return null;
+
+    const {timeRangeKey} = this.state;
+    const timeRangeKeys = [
+      TIME_RANGE_ALL,
+      TIME_RANGE_7_DAYS_AGO,
+      TIME_RANGE_30_DAYS_AGO,
+      TIME_RANGE_45_DAYS_AGO,
+      TIME_RANGE_90_DAYS_AGO,
+      TIME_RANGE_FOUR_YEARS
+    ];
+    
+    return (
+      <SelectTimeRange
+        style={{width: '9em'}}
+        timeRangeKey={timeRangeKey}
+        timeRangeKeys={timeRangeKeys}
+        onChange={this.onTimeRangeChanged} />
+    );
+  }
+
   renderCounselorSelect() {
     const {students, includeCounselor} = this.props;
     if (!includeCounselor) return null;
@@ -128,6 +167,7 @@ export default class FilterStudentsBar extends React.Component {
 FilterStudentsBar.propTypes = {
   includeCounselor: PropTypes.bool.isRequired,
   includeHouse: PropTypes.bool.isRequired,
+  includeTimeRange: PropTypes.bool,
   students: PropTypes.arrayOf(PropTypes.shape({
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
@@ -139,6 +179,7 @@ FilterStudentsBar.propTypes = {
     sped_liaison: PropTypes.string
   })).isRequired,
   children: PropTypes.func.isRequired,
+  timeFilterFn: PropTypes.func,
   style: PropTypes.object,
   barStyle: PropTypes.object
 };
@@ -168,7 +209,8 @@ function initialState() {
     searchText: '',
     grade: ALL,
     house: ALL,
-    counselor: ALL
+    counselor: ALL,
+    timeRangeKey: TIME_RANGE_ALL
   };
 }
 

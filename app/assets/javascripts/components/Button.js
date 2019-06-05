@@ -80,3 +80,29 @@ export function SeriousButton(props) {
   return <Button {...mergedProps} />;
 }
 SeriousButton.propTypes = propTypes;
+
+
+// Gray for a secondary kind of action.
+export function PlainButton(props) {
+  const mergedProps = {
+    ...props,
+    style: {
+      ...(props.style || {}),
+      background: '#eee',
+      color: 'black'
+    },
+    hoverStyle: {
+      ...(props.hoverStyle || {}),
+      background: '#eee',
+      color: 'black'
+    },
+    disabledStyle: {
+      ...(props.disabledStyle || {}),
+      background: '#eee',
+      color: '#aaa'
+    }
+  };
+
+  return <Button {...mergedProps} />;
+}
+PlainButton.propTypes = propTypes;

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div>
+  <div
+    className="Hover"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={Object {}}
+  >
+    <button
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "background": "#4A90E2",
+          "border": "none",
+          "borderRadius": 28,
+          "color": "white",
+          "cursor": "pointer",
+          "fontSize": 14,
+          "padding": "8px 25px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Click me!
+    </button>
+  </div>
+  <div
+    className="Hover"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={Object {}}
+  >
+    <button
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "background": "#eee",
+          "border": "none",
+          "borderRadius": 28,
+          "color": "black",
+          "cursor": "pointer",
+          "fontSize": 14,
+          "padding": "8px 25px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Click me!
+    </button>
+  </div>
+  <div
+    className="Hover"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={Object {}}
+  >
+    <button
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "background": "#E5370E",
+          "border": "none",
+          "borderRadius": 28,
+          "color": "white",
+          "cursor": "pointer",
+          "fontSize": 14,
+          "padding": "8px 25px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Click me!
+    </button>
+  </div>
+</div>
+`;

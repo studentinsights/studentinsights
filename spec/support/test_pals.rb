@@ -242,6 +242,10 @@ class TestPals
       educator: @west_counselor,
       label_key: 'k8_counselor'
     )
+    EducatorLabel.create!(
+      educator: @west_counselor,
+      label_key: 'enable_transition_note_features'
+    )
     @west_eighth_ryan = Student.create!(
       first_name: 'Ryan',
       last_name: 'Rodriguez',
@@ -251,6 +255,21 @@ class TestPals
       state_id: '993333333',
       enrollment_status: 'Active'
     )
+    SecondTransitionNote.create!({
+      recorded_at: time_now - 4.days,
+      educator: @west_counselor,
+      student: @west_eighth_ryan,
+      form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE,
+      form_json: {
+        strengths: 'Ryan is polite and able to diffuse difficult social situations or potential conflicts.  He enjoys playing with technology and swimming.',
+        connecting: 'Asking him about scouting can work well talking 1:1, or in the classroom he sometimes like being seen as a leader with setting up the computer or projector system.',
+        community: "He doesn't always feel like he can relate to every in his grade easily, and so hasn't become involved within school, but is in scouts outside school.",
+        peers: 'Ryan has a small circle of friends that he spends most of his time with.',
+        family: 'Although Ryan lives primarily with his mother, his father is very involved with education and it makes a big difference if he is updated regularly. The best way to reach the mother is through email and the father by phone.',
+        other: "Ryan is caring and thoughtful and has many strengths, but school seems tough for him a lot of the time.  He needs consistent support to stay focused and motivated on schoolwork, which this year has been with redirect.  He has done some counseling in the past as well, but redirect has been the most effective day-to-day."
+      },
+      restricted_text: 'Ryan has worked with a counselor at Riverside in the past, Mikayla, but has not this year.  Contact 8th grade counselor for more.'
+    })
 
     # high school
     @shs = School.find_by_local_id!('SHS')
@@ -264,6 +283,18 @@ class TestPals
     EducatorLabel.create!({
       educator: @shs_sofia_counselor,
       label_key: 'use_counselor_based_feed'
+    })
+    EducatorLabel.create!(
+      educator: @shs_sofia_counselor,
+      label_key: 'enable_transition_note_features'
+    )
+    EducatorLabel.create!(
+      educator: @shs_sofia_counselor,
+      label_key: 'high_school_house_master'
+    )
+    EducatorLabel.create!({
+      educator: @shs_sofia_counselor,
+      label_key: 'enable_counselor_meetings_page'
     })
     CounselorNameMapping.create!({
       counselor_field_text: 'sofia',
@@ -480,6 +511,7 @@ class TestPals
 
     add_team_memberships unless skip_team_memberships
     add_student_voice_surveys unless skip_imported_forms
+    add_bedford_end_of_year_transition unless skip_imported_forms
 
     reindex!
     self
@@ -537,6 +569,24 @@ class TestPals
         "When you are struggling, who do you go to for support, encouragement, advice, etc?"=>"Being able to stay after school and work with teachers when I need help",
         "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?"=>"Keeping grades high in all classes since I'm worried about college",
         "What other information is important for your teachers to know so that we can support you and your learning? (For example, tutor, mentor, before school HW help, study group, etc)"=>"Help in the morning before school"
+      }
+    })
+  end
+
+  def add_bedford_end_of_year_transition
+    ImportedForm.create!({
+      'student_id' => healey_kindergarten_student.id,
+      'educator_id' => healey_vivian_teacher.id,
+      'form_key' => ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM,
+      'form_url' => 'https://example.com/form_url',
+      'form_timestamp' => time_now,
+      "form_json"=>{
+        "LLI"=>'yes',
+        "Reading Intervention (w/ specialist)"=>nil,
+        "Math Intervention (w/ consult from SD)"=>'yes',
+        "Please share any specific information you want the teacher to know beyond the report card. This could include notes on interventions, strategies, academic updates that aren't documented in an IEP or 504. If information is in a file please be sure to link it here or share w/ Jess via google doc folder or paper copy"=>"Nov- Dec: 3x30 1:4 pull out Reading group (PA and fundations)",
+        "Is there any key information that you wish you knew about this student in September?"=>nil,
+        "Please share anything that helped you connect with this student that might be helpful to the next teacher."=>'Garfield enjoyed sharing special time reading together for a few minutes at the end of the day.'
       }
     })
   end

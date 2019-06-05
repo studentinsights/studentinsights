@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import {modalFromRight} from '../components/HelpBubble';
 import DownloadCsvLink from '../components/DownloadCsvLink';
+import DownloadIcon from '../components/DownloadIcon';
 
 
 // This tracks the modal state on its own rather than using <HelpBubble /> so that it
@@ -34,7 +35,7 @@ export default class LazyExportLink extends React.Component {
               style={modalFromRight}>
               {this.renderDialog()}
             </ReactModal>
-          : <svg style={{fill: "#3177c9", opacity: 0.5, cursor: 'pointer'}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          : <DownloadIcon />
         }
       </div>
     );

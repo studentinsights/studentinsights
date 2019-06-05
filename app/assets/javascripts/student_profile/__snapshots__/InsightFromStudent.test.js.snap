@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="InsightQuote InsightFromStudent "
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "margin": 20,
+        "marginBottom": 0,
+        "marginTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "fontSize": 12,
+            }
+          }
+        >
+          What are you excited about this year?
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "marginTop": 5,
+            }
+          }
+        >
+          <mocked-fit-text
+            fontSizeStep={4}
+            maxFontSize={48}
+            minFontSize={12}
+            text="“I'm mostly looking forward to basketball season, we have a lot of good players this year.  And also graphic design, getting better at making digital art in Illustrator.”"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "alignItems": "flex-end",
+        "display": "flex",
+        "flexDirection": "row",
+        "fontSize": 12,
+        "justifyContent": "space-between",
+        "margin": 20,
+        "marginBottom": 15,
+        "marginTop": 10,
+      }
+    }
+  >
+    <div>
+      <div>
+        <div>
+          from 
+          <a
+            href="/students/42"
+            rel="noopener noreferrer"
+            style={
+              Object {
+                "fontSize": 12,
+              }
+            }
+            target="_blank"
+          >
+            Mari
+             
+            Kenobi
+          </a>
+        </div>
+        <div>
+          <span>
+            in 
+            <b>
+              Student voice survey
+            </b>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

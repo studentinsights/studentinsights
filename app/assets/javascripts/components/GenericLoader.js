@@ -11,7 +11,7 @@ import Loading from './Loading';
 // <GenericLoader
 //    promiseFn={fetch('/foos').then(response => response.json())}
 //    render={foos => this.renderFoos(foo)} />
-class GenericLoader extends React.Component {
+export default class GenericLoader extends React.Component {
   constructor(props) {
     super(props);
     this.renderGeneric = this.renderGeneric.bind(this);
@@ -50,4 +50,39 @@ GenericLoader.propTypes = {
   style: PropTypes.object
 };
 
-export default GenericLoader;
+
+// sugars, commonly used with this component
+export function Pending() {
+  return <span style={{
+    width: '8em',
+    textAlign: 'center',
+    color: '#333',
+    fontSize: 14,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginRight: 10,
+    padding: 5}}>...</span>;
+}
+
+export function Failure() {
+  return <span style={{
+    width: '8em',
+    textAlign: 'center',
+    backgroundColor: 'red',
+    color: 'white',
+    fontSize: 14,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    padding: 5,
+    fontWeight: 'bold'
+  }}>network error</span>;
+}
+
+export const flexVerticalStyle = {
+  display: 'flex',
+  flex: 1,
+  flexDirection: 'column'
+};

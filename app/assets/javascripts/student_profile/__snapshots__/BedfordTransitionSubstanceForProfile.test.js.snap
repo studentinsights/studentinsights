@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="BedfordTransitionSubstanceForProfile"
+>
+  <div
+    style={
+      Object {
+        "marginBottom": 15,
+      }
+    }
+  >
+    <div>
+      <div>
+        Services during 2018-2019
+      </div>
+      <div>
+        - 
+        LLI
+      </div>
+      <div>
+        - 
+        Math Intervention (w/ consult from SD)
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 15,
+      }
+    }
+  >
+    <div>
+      <div>
+        What else should new teachers know about Garfield?
+      </div>
+      <div
+        className="NoteText"
+        style={
+          Object {
+            "border": 0,
+            "fontFamily": "'Open Sans', sans-serif",
+            "fontSize": 14,
+            "marginTop": 0,
+            "outline": "1px solid transparent",
+            "overflowX": "hidden",
+            "padding": 0,
+            "whiteSpace": "pre-wrap",
+            "wordBreak": "break-word",
+          }
+        }
+      >
+        Nov- Dec: 3x30 1:4 pull out Reading group (PA and fundations)
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 15,
+      }
+    }
+  >
+    <div>
+      <div>
+        What helped you connect with Garfield?
+      </div>
+      <div
+        className="NoteText"
+        style={
+          Object {
+            "border": 0,
+            "fontFamily": "'Open Sans', sans-serif",
+            "fontSize": 14,
+            "marginTop": 0,
+            "outline": "1px solid transparent",
+            "overflowX": "hidden",
+            "padding": 0,
+            "whiteSpace": "pre-wrap",
+            "wordBreak": "break-word",
+          }
+        }
+      >
+        Garfield enjoyed sharing special time reading together for a few minutes at the end of the day.
+      </div>
+    </div>
+  </div>
+  <div>
+    <a
+      href="https://example.com/form_url"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Source
+    </a>
+  </div>
+</div>
+`;

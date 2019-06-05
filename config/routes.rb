@@ -48,8 +48,10 @@ Rails.application.routes.draw do
   put '/api/reading/update_data_point_json' => 'reading#update_data_point_json'
   get '/api/reading/teams_json' => 'reading#teams_json'
   post '/api/reading/grouping_snapshot_json/:grouping_workspace_id' => 'reading#grouping_snapshot_json'
-  get '/api/reading/reading_debug_json' => 'reading#reading_debug_json'
-  get '/api/reading/star_reading_debug_json' => 'reading#star_reading_debug_json'
+
+  # reading_debug
+  get '/api/reading_debug/reading_debug_json' => 'reading_debug#reading_debug_json'
+  get '/api/reading_debug/star_reading_debug_json' => 'reading_debug#star_reading_debug_json'
 
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
@@ -89,9 +91,15 @@ Rails.application.routes.draw do
   # student profile
   get '/api/students/:id/profile_json' => 'profile#json'
 
-  # transition notes: creating/updating, or reading restricted notes
-  post '/api/students/:student_id/update_transition_note' => 'transition_notes#update'
+  # transition notes: reading restricted notes (create was deprecated and removed, see `second_transition_note`)
   get '/api/students/:student_id/restricted_transition_note_json' => 'transition_notes#restricted_transition_note_json'
+
+  # second transition notes
+  post '/api/students/:student_id/second_transition_notes/save_json' => 'second_transition_notes#save_json'
+  delete '/api/students/:student_id/second_transition_notes/:second_transition_note_id' => 'second_transition_notes#delete_json'
+  get '/api/students/:student_id/second_transition_notes/:second_transition_note_id/restricted_text_json' => 'second_transition_notes#restricted_text_json'
+  get '/api/students/:student_id/second_transition_notes/next_student_json' => 'second_transition_notes#next_student_json'
+  get '/api/second_transition_notes/transition_students_json' => 'second_transition_notes#transition_students_json'
 
   # event_notes: creating/updating notes, or reading restricted notes
   post '/api/event_notes' => 'event_notes#create'
@@ -102,6 +110,11 @@ Rails.application.routes.draw do
 
   # HS levels
   get '/api/levels/:school_id/show_json' => 'levels#show_json'
+
+  # shs counselor meetings
+  get '/api/counselor_meetings/meetings_json' => 'counselor_meetings#meetings_json'
+  post '/api/counselor_meetings' => 'counselor_meetings#create'
+  get '/api/counselor_meetings/student_feed_cards_json' => 'counselor_meetings#student_feed_cards_json'
 
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
@@ -115,7 +128,7 @@ Rails.application.routes.draw do
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
-  get '/educators/my_notes'=> 'ui#ui'
+  get '/educators/my_notes' => 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/probe'=> 'educators#probe'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
@@ -201,6 +214,7 @@ Rails.application.routes.draw do
     member do
       get '/debug' => 'ui#ui'
       get '/debug_star' => 'ui#ui'
+      get '/debug_csv' => 'reading_debug#reading_debug_csv'
     end
   end
 
@@ -209,5 +223,10 @@ Rails.application.routes.draw do
     get '/classlists_index' => 'ui#ui'
     get '/schools/:school_id/explore' => 'ui#ui'
     get '/schools/:school_id/quilts' => 'ui#ui'
+  end
+
+  resource :counselors, only: [] do
+    get '/meetings' => 'ui#ui'
+    get '/transitions' => 'ui#ui'
   end
 end

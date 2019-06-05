@@ -185,20 +185,20 @@ describe ProfileController, :type => :controller do
         json = JSON.parse(response.body)
         expect(json['profile_insights'].size).to eq 6
         expect(json['profile_insights'].map {|insight| insight['type'] }).to contain_exactly(*[
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'student_voice_survey_response',
-          'transition_note_strength'
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_student_voice_survey',
+          'from_first_transition_note_strength'
         ])
         expect(json['profile_insights']).to include({
-          "type"=>"transition_note_strength",
+          "type"=>"from_first_transition_note_strength",
           "json"=> {
             "strengths_quote_text"=>"everything!",
             "transition_note"=>{
               "id"=>transition_note.id,
-              "created_at"=>a_kind_of(String),
+              "recorded_at"=>a_kind_of(String),
               "educator"=>{
                 "id"=>transition_note.educator.id,
                 "full_name"=>transition_note.educator.full_name,
@@ -209,7 +209,7 @@ describe ProfileController, :type => :controller do
           }
         })
         expect(json['profile_insights']).to include({
-          "type"=>"student_voice_survey_response",
+          "type"=>"from_first_student_voice_survey",
           "json"=>{
             "prompt_key"=>"proud",
             "prompt_text"=>"I am proud that I....",
@@ -276,9 +276,11 @@ describe ProfileController, :type => :controller do
           expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],
+            'second_transition_notes' => [],
             'fall_student_voice_surveys' => [],
             'homework_help_sessions' => [],
             'flattened_forms' => [],
+            'bedford_end_of_year_transitions' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -579,6 +581,8 @@ describe ProfileController, :type => :controller do
         :services,
         :deprecated,
         :transition_notes,
+        :second_transition_notes,
+        :bedford_end_of_year_transitions,
         :fall_student_voice_surveys,
         :homework_help_sessions,
         :flattened_forms
@@ -648,6 +652,52 @@ describe ProfileController, :type => :controller do
         :form_timestamp,
         :text,
         :updated_at
+      ])
+    end
+
+    it 'returns second_transition_notes with expected shape' do
+      pals = TestPals.create!
+      feed = controller.send(:student_feed, pals.west_eighth_ryan)
+      second_transition_notes = feed[:second_transition_notes]
+
+      expect(second_transition_notes.size).to eq 1
+      expect(second_transition_notes.first['student_id']).to eq(pals.west_eighth_ryan.id)
+      expect(second_transition_notes.first['has_restricted_text']).to eq true
+      expect(second_transition_notes.first.has_key?('restricted_text')).to eq false
+      expect(second_transition_notes.first.keys).to contain_exactly(*[
+        'id',
+        'educator_id',
+        'student_id',
+        'form_key',
+        'has_restricted_text',
+        'starred',
+        'form_json',
+        'recorded_at',
+        'created_at',
+        'updated_at'
+      ])
+    end
+
+    it 'returns bedford_end_of_year_transitions with expected shape' do
+      pals = TestPals.create!
+
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      feed = controller.send(:student_feed, pals.healey_kindergarten_student)
+      bedford_end_of_year_transitions = feed[:bedford_end_of_year_transitions]
+
+      expect(bedford_end_of_year_transitions.size).to eq 1
+      expect(bedford_end_of_year_transitions.first['student_id']).to eq(pals.healey_kindergarten_student.id)
+      expect(bedford_end_of_year_transitions.first.keys).to contain_exactly(*[
+        'id',
+        'educator',
+        'educator_id',
+        'form_json',
+        'form_key',
+        'form_timestamp',
+        'form_url',
+        'student_id',
+        'created_at',
+        'updated_at'
       ])
     end
   end

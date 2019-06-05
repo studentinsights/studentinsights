@@ -5,6 +5,8 @@ sftp_filenames:
   FILENAME_FOR_ATTENDANCE_IMPORT:     ../newbedford/iattendance.csv
   FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv
 
+  # student photos, one-time batch
+  FILENAME_FOR_PHOTOS_ZIP:            /home/newbedford/photos.zip
 
 star_filenames:
   FILENAME_FOR_STAR_READING_IMPORT:   SR.csv

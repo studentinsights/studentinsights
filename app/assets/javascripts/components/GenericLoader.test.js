@@ -1,6 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import GenericLoader from './GenericLoader';
+import renderer from 'react-test-renderer';
+import GenericLoader, {Pending, Failure} from './GenericLoader';
 
 function testProps(props = {}) {
   return {
@@ -54,4 +55,16 @@ describe('when not GENERIC_LOADER_THROW_ON_REJECT_IN_TEST', () => {
       done();
     }, 0);
   });
+});
+
+it('snapshots', () => {
+  const tree = renderer
+    .create(
+      <div>
+        <Pending />
+        <Failure />
+      </div>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

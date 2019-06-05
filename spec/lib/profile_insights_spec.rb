@@ -41,7 +41,7 @@ RSpec.describe ProfileInsights do
       it 'includes teams for test time' do
         expect(ProfileInsights.new(pals.shs_freshman_mari).as_json.size).to eq 1
         expect(ProfileInsights.new(pals.shs_freshman_mari).as_json).to eq [{
-          'type'=>'team_membership',
+          'type'=>'about_team_membership',
           'json'=>{
             "activity_text"=>"Competitive Cheerleading Varsity",
             "coach_text"=>"Fatima Teacher",
@@ -59,7 +59,7 @@ RSpec.describe ProfileInsights do
       it 'does not include Q2 self reflection by default' do
         insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
         expect(insights_json.size).to eq 6
-        expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
+        expect(insights_json.map {|i| i['type'] }.uniq).to eq ['from_generic_imported_form']
         expect(insights_json.map {|i| i['json']['form_key'] }.uniq).to eq ['shs_what_i_want_my_teacher_to_know_mid_year']
       end
 
@@ -70,13 +70,13 @@ RSpec.describe ProfileInsights do
 
         insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
         expect(insights_json.size).to eq 14
-        expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
+        expect(insights_json.map {|i| i['type'] }.uniq).to eq ['from_generic_imported_form']
         expect(insights_json.map {|i| i['json']['form_key'] }.uniq).to contain_exactly(*[
           'shs_what_i_want_my_teacher_to_know_mid_year',
           'shs_q2_self_reflection'
         ])
         expect(insights_json).to include({
-          "type"=>"imported_form_insight",
+          "type"=>"from_generic_imported_form",
           "json"=> {
             "form_key" => "shs_q2_self_reflection",
             "prompt_text"=> "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?",
@@ -84,6 +84,31 @@ RSpec.describe ProfileInsights do
             "flattened_form_json" => anything()
           }
         }) # one example, testing shape
+      end
+    end
+
+    describe 'from_bedford_transition' do
+      let!(:pals) { TestPals.create!(skip_team_memberships: true) }
+
+      it 'returns expected shape' do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:include_bedford_end_of_year_transition?).and_return(true)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+
+        insights_json = ProfileInsights.new(pals.healey_kindergarten_student).as_json
+        expect(insights_json.size).to eq 1
+        expect(insights_json.first).to eq({
+          'type' => 'from_bedford_transition',
+          'json' => {
+            "insight_text"=>"Garfield enjoyed sharing special time reading together for a few minutes at the end of the day.",
+            "form_url"=>"https://example.com/form_url",
+            "educator"=>{
+              "id"=>pals.healey_vivian_teacher.id,
+              "email"=>"vivian@demo.studentinsights.org",
+              "full_name"=>"Teacher, Vivian"
+            }
+          }
+        })
       end
     end
   end

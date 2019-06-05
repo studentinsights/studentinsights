@@ -25,12 +25,21 @@ export function mergedNotes(feed) {
     };
   });
 
-  // optional
+  // deprecated
   const transitionNotes = (feed.transition_notes || []).map(transitionNote => {
     return {
       ...transitionNote,
       type: 'transition_notes',
-      sort_timestamp: transitionNote.created_at
+      sort_timestamp: transitionNote.recorded_at
+    };
+  });
+
+  // somerville 8th > 9th transition notes 2019 
+  const secondTransitionNotes = (feed.second_transition_notes || []).map(secondTransitionNote => {
+    return {
+      ...secondTransitionNote,
+      type: 'second_transition_notes',
+      sort_timestamp: secondTransitionNote.recorded_at
     };
   });
 
@@ -62,13 +71,24 @@ export function mergedNotes(feed) {
     };
   });
 
+  // bedford_end_of_year_transitions
+  const bedfordEndOfYearTransitions = (feed.bedford_end_of_year_transitions || []).map(importedForm => {
+    return {
+      ...importedForm,
+      type: 'bedford_end_of_year_transitions',
+      sort_timestamp: importedForm.form_timestamp
+    };
+  });
+
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
     ...transitionNotes,
+    ...secondTransitionNotes,
     ...homeworkHelpSessions,
     ...fallStudentVoiceInsights,
-    ...flattenedForms
+    ...flattenedForms,
+    ...bedfordEndOfYearTransitions
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }

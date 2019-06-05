@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 export function Website(props) {
-  return <a {...props} href="https://www.studentinsights.org">www.studentinsights.org</a>;
+  return <a {...props} href="https://www.studentinsights.org">studentinsights.org</a>;
 }
 
 
@@ -21,3 +21,11 @@ export function Email(props) {
 Email.propTypes = {
   children: PropTypes.node
 };
+
+export function WebsiteInsightExample(props) {
+  return <a {...props} href="https://www.studentinsights.org/our-work.html#seeing-the-whole-child">{props.children || 'studentinsights.org'}</a>; 
+}
+WebsiteInsightExample.propTypes = {
+  children: PropTypes.node
+};
+

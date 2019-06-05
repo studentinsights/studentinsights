@@ -16,6 +16,10 @@ class PathsForEducator
       links[:levels_shs] = '/levels/shs'
     end
 
+    if PerDistrict.new.enabled_counselor_meetings? && @educator.labels.include?('enable_counselor_meetings_page')
+      links[:counselor_meetings] = '/counselors/meetings'
+    end
+
     if @educator.districtwide_access?
       links[:district] = '/district'
     end

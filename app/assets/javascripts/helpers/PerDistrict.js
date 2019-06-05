@@ -10,7 +10,7 @@ export const DEMO = 'demo';
 export function hasStudentPhotos(districtKey) {
   if (districtKey === SOMERVILLE) return true;
   if (districtKey === BEDFORD) return true;
-  if (districtKey === NEW_BEDFORD) return false;
+  if (districtKey === NEW_BEDFORD) return true;
   return false;
 }
 
@@ -268,8 +268,17 @@ export function enhancedStudentPhotoStyles(districtKey) {
       backgroundPositionY: -5
     };
   }
+  
+  if (districtKey === NEW_BEDFORD) {
+    return {
+      backgroundSize: '110%',
+      backgroundPositionY: -10
+    };
+  }
 
-  return {};
+  return {
+    backgroundSize: '100%'
+  };
 }
 
 // For shorter names and prettier UI
