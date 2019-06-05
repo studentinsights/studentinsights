@@ -57,8 +57,8 @@ export default class Tooltip extends React.Component {
             minWidth: 200,
             minHeight: 100,
             background: 'lightyellow',
-            left: 20,
-            top: 20,
+            left: '90%',
+            top: '10%',
             border: '1px solid #ccc',
             zIndex: 10, // above other siblings
             ...tooltipStyle

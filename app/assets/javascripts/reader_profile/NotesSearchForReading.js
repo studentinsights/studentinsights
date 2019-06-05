@@ -17,8 +17,12 @@ export default function NotesSearchForReading(props) {
   return (
     <div className="NotesSearchForReading" style={{height: '100%', ...style}}>
       {sortedMatches.map((match, index) => (
-         <Tooltip key={index} title={<NoteText text={match.note.text} style={{fontSize: 12}} />}>
-          <div key={index} style={{textAlign: 'left', fontSize: 10, marginBottom: 20}}>
+         <Tooltip
+          key={index}
+          tooltipStyle={{left: '20%', top: '20%'}}
+          title={<NoteText text={match.note.text} style={{fontSize: 12}} />}
+        >
+          <div key={index} style={{textAlign: 'left', fontSize: 12, marginBottom: 20}}>
             <div>
               <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
               <Timestamp style={{display: 'inline', marginLeft: 5}} railsTimestamp={match.note.recorded_at} />

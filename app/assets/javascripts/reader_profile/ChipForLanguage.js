@@ -6,6 +6,7 @@ import LanguageStatusLink from '../student_profile/LanguageStatusLink';
 import {Concern, TwoLineChip} from './layout';
 import HoverSummary, {secondLineDaysAgo} from './HoverSummary';
 import Tooltip from './Tooltip';
+import Freshness from './Freshness';
 
 
 export default class ChipForLanguage extends React.Component {
@@ -16,7 +17,7 @@ export default class ChipForLanguage extends React.Component {
     const limitedEnglishProficiency = student.limited_english_proficiency;
     const languageStatusEl = (
       <LanguageStatusLink
-        style={{fontSize: 12}}
+        style={{fontSize: 12, color: 'black'}}
         studentFirstName={student.first_name}
         ellTransitionDate={student.ell_transition_date}
         limitedEnglishProficiency={limitedEnglishProficiency}
@@ -40,21 +41,23 @@ export default class ChipForLanguage extends React.Component {
 
     const daysAgo = mostRecentMoment ? nowMoment.clone().diff(mostRecentMoment, 'days') : null;
     return (
-      <Concern concernKey={concernKey}>
-        <Tooltip title={
-          <HoverSummary
-            atMoment={mostRecentMoment}
-            concernKey={concernKey}
-            score={score}
-            name={`ACCESS WIDA Levels: ${accessKey}`}
-          />
-        }>
-          <TwoLineChip
-            firstLine={languageStatusEl}
-            secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
-          />
-        </Tooltip>
-      </Concern>
+      <Freshness daysAgo={daysAgo}>
+        <Concern concernKey={concernKey}>
+          <Tooltip tooltipStyle={{minWidth: 400}} title={
+            <HoverSummary
+              atMoment={mostRecentMoment}
+              concernKey={concernKey}
+              score={score}
+              name={`ACCESS WIDA Levels: ${accessKey}`}
+            />
+          }>
+            <TwoLineChip
+              firstLine={languageStatusEl}
+              secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
+            />
+          </Tooltip>
+        </Concern>
+      </Freshness>
     );
   }
 }

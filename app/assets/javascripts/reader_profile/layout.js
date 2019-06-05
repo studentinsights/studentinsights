@@ -4,6 +4,7 @@ import _ from 'lodash';
 import Hover from '../components/Hover';
 import {AutoSizer} from 'react-virtualized';
 import {high, medium, low} from '../helpers/colors';
+import ReaderProfileDialog from './ReaderProfileDialog';
 
 
 // An main "ingredient" of reading (eg, phonics).
@@ -35,7 +36,7 @@ export function Ingredient(props) {
         <div style={{
           flex: 1,
           borderRight: `1px solid ${color}`
-        }}>{notes || missingEl('notes')}</div>
+        }}>{notes}</div>
       </div>
     </div>
   );
@@ -50,13 +51,13 @@ Ingredient.propTypes = {
 
 // A part of an 'ingredient' (eg, "blending")
 export function Sub(props) {
-  const {name, screener, diagnostic, interventions} = props;  
+  const {name, screener, diagnostic, intervention} = props;  
   return (
     <div className="Sub" style={{display: 'flex', flexDirection: 'row'}}>
       <div style={styles.nameCell}>{name}</div>
-      <div style={styles.cell}>{screener || missingEl('screener')}</div>
-      <div style={styles.cell}>{diagnostic || missingEl('diagnostic')}</div>
-      <div style={styles.cell}>{interventions || missingEl('interventions')}</div>
+      <div style={styles.cell}>{screener || <PlaceholderSuggestion text="screener" />}</div>
+      <div style={styles.cell}>{diagnostic || <PlaceholderSuggestion text="diagnostic" />}</div>
+      <div style={styles.cell}>{intervention || <PlaceholderSuggestion text="intervention" />}</div>
     </div>
   );
 }
@@ -64,7 +65,7 @@ Sub.propTypes = {
   name: PropTypes.node.isRequired,
   screener: PropTypes.node,
   diagnostic: PropTypes.node,
-  interventions: PropTypes.node,
+  intervention: PropTypes.node,
 };
 
 
@@ -83,6 +84,7 @@ export function MultipleChips(props) {
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
+      position: 'relative',
       height: '100%'
     }}>{chip}</div>
   ))}</div>;
@@ -91,20 +93,29 @@ MultipleChips.propTypes = {
   chips: PropTypes.arrayOf(PropTypes.node).isRequired
 };
 
+function PlaceholderSuggestion(props) {
+  const {text} = props;
+  return <div style={{padding: 5, fontSize: 12, color: '#eee'}}>{text}</div>;
+}
 
-// TODO(kr) placeholder
-function missingEl(text) {
+export function Suggestion(props) {
+  const {text, dialog} = props;
+
   return (
     <Hover>{isHovering => {
       const style = {
         ...styles.cell, 
+        padding: 5,
         cursor: 'pointer',
-        ...(isHovering ? {color: '#aaa'} : {color: '#eee'})
+        ...(isHovering ? {color: 'black', background: '#1b82ea42'} : {color: '#ccc'})
       };
-      return <div
-        style={style}
-        onClick={() => alert(`Here are some ${text} to try...`)}
-      >+{text}</div>;
+      return (
+        <ReaderProfileDialog
+          title={text}
+          content={dialog || `Here are some suggestions for ${text}...`}
+          icon={<div style={style}>{text}</div>}
+        />
+      );
     }}</Hover>
   );
 }
@@ -159,6 +170,7 @@ export function TwoLineChip(props) {
           border: '1px solid white',
           paddingLeft: 8,
           height: '100%',
+          cursor: 'pointer',
           width,
           ...style
         }}>

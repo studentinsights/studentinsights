@@ -68,7 +68,7 @@ export default class ChipForDibels extends React.Component {
     return (
       <Freshness daysAgo={daysAgo}>
         <Concern concernKey={concernKey}>
-          <Tooltip title={
+          <Tooltip tooltipStyle={{minWidth: 400}} title={
             <HoverSummary
               name={prettyAssessmentText}
               atMoment={dataPointMoment(mostRecentDataPoint)}

@@ -36,25 +36,28 @@ Freshness.propTypes = {
 };
 
 
-const FRESHNESS_MONTHS = 'freshness_months';
-const FRESHNESS_YEARS = 'freshness_years';
+const FRESHNESS_THREE_MONTHS = 'freshness_three_months';
+const FRESHNESS_SIX_MONTHS = 'freshness_six_months';
+const FRESHNESS_YEAR = 'freshness_year';
 const FRESHNESS_OLD = 'freshness_old';
 const FRESHNESS_UNKNOWN = 'freshness_unknown';
 
 function stylesForFreshness(daysAgo) {
   const bucket = bucketForChip(daysAgo);
   return {
-    [FRESHNESS_MONTHS]: {opacity: 1.0},
-    [FRESHNESS_UNKNOWN]: {opacity: 0.8},
-    [FRESHNESS_YEARS]: {opacity: 0.4},
-    [FRESHNESS_OLD]: {opacity: 0.2}
+    [FRESHNESS_THREE_MONTHS]: {opacity: 1.0},
+    [FRESHNESS_SIX_MONTHS]: {opacity: 7.0},
+    [FRESHNESS_YEAR]: {opacity: 0.4},
+    [FRESHNESS_OLD]: {opacity: 0.2},
+    [FRESHNESS_UNKNOWN]: {opacity: 0.2}
   }[bucket];
 }
 
 function bucketForChip(daysAgo) {
   if (daysAgo === null || daysAgo ===  undefined) return FRESHNESS_UNKNOWN;
-  if (daysAgo <= 90) return FRESHNESS_MONTHS;
-  if (daysAgo <= 365) return FRESHNESS_YEARS;
+  if (daysAgo <= 90) return FRESHNESS_THREE_MONTHS;
+  if (daysAgo <= 180) return FRESHNESS_SIX_MONTHS;
+  if (daysAgo <= 365) return FRESHNESS_YEAR;
   return FRESHNESS_OLD;
 }
 

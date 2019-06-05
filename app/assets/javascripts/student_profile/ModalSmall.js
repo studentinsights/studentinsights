@@ -82,8 +82,8 @@ export default class ModalSmall extends React.Component {
 
 ModalSmall.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
-  icon: PropTypes.object.isRequired, // React DOM object which will be clicked to open the modal.
+  content: PropTypes.node.isRequired, // React DOM objects which will be displayed in the modal text box.
+  icon: PropTypes.node.isRequired, // React DOM object which will be clicked to open the modal.
   style: PropTypes.object,
   iconStyle: PropTypes.object,
   modalStyle: PropTypes.object

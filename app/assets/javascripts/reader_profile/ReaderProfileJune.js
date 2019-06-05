@@ -23,7 +23,7 @@ import ChipForDibels from './ChipForDibels';
 import DibelsDialog from './DibelsDialog';
 import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 import ReaderProfileDialog from './ReaderProfileDialog';
-import {Ingredient, Sub, MultipleChips} from './layout';
+import {Ingredient, Sub, MultipleChips, Suggestion} from './layout';
 
 /* todo
 screeners:
@@ -90,6 +90,8 @@ export default class ReaderProfileJune extends React.Component {
           subs={[
             <Sub
               name="blending"
+              diagnostic={<Suggestion text="PAST" />}
+              intervention={<Suggestion text="Heggerty" />}
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
             <Sub name="deleting" />,
@@ -107,6 +109,17 @@ export default class ReaderProfileJune extends React.Component {
               screener={this.renderChipForDibels('letters', DIBELS_LNF)}
             />,
             <Sub name="accurate"
+              diagnostic={
+                <Suggestion
+                  text="phonics screeners"
+                  dialog={
+                    <div>
+                      <a style={{display: 'block'}} href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>
+                      <a style={{display: 'block'}} href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>
+                    </div>
+                  }
+                />
+              }
               screener={this.renderChipForDibels('accurate', DIBELS_DORF_ACC)}
             />,
             <Sub name="fluent"

@@ -19,6 +19,7 @@ export default class LanguageStatusLink extends React.Component {
       access,
       ellTransitionDate
     });
+
     const el = <div style={style}>{linkEl !== undefined ? linkEl : prettyLanguageText}</div>;
 
     // Link to scores also if any access data (even if old)
