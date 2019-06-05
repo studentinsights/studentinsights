@@ -294,10 +294,13 @@ export default class ReaderProfileJune extends React.Component {
 
   renderChipForService(serviceTypeId) {
     const {services} = this.props;
+    const matchingServices = services.filter(service => service.service_type_id === serviceTypeId);
+    if (matchingServices.length === 0) return null;
+
     return (
       <ChipForService
         serviceTypeId={serviceTypeId}
-        services={services}
+        matchingServices={matchingServices}
       />
     );
   }

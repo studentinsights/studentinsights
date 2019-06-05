@@ -193,6 +193,14 @@ export const noteChipHeaderStyle = {
   paddingLeft: 8,
   paddingRight: 8
 };
+
+// for the chip (note, iep, service)
+export const noteChipStyle = {
+  textAlign: 'left',
+  fontSize: 12,
+  outline: '1px solid white',
+  height: '100%',
+};
     
 
 // A chip that's two lines, truncated if overflowing.
@@ -219,7 +227,7 @@ export function TwoLineChip(props) {
           ...style
         }}>
           {lines.map((lineEl, index) => (
-            <div key={index} style={{overflow: 'hidden', height: 20}}>
+            <div key={index} style={{overflow: 'hidden', height: 19}}>
               {lineEl}
             </div>
           ))}

@@ -4,10 +4,10 @@ import lunr from 'lunr';
 import _ from 'lodash';
 import {toMoment} from '../helpers/toMoment';
 import NoteText from '../components/NoteText';
-import {Support, noteChipHeaderStyle} from './layout';
+import {Support, noteChipHeaderStyle, noteChipStyle} from './layout';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
-import {Highlight, Highlights, unrollAndSortPositions} from './TextSearchForReading';
+import {unrollAndSortPositions} from './TextSearchForReading';
 
 export default class ChipForIEP extends React.Component {
   render() {
@@ -39,13 +39,7 @@ export default class ChipForIEP extends React.Component {
           delayMs={1000}
           title={<NoteText text={tooltipText} style={{fontSize: 12, fontFamily: 'mono'}} />}
         >
-          <div style={{
-            textAlign: 'left',
-            fontSize: 12,
-            border: '1px solid white',
-            height: '100%',
-            ...style
-          }}>
+          <div style={{...noteChipStyle, ...style}}>
             <div>
               <Support style={noteChipHeaderStyle}>IEP at-a-glance</Support>
               {startMoment && endMoment && (
@@ -109,7 +103,6 @@ function IepHighlights(props) {
       { type: 'gap', previous: position, next: positions[index + 1] }
     ];
   }));
-  console.log('prefixSegments', prefixSegments, positions);
 
   // elide unhighlighted sections, but for strings of text with
   // multiple highlights, show them all

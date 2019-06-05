@@ -9,7 +9,7 @@ import NoteText from '../components/NoteText';
 import Tooltip from './Tooltip';
 import {Highlight} from './TextSearchForReading';
 import Freshness from './Freshness';
-import {noteChipHeaderStyle} from './layout';
+import {noteChipHeaderStyle, noteChipStyle} from './layout';
 import {unrollAndSortPositions} from './TextSearchForReading';
 
 
@@ -37,7 +37,7 @@ export default class ChipForNotes extends React.Component {
               tooltipStyle={{left: '20%', top: '20%'}}
               title={<NoteText text={noteMatch.note.text} style={{fontSize: 12}} />}
             >
-              <div key={index} style={{textAlign: 'left', fontSize: 12, marginBottom: 20}}>
+              <div key={index} style={noteChipStyle}>
                 <div>
                   <NoteBadge style={noteChipHeaderStyle} eventNoteTypeId={noteMatch.note.event_note_type_id} />
                   <Timestamp style={{display: 'inline', marginLeft: 5}} railsTimestamp={noteMatch.note.recorded_at} />
