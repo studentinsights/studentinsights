@@ -32,7 +32,7 @@ export default class ChipForNotes extends React.Component {
       <Freshness className="ChipForNotes" daysAgo={daysAgo}>
         <div style={{height: '100%'}}>
           {sortedMatches.map((noteMatch, index) => (
-             <Tooltip
+             <FakeTooltip
               key={index}
               tooltipStyle={{left: '20%', top: '20%'}}
               title={<NoteText text={noteMatch.note.text} style={{fontSize: 12}} />}
@@ -54,7 +54,7 @@ export default class ChipForNotes extends React.Component {
                   ))}
                 </div>
               </div>
-            </Tooltip>
+            </FakeTooltip>
           ))}
         </div>
       </Freshness>
@@ -100,3 +100,7 @@ export function findWithinNotes(lunrIndex, notes, words) {
 
   });
 }
+
+
+  const FakeTooltip = props => <div {...props} />;  
+  

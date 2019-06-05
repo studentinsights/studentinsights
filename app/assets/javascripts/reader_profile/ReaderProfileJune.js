@@ -213,7 +213,6 @@ export default class ReaderProfileJune extends React.Component {
           <ChipForIEP
             iepMatchPositions={iepMatchPositions}
             iepFullText={cleanIepFullText}
-            style={{maxHeight: 80, overflowY: 'hidden'}}
           />
         }
         title={`IEP at-a-glance for ${student.first_name}`}

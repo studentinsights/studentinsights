@@ -34,7 +34,7 @@ export default class ChipForIEP extends React.Component {
         style={{height: '100%'}}
         innerStyle={{flexDirection: 'column'}}
       >
-        <Tooltip
+        <FakeTooltip
           tooltipStyle={{left: '20%', top: '20%'}}
           delayMs={1000}
           title={<NoteText text={tooltipText} style={{fontSize: 12, fontFamily: 'mono'}} />}
@@ -53,7 +53,7 @@ export default class ChipForIEP extends React.Component {
               iepFullText={iepFullText}
             />
           </div>
-        </Tooltip>
+        </FakeTooltip>
       </Freshness>
     );
   }
@@ -139,3 +139,6 @@ export function cleanedIepFullText(iepFullText) {
     .replace(/([a-z])\n\n([a-z])/g, '$1$2') // no newlines cutting between sentences
     .replace(/\n\n(\n+)/g, '\n\n'); // newlines beyond 2
 }
+
+   const FakeTooltip = props => <div {...props} />;  
+   

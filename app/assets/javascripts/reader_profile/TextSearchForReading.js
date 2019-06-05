@@ -50,6 +50,7 @@ export const SOUNDS_AND_LETTERS_SEARCH = [
   '+reading +intervention',
   'correspondence', // 1-1
   'letter -attendance -tardy', // not "attendance letter"
+  '-sent letter', // "sent a letter"
   '+letter +sounds',
   '+Lively +Letters',
   'LNF',

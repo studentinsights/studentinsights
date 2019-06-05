@@ -96,13 +96,15 @@ MultipleChips.propTypes = {
 };
 
 
+// TODO(kr) need spacers
 export function NotesContainer(props) {
   const {children} = props;
   return <div className="NotesContainer" style={{
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    maxHeight: 80, // TODO(kr)
+    overflowY: 'scroll',
     width: '100%'
   }}>{_.compact(children)}</div>;
 }
