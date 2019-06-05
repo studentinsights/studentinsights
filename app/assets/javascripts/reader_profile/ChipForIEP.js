@@ -4,7 +4,7 @@ import lunr from 'lunr';
 import _ from 'lodash';
 import {toMoment} from '../helpers/toMoment';
 import NoteText from '../components/NoteText';
-import {Support} from './layout';
+import {Support, noteChipHeaderStyle} from './layout';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
 import {Highlight, Highlights, unrollAndSortPositions} from './TextSearchForReading';
@@ -12,7 +12,7 @@ import {Highlight, Highlights, unrollAndSortPositions} from './TextSearchForRead
 export default class ChipForIEP extends React.Component {
   render() {
     const {nowFn} = this.context;
-    const {iepMatchPositions, iepFullText} = this.props;
+    const {iepMatchPositions, iepFullText, style} = this.props;
 
     // date from IEP
     const matchStartDate = iepFullText.match(/IEP Begin Date:(\s+)([^\s]*)(\s+)IEP End Date/);
@@ -42,24 +42,22 @@ export default class ChipForIEP extends React.Component {
           <div style={{
             textAlign: 'left',
             fontSize: 12,
-            marginBottom: 20,
             border: '1px solid white',
-            height: '100%'
+            height: '100%',
+            ...style
           }}>
             <div>
-              <Support style={{display: 'inline-block', padding: 3}}>IEP at-a-glance</Support>
+              <Support style={noteChipHeaderStyle}>IEP at-a-glance</Support>
               {startMoment && endMoment && (
                 <div style={{display: 'inline', marginLeft: 10}}>
                   {startMoment.format('M/D/YY')} to {endMoment.format('M/D/YY')}
                 </div>
               )}
             </div>
-            <div style={{maxHeight: '100%', overflowY: 'scroll'}}>
-              <IepHighlights
-                positions={iepMatchPositions}
-                iepFullText={iepFullText}
-              />
-            </div>
+            <IepHighlights
+              positions={iepMatchPositions}
+              iepFullText={iepFullText}
+            />
           </div>
         </Tooltip>
       </Freshness>
@@ -71,7 +69,8 @@ ChipForIEP.contextTypes = {
 };
 ChipForIEP.propTypes = {
   iepFullText: PropTypes.string.isRequired,
-  iepMatchPositions: PropTypes.array.isRequired
+  iepMatchPositions: PropTypes.array.isRequired,
+  style: PropTypes.object
 };
 
 
@@ -97,16 +96,20 @@ export function findWithinIEP(lunrIndex, words) {
 
 // highlighting ALL search results, using lunr position data
 function IepHighlights(props) {
-  const {positions, iepFullText} = props;
+  const {positions, iepFullText, style} = props;
 
   // use the highlight positioning data to collapse them all
   // into a stream of text with highlights
-  const segments = _.flatMap(positions, (position, index) => {
+  const prefixSegments = (positions.length > 0 && _.first(positions)[0] > 0)
+    ? [{ type: 'gap', previous: [0, 0], next: positions[0] }]
+    : [];
+  const segments = prefixSegments.concat(_.flatMap(positions, (position, index) => {
     return [
       { type: 'highlight', position },
       { type: 'gap', previous: position, next: positions[index + 1] }
     ];
-  });
+  }));
+  console.log('prefixSegments', prefixSegments, positions);
 
   // elide unhighlighted sections, but for strings of text with
   // multiple highlights, show them all
@@ -126,11 +129,12 @@ function IepHighlights(props) {
       return <span key={index}>{elidedGapText}</span>;
     }
   });
-  return <div className="IepHighlights">{els}</div>;
+  return <div className="IepHighlights" style={style}>{els}</div>;
 }
 IepHighlights.propTypes = {
   positions: PropTypes.arrayOf(PropTypes.array).isRequired,
-  iepFullText: PropTypes.string.isRequired
+  iepFullText: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 //'  jifdso     \n\n\n\n   ji'.replace(/( +)/g, '$').replace(/\n\n(\n+)/g, '\n\n')

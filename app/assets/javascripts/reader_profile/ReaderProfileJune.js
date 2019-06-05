@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CleanSlateFeedView from '../feed/CleanSlateFeedView';
+import External from '../components/External';
 import NoteText from '../components/NoteText';
+import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 import {
   DIBELS_LNF,
   DIBELS_PSF,
@@ -24,7 +25,14 @@ import ChipForDibels from './ChipForDibels';
 import ChipForService from './ChipForService';
 import DibelsDialog from './DibelsDialog';
 import ReaderProfileDialog from './ReaderProfileDialog';
-import {Ingredient, Sub, MultipleChips, Suggestion, NotesContainer} from './layout';
+import {
+  Ingredient,
+  Sub,
+  MultipleChips,
+  Suggestion,
+  NotesContainer,
+  Why
+} from './layout';
 
 /* todo
 screeners:
@@ -115,7 +123,22 @@ export default class ReaderProfileJune extends React.Component {
           subs={[
             <Sub
               name="blending"
-              diagnostic={<Suggestion text="PAST" />}
+              diagnostic={
+                <Suggestion
+                  text="PAST"
+                  dialog={
+                    <div>
+                      <Why>
+                        <p>The PAST is for diagnosing instructional needs in phonological awareness (eg, blending, deleting) at different levels of details (eg, syllable, individual phonemes).</p>
+                        <p>Results from the PAST can be used to determine where to start in a Heggerty intervention program.</p>
+                      </Why>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/kqd79ry3a9a8jra/PAST%20A.docx?dl=0">PAST A</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/vysqs1ccoo3ohps/PAST%20B.docx?dl=0">PAST B</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/jk377ydprqn9pdx/PAST%20C.docx?dl=0">PAST C</External>
+                    </div>
+                  }
+                />
+              }
               intervention={<Suggestion text="Heggerty" />}
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
@@ -144,8 +167,12 @@ export default class ReaderProfileJune extends React.Component {
                   text="phonics screeners"
                   dialog={
                     <div>
-                      <a style={{display: 'block'}} href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>
-                      <a style={{display: 'block'}} href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>
+                      <Why>
+                        <p>Phonics screeners are for diagnosing instructional needs in phonics (eg, CVC, blends, multisyllable words).</p>
+                        <p>Results from the phonics screeners can be used to determine where to start in a phonics intervention program (eg, Wilson).</p>
+                      </Why>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/rg1gv8uxuc0ugw1/QuickPhonicsScreener.pdf?dl=0">Quick Phonics Screener</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/xn7szj0stl1smuv/Decoding%20Survey.pdf?dl=0">Decoding Screener</External>
                     </div>
                   }
                 />
@@ -182,7 +209,13 @@ export default class ReaderProfileJune extends React.Component {
     
     return (
       <ReaderProfileDialog
-        icon={<ChipForIEP iepMatchPositions={iepMatchPositions} iepFullText={cleanIepFullText} />}
+        icon={
+          <ChipForIEP
+            iepMatchPositions={iepMatchPositions}
+            iepFullText={cleanIepFullText}
+            style={{maxHeight: 80, overflowY: 'hidden'}}
+          />
+        }
         title={`IEP at-a-glance for ${student.first_name}`}
         content={<NoteText text={cleanIepFullText} />}
         modalStyle={{
@@ -285,4 +318,3 @@ ReaderProfileJune.propTypes = {
   currentSchoolYear: PropTypes.number.isRequired,
   dataPointsByAssessmentKey: PropTypes.object.isRequired
 };
-

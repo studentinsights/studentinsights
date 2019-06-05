@@ -19,14 +19,17 @@ export const ORAL_LANGUAGE_SEARCH = [
   '+verbal +comprehension',
   'vocabulary',
   'listening',
+  'prepositions',
+  '+wh +questions',
   '+speech +language',
+  '+speech +therapy',
   '+speech +language +evaluation',
   '+Primary +Disability +Communication'
 ];
 export const ENGLISH_SEARCH = [
   'WIDA',
   '+ACCESS +level',
-  'English'
+  '+English +proficiency'
 ];
 export const SOUNDS_IN_WORDS_SEARCH = [
   'phonological',

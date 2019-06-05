@@ -19,7 +19,7 @@ export default class ChipForService extends React.Component {
 
     const matches = services.filter(service => service.service_type_id === serviceTypeId);
     if (matches.length === 0) return null;
-    console.log('matches', matches);
+    console.log('services, matches', matches);
 
     const daysAgos = _.compact(matches.map(service => {
       const momentStarted = toMomentFromTimestamp(service.date_started);

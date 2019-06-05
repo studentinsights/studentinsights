@@ -12,8 +12,8 @@ class ReaderProfile
     # student_id = '5531' # 1st
     # student_id = '5684' # 1st
     # student_id = '5682' # 1st
-    # student_id = '3376' # 1st
-    student_id = '5379' # 1st
+    student_id = '3376' # 1st
+    # student_id = '5379' # 1st
     return json_by_student_id[student_id].merge({
       iep_contents: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/pages.json')).merge({
         id: 77

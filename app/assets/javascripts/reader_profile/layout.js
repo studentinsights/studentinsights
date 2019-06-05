@@ -101,7 +101,7 @@ export function NotesContainer(props) {
   return <div className="NotesContainer" style={{
     flex: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     height: '100%',
     width: '100%'
   }}>{_.compact(children)}</div>;
@@ -167,6 +167,7 @@ Concern.propTypes = {
   style: PropTypes.object
 };
 
+
 export function Support(props) {
   const {children, style} = props;
   return (
@@ -185,6 +186,14 @@ Support.propTypes = {
 };
 
 
+// for a header of a chip (note, iep, service).
+export const noteChipHeaderStyle = {
+  display: 'inline-block',
+  padding: 3,
+  paddingLeft: 8,
+  paddingRight: 8
+};
+    
 
 // A chip that's two lines, truncated if overflowing.
 // Can also pass functions that can render different content
@@ -225,6 +234,24 @@ TwoLineChip.propTypes = {
   style: PropTypes.object
 };
 
+
+export function Why(props) {
+  const {children, style} = props;
+  return (
+    <div className="Why" style={{
+      padding: 10,
+      background: '#0366d61a',
+      border: '1px solid #0366d61a',
+      marginTop: 10,
+      marginBottom: 10,
+      ...style
+    }}>{children}</div>
+  );
+}
+Why.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object
+};
 
 const styles = {
   nameCell: {
