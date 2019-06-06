@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import Freshness from './Freshness';
-import {TwoLineChip, Support, noteChipStyle} from './layout';
+import {Support, noteChipStyle} from './containers';
+import {TwoLineChip} from './layout';
 
 
 export default class ChipForService extends React.Component {

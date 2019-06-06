@@ -9,7 +9,7 @@ import NoteText from '../components/NoteText';
 import {FakeTooltip} from './Tooltip';
 import {Highlight} from './TextSearchForReading';
 import Freshness from './Freshness';
-import {noteChipHeaderStyle, noteChipStyle} from './layout';
+import {noteChipHeaderStyle, noteChipStyle} from './containers';
 import {unrollAndSortPositions} from './TextSearchForReading';
 
 

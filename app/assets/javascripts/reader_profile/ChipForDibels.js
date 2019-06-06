@@ -13,10 +13,11 @@ import {
   DIBELS_UNKNOWN
 } from '../reading/readingData';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
-import {Concern, TwoLineChip} from './layout';
 import HoverSummary, {thresholdsExplanation, secondLineDaysAgo} from './HoverSummary';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
+import {TwoLineChip} from './layout';
+import {Concern} from './containers';
 
 
 // TODO(kr) unroll to show historical
