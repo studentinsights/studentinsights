@@ -75,6 +75,7 @@ ChipForLanguage.propTypes = {
 
 
 function languageConcern(score) {
+  if (score === null || score === undefined) return 'unknown';
   if (score >= 5) return 'low';
   if (score >= 3) return 'medium';
   return 'high';

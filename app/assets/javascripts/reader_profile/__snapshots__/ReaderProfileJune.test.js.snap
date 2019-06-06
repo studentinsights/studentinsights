@@ -14,8 +14,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
-          "borderRadius": 30,
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -23,10 +24,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 15,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -39,20 +39,24 @@ exports[`snapshots view 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "row",
-          "marginLeft": 15,
-          "marginRight": 15,
         }
       }
     >
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
-            "paddingLeft": 10,
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -68,7 +72,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -145,7 +149,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -161,7 +171,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -242,7 +252,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -269,8 +279,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
-          "borderRadius": 30,
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -278,10 +289,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 15,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -294,20 +304,24 @@ exports[`snapshots view 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "row",
-          "marginLeft": 15,
-          "marginRight": 15,
         }
       }
     >
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
-            "paddingLeft": 10,
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -323,7 +337,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -400,7 +414,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -416,7 +436,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -497,7 +517,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -524,8 +544,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
-          "borderRadius": 30,
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -533,10 +554,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 15,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -549,20 +569,24 @@ exports[`snapshots view 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "row",
-          "marginLeft": 15,
-          "marginRight": 15,
         }
       }
     >
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
-            "paddingLeft": 10,
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -578,7 +602,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -736,7 +760,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -752,7 +782,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -914,7 +944,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -941,8 +971,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
-          "borderRadius": 30,
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -950,10 +981,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 15,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -966,20 +996,24 @@ exports[`snapshots view 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "row",
-          "marginLeft": 15,
-          "marginRight": 15,
         }
       }
     >
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
-            "paddingLeft": 10,
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -995,7 +1029,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -1050,7 +1084,7 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
-                className="Hover"
+                className="Hover Suggestion"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
@@ -1081,20 +1115,18 @@ exports[`snapshots view 1`] = `
                     <div
                       style={
                         Object {
-                          "cellStyles": Object {
-                            "alignItems": "center",
-                            "display": "flex",
-                            "height": 40,
-                            "justifyContent": "flex-start",
-                            "width": 160,
-                          },
+                          "alignItems": "center",
                           "color": "#ccc",
                           "cursor": "pointer",
+                          "display": "flex",
+                          "height": 40,
+                          "justifyContent": "flex-start",
                           "padding": 5,
+                          "width": 160,
                         }
                       }
                     >
-                      PAST
+                      SPS PAST
                     </div>
                   </a>
                 </div>
@@ -1112,7 +1144,7 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
-                className="Hover"
+                className="Hover Suggestion"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
@@ -1143,20 +1175,18 @@ exports[`snapshots view 1`] = `
                     <div
                       style={
                         Object {
-                          "cellStyles": Object {
-                            "alignItems": "center",
-                            "display": "flex",
-                            "height": 40,
-                            "justifyContent": "flex-start",
-                            "width": 160,
-                          },
+                          "alignItems": "center",
                           "color": "#ccc",
                           "cursor": "pointer",
+                          "display": "flex",
+                          "height": 40,
+                          "justifyContent": "flex-start",
                           "padding": 5,
+                          "width": 160,
                         }
                       }
                     >
-                      Heggerty
+                      SPS Heggerty
                     </div>
                   </a>
                 </div>
@@ -1164,7 +1194,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1180,7 +1216,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -1257,7 +1293,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1273,7 +1315,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -1354,7 +1396,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -1381,8 +1423,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
-          "borderRadius": 30,
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -1390,10 +1433,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 15,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -1404,23 +1446,27 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "borderBottom": "3px solid #eee",
+          "borderBottom": "1px solid #ccc",
           "display": "flex",
           "flexDirection": "row",
-          "marginLeft": 15,
-          "marginRight": 15,
         }
       }
     >
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
-            "paddingLeft": 10,
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1436,7 +1482,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -1527,7 +1573,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1543,7 +1595,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -1598,7 +1650,7 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
-                className="Hover"
+                className="Hover Suggestion"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
@@ -1629,16 +1681,14 @@ exports[`snapshots view 1`] = `
                     <div
                       style={
                         Object {
-                          "cellStyles": Object {
-                            "alignItems": "center",
-                            "display": "flex",
-                            "height": 40,
-                            "justifyContent": "flex-start",
-                            "width": 160,
-                          },
+                          "alignItems": "center",
                           "color": "#ccc",
                           "cursor": "pointer",
+                          "display": "flex",
+                          "height": 40,
+                          "justifyContent": "flex-start",
                           "padding": 5,
+                          "width": 160,
                         }
                       }
                     >
@@ -1673,7 +1723,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1689,7 +1745,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -1883,7 +1939,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1899,7 +1961,7 @@ exports[`snapshots view 1`] = `
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
-                  "width": 150,
+                  "width": 140,
                 }
               }
             >
@@ -2088,7 +2150,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }

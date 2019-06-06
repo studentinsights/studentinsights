@@ -53,7 +53,9 @@ export function secondLineDaysAgo(daysAgo, width) {
 }
 
 export function thresholdsExplanation(thresholds) {
-  return (thresholds)
-    ? `risk <= ${thresholds.risk} / benchmark >= ${thresholds.benchmark}`
-    : null;
+  if (!thresholds) return null;
+  return _.compact([
+    (thresholds.risk !== undefined) ? `risk <= ${thresholds.risk}` : null,
+    (thresholds.benchmark !== undefined) ? `benchmark >= ${thresholds.benchmark}` : null,
+  ]).join(' / ');
 }

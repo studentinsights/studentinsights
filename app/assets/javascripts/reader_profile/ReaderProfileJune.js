@@ -110,7 +110,6 @@ export default class ReaderProfileJune extends React.Component {
 
         <Ingredient
           name="Discriminate Sounds in Words"
-          color="rgb(227, 121, 58)"
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
@@ -122,21 +121,34 @@ export default class ReaderProfileJune extends React.Component {
               name="blending"
               diagnostic={
                 <Suggestion
-                  text="PAST"
+                  text="SPS PAST"
                   dialog={
                     <div>
                       <Why>
-                        <p>The PAST is for diagnosing instructional needs in phonological awareness (eg, blending, deleting) at different levels of details (eg, syllable, individual phonemes).</p>
-                        <p>Results from the PAST can be used to determine where to start in a Heggerty intervention program.</p>
+                        <p>The SPS PAST is for diagnosing instructional needs in phonological awareness (eg, blending, deleting) at different levels of details (eg, syllable, individual phonemes).</p>
+                        <p>Results from the SPS PAST can be used to determine where to start in the SPS Heggerty intervention program.</p>
                       </Why>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/kqd79ry3a9a8jra/PAST%20A.docx?dl=0">PAST A</External>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/vysqs1ccoo3ohps/PAST%20B.docx?dl=0">PAST B</External>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/jk377ydprqn9pdx/PAST%20C.docx?dl=0">PAST C</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/kqd79ry3a9a8jra/PAST%20A.docx?dl=0">SPS PAST A</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/vysqs1ccoo3ohps/PAST%20B.docx?dl=0">SPS PAST B</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/jk377ydprqn9pdx/PAST%20C.docx?dl=0">SPS PAST C</External>
                     </div>
                   }
                 />
               }
-              intervention={<Suggestion text="Heggerty" />}
+              intervention={
+                <Suggestion
+                  text="SPS Heggerty"
+                  dialog={
+                    <div>
+                      <Why>
+                        <p>The SPS Heggerty intervention is short 1:1 phonological awareness program, intended for 4-8 week intervention cycles.</p>
+                        <p>You can determine where to start with the SPS PAST, and get a sense of progress over a cycle with using the PAST as a post-test.</p>
+                      </Why>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/u6e1ek42b1gzun8/SPS%20Heggerty%20PA%20Intervention.docx?dl=0">SPS Heggerty Intervention</External>
+                    </div>
+                  }
+                />
+              }
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
             <Sub name="deleting" />,
@@ -146,7 +158,6 @@ export default class ReaderProfileJune extends React.Component {
 
         <Ingredient
           name="Represent Sounds with Letters"
-          color="rgb(100, 186, 91)"
           isLast={true}
           notes={
             <NotesContainer>
@@ -230,15 +241,7 @@ export default class ReaderProfileJune extends React.Component {
             <NoteText text={cleanIepFullText} />
           </div>
         }
-        modalStyle={{
-          content: {
-            right: 40,
-            left: 'auto',
-            width: '55%',
-            top: 40,
-            bottom: 40
-          }
-        }}
+        modalStyle={styles.rightDialog}
       />
     );
   }
@@ -254,15 +257,7 @@ export default class ReaderProfileJune extends React.Component {
         icon={<ChipForNotes notesMatches={notesMatches} />}
         title={`Notes for ${student.first_name}`}
         content={<CleanSlateFeedView feedCards={feedCards} style={{fontSize: 14}} />}
-        modalStyle={{
-          content: {
-            right: 40,
-            left: 'auto',
-            width: '55%',
-            top: 40,
-            bottom: 40
-          }
-        }}
+        modalStyle={styles.rightDialog}
       />
     );
   }
@@ -285,6 +280,7 @@ export default class ReaderProfileJune extends React.Component {
     return (
       <ReaderProfileDialog
         title={ingredientName}
+        modalStyle={styles.leftDialog}
         content={
           <DibelsDialog
             gradeNow={student.grade}
@@ -308,6 +304,7 @@ export default class ReaderProfileJune extends React.Component {
     return (
       <ReaderProfileDialog
         title={ingredientName}
+        modalStyle={styles.leftDialog}
         content={
           <FAndPDialog
             gradeNow={student.grade}
@@ -352,4 +349,26 @@ ReaderProfileJune.propTypes = {
   feedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentSchoolYear: PropTypes.number.isRequired,
   dataPointsByAssessmentKey: PropTypes.object.isRequired
+};
+
+
+const styles = {
+  rightDialog: {
+    content: {
+      right: 40,
+      left: 'auto',
+      width: '55%',
+      top: 100,
+      bottom: 100
+    }
+  },
+  leftDialog: {
+    content: {
+      left: 40,
+      right: 'auto',
+      width: '55%',
+      top: 100,
+      bottom: 100
+    }
+  },
 };

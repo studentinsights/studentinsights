@@ -13,9 +13,9 @@ export function Suggestion(props) {
   const {text, dialog} = props;
 
   return (
-    <Hover>{isHovering => {
+    <Hover className="Suggestion">{isHovering => {
       const style = {
-        cellStyles, 
+        ...cellStyles, 
         padding: 5,
         cursor: 'pointer',
         ...(isHovering ? {color: 'black', background: SUPPORT_COLOR} : {color: '#ccc'})
@@ -125,15 +125,18 @@ export function ScoreBadge(props) {
   return (
     <Concern
       concernKey={concernKey}
-      style={{display: 'inline-block'}}
+      style={{
+        display: 'inline-block',
+        height: 'auto'
+      }}
     >
       <div style={{
         display: 'flex',
-        height: '100%',
-        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 18,
+        width: '1.5em',
+        height: '1.5em',
         color: 'white',
         ...innerStyle
       }}>{score}</div>

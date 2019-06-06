@@ -121,6 +121,7 @@ export function statsForDataPoint(dataPoint, gradeNow, nowMoment) {
   const atMoment = dataPointMoment(dataPoint);
 
   return {
+    id: dataPoint.id,
     prettyAssessmentText,
     score,
     atMoment,

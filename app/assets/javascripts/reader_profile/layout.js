@@ -7,32 +7,30 @@ import {AutoSizer} from 'react-virtualized';
 // An main "ingredient" of reading (eg, phonics).
 export function Ingredient(props) {
   const {name, notes, subs, isLast} = props;
-  const color = '#eee';
+  const backgroundColor = '#e8e8e8';
+  const borderColor = '#ccc';
   return (
     <div className="Ingredient">
-      <div style={{padding: 2, background: color, borderRadius: 30}}>
+      <div style={{padding: 2, backgroundColor, border: `1px solid ${borderColor}`, color: 'black'}}>
         <div style={{
-          marginLeft: 15,
           padding: 5,
-          fontSize: 16,
-          color: 'black',
+          marginLeft: 5,
+          fontSize: 14,
           fontWeight: 'bold'
         }}>{name}</div>
       </div>
       <div style={{
         display: 'flex',
         flexDirection: 'row',
-        marginLeft: 15,
-        marginRight: 15,
-        ...(isLast ? {borderBottom: `3px solid ${color}`}: {})
+        ...(isLast ? {borderBottom: `1px solid ${borderColor}`}: {})
       }}>
         <div style={{
-          paddingLeft: 10,
-          borderLeft: `3px solid ${color}`,
-        }}>{subs.map((sub, index) => <div key={index}>{sub}</div>)}</div>
+          paddingLeft: 20,
+          borderLeft: `1px solid ${borderColor}`,
+        }}>{subs.map((sub, index) => <div style={{padding: 1}} key={index}>{sub}</div>)}</div>
         <div style={{
           flex: 1,
-          borderRight: `1px solid ${color}`
+          borderRight: `1px solid ${borderColor}`
         }}>{notes}</div>
       </div>
     </div>
@@ -159,7 +157,7 @@ TwoLineChip.propTypes = {
 
 const styles = {
   nameCell: {
-    width: 150,
+    width: 140,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'
