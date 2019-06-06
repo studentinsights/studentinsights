@@ -243,15 +243,7 @@ export default class ReaderProfileJune extends React.Component {
             <NoteText text={cleanIepFullText} />
           </div>
         }
-        modalStyle={{
-          content: {
-            right: 40,
-            left: 'auto',
-            width: '55%',
-            top: 40,
-            bottom: 40
-          }
-        }}
+        modalStyle={styles.rightDialog}
       />
     );
   }
@@ -267,15 +259,7 @@ export default class ReaderProfileJune extends React.Component {
         icon={<ChipForNotes notesMatches={notesMatches} />}
         title={`Notes for ${student.first_name}`}
         content={<CleanSlateFeedView feedCards={feedCards} style={{fontSize: 14}} />}
-        modalStyle={{
-          content: {
-            right: 40,
-            left: 'auto',
-            width: '55%',
-            top: 40,
-            bottom: 40
-          }
-        }}
+        modalStyle={styles.rightDialog}
       />
     );
   }
@@ -298,6 +282,7 @@ export default class ReaderProfileJune extends React.Component {
     return (
       <ReaderProfileDialog
         title={ingredientName}
+        modalStyle={styles.leftDialog}
         content={
           <DibelsDialog
             gradeNow={student.grade}
@@ -321,6 +306,7 @@ export default class ReaderProfileJune extends React.Component {
     return (
       <ReaderProfileDialog
         title={ingredientName}
+        modalStyle={styles.leftDialog}
         content={
           <FAndPDialog
             gradeNow={student.grade}
@@ -365,4 +351,26 @@ ReaderProfileJune.propTypes = {
   feedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentSchoolYear: PropTypes.number.isRequired,
   dataPointsByAssessmentKey: PropTypes.object.isRequired
+};
+
+
+const styles = {
+  rightDialog: {
+    content: {
+      right: 40,
+      left: 'auto',
+      width: '55%',
+      top: 100,
+      bottom: 100
+    }
+  },
+  leftDialog: {
+    content: {
+      left: 40,
+      right: 'auto',
+      width: '55%',
+      top: 100,
+      bottom: 100
+    }
+  },
 };
