@@ -126,17 +126,30 @@ export default class ReaderProfileJune extends React.Component {
                   dialog={
                     <div>
                       <Why>
-                        <p>The PAST is for diagnosing instructional needs in phonological awareness (eg, blending, deleting) at different levels of details (eg, syllable, individual phonemes).</p>
-                        <p>Results from the PAST can be used to determine where to start in a Heggerty intervention program.</p>
+                        <p>The SPS PAST is for diagnosing instructional needs in phonological awareness (eg, blending, deleting) at different levels of details (eg, syllable, individual phonemes).</p>
+                        <p>Results from the PAST can be used to determine where to start in the SPS Heggerty intervention program.</p>
                       </Why>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/kqd79ry3a9a8jra/PAST%20A.docx?dl=0">PAST A</External>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/vysqs1ccoo3ohps/PAST%20B.docx?dl=0">PAST B</External>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/jk377ydprqn9pdx/PAST%20C.docx?dl=0">PAST C</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/kqd79ry3a9a8jra/PAST%20A.docx?dl=0">SPS PAST A</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/vysqs1ccoo3ohps/PAST%20B.docx?dl=0">SPS PAST B</External>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/jk377ydprqn9pdx/PAST%20C.docx?dl=0">SPS PAST C</External>
                     </div>
                   }
                 />
               }
-              intervention={<Suggestion text="Heggerty" />}
+              intervention={
+                <Suggestion
+                  text="SPS Heggerty"
+                  dialog={
+                    <div>
+                      <Why>
+                        <p>The SPS Heggerty intervention is short 1:1 phonological awareness program, intended for 4-8 week intervention cycles.</p>
+                        <p>You can determine where to start with the SPS PAST, and get a sense of progress over a cycle with using the PAST as a post-test.</p>
+                      </Why>
+                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/u6e1ek42b1gzun8/SPS%20Heggerty%20PA%20Intervention.docx?dl=0">SPS Heggerty Intervention</External>
+                    </div>
+                  }
+                />
+              }
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
             <Sub name="deleting" />,

@@ -46,7 +46,7 @@ function stylesForFreshness(daysAgo) {
   const bucket = bucketForChip(daysAgo);
   return {
     [FRESHNESS_THREE_MONTHS]: {opacity: 1.0},
-    [FRESHNESS_SIX_MONTHS]: {opacity: 7.0},
+    [FRESHNESS_SIX_MONTHS]: {opacity: 0.7},
     [FRESHNESS_YEAR]: {opacity: 0.4},
     [FRESHNESS_OLD]: {opacity: 0.2},
     [FRESHNESS_UNKNOWN]: {opacity: 0.2}

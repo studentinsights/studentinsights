@@ -13,9 +13,9 @@ export function Suggestion(props) {
   const {text, dialog} = props;
 
   return (
-    <Hover>{isHovering => {
+    <Hover className="Suggestion">{isHovering => {
       const style = {
-        cellStyles, 
+        ...cellStyles, 
         padding: 5,
         cursor: 'pointer',
         ...(isHovering ? {color: 'black', background: SUPPORT_COLOR} : {color: '#ccc'})

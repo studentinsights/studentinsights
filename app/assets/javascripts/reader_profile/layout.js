@@ -10,10 +10,10 @@ export function Ingredient(props) {
   const color = '#eee';
   return (
     <div className="Ingredient">
-      <div style={{padding: 2, background: color, borderRadius: 30}}>
+      <div style={{padding: 2, background: color}}>
         <div style={{
-          marginLeft: 15,
           padding: 5,
+          marginLeft: 10,
           fontSize: 16,
           color: 'black',
           fontWeight: 'bold'
@@ -22,12 +22,10 @@ export function Ingredient(props) {
       <div style={{
         display: 'flex',
         flexDirection: 'row',
-        marginLeft: 15,
-        marginRight: 15,
         ...(isLast ? {borderBottom: `3px solid ${color}`}: {})
       }}>
         <div style={{
-          paddingLeft: 10,
+          paddingLeft: 20,
           borderLeft: `3px solid ${color}`,
         }}>{subs.map((sub, index) => <div key={index}>{sub}</div>)}</div>
         <div style={{
@@ -159,7 +157,7 @@ TwoLineChip.propTypes = {
 
 const styles = {
   nameCell: {
-    width: 150,
+    width: 140,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'

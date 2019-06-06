@@ -109,6 +109,7 @@ export function statsForDataPoint(dataPoint, gradeNow, nowMoment) {
   const prettyAssessmentText = 'F&P Level';
 
   return {
+    id: dataPoint.id,
     prettyAssessmentText,
     score,
     atMoment,
