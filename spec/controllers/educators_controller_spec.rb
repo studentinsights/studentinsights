@@ -16,7 +16,7 @@ describe EducatorsController, :type => :controller do
       response = make_request_for_uri(pals.uri)
       json = JSON.parse(response.body)
       expect(json).to eq({
-        "id"=>999999,
+        "id"=>pals.uri.id,
         "email"=>"uri@demo.studentinsights.org",
         "admin"=>true,
         "full_name"=>"Disney, Uri",
@@ -36,8 +36,9 @@ describe EducatorsController, :type => :controller do
           'can_upload_student_voice_surveys',
           'should_show_levels_shs_link',
           'enable_reading_benchmark_data_entry',
+          'profile_enable_minimal_reading_data',
           'enable_equity_experiments',
-          'enable_reading_debug'
+          'enable_reading_debug',
         ]
       })
     end

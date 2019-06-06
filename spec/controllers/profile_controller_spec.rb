@@ -701,4 +701,54 @@ describe ProfileController, :type => :controller do
       ])
     end
   end
+
+  describe '#reader_profile_json' do
+    let!(:pals) { TestPals.create! }
+
+    def get_reader_profile_json(educator, student_id)
+      request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      get :reader_profile_json, params: {
+        id: student_id,
+        format: :json
+      }
+    end
+
+    it 'guards authorization' do
+      other_educators = (Educator.all - [
+        pals.healey_laura_principal,
+        pals.healey_vivian_teacher,
+        pals.rich_districtwide,
+        pals.uri
+      ])
+      other_educators.each do |educator|
+        get_reader_profile_json(educator, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'returns correct shape on happy path' do
+      get_reader_profile_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        "current_school_year" => 2018,
+        "access" => {
+          "composite"=>nil,
+          "comprehension"=>nil,
+          "literacy"=>nil,
+          "oral"=>nil,
+          "listening"=>nil,
+          "reading"=>nil,
+          "speaking"=>nil,
+          "writing"=>nil
+        },
+        "benchmark_data_points" => [],
+        "feed_cards" => [],
+        "iep_contents" => nil,
+        "services" => []
+      })
+    end
+  end
 end

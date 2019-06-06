@@ -74,4 +74,25 @@ RSpec.describe Service do
 
   end
 
+  describe '#discontinued_by_educator' do
+    it 'can serialize through association' do
+      pals = TestPals.create!
+      service = FactoryBot.build(:service, {
+        service_type_id: 507,
+        student_id: pals.healey_kindergarten_student.id,
+        recorded_by_educator_id: pals.healey_vivian_teacher.id,
+        date_started: pals.time_now - 8.days,
+        discontinued_by_educator_id: pals.uri.id,
+        discontinued_at: pals.time_now - 1.day
+      })
+      expect(service.as_json(include: {
+        discontinued_by_educator: {
+          only: [:id, :email]
+        }
+      })['discontinued_by_educator']).to eq({
+        'id' => pals.uri.id,
+        'email' => "uri@demo.studentinsights.org"
+      })
+    end
+  end
 end

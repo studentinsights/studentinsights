@@ -4,28 +4,13 @@ import _ from 'lodash';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import FeedView from '../feed/FeedView';
+import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 import {highlightStyleForKey, userFacingValueForKey} from './highlights';
 import {equityChecks, equityCheckFlags} from './ClassroomStats';
-import CleanSlateMessage, {defaultSchoolYearsBack, filteredFeedCardsForCleanSlate} from '../student_profile/CleanSlateMessage';
 
 
 // Inline student profile for classroom list creator, shown as a modal
 export default class InlineStudentProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isViewingAllNotes: false
-    };
-
-    this.onToggleCaseHistory = this.onToggleCaseHistory.bind(this);
-  }
-
-  onToggleCaseHistory(e) {
-    const {isViewingAllNotes} = this.state;
-    this.setState({isViewingAllNotes: !isViewingAllNotes});
-  }
-
   render() {
     const {student} = this.props;
     return (
@@ -88,20 +73,11 @@ export default class InlineStudentProfile extends React.Component {
   }
 
   renderFeedWithData(json) {
-    const {nowFn} = this.context;
-    const {isViewingAllNotes} = this.state;
-    const schoolYearsBack = defaultSchoolYearsBack;
-    const cleanSlateFeedCards = filteredFeedCardsForCleanSlate(json.feed_cards, schoolYearsBack.number, nowFn);
     return (
-      <div style={{maxWidth: 500}}>
-        <FeedView feedCards={cleanSlateFeedCards} />
-        <CleanSlateMessage
-          canViewFullHistory={true}
-          isViewingFullHistory={isViewingAllNotes}
-          onToggleVisibility={this.onToggleCaseHistory}
-          xAmountOfDataText={`${schoolYearsBack.textYears} of data`}
+      <CleanSlateFeedView
+        style={{maxWidth: 500}} 
+        feedCards={json.feed_cards}
       />
-      </div>
     );
   }
 }

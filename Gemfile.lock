@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.0.3)
     actioncable (5.2.2.1)
       actionpack (= 5.2.2.1)
       nio4r (~> 2.0)
@@ -55,6 +56,7 @@ GEM
       momentjs-rails (~> 2.8)
       sass-rails (~> 5.0)
       selectize-rails (~> 0.6)
+    afm (0.2.2)
     arel (9.0.0)
     ast (2.4.0)
     authtrail (0.1.1)
@@ -128,6 +130,7 @@ GEM
     get_process_mem (0.2.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashery (2.1.2)
     heroics (0.0.24)
       erubis (~> 2.0)
       excon
@@ -192,6 +195,12 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
+    pdf-reader (2.2.0)
+      Ascii85 (~> 1.0.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     pg (1.0.0)
     pivotal_git_scripts (1.4.0)
     platform-api (2.1.0)
@@ -284,6 +293,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.3)
     ruby-progressbar (1.9.0)
+    ruby-rc4 (0.1.5)
     ruby_audit (1.2.0)
       bundler-audit (~> 0.6.0)
     rubyzip (1.2.2)
@@ -319,6 +329,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    ttfunk (1.5.1)
     twilio-ruby (5.16.0)
       faraday (~> 0.9)
       jwt (>= 1.5, <= 2.5)
@@ -373,6 +384,7 @@ DEPENDENCIES
   oj
   oj_mimic_json
   openssl
+  pdf-reader
   pg
   pivotal_git_scripts
   platform-api
