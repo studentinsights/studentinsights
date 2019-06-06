@@ -17,18 +17,19 @@ export const ORAL_LANGUAGE_SEARCH = [
   '+expressive +language',
   '+receptive +language',
   '+verbal +comprehension',
+  'CELF',
   'vocabulary',
   'listening',
   'prepositions',
   '+wh +questions',
   '+speech +language',
   '+speech +therapy',
+  'SLP',
   '+speech +language +evaluation',
   '+Primary +Disability +Communication'
 ];
 export const ENGLISH_SEARCH = [
   'WIDA',
-  '+ACCESS +level',
   '+English +proficiency'
 ];
 export const SOUNDS_IN_WORDS_SEARCH = [
@@ -41,9 +42,7 @@ export const SOUNDS_IN_WORDS_SEARCH = [
   '+first +sound +fluency',
   'segment',
   'blend',
-  'delete',
-  '+phoneme +substitution',
-  '+sound +substitution'
+  'delete'
 ];
 export const SOUNDS_AND_LETTERS_SEARCH = [
   '+reading -books',
