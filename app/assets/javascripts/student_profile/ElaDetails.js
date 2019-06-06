@@ -20,6 +20,7 @@ export default class ElaDetails extends React.Component {
   render() {
     const {hideStar} = this.props;
     const els = [
+      this.renderReaderProfile(),
       this.renderDibels(),
       this.renderFAndPs(),
       (!hideStar && this.renderStarReading()),
@@ -42,6 +43,13 @@ export default class ElaDetails extends React.Component {
         <div>Please reach out to your district lead or <Email /> if you have ideas for how to improve this!</div>
       </DetailsSection>
     );
+  }
+
+  renderReaderProfile() {
+    const {readerProfileEl} = this.props;
+    if (!readerProfileEl) return null;
+
+    return <div key="reader-profile">{readerProfileEl}</div>;
   }
 
   renderDibels() {
@@ -148,5 +156,6 @@ ElaDetails.propTypes = {
     mcas_series_ela_growth: PropTypes.array
   }).isRequired,
   studentGrade: PropTypes.string.isRequired,
-  hideStar: PropTypes.bool
+  hideStar: PropTypes.bool,
+  readerProfileEl: PropTypes.node
 };

@@ -7,6 +7,7 @@ import StudentVoiceCard from './StudentVoiceCard';
 
 
 // Pure UI component for rendering feed cards (eg, on the home page)
+// see also `CleanSlateFeedView`
 export default class FeedView extends React.Component {
   render() {
     const {feedCards, cardPropsFn, style} = this.props;

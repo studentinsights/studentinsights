@@ -219,11 +219,6 @@ export class TransitionsView extends React.Component {
     return <School id={school.id} name={shortName} style={{marginRight: 10}} />;
   }
 
-  renderHouse(cellProps) {
-    const student = cellProps.rowData;
-    return student.house && <HouseBadge house={student.house} showNameOnly={true} />;
-  }
-
   renderStudentLink(student, children) {
     return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{children}</a>;
   }

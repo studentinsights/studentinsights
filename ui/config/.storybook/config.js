@@ -36,6 +36,9 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
   require('../../../app/assets/javascripts/student_profile/StudentSectionsRoster.story');
 
+  // reader profile
+  require('../../../app/assets/javascripts/reader_profile/ReaderProfileJune.story');
+
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');
 

@@ -1,0 +1,2175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  style={
+    Object {
+      "marginTop": 10,
+    }
+  }
+>
+  <div
+    className="Ingredient"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
+          "padding": 2,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginLeft": 5,
+            "padding": 5,
+          }
+        }
+      >
+        See themselves as a reader
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              in small groups
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                screener
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              independently
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                screener
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderRight": "1px solid #ccc",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="NotesContainer"
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "maxHeight": 80,
+              "overflowY": "scroll",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="Ingredient"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
+          "padding": 2,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginLeft": 5,
+            "padding": 5,
+          }
+        }
+      >
+        Communicate with oral language
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              expressive
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                screener
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              receptive
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                screener
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderRight": "1px solid #ccc",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="NotesContainer"
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "maxHeight": 80,
+              "overflowY": "scroll",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="Ingredient"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
+          "padding": 2,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginLeft": 5,
+            "padding": 5,
+          }
+        }
+      >
+        Speak and listen in English
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              spoken
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="Hover Freshness"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "height": "100%",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                      "height": "100%",
+                      "opacity": 0.2,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "backgroundColor": "rgba(0,128,0,0.5)",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="Tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flex": 1,
+                          "position": "relative",
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "overflow": "visible",
+                            "width": 0,
+                          }
+                        }
+                      >
+                        <div
+                          className="TwoLineChip"
+                          style={
+                            Object {
+                              "border": "1px solid white",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                              "height": "100%",
+                              "paddingLeft": 8,
+                              "width": 0,
+                            }
+                          }
+                        >
+                          <div
+                            style={
+                              Object {
+                                "height": 19,
+                                "overflow": "hidden",
+                              }
+                            }
+                          >
+                            <div
+                              style={
+                                Object {
+                                  "color": "black",
+                                  "fontSize": 12,
+                                }
+                              }
+                            >
+                              No English Learner data
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              written
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="Hover Freshness"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "height": "100%",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                      "height": "100%",
+                      "opacity": 0.2,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "backgroundColor": "rgba(0,128,0,0.5)",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="Tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flex": 1,
+                          "position": "relative",
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "overflow": "visible",
+                            "width": 0,
+                          }
+                        }
+                      >
+                        <div
+                          className="TwoLineChip"
+                          style={
+                            Object {
+                              "border": "1px solid white",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                              "height": "100%",
+                              "paddingLeft": 8,
+                              "width": 0,
+                            }
+                          }
+                        >
+                          <div
+                            style={
+                              Object {
+                                "height": 19,
+                                "overflow": "hidden",
+                              }
+                            }
+                          >
+                            <div
+                              style={
+                                Object {
+                                  "color": "black",
+                                  "fontSize": 12,
+                                }
+                              }
+                            >
+                              No English Learner data
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderRight": "1px solid #ccc",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="NotesContainer"
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "maxHeight": 80,
+              "overflowY": "scroll",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="Ingredient"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
+          "padding": 2,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginLeft": 5,
+            "padding": 5,
+          }
+        }
+      >
+        Discriminate Sounds in Words
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              blending
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="ModalSmall"
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "fontSize": 12,
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "black",
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="Hover Suggestion"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                <div
+                  className="ModalSmall"
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "marginLeft": 0,
+                    }
+                  }
+                >
+                  <a
+                    href="#"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "color": "black",
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "outline": "none",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "color": "#ccc",
+                          "cursor": "pointer",
+                          "display": "flex",
+                          "height": 40,
+                          "justifyContent": "flex-start",
+                          "padding": 5,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      SPS PAST
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="Hover Suggestion"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                <div
+                  className="ModalSmall"
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "marginLeft": 0,
+                    }
+                  }
+                >
+                  <a
+                    href="#"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "color": "black",
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "outline": "none",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "color": "#ccc",
+                          "cursor": "pointer",
+                          "display": "flex",
+                          "height": 40,
+                          "justifyContent": "flex-start",
+                          "padding": 5,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      SPS Heggerty
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              deleting
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                screener
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              substituting
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                screener
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderRight": "1px solid #ccc",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="NotesContainer"
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "maxHeight": 80,
+              "overflowY": "scroll",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="Ingredient"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
+          "padding": 2,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginLeft": 5,
+            "padding": 5,
+          }
+        }
+      >
+        Represent Sounds with Letters
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderBottom": "1px solid #ccc",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderLeft": "1px solid #ccc",
+            "paddingLeft": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              letters
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="ModalSmall"
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "fontSize": 12,
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "black",
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              accurate
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="ModalSmall"
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "fontSize": 12,
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "black",
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="Hover Suggestion"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                <div
+                  className="ModalSmall"
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "marginLeft": 0,
+                    }
+                  }
+                >
+                  <a
+                    href="#"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "color": "black",
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "outline": "none",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "color": "#ccc",
+                          "cursor": "pointer",
+                          "display": "flex",
+                          "height": 40,
+                          "justifyContent": "flex-start",
+                          "padding": 5,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      phonics screeners
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              fluent
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="MultipleChips"
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": "100%",
+                      "justifyContent": "flex-start",
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    className="ModalSmall"
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "marginLeft": 0,
+                      }
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "color": "black",
+                          "display": "flex",
+                          "flex": 1,
+                          "fontSize": 12,
+                          "outline": "none",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": "100%",
+                      "justifyContent": "flex-start",
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    className="ModalSmall"
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "marginLeft": 0,
+                      }
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "color": "black",
+                          "display": "flex",
+                          "flex": 1,
+                          "fontSize": 12,
+                          "outline": "none",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": "100%",
+                      "justifyContent": "flex-start",
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    className="ModalSmall"
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "marginLeft": 0,
+                      }
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "color": "black",
+                          "display": "flex",
+                          "flex": 1,
+                          "fontSize": 12,
+                          "outline": "none",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="MultipleChips"
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
+          <div
+            className="Sub"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": 140,
+                }
+              }
+            >
+              comprehension
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                className="ModalSmall"
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "fontSize": 12,
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "black",
+                      "display": "flex",
+                      "flex": 1,
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    className="Hover Freshness"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flex": 1,
+                        "height": "100%",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flex": 1,
+                          "height": "100%",
+                          "opacity": 1,
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "backgroundColor": "#ccc",
+                            "display": "flex",
+                            "flex": 1,
+                            "height": "100%",
+                          }
+                        }
+                      >
+                        <div
+                          className="Tooltip"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          style={
+                            Object {
+                              "display": "flex",
+                              "flex": 1,
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <div
+                            style={
+                              Object {
+                                "overflow": "visible",
+                                "width": 0,
+                              }
+                            }
+                          >
+                            <div
+                              className="TwoLineChip"
+                              style={
+                                Object {
+                                  "border": "1px solid white",
+                                  "cursor": "pointer",
+                                  "fontSize": 12,
+                                  "height": "100%",
+                                  "paddingLeft": 8,
+                                  "width": 0,
+                                }
+                              }
+                            >
+                              <div
+                                style={
+                                  Object {
+                                    "height": 19,
+                                    "overflow": "hidden",
+                                  }
+                                }
+                              >
+                                F&P
+                              </div>
+                              <div
+                                style={
+                                  Object {
+                                    "height": 19,
+                                    "overflow": "hidden",
+                                  }
+                                }
+                              >
+                                -413d
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                diagnostic
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "height": 40,
+                  "justifyContent": "flex-start",
+                  "width": 160,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "color": "#eee",
+                    "fontSize": 12,
+                    "padding": 5,
+                  }
+                }
+              >
+                intervention
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderRight": "1px solid #ccc",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="NotesContainer"
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "maxHeight": 80,
+              "overflowY": "scroll",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

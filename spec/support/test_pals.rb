@@ -110,6 +110,10 @@ class TestPals
     })
     EducatorLabel.create!({
       educator: @uri,
+      label_key: 'profile_enable_minimal_reading_data'
+    })
+    EducatorLabel.create!({
+      educator: @uri,
       label_key: 'enable_equity_experiments'
     })
     EducatorLabel.create!({

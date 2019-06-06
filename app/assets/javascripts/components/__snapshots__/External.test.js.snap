@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<a
+  className="External"
+  href="https://example.com/hello"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  example.com
+</a>
+`;

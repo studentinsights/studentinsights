@@ -214,7 +214,6 @@ export default class LightHeaderSupportBits extends React.Component {
         access={access} 
       />
     );
-
   }
 }
 LightHeaderSupportBits.contextTypes = {

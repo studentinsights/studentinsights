@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_26_170939) do
+ActiveRecord::Schema.define(version: 2019_06_06_165748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -751,6 +751,7 @@ ActiveRecord::Schema.define(version: 2019_05_26_170939) do
   add_foreign_key "second_transition_notes", "students"
   add_foreign_key "sections", "courses", name: "sections_course_id_fk"
   add_foreign_key "service_uploads", "educators", column: "uploaded_by_educator_id", name: "service_uploads_uploaded_by_educator_id_fk"
+  add_foreign_key "services", "educators", column: "discontinued_by_educator_id", name: "services_discontinued_by_educator_id_fk"
   add_foreign_key "services", "educators", column: "recorded_by_educator_id", name: "services_recorded_by_educator_id_fk"
   add_foreign_key "services", "service_types", name: "services_service_type_id_fk"
   add_foreign_key "services", "service_uploads", name: "services_service_upload_id_fk"
