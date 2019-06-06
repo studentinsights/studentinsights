@@ -38,7 +38,7 @@ RSpec.describe ReaderProfile do
     it 'returns correct shape on happy path' do
       student = pals.healey_kindergarten_student
       mock_s3_reads!
-      create_iep_for!(student, pals.time_now)
+      iep_document = create_iep_for!(student, pals.time_now)
       mock_pdf_reader_for_iep!
 
       ReadingBenchmarkDataPoint.create!({
@@ -69,7 +69,7 @@ RSpec.describe ReaderProfile do
       ])
       expect(json['iep_contents']).to match({
         'iep_document'=>{
-          "id"=>1,
+          "id"=>iep_document.id,
           "file_name"=>"111111111_IEPAtAGlance_Garfield_Skywalker.pdf",
           "student_id"=>student.id,
           "created_at"=>pals.time_now.as_json,
@@ -78,7 +78,7 @@ RSpec.describe ReaderProfile do
           "file_size"=>anything(),
           "s3_filename"=>anything()
         },
-        'pretty_filename_for_download'=>"IEP_SkywalkerGarfield_20180313_1_1.pdf",
+        'pretty_filename_for_download'=>"IEP_SkywalkerGarfield_20180313_#{student.id}_#{iep_document.id}.pdf",
         'pages'=>[{
           'number'=>1,
           'text'=>"this is an IEP"
@@ -88,7 +88,7 @@ RSpec.describe ReaderProfile do
         }]
       })
       expect(json['benchmark_data_points']).to match([{
-        "id"=>1,
+        "id"=>iep_document.id,
         "student_id"=>student.id,
         "benchmark_school_year"=>2017,
         "benchmark_period_key"=>"winter",
