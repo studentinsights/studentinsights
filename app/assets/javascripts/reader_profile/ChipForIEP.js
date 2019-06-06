@@ -4,7 +4,7 @@ import lunr from 'lunr';
 import _ from 'lodash';
 import {toMoment} from '../helpers/toMoment';
 import NoteText from '../components/NoteText';
-import {Support, noteChipHeaderStyle} from './containers';
+import {Support, noteChipStyle, noteChipHeaderStyle} from './containers';
 import Freshness from './Freshness';
 import {FakeTooltip} from './Tooltip';
 import {unrollAndSortPositions} from './TextSearchForReading';

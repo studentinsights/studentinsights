@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 // Full components as tooltips
@@ -80,4 +81,7 @@ Tooltip.defaultProps = {
 };
 
 
-export const FakeTooltip = props => <div {...props} />;
+// drop-in replacement, for swapping UX
+export function FakeTooltip(props) {
+  return <div {...(_.pick(props, 'children', 'style'))} />;
+}

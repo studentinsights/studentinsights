@@ -215,7 +215,19 @@ export default class ReaderProfileJune extends React.Component {
           />
         }
         title={`IEP at-a-glance for ${student.first_name}`}
-        content={<NoteText text={cleanIepFullText} />}
+        content={
+          <div>
+            <External
+              style={{
+                display: 'block',
+                fontWeight: 'bold',
+                marginBottom: 10
+              }}
+              href={`/students/${student.id}/latest_iep_document`}
+            >Download IEP at a glance PDF</External>
+            <NoteText text={cleanIepFullText} />
+          </div>
+        }
         modalStyle={{
           content: {
             right: 40,
