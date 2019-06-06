@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {gradeText} from '../helpers/gradeText';
-import {prettyDibelsText} from '../reading/readingData';
 import {statsForDataPoint} from './ChipForDibels';
 import {ScoreBadge} from './containers';
 import {thresholdsExplanation} from './HoverSummary';
