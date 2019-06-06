@@ -12,6 +12,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
+import HouseBadge from '../components/HouseBadge';
 import FilterStudentsBar from './FilterStudentsBar';
 import {hasNote, isStarred} from './helpers';
 
