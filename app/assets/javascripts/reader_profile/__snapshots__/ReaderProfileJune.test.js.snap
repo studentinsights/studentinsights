@@ -14,7 +14,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -22,10 +24,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 10,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -44,12 +45,18 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
+            "borderLeft": "1px solid #ccc",
             "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -142,7 +149,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -239,7 +252,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -266,7 +279,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -274,10 +289,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 10,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -296,12 +310,18 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
+            "borderLeft": "1px solid #ccc",
             "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -394,7 +414,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -491,7 +517,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -518,7 +544,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -526,10 +554,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 10,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -548,12 +575,18 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
+            "borderLeft": "1px solid #ccc",
             "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -727,7 +760,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -905,7 +944,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -932,7 +971,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -940,10 +981,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 10,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -962,12 +1002,18 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
+            "borderLeft": "1px solid #ccc",
             "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1080,7 +1126,7 @@ exports[`snapshots view 1`] = `
                         }
                       }
                     >
-                      PAST
+                      SPS PAST
                     </div>
                   </a>
                 </div>
@@ -1148,7 +1194,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1241,7 +1293,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1338,7 +1396,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }
@@ -1365,7 +1423,9 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "background": "#eee",
+          "backgroundColor": "#e8e8e8",
+          "border": "1px solid #ccc",
+          "color": "black",
           "padding": 2,
         }
       }
@@ -1373,10 +1433,9 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "color": "black",
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "bold",
-            "marginLeft": 10,
+            "marginLeft": 5,
             "padding": 5,
           }
         }
@@ -1387,7 +1446,7 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "borderBottom": "3px solid #eee",
+          "borderBottom": "1px solid #ccc",
           "display": "flex",
           "flexDirection": "row",
         }
@@ -1396,12 +1455,18 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderLeft": "3px solid #eee",
+            "borderLeft": "1px solid #ccc",
             "paddingLeft": 20,
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1508,7 +1573,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1652,7 +1723,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -1862,7 +1939,13 @@ exports[`snapshots view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "padding": 1,
+            }
+          }
+        >
           <div
             className="Sub"
             style={
@@ -2067,7 +2150,7 @@ exports[`snapshots view 1`] = `
       <div
         style={
           Object {
-            "borderRight": "1px solid #eee",
+            "borderRight": "1px solid #ccc",
             "flex": 1,
           }
         }

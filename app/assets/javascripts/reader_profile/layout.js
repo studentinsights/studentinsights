@@ -7,7 +7,7 @@ import {AutoSizer} from 'react-virtualized';
 // An main "ingredient" of reading (eg, phonics).
 export function Ingredient(props) {
   const {name, notes, subs, isLast} = props;
-  const backgroundColor = '#ddd';
+  const backgroundColor = '#e8e8e8';
   const borderColor = '#ccc';
   return (
     <div className="Ingredient">
@@ -15,7 +15,8 @@ export function Ingredient(props) {
         <div style={{
           padding: 5,
           marginLeft: 5,
-          fontSize: 16
+          fontSize: 14,
+          fontWeight: 'bold'
         }}>{name}</div>
       </div>
       <div style={{
@@ -26,7 +27,7 @@ export function Ingredient(props) {
         <div style={{
           paddingLeft: 20,
           borderLeft: `1px solid ${borderColor}`,
-        }}>{subs.map((sub, index) => <div style={{paddingTop: 2, paddingBottom: 2}} key={index}>{sub}</div>)}</div>
+        }}>{subs.map((sub, index) => <div style={{padding: 1}} key={index}>{sub}</div>)}</div>
         <div style={{
           flex: 1,
           borderRight: `1px solid ${borderColor}`

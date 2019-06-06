@@ -121,12 +121,12 @@ export default class ReaderProfileJune extends React.Component {
               name="blending"
               diagnostic={
                 <Suggestion
-                  text="PAST"
+                  text="SPS PAST"
                   dialog={
                     <div>
                       <Why>
                         <p>The SPS PAST is for diagnosing instructional needs in phonological awareness (eg, blending, deleting) at different levels of details (eg, syllable, individual phonemes).</p>
-                        <p>Results from the PAST can be used to determine where to start in the SPS Heggerty intervention program.</p>
+                        <p>Results from the SPS PAST can be used to determine where to start in the SPS Heggerty intervention program.</p>
                       </Why>
                       <External style={{display: 'block'}} href="https://www.dropbox.com/s/kqd79ry3a9a8jra/PAST%20A.docx?dl=0">SPS PAST A</External>
                       <External style={{display: 'block'}} href="https://www.dropbox.com/s/vysqs1ccoo3ohps/PAST%20B.docx?dl=0">SPS PAST B</External>
