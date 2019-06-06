@@ -268,13 +268,14 @@ RSpec.describe Educator do
     it 'works' do
       expect(pals.shs_bill_nye.labels).to eq ['shs_experience_team', 'should_show_low_grades_box', 'should_show_levels_shs_link']
       expect(pals.shs_jodi.labels).to eq ['shs_experience_team', 'can_upload_student_voice_surveys', 'should_show_levels_shs_link']
-      expect(pals.uri.labels).to eq [
+      expect(pals.uri.labels).to contain_exactly(*[
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_reading_benchmark_data_entry',
         'enable_equity_experiments',
-        'enable_reading_debug'
-      ]
+        'enable_reading_debug',
+        'profile_enable_minimal_reading_data'
+      ])
     end
   end
 end
