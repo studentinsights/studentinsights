@@ -45,7 +45,7 @@ export function Concern(props) {
     low: {backgroundColor: high},
     medium: {backgroundColor: medium},
     high: {backgroundColor: low},
-    unknown: {backgroundColor: '#eee'}
+    unknown: {backgroundColor: '#ccc'}
   }[concernKey];
 
   return (
@@ -116,4 +116,32 @@ export function Why(props) {
 Why.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object
+};
+
+
+// UI for a score for a single data point number
+export function ScoreBadge(props) {
+  const {score, concernKey, innerStyle} = props;
+  return (
+    <Concern
+      concernKey={concernKey}
+      style={{display: 'inline-block'}}
+    >
+      <div style={{
+        display: 'flex',
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 18,
+        color: 'white',
+        ...innerStyle
+      }}>{score}</div>
+    </Concern>
+  );
+}
+ScoreBadge.propTypes = {
+  score: PropTypes.string.isRequired,
+  concernKey: PropTypes.string.isRequired,
+  innerStyle: PropTypes.object
 };

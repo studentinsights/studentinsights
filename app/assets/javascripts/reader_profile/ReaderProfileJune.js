@@ -9,7 +9,8 @@ import {
   DIBELS_NWF_CLS,
   DIBELS_NWF_WWR,
   DIBELS_DORF_ACC,
-  DIBELS_DORF_WPM
+  DIBELS_DORF_WPM,
+  F_AND_P_ENGLISH
 } from '../reading/thresholds';
 import {
   SEE_AS_READER_SEARCH,
@@ -22,17 +23,15 @@ import ChipForIEP, {buildLunrIndexForIEP, findWithinIEP, cleanedIepFullText} fro
 import ChipForNotes, {buildLunrIndexForNotes, findWithinNotes} from './ChipForNotes';
 import ChipForLanguage from './ChipForLanguage';
 import ChipForDibels from './ChipForDibels';
+import ChipForFAndPEnglish from './ChipForFAndPEnglish';
 import ChipForService from './ChipForService';
 import DibelsDialog from './DibelsDialog';
+import FAndPDialog from './FAndPDialog';
 import ReaderProfileDialog from './ReaderProfileDialog';
 import {Ingredient, Sub, MultipleChips, NotesContainer} from './layout';
 import {Suggestion, Why} from './containers';
 
 /* todo
-screeners:
-- 3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>)}</div>
-- 3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>)}</div>
-
 other bits:
 - sped eval from melissa's chart
 - TOWRE in older grades?
@@ -192,6 +191,9 @@ export default class ReaderProfileJune extends React.Component {
                   this.renderChipForService(511)
                 ]} />
               }
+            />,
+            <Sub name="comprehension"
+              screener={this.renderChipForFAndPEnglish('comprehension')}
             />
           ]}
         />
@@ -283,13 +285,37 @@ export default class ReaderProfileJune extends React.Component {
     return (
       <ReaderProfileDialog
         title={ingredientName}
-        content={<DibelsDialog
-          gradeNow={student.grade}
-          benchmarkAssessmentKey={benchmarkAssessmentKey}
-          benchmarkDataPoints={benchmarkDataPoints}
-        />}
+        content={
+          <DibelsDialog
+            gradeNow={student.grade}
+            benchmarkDataPoints={benchmarkDataPoints}
+          />
+        }
         icon={
           <ChipForDibels
+            student={student}
+            benchmarkDataPoints={benchmarkDataPoints}
+          />
+        }
+      />
+    );
+  }
+
+  renderChipForFAndPEnglish(ingredientName) {
+    const {student, dataPointsByAssessmentKey} = this.props;
+
+    const benchmarkDataPoints = dataPointsByAssessmentKey[F_AND_P_ENGLISH] || [];
+    return (
+      <ReaderProfileDialog
+        title={ingredientName}
+        content={
+          <FAndPDialog
+            gradeNow={student.grade}
+            benchmarkDataPoints={benchmarkDataPoints}
+          />
+        }
+        icon={
+          <ChipForFAndPEnglish
             student={student}
             benchmarkDataPoints={benchmarkDataPoints}
           />
