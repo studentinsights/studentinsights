@@ -6,22 +6,6 @@ class ReaderProfile
   end
 
   def reader_profile_json
-    json_by_student_id = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/reader_profiles_by_student_id2.json'))
-    student_ids = json_by_student_id.keys
-    student_id = student_ids.sample
-    # student_id = '5531' # 1st
-    # student_id = '5684' # 1st
-    # student_id = '5682' # 1st
-    # student_id = '3376' # 1st
-    # student_id = '5379' # 1st
-    return json_by_student_id[student_id].merge({
-      iep_contents: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/pages.json')).merge({
-        id: 77
-      })
-    })
-
-
-
     benchmark_data_points = ReadingBenchmarkDataPoint.all.where(student_id: @student.id)
     feed_cards = Feed.new([@student]).all_cards(@time_now, @cards_limit)
     services_json = @student.services.as_json(include: {
