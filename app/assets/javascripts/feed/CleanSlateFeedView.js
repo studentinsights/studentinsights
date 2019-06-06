@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import FeedView from '../feed/FeedView';
 import CleanSlateMessage, {defaultSchoolYearsBack, filteredFeedCardsForCleanSlate} from '../student_profile/CleanSlateMessage';
 
-
+// Renders a FeedView with "clean slate" filtering and local state
+// for toggling it.  A good default for how to render feeds.
 export default class CleanSlateFeedView extends React.Component {
   constructor(props) {
     super(props);

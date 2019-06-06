@@ -15,7 +15,7 @@ import {TIME_RANGE_ALL} from '../components/SelectTimeRange';
 import Datepicker from '../components/Datepicker';
 import StudentPhoto from '../components/StudentPhoto';
 import {momentRange} from '../components/SelectTimeRange';
-import FeedView from '../feed/FeedView';
+import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 
 
 export default class CounselorMeetingsView extends React.Component {
@@ -312,7 +312,7 @@ export default class CounselorMeetingsView extends React.Component {
         <SectionHeading style={{marginTop: 15}}>
           Notes for {student.first_name}
         </SectionHeading>
-        <FeedView feedCards={feedCards} />
+        <CleanSlateFeedView feedCards={feedCards} />
       </div>
     );
   }
