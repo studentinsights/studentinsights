@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Hover from '../components/Hover';
 import {AutoSizer} from 'react-virtualized';
-import {high, medium, low} from '../helpers/colors';
-import ReaderProfileDialog from './ReaderProfileDialog';
 
-
-const SUPPORT_COLOR = '#1b82ea42';
 
 // An main "ingredient" of reading (eg, phonics).
 export function Ingredient(props) {
@@ -57,9 +52,9 @@ export function Sub(props) {
   return (
     <div className="Sub" style={{display: 'flex', flexDirection: 'row'}}>
       <div style={styles.nameCell}>{name}</div>
-      <div style={styles.cell}>{screener || <PlaceholderSuggestion text="screener" />}</div>
-      <div style={styles.cell}>{diagnostic || <PlaceholderSuggestion text="diagnostic" />}</div>
-      <div style={styles.cell}>{intervention || <PlaceholderSuggestion text="intervention" />}</div>
+      <div style={cellStyles}>{screener || <PlaceholderSuggestion text="screener" />}</div>
+      <div style={cellStyles}>{diagnostic || <PlaceholderSuggestion text="diagnostic" />}</div>
+      <div style={cellStyles}>{intervention || <PlaceholderSuggestion text="intervention" />}</div>
     </div>
   );
 }
@@ -68,6 +63,15 @@ Sub.propTypes = {
   screener: PropTypes.node,
   diagnostic: PropTypes.node,
   intervention: PropTypes.node,
+};
+
+
+function PlaceholderSuggestion(props) {
+  const {text} = props;
+  return <div style={{padding: 5, fontSize: 12, color: '#eee'}}>{text}</div>;
+}
+PlaceholderSuggestion.propTypes = {
+  text: PropTypes.string.isRequired
 };
 
 
@@ -96,7 +100,7 @@ MultipleChips.propTypes = {
 };
 
 
-// TODO(kr) need spacers
+// TODO(kr) need vertical spacers between
 export function NotesContainer(props) {
   const {children} = props;
   return <div className="NotesContainer" style={{
@@ -113,97 +117,6 @@ NotesContainer.propTypes = {
 };
 
 
-function PlaceholderSuggestion(props) {
-  const {text} = props;
-  return <div style={{padding: 5, fontSize: 12, color: '#eee'}}>{text}</div>;
-}
-
-export function Suggestion(props) {
-  const {text, dialog} = props;
-
-  return (
-    <Hover>{isHovering => {
-      const style = {
-        ...styles.cell, 
-        padding: 5,
-        cursor: 'pointer',
-        ...(isHovering ? {color: 'black', background: SUPPORT_COLOR} : {color: '#ccc'})
-      };
-      return (
-        <ReaderProfileDialog
-          title={text}
-          content={dialog || `Here are some suggestions for ${text}...`}
-          icon={<div style={style}>{text}</div>}
-        />
-      );
-    }}</Hover>
-  );
-}
-
-
-// Color the background of the children based
-// on the `concernKey`, keeping this the same
-// color scheme.
-export function Concern(props) {
-  const {concernKey, children, style} = props;
-  const concernStyle = {
-    low: {backgroundColor: high},
-    medium: {backgroundColor: medium},
-    high: {backgroundColor: low},
-    unknown: {backgroundColor: '#eee'}
-  }[concernKey];
-
-  return (
-    <div style={{
-      display: 'flex',
-      flex: 1,
-      height: '100%',
-      ...concernStyle,
-      ...style
-    }}>{children}</div>
-  );
-}
-Concern.propTypes = {
-  concernKey: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  style: PropTypes.object
-};
-
-
-export function Support(props) {
-  const {children, style} = props;
-  return (
-    <div className="Support" style={{
-      display: 'flex',
-      flex: 1,
-      height: '100%',
-      backgroundColor: SUPPORT_COLOR,
-      ...style
-    }}>{children}</div>
-  );
-}
-Support.propTypes = {
-  children: PropTypes.node.isRequired,
-  style: PropTypes.object
-};
-
-
-// for a header of a chip (note, iep, service).
-export const noteChipHeaderStyle = {
-  display: 'inline-block',
-  padding: 3,
-  paddingLeft: 8,
-  paddingRight: 8
-};
-
-// for the chip (note, iep, service)
-export const noteChipStyle = {
-  textAlign: 'left',
-  fontSize: 12,
-  outline: '1px solid white',
-  height: '100%',
-};
-    
 
 // A chip that's two lines, truncated if overflowing.
 // Can also pass functions that can render different content
@@ -244,37 +157,20 @@ TwoLineChip.propTypes = {
   style: PropTypes.object
 };
 
-
-export function Why(props) {
-  const {children, style} = props;
-  return (
-    <div className="Why" style={{
-      padding: 10,
-      background: '#0366d61a',
-      border: '1px solid #0366d61a',
-      marginTop: 10,
-      marginBottom: 10,
-      ...style
-    }}>{children}</div>
-  );
-}
-Why.propTypes = {
-  children: PropTypes.node.isRequired,
-  style: PropTypes.object
-};
-
 const styles = {
   nameCell: {
     width: 150,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'
-  },
-  cell: {
-    width: 160,
-    height: 40,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
   }
+};
+
+
+export const cellStyles = {
+  width: 160,
+  height: 40,
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center'
 };

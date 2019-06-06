@@ -78,3 +78,6 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   delayMs: 500
 };
+
+
+export const FakeTooltip = props => <div {...props} />;

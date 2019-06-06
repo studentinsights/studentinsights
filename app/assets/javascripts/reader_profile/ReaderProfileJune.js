@@ -25,14 +25,8 @@ import ChipForDibels from './ChipForDibels';
 import ChipForService from './ChipForService';
 import DibelsDialog from './DibelsDialog';
 import ReaderProfileDialog from './ReaderProfileDialog';
-import {
-  Ingredient,
-  Sub,
-  MultipleChips,
-  Suggestion,
-  NotesContainer,
-  Why
-} from './layout';
+import {Ingredient, Sub, MultipleChips, NotesContainer} from './layout';
+import {Suggestion, Why} from './containers';
 
 /* todo
 screeners:
@@ -266,25 +260,21 @@ export default class ReaderProfileJune extends React.Component {
   }
 
   renderChipForDibels(ingredientName, benchmarkAssessmentKey) {
-    const {
-      student,
-      currentSchoolYear,
-      dataPointsByAssessmentKey
-    } = this.props;
+    const {student, dataPointsByAssessmentKey} = this.props;
+
+    const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey];
     return (
       <ReaderProfileDialog
         title={ingredientName}
         content={<DibelsDialog
+          gradeNow={student.grade}
           benchmarkAssessmentKey={benchmarkAssessmentKey}
-          currentSchoolYear={currentSchoolYear}
-          dataPointsByAssessmentKey={dataPointsByAssessmentKey}
-          currentGrade={student.grade}
+          benchmarkDataPoints={benchmarkDataPoints}
         />}
         icon={
           <ChipForDibels
-            benchmarkAssessmentKey={benchmarkAssessmentKey}
             student={student}
-            dataPointsByAssessmentKey={dataPointsByAssessmentKey}
+            benchmarkDataPoints={benchmarkDataPoints}
           />
         }
       />

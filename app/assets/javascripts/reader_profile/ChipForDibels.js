@@ -24,45 +24,29 @@ import Freshness from './Freshness';
 export default class ChipForDibels extends React.Component {
   render() {
     const nowMoment = this.context.nowFn();
-    const {student, benchmarkAssessmentKey, dataPointsByAssessmentKey} = this.props;
-
-    // const currentSchoolYear = toSchoolYear(nowMoment.toDate());
+    const {student, benchmarkDataPoints} = this.props;
 
     // pick latest
-    const dataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];
+    const dataPoints = benchmarkDataPoints || [];
     const mostRecentDataPoint = _.last(_.sortBy(dataPoints, d => {
       const assessmentMoment = dataPointMoment(d);
       return (assessmentMoment) ? assessmentMoment.unix() : Number.MIN_VALUE;
     }));
     if (!mostRecentDataPoint) return null;
 
-    // guess as grade at time of assessment
-    const gradeThen = adjustedGrade(mostRecentDataPoint.benchmark_school_year, student.grade, nowMoment);
-
-    // determine color
-    const dibelsBucket = bucketForDibels(...[
-      mostRecentDataPoint.json.value,
-      mostRecentDataPoint.benchmark_assessment_key,
+    // interpret
+    const {
+      prettyAssessmentText,
+      score,
+      atMoment,
       gradeThen,
-      mostRecentDataPoint.benchmark_period_key
+      thresholds,
+      concernKey
+    } = statsForDataPoint(...[
+      mostRecentDataPoint,
+      student.grade,
+      nowMoment
     ]);
-    const concernKey = {
-      [DIBELS_GREEN]: 'low',
-      [DIBELS_YELLOW]: 'medium',
-      [DIBELS_RED]: 'high',
-      [DIBELS_UNKNOWN]: 'unknown'
-    }[dibelsBucket];
-
-    // also show cut points
-    const thresholds = somervilleReadingThresholdsFor(...[
-      mostRecentDataPoint.benchmark_assessment_key,
-      gradeThen,
-      mostRecentDataPoint.benchmark_period_key
-    ]);
-
-    const score = mostRecentDataPoint.json.value;
-    const prettyAssessmentText = prettyDibelsText(benchmarkAssessmentKey);
-    const atMoment = dataPointMoment(mostRecentDataPoint);
     const daysAgo = atMoment ? nowMoment.clone().diff(atMoment, 'days') : null;
     const WIDTH_THRESHOLD_PIXELS = 80;
     return (
@@ -97,10 +81,50 @@ ChipForDibels.contextTypes = {
 };
 ChipForDibels.propTypes = {
   student: PropTypes.object.isRequired,
-  benchmarkAssessmentKey: PropTypes.string.isRequired,
-  dataPointsByAssessmentKey: PropTypes.object.isRequired
+  benchmarkDataPoints: PropTypes.array.isRequired
 };
 
 function dataPointMoment(dataPoint) {
   return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year);
+}
+
+
+export function statsForDataPoint(dataPoint, gradeNow, nowMoment) {
+  // guess as grade at time of assessment
+  const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, gradeNow, nowMoment);
+
+  // determine color
+  const dibelsBucket = bucketForDibels(...[
+    dataPoint.json.value,
+    dataPoint.benchmark_assessment_key,
+    gradeThen,
+    dataPoint.benchmark_period_key
+  ]);
+  const concernKey = {
+    [DIBELS_GREEN]: 'low',
+    [DIBELS_YELLOW]: 'medium',
+    [DIBELS_RED]: 'high',
+    [DIBELS_UNKNOWN]: 'unknown'
+  }[dibelsBucket];
+
+  // also show cut points
+  const thresholds = somervilleReadingThresholdsFor(...[
+    dataPoint.benchmark_assessment_key,
+    gradeThen,
+    dataPoint.benchmark_period_key
+  ]);
+
+  // score, name, date
+  const score = dataPoint.json.value;
+  const prettyAssessmentText = prettyDibelsText(dataPoint.benchmark_assessment_key);
+  const atMoment = dataPointMoment(dataPoint);
+
+  return {
+    prettyAssessmentText,
+    score,
+    atMoment,
+    gradeThen,
+    thresholds,
+    concernKey
+  };
 }

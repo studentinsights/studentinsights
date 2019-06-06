@@ -6,7 +6,7 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import Timestamp from '../components/Timestamp';
 import NoteBadge from '../components/NoteBadge';
 import NoteText from '../components/NoteText';
-import Tooltip from './Tooltip';
+import {FakeTooltip} from './Tooltip';
 import {Highlight} from './TextSearchForReading';
 import Freshness from './Freshness';
 import {noteChipHeaderStyle, noteChipStyle} from './layout';
@@ -100,7 +100,4 @@ export function findWithinNotes(lunrIndex, notes, words) {
 
   });
 }
-
-
-  const FakeTooltip = props => <div {...props} />;  
   

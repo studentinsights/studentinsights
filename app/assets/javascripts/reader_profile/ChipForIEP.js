@@ -5,9 +5,10 @@ import _ from 'lodash';
 import {toMoment} from '../helpers/toMoment';
 import NoteText from '../components/NoteText';
 import {Support, noteChipHeaderStyle, noteChipStyle} from './layout';
-import Tooltip from './Tooltip';
 import Freshness from './Freshness';
+import {FakeTooltip} from './Tooltip';
 import {unrollAndSortPositions} from './TextSearchForReading';
+
 
 export default class ChipForIEP extends React.Component {
   render() {
@@ -130,6 +131,7 @@ IepHighlights.propTypes = {
   style: PropTypes.object
 };
 
+
 //'  jifdso     \n\n\n\n   ji'.replace(/( +)/g, '$').replace(/\n\n(\n+)/g, '\n\n')
 export function cleanedIepFullText(iepFullText) {
   return iepFullText
@@ -139,6 +141,3 @@ export function cleanedIepFullText(iepFullText) {
     .replace(/([a-z])\n\n([a-z])/g, '$1$2') // no newlines cutting between sentences
     .replace(/\n\n(\n+)/g, '\n\n'); // newlines beyond 2
 }
-
-   const FakeTooltip = props => <div {...props} />;  
-   
