@@ -41,7 +41,7 @@ RSpec.describe ReaderProfile do
       iep_document = create_iep_for!(student, pals.time_now)
       mock_pdf_reader_for_iep!
 
-      ReadingBenchmarkDataPoint.create!({
+      benchmark_data_point = ReadingBenchmarkDataPoint.create!({
         student: student,
         educator: pals.uri,
         benchmark_school_year: 2017,
@@ -88,7 +88,7 @@ RSpec.describe ReaderProfile do
         }]
       })
       expect(json['benchmark_data_points']).to match([{
-        "id"=>iep_document.id,
+        "id"=>benchmark_data_point.id,
         "student_id"=>student.id,
         "benchmark_school_year"=>2017,
         "benchmark_period_key"=>"winter",
