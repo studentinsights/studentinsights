@@ -38,11 +38,13 @@ class GoogleSheetsFetcher
 
   private
   def check_authorization
-    return @auth if @auth.present?
-
-    set_env!
-    scope = [Google::Apis::DriveV3::AUTH_DRIVE_READONLY, Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY]
-    @auth = Google::Auth.get_application_default(scope: scope)
+    if @auth.nil?
+      set_env!
+      @auth = Google::Auth.get_application_default(scope: [
+        Google::Apis::DriveV3::AUTH_DRIVE_READONLY,
+        Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
+      ])
+    end
     @auth
   end
 
@@ -60,14 +62,17 @@ class GoogleSheetsFetcher
     'Student Insights, GoogleSheetsFetcher'
   end
 
-  def get_sheet_ids(folder_id)
+  # No real escaping for building this query
+  def get_sheet_ids(unsafe_folder_id)
     # initialize drive API
     drive_service = Google::Apis::DriveV3::DriveService.new
     drive_service.client_options.application_name = @application_name
     drive_service.authorization = check_authorization()
 
-    drive_service.list_files(q: "'#{folder_id}' in parents",
-                                      fields: 'files(id, name)')
+    # minimal check for query injection
+    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-]/.match(unsafe_folder_id).present?
+    q = "'#{unsafe_folder_id}' in parents"
+    drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
   def download_csvs(sheet_id)
