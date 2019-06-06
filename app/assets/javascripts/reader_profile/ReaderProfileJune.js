@@ -49,8 +49,12 @@ export default class ReaderProfileJune extends React.Component {
     const {feedCards, iepContents} = this.props;
     const notes = feedCards.map(card => card.json);
     const lunrIndex = buildLunrIndexForNotes(notes);
-    const cleanIepFullText = cleanedIepFullText(iepContents.pages.map(page => page.text).join('\n'));
-    const iepLunrIndex = buildLunrIndexForIEP(cleanIepFullText);
+    const cleanIepFullText = (iepContents)
+      ? cleanedIepFullText(iepContents.pages.map(page => page.text).join('\n'))
+      : null;
+    const iepLunrIndex = (iepContents)
+      ? buildLunrIndexForIEP(cleanIepFullText)
+      : null;
 
     return (
       <div style={{marginTop: 10}}>
@@ -188,8 +192,7 @@ export default class ReaderProfileJune extends React.Component {
                   this.renderChipForService(511)
                 ]} />
               }
-            />,
-            <Sub name="spelling" />
+            />
           ]}
         />
       </div>
@@ -197,6 +200,8 @@ export default class ReaderProfileJune extends React.Component {
   }
 
   renderChipForIEP(words, iepLunrIndex, cleanIepFullText) {
+    if (iepLunrIndex === null || cleanIepFullText === null) return null;
+    
     const {student} = this.props;
     const iepMatchPositions = findWithinIEP(iepLunrIndex, words);
     if (iepMatchPositions.length === 0) return null;
@@ -262,7 +267,7 @@ export default class ReaderProfileJune extends React.Component {
   renderChipForDibels(ingredientName, benchmarkAssessmentKey) {
     const {student, dataPointsByAssessmentKey} = this.props;
 
-    const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey];
+    const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];
     return (
       <ReaderProfileDialog
         title={ingredientName}
@@ -301,7 +306,7 @@ ReaderProfileJune.contextTypes = {
 ReaderProfileJune.propTypes = {
   access: PropTypes.object,
   services: PropTypes.array.isRequired,
-  iepContents: PropTypes.object.isRequired,
+  iepContents: PropTypes.object,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     grade: PropTypes.any.isRequired
