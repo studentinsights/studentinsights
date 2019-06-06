@@ -110,7 +110,6 @@ export default class ReaderProfileJune extends React.Component {
 
         <Ingredient
           name="Discriminate Sounds in Words"
-          color="rgb(227, 121, 58)"
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
@@ -159,7 +158,6 @@ export default class ReaderProfileJune extends React.Component {
 
         <Ingredient
           name="Represent Sounds with Letters"
-          color="rgb(100, 186, 91)"
           isLast={true}
           notes={
             <NotesContainer>
