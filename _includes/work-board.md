@@ -53,25 +53,23 @@
 <div class="Board">
   <div class="Board-category">
     <div class="Board-title">Priorities now</div>
-    <div class="Card"><b>Reading</b>: Entering K benchmark data, visualization profiles for services and grouping</div>
-    <div class="Card"><b>K8 MTSS</b>: Including student voice in the process</div>
+    <div class="Card"><b>Reading</b>: Entering K benchmark data, reader profiles, grouping tools</div>
+    <div class="Card"><b>Transitions</b>: End-of-year and school-to-school transitions</div>
+  </div>
+
+  <div class="Board-category">
+    <div class="Board-title">Next up</div>
+    <div class="Card"><b>Searching notes</b>: For finding past conversations, and for individual and group reflection</div>
     <div class="Card"><b>Mark note as restricted</b>: Allow educators to catch each other if anything slips through</div>
     <div class="Card"><b>Warnings about sensitive topics in notes</b>: Prompt about educator-defined like for things like "51a" or "depression"</div>
   </div>
 
   <div class="Board-category">
-    <div class="Board-title">Next up</div>
-    <div class="Card"><b>SHS head coaches</b>: Grant access and add insights box about low grades</div>
-    <div class="Card"><b>Privacy</b>: Make read permissions more visible to all educators</div>
-    <div class="Card"><b>Transitions</b>: End-of-year and school-to-school transitions.</div>
-    <div class="Card"><b>Equity</b>: Reviewing class list assignments.</div>
-    <div class="Card"><b>Searching notes</b>: For finding past conversations, and for individual and group reflection</div>
-  </div>
-
-  <div class="Board-category">
     <div class="Board-title">Maybe next quarter</div>
     <div class="Card"><b>Student voice as support</b>: Collaborating to find ways to support more student voice as a support intervention (eg, redirect in HS).</div>
+    <div class="Card"><b>K8 MTSS</b>: Including student voice in the process</div>
+    <div class="Card"><b>Privacy</b>: Make read permissions more visible to all educators</div>
     <div class="Card"><b>Services and supports</b>: Possibly looking into tracking and showing the services that counselors and K8 SST/MTSS teams are connecting students with, and making that visible in Insights.</div>
-    <div class="Card"><b>HS grades</b>: Showing grades and levels over time</div>
+    <div class="Card"><b>SHS level</b>: Showing levels over time</div>
   </div>
 </div>

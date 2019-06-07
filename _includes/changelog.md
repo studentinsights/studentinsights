@@ -1,27 +1,98 @@
+Friday 6/7 updates:
+- Reader profile: Initial prototype for design work [#2493](https://github.com/studentinsights/studentinsights/pull/2493) [#2494](https://github.com/studentinsights/studentinsights/pull/2494) [#2496](https://github.com/studentinsights/studentinsights/pull/2496)
+- Transition notes: Support limited transition from 5th > 6th in Somerville [#2495](https://github.com/studentinsights/studentinsights/pull/2495) [#2497](https://github.com/studentinsights/studentinsights/pull/2497) [#2498](https://github.com/studentinsights/studentinsights/pull/2498) 
+- My Students: Fix sort order for program [#2499](https://github.com/studentinsights/studentinsights/pull/2499)
+
+Friday 5/31 updates:
+- Transition notes: Add link on home page, and page to review all notes [#2481](https://github.com/studentinsights/studentinsights/pull/2481)
+- Transition notes: Simplified inline read path, refactoring RestrictedNotePresence [#2482](https://github.com/studentinsights/studentinsights/pull/2482)
+- Transition notes: Show new transition inline in profile list after saving [#2483](https://github.com/studentinsights/studentinsights/pull/2483)
+- Searchbar: Mitigations for searching through many students [#2484](https://github.com/studentinsights/studentinsights/pull/2484)
+- Student searchbar: Migrate to React component and optimize for larger lists [#2485](https://github.com/studentinsights/studentinsights/pull/2485) [#2487](https://github.com/studentinsights/studentinsights/pull/2487)
+- Counselor Meetings: Add link to navbar, fix sort by with 'seen by' [#2489](https://github.com/studentinsights/studentinsights/pull/2489)
+- Bedford transition: Initial processor code, prototype read path for notes and insight box [#2488](https://github.com/studentinsights/studentinsights/pull/2488)
+- New Bedford photos: Set up and run import for Normandin students, improve zoom photo cropping [#2490](https://github.com/studentinsights/studentinsights/pull/2490)
+- Transitions: Update filters for transitions page [#2491](https://github.com/studentinsights/studentinsights/pull/2491)
+
+Friday 5/24 updates:
+- Counselor Meetings: Add initial version for feedback and testing [#2477](https://github.com/studentinsights/studentinsights/pull/2477)
+- Transition Notes: Add dialog for transition notes, refactoring for my notes, migrations for previous [#2480](https://github.com/studentinsights/studentinsights/pull/2480)
+
+Friday 5/17 updates:
+- Reading: Debug page for STAR coverage and distributions [#2470](https://github.com/studentinsights/studentinsights/pull/2470)
+- Maintenance:  Update brakeman, force SSL in two places [#2471](https://github.com/studentinsights/studentinsights/pull/2471)
+- Reading: Allow reviewing more assessments in /reading/debug [#2472](https://github.com/studentinsights/studentinsights/pull/2472)
+- Reading: Enable exporting reading debug data [#2475](https://github.com/studentinsights/studentinsights/pull/2475)
+
+Friday 5/10 updates:
+- Class lists: Update link to video and PDF [#2452](https://github.com/studentinsights/studentinsights/pull/2452)
+- Class lists: Use CleanSlateMessage and apply policy to notes within dialog [#2453](https://github.com/studentinsights/studentinsights/pull/2453)
+- Class list: Fix bug with branching on STAR/DIBELS in profile [#2454](https://github.com/studentinsights/studentinsights/pull/2454)
+- Class lists: Revise MegaReadingImporter for use with aggregate K and 1 reading data [#2455](https://github.com/studentinsights/studentinsights/pull/2455)
+- Class lists: Differences in Somerville Reading Data doc / mega
+- Class lists: Add F&P English winter benchmarks for K and 1st grade teams [#2456](https://github.com/studentinsights/studentinsights/pull/2456)
+- Class lists: Alphabetical sort for educators list [#2457](https://github.com/studentinsights/studentinsights/pull/2457)
+- Class lists: Remove link to school page on list page [#2458](https://github.com/studentinsights/studentinsights/pull/2458)
+- Class lists: Improve matching fading out 'homeroom' as default list [#2461](https://github.com/studentinsights/studentinsights/pull/2461)
+- Class lists: Update list to be narrower with short school names and shorter dates [#2462](https://github.com/studentinsights/studentinsights/pull/2462)
+- Class lists: Photos authorization [#2465](https://github.com/studentinsights/studentinsights/pull/2465)
+- Equity experiments: Add more durable links to experiments [#2464](https://github.com/studentinsights/studentinsights/pull/2464)
+- Memory: Start migrating searchbar JSON out of Educator model [#2459](https://github.com/studentinsights/studentinsights/pull/2459)
+- Memory: Finish migration for student searchbar off Educator model [#2460](https://github.com/studentinsights/studentinsights/pull/2460)
+- Maintenance: Destroy older database instances after Postgres upgrade
+- Reading: Refactor to clarify importers, placeholder reading importer for Somerville [#2468](https://github.com/studentinsights/studentinsights/pull/2468)
+- Reading: Add debug view for seeing progress and global distributions [#2467](https://github.com/studentinsights/studentinsights/pull/2467)
+
+Friday 5/3 updates:
+- Class lists: Open for making lists KF-8 and include early childhood schools [#2443](https://github.com/studentinsights/studentinsights/pull/2443)
+- Class lists: Enable naming lists for other purposes (eg, science classes) [#2444](https://github.com/studentinsights/studentinsights/pull/2444)
+- Class lists: Add student photo to class list creator [#2448](https://github.com/studentinsights/studentinsights/pull/2448)
+- Class list: Expand fix, sort columns, and revised inline profile design [#2449](https://github.com/studentinsights/studentinsights/pull/2449)
+- Class list: Add equity check for diversity groups [#2451](https://github.com/studentinsights/studentinsights/pull/2451)
+- Equity: Add quilts experiment visualization [#2450](https://github.com/studentinsights/studentinsights/pull/2450)
+
+Friday 4/26 updates:
+- none to share
+
+Friday 4/19 updates:
+- (school vacation week)
+
+Friday 4/12 updates:
+- none to share
+
+Friday 4/5 updates:
+- none to share
+
+Friday 3/29 updates:
+- Photos: Update to use cropped on homeroom page, release on home page [#2435](https://github.com/studentinsights/studentinsights/pull/2435)
+- Section, My Students: Add student photo, cropped small [#2436](https://github.com/studentinsights/studentinsights/pull/2436)
+- Profile: Update UX for creating and editing notes [#2437](https://github.com/studentinsights/studentinsights/pull/2437)
+- Layout: Update min-width on body, navbar sizing [#2440](https://github.com/studentinsights/studentinsights/pull/2440)
+
 Friday 3/22 updates:
-- **Notes**: Remove older props no longer used for restricted note [#2431](https://github.com/studentinsights/studentinsights/pull/#2431)
-- **Authorization**: Update authorizer to expose reason why educator is authorized [#2430](https://github.com/studentinsights/studentinsights/pull/#2430)
-- **Home page feed**: Allow flag for showing photos [#2432](https://github.com/studentinsights/studentinsights/pull/#2432)
+- **Notes**: Remove older props no longer used for restricted note [#2431](https://github.com/studentinsights/studentinsights/pull/2431)
+- **Authorization**: Update authorizer to expose reason why educator is authorized [#2430](https://github.com/studentinsights/studentinsights/pull/2430)
+- **Home page feed**: Allow flag for showing photos [#2432](https://github.com/studentinsights/studentinsights/pull/2432)
 
 Friday 3/15 updates:
-- **SHS Levels**: Add filter for counselors [#2426](https://github.com/studentinsights/studentinsights/pull/#2426)
-- **Maintenance**: Add favicon path [#2427](https://github.com/studentinsights/studentinsights/pull/#2427)
+- **SHS Levels**: Add filter for counselors [#2426](https://github.com/studentinsights/studentinsights/pull/2426)
+- **Maintenance**: Add favicon path [#2427](https://github.com/studentinsights/studentinsights/pull/2427)
 - **Security**: Add zxcvbn for checking password entropy [357b40](https://github.com/studentinsights/studentinsights/commit/357b40)
 - **Security**: Warn on suspicious login, after long period of inactivity [24122f](https://github.com/studentinsights/studentinsights/commit/24122f)
 - **Security**: Update Rails to 5.2.2.1 to patch vulnerabilities
-- **Security**: Update Brakeman [#2428](https://github.com/studentinsights/studentinsights/pull/#2428)
+- **Security**: Update Brakeman [#2428](https://github.com/studentinsights/studentinsights/pull/2428)
 - **Security**: Security and Privacy Assessment (quarterly, not public)
 - **Security**: Update Devise to 4.6.1 to patch vulnerability [5e0a29](https://github.com/studentinsights/studentinsights/commit/5e0a29)
 
 Friday 3/8 updates:
-- **Sign in**: Revise session expired copy [#2423](https://github.com/studentinsights/studentinsights/pull/#2423)
-- **Sign in**: Feedback while signing in, using rails-ujs [#2425](https://github.com/studentinsights/studentinsights/pull/#2425)
-- **Profile PDF**: Update to allow restricted notes, revise styling and layout [#2424](https://github.com/studentinsights/studentinsights/pull/#2424)
-- **Security**: Add audits for vulnerabilities in Ruby dependencies [#2422](https://github.com/studentinsights/studentinsights/pull/#2422)
+- **Sign in**: Revise session expired copy [#2423](https://github.com/studentinsights/studentinsights/pull/2423)
+- **Sign in**: Feedback while signing in, using rails-ujs [#2425](https://github.com/studentinsights/studentinsights/pull/2425)
+- **Profile PDF**: Update to allow restricted notes, revise styling and layout [#2424](https://github.com/studentinsights/studentinsights/pull/2424)
+- **Security**: Add audits for vulnerabilities in Ruby dependencies [#2422](https://github.com/studentinsights/studentinsights/pull/2422)
 - **Security**: Upgrade for RubyGems vulnerabilities link
 
 Friday 3/1 updates:
-- **Sign in**: Release new sign in page [#2405](https://github.com/studentinsights/studentinsights/pull/#2405)
+- **Sign in**: Release new sign in page [#2405](https://github.com/studentinsights/studentinsights/pull/2405)
 - **Collaboration**: SHS Counseling Team workshop [slides](https://drive.google.com/file/d/1wIHDRi1Jbk7kwgMXuAgj416hxHZAQdqR/view)
 
 Friday 2/22 updates:
@@ -30,12 +101,12 @@ Friday 2/22 updates:
 Friday 2/15 updates:
 - **Class lists**: Revise analysis to consider separate programs
 - **Student voice**: Share summary on status for surveys
-- **Profile**: Rework state for text while taking notes to remove lag [#2415](https://github.com/studentinsights/studentinsights/pull/#2415)
-- **Profile**: Remove second 'ago' suffix from testing tab to prevent overflow [#2416](https://github.com/studentinsights/studentinsights/pull/#2416)
-- **Session renewal**: Update debug logging [#2417](https://github.com/studentinsights/studentinsights/pull/#2417)
-- **Maintenance**: Upgrade to jQuery 3.3 [#2411](https://github.com/studentinsights/studentinsights/pull/#2411)
-- **Maintenance**: Update font files [#2419](https://github.com/studentinsights/studentinsights/pull/#2419)
-- **Maintenance**: Guard sessionStorage usage more [#2418](https://github.com/studentinsights/studentinsights/pull/#2418)
+- **Profile**: Rework state for text while taking notes to remove lag [#2415](https://github.com/studentinsights/studentinsights/pull/2415)
+- **Profile**: Remove second 'ago' suffix from testing tab to prevent overflow [#2416](https://github.com/studentinsights/studentinsights/pull/2416)
+- **Session renewal**: Update debug logging [#2417](https://github.com/studentinsights/studentinsights/pull/2417)
+- **Maintenance**: Upgrade to jQuery 3.3 [#2411](https://github.com/studentinsights/studentinsights/pull/2411)
+- **Maintenance**: Update font files [#2419](https://github.com/studentinsights/studentinsights/pull/2419)
+- **Maintenance**: Guard sessionStorage usage more [#2418](https://github.com/studentinsights/studentinsights/pull/2418)
 - **Maintenance**: Upgrade databases to Postgres 11.2
 
 Friday 2/8 updates:
