@@ -6,7 +6,7 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
   def create_note_attrs(attrs = {})
     {
       recorded_at: pals.time_now - 4.days,
-      form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE,
+      form_key: SecondTransitionNote::SOMERVILLE_TRANSITION_2019,
       starred: false,
       form_json: {
         'strengths' => 'foo strengths',
