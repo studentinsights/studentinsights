@@ -55,7 +55,7 @@ export class TransitionsView extends React.Component {
     
     this.state = {
       sortBy: 'starred',
-      sortDirection: SortDirection.ASC,
+      sortDirection: SortDirection.DESC,
     };
     this.onTableSort = this.onTableSort.bind(this);
     this.renderName = this.renderName.bind(this);
