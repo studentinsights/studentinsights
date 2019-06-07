@@ -7,6 +7,17 @@ class ReaderProfile
   end
 
   def reader_profile_json
+    json_by_student_id = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/profiles_by_id_k_1_with_ieps.json'))
+    student_ids = json_by_student_id.keys
+    student_id = student_ids.sample
+    # student_id = '5531' # 1st
+    # student_id = '5684' # 1st
+    # student_id = '5682' # 1st
+    # student_id = '3376' # 1st
+    student_id = '5379' # 1st
+    return json_by_student_id[student_id]
+
+
     benchmark_data_points = ReadingBenchmarkDataPoint.all.where(student_id: @student.id)
     feed_cards = Feed.new([@student]).all_cards(@time_now, @cards_limit)
     services_json = @student.services.as_json(include: {
@@ -36,20 +47,19 @@ class ReaderProfile
     iep_document = @student.latest_iep_document
     return nil if iep_document.nil?
 
+    # fetch PDF and convert into raw text
     pdf_bytes = IepStorer.unsafe_read_bytes_from_s3(@s3, iep_document)
     pdf_io = StringIO.new(pdf_bytes)
     reader = PDF::Reader.new(pdf_io)
-    pages_json = reader.pages.map do |page|
-      {
-        number: page.number,
-        text: page.text.strip # clean up for lunr searching, which is confused by leading spaces
-      }
-    end
+    raw_text = reader.pages.map {|page| page.text }.join("\n")
+
+    # try to clean and parse that messy text
+    parsed_json = IepTextParser.new(raw_text).parsed_json
 
     {
       iep_document: iep_document.as_json,
       pretty_filename_for_download: iep_document.pretty_filename_for_download,
-      pages: pages_json
+      parsed: parsed_json
     }
   end
 end

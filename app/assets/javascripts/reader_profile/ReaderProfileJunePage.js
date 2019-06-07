@@ -27,9 +27,10 @@ export default class ReaderProfileJunePage extends React.Component {
 
   renderJson(json) {
     const {student} = this.props;
+    console.log('local student');
     return (
       <ReaderProfileJune
-        student={student}
+         student={json.student}    
         access={json.access}
         services={json.services}
         iepContents={json.iep_contents}
