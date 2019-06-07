@@ -56,7 +56,7 @@ export class TransitionsView extends React.Component {
     
     this.state = {
       sortBy: 'starred',
-      sortDirection: SortDirection.ASC,
+      sortDirection: SortDirection.DESC,
     };
     this.onTableSort = this.onTableSort.bind(this);
     this.renderName = this.renderName.bind(this);
@@ -217,11 +217,6 @@ export class TransitionsView extends React.Component {
     const {districtKey} = this.context;
     const shortName = shortSchoolName(districtKey, school.local_id);
     return <School id={school.id} name={shortName} style={{marginRight: 10}} />;
-  }
-
-  renderHouse(cellProps) {
-    const student = cellProps.rowData;
-    return student.house && <HouseBadge house={student.house} showNameOnly={true} />;
   }
 
   renderStudentLink(student, children) {

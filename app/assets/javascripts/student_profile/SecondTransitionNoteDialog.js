@@ -373,13 +373,27 @@ export function docFromJson(json) {
 }
 
 
-// Only K8 counselors with access can write or edit transition notes,
-// and only for 8th graders.
-export function enableTransitionNoteDialog(currentEducator, studentGrade) {
-  return (
+/*
+Two buckets of transition notes:
+  1) K8 counselors with access can write transition notes for 8th > 9th graders.
+  2) Anyone with restricted acccess at a particular school, for 5th > 6th graders.
+*/
+export function enableTransitionNoteDialog(currentEducator, studentFromProfile) {
+  // 8th > 9th
+  if (
     (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
     (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
     (currentEducator.can_view_restricted_notes) &&
-    (studentGrade === '8')
-  );
+    (studentFromProfile.grade === '8')
+  ) return true;
+
+  // 5th > 6th
+  if (
+    (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
+    (currentEducator.can_view_restricted_notes) &&
+    (studentFromProfile.school.local_id.toUpperCase() === 'BRN') &&
+    (studentFromProfile.grade === '5')
+  ) return true;
+
+  return false;
 }

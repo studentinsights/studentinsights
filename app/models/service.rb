@@ -1,6 +1,7 @@
 class Service < ApplicationRecord
   belongs_to :student
   belongs_to :recorded_by_educator, class_name: 'Educator'
+  belongs_to :discontinued_by_educator, class_name: 'Educator'
   belongs_to :service_type
   belongs_to :service_upload, optional: true # For bulk-uploaded services only
 

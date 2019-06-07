@@ -110,6 +110,10 @@ class TestPals
     })
     EducatorLabel.create!({
       educator: @uri,
+      label_key: 'profile_enable_minimal_reading_data'
+    })
+    EducatorLabel.create!({
+      educator: @uri,
       label_key: 'enable_equity_experiments'
     })
     EducatorLabel.create!({
@@ -259,7 +263,7 @@ class TestPals
       recorded_at: time_now - 4.days,
       educator: @west_counselor,
       student: @west_eighth_ryan,
-      form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE,
+      form_key: SecondTransitionNote::SOMERVILLE_TRANSITION_2019,
       form_json: {
         strengths: 'Ryan is polite and able to diffuse difficult social situations or potential conflicts.  He enjoys playing with technology and swimming.',
         connecting: 'Asking him about scouting can work well talking 1:1, or in the classroom he sometimes like being seen as a leader with setting up the computer or projector system.',

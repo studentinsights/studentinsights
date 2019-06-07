@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 
 
 // A component for tracking mouse hover state
@@ -23,11 +24,13 @@ export default class Hover extends React.Component {
   }
 
   render() {
-    const {children, style} = this.props;
+    const {children, className, style} = this.props;
     const {isHovering} = this.state;
+
+    const classNameText = _.compact(['Hover', className]).join(' ');
     return (
       <div
-        className="Hover"
+        className={classNameText}
         style={style}
         onMouseLeave={this.onMouseLeave}
         onMouseEnter={this.onMouseEnter}>{children(isHovering)}</div>
@@ -36,5 +39,6 @@ export default class Hover extends React.Component {
 }
 Hover.propTypes = {
   children: PropTypes.func.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  className: PropTypes.string
 };

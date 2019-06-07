@@ -72,9 +72,10 @@ export class MyStudentsPageView extends React.Component {
     // map dataKey to an accessor/sort function
     const sortFns = {
       fallback(student) { return student[sortBy]; },
-      grade(student) { return rankedByGradeLevel(student.grade); },
+      name(student) { return `${student.last_name}, ${student.first_name}`; },
       school(student) { return student.school.name; },
-      name(student) { return `${student.last_name}, ${student.first_name}`; }
+      grade(student) { return rankedByGradeLevel(student.grade); },
+      program(student) { return prettyProgramOrPlacementText(student); }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);

@@ -87,7 +87,7 @@ export default class SecondTransitionNoteInline extends React.Component {
     const {isOpen} = this.state;
     const showEditLink = (
       (window.location.search.indexOf('enable_editing') !== -1) &&
-      enableTransitionNoteDialog(currentEducator, student.grade)
+      enableTransitionNoteDialog(currentEducator, student)
     );
 
     return (
