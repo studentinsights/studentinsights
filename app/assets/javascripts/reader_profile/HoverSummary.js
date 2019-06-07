@@ -45,8 +45,10 @@ HoverSummary.propTypes = {
 };
 
 
-export function secondLineMonthsAgo(daysAgo, width) {
-  return `${Math.round(daysAgo / 30)} mos`;
+export function secondLineMonthsAgo(daysAgo, width = null) {
+  return (daysAgo < 30)
+    ? `${daysAgo} days`
+    : `${Math.round(daysAgo / 30)} mos`;
 }
 
 export function secondLineDaysAgo(daysAgo, width) {

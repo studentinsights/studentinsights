@@ -27,9 +27,15 @@ const somervilleThresholds = {
       benchmark: 'G',
       risk: 'D'
     },
+    '2:spring': { // check these
+      benchmark: 'J'
+    },
     '3:winter': { // check these
       benchmark: 'O',
       risk: 'M'
+    },
+    '3:spring': { // check these
+      benchmark: 'P'
     }
   },
   [DIBELS_FSF]: {
@@ -75,6 +81,10 @@ const somervilleThresholds = {
     }
   },
   [DIBELS_NWF_CLS]: {
+    'KF:winter': {
+      benchmark: 27,
+      risk: 12
+    },
     'KF:spring': {
       benchmark: 37,
       risk: 27
@@ -123,6 +133,18 @@ const somervilleThresholds = {
       benchmark: 63,
       risk: 36
     },
+    '2:fall': {
+      benchmark: 68,
+      risk: 46
+    },
+    '2:winter': {
+      benchmark: 84,
+      risk: 67
+    },
+    '2:spring': {
+      benchmark: 100,
+      risk: 82
+    },
     '3:fall': {
       benchmark: 93,
       risk: 72
@@ -144,6 +166,18 @@ const somervilleThresholds = {
     '1:spring': {
       benchmark: 92,
       risk: 84
+    },
+    '2:fall': {
+      benchmark: 93,
+      risk: 84
+    },
+    '2:winter': {
+      benchmark: 95,
+      risk: 91
+    },
+    '2:spring': {
+      benchmark: 97,
+      risk: 93
     },
     '3:fall': {
       benchmark: 96,
