@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import External from '../components/External';
 import NoteText from '../components/NoteText';
 import CleanSlateFeedView from '../feed/CleanSlateFeedView';
@@ -99,11 +101,11 @@ export default class ReaderProfileJune extends React.Component {
           subs={[
             <Sub name="spoken"
               screener={this.renderChipForLanguage('oral')}
-              intervention={this.renderChipForService(510)}
+              intervention={<MultipleChips chips={this.renderChipsForServices([510])} />}
             />,
             <Sub name="written"
               screener={this.renderChipForLanguage('literacy')}
-              intervention={this.renderChipForService(510)}
+              intervention={<MultipleChips chips={this.renderChipsForServices([510])} />}
             />
           ]}
         />
@@ -196,11 +198,9 @@ export default class ReaderProfileJune extends React.Component {
                 ]} />
               }
               intervention={
-                <MultipleChips chips={[
-                  this.renderChipForService(507),
-                  this.renderChipForService(514),
-                  this.renderChipForService(511)
-                ]} />
+                <MultipleChips
+                  chips={this.renderChipsForServices([507, 514, 511])}
+                />
               }
             />,
             <Sub name="comprehension"
@@ -321,17 +321,16 @@ export default class ReaderProfileJune extends React.Component {
     );
   }
 
-  renderChipForService(serviceTypeId) {
+  renderChipsForServices(serviceTypeIds) {
     const {services} = this.props;
-    const matchingServices = services.filter(service => service.service_type_id === serviceTypeId);
-    if (matchingServices.length === 0) return null;
 
-    return (
-      <ChipForService
-        serviceTypeId={serviceTypeId}
-        matchingServices={matchingServices}
-      />
-    );
+    const matchingServices = services.filter(service => serviceTypeIds.indexOf(service.service_type_id) !== -1);
+    if (matchingServices.length === 0) return [];
+
+    const sortedServices = _.sortBy(matchingServices, service => -1 * toMomentFromTimestamp(service.date_started).unix());
+    return sortedServices.map(service => (
+      <ChipForService key={service.id} service={service} />
+    ));
   }
 }
 ReaderProfileJune.contextTypes = {

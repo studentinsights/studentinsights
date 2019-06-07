@@ -713,7 +713,7 @@ exports[`snapshots view 1`] = `
                               }
                             }
                           >
-                            0 mos
+                            null days
                           </div>
                         </div>
                       </div>
@@ -757,16 +757,17 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
+                className="MultipleChips"
                 style={
                   Object {
-                    "color": "#eee",
-                    "fontSize": 12,
-                    "padding": 5,
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "width": "100%",
                   }
                 }
-              >
-                intervention
-              </div>
+              />
             </div>
           </div>
         </div>
@@ -903,7 +904,7 @@ exports[`snapshots view 1`] = `
                               }
                             }
                           >
-                            0 mos
+                            null days
                           </div>
                         </div>
                       </div>
@@ -947,16 +948,17 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
+                className="MultipleChips"
                 style={
                   Object {
-                    "color": "#eee",
-                    "fontSize": 12,
-                    "padding": 5,
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "width": "100%",
                   }
                 }
-              >
-                intervention
-              </div>
+              />
             </div>
           </div>
         </div>
@@ -2107,7 +2109,7 @@ exports[`snapshots view 1`] = `
                                   }
                                 }
                               >
-                                -14 mos
+                                -413 days
                               </div>
                             </div>
                           </div>
