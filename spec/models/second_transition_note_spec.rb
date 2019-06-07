@@ -8,12 +8,12 @@ RSpec.describe SecondTransitionNote, type: :model do
   end
 
   describe 'validations' do
-    it 'enforces form_json keys for SOMERVILLE_8TH_TO_9TH_GRADE' do
+    it 'enforces form_json keys for SOMERVILLE_TRANSITION_2019' do
       note = SecondTransitionNote.create({
         recorded_at: pals.time_now - 5.days,
         educator: pals.west_counselor,
         student: pals.west_eighth_ryan,
-        form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE,
+        form_key: SecondTransitionNote::SOMERVILLE_TRANSITION_2019,
         form_json: {
           strengths: '',
           connecting: '',

@@ -5,7 +5,7 @@ class SecondTransitionNotesController < ApplicationController
   def transition_students_json
     ensure_authorized_for_feature!
     students = authorized do
-      students_within_scope.includes(*[
+      unsafe_students_within_scope.includes(*[
         :school,
         :student_photos,
         :second_transition_notes
@@ -69,7 +69,7 @@ class SecondTransitionNotesController < ApplicationController
         recorded_at: Time.now,
         educator_id: current_educator.id,
         student_id: student_id,
-        form_key: SecondTransitionNote::SOMERVILLE_8TH_TO_9TH_GRADE
+        form_key: SecondTransitionNote::SOMERVILLE_TRANSITION_2019
       }))
     else
       second_transition_note = verify_authorized_or_raise!(student_id, id)
@@ -114,7 +114,7 @@ class SecondTransitionNotesController < ApplicationController
 
     student = authorized_or_raise! { Student.find(student_id) }
     students = authorized do
-      students_within_scope.to_a.sort_by do |s|
+      unsafe_students_within_scope.to_a.sort_by do |s|
         "#{s.last_name}, #{s.first_name}"
       end
     end
@@ -130,9 +130,19 @@ class SecondTransitionNotesController < ApplicationController
   end
 
   private
-  # This is about 8th > 9th grade students
-  def students_within_scope
-    Student.active.where(grade: '8')
+  # This determines which students are in scope for the feature,
+  # without the authorization check.
+  def unsafe_students_within_scope
+    # 8th > 9th grade students from any school
+    to_high_school = Student.active.where(grade: '8')
+
+    # 5th > 6th graders at one particular school.
+    to_middle_school = Student.active.where({
+      school_id: School.find_by_local_id('BRN').try(:id)
+    })
+
+    # Return a relation
+    to_high_school.or(to_middle_school)
   end
 
   def ensure_authorized_for_feature!
