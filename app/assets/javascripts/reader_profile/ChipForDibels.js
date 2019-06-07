@@ -13,7 +13,7 @@ import {
   DIBELS_UNKNOWN
 } from '../reading/readingData';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
-import HoverSummary, {thresholdsExplanation, secondLineDaysAgo} from './HoverSummary';
+import HoverSummary, {thresholdsExplanation, secondLineMonthsAgo} from './HoverSummary';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
 import {TwoLineChip} from './layout';
@@ -56,7 +56,7 @@ export default class ChipForDibels extends React.Component {
           <Tooltip tooltipStyle={{minWidth: 400}} title={
             <HoverSummary
               name={prettyAssessmentText}
-              atMoment={dataPointMoment(mostRecentDataPoint)}
+              atMoment={atMoment}
               period={`${mostRecentDataPoint.benchmark_period_key} ${mostRecentDataPoint.benchmark_school_year} in ${gradeText(gradeThen)}`}
               score={score}
               thresholds={thresholdsExplanation(thresholds)}
@@ -69,7 +69,7 @@ export default class ChipForDibels extends React.Component {
                   ? prettyAssessmentText
                   : shortDibelsText(mostRecentDataPoint.benchmark_assessment_key);
               }}
-              secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
+              secondLine={({width}) => secondLineMonthsAgo(daysAgo, width)}
             />
           </Tooltip>
         </Concern>

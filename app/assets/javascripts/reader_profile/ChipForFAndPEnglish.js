@@ -7,7 +7,7 @@ import {
   benchmarkPeriodToMoment
 } from '../reading/readingData';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
-import HoverSummary, {thresholdsExplanation, secondLineDaysAgo} from './HoverSummary';
+import HoverSummary, {thresholdsExplanation, secondLineMonthsAgo} from './HoverSummary';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
 import {TwoLineChip} from './layout';
@@ -63,7 +63,7 @@ export default class ChipForFAndPEnglish extends React.Component {
                   ? prettyAssessmentText
                   : 'F&P';
               }}
-              secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
+              secondLine={({width}) => secondLineMonthsAgo(daysAgo, width)}
             />
           </Tooltip>
         </Concern>

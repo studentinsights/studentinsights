@@ -12,11 +12,11 @@ export default class HoverSummary extends React.Component {
     const {nowFn} = this.context;
     const {name, atMoment, period, score, thresholds, concernKey} = this.props;
 
-    const daysAgoText = atMoment
-      ? `${nowFn().clone().diff(atMoment, 'days')} days ago`
+    const monthsAgoText = atMoment
+      ? `${nowFn().clone().diff(atMoment, 'months')} months ago`
       : `unknown`;
     const title = _.compact([
-      `Freshness: ${daysAgoText}`,
+      `Freshness: ${monthsAgoText}`,
       (period ? `Period: ${period}` : null),
       ((score || thresholds) ? '' : null),
       (score ? `Score: ${score}` : null),
@@ -44,6 +44,10 @@ HoverSummary.propTypes = {
   concernKey: PropTypes.string
 };
 
+
+export function secondLineMonthsAgo(daysAgo, width) {
+  return `${Math.round(daysAgo / 30)} mos`;
+}
 
 export function secondLineDaysAgo(daysAgo, width) {
   if (daysAgo === null || daysAgo === undefined) return null;

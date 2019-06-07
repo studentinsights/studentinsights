@@ -705,6 +705,16 @@ exports[`snapshots view 1`] = `
                               No English Learner data
                             </div>
                           </div>
+                          <div
+                            style={
+                              Object {
+                                "height": 19,
+                                "overflow": "hidden",
+                              }
+                            }
+                          >
+                            0 mos
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -884,6 +894,16 @@ exports[`snapshots view 1`] = `
                             >
                               No English Learner data
                             </div>
+                          </div>
+                          <div
+                            style={
+                              Object {
+                                "height": 19,
+                                "overflow": "hidden",
+                              }
+                            }
+                          >
+                            0 mos
                           </div>
                         </div>
                       </div>
@@ -2087,7 +2107,7 @@ exports[`snapshots view 1`] = `
                                   }
                                 }
                               >
-                                -413d
+                                -14 mos
                               </div>
                             </div>
                           </div>
