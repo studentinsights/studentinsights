@@ -138,6 +138,7 @@ class SecondTransitionNotesController < ApplicationController
 
     # 5th > 6th graders at one particular school.
     to_middle_school = Student.active.where({
+      grade: '5',
       school_id: School.find_by_local_id('BRN').try(:id)
     })
 
