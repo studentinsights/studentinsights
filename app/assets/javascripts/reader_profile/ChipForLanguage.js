@@ -5,7 +5,7 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import LanguageStatusLink from '../student_profile/LanguageStatusLink';
 import {TwoLineChip} from './layout';
 import {Concern} from './containers';
-import HoverSummary, {secondLineDaysAgo} from './HoverSummary';
+import HoverSummary, {secondLineMonthsAgo} from './HoverSummary';
 import Tooltip from './Tooltip';
 import Freshness from './Freshness';
 
@@ -55,7 +55,7 @@ export default class ChipForLanguage extends React.Component {
           }>
             <TwoLineChip
               firstLine={languageStatusEl}
-              secondLine={({width}) => secondLineDaysAgo(daysAgo, width)}
+              secondLine={({width}) => secondLineMonthsAgo(daysAgo, width)}
             />
           </Tooltip>
         </Concern>
