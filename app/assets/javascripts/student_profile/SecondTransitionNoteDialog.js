@@ -359,7 +359,7 @@ export function renderAsTextWithoutRestrictedText(studentFirstName, json) {
 // restricted text is not included here
 export function docFromJson(json) {
   return {
-    isStarred: json.form_json.starred,
+    isStarred: json.starred,
     formJson: {
       [STRENGTHS]: json.form_json.strengths,
       [CONNECTING]: json.form_json.connecting,

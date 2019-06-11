@@ -28,6 +28,7 @@ class EducatorLabel < ApplicationRecord
         'k8_counselor',
         'high_school_house_master',
         'enable_transition_note_features',
+        'enable_transition_note_editing',
 
         # class lists
         'class_list_maker_finalizer_principal',
