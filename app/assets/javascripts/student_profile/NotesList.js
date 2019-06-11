@@ -12,6 +12,7 @@ import NoteText from '../components/NoteText';
 import Educator from '../components/Educator';
 import NoteCard from './NoteCard';
 import SecondTransitionNoteInline from './SecondTransitionNoteInline';
+import {enableTransitionNoteDialog} from './SecondTransitionNoteDialog';
 import {parseAndReRender} from './transitionNoteParser';
 import BedfordTransitionSubstanceForProfile from './BedfordTransitionSubstanceForProfile';
 import {fetchRestrictedTransitionNoteText, fetchRestrictedNoteText} from './RestrictedNotePresence';
@@ -153,6 +154,11 @@ export default class NotesList extends React.Component {
   renderSecondTransitionNote(secondTransitionNote) {
     const {educatorsIndex, currentEducator, student} = this.props;
     const educator = educatorsIndex[secondTransitionNote.educator_id];
+    const allowEditing = enableTransitionNoteDialog(currentEducator, student) && (
+      (currentEducator.labels.indexOf('enable_transition_note_editing') !== -1) ||
+      (window.location.search.indexOf('enable_editing') !== -1)
+    );
+      
     return (
       <NoteShell
         key={['second_transition_note', secondTransitionNote.id].join()}
@@ -161,6 +167,7 @@ export default class NotesList extends React.Component {
         educatorEl={<Educator educator={educator} />}
         substanceEl={
           <SecondTransitionNoteInline
+            allowEditing={allowEditing}
             currentEducator={currentEducator}
             student={student}
             json={secondTransitionNote}
