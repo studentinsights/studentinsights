@@ -1,0 +1,784 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
+<div>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Classrooms in 
+      Localhost Public Schools
+    </h4>
+  </div>
+  <table
+    style={
+      Object {
+        "border": "1px solid #eee",
+        "borderCollapse": "collapse",
+        "margin": 10,
+        "tableLayout": "fixed",
+        "width": "90%",
+      }
+    }
+  >
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+           
+        </th>
+        <th
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/1"
+            style={Object {}}
+          >
+            Brown
+          </a>
+        </th>
+        <th
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/6"
+            style={Object {}}
+          >
+            West
+          </a>
+        </th>
+        <th
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/2"
+            style={Object {}}
+          >
+            Healey
+          </a>
+        </th>
+        <th
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={Object {}}
+          >
+            Somerville High
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          KF
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[
+  {
+    \\"id\\": 1,
+    \\"name\\": \\"HEA 003\\",
+    \\"educator\\": {
+      \\"id\\": 2,
+      \\"email\\": \\"vivian@demo.studentinsights.org\\",
+      \\"full_name\\": \\"Teacher, Vivian\\"
+    }
+  }
+]"
+          >
+            <a
+              href="/homerooms/1"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              Teacher, Vivian
+            </a>
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          1
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          3
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          5
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[
+  {
+    \\"id\\": 3,
+    \\"name\\": \\"WSNS 501\\",
+    \\"educator\\": {
+      \\"id\\": 7,
+      \\"email\\": \\"marcus@demo.studentinsights.org\\",
+      \\"full_name\\": \\"Teacher, Marcus\\"
+    }
+  }
+]"
+          >
+            <a
+              href="/homerooms/3"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              Teacher, Marcus
+            </a>
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[
+  {
+    \\"id\\": 3,
+    \\"name\\": \\"WSNS 501\\",
+    \\"educator\\": {
+      \\"id\\": 7,
+      \\"email\\": \\"marcus@demo.studentinsights.org\\",
+      \\"full_name\\": \\"Teacher, Marcus\\"
+    }
+  }
+]"
+          >
+            <a
+              href="/homerooms/3"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              Teacher, Marcus
+            </a>
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[
+  {
+    \\"id\\": 2,
+    \\"name\\": \\"HEA 500\\",
+    \\"educator\\": {
+      \\"id\\": 6,
+      \\"email\\": \\"sarah@demo.studentinsights.org\\",
+      \\"full_name\\": \\"Teacher, Sarah\\"
+    }
+  }
+]"
+          >
+            <a
+              href="/homerooms/2"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              Teacher, Sarah
+            </a>
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          8
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          9
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[
+  {
+    \\"id\\": 5,
+    \\"name\\": \\"SHS 942\\",
+    \\"educator\\": {
+      \\"id\\": 10,
+      \\"email\\": \\"jodi@demo.studentinsights.org\\",
+      \\"full_name\\": \\"Teacher, Jodi\\"
+    }
+  },
+  {
+    \\"id\\": 6,
+    \\"name\\": \\"SHS 917\\",
+    \\"educator\\": {
+      \\"id\\": 12,
+      \\"email\\": \\"bill@demo.studentinsights.org\\",
+      \\"full_name\\": \\"Teacher, Bill\\"
+    }
+  }
+]"
+          >
+            <a
+              href="/homerooms/5"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              Teacher, Jodi
+            </a>
+            <a
+              href="/homerooms/6"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              Teacher, Bill
+            </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          10
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[
+  {
+    \\"id\\": 4,
+    \\"name\\": \\"SHS ALL\\"
+  }
+]"
+          >
+            <a
+              href="/homerooms/4"
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              SHS ALL
+            </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          12
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            title="[]"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

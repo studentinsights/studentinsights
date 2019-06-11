@@ -109,4 +109,36 @@ describe DistrictController, :type => :controller do
       expect(json.keys).to eq ['error']
     end
   end
+
+  describe '#homerooms_json' do
+    it 'works' do
+      sign_in(pals.uri)
+      get :homerooms_json, params: { format: :json }
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json.keys).to eq ['district_name', 'students']
+      expect(json['students'].first.keys).to contain_exactly(*[
+        'id',
+        'counselor',
+        'first_name',
+        'grade',
+        'has_photo',
+        'homeroom',
+        'house',
+        'last_name',
+        'program_assigned',
+        'school',
+        'sped_liaison',
+        'sped_placement'
+      ])
+    end
+
+    it 'guards authorization' do
+      sign_in(pals.shs_jodi)
+      get :homerooms_json, params: { format: :json }
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 403
+      expect(json.keys).to eq ['error']
+    end
+  end
 end
