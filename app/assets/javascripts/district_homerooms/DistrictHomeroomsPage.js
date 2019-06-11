@@ -64,25 +64,23 @@ export class DistrictHomeroomsView extends React.Component {
                 <tr key={grade}>
                   <td key="grade" style={styles.cell}>{grade}</td>
                   {sortedSchools.map(school => {
-                    const studentsInSchool = students
+                    const studentsInGradeAtSchool = students
                       .filter(student => student.school.id === school.id)
                       .filter(student => student.grade === grade);
-                    const homerooms = _.uniqBy(_.compact(studentsInSchool.map(student => student.homeroom)), 'id');
-                    // const cell = _.find(students, enrollment => {
-                    //   return enrollment.grade === grade && enrollment.school.id == school.id;
-                    // });
-                    // const studentCount = (cell === undefined)
-                    //   ? 0
-                    //   : cell.enrollment;
+                    const homerooms = _.uniqBy(_.compact(studentsInGradeAtSchool.map(student => student.homeroom)), 'id');
                     return (
-                      <td key={school.id} style={styles.cell}>
-                        <div title={JSON.stringify(homerooms, null, 2)}>
-                          {homerooms.map(homeroom => (
-                            <a
-                              key={homeroom.id}
-                              style={{display: 'block'}}
-                              href={`/homerooms/${homeroom.id}`}>{homeroom.educator ? homeroom.educator.full_name : homeroom.name}</a>
-                          ))}
+                      <td key={school.id} style={{...styles.cell, verticalAlign: 'top'}}>
+                        <div>
+                          {homerooms.map(homeroom => {
+                            const studentsInHomeroom = studentsInGradeAtSchool.filter(student => student.homeroom && student.homeroom.id === homeroom.id);
+                            return (
+                              <a
+                                key={homeroom.id}
+                                style={{display: 'block'}}
+                                title={JSON.stringify(studentsInHomeroom, null, 2)}
+                                href={`/homerooms/${homeroom.id}`}>{studentsInHomeroom.length}: {homeroom.educator ? homeroom.educator.full_name : homeroom.name}</a>
+                            );
+                          })}
                         </div>
                       </td>
                     );
@@ -160,7 +158,8 @@ const styles = {
   cell: {
     padding: 5,
     textAlign: 'left',
-    border: '1px solid #eee'
+    border: '1px solid #eee',
+    overflow: 'hidden'
   },
   bar: {
     borderLeft: '1px solid #aaa',
