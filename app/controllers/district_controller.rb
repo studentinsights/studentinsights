@@ -1,7 +1,7 @@
 class DistrictController < ApplicationController
   before_action :ensure_authorized_for_districtwide!
 
-  def overview_json    
+  def overview_json
     enable_student_voice_uploads = PerDistrict.new.enabled_student_voice_survey_uploads? && current_educator.labels.include?('can_upload_student_voice_surveys')
     schools_with_active_students = School.all.includes(:students).select {|school| school.students.active.size > 0 }
     schools = schools_with_active_students.sort_by do |school|
@@ -42,7 +42,7 @@ class DistrictController < ApplicationController
       enrollments: enrollments_json
     }
   end
-  
+
   def homerooms_json
     students = authorized { Student.active.to_a }
     students_json = students.as_json({
