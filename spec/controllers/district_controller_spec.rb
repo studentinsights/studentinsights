@@ -118,7 +118,18 @@ describe DistrictController, :type => :controller do
       expect(response.status).to eq 200
       expect(json.keys).to eq ['district_name', 'students']
       expect(json['students'].first.keys).to contain_exactly(*[
-        'id'
+        'id',
+        'counselor',
+        'first_name',
+        'grade',
+        'has_photo',
+        'homeroom',
+        'house',
+        'last_name',
+        'program_assigned',
+        'school',
+        'sped_liaison',
+        'sped_placement'
       ])
     end
 
