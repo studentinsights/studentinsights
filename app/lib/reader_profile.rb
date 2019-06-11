@@ -25,31 +25,30 @@ class ReaderProfile
       current_school_year: SchoolYear.to_school_year(@time_now),
       benchmark_data_points: benchmark_data_points.as_json,
       access: @student.access.as_json,
-      iep_contents: iep_json,
+      iep_contents: iep_contents_json,
       feed_cards: feed_cards,
       services: services_json
     }
   end
 
   private
-  def iep_json
+  def iep_contents_json
     iep_document = @student.latest_iep_document
     return nil if iep_document.nil?
 
+    # fetch PDF and convert into raw text
     pdf_bytes = IepStorer.unsafe_read_bytes_from_s3(@s3, iep_document)
     pdf_io = StringIO.new(pdf_bytes)
     reader = PDF::Reader.new(pdf_io)
-    pages_json = reader.pages.map do |page|
-      {
-        number: page.number,
-        text: page.text.strip # clean up for lunr searching, which is confused by leading spaces
-      }
-    end
+    raw_text = reader.pages.map {|page| page.text }.join("\n")
+
+    # try to clean and parse that messy text
+    parsed_json = IepTextParser.new(raw_text).parsed_json
 
     {
       iep_document: iep_document.as_json,
       pretty_filename_for_download: iep_document.pretty_filename_for_download,
-      pages: pages_json
+      parsed: parsed_json
     }
   end
 end

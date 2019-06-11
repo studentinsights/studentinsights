@@ -21,7 +21,7 @@ import {
   SOUNDS_IN_WORDS_SEARCH,
   SOUNDS_AND_LETTERS_SEARCH
 } from './TextSearchForReading';
-import ChipForIEP, {buildLunrIndexForIEP, findWithinIEP, cleanedIepFullText} from './ChipForIEP';
+import ChipForIEP, {buildLunrIndexForIEP, findWithinIEP} from './ChipForIEP';
 import ChipForNotes, {buildLunrIndexForNotes, findWithinNotes} from './ChipForNotes';
 import ChipForLanguage from './ChipForLanguage';
 import ChipForDibels from './ChipForDibels';
@@ -50,11 +50,8 @@ export default class ReaderProfileJune extends React.Component {
     const {feedCards, iepContents} = this.props;
     const notes = feedCards.map(card => card.json);
     const lunrIndex = buildLunrIndexForNotes(notes);
-    const cleanIepFullText = (iepContents)
-      ? cleanedIepFullText(iepContents.pages.map(page => page.text).join('\n'))
-      : null;
-    const iepLunrIndex = (iepContents)
-      ? buildLunrIndexForIEP(cleanIepFullText)
+    const iepLunrIndex = (iepContents && iepContents.parsed)
+      ? buildLunrIndexForIEP(iepContents.parsed.cleaned_text)
       : null;
 
     return (
@@ -65,7 +62,7 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SEE_AS_READER_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(SEE_AS_READER_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(SEE_AS_READER_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
@@ -80,7 +77,7 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(ORAL_LANGUAGE_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(ORAL_LANGUAGE_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(ORAL_LANGUAGE_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
@@ -95,7 +92,7 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(ENGLISH_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(ENGLISH_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(ENGLISH_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
@@ -115,7 +112,7 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(SOUNDS_IN_WORDS_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(SOUNDS_IN_WORDS_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
@@ -164,7 +161,7 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SOUNDS_AND_LETTERS_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(SOUNDS_AND_LETTERS_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(SOUNDS_AND_LETTERS_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
@@ -212,10 +209,10 @@ export default class ReaderProfileJune extends React.Component {
     );
   }
 
-  renderChipForIEP(words, iepLunrIndex, cleanIepFullText) {
-    if (iepLunrIndex === null || cleanIepFullText === null) return null;
+  renderChipForIEP(words, iepLunrIndex) {
+    if (iepLunrIndex === null) return null;
     
-    const {student} = this.props;
+    const {student, iepContents} = this.props;
     const iepMatchPositions = findWithinIEP(iepLunrIndex, words);
     if (iepMatchPositions.length === 0) return null;
     
@@ -223,8 +220,8 @@ export default class ReaderProfileJune extends React.Component {
       <ReaderProfileDialog
         icon={
           <ChipForIEP
+            iepContents={iepContents}
             iepMatchPositions={iepMatchPositions}
-            iepFullText={cleanIepFullText}
           />
         }
         title={`IEP at-a-glance for ${student.first_name}`}
@@ -238,7 +235,7 @@ export default class ReaderProfileJune extends React.Component {
               }}
               href={`/students/${student.id}/latest_iep_document`}
             >Download IEP at a glance PDF</External>
-            <NoteText text={cleanIepFullText} />
+            <NoteText text={iepContents.parsed.cleaned_text} />
           </div>
         }
         modalStyle={styles.rightDialog}
