@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   # districtwide
   get '/api/district/overview_json' => 'district#overview_json'
   get '/api/district/enrollment_json' => 'district#enrollment_json'
+  get '/api/district/homerooms_json' => 'district#homerooms_json'
 
   # notes search
   get '/api/search_notes/query_json' => 'search_notes#query_json'
@@ -146,6 +147,7 @@ Rails.application.routes.draw do
   scope '/district' do
     get '/' => 'ui#ui'
     get 'enrollment' => 'ui#ui'
+    get 'homerooms' => 'ui#ui'
   end
 
   # search notes

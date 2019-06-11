@@ -598,6 +598,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
+                href="/district/homerooms"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Homerooms by grade
+              </a>
+            </li>
+            <li>
+              <a
                 href="/admin/sample_students"
                 style={
                   Object {
@@ -1409,6 +1421,18 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                 }
               >
                 Enrollment patterns
+              </a>
+            </li>
+            <li>
+              <a
+                href="/district/homerooms"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Homerooms by grade
               </a>
             </li>
             <li>

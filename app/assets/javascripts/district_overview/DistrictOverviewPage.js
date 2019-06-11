@@ -145,6 +145,11 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>
             <li>
+              <a href="/district/homerooms" style={styles.link}>
+               Homerooms by grade
+              </a>
+            </li>
+            <li>
               <a href="/admin/sample_students" style={styles.link}>
                 Student sample for data quality checks
               </a>
