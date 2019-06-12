@@ -9,8 +9,8 @@ import {schoolYearStartDates} from './QuadConverter';
 // TODO(kr) this doesn't work for all grades, and it assumes the
 // student moved up a grade each year (because we don't have that historical
 // data).
-export function xAxisWithGrades(studentGrade, nowMoment) {
-  const nMonthsBack = 48;
+export function xAxisWithGrades(studentGrade, nowMoment, options = {}) {
+  const nMonthsBack = options.nMonthsBack || 48;
   return [
     datesAxis(nowMoment, nMonthsBack),
     gradesAxis(nowMoment, nMonthsBack, studentGrade)

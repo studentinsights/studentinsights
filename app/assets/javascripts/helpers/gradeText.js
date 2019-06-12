@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import {toSchoolYear} from './schoolYear';
+
 
 export const ORDERED_GRADES = {
   'TK': 100,
@@ -62,4 +64,18 @@ export function previousGrade(grade) {
   const grades = allGrades();
   const index = grades.indexOf(grade);
   return (index <= 0) ? null : grades[index - 1];
+}
+
+
+// infer the grade level at a past schoolYear
+export function adjustedGrade(schoolYearThen, gradeNow, nowMoment) {
+  const nowSchoolYear = toSchoolYear(nowMoment);
+  const assessmentSchoolYear = schoolYearThen;
+
+  var inferredGrade = gradeNow; // eslint-disable-line no-var
+  for (var i = nowSchoolYear; i > assessmentSchoolYear; i--) { // eslint-disable-line no-var
+    inferredGrade = previousGrade(inferredGrade);
+  }
+
+  return inferredGrade;
 }

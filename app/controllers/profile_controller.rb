@@ -32,6 +32,12 @@ class ProfileController < ApplicationController
     }
   end
 
+  def reader_profile_json
+    student = Student.find(params[:id])
+    json = ReaderProfile.new(student, s3: s3).reader_profile_json
+    render json: json
+  end
+
   private
   def authorize!
     student = Student.find(params[:id])
@@ -165,5 +171,9 @@ class ProfileController < ApplicationController
       }
     })
     [json]
+  end
+
+  def s3
+    @client ||= MockAwsS3.create_real_or_mock
   end
 end

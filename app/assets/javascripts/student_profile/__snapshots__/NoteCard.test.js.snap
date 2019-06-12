@@ -206,7 +206,7 @@ Array [
                 Your note is not saved
               </span>
               <div
-                className="click-event-modal"
+                className="ModalSmall"
                 style={
                   Object {
                     "display": "inline",
@@ -1897,7 +1897,7 @@ Array [
                 Your note is not saved
               </span>
               <div
-                className="click-event-modal"
+                className="ModalSmall"
                 style={
                   Object {
                     "display": "inline",

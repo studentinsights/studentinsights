@@ -7,6 +7,7 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {isStudentActive, shouldUseStarData} from '../helpers/PerDistrict';
+import ReaderProfileJunePage from '../reader_profile/ReaderProfileJunePage';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import LightAttendanceDetails from './LightAttendanceDetails';
@@ -467,6 +468,10 @@ export default class LightProfilePage extends React.Component {
     const {districtKey} = this.context;
     const {student, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
+    const readerProfileEl = (showMinimalReadingData
+      ? <ReaderProfileJunePage student={student} />
+      : null
+    );
     return (
       <ElaDetails
         className="LightProfilePage-ela"
@@ -475,6 +480,7 @@ export default class LightProfilePage extends React.Component {
         hideStar={!shouldUseStarData(districtKey)}
         dibels={showMinimalReadingData ? dibels : []}
         fAndPs={showMinimalReadingData ? fAndPs : []}
+        readerProfileEl={readerProfileEl}
       />
     );
   }

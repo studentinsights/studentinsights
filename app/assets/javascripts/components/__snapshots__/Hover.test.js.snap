@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="Hover"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  some text, rendered based on isHovering: false
+</div>
+`;
