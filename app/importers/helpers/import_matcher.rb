@@ -87,6 +87,10 @@ class ImportMatcher
     DateTime.strptime(est_with_timezeone, '%m/%d/%Y %k:%M:%S %Z').new_offset(0)
   end
 
+  def parse_human_date_text(string)
+    Date.strptime(string, '%m/%d/%Y') rescue nil
+  end
+  
   def count_valid_row
     @valid_rows_count += 1
   end

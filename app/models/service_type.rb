@@ -18,7 +18,7 @@ class ServiceType < ApplicationRecord
       { id: 511, name: 'Afterschool Tutoring' },
       { id: 512, name: 'Freedom School' },
       { id: 513, name: 'Community Schools' },
-      { id: 514, name: 'X-Block' },
+      { id: 514, name: 'X-Block' }
     ])
   end
 
@@ -36,6 +36,15 @@ class ServiceType < ApplicationRecord
       { id: 516, name: 'Boston Breakthrough' }, # Intensive 6 week summer program for incoming 7th graders and their families focused on college preparation.  Students are coached throughout this year, next summer, and beyond.
       { id: 517, name: 'Summer Explore' }, # An intensive 5 week summer program for preschoolers at risk for academic failure.  The focus is on building skills needed for the transition to Kindergarten.
       { id: 518, name: 'Focused Math Intervention' } # An 8 week cycle, 4 days a week focused on filling in math gaps in a small group setting using a research-based mathematics intervention called Focused Math Intervention.  Sessions take place during X-Block and intervention focuses on previous year’s standards that have not yet been met.
+    ])
+  end
+
+  def self.add_somerville_heggerty_service_types
+    ServiceType.create!([
+      { id: 601, name: 'SPS Heggerty, week 1' },
+      { id: 602, name: 'SPS Heggerty, week 5' },
+      { id: 603, name: 'SPS Heggerty, week 9' },
+      { id: 604, name: 'SPS Heggerty, week 13' }
     ])
   end
 end
