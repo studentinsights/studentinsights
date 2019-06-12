@@ -134,20 +134,7 @@ export default class ReaderProfileJune extends React.Component {
                   }
                 />
               }
-              intervention={
-                <Suggestion
-                  text="SPS Heggerty"
-                  dialog={
-                    <div>
-                      <Why>
-                        <p>The SPS Heggerty intervention is short 1:1 phonological awareness program, intended for 4-8 week intervention cycles.</p>
-                        <p>You can determine where to start with the SPS PAST, and get a sense of progress over a cycle with using the PAST as a post-test.</p>
-                      </Why>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/u6e1ek42b1gzun8/SPS%20Heggerty%20PA%20Intervention.docx?dl=0">SPS Heggerty Intervention</External>
-                    </div>
-                  }
-                />
-              }
+              intervention={this.renderPhonologicalIntervention()}
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
             <Sub name="deleting" />,
@@ -206,6 +193,26 @@ export default class ReaderProfileJune extends React.Component {
           ]}
         />
       </div>
+    );
+  }
+
+  renderPhonologicalIntervention() {
+    const chips = this.renderChipsForServices([601, 602, 603, 604]);
+    if (chips.length > 0) return <MultipleChips chips={chips} />;
+
+    return (
+      <Suggestion
+        text="SPS Heggerty"
+        dialog={
+          <div>
+            <Why>
+              <p>The SPS Heggerty intervention is short 1:1 phonological awareness program, intended for 4-8 week intervention cycles.</p>
+              <p>You can determine where to start with the SPS PAST, and get a sense of progress over a cycle with using the PAST as a post-test.</p>
+            </Why>
+            <External style={{display: 'block'}} href="https://www.dropbox.com/s/u6e1ek42b1gzun8/SPS%20Heggerty%20PA%20Intervention.docx?dl=0">SPS Heggerty Intervention</External>
+          </div>
+        }
+      />
     );
   }
 
