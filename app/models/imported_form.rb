@@ -73,6 +73,11 @@ class ImportedForm < ApplicationRecord
         "Is there any key information that you wish you knew about this student in September?",
         "Please share anything that helped you connect with this student that might be helpful to the next teacher."
       ]
+    elsif form_key == BEDFORD_SIXTH_GRADE_TRANSITION_FORM
+      [
+        'My interests and activities outside of school are...',
+        'Think of your Grade 5 year. What are you proud of?  I am proud that I .....'
+      ]
     end
   end
 
