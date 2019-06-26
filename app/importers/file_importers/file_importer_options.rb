@@ -4,6 +4,17 @@ class FileImporterOptions
     key_to_importers.keys.sort
   end
 
+  # For describing all data flows and showing to users
+  def all_data_flows
+    data_flows = []
+    key_to_importers().each do |key, maybe_importer_class|
+      next if maybe_importer_class.respond_to?(:size)
+      raise "missing #{maybe_importer_class.name}.data_flow method" unless maybe_importer_class.respond_to?(:data_flow)
+      data_flows << maybe_importer_class.data_flow
+    end
+    data_flows
+  end
+
   # Given a set of importer_keys to run, map them to classes
   # then order them by priority
   def prioritized_file_importer_classes(importer_keys)

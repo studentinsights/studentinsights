@@ -1,4 +1,21 @@
 class BehaviorImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      merge: DataFlow::MERGE_UPDATE_DELETE_UNMARKED,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE,
+        DataFlow::OPTION_SKIP_OLD_RECORDS,
+        DataFlow::OPTION_IDIOSYNCRATIC
+      ],
+      touches: [
+        DisciplineIncident.name
+      ],
+      description: 'SIS discipline incidents'
+    })
+  end
 
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)

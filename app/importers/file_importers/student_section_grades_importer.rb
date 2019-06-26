@@ -1,4 +1,20 @@
 class StudentSectionGradesImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE
+      ],
+      merge: DataFlow::MERGE_UPDATE_IGNORE_UNMARKED,
+      touches: [
+        StudentSectionAssignment.name,
+        HistoricalGrade.name
+      ],
+      description: 'SIS current computer grades for courses.  These may change over time, and primary keys may be recycled in some circumstances.'
+    })
+  end
 
   # Most of our file importer classes match to a SQL file in the /x2_export folder.
   # Somerville IT uses the SQL to export data  nightly, and Rails imports nightly.

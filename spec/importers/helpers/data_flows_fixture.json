@@ -1,0 +1,182 @@
+[
+  {
+    "importer": "AttendanceImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_ignore_unmarked",
+    "touches": [
+      "Absence",
+      "Tardy"
+    ],
+    "options": [
+      "option_school_scope",
+      "option_idiosyncratic"
+    ],
+    "description": "SIS attendance data, processed into absences and tardies."
+  },
+  {
+    "importer": "BehaviorImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "DisciplineIncident"
+    ],
+    "options": [
+      "option_school_scope",
+      "option_skip_old_records",
+      "option_idiosyncratic"
+    ],
+    "description": "SIS discipline incidents"
+  },
+  {
+    "importer": "CoursesSectionsImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "Section",
+      "Course"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "SIS course and section descriptions.  These may change over time, and primary keys may be recycled in some circumstances."
+  },
+  {
+    "importer": "EdPlanAccommodationsImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "EdPlanAccommodation"
+    ],
+    "options": [
+      "option_school_scope",
+      "option_idiosyncratic"
+    ],
+    "description": "Specific accommodation information about 504 plans"
+  },
+  {
+    "importer": "EdPlansImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "EdPlan"
+    ],
+    "options": [
+      "option_school_scope",
+      "option_idiosyncratic"
+    ],
+    "description": "504 plan records, without specific accommodation information"
+  },
+  {
+    "importer": "EducatorSectionAssignmentsImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "StudentSectionAssignment"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "SIS rosters for educator section assignments."
+  },
+  {
+    "importer": "EducatorsImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_ignore_unmarked",
+    "touches": [
+      "Educator",
+      "Homeroom"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "SIS educator rosters, which also includes homeroom assignments and impacts permissions."
+  },
+  {
+    "importer": "StarMathImporter",
+    "source": "source_star_vendor_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_ignore_unmarked",
+    "touches": [
+      "StarMathResult"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "STAR Math scores, imported from vendor"
+  },
+  {
+    "importer": "StarReadingImporter",
+    "source": "source_star_vendor_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_ignore_unmarked",
+    "touches": [
+      "StarMathResult"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "STAR Reading scores, imported from vendor"
+  },
+  {
+    "importer": "StudentSectionAssignmentsImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "StudentSectionAssignment"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "SIS rosters for student enrollment in sections."
+  },
+  {
+    "importer": "StudentSectionGradesImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_ignore_unmarked",
+    "touches": [
+      "StudentSectionAssignment",
+      "HistoricalGrade"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "SIS current computer grades for courses.  These may change over time, and primary keys may be recycled in some circumstances."
+  },
+  {
+    "importer": "StudentsImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_flag_unmarked",
+    "touches": [
+      "Student"
+    ],
+    "options": [
+      "option_school_scope"
+    ],
+    "description": "Student rosters"
+  },
+  {
+    "importer": "X2AssessmentImporter",
+    "source": "source_sis_sftp_csv",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_ignore_unmarked",
+    "touches": [
+      "StudentAssessment",
+      "DibelsResult"
+    ],
+    "options": [
+      "option_school_scope",
+      "option_skip_old_records"
+    ],
+    "description": "SIS assessments.  These are often complex and contain different data points from different sources in different formats.  This only imports MCAS and ACCESS data, and contains a deprecated variant of DIBELS imports.  For more recent reading data, see ReadingBenchmarkData"
+  }
+]

@@ -1,4 +1,20 @@
 class EdPlanAccommodationsImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      merge: DataFlow::MERGE_UPDATE_DELETE_UNMARKED,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE,
+        DataFlow::OPTION_IDIOSYNCRATIC
+      ],
+      touches: [
+        EdPlanAccommodation.name
+      ],
+      description: 'Specific accommodation information about 504 plans'
+    })
+  end
 
   def initialize(options:)
     @log = options.fetch(:log)
