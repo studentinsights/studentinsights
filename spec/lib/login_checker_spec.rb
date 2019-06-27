@@ -22,7 +22,7 @@ RSpec.describe LoginChecker do
       warning_id: anything(),
       time_now: pals.time_now.to_i
     })
-    
+
     expect(test_checker().warn_if_suspicious).to eq [:first_login_after_six_months]
   end
 
