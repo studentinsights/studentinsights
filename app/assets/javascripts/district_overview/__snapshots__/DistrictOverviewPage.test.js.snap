@@ -622,6 +622,48 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
           </ul>
         </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Export districtwide data
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/district/wide_students_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Download "wide" CSV for all students
+              </a>
+            </li>
+            <li>
+              Contact 
+              <a
+                href="mailto://help@studentinsights.org"
+              >
+                help@studentinsights.org
+              </a>
+               for other exports
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -1446,6 +1488,48 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               >
                 Student sample for data quality checks
               </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Export districtwide data
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/district/wide_students_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Download "wide" CSV for all students
+              </a>
+            </li>
+            <li>
+              Contact 
+              <a
+                href="mailto://help@studentinsights.org"
+              >
+                help@studentinsights.org
+              </a>
+               for other exports
             </li>
           </ul>
         </div>

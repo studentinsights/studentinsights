@@ -36,7 +36,7 @@ RSpec.describe WideStudentsExporter do
            'registration_date',
            'local_id',
            'counselor',
-           'hispanic_latino', 
+           'hispanic_latino',
            'house',
            'race',
            'sped_liaison',
