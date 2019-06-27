@@ -401,6 +401,7 @@ SchoolAbsencesDashboard.propTypes = {
   })).isRequired,
   school: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
     local_id: PropTypes.string.isRequired,
     school_type: PropTypes.string.isRequired
   }).isRequired

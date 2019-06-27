@@ -162,11 +162,13 @@ LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     can_view_restricted_notes: PropTypes.bool.isRequired,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   actions: PropTypes.shape({
     onCreateNewNote: PropTypes.func.isRequired,
+    onSecondTransitionNoteAdded: PropTypes.func.isRequired,
     onUpdateExistingNote: PropTypes.func.isRequired,
     onDeleteEventNoteAttachment: PropTypes.func,
   }),

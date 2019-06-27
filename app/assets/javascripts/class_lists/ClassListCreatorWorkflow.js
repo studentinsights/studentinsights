@@ -139,7 +139,9 @@ export default class ClassListCreatorWorkflow extends React.Component {
           </div>
           
           {!canChangeSchoolOrGrade &&
-            <div style={{marginTop: 20}}>You can't change the school or grade level once you've moved forward.  If you need to change this, <a href="/classlists">create a new class list</a> instead.</div>
+            <div style={{marginTop: 20}}>
+              {`You can't change the school or grade level once you've moved forward.  If you need to change this, `}<a href="/classlists">create a new class list</a> instead.
+            </div>
           }
         </div>
       </div>
@@ -164,7 +166,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     return (
       <div key="make-a-plan" style={styles.stepContent}>
         <div>
-          <div style={styles.heading}>Who's the team creating these class lists?</div>
+          <div style={styles.heading}>{`Who's the team creating these class lists?`}</div>
           <Select
             name="select-educators"
             multi
@@ -197,9 +199,9 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{display: 'inline-block', fontSize: 12, marginLeft: 20}}>With {students.length} students total, this makes the <b>average class size {Math.ceil(students.length / classroomsCount)} students</b>.</div>
         </div>
         <div>
-          <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
+          <div style={styles.heading}>{`What's your plan for creating classroom communitites?`}</div>
           <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
-            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
+            {`Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.`}
           </div>
           <div>
             <textarea

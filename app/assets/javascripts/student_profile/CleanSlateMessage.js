@@ -27,7 +27,7 @@ export default class CleanSlateMessage extends React.Component {
         <span>To respect student privacy, this page only includes {xAmountOfDataText} by default.  </span>
         {canViewFullHistory
           ? this.renderCleanStateMessageForAdmin()
-          : <span>If you need to know more about the student's case history, talk with an administrator who will have access to this data.</span>
+          : <span>If you need to know more about the student’s case history, talk with an administrator who will have access to this data.</span>
         }
       </div>
     );

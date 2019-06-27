@@ -7,13 +7,7 @@
   "globals": {
     "$": true
   },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
-  },
+  "parser": "babel-eslint",
   "plugins": ["react"],
   "extends": [
     "eslint:recommended",
@@ -47,5 +41,10 @@
         ]
       }
     }]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
