@@ -17,7 +17,7 @@ class LoginChecker
 
     flags = []
     flags << :first_login_month_after_creation if last_login_at.nil? && @educator.created_at < (@time_now - 30.days)
-    flags << :first_login_after_year if last_login_at.present? && last_login_at < (@time_now - 1.year)
+    flags << :first_login_after_six_months if last_login_at.present? && last_login_at < (@time_now - 6.months)
     flags.sort
   end
 

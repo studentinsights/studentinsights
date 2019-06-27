@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe LoginChecker do
   let!(:pals) { TestPals.create! }
 
-  it '#alert_if_suspicious reports to Rollbar on :first_login_after_year' do
+  it '#alert_if_suspicious reports to Rollbar on :first_login_after_six_months' do
     LoginActivity.create!({
       user_id: pals.healey_vivian_teacher.id,
       created_at: pals.time_now - 2.years
@@ -11,12 +11,12 @@ RSpec.describe LoginChecker do
 
     allow(Rollbar).to receive(:error)
     expect(Rollbar).to receive(:error).once.with('LoginChecker#alert_if_suspicious', {
-      flags: [:first_login_after_year],
+      flags: [:first_login_after_six_months],
       warning_id: anything(),
       time_now: pals.time_now.to_i
     })
     checker = LoginChecker.new(pals.healey_vivian_teacher, time_now: pals.time_now)
-    expect(checker.alert_if_suspicious).to eq [:first_login_after_year]
+    expect(checker.alert_if_suspicious).to eq [:first_login_after_six_months]
   end
 
   it '#alert_if_suspicious reports to Rollbar on :first_login_month_after_creation' do
