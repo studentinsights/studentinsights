@@ -4,5 +4,5 @@ The protection of individual sensitive and personally identifiable information i
 Learn more about privacy and data security in our [Privacy policy](https://www.studentinsights.org/privacy.html).
 
 
-## Reporting a Vulnerability
+## Responsible vunerability disclosure
 As free software and an open-source project, we welcome contributions from privacy experts, security researchers, and certification experts. If you are interested in contributing, collaborating, or participating in responsible disclosure, please contact us at security@studentinsights.org.
