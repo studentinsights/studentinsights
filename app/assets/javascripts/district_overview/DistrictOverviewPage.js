@@ -4,7 +4,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
-import {Website, Email} from '../components/PublicLinks';
+import {Website, Email, HelpEmail} from '../components/PublicLinks';
 import WorkBoard from '../components/WorkBoard';
 
 
@@ -153,6 +153,20 @@ export class DistrictOverviewPageView extends React.Component {
               <a href="/admin/sample_students" style={styles.link}>
                 Student sample for data quality checks
               </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div style={styles.section}>Export districtwide data</div>
+          <ul style={styles.plainList}>
+            <li>
+              <a href="/district/wide_students_csv" style={styles.link}>
+               Download "wide" CSV for all students
+              </a>
+            </li>
+            <li>
+              Contact <HelpEmail /> for other exports
             </li>
           </ul>
         </div>
