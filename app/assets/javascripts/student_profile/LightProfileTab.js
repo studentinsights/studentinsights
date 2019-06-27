@@ -26,18 +26,18 @@ export default function LightProfileTab(props) {
         ...style
       }}
       onClick={onClick}>
-        <div style={{
-          ...styles.title,
-          opacity: isSelected ? 1 : 0.6,
-          background: isSelected
-            ? intenseColor
-            : chroma(intenseColor).desaturate().hex()
-        }}>{text}</div>
-        <div
-          style={{
-            ...styles.space,
-            background: fadedColor,
-          }}>{children}</div>
+      <div style={{
+        ...styles.title,
+        opacity: isSelected ? 1 : 0.6,
+        background: isSelected
+          ? intenseColor
+          : chroma(intenseColor).desaturate().hex()
+      }}>{text}</div>
+      <div
+        style={{
+          ...styles.space,
+          background: fadedColor,
+        }}>{children}</div>
     </div>
   );
 }

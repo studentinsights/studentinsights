@@ -170,11 +170,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#4A90E2"
         fadedColor="#ededed"
         text="Notes">
-          <LightShoutNumber number={recentNotes.length}>
-            <div>{recentNotes.length === 1 ? 'note taken' : 'notes taken'}</div>
-            <div>last {DAYS_AGO} days</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={recentNotes.length}>
+          <div>{recentNotes.length === 1 ? 'note taken' : 'notes taken'}</div>
+          <div>last {DAYS_AGO} days</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -192,10 +192,10 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#4A90E2"
         fadedColor="#ededed"
         text="Notes">
-          {(topRecentTags.length === 0)
-            ? <div>No recent keywords</div>
-            : topRecentTags.map(tag => <div key={tag}>“{tag}”</div>)}
-        </LightProfileTab>
+        {(topRecentTags.length === 0)
+          ? <div>No recent keywords</div>
+          : topRecentTags.map(tag => <div key={tag}>“{tag}”</div>)}
+      </LightProfileTab>
     );
   }
 
@@ -216,11 +216,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#ff7f00"
         fadedColor="hsl(24, 100%, 92%)"
         text="Grades">
-          <LightShoutNumber number={strugglingSectionsCount}>
-            <div>courses with a D or F</div>
-            <div>right now</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={strugglingSectionsCount}>
+          <div>courses with a D or F</div>
+          <div>right now</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -240,11 +240,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#6A2987"
         fadedColor="hsl(237,80%,95%)"
         text="Testing">
-          <LightShoutNumber number={scoreText}>
-            <div>{testText}</div>
-            <div>{dateText}</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={scoreText}>
+          <div>{testText}</div>
+          <div>{dateText}</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -290,11 +290,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#ff7f00"
         fadedColor="hsl(24, 100%, 92%)"
         text="Reading">
-          <LightShoutNumber number={number}>
-            <div>{firstLine}</div>
-            <div>{secondLine}</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={number}>
+          <div>{firstLine}</div>
+          <div>{secondLine}</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -340,11 +340,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#6A2987"
         fadedColor="hsl(237,80%,95%)"
         text="Math">
-          <LightShoutNumber number={number}>
-            <div>{firstLine}</div>
-            <div>{secondLine}</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={number}>
+          <div>{firstLine}</div>
+          <div>{secondLine}</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -361,11 +361,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#c8326b"
         fadedColor="#f5e1e8"
         text="Attendance">
-          <LightShoutNumber number={count}>
-            <div>{count === 1 ? 'absence' : 'absences'}</div>
-            <div>last {DAYS_AGO} days</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={count}>
+          <div>{count === 1 ? 'absence' : 'absences'}</div>
+          <div>last {DAYS_AGO} days</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -383,11 +383,11 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#31AB39"
         fadedColor="hsl(120,80%,95%)"
         text="Behavior">
-          <LightShoutNumber number={count}>
-            <div>{count === 1 ? 'discipline incident' : 'discipline incidents'}</div>
-            <div>last {DAYS_AGO} days</div>
-          </LightShoutNumber>
-        </LightProfileTab>
+        <LightShoutNumber number={count}>
+          <div>{count === 1 ? 'discipline incident' : 'discipline incidents'}</div>
+          <div>last {DAYS_AGO} days</div>
+        </LightShoutNumber>
+      </LightProfileTab>
     );
   }
 
@@ -434,8 +434,8 @@ export default class LightProfilePage extends React.Component {
         <DetailsSection anchorId="sections-roster" className="roster" title="Sections">
           {hasSections
             ? <StudentSectionsRoster
-                sections={sections}
-                linkableSections={currentEducatorAllowedSections} />
+              sections={sections}
+              linkableSections={currentEducatorAllowedSections} />
             : <div>Not enrolled in any sections</div>}
 
         </DetailsSection>

@@ -260,7 +260,7 @@ class NewServiceUpload extends React.Component {
     if (this.props.missingLasidHeader) {
       return (
         <div style={{ color: 'red' }}>
-          The first column should be "LASID".
+          The first column should be {`"LASID"`}.
         </div>
       );
     } else if (this.props.lasidAuthorizationError) {
@@ -276,7 +276,7 @@ class NewServiceUpload extends React.Component {
           <br />
           <br />
           <ul>
-            {this.props.incorrectLasids.map(lasid => <li>{lasid}</li>)}
+            {this.props.incorrectLasids.map(lasid => <li key={lasid}>{lasid}</li>)}
           </ul>
         </div>
       );

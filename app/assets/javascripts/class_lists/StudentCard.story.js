@@ -52,6 +52,6 @@ storiesOf('classlists/StudentCard', module) // eslint-disable-line no-undef
             <td key={highlightKey}><StudentCard {...storyProps({student, highlightKey})} /></td>
           ))}</tr>
         ))}</tbody>
-        </table>
+      </table>
     ));
   });

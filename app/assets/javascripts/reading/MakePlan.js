@@ -18,7 +18,7 @@ export default function MakePlan(props = {}) {
   return (
     <div className="MakePlan">
       <div>
-        <div style={styles.heading}>Who's teaching a primary reading group (eg, XBlock)?</div>
+        <div style={styles.heading}>Who’s teaching a primary reading group (eg, XBlock)?</div>
         <Select
           disabled={!isEditable}
           name="select-primary-educators"
@@ -46,10 +46,10 @@ export default function MakePlan(props = {}) {
           labelKey="full_name"
           options={sortedEducators}
           onChange={educators => onPlanChanged({...plan, additionalEducatorIds: educators.map(e => e.id)})}
-          />
+        />
       </div>
       <div>
-        <div style={styles.heading}>What's your plan for creating reading groups?</div>
+        <div style={styles.heading}>What’s your plan for creating reading groups?</div>
         <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
           Some teams start with grouping students based on particular decoding skills like blends, other older groups start with comprehension skills like inferencing, while others start by placing students at lower F&P levels with reading specialists who can provide more specialized instruction.
         </div>

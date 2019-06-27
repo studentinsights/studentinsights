@@ -79,8 +79,8 @@
         return nil
       end
       @valid_student_name += 1
-      student_id = fuzzy_match[:student_id] 
-      
+      student_id = fuzzy_match[:student_id]
+
       # match educator by email
       educator_login_name = row['Evaluator username (eg, from email address)']
       educator = educator_login_name.present? ? PerDistrict.new.find_educator_by_login_text(educator_login_name) : nil

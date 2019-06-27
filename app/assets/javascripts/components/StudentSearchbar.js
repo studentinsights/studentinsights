@@ -149,8 +149,8 @@ export default class StudentSearchbar extends React.Component {
                 ...styles.menu, // our styling
                 display: (studentsForList.length === 0) ? 'none' : 'block'
               }}
-              children={items.concat(maybeMoreItemsEl)}
-            />
+            >{items.concat(maybeMoreItemsEl)}
+            </div>
           );
         }}
         {...(autocompleteProps || {})}
@@ -160,7 +160,7 @@ export default class StudentSearchbar extends React.Component {
 
   renderMenuContent(items, text) {
     const {students} = this.state;
-    if (text === '') return <div className="item">Type a student's name...</div>;
+    if (text === '') return <div className="item">Type a student’s name...</div>;
     if (students.length === 0) return <div className="item">Loading...</div>;
     if (items.length === 0) return <div className="item">No matches for {text}</div>;
 

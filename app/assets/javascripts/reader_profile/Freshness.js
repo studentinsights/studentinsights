@@ -17,15 +17,15 @@ export default function Freshness(props) {
       flex: 1,
       ...style
     }}>{isHovering => (
-      <div style={{
-        ...innerStyle,
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flex: 1,
-        ...(isHovering ? {} : freshnessStyle)
-      }}>{children}</div>
-    )}</Hover>
+        <div style={{
+          ...innerStyle,
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flex: 1,
+          ...(isHovering ? {} : freshnessStyle)
+        }}>{children}</div>
+      )}</Hover>
   );
 }
 Freshness.propTypes = {

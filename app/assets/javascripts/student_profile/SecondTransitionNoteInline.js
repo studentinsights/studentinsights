@@ -128,6 +128,7 @@ SecondTransitionNoteInline.propTypes = {
   json: PropTypes.object.isRequired,
   currentEducator: PropTypes.object.isRequired,
   student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired
   }).isRequired,

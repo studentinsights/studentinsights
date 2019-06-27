@@ -255,11 +255,11 @@ export default class LevelsView extends React.Component {
       <div onClick={this.onDownloadDialogToggled}>
         {isDownloadOpen
           ? <ReactModal
-              isOpen={true}
-              onRequestClose={this.onDownloadDialogToggled}
-              style={modalFromRight}>
-              {this.renderLinkWithCsvDataInline(columns, students)}
-            </ReactModal>
+            isOpen={true}
+            onRequestClose={this.onDownloadDialogToggled}
+            style={modalFromRight}>
+            {this.renderLinkWithCsvDataInline(columns, students)}
+          </ReactModal>
           : <DownloadIcon />
         }
       </div>

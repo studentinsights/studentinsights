@@ -4,7 +4,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
-import {Website, Email} from '../components/PublicLinks';
+import {Website, Email, HelpEmail} from '../components/PublicLinks';
 import WorkBoard from '../components/WorkBoard';
 
 
@@ -156,6 +156,20 @@ export class DistrictOverviewPageView extends React.Component {
             </li>
           </ul>
         </div>
+
+        <div>
+          <div style={styles.section}>Export districtwide data</div>
+          <ul style={styles.plainList}>
+            <li>
+              <a href="/district/wide_students_csv" style={styles.link}>
+               Download ’wide’ CSV for all students
+              </a>
+            </li>
+            <li>
+              Contact <HelpEmail /> for other exports
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }
@@ -207,9 +221,9 @@ export class DistrictOverviewPageView extends React.Component {
       <div style={{marginTop: 40}}>
         <SectionHeading>Student Insights work board</SectionHeading>
         <div style={{margin: 10, marginBottom: 20}}>
-          This is how we communicate about what we're working on now,
+          This is how we communicate about what we’re working on now,
           and what we think is coming next, across all districts.  Read
-          more at <Website /> or share what you're thinking about with us at <Email />.
+          more at <Website /> or share what you’re thinking about with us at <Email />.
         </div>
         <div style={{margin: 20, width: '100%', height: 800}}>
           <WorkBoard style={{width: '100%', height: '100%'}} />

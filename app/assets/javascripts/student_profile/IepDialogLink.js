@@ -104,7 +104,7 @@ export default class IepDialogLink extends React.Component {
         fallbackEl={(
           <div style={styles.pdfFallbackMessage}>
             <div>Use Firefox, Safari, Edge or Chrome to view this PDF right on the page.</div>
-            <div>If you're using an older version of Internet Explorer, you can install Adobe Acrobat Reader.</div>
+            <div>If you’re using an older version of Internet Explorer, you can install Adobe Acrobat Reader.</div>
           </div>
         )}
       />

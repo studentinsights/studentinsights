@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StudentsSpreadsheet do
+RSpec.describe WideStudentsExporter do
   context 'with generated students' do
     let!(:pals) { TestPals.create! }
     let!(:school) { School.find_by_name('Arthur D Healey') }
@@ -15,14 +15,14 @@ RSpec.describe StudentsSpreadsheet do
 
     describe '#csv_string' do
       it 'generates a CSV with the expected number of lines' do
-        csv_string = StudentsSpreadsheet.new.csv_string(school.students, school)
+        csv_string = WideStudentsExporter.new(pals.uri).csv_string(school.students)
         expect(csv_string.split("\n").size).to eq(1 + school.students.size)
       end
     end
 
     describe '#flat_row_hash' do
       it 'creates expected fields' do
-        flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all, school)
+        flat_row_hash = WideStudentsExporter.new(pals.uri).send(:flat_row_hash, school.students.first, ServiceType.all)
         expect(flat_row_hash.keys).to match_array([
            'id',
            'grade',
@@ -35,6 +35,12 @@ RSpec.describe StudentsSpreadsheet do
            'school_id',
            'registration_date',
            'local_id',
+           'counselor',
+           'hispanic_latino',
+           'house',
+           'race',
+           'sped_liaison',
+           'student_address',
            'program_assigned',
            'sped_placement',
            'disability',
@@ -61,6 +67,7 @@ RSpec.describe StudentsSpreadsheet do
            'homeroom_name',
            'primary_email',
            'primary_phone',
+
            'Attendance Officer (active_service_date_started)',
            'Attendance Contract (active_service_date_started)',
            'Behavior Contract (active_service_date_started)',

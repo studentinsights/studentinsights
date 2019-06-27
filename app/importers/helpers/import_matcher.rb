@@ -90,7 +90,7 @@ class ImportMatcher
   def parse_human_date_text(string)
     Date.strptime(string, '%m/%d/%Y') rescue nil
   end
-  
+
   def count_valid_row
     @valid_rows_count += 1
   end

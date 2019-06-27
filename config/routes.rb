@@ -148,6 +148,7 @@ Rails.application.routes.draw do
     get '/' => 'ui#ui'
     get 'enrollment' => 'ui#ui'
     get 'homerooms' => 'ui#ui'
+    get 'wide_students_csv' => 'district#wide_students_csv'
   end
 
   # search notes

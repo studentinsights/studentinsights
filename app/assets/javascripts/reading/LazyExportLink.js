@@ -30,11 +30,11 @@ export default class LazyExportLink extends React.Component {
       <div onClick={this.onDownloadDialogToggled}>
         {isDownloadOpen
           ? <ReactModal
-              isOpen={true}
-              onRequestClose={this.onDownloadDialogToggled}
-              style={modalFromRight}>
-              {this.renderDialog()}
-            </ReactModal>
+            isOpen={true}
+            onRequestClose={this.onDownloadDialogToggled}
+            style={modalFromRight}>
+            {this.renderDialog()}
+          </ReactModal>
           : <DownloadIcon />
         }
       </div>

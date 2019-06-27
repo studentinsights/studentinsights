@@ -142,13 +142,13 @@ export default class ExploreClassroomComparisons extends React.Component {
                   Size
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
-                  > 5 Absences
+                  {`> 5 Absences`}
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
-                  > 5 Tardies
+                  {`> 5 Tardies`}
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
-                  > 0 Discipline
+                  {`> 0 Discipline`}
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
                   Disability

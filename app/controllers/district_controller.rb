@@ -83,6 +83,15 @@ class DistrictController < ApplicationController
     }
   end
 
+  # GET download
+  def wide_students_csv
+    students = authorized { Student.active.to_a }
+    exporter = WideStudentsExporter.new(current_educator)
+    csv_string = exporter.csv_string(students)
+    filename = "StudentInsights-WideStudentsExport-all-#{Time.now.strftime("%Y-%m-%d")}.csv"
+    send_data csv_string, filename: filename, type: 'text/csv', disposition: 'inline'
+  end
+
   private
   def ensure_authorized_for_districtwide!
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
