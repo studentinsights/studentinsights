@@ -40,7 +40,7 @@ export default class HelpBubble extends React.Component {
           {this.props.teaser}
         </a>
         {// The modal is not logically here, but even while not displayed it needs a location in the DOM.
-        this.renderModal()}
+          this.renderModal()}
       </div>
     );
   }
@@ -60,31 +60,31 @@ export default class HelpBubble extends React.Component {
     return (
       <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={{...styles.modal, ...modalStyle}}>
         {// Every help box has a title and two close buttons. The content is free-form HTML.
-        <div style={dialogStyle}>
-          <div style={styles.titleBar}>
-            <h1 style={styles.title}>{title}</h1>
-            <a
-              href="#"
-              onClick={this.closeModal}
-              style={styles.escapeLink}>
+          <div style={dialogStyle}>
+            <div style={styles.titleBar}>
+              <h1 style={styles.title}>{title}</h1>
+              <a
+                href="#"
+                onClick={this.closeModal}
+                style={styles.escapeLink}>
               (ESC)
-            </a>
-          </div>
-          {withoutContentWrapper
-            ? content
-            : <div>{content}</div>
-          }
+              </a>
+            </div>
+            {withoutContentWrapper
+              ? content
+              : <div>{content}</div>
+            }
 
-          {/* Fills the empty space */}
-          {!withoutSpacer && (
-            <div style={{flex: 1, minHeight: 20}}>{""}</div>
-          )}
-          <div>
-            <a href="#" onClick={this.closeModal} style={{cursor: 'pointer'}}>
+            {/* Fills the empty space */}
+            {!withoutSpacer && (
+              <div style={{flex: 1, minHeight: 20}}>{""}</div>
+            )}
+            <div>
+              <a href="#" onClick={this.closeModal} style={{cursor: 'pointer'}}>
               (close)
-            </a>
-          </div>
-        </div>}
+              </a>
+            </div>
+          </div>}
       </ReactModal>
     );
   }

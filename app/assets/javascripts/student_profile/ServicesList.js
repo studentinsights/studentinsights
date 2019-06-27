@@ -66,7 +66,7 @@ export default class ServicesList extends React.Component {
     const elements = (this.props.servicesFeed.active.length === 0 && this.props.servicesFeed.discontinued.length === 0)
       ? <div style={styles.noItems}>
       No services
-    </div>
+      </div>
       : this.sortedMergedServices(this.props.servicesFeed).map(this.renderService, this);
     return (
       <div className="ServicesList">
@@ -95,11 +95,11 @@ export default class ServicesList extends React.Component {
             </div>
             {this.renderEducatorName(providedByEducatorName)}
             {// When did the service start?
-            this.renderDateStarted(service)}
+              this.renderDateStarted(service)}
             {// When will the service end?
-            this.renderEstimatedEndDate(service)}
+              this.renderEstimatedEndDate(service)}
             {// How long has it been going?
-            this.renderTimeSinceStarted(service)}
+              this.renderTimeSinceStarted(service)}
           </div>
           {this.renderDiscontinuedInformation(service)}
         </div>

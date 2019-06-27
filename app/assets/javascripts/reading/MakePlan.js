@@ -46,7 +46,7 @@ export default function MakePlan(props = {}) {
           labelKey="full_name"
           options={sortedEducators}
           onChange={educators => onPlanChanged({...plan, additionalEducatorIds: educators.map(e => e.id)})}
-          />
+        />
       </div>
       <div>
         <div style={styles.heading}>What's your plan for creating reading groups?</div>

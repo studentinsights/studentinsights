@@ -100,42 +100,42 @@ export default class ClassListCreatorWorkflow extends React.Component {
         <div>
           <div>
             <div style={styles.heading}>What school?</div>
-              <Select
-                name="select-school-name"
-                value={schoolId}
-                onChange={item => onSchoolIdChanged(item.value)}
-                disabled={!isEditable || !canChangeSchoolOrGrade}
-                options={_.sortBy(schools, s => s.name).map(school => {
-                  return {
-                    value: school.id,
-                    label: school.name
-                  };
-                })}
-              />
+            <Select
+              name="select-school-name"
+              value={schoolId}
+              onChange={item => onSchoolIdChanged(item.value)}
+              disabled={!isEditable || !canChangeSchoolOrGrade}
+              options={_.sortBy(schools, s => s.name).map(school => {
+                return {
+                  value: school.id,
+                  label: school.name
+                };
+              })}
+            />
           </div>
           <div>
             <div style={styles.heading}>What grade level are you creating?</div>
-              <Select
-                name="select-grade-level"
-                value={gradeLevelNextYear}
-                onChange={item => onGradeLevelNextYearChanged(item.value)}
-                disabled={!isEditable || !canChangeSchoolOrGrade}
-                options={gradeLevelsNextYear.map(gradeLevelNextYear => {
-                  return {
-                    value: gradeLevelNextYear,
-                    label: `Next year's ${gradeText(gradeLevelNextYear)} ` 
-                  };
-                })}
-              />
+            <Select
+              name="select-grade-level"
+              value={gradeLevelNextYear}
+              onChange={item => onGradeLevelNextYearChanged(item.value)}
+              disabled={!isEditable || !canChangeSchoolOrGrade}
+              options={gradeLevelsNextYear.map(gradeLevelNextYear => {
+                return {
+                  value: gradeLevelNextYear,
+                  label: `Next year's ${gradeText(gradeLevelNextYear)} ` 
+                };
+              })}
+            />
           </div>
           <div>
             <div style={styles.heading}>Are these homeroom lists, or another kind of class list (eg, social studies groups?)</div>
-              <input
-                style={styles.inputText}
-                placeholder="homerooms"
-                readOnly={!isEditable || !canChangeSchoolOrGrade}
-                value={listTypeText}
-                onChange={event => onListTypeTextChanged(event.target.value)} />
+            <input
+              style={styles.inputText}
+              placeholder="homerooms"
+              readOnly={!isEditable || !canChangeSchoolOrGrade}
+              value={listTypeText}
+              onChange={event => onListTypeTextChanged(event.target.value)} />
           </div>
           
           {!canChangeSchoolOrGrade &&

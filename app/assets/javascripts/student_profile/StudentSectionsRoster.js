@@ -63,8 +63,8 @@ export default class StudentSectionsRoster extends React.Component {
     const linkableSection = _.includes(this.props.linkableSections, section.id);
     
     return linkableSection ? 
-           this.renderSectionNumberLink(section) :
-           this.renderSectionNumberNoLink(section);
+      this.renderSectionNumberLink(section) :
+      this.renderSectionNumberNoLink(section);
   }
 
   renderSectionNumberLink(section) {

@@ -139,7 +139,7 @@ export class MyStudentsPageView extends React.Component {
             sort={this.onTableSort}
             sortBy={sortBy}
             sortDirection={sortDirection}
-            >
+          >
             <Column
               label='Name'
               dataKey='name'
@@ -158,10 +158,10 @@ export class MyStudentsPageView extends React.Component {
               width={100}
             />
             <Column
-             label='Program'
-             dataKey='program'
-             cellRenderer={this.renderProgram}
-             width={150}
+              label='Program'
+              dataKey='program'
+              cellRenderer={this.renderProgram}
+              width={150}
             />
             {supportsHouse(districtKey) &&
               <Column

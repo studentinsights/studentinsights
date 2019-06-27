@@ -39,7 +39,7 @@ export default class CheckStudentsWithLowGradesBox extends React.Component {
             content={this.renderHelpContent()} />
         </div>
         <Card style={{border: 'none'}}>
-           <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned for the last 45 days.</div>
+          <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned for the last 45 days.</div>
           {this.renderList(truncatedStudentsWithLowGrades)}
           {this.renderMore(truncatedStudentsWithLowGrades)}
         </Card>

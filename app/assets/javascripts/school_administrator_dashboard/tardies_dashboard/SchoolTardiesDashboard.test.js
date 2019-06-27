@@ -32,7 +32,7 @@ describe('SchoolTardiesDashboard', () => {
       schoolTardyEvents={schoolTardyEvents}
       homeroomTardyEvents={homeroomTardyEvents}
       dashboardStudents={students}/>
-  , {context});
+    , {context});
 
   it('renders two bar charts', () => {
     expect(dash.find('DashboardBarChart').length).toEqual(2);

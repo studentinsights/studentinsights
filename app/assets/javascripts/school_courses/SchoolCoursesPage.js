@@ -94,8 +94,8 @@ export class SchoolCoursesPagePure extends React.Component {
                 )}</td>
                 <td style={rightAlignStyle}>{students.length}</td>
                 <td style={rightAlignStyle}>{grades.length > 1
-                    ? <span>{_.head(grades)} - {_.last(grades)}</span>
-                    : grades[0]}</td>
+                  ? <span>{_.head(grades)} - {_.last(grades)}</span>
+                  : grades[0]}</td>
                 <td style={rightAlignStyle}>{_.head(ages)} - {_.last(ages)}</td>
                 <td style={tableStyles.cell}>{schools.map(school =>
                   <School

@@ -198,10 +198,10 @@ export class ReadingDebugStarView extends React.Component {
       return (_.compact(values).length === 0)
         ? null
         : <BoxAndWhisker
-            values={values}
-            showQuartiles={true}
-            quartileLabelStyle={{color: '#ccc'}}
-          />;
+          values={values}
+          showQuartiles={true}
+          quartileLabelStyle={{color: '#ccc'}}
+        />;
     }
 
     if (visualization === 'COLOR_BUCKETS') {

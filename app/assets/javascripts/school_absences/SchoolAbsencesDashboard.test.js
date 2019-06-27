@@ -205,7 +205,7 @@ function snapshotJson(districtKey) {
       <PerDistrictContainer districtKey={districtKey}>
         {pageSizeFrame(testEl())}
       </PerDistrictContainer>
-  ));
+    ));
 }
 
 describe('snapshots', () => {

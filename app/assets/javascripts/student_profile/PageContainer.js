@@ -190,8 +190,8 @@ export default class PageContainer extends React.Component {
     if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
       this.setRequestState({saveService: PENDING});
       this.api.saveService(student.id, serviceParams)
-          .then(this.onSaveServiceDone)
-          .catch(this.onSaveServiceFail);
+        .then(this.onSaveServiceDone)
+        .catch(this.onSaveServiceFail);
     } else {
       this.setRequestState({saveService: 'Please use the form Last Name, First Name'});
     }

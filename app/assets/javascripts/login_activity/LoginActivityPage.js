@@ -146,8 +146,8 @@ export default class LoginActivityPage extends React.Component {
 
     return (
       <div key={index}
-           style={{...style.cell, ...style.squareCell}}
-           className='tooltip'>
+        style={{...style.cell, ...style.squareCell}}
+        className='tooltip'>
         {this.renderTooltipText(email, successfulAttempts, failedAttempts, day)}
         {this.renderSuccessLoginSegment(successfulAttempts)}
         {this.renderFailLoginSegment(failedAttempts)}

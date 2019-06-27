@@ -166,7 +166,7 @@ function snapshotJson(districtKey) {
       <PerDistrictContainer districtKey={districtKey}>
         {pageSizeFrame(testEl({school: testSchool(), dashboardStudents: createStudents(setDate())}))}
       </PerDistrictContainer>
-  ));
+    ));
 }
 
 describe('snapshots', () => {

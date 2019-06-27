@@ -120,8 +120,8 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
                 <a
                   style={styles.person}
                   href={`/students/${student.id}?column=attendance#absences`}>
-                    {student.first_name} {student.last_name}
-                  </a> has missed {count} days of school
+                  {student.first_name} {student.last_name}
+                </a> has missed {count} days of school
               </span>
             </div>
           );

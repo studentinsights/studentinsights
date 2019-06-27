@@ -28,11 +28,11 @@ class Api {
     const url = '/service_uploads/lasids';
 
     return apiFetchJson(url)
-             .then(allLasids => {
-               return Array.isArray(allLasids)
-                         ? onSucceed(uploadLasids, allLasids)
-                         : onError();
-             });
+      .then(allLasids => {
+        return Array.isArray(allLasids)
+          ? onSucceed(uploadLasids, allLasids)
+          : onError();
+      });
   }
 }
 

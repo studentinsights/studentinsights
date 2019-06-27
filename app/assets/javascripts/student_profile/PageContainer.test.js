@@ -88,7 +88,7 @@ const helpers = {
           <PageContainer {...mergedProps} />
         </PerDistrictContainer>
       )
-    , el);
+      , el);
     return {el, instance};
   },
 

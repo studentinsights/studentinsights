@@ -68,8 +68,8 @@ function color(word, weight, fontSize, distance, theta) {
 
 function cleanWord(word) {
   return word
-    .replace(/[+-,:\.\(\)]*$/,'')
-    .replace(/^[+-,:\.\(\)]*/,'');
+    .replace(/[+-,:.()]*$/,'')
+    .replace(/^[+-,:.()]*/,'');
 
 }
 function cleaned(words) {

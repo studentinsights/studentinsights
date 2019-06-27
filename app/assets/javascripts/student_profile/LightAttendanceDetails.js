@@ -33,7 +33,7 @@ export default class LightAttendanceDetails extends React.Component {
         phaselines={this.phaselines()}
         seriesFn={absenceSeriesFn}
         tooltipFn={absenceTooltipFn}
-        />
+      />
     );
   }
 

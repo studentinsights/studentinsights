@@ -41,14 +41,14 @@ storiesOf('profile/NoteCard', module) // eslint-disable-line no-undef
     fetchMock.restore();
     fetchMock.get('/mocked-url-for-restricted-note-content', { text: 'DANGEROUS restricted note content' });
     return (<div>
-        {testScenarios().map(scenario => (
-          <div style={{marginLeft: 10, marginTop: 20}}>
-            <h3>{scenario.label}</h3>
-            <hr />
-            {storyRender(storyProps(scenario.propsDiff))}
-          </div>
-        ))}
-      </div>
+      {testScenarios().map(scenario => (
+        <div style={{marginLeft: 10, marginTop: 20}}>
+          <h3>{scenario.label}</h3>
+          <hr />
+          {storyRender(storyProps(scenario.propsDiff))}
+        </div>
+      ))}
+    </div>
     );
   })
   .add('substanceOnly', () => (

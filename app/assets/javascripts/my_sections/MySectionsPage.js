@@ -130,7 +130,7 @@ export class MySectionsPageView extends React.Component {
             sort={this.onTableSort}
             sortBy={sortBy}
             sortDirection={sortDirection}
-            >
+          >
             <Column
               label='Section'
               dataKey='section_number'
