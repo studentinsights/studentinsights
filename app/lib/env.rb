@@ -10,7 +10,7 @@ class Env
     # instance config
     default_env['DISTRICT_KEY'] = 'somerville'
     default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
-    default_env['CANONICAL_DOMAIN'] = 'localhost-studentinsights' # intentionally not valid
+    default_env['CANONICAL_DOMAIN'] = nil # no redirection or HTTPS locally
     default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_base":"student-insights-multifactor-authenticator-educator"}'
     default_env['CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS'] = '2000'
     default_env['PASSWORD_CHECKER_SECRET64'] = "IyIMFkLrcvHY/fDMomHt7yYB6EgjGj532cGNhymmCPg=\n"
