@@ -16,7 +16,7 @@ it('renders without crashing', () => {
       <BirthdayCard studentBirthdayCard={studentBirthdayCard} />
     )
     , el);
-  expect($(el).text()).toContain("🎉Luke Kenobi's birthday was on Monday 3/5!");
+  expect($(el).text()).toContain("🎉Luke Kenobi’s birthday was on Monday 3/5!");
   expect($(el).find('a').attr('href')).toEqual('/students/4');
 });
 
@@ -33,5 +33,5 @@ it('renders `is` for birthday today', () => {
       <BirthdayCard studentBirthdayCard={studentBirthdayCard} />
     )
     , el);
-  expect($(el).text()).toContain("🎉Luke Kenobi's birthday is on Monday 3/5!");
+  expect($(el).text()).toContain("🎉Luke Kenobi’s birthday is on Monday 3/5!");
 });

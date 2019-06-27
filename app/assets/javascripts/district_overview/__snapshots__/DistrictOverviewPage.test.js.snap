@@ -650,7 +650,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
                   }
                 }
               >
-                Download "wide" CSV for all students
+                Download ’wide’ CSV for all students
               </a>
             </li>
             <li>
@@ -1519,7 +1519,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                   }
                 }
               >
-                Download "wide" CSV for all students
+                Download ’wide’ CSV for all students
               </a>
             </li>
             <li>
