@@ -18,7 +18,7 @@ class SimpleSyncer
     log('Calling #delete_unmarked_records...')
     @syncer.delete_unmarked_records!(records_within_scope)
     log("Syncing stats: #{@syncer.stats}")
-    
+
     @syncer.stats
   end
 

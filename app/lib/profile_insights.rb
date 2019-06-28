@@ -9,7 +9,7 @@ class ProfileInsights
       from_first_transition_note_strength +
       from_first_student_voice_survey +
       about_team_membership +
-      from_bedford_elementary_transition + 
+      from_bedford_elementary_transition +
       from_bedford_sixth_grade_student_voice_transition_form
     )
     all_insights.as_json(options)
@@ -154,7 +154,7 @@ class ProfileInsights
     form_key = ImportedForm::BEDFORD_SIXTH_GRADE_TRANSITION_FORM
     imported_form = ImportedForm.latest_for_student_id(@student.id, form_key)
     return [] if imported_form.nil?
-    
+
     insights_from_generic_imported_form(imported_form)
   end
 
