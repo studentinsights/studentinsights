@@ -1,4 +1,19 @@
 class StudentSectionAssignmentsImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE
+      ],
+      merge: DataFlow::MERGE_UPDATE_DELETE_UNMARKED,
+      touches: [
+        StudentSectionAssignment.name
+      ],
+      description: 'SIS rosters for student enrollment in sections.'
+    })
+  end
 
   def initialize(options:)
     @school_local_ids = options.fetch(:school_scope, [])

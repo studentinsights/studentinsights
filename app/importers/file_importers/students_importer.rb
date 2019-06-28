@@ -1,5 +1,19 @@
 class StudentsImporter
 
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      merge: DataFlow::MERGE_UPDATE_FLAG_UNMARKED,
+      options: [DataFlow::OPTION_SCHOOL_SCOPE],
+      touches: [
+        Student.name
+      ],
+      description: 'Student rosters'
+    })
+  end
+
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)

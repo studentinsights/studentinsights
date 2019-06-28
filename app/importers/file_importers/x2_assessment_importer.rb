@@ -1,4 +1,21 @@
 class X2AssessmentImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE,
+        DataFlow::OPTION_SKIP_OLD_RECORDS
+      ],
+      merge: DataFlow::MERGE_UPDATE_IGNORE_UNMARKED,
+      touches: [
+        StudentAssessment.name,
+        DibelsResult.name
+      ],
+      description: 'SIS assessments.  These are often complex and contain different data points from different sources in different formats.  This only imports MCAS and ACCESS data, and contains a deprecated variant of DIBELS imports.  For more recent reading data, see ReadingBenchmarkData'
+    })
+  end
 
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
@@ -114,8 +131,8 @@ class X2AssessmentImporter
       McasRow.new(row, student_id, assessments_array).build
     elsif row_class == AccessRow
       AccessRow.new(row, student_id, assessments_array).build
-    elsif row_class == DibelsRow
-      DibelsRow.new(row, student_id, @log).build
+    elsif row_class == DibelsRow # deprecated
+      DibelsRow.new(row, student_id, @log).build # deprecated
     else
       nil
     end
