@@ -182,7 +182,7 @@ export default class ServiceUploadsPage extends React.Component {
     }
 
     const student_lasids = rows.map((row) => { return row.split(",")[0].trim(); })
-                             .filter((lasid) => { return lasid !== ''; });
+      .filter((lasid) => { return lasid !== ''; });
     const onSuccess = this.onValidateLasidAuthSuccess;
     const onError = this.onValidateLasidAuthError;
 

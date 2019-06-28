@@ -59,7 +59,7 @@ export function schoolYearStartDates(dateRange){
   // dateRange: A 2-element array of Moment objects.
   // returns: An array of Moment objects representing the start dates of each school year in the calendar year range.
   return allSchoolYearStarts(dateRange)
-        .map(firstDayOfSchool);
+    .map(firstDayOfSchool);
 }
 
 // Takes an array of attendanceEvent objects.

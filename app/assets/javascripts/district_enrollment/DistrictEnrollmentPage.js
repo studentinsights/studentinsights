@@ -154,8 +154,8 @@ export class DistrictEnrollmentPageView extends React.Component {
   renderBar(studentCount, options = {}) {
     const scaleFactor = options.scaleFactor || 0.5;
     const percentage = (studentCount === 0)
-        ? 0
-        : studentCount * scaleFactor;
+      ? 0
+      : studentCount * scaleFactor;
     const width = (percentage > 100)
       ? '100%'
       : percentage + '%';

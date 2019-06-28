@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 // UI actions, stepping stone to Flux
@@ -53,7 +54,7 @@ export const history = PropTypes.shape({
 // null values (which `.isRequired` doesn't allow).
 export function nullableWithKey(propType) {
   return (props, propName, componentName) => {
-    if (!props.hasOwnProperty(propName)) {
+    if (!_.has(props, propName)) {
       return new Error(
         'Missing prop `' + propName + '` in ' +
         ' `' + componentName + '`. Nulls are allowed, but must be passed explicitly.'

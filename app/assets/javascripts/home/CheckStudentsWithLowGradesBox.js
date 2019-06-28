@@ -39,7 +39,7 @@ export default class CheckStudentsWithLowGradesBox extends React.Component {
             content={this.renderHelpContent()} />
         </div>
         <Card style={{border: 'none'}}>
-           <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned for the last 45 days.</div>
+          <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned for the last 45 days.</div>
           {this.renderList(truncatedStudentsWithLowGrades)}
           {this.renderMore(truncatedStudentsWithLowGrades)}
         </Card>
@@ -50,8 +50,8 @@ export default class CheckStudentsWithLowGradesBox extends React.Component {
   renderHelpContent() {
     return (
       <div>
-        <p style={styles.helpContent}>These are all the students in courses that you teach who have a D or F right now, but {"haven't"} been mentioned recently.</p>
-        <p style={styles.helpContent}>This means there aren't any notes about them from support meetings, parent conversations, or anything else in Student Insights.  The threshold for being included in this list is to have one or more grade that is below a 69 right now.</p>
+        <p style={styles.helpContent}>These are all the students in courses that you teach who have a D or F right now, but haven’t been mentioned recently.</p>
+        <p style={styles.helpContent}>This means there aren’t any notes about them from support meetings, parent conversations, or anything else in Student Insights.  The threshold for being included in this list is to have one or more grade that is below a 69 right now.</p>
         <p style={styles.helpContent}>You could talk directly with the student or reach out to the family.  Or you could connect with a colleague who can provide support services (eg, academic support, tutoring, counselors).</p>
       </div>
     );

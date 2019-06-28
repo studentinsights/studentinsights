@@ -104,7 +104,7 @@ export default class SecondTransitionNoteDialog extends React.Component {
       <div style={styles.root}>
         {this.renderDialogTitle(bridge)}
         <div style={styles.quote}>
-          <span style={{fontSize: 12}}>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers."</span>
+          <span style={{fontSize: 12}}>{`"What we say shapes how adults think about and treat students, how students feel about themselves and their peers."`}</span>
           <a style={{marginLeft: 10, fontSize: 12}} href="http://schooltalking.org/schooltalk/" target="_blank" rel="noopener noreferrer">Schooltalk</a>
         </div>
         <div>

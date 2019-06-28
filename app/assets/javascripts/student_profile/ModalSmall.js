@@ -57,23 +57,23 @@ export default class ModalSmall extends React.Component {
         style={{...styles, ...modalStyle}}
       >
         {
-        <div className="contact-info-modal">
-          <div
-            style={{borderBottom: '1px solid #333', paddingBottom: 10, marginBottom: 20}}>
-            <h1 style={{display: 'inline-block'}}>
-              {title}
-            </h1>
-            <a
-              href="#"
-              onClick={this.closeModal}
-              style={{float: 'right', cursor: 'pointer'}}>
+          <div className="contact-info-modal">
+            <div
+              style={{borderBottom: '1px solid #333', paddingBottom: 10, marginBottom: 20}}>
+              <h1 style={{display: 'inline-block'}}>
+                {title}
+              </h1>
+              <a
+                href="#"
+                onClick={this.closeModal}
+                style={{float: 'right', cursor: 'pointer'}}>
               (ESC)
-            </a>
-          </div>
-          <div>
-            {content}
-          </div>
-        </div>}
+              </a>
+            </div>
+            <div>
+              {content}
+            </div>
+          </div>}
       </ReactModal>
     );
   }

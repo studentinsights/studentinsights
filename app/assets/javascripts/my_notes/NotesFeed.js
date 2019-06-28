@@ -26,7 +26,7 @@ export default class NotesFeed extends React.Component {
             {this.renderSidebar()}
           </div>
         </div>
-          {this.renderFooter()}
+        {this.renderFooter()}
       </div>
     );
   }

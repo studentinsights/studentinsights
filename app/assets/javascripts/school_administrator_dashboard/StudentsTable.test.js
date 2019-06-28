@@ -14,7 +14,7 @@ function testRender(options = {}) {
       incidentType={"Test Incidents"}
       resetFn={(value) => null}
       forcedSizeForTesting={{width: 1000, height: 600}} />
-  , {context});
+    , {context});
   return table;
 }
 

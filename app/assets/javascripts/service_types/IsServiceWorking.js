@@ -67,7 +67,7 @@ class IsServiceWorking extends React.Component {
       <div className="IsServiceWorking">
         <ExperimentalBanner />
         <SectionHeading>
-          "Is this Service Working for this Student?"
+          {`"Is this Service Working for this Student?"`}
         </SectionHeading>
         <p style={{padding: '10px 0 0 10px'}}>
           Every student is different.

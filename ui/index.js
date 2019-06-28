@@ -41,5 +41,5 @@ if (mainEl) {
         districtKey={districtKey}
         sessionTimeoutInSeconds={sessionTimeoutInSeconds} />
     </BrowserRouter>
-  , mainEl);
+    , mainEl);
 }

@@ -66,8 +66,8 @@ export default class ReaderProfileJune extends React.Component {
             </NotesContainer>
           }
           subs={[
-            <Sub name="in small groups" />,
-            <Sub name="independently" />
+            <Sub key="groups" name="in small groups" />,
+            <Sub key="independently" name="independently" />
           ]}
         />
 
@@ -81,8 +81,8 @@ export default class ReaderProfileJune extends React.Component {
             </NotesContainer>
           }
           subs={[
-            <Sub name="expressive" />,
-            <Sub name="receptive" />
+            <Sub key="expressive" name="expressive" />,
+            <Sub key="receiptive" name="receptive" />
           ]}
         />
 
@@ -96,11 +96,15 @@ export default class ReaderProfileJune extends React.Component {
             </NotesContainer>
           }
           subs={[
-            <Sub name="spoken"
+            <Sub
+              key="spoken"
+              name="spoken"
               screener={this.renderChipForLanguage('oral')}
               intervention={<MultipleChips chips={this.renderChipsForServices([510])} />}
             />,
-            <Sub name="written"
+            <Sub
+              key="written"
+              name="written"
               screener={this.renderChipForLanguage('literacy')}
               intervention={<MultipleChips chips={this.renderChipsForServices([510])} />}
             />
@@ -117,6 +121,7 @@ export default class ReaderProfileJune extends React.Component {
           }
           subs={[
             <Sub
+              key="blending"
               name="blending"
               diagnostic={
                 <Suggestion
@@ -137,8 +142,8 @@ export default class ReaderProfileJune extends React.Component {
               intervention={this.renderPhonologicalIntervention()}
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
-            <Sub name="deleting" />,
-            <Sub name="substituting" />
+            <Sub key="deleting" name="deleting" />,
+            <Sub key="substituting" name="substituting" />
           ]}
         />
 
@@ -152,10 +157,14 @@ export default class ReaderProfileJune extends React.Component {
             </NotesContainer>
           }
           subs={[
-            <Sub name="letters"
+            <Sub
+              key="letters"
+              name="letters"
               screener={this.renderChipForDibels('letters', DIBELS_LNF)}
             />,
-            <Sub name="accurate"
+            <Sub
+              key="accurate"
+              name="accurate"
               diagnostic={
                 <Suggestion
                   text="phonics screeners"
@@ -173,7 +182,9 @@ export default class ReaderProfileJune extends React.Component {
               }
               screener={this.renderChipForDibels('accurate', DIBELS_DORF_ACC)}
             />,
-            <Sub name="fluent"
+            <Sub
+              key="fluent"
+              name="fluent"
               screener={
                 <MultipleChips chips={[
                   this.renderChipForDibels('fluent', DIBELS_DORF_WPM),
@@ -187,7 +198,9 @@ export default class ReaderProfileJune extends React.Component {
                 />
               }
             />,
-            <Sub name="comprehension"
+            <Sub
+              key="comprehension"
+              name="comprehension"
               screener={this.renderChipForFAndPEnglish('comprehension')}
             />
           ]}
@@ -347,6 +360,7 @@ ReaderProfileJune.propTypes = {
   iepContents: PropTypes.object,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
     grade: PropTypes.any.isRequired
   }).isRequired,
   feedCards: PropTypes.arrayOf(PropTypes.object).isRequired,

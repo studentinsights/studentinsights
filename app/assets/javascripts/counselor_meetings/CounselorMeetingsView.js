@@ -216,7 +216,7 @@ export default class CounselorMeetingsView extends React.Component {
             sort={this.onTableSort}
             sortBy={sortBy}
             sortDirection={sortDirection}
-            >
+          >
             <Column
               label='Name'
               dataKey='name'

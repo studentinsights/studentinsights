@@ -27,13 +27,13 @@ export default class SectionHeader extends React.Component {
     return (
       <span>
         <select id="section-select" value={this.props.section.id} onChange={this.handleChangeSection}>
-            {this.props.sections.map(section => {
-              return (
-                <option key={section.id} value={section.id}>
-                  {section.section_number}
-                </option>
-              );
-            },this)}
+          {this.props.sections.map(section => {
+            return (
+              <option key={section.id} value={section.id}>
+                {section.section_number}
+              </option>
+            );
+          },this)}
         </select>
       </span>
     );

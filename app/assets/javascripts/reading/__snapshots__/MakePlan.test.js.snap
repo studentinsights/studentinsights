@@ -12,7 +12,7 @@ exports[`snapshots 1`] = `
         }
       }
     >
-      Who's teaching a primary reading group (eg, XBlock)?
+      Who’s teaching a primary reading group (eg, XBlock)?
     </div>
     <div
       className="Select is-clearable is-searchable Select--multi"
@@ -194,7 +194,7 @@ exports[`snapshots 1`] = `
         }
       }
     >
-      What's your plan for creating reading groups?
+      What’s your plan for creating reading groups?
     </div>
     <div
       style={
@@ -264,7 +264,7 @@ exports[`snapshots when not isEditable 1`] = `
         }
       }
     >
-      Who's teaching a primary reading group (eg, XBlock)?
+      Who’s teaching a primary reading group (eg, XBlock)?
     </div>
     <div
       className="Select is-clearable is-disabled is-searchable Select--multi"
@@ -398,7 +398,7 @@ exports[`snapshots when not isEditable 1`] = `
         }
       }
     >
-      What's your plan for creating reading groups?
+      What’s your plan for creating reading groups?
     </div>
     <div
       style={

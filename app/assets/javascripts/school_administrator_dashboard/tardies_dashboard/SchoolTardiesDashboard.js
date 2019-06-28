@@ -178,17 +178,17 @@ export default class SchoolTardiesDashboard extends React.Component {
     });
 
     return (
-        <DashboardBarChart
-          id={'string'}
-          animation={false}
-          categories={{categories: homerooms}}
-          seriesData={homeroomSeries}
-          titleText={`Tardies by Homeroom (${this.timeRangeText()})`}
-          measureText={'Number of Tardies'}
-          tooltip= {{
-            pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-          onColumnClick={this.setStudentList}
-          onBackgroundClick={this.resetStudentList}/>
+      <DashboardBarChart
+        id={'string'}
+        animation={false}
+        categories={{categories: homerooms}}
+        seriesData={homeroomSeries}
+        titleText={`Tardies by Homeroom (${this.timeRangeText()})`}
+        measureText={'Number of Tardies'}
+        tooltip= {{
+          pointFormat: 'Total tardies: <b>{point.y}</b>'}}
+        onColumnClick={this.setStudentList}
+        onBackgroundClick={this.resetStudentList}/>
     );
   }
 

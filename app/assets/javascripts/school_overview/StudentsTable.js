@@ -197,7 +197,7 @@ export default class StudentsTable extends React.Component {
 
     return (
       <th key={sortBy} onClick={this.onClickHeader.bind(null, sortBy, sortType)}
-          className={this.headerClassName(sortBy)}>
+        className={this.headerClassName(sortBy)}>
         <div>{pieces[0]}</div>
         <div>{pieces[1]}</div>
       </th>

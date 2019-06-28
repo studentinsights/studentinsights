@@ -117,7 +117,7 @@ describe 'login timing', type: :feature do
         end
         feature_reset_login_attempt!
 
-        tolerance_ms = 100
+        tolerance_ms = 200
         failure_message = "unexpected timing for login='#{login}', password='#{password}', options='#{options}'  timing: #{elapsed_milliseconds}"
         expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), failure_message
         print('✓') # a nice progress indicator since these are slower tests

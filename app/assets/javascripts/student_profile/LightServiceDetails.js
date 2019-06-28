@@ -122,7 +122,7 @@ export default class ServiceDetails extends React.Component {
         </ul>
         <br />
         <p>
-          If your data fits into one of these categories, it's a Service. Otherwise, it's a Note.
+          If your data fits into one of these categories, it’s a Service. Otherwise, it’s a Note.
         </p>
       </div>
     );
