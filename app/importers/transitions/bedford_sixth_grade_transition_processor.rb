@@ -4,9 +4,9 @@
 # EOD
 # form_url = '...'
 # educator_id = Educator.find_by_login_name('...').id
-# importer = BedfordSixthGradeTransitionImporter.new(educator_id, form_url)
-# records = importer.create!(file_text);nil
-class BedfordSixthGradeTransitionImporter
+# importer = BedfordSixthGradeTransitionProcessor.new(educator_id, form_url)
+# hashes = importer.dry_run(file_text);nil
+class BedfordSixthGradeTransitionProcessor
   def initialize(educator_id, form_url, options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
@@ -36,6 +36,7 @@ class BedfordSixthGradeTransitionImporter
 
     # timestamp
     form_timestamp = @matcher.parse_sheets_est_timestamp(row['Timestamp'])
+    return nil if form_timestamp.nil?
 
     # whitelist prompts and responses
     form_json = row.to_h.slice(*ImportedForm.prompts(@form_key))

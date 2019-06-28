@@ -9,7 +9,8 @@ class ProfileInsights
       from_first_transition_note_strength +
       from_first_student_voice_survey +
       about_team_membership +
-      from_bedford_transition
+      from_bedford_elementary_transition + 
+      from_bedford_sixth_grade_student_voice_transition_form
     )
     all_insights.as_json(options)
   end
@@ -123,7 +124,7 @@ class ProfileInsights
   end
 
   # For showing the "connecting" as an educator insight
-  def from_bedford_transition
+  def from_bedford_elementary_transition
     return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
 
     prompt = 'Please share anything that helped you connect with this student that might be helpful to the next teacher.'
@@ -145,6 +146,16 @@ class ProfileInsights
       })
     })
     [insight]
+  end
+
+  def from_bedford_sixth_grade_student_voice_transition_form
+    return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
+
+    form_key = ImportedForm::BEDFORD_SIXTH_GRADE_TRANSITION_FORM
+    imported_form = ImportedForm.latest_for_student_id(@student.id, form_key)
+    return [] if imported_form.nil?
+    
+    insights_from_generic_imported_form(imported_form)
   end
 
   private

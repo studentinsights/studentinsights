@@ -3,6 +3,7 @@ class ImportedForm < ApplicationRecord
   SHS_Q2_SELF_REFLECTION = 'shs_q2_self_reflection';
   SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR = 'shs_what_i_want_my_teacher_to_know_mid_year';
   BEDFORD_END_OF_YEAR_TRANSITION_FORM = 'bedford_end_of_year_transition_one'
+  BEDFORD_SIXTH_GRADE_TRANSITION_FORM = 'bedford_sixth_grade_transition_form'
 
   belongs_to :student
   belongs_to :educator
@@ -16,7 +17,8 @@ class ImportedForm < ApplicationRecord
     in: [
       SHS_Q2_SELF_REFLECTION,
       SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR,
-      BEDFORD_END_OF_YEAR_TRANSITION_FORM
+      BEDFORD_END_OF_YEAR_TRANSITION_FORM,
+      BEDFORD_SIXTH_GRADE_TRANSITION_FORM
     ]
   }
 
@@ -76,7 +78,7 @@ class ImportedForm < ApplicationRecord
     elsif form_key == BEDFORD_SIXTH_GRADE_TRANSITION_FORM
       [
         'My interests and activities outside of school are...',
-        'Think of your Grade 5 year. What are you proud of?  I am proud that I .....'
+        'Thinking back on last year, I am proud that I...'
       ]
     end
   end
@@ -87,6 +89,7 @@ class ImportedForm < ApplicationRecord
       when SHS_Q2_SELF_REFLECTION then 'Q2 Self-reflection'
       when SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR then 'What I want my teachers to know'
       when BEDFORD_END_OF_YEAR_TRANSITION_FORM then 'Transition Information'
+      when BEDFORD_SIXTH_GRADE_TRANSITION_FORM then 'Transition Information'
       else 'Student voice survey'
     end
 
