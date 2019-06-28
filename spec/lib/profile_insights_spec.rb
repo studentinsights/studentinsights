@@ -87,7 +87,7 @@ RSpec.describe ProfileInsights do
       end
     end
 
-    describe 'from_bedford_transition' do
+    describe 'from_bedford_elementary_transition' do
       let!(:pals) { TestPals.create!(skip_team_memberships: true) }
 
       it 'returns expected shape' do
@@ -109,6 +109,52 @@ RSpec.describe ProfileInsights do
             }
           }
         })
+      end
+    end
+
+    describe 'from_bedford_sixth_grade_student_voice_transition_form' do
+      let!(:pals) { TestPals.create!(skip_team_memberships: true) }
+
+      def create_test_form!(student)
+        ImportedForm.create!({
+          "educator_id"=>pals.healey_laura_principal.id,
+          "student_id"=>student.id,
+          'form_timestamp' => pals.time_now - 2.days,
+          "form_key"=>"bedford_sixth_grade_transition_form",
+          'form_url' => 'https://example.com/bedford_sixth_grade_transition_form',
+          'form_json' => {
+            "My interests and activities outside of school are..."=> "Skating and playing with my cousins",
+            "Thinking back on last year, I am proud that I..."=>"kept at reading a book I didn't like at first but did in the end"
+          }
+        })
+      end
+
+      it 'returns expected shape' do
+        rising_fifth_grader = FactoryBot.create(:student, grade: '5', school: pals.healey)
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:include_bedford_end_of_year_transition?).and_return(true)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+        create_test_form!(rising_fifth_grader)
+
+        insights_json = ProfileInsights.new(rising_fifth_grader).as_json
+        expect(insights_json.size).to eq 2
+        expect(insights_json).to contain_exactly(*[{
+          "type"=>"from_generic_imported_form",
+          "json"=> {
+            "form_key"=>"bedford_sixth_grade_transition_form",
+            "prompt_text"=>"Thinking back on last year, I am proud that I...",
+            "response_text"=>"kept at reading a book I didn't like at first but did in the end",
+            "flattened_form_json"=>anything()
+          }
+        }, {
+          "type"=>"from_generic_imported_form",
+          "json"=> {
+            "form_key"=>"bedford_sixth_grade_transition_form",
+            "prompt_text"=>"My interests and activities outside of school are...",
+            "response_text"=>"Skating and playing with my cousins",
+            "flattened_form_json"=>anything()
+          }
+        }])
       end
     end
   end
