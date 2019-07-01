@@ -1,3 +1,22 @@
+Friday 6/28 updates:
+- District admin: Export 'wide' students spreadsheet [#2507](https://github.com/studentinsights/studentinsights/pull/2507)
+- Security: Add SECURITY.md with note about responsible disclosure [#2509](https://github.com/studentinsights/studentinsights/pull/2509)
+- Security: Send security alert email to educator on potentially suspicious login [#2508](https://github.com/studentinsights/studentinsights/pull/2508)
+- Security: Update robots.txt to show icon, logo and description [#2510](https://github.com/studentinsights/studentinsights/pull/2510)
+- Import: Add DataFlow descriptions to importer classes, with tests, for making visible in UI [#2511](https://github.com/studentinsights/studentinsights/pull/2511)
+- Student voice: Import and show student voice prompts for Bedford middle schoolers [#2512](https://github.com/studentinsights/studentinsights/pull/2512)
+
+Friday 6/21 updates:
+- none to share
+
+Friday 6/14 updates:
+- Reader profile: months ago, multiple chips for services [#2500](https://github.com/studentinsights/studentinsights/pull/2500)
+- Reader Profile: Moving parsing and segmenting IEP text to server [#2501](https://github.com/studentinsights/studentinsights/pull/2501)
+- Transitions: Add label to allow editing; fix bug with starred in edit dialog [#2502](https://github.com/studentinsights/studentinsights/pull/2502)
+- District: List of homerooms by grade [#2503 [#2504](https://github.com/studentinsights/studentinsights/pull/2504)
+- Transitions: Fix IE11 layout bug on dialog [#2505](https://github.com/studentinsights/studentinsights/pull/2505)
+- Reading: Add Heggerty intervention processor, show in profile [#2506](https://github.com/studentinsights/studentinsights/pull/2506)
+
 Friday 6/7 updates:
 - Reader profile: Initial prototype for design work [#2493](https://github.com/studentinsights/studentinsights/pull/2493) [#2494](https://github.com/studentinsights/studentinsights/pull/2494) [#2496](https://github.com/studentinsights/studentinsights/pull/2496)
 - Transition notes: Support limited transition from 5th > 6th in Somerville [#2495](https://github.com/studentinsights/studentinsights/pull/2495) [#2497](https://github.com/studentinsights/studentinsights/pull/2497) [#2498](https://github.com/studentinsights/studentinsights/pull/2498) 
