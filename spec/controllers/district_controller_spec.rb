@@ -141,4 +141,23 @@ describe DistrictController, :type => :controller do
       expect(json.keys).to eq ['error']
     end
   end
+
+  describe '#discipline_csv' do
+    it 'guards authorization' do
+      sign_in(pals.shs_jodi)
+      get :discipline_csv
+      expect(response.status).to eq 302
+    end
+
+    it 'returns CSV with correct shape' do
+      3.times do
+        FactoryBot.create(:discipline_incident, student: pals.shs_senior_kylo)
+      end
+      sign_in(pals.uri)
+      get :discipline_csv
+      expect(response.status).to eq 200
+      expect(response.body.split("\n").size).to eq 4
+      expect(response.body.split("\n").first).to eq 'id,incident_code,created_at,updated_at,incident_location,incident_description,occurred_at,has_exact_time,student_id,student.id,student.grade,student.hispanic_latino,student.race,student.free_reduced_lunch,student.created_at,student.updated_at,student.homeroom_id,student.first_name,student.last_name,student.state_id,student.home_language,student.school_id,student.student_address,student.registration_date,student.local_id,student.program_assigned,student.sped_placement,student.disability,student.sped_level_of_need,student.plan_504,student.limited_english_proficiency,student.most_recent_mcas_math_growth,student.most_recent_mcas_ela_growth,student.most_recent_mcas_math_performance,student.most_recent_mcas_ela_performance,student.most_recent_mcas_math_scaled,student.most_recent_mcas_ela_scaled,student.most_recent_star_reading_percentile,student.most_recent_star_math_percentile,student.enrollment_status,student.date_of_birth,student.gender,student.primary_phone,student.primary_email,student.house,student.counselor,student.sped_liaison,student.missing_from_last_export,student.ell_entry_date,student.ell_transition_date'
+    end
+  end
 end
