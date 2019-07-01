@@ -162,18 +162,31 @@ export class DistrictOverviewPageView extends React.Component {
           <ul style={styles.plainList}>
             <li>
               <a href="/district/wide_students_csv" style={styles.link}>
-               Export ’wide’ CSV for all students
+               Export CSV with all students
               </a>
             </li>
             <li>
               <a href="/district/discipline_csv" style={styles.link}>
-               Export discipline incidents
+               Export discipline incidents CSV
               </a>
             </li>
             <li>
               Contact <HelpEmail /> for other exports
             </li>
           </ul>
+          <div style={{
+            marginTop: 5,
+            fontSize: 12,
+            backgroundColor: '#f8f8f8',
+            padding: 10,
+            border: '1px solid #ccc'
+          }}>
+            <div style={{marginBottom: 5}}>When exporting data for further analysis, some helpful guidelines are:</div>
+            <div>- investigate how accurate the data collection process actually is in practice</div>
+            <div>- be careful not to mistake statistical noise for meaningful patterns</div>
+            <div>- check assumptions about stable cohort membership over time</div>
+            <div>- be aware that metrics-based approaches focusing on negative behaviors may unintentionally institutionalize deficit mindsets towards students</div>
+          </div>
         </div>
       </div>
     );
