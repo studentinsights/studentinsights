@@ -149,6 +149,7 @@ Rails.application.routes.draw do
     get 'enrollment' => 'ui#ui'
     get 'homerooms' => 'ui#ui'
     get 'wide_students_csv' => 'district#wide_students_csv'
+    get 'discipline_csv' => 'district#discipline_csv'
   end
 
   # search notes

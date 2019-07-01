@@ -162,7 +162,12 @@ export class DistrictOverviewPageView extends React.Component {
           <ul style={styles.plainList}>
             <li>
               <a href="/district/wide_students_csv" style={styles.link}>
-               Download ’wide’ CSV for all students
+               Export ’wide’ CSV for all students
+              </a>
+            </li>
+            <li>
+              <a href="/district/discipline_csv" style={styles.link}>
+               Export discipline incidents
               </a>
             </li>
             <li>

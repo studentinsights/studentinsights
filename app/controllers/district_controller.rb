@@ -85,10 +85,20 @@ class DistrictController < ApplicationController
 
   # GET download
   def wide_students_csv
-    students = authorized { Student.active.to_a }
+    students = authorized { Student.active.includes(:ed_plans).to_a }
     exporter = WideStudentsExporter.new(current_educator)
     csv_string = exporter.csv_string(students)
     filename = "StudentInsights-WideStudentsExport-all-#{Time.now.strftime("%Y-%m-%d")}.csv"
+    send_data csv_string, filename: filename, type: 'text/csv', disposition: 'inline'
+  end
+
+  # GET download
+  def discipline_csv
+    students = authorized { Student.active.includes(:ed_plans).to_a }
+    records = DisciplineIncident.includes(:student).where(student_id: students.map(&:id))
+    json = records.as_json(include: [:student])
+    csv_string = FlatExporter.new.csv_string(json)
+    filename = "StudentInsights-DisciplineExport-all-#{Time.now.strftime("%Y-%m-%d")}.csv"
     send_data csv_string, filename: filename, type: 'text/csv', disposition: 'inline'
   end
 
