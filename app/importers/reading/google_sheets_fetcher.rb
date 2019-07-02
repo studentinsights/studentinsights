@@ -27,13 +27,27 @@ require 'fileutils'
 require 'csv'
 
 class GoogleSheetsFetcher
-  def get_sheets_from_folder(folder_id)
-    sheet_ids = get_sheet_ids(folder_id)
-    sheet_ids.files.each_with_object({}) do |spreadsheet, hash|
-      hash[spreadsheet.name] = download_csvs(spreadsheet.id)
+  # list of tabs [{sheet_name, tab_name, csv}]
+  def get_tabs_list_from_folder(folder_id)
+    sheets_map = get_sheets_from_folder(folder_id)
+
+    tabs = []
+    sheets_map.each do |sheet_name, csvs|
+      csvs.each do |tab_name, csv|
+        tabs << Tab.new(sheet_name, tab_name, csv)
+      end
     end
   end
 
+  # map of {spreadsheet_name => {tab_name => csv}}
+  def get_sheets_from_folder(folder_id)
+    sheet_ids = get_sheet_ids(folder_id)
+    sheet_ids.files.each_with_object({}) do |spreadsheet, hash|
+      hash[spreadsheet.name] = get_spreadsheet(spreadsheet.id)
+    end
+  end
+
+  # map of {tab_name => csv}
   def get_spreadsheet(sheet_id)
     download_csvs(sheet_id)
   end
@@ -84,13 +98,24 @@ class GoogleSheetsFetcher
     sheet_service.authorization = check_authorization()
 
     # Get values from sheets indexed by sheet name
-    sheet_service.get_spreadsheet(sheet_id).sheets.each_with_object({}) do |sheet, hash| #each sheet in the spreadsheet
-      hash[sheet.properties.title] = CSV.generate do |csv|
+    csvs = []
+    spreadsheet = sheet_service.get_spreadsheet(sheet_id)
+    spreadsheet.sheets.each_with_object({}) do |sheet, hash| #each sheet in the spreadsheet
+      csv_string = CSV.generate do |csv|
         sheet_values = sheet_service.get_spreadsheet_values(sheet_id, sheet.properties.title).values
         sheet_values.each do |row|
           csv << row
         end
       end
+      csvs << Tab.new({
+        sheet_name: spreadsheet.name,
+        sheet_url: spreadsheet.human_url,
+        tab_name: sheet.properties.title,
+        csv: csv_string
+      })
     end
+  end
+
+  class Tab < Struct.new :sheet_name, :tab_name, :csv
   end
 end
