@@ -12,11 +12,13 @@
 # 7. Assign Role Project > Viewer
 # 8. Create Key - this will provide the values used in the environment variables
 # 9. Create a folder on Google Drive to group items for the script to download
-# 10. Share this folder with the service account email (found on the project page or in the key in step 8)
 #
 # Within Student Insights:
 # a. Set GOOGLE_SHEETS_SYNC_CREDENTIALS_JSON environment value (secret)
 # b. Use the folder id (the last part of the folder url)
+
+# In Google drive, have district project lead:
+# a. Share document with service account (ends with .iam.gserviceaccount.com)
 
 require 'google/apis/drive_v3'
 require 'google/apis/sheets_v4'
