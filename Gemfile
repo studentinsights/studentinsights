@@ -74,3 +74,5 @@ group :development do
   gem 'rubocop', require: false
   gem 'spring'
 end
+
+gem "google-api-client", "~> 0.28.7"
