@@ -31,8 +31,8 @@ class GoogleSheetsFetcher
   def get_tabs_from_folder(folder_id)
     sheet_ids = get_sheet_ids(folder_id)
     
-    sheet_ids.files.flat_map do |spreadsheet|
-      get_tabs_from_sheet(spreadsheet.spreadsheet_id)
+    sheet_ids.files.flat_map do |file|
+      get_tabs_from_sheet(file.id)
     end
   end
 
@@ -90,10 +90,6 @@ class GoogleSheetsFetcher
     tabs = []
     spreadsheet = sheet_service.get_spreadsheet(sheet_id)
     spreadsheet.sheets.each_with_object({}) do |sheet, hash| # each tab in the spreadsheet
-      puts "sheet: "
-      puts sheet.inspect
-      puts
-      puts
       tab_csv = CSV.generate do |csv|
         sheet_values = sheet_service.get_spreadsheet_values(sheet_id, sheet.properties.title).values
         sheet_values.each do |row|

@@ -408,6 +408,17 @@ class PerDistrict
     JSON.parse(ENV.fetch('GOOGLE_EMAIL_ADDRESS_MAPPING_JSON', '{}'))
   end
 
+  # While SIS files are in yaml files, keep Google drive folder_ids out
+  # of source and avoid logging them.  This is to guard in case
+  # educators mistakenly set any folders or documents to have
+  # public permissions.
+  def imported_google_folder_ids(key)
+    return nil unless @district_key == BEDFORD
+    
+    json = JSON.parse(ENV.fetch('IMPORTED_GOOGLE_FOLDER_IDS_JSON', '{}'))
+    json.fetch(key, nil)
+  end
+
   # For Bedford, we should fix this upstream with them
   def map_free_reduced_lunch_value_as_workaround(free_reduced_lunch_value)
     if @district_key == BEDFORD && free_reduced_lunch_value == 'Not Eligibile'

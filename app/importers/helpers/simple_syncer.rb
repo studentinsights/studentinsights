@@ -11,14 +11,17 @@ class SimpleSyncer
     log('Starting sync loop...')
     records.each_with_index do |record, index|
       @syncer.validate_mark_and_sync!(record)
-      log("synced #{index} rows.") if index % log_frequency == 0
+      log("synced #{index} rows.") if index % @log_frequency == 0
     end
     log('Done sync loop.')
 
     log('Calling #delete_unmarked_records...')
     @syncer.delete_unmarked_records!(records_within_scope)
     log("Syncing stats: #{@syncer.stats}")
+    nil
+  end
 
+  def stats
     @syncer.stats
   end
 

@@ -1,12 +1,15 @@
 class DataFlow
   FREQUENCY_DAILY = 'frequency_daily'
+  FREQUENCY_ONE_TIME_BATCH = 'frequency_one_time_batch'
 
   SOURCE_SIS_SFTP_CSV = 'source_sis_sftp_csv'
   SOURCE_STAR_VENDOR_SFTP_CSV = 'source_star_vendor_sftp_csv'
+  SOURCE_GOOGLE_DRIVE_SHEET = 'source_google_drive_sheet'
 
   MERGE_UPDATE_DELETE_UNMARKED = 'merge_update_delete_unmarked'
   MERGE_UPDATE_FLAG_UNMARKED = 'merge_update_flag_unmarked'
   MERGE_UPDATE_IGNORE_UNMARKED = 'merge_update_ignore_unmarked'
+  MERGE_REPLACE_ALL_WITHIN_SCOPE = 'merge_replace_all_within_scope'
 
   OPTION_SCHOOL_SCOPE = 'option_school_scope'
   OPTION_SKIP_OLD_RECORDS = 'option_skip_old_records'
