@@ -43,6 +43,17 @@ class ImportMatcher
     educator_id
   end
 
+  # This will usually be imprecise, use with care or check the
+  # error rates.
+  def find_educator_by_last_name(educator_last_name)
+    matches = Educator.where('full_name LIKE ?', "#{educator_last_name}, %")
+    if matches.size != 1
+      @invalid_educator_last_names = (@@invalid_educator_last_names + [educator_last_name]).uniq
+      return nil
+    end
+    matches.first
+  end
+
   # HS course?
   def find_course_id(value)
     course_number = value.try(:strip).upcase
@@ -105,7 +116,8 @@ class ImportMatcher
       valid_rows_count: @valid_rows_count,
       invalid_rows_count: @invalid_rows_count,
       invalid_student_local_ids: @invalid_student_local_ids,
-      invalid_educator_emails: @invalid_educator_emails,
+      invalid_educator_emails_size: @invalid_educator_emails.size,
+      invalid_educator_last_names_size: @invalid_educator_last_names.size,
       invalid_course_numbers: @invalid_course_numbers,
       invalid_sep_oids: @invalid_sep_oids
     }
@@ -117,6 +129,7 @@ class ImportMatcher
     @invalid_rows_count = 0
     @invalid_student_local_ids = []
     @invalid_educator_emails = []
+    @invalid_educator_last_names = []
     @invalid_course_numbers = []
     @invalid_sep_oids = []
   end

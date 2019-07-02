@@ -27,29 +27,18 @@ require 'fileutils'
 require 'csv'
 
 class GoogleSheetsFetcher
-  # list of tabs [{sheet_name, tab_name, csv}]
-  def get_tabs_list_from_folder(folder_id)
-    sheets_map = get_sheets_from_folder(folder_id)
-
-    tabs = []
-    sheets_map.each do |sheet_name, csvs|
-      csvs.each do |tab_name, csv|
-        tabs << Tab.new(sheet_name, tab_name, csv)
-      end
-    end
-  end
-
-  # map of {spreadsheet_name => {tab_name => csv}}
-  def get_sheets_from_folder(folder_id)
+  # returns [Tab]
+  def get_tabs_from_folder(folder_id)
     sheet_ids = get_sheet_ids(folder_id)
-    sheet_ids.files.each_with_object({}) do |spreadsheet, hash|
-      hash[spreadsheet.name] = get_spreadsheet(spreadsheet.id)
+    
+    sheet_ids.files.flat_map do |spreadsheet|
+      get_tabs_from_sheet(spreadsheet.spreadsheet_id)
     end
   end
 
-  # map of {tab_name => csv}
-  def get_spreadsheet(sheet_id)
-    download_csvs(sheet_id)
+  # returns [Tab]
+  def get_tabs_from_sheet(sheet_id)
+    download_tab_csvs(sheet_id)
   end
 
   private
@@ -86,36 +75,44 @@ class GoogleSheetsFetcher
     drive_service.authorization = check_authorization()
 
     # minimal check for query injection
-    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-]/.match(unsafe_folder_id).present?
+    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-_]/.match(unsafe_folder_id).present?
     q = "'#{unsafe_folder_id}' in parents"
     drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
-  def download_csvs(sheet_id)
+  def download_tab_csvs(sheet_id)
     #Initialize sheets API
     sheet_service = Google::Apis::SheetsV4::SheetsService.new
     sheet_service.client_options.application_name = @application_name
     sheet_service.authorization = check_authorization()
 
     # Get values from sheets indexed by sheet name
-    csvs = []
+    tabs = []
     spreadsheet = sheet_service.get_spreadsheet(sheet_id)
-    spreadsheet.sheets.each_with_object({}) do |sheet, hash| #each sheet in the spreadsheet
-      csv_string = CSV.generate do |csv|
+    spreadsheet.sheets.each_with_object({}) do |sheet, hash| # each tab in the spreadsheet
+      puts "sheet: "
+      puts sheet.inspect
+      puts
+      puts
+      tab_csv = CSV.generate do |csv|
         sheet_values = sheet_service.get_spreadsheet_values(sheet_id, sheet.properties.title).values
         sheet_values.each do |row|
           csv << row
         end
       end
-      csvs << Tab.new({
-        sheet_name: spreadsheet.name,
-        sheet_url: spreadsheet.human_url,
+      tabs << Tab.new({
+        spreadsheet_id: spreadsheet.spreadsheet_id,
+        spreadsheet_name: spreadsheet.properties.title,
+        spreadsheet_url: spreadsheet.spreadsheet_url,
+        tab_id: sheet.properties.sheet_id,
         tab_name: sheet.properties.title,
-        csv: csv_string
+        tab_csv: tab_csv
       })
     end
+    tabs
   end
 
-  class Tab < Struct.new :sheet_name, :tab_name, :csv
+  # A tab of a spreadsheet
+  class Tab < Struct.new :spreadsheet_id, :spreadsheet_name, :spreadsheet_url, :tab_id, :tab_name, :tab_csv, keyword_init: true
   end
 end
