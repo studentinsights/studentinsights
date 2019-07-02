@@ -386,7 +386,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
                   clearable={false}
                 />
               </div>
-             {this.renderDisciplineChart(dashboardStudents, selectedChart)}
+              {this.renderDisciplineChart(dashboardStudents, selectedChart)}
             </div>
           </div>
         </div>
@@ -419,9 +419,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
     };
     return (
       (selectedChart === 'scatter') ? (
-      <DisciplineScatterPlot {...scatterPlotProps}/>
+        <DisciplineScatterPlot {...scatterPlotProps}/>
       ) : (
-      <DashboardBarChart {...barChartProps}/>
+        <DashboardBarChart {...barChartProps}/>
       )
     );
   }

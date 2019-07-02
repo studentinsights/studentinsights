@@ -31,7 +31,7 @@ function testRender(props) {
     <PerDistrictContainer districtKey={districtKey}>
       <SectionTable {...props} />
     </PerDistrictContainer>
-  , el);
+    , el);
   return {el};
 }
 

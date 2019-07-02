@@ -10,7 +10,7 @@ function escapeToUseAsRegexLiteral(x) {
 }
 
 function clean(text) {
-  return text.trim().replace(/[\—\-\_]/g, '').trim();
+  return text.trim().replace(/[—_]/g, '').trim();
 }
 
 function extractOne(text, beforeText, afterText = undefined) {

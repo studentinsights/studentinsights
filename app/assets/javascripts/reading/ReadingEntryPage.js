@@ -206,7 +206,7 @@ export class ReadingEntryPageView extends React.Component {
                   sort={onTableSort}
                   sortBy={sortBy}
                   sortDirection={sortDirection}
-                  >{columns.map(column => (
+                >{columns.map(column => (
                     <Column
                       key={column.dataKey}
                       headerRenderer={this.renderHeaderCell}

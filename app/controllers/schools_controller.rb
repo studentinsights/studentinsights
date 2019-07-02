@@ -12,13 +12,11 @@ class SchoolsController < ApplicationController
   end
 
   def csv
-    authorized_students = @school.students.active
-    csv_string = StudentsSpreadsheet.new.csv_string(authorized_students, @school)
-    filename = "#{@school.name} - Exported #{Time.now.strftime("%Y-%m-%d")}.csv"
-    send_data(csv_string, {
-      type: Mime[:csv],
-      disposition: "attachment; filename='#{filename}"
-    })
+    authorized_students = authorized { @school.students.active.to_a }
+    exporter = WideStudentsExporter.new(current_educator)
+    csv_string = exporter.csv_string(authorized_students)
+    filename = "StudentInsights-WideStudentsExport-school_#{@school.slug}-#{Time.now.strftime("%Y-%m-%d")}.csv"
+    send_data csv_string, filename: filename, type: 'text/csv', disposition: 'inline'
   end
 
   def absence_dashboard_data

@@ -24,5 +24,5 @@ it('renders without crashing', () => {
     <Autosaver {...props}>
       <div>hello!</div>
     </Autosaver>
-  , el);
+    , el);
 });

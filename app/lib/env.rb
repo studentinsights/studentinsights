@@ -10,6 +10,7 @@ class Env
     # instance config
     default_env['DISTRICT_KEY'] = 'somerville'
     default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
+    default_env['CANONICAL_DOMAIN'] = nil # no redirection or HTTPS locally
     default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_base":"student-insights-multifactor-authenticator-educator"}'
     default_env['CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS'] = '2000'
     default_env['PASSWORD_CHECKER_SECRET64'] = "IyIMFkLrcvHY/fDMomHt7yYB6EgjGj532cGNhymmCPg=\n"
@@ -20,6 +21,8 @@ class Env
     default_env['AWS_REGION'] = 'us-west-2'
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
     default_env['TWILIO_CONFIG_JSON'] = '{"account_sid":"fake-twilio-sid-foo","auth_token":"fake-twilio-auth-token-foo","sending_number":"+15555551234"}'
+    default_env['MAILGUN_API_KEY'] = 'fake-mailgun-api-key'
+    default_env['MAILGUN_DOMAIN'] = 'fake-mailgun-domain'
 
     # feature switches
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'

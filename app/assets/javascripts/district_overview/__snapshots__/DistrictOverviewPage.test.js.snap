@@ -598,6 +598,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
+                href="/district/homerooms"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Homerooms by grade
+              </a>
+            </li>
+            <li>
+              <a
                 href="/admin/sample_students"
                 style={
                   Object {
@@ -609,6 +621,93 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               </a>
             </li>
           </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Export districtwide data
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/district/wide_students_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Export CSV with all students
+              </a>
+            </li>
+            <li>
+              <a
+                href="/district/discipline_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Export discipline incidents CSV
+              </a>
+            </li>
+            <li>
+              Contact 
+              <a
+                href="mailto://help@studentinsights.org"
+              >
+                help@studentinsights.org
+              </a>
+               for other exports
+            </li>
+          </ul>
+          <div
+            style={
+              Object {
+                "backgroundColor": "#f8f8f8",
+                "border": "1px solid #ccc",
+                "fontSize": 12,
+                "marginTop": 5,
+                "padding": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "marginBottom": 5,
+                }
+              }
+            >
+              When exporting data for further analysis, some helpful guidelines are:
+            </div>
+            <div>
+              - investigate how accurate the data collection process actually is in practice
+            </div>
+            <div>
+              - be careful not to mistake statistical noise for meaningful patterns
+            </div>
+            <div>
+              - check assumptions about stable cohort membership over time
+            </div>
+            <div>
+              - be aware that metrics-based approaches focusing on negative behaviors may unintentionally institutionalize deficit mindsets towards students
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1413,6 +1512,18 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
+                href="/district/homerooms"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Homerooms by grade
+              </a>
+            </li>
+            <li>
+              <a
                 href="/admin/sample_students"
                 style={
                   Object {
@@ -1424,6 +1535,93 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               </a>
             </li>
           </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Export districtwide data
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/district/wide_students_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Export CSV with all students
+              </a>
+            </li>
+            <li>
+              <a
+                href="/district/discipline_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Export discipline incidents CSV
+              </a>
+            </li>
+            <li>
+              Contact 
+              <a
+                href="mailto://help@studentinsights.org"
+              >
+                help@studentinsights.org
+              </a>
+               for other exports
+            </li>
+          </ul>
+          <div
+            style={
+              Object {
+                "backgroundColor": "#f8f8f8",
+                "border": "1px solid #ccc",
+                "fontSize": 12,
+                "marginTop": 5,
+                "padding": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "marginBottom": 5,
+                }
+              }
+            >
+              When exporting data for further analysis, some helpful guidelines are:
+            </div>
+            <div>
+              - investigate how accurate the data collection process actually is in practice
+            </div>
+            <div>
+              - be careful not to mistake statistical noise for meaningful patterns
+            </div>
+            <div>
+              - check assumptions about stable cohort membership over time
+            </div>
+            <div>
+              - be aware that metrics-based approaches focusing on negative behaviors may unintentionally institutionalize deficit mindsets towards students
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
-import {Website, Email} from '../components/PublicLinks';
+import {Website, Email, HelpEmail} from '../components/PublicLinks';
 import WorkBoard from '../components/WorkBoard';
 
 
@@ -145,11 +145,48 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>
             <li>
+              <a href="/district/homerooms" style={styles.link}>
+               Homerooms by grade
+              </a>
+            </li>
+            <li>
               <a href="/admin/sample_students" style={styles.link}>
                 Student sample for data quality checks
               </a>
             </li>
           </ul>
+        </div>
+
+        <div>
+          <div style={styles.section}>Export districtwide data</div>
+          <ul style={styles.plainList}>
+            <li>
+              <a href="/district/wide_students_csv" style={styles.link}>
+               Export CSV with all students
+              </a>
+            </li>
+            <li>
+              <a href="/district/discipline_csv" style={styles.link}>
+               Export discipline incidents CSV
+              </a>
+            </li>
+            <li>
+              Contact <HelpEmail /> for other exports
+            </li>
+          </ul>
+          <div style={{
+            marginTop: 5,
+            fontSize: 12,
+            backgroundColor: '#f8f8f8',
+            padding: 10,
+            border: '1px solid #ccc'
+          }}>
+            <div style={{marginBottom: 5}}>When exporting data for further analysis, some helpful guidelines are:</div>
+            <div>- investigate how accurate the data collection process actually is in practice</div>
+            <div>- be careful not to mistake statistical noise for meaningful patterns</div>
+            <div>- check assumptions about stable cohort membership over time</div>
+            <div>- be aware that metrics-based approaches focusing on negative behaviors may unintentionally institutionalize deficit mindsets towards students</div>
+          </div>
         </div>
       </div>
     );
@@ -202,9 +239,9 @@ export class DistrictOverviewPageView extends React.Component {
       <div style={{marginTop: 40}}>
         <SectionHeading>Student Insights work board</SectionHeading>
         <div style={{margin: 10, marginBottom: 20}}>
-          This is how we communicate about what we're working on now,
+          This is how we communicate about what we’re working on now,
           and what we think is coming next, across all districts.  Read
-          more at <Website /> or share what you're thinking about with us at <Email />.
+          more at <Website /> or share what you’re thinking about with us at <Email />.
         </div>
         <div style={{margin: 20, width: '100%', height: 800}}>
           <WorkBoard style={{width: '100%', height: '100%'}} />

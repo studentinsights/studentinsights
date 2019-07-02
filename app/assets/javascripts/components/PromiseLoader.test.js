@@ -17,7 +17,7 @@ it('renders when pending', () => {
     <PromiseLoader promiseFn={rejectingFn}>
       {children}
     </PromiseLoader>
-  , el);
+    , el);
   expect(children).toHaveBeenCalledWith({
     isPending: true,
     reject: undefined,
@@ -32,7 +32,7 @@ it('renders when resolved', () => {
     <PromiseLoader promiseFn={resolvingFn}>
       {children}
     </PromiseLoader>
-  , el);
+    , el);
   expect(children).toHaveBeenCalledWith({
     isPending: true,
     reject: undefined,
@@ -54,7 +54,7 @@ it('renders when rejected', () => {
     <PromiseLoader promiseFn={rejectingFn}>
       {children}
     </PromiseLoader>
-  , el);
+    , el);
   expect(children).toHaveBeenCalledWith({
     isPending: true,
     reject: undefined,

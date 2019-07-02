@@ -37,9 +37,9 @@ describe('DistrictEnrollmentPageView', () => {
   it('pure component matches snapshot', () => {
     const tree = renderer
       .create(<DistrictEnrollmentPageView
-          enrollments={districtEnrollmentJson.enrollments}
-          districtKey={districtEnrollmentJson.district_key}
-          districtName={districtEnrollmentJson.district_name} />
+        enrollments={districtEnrollmentJson.enrollments}
+        districtKey={districtEnrollmentJson.district_key}
+        districtName={districtEnrollmentJson.district_name} />
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

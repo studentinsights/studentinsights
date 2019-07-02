@@ -14,8 +14,8 @@ RSpec.describe ReaderProfile do
 
   def mock_pdf_reader_for_iep!
     mock_pdf_reader = MockPdfReader.new([
-      MockPdfReader::Page.new(1, 'this is an IEP'),
-      MockPdfReader::Page.new(2, 'these are accomodations')
+      MockPdfReader::Page.new(1, 'This is an IEP.  IEP Dates: 3/2/2011 - 3/1/2012'),
+      MockPdfReader::Page.new(2, 'These are accomodations.  Here is the service grid.')
     ])
     allow(PDF::Reader).to receive(:new).and_return mock_pdf_reader
   end
@@ -79,13 +79,17 @@ RSpec.describe ReaderProfile do
           "s3_filename"=>anything()
         },
         'pretty_filename_for_download'=>"IEP_SkywalkerGarfield_20180313_#{student.id}_#{iep_document.id}.pdf",
-        'pages'=>[{
-          'number'=>1,
-          'text'=>"this is an IEP"
-        },{
-          'number'=>2,
-          'text'=>"these are accomodations"
-        }]
+        'parsed' => {
+          "cleaned_text"=>"This is an IEP. IEP Dates: 3/2/2011 - 3/1/2012\nThese are accomodations. Here is the service grid.",
+          "segments"=>[
+            "This is an IEP.",
+            "IEP Dates: 3/2/2011 - 3/1/2012",
+            "These are accomodations.",
+            "Here is the service grid."
+          ],
+          "any_grid"=>false,
+          "match_dates"=>["3/2/2011", "3/1/2012"]
+        }
       })
       expect(json['benchmark_data_points']).to match([{
         "id"=>benchmark_data_point.id,

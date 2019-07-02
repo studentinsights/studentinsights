@@ -7,7 +7,7 @@ import hash from 'object-hash';
 // Component for all charts in the dashboard page. Displays incidents by Day of Week and Time
 export default class DisciplineScatterPlot extends React.Component{
 
-//highcharts has trouble combining zoom with a render, so rendering is prevented unless the displayed data changes
+  //highcharts has trouble combining zoom with a render, so rendering is prevented unless the displayed data changes
   shouldComponentUpdate(nextProps) {
     return hash.MD5(nextProps.seriesData)!==hash.MD5(this.props.seriesData);
   }

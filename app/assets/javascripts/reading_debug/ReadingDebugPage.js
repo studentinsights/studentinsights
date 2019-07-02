@@ -254,10 +254,10 @@ export class ReadingDebugView extends React.Component {
       return (_.compact(values).length === 0)
         ? null
         : <BoxAndWhisker
-            values={values}
-            showQuartiles={true}
-            quartileLabelStyle={{color: '#ccc'}}
-          />;
+          values={values}
+          showQuartiles={true}
+          quartileLabelStyle={{color: '#ccc'}}
+        />;
     }
 
     // default
@@ -339,24 +339,24 @@ export class ReadingDebugView extends React.Component {
               rowHeight={rowHeight}
               rowCount={filteredStudents.length}
               rowGetter={({index}) => filteredStudents[index]}
-              >
-                <Column
-                  label='Name'
-                  dataKey='name'
-                  cellRenderer={this.renderName}
-                  width={260}
-                />
-                <Column
-                  label='Grade'
-                  dataKey='grade'
-                  width={100}
-                />
-                <Column
-                  label='Value'
-                  dataKey='value'
-                  cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
-                  width={100}
-                />
+            >
+              <Column
+                label='Name'
+                dataKey='name'
+                cellRenderer={this.renderName}
+                width={260}
+              />
+              <Column
+                label='Grade'
+                dataKey='grade'
+                width={100}
+              />
+              <Column
+                label='Value'
+                dataKey='value'
+                cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
+                width={100}
+              />
             </Table>
           )}
         </AutoSizer>

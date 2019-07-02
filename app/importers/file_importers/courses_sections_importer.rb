@@ -1,4 +1,20 @@
 class CoursesSectionsImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE
+      ],
+      merge: DataFlow::MERGE_UPDATE_DELETE_UNMARKED,
+      touches: [
+        Section.name,
+        Course.name
+      ],
+      description: 'SIS course and section descriptions.  These may change over time, and primary keys may be recycled in some circumstances.'
+    })
+  end
 
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)

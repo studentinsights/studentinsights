@@ -1,6 +1,6 @@
 class SecondTransitionNote < ApplicationRecord
-  SOMERVILLE_8TH_TO_9TH_GRADE = 'somerville_8th_to_9th_grade'
-  SOMERVILLE_8TH_TO_9TH_GRADE_KEYS = [
+  SOMERVILLE_TRANSITION_2019 = 'somerville_8th_to_9th_grade' # also used for 5th > 6th
+  SOMERVILLE_TRANSITION_2019_KEYS = [
     'strengths',
     'connecting',
     'community',
@@ -18,7 +18,7 @@ class SecondTransitionNote < ApplicationRecord
   validates :form_json, presence: true
   validates :form_key, inclusion: {
     in: [
-      SOMERVILLE_8TH_TO_9TH_GRADE
+      SOMERVILLE_TRANSITION_2019
     ]
   }
   validate :validate_form_json_keys
@@ -48,11 +48,11 @@ class SecondTransitionNote < ApplicationRecord
 
   private
   def validate_form_json_keys
-    if self.form_key == SOMERVILLE_8TH_TO_9TH_GRADE
-      missing_keys = (SOMERVILLE_8TH_TO_9TH_GRADE_KEYS - self.form_json.keys).sort
+    if self.form_key == SOMERVILLE_TRANSITION_2019
+      missing_keys = (SOMERVILLE_TRANSITION_2019_KEYS - self.form_json.keys).sort
       errors.add(:form_json, "missing expected keys: #{missing_keys.join(',')}") if missing_keys.size > 0
 
-      extra_keys = (self.form_json.keys - SOMERVILLE_8TH_TO_9TH_GRADE_KEYS).sort
+      extra_keys = (self.form_json.keys - SOMERVILLE_TRANSITION_2019_KEYS).sort
       errors.add(:form_json, "extra keys: #{extra_keys.join(',')}") if extra_keys.size > 0
     end
   end

@@ -25,6 +25,7 @@ import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassLis
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import DistrictOverviewPage from '../app/assets/javascripts/district_overview/DistrictOverviewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
+import DistrictHomeroomsPage from '../app/assets/javascripts/district_homerooms/DistrictHomeroomsPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import StudentVoiceSurveyUploadsPage from '../app/assets/javascripts/student_voice_survey_uploads/StudentVoiceSurveyUploadsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
@@ -120,6 +121,7 @@ export default class App extends React.Component {
         <Route exact path="/equity/classlists_index" render={this.renderClassListsEquityIndexPage.bind(this)}/>
         <Route exact path="/equity/stats_by_school" render={this.renderEquityStatsBySchoolPage.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
+        <Route exact path="/district/homerooms" render={this.renderDistrictHomeroomsPage.bind(this)}/>
         <Route exact path="/district" render={this.renderDistrictOverviewPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderLevelsPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
@@ -306,6 +308,10 @@ export default class App extends React.Component {
 
   renderDistrictEnrollmentPage(routeProps) {
     return <DistrictEnrollmentPage />;
+  }
+
+  renderDistrictHomeroomsPage(routeProps) {
+    return <DistrictHomeroomsPage />;
   }
 
   renderDistrictOverviewPage(routeProps) {

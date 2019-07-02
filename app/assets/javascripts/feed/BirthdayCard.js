@@ -14,7 +14,7 @@ class BirthdayCard extends React.Component {
     return (
       <Card key={studentBirthdayCard.id} className="BirthdayCard" style={style}>
         🎉<a style={styles.person} href={`/students/${studentBirthdayCard.id}`}>{studentBirthdayCard.first_name} {studentBirthdayCard.last_name}</a>
-        <span>'s birthday {isWas} on </span>
+        <span>’s birthday {isWas} on </span>
         <span>{thisYearBirthdateMoment.format('dddd M/D')}!</span>
       </Card>
     );

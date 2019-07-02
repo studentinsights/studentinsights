@@ -16,7 +16,7 @@ export default class ReflectionsAboutGrades extends React.Component {
       <div className="ReflectionsAboutGrades">
         <DetailsSection anchorId="reflections-about-grades" title="Self-reflection">
           <div style={{marginBottom: 15}}>
-            <span>💬 From the "{flattenedForm.form_title}" student voice survey 💬</span>
+            <span>💬 From the {`"${flattenedForm.form_title}"`} student voice survey 💬</span>
             <span> on {toMomentFromTimestamp(flattenedForm.form_timestamp).format('M/D/YY')}</span>
           </div>
           {gradesReflectionInsights.map(({json}) => {

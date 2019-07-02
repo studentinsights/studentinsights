@@ -1,5 +1,7 @@
-# Used by importers
-# See also older survey_reader.rb, this is preferred for new code
+# Used by importers, for one-time imports, or "drop and overwrite" sync
+# strategies.
+#
+# See also older survey_reader.rb, this is preferred for new code.
 class GenericSurveyProcessor
   def initialize(options, &block)
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)

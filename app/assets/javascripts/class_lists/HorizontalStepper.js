@@ -103,7 +103,7 @@ export default class HorizontalStepper extends React.Component {
           ? <Button style={{margin: 10}} onClick={this.onPreviousClicked}>{`< Back `}</Button>
           : <div />}
         {shouldShowNext
-          ? <Button style={{margin: 10}} onClick={this.onNextClicked}>Next ></Button>
+          ? <Button style={{margin: 10}} onClick={this.onNextClicked}>{`Next >`}</Button>
           : <div />}
       </div>
     );

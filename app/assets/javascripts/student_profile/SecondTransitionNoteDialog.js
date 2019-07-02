@@ -104,10 +104,10 @@ export default class SecondTransitionNoteDialog extends React.Component {
       <div style={styles.root}>
         {this.renderDialogTitle(bridge)}
         <div style={styles.quote}>
-          <span>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers."</span>
-          <a style={{marginLeft: 10}} href="http://schooltalking.org/schooltalk/" target="_blank" rel="noopener noreferrer">Schooltalk</a>
+          <span style={{fontSize: 12}}>{`"What we say shapes how adults think about and treat students, how students feel about themselves and their peers."`}</span>
+          <a style={{marginLeft: 10, fontSize: 12}} href="http://schooltalking.org/schooltalk/" target="_blank" rel="noopener noreferrer">Schooltalk</a>
         </div>
-        <div style={{display: 'flex', flex: 1}}>
+        <div>
           <div style={styles.columnsContainer}>
             {this.renderLeftColumn(bridge)}
             <div style={styles.spacer} />
@@ -189,8 +189,8 @@ export default class SecondTransitionNoteDialog extends React.Component {
     const {isDirty, doDelete, doSave} = bridge;
 
     return (
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
-        <div>
+      <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 20, paddingBottom: 20}}>
+        <div style={{display: 'block'}}>
           <Button
             isDisabled={!isDirty}
             containerStyle={styles.buttonSpacing}
@@ -267,8 +267,8 @@ const styles = {
   quote: {
     padding: 15,
     marginTop: 10,
-    background: '#0366d61a',
-    border: '1px solid #0366d61a'
+    background: 'rgba(3, 102, 214, 0.1)',
+    border: '1px solid rgba(3, 102, 214, 0.1)'
   },
   textarea: {
     fontSize: 14,
@@ -281,7 +281,8 @@ const styles = {
   columnsContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 10,
+    flex: 1
   },
   column: {
     flex: 1
@@ -313,8 +314,8 @@ const styles = {
     padding: 15,
     marginTop: 10,
     marginBottom: 20,
-    background: '#d603031a',
-    border: '1px solid #d603031a'
+    background: 'rgba(214, 3, 3, 0.1)',
+    border: '1px solid rgba(214, 3, 3, 0.1)'
   }
 };
 
@@ -359,7 +360,7 @@ export function renderAsTextWithoutRestrictedText(studentFirstName, json) {
 // restricted text is not included here
 export function docFromJson(json) {
   return {
-    isStarred: json.form_json.starred,
+    isStarred: json.starred,
     formJson: {
       [STRENGTHS]: json.form_json.strengths,
       [CONNECTING]: json.form_json.connecting,
@@ -373,13 +374,27 @@ export function docFromJson(json) {
 }
 
 
-// Only K8 counselors with access can write or edit transition notes,
-// and only for 8th graders.
-export function enableTransitionNoteDialog(currentEducator, studentGrade) {
-  return (
+/*
+Two buckets of transition notes:
+  1) K8 counselors with access can write transition notes for 8th > 9th graders.
+  2) Anyone with restricted acccess at a particular school, for 5th > 6th graders.
+*/
+export function enableTransitionNoteDialog(currentEducator, studentFromProfile) {
+  // 8th > 9th
+  if (
     (currentEducator.labels.indexOf('k8_counselor') !== -1) &&
     (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
     (currentEducator.can_view_restricted_notes) &&
-    (studentGrade === '8')
-  );
+    (studentFromProfile.grade === '8')
+  ) return true;
+
+  // 5th > 6th
+  if (
+    (currentEducator.labels.indexOf('enable_transition_note_features') !== -1) &&
+    (currentEducator.can_view_restricted_notes) &&
+    (studentFromProfile.school.local_id.toUpperCase() === 'BRN') &&
+    (studentFromProfile.grade === '5')
+  ) return true;
+
+  return false;
 }

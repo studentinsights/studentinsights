@@ -117,9 +117,7 @@ export default class LightNotesDetails extends React.Component {
   renderTakeNotesButton() {
     const {currentEducator, student} = this.props;
 
-    // Only K8 counselors with access can write transition notes,
-    // and only for 8th graders.
-    const showSecondTransitionNoteLink = enableTransitionNoteDialog(currentEducator, student.grade);
+    const showSecondTransitionNoteLink = enableTransitionNoteDialog(currentEducator, student);
     return (
       <div>
         {showSecondTransitionNoteLink && (
@@ -164,11 +162,13 @@ LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     can_view_restricted_notes: PropTypes.bool.isRequired,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   actions: PropTypes.shape({
     onCreateNewNote: PropTypes.func.isRequired,
+    onSecondTransitionNoteAdded: PropTypes.func.isRequired,
     onUpdateExistingNote: PropTypes.func.isRequired,
     onDeleteEventNoteAttachment: PropTypes.func,
   }),

@@ -2080,7 +2080,7 @@ exports[`exportProps snapshots all placed 1`] = `
               }
             }
           >
-            Have all students been placed for next year's 
+            Have all students been placed for next year’s 
             1st grade
             ?
           </div>
@@ -2113,7 +2113,7 @@ exports[`exportProps snapshots all placed 1`] = `
               }
             }
           >
-            Have you reviewed the team's plan and notes before making changes?
+            Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
             style={Object {}}
@@ -2144,7 +2144,7 @@ exports[`exportProps snapshots all placed 1`] = `
               }
             }
           >
-            Who will teach next year's 
+            Who will teach next year’s $
             1st grade
             ?
           </div>
@@ -2782,7 +2782,7 @@ exports[`exportProps snapshots moves 1`] = `
               }
             }
           >
-            Have all students been placed for next year's 
+            Have all students been placed for next year’s 
             1st grade
             ?
           </div>
@@ -2815,7 +2815,7 @@ exports[`exportProps snapshots moves 1`] = `
               }
             }
           >
-            Have you reviewed the team's plan and notes before making changes?
+            Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
             style={Object {}}
@@ -2848,7 +2848,7 @@ exports[`exportProps snapshots moves 1`] = `
               }
             }
           >
-            Who will teach next year's 
+            Who will teach next year’s $
             1st grade
             ?
           </div>
@@ -3470,7 +3470,7 @@ exports[`exportProps snapshots unplaced 1`] = `
               }
             }
           >
-            Have all students been placed for next year's 
+            Have all students been placed for next year’s 
             1st grade
             ?
           </div>
@@ -3505,7 +3505,7 @@ exports[`exportProps snapshots unplaced 1`] = `
               }
             }
           >
-            Have you reviewed the team's plan and notes before making changes?
+            Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
             style={Object {}}
@@ -3536,7 +3536,7 @@ exports[`exportProps snapshots unplaced 1`] = `
               }
             }
           >
-            Who will teach next year's 
+            Who will teach next year’s $
             1st grade
             ?
           </div>
@@ -4100,7 +4100,7 @@ exports[`exportProps snapshots with teachers 1`] = `
               }
             }
           >
-            Have all students been placed for next year's 
+            Have all students been placed for next year’s 
             1st grade
             ?
           </div>
@@ -4133,7 +4133,7 @@ exports[`exportProps snapshots with teachers 1`] = `
               }
             }
           >
-            Have you reviewed the team's plan and notes before making changes?
+            Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
             style={Object {}}
@@ -4164,7 +4164,7 @@ exports[`exportProps snapshots with teachers 1`] = `
               }
             }
           >
-            Who will teach next year's 
+            Who will teach next year’s $
             1st grade
             ?
           </div>

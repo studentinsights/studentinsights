@@ -115,7 +115,7 @@ class FlexibleRoster extends React.Component {
         {this.props.columns.map((column, index) => {
           return (
             <th key={column.key} onClick={this.onClickHeader.bind(null, index)}
-                className={this.headerClassName(index)}>
+              className={this.headerClassName(index)}>
               {column.label}
             </th>
           );
@@ -138,8 +138,8 @@ class FlexibleRoster extends React.Component {
       <tbody id='roster-data'>
         {this.orderedRows().map((row, index) => {
           const style = (index % 2 === 0)
-                    ? { backgroundColor: '#FFFFFF' }
-                    : { backgroundColor: '#F7F7F7' };
+            ? { backgroundColor: '#FFFFFF' }
+            : { backgroundColor: '#F7F7F7' };
           
           return (
             <tr key={row.id} style={style}>

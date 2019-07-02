@@ -208,9 +208,9 @@ export default class RecordService extends React.Component {
             dateFormat: 'mm/dd/yy',
             minDate: undefined
           }} />
-          <div style={{height: '2em'}}>
-            {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date (end date is optional)</div>}
-          </div>
+        <div style={{height: '2em'}}>
+          {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date (end date is optional)</div>}
+        </div>
       </div>
     );
   }

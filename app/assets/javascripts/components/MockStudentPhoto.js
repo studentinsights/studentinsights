@@ -25,7 +25,7 @@ export default class MockStudentPhoto extends React.Component {
         height={height}
         alt={this.altText()}
         onError={this.onError}
-        />
+      />
     );
   }
 }
