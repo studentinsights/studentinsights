@@ -30,7 +30,7 @@ class GoogleSheetsFetcher
   # returns [Tab]
   def get_tabs_from_folder(folder_id)
     sheet_ids = get_sheet_ids(folder_id)
-    
+
     sheet_ids.files.flat_map do |file|
       get_tabs_from_sheet(file.id)
     end

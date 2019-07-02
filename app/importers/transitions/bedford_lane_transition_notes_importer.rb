@@ -17,11 +17,11 @@ class BedfordLaneTransitionNotesImporter
 
   def initialize(options:)
     @folder_id = options.fetch(:folder_id, read_folder_id_from_env())
-    
+
     @log = options.fetch(:log, STDOUT)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
-    @syncer = options.fetch(:syncer, SimpleSyncer.new)
+    @syncer = options.fetch(:syncer, SimpleSyncer.new(log: @log))
   end
 
   def import
@@ -32,6 +32,7 @@ class BedfordLaneTransitionNotesImporter
     form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
     records_within_scope = ImportedForm.where(form_key: form_key)
     @syncer.sync_and_delete_unmarked!(records, records_within_scope)
+    log "stats.to_json: #{stats.to_json}"
     nil
   end
 
@@ -39,7 +40,6 @@ class BedfordLaneTransitionNotesImporter
     rows = fetch_tabs().flat_map do |tab|
       process_tab(tab)
     end
-    log "stats.to_json: #{stats.to_json}"
     rows
   end
 
@@ -61,7 +61,7 @@ class BedfordLaneTransitionNotesImporter
 
   def process_tab(tab)
     # skip info tab
-    return [] if tab.tab_name === 'INFO'
+    return [] if tab.tab_name == 'INFO'
 
     # url to specific tab
     form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
@@ -71,16 +71,22 @@ class BedfordLaneTransitionNotesImporter
     return [] if educator.nil?
 
     # process and create
-    processor = BedfordEndOfYearTransitionProcessor.new(educator, form_url)
+    processor = BedfordEndOfYearTransitionProcessor.new(educator, form_url, log: @log)
     processor.dry_run(tab.tab_csv)
   end
 
   def match_educator(tab_name)
     educator_from_login_name = @matcher.find_educator_by_login(tab_name, disable_metrics: true)
-    return educator_from_login_name if educator_from_login_name.present?
+    if educator_from_login_name.present?
+      @matcher.count_valid_row
+      return educator_from_login_name
+    end
 
     educator_from_last_name = @matcher.find_educator_by_last_name(tab_name)
-    return educator_from_last_name if educator_from_last_name.present?
+    if educator_from_last_name.present?
+      @matcher.count_valid_row
+      return educator_from_last_name
+    end
 
     nil
   end

@@ -413,10 +413,12 @@ class PerDistrict
   # educators mistakenly set any folders or documents to have
   # public permissions.
   def imported_google_folder_ids(key)
-    return nil unless @district_key == BEDFORD
-    
-    json = JSON.parse(ENV.fetch('IMPORTED_GOOGLE_FOLDER_IDS_JSON', '{}'))
-    json.fetch(key, nil)
+    if @district_key == BEDFORD
+      json = JSON.parse(ENV.fetch('IMPORTED_GOOGLE_FOLDER_IDS_JSON', '{}'))
+      json.fetch(key, nil)
+    else
+      raise_not_handled!
+    end
   end
 
   # For Bedford, we should fix this upstream with them
