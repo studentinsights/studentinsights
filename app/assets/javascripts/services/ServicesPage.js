@@ -28,9 +28,7 @@ export default class ServicesPage extends React.Component {
         <GenericLoader
           promiseFn={() => apiFetchJson(url)}
           style={styles.flexVertical}
-          render={json => (
-            <ServicesView services={json.services} />
-          )}
+          render={json => <ServicesView services={json.services} />}
         />
       </div>
     );
@@ -310,9 +308,9 @@ ServicesView.contextTypes = {
 ServicesView.propTypes = {
   services: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
+    date_started: PropTypes.string.isRequired,
     discontinued_by_educator_id: PropTypes.number,
     provided_by_educator_name: PropTypes.string,
-    date_started: PropTypes.string,
     estimated_end_date: PropTypes.string,
     discontinued_at: PropTypes.string,
     service_type: PropTypes.shape({
@@ -328,11 +326,7 @@ ServicesView.propTypes = {
       school: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
-      }).isRequired,
-      homeroom: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      }).isRequired
+      })
     }).isRequired
   })).isRequired
 };

@@ -89,9 +89,6 @@ class EducatorsController < ApplicationController
           include: {
             school: {
               only: [:id, :name]
-            },
-            homeroom: {
-              only: [:id, :name]
             }
           }
         }

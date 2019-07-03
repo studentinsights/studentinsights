@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {mount} from 'enzyme';
 import fetchMock from 'fetch-mock/es5/client';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import ServicesPage from './ServicesPage';
 import servicesJson from './servicesJson.fixture';
@@ -11,7 +12,7 @@ function testProps() {
 }
 
 function testEl(props = {}) {
-  return (
+  return withDefaultNowContext(
     <PerDistrictContainer districtKey="somerville">
       <ServicesPage {...props} />
     </PerDistrictContainer>
