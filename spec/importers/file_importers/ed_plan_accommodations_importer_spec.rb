@@ -41,13 +41,9 @@ RSpec.describe EdPlanAccommodationsImporter do
 
       expect(log.output).to include(':created_rows_count=>1')
       expect(importer.instance_variable_get(:@syncer).stats[:created_rows_count]).to eq 1
-      expect(matcher.stats).to eq({
+      expect(matcher.stats).to include({
         valid_rows_count: 1,
-        invalid_rows_count: 0,
-        invalid_sep_oids: [],
-        invalid_course_numbers: [],
-        invalid_educator_emails: [],
-        invalid_student_local_ids: []
+        invalid_rows_count: 0
       })
 
       expect(EdPlanAccommodation.all.size).to eq 1
