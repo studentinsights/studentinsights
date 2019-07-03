@@ -35,6 +35,7 @@ import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupi
 import ReadingDebugPage from '../app/assets/javascripts/reading_debug/ReadingDebugPage';
 import ReadingDebugStarPage from '../app/assets/javascripts/reading_debug/ReadingDebugStarPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import ServicesPage from '../app/assets/javascripts/services/ServicesPage';
 import CounselorMeetingsPage from '../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage';
 import TransitionsPage from '../app/assets/javascripts/transitions/TransitionsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
@@ -95,6 +96,7 @@ export default class App extends React.Component {
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_notes" render={this.renderMyNotesPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
+        <Route exact path="/educators/services" render={this.renderServicesPage.bind(this)}/>
         <Route exact path="/counselors/meetings" render={this.renderCounselorMeetingsPage.bind(this)}/>
         <Route exact path="/counselors/transitions" render={this.renderTransitionsPage.bind(this)}/>
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
@@ -156,6 +158,10 @@ export default class App extends React.Component {
 
   renderMyStudentsPage(routeProps) {
     return <MyStudentsPage />;
+  }
+
+  renderServicesPage(routeProps) {
+    return <ServicesPage />;
   }
 
   renderCounselorMeetingsPage(routeProps) {

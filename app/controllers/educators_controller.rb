@@ -70,6 +70,35 @@ class EducatorsController < ApplicationController
     }
   end
 
+  def services_json
+    render json: {
+      services: JSON.parse(IO.read('/Users/krobinson/Desktop/0. DANGER/2019-07-03-services-somerville/service_somerville.json'))
+    }
+    # students = authorized { Student.active.includes(:services, :school, :homeroom, :student_photos).to_a }
+    # services = students.flat_map(&:services)
+    # services_json = services.as_json({
+    #   include: {
+    #     service_type: {
+    #       only: [:id, :name]
+    #     },
+    #     student: {
+    #       methods: [:has_photo],
+    #       include: {
+    #         school: {
+    #           only: [:id, :name]
+    #         },
+    #         homeroom: {
+    #           only: [:id, :name]
+    #         }
+    #       }
+    #     }
+    #   }
+    # })
+    # render json: {
+    #   services: services_json
+    # }
+  end
+
   # Used by the search bar to query for student names
   def student_searchbar_json
     json = EducatorSearchbar.student_searchbar_json_for(current_educator, {
