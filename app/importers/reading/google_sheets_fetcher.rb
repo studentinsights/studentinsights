@@ -27,15 +27,18 @@ require 'fileutils'
 require 'csv'
 
 class GoogleSheetsFetcher
-  def get_sheets_from_folder(folder_id)
+  # returns [Tab]
+  def get_tabs_from_folder(folder_id)
     sheet_ids = get_sheet_ids(folder_id)
-    sheet_ids.files.each_with_object({}) do |spreadsheet, hash|
-      hash[spreadsheet.name] = download_csvs(spreadsheet.id)
+
+    sheet_ids.files.flat_map do |file|
+      get_tabs_from_sheet(file.id)
     end
   end
 
-  def get_spreadsheet(sheet_id)
-    download_csvs(sheet_id)
+  # returns [Tab]
+  def get_tabs_from_sheet(sheet_id)
+    download_tab_csvs(sheet_id)
   end
 
   private
@@ -72,25 +75,40 @@ class GoogleSheetsFetcher
     drive_service.authorization = check_authorization()
 
     # minimal check for query injection
-    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-]/.match(unsafe_folder_id).present?
+    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-_]/.match(unsafe_folder_id).present?
     q = "'#{unsafe_folder_id}' in parents"
     drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
-  def download_csvs(sheet_id)
+  def download_tab_csvs(sheet_id)
     #Initialize sheets API
     sheet_service = Google::Apis::SheetsV4::SheetsService.new
     sheet_service.client_options.application_name = @application_name
     sheet_service.authorization = check_authorization()
 
     # Get values from sheets indexed by sheet name
-    sheet_service.get_spreadsheet(sheet_id).sheets.each_with_object({}) do |sheet, hash| #each sheet in the spreadsheet
-      hash[sheet.properties.title] = CSV.generate do |csv|
+    tabs = []
+    spreadsheet = sheet_service.get_spreadsheet(sheet_id)
+    spreadsheet.sheets.each_with_object({}) do |sheet, hash| # each tab in the spreadsheet
+      tab_csv = CSV.generate do |csv|
         sheet_values = sheet_service.get_spreadsheet_values(sheet_id, sheet.properties.title).values
         sheet_values.each do |row|
           csv << row
         end
       end
+      tabs << Tab.new({
+        spreadsheet_id: spreadsheet.spreadsheet_id,
+        spreadsheet_name: spreadsheet.properties.title,
+        spreadsheet_url: spreadsheet.spreadsheet_url,
+        tab_id: sheet.properties.sheet_id,
+        tab_name: sheet.properties.title,
+        tab_csv: tab_csv
+      })
     end
+    tabs
+  end
+
+  # A tab of a spreadsheet
+  class Tab < Struct.new :spreadsheet_id, :spreadsheet_name, :spreadsheet_url, :tab_id, :tab_name, :tab_csv, keyword_init: true
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe BedfordEndOfYearTransitionProcessor do
     it 'works for importing records' do
       log = LogHelper::FakeLog.new
       form_url = 'https://example.com/form_url'
-      importer = BedfordEndOfYearTransitionProcessor.new(pals.healey_vivian_teacher, pals.healey_vivian_teacher.homeroom, form_url, {
+      importer = BedfordEndOfYearTransitionProcessor.new(pals.healey_vivian_teacher, form_url, {
         log: log,
         time_now: pals.time_now
       })
