@@ -610,6 +610,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
+                href="/educators/services"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Services for all students
+              </a>
+            </li>
+            <li>
+              <a
                 href="/admin/sample_students"
                 style={
                   Object {
@@ -1520,6 +1532,18 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                 }
               >
                 Homerooms by grade
+              </a>
+            </li>
+            <li>
+              <a
+                href="/educators/services"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Services for all students
               </a>
             </li>
             <li>
