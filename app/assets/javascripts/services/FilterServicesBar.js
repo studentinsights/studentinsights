@@ -7,6 +7,7 @@ import FilterBar from '../components/FilterBar';
 import SelectGrade from '../components/SelectGrade';
 import SelectServiceType from '../components/SelectServiceType';
 import SelectSchool from '../components/SelectSchool';
+import SimpleFilterSelect from '../components/SimpleFilterSelect';
 import {ALL} from '../components/SimpleFilterSelect';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 
@@ -22,16 +23,18 @@ export default class FilterServicesBar extends React.Component {
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onServiceTypeIdChanged = this.onServiceTypeIdChanged.bind(this);
+    this.onProviderTextChanged = this.onProviderTextChanged.bind(this);
   }
 
   filteredServices() {
     const {services} = this.props;
-    const {searchText, grade, schoolId, serviceTypeId} = this.state;
+    const {searchText, grade, schoolId, serviceTypeId, providerText} = this.state;
 
     return services.filter(service => {
       if (shouldFilterOut(grade, service.student.grade)) return false;
       if (shouldFilterOut(schoolId, service.student.school.id)) return false;
       if (shouldFilterOut(serviceTypeId, service.service_type.id)) return false;
+      if (shouldFilterOut(providerText, service.provided_by_educator_name)) return false;
       if (!searchTextMatches(searchText, service)) return false;
       return true;
     });
@@ -57,6 +60,10 @@ export default class FilterServicesBar extends React.Component {
     this.setState({serviceTypeId});
   }
 
+  onProviderTextChanged(providerText) {
+    this.setState({providerText});
+  }
+
   render() {
     const {children, style, barStyle} = this.props;
     const filteredServices = this.filteredServices();
@@ -68,6 +75,7 @@ export default class FilterServicesBar extends React.Component {
           {this.renderGradeSelect()}
           {this.renderSchoolSelect()}
           {this.renderServiceTypeSelect()}
+          {this.renderProviderSelect()}
         </FilterBar>
         {children(filteredServices)}
       </EscapeListener>
@@ -80,7 +88,7 @@ export default class FilterServicesBar extends React.Component {
       <input
         style={styles.search}
         ref={el => this.searchInputEl = el}
-        placeholder={`Search ${filteredStudents.length}...`}
+        placeholder={`Search ${filteredStudents.length} supports...`}
         value={searchText}
         onChange={this.onSearchChanged} />
     );
@@ -128,6 +136,24 @@ export default class FilterServicesBar extends React.Component {
         onChange={this.onServiceTypeIdChanged} />
     );
   }
+
+  renderProviderSelect() {
+    const {services} = this.props;
+    const {providerText} = this.state;
+    const sortedProviders = _.sortBy(_.uniq(_.compact(services.map(service => service.provided_by_educator_name))));
+    const options = sortedProviders.map(provider => {
+      return {value: provider, label: provider};
+    });
+
+    return (
+      <SimpleFilterSelect
+        style={styles.select}
+        placeholder="Provider..."
+        value={providerText}
+        onChange={this.onProviderTextChanged}
+        options={options} />
+    );
+  }
 }
 FilterServicesBar.propTypes = {
   services: PropTypes.array.isRequired,
@@ -162,7 +188,8 @@ function initialState() {
     grade: ALL,
     school: ALL,
     serviceTypeId: ALL,
-    schoolId: ALL
+    schoolId: ALL,
+    providerText: ALL
   };
 }
 

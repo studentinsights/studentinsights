@@ -100,7 +100,7 @@ export class ServicesView extends React.Component {
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>Services and Caseloads</SectionHeading>
+        <SectionHeading>Services</SectionHeading>
         <FilterServicesBar
           services={services}
           style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}>
@@ -219,7 +219,7 @@ export class ServicesView extends React.Component {
 
     return (
       <div style={{
-        background: serviceColor(service.service_type_id),
+        background: serviceColor(service.service_type.id),
         opacity: (wasDiscontinued) ? 0.8 : 1,
         fontSize: 12,
         padding: 5,
@@ -281,13 +281,13 @@ export class ServicesView extends React.Component {
     const endN = (maybeEndMoment === null) ? null : nowMoment.diff(maybeEndMoment, 'days');
     const nCalendarMonths = (maybeEndMoment || nowMoment).diff(startMoment, 'months');
     const nCalendarDays = (maybeEndMoment || nowMoment).diff(startMoment, 'days');
-    const trueBarWidth = nCalendarDays
+    const trueBarWidth = (nCalendarDays !== null)
       ? (nCalendarDays/nDaysBack)*width
       : (startN/nDaysBack)*width;
     const barWidth = Math.max(trueBarWidth, 5);
     return (
       <div style={{position: 'relative', background: '#f8f8f8', height: 20}}>
-        <div title={`${nCalendarDays} calendar days}`} style={{
+        <div title={`${nCalendarMonths} months, ${nCalendarDays} calendar days`} style={{
           position: 'absolute',
           left: ((nDaysBack - startN)/nDaysBack)*width,
           width: barWidth,
@@ -305,25 +305,36 @@ export class ServicesView extends React.Component {
   }
 }
 ServicesView.contextTypes = {
-  districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
 };
 ServicesView.propTypes = {
-  services: PropTypes.array.isRequired,
-  // (PropTypes.shape({
-  // students: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.number.isRequired,
-  //   first_name: PropTypes.string.isRequired,
-  //   last_name: PropTypes.string.isRequired,
-  //   house: PropTypes.string,
-  //   counselor: PropTypes.string,
-  //   grade: PropTypes.string.isRequired,
-  //   has_photo: PropTypes.bool.isRequired,
-  //   school: PropTypes.shape({
-  //     id: PropTypes.number.isRequired,
-  //     name: PropTypes.string.isRequired
-  //   }).isRequired,
-  // })).isRequired
+  services: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    discontinued_by_educator_id: PropTypes.number,
+    provided_by_educator_name: PropTypes.string,
+    date_started: PropTypes.string,
+    estimated_end_date: PropTypes.string,
+    discontinued_at: PropTypes.string,
+    service_type: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    student: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      grade: PropTypes.string,
+      has_photo: PropTypes.bool.isRequired,
+      school: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired,
+      homeroom: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired
+  })).isRequired
 };
 
 
