@@ -70,6 +70,35 @@ class EducatorsController < ApplicationController
     }
   end
 
+  def services_json
+    students = authorized { Student.active.includes(:services, :school, :homeroom, :student_photos).to_a }
+    services = students.flat_map(&:services)
+    services_json = services.as_json({
+      include: {
+        service_type: {
+          only: [:id, :name]
+        },
+        student: {
+          only: [
+            :id,
+            :first_name,
+            :last_name,
+            :grade
+          ],
+          methods: [:has_photo],
+          include: {
+            school: {
+              only: [:id, :name]
+            }
+          }
+        }
+      }
+    })
+    render json: {
+      services: services_json
+    }
+  end
+
   # Used by the search bar to query for student names
   def student_searchbar_json
     json = EducatorSearchbar.student_searchbar_json_for(current_educator, {

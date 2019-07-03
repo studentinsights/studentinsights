@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   get '/api/educators/view/:id' => 'educators#show'
   get '/api/educators/my_students_json' => 'educators#my_students_json'
+  get '/api/educators/services_json' => 'educators#services_json'
   get '/api/educators/student_searchbar_json' => 'educators#student_searchbar_json'
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
@@ -131,6 +132,7 @@ Rails.application.routes.draw do
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
   get '/educators/my_notes' => 'ui#ui'
+  get '/educators/services'=> 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/probe'=> 'educators#probe'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
