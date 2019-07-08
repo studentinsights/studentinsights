@@ -49,6 +49,8 @@ class SomervilleMegaReadingImporter
 
   def read_or_fetch_csv
     raise 'unfinished'
+    fetcher = GoogleSheetsFetcher.new
+    fetcher.get_spreadsheet(SHEET_URL)
     # TODO read from google or mock and return `streaming_csv` that responds
     # to #each_with_index
   end
