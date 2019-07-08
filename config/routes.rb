@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     get '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#index'
   end
 
-
   get '/api/educators/view/:id' => 'educators#show'
   get '/api/educators/my_students_json' => 'educators#my_students_json'
   get '/api/educators/services_json' => 'educators#services_json'
@@ -119,14 +118,14 @@ Rails.application.routes.draw do
   post '/api/counselor_meetings' => 'counselor_meetings#create'
   get '/api/counselor_meetings/student_feed_cards_json' => 'counselor_meetings#student_feed_cards_json'
 
-  # is service working?
+  # internal: is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
-
-  ### internal
-  # login activity security monitoring
+  # internal: login activity security monitoring
   get '/api/login_activity' => 'login_activities#index_json'
 
+
+  # --- product URLs --- 
   # home pages
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/my_students'=> 'ui#ui'
@@ -159,12 +158,6 @@ Rails.application.routes.draw do
 
   # SHS levels
   get '/levels/:school_id' => 'ui#ui'
-
-  # login activity security monitoring
-  get '/login_activity' => 'ui#ui'
-
-  # experimental "is service working?"
-  get '/is_service_working' => 'ui#ui'
 
   # K8 homeroom page
   get '/homerooms/:id' => 'ui#ui', as: :homeroom
@@ -235,5 +228,15 @@ Rails.application.routes.draw do
   resource :counselors, only: [] do
     get '/meetings' => 'ui#ui'
     get '/transitions' => 'ui#ui'
+  end
+
+  # internal tools, either early product prototypes or
+  # for product team tools
+  resource :internal, only: [] do
+    # login activity security monitoring
+    get '/login_activity' => 'ui#ui'
+
+    # experimental "is service working?"
+    get '/is_service_working' => 'ui#ui'
   end
 end

@@ -622,6 +622,30 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
+                href="/reading/debug"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Benchmark reading data (eg, F&P)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/reading/debug_star"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                STAR reading data
+              </a>
+            </li>
+            <li>
+              <a
                 href="/admin/sample_students"
                 style={
                   Object {
@@ -675,6 +699,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
                 }
               >
                 Export discipline incidents CSV
+              </a>
+            </li>
+            <li>
+              <a
+                href="/reading/debug_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Export reading benchmark data CSV
               </a>
             </li>
             <li>
@@ -1548,6 +1584,30 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
+                href="/reading/debug"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Benchmark reading data (eg, F&P)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/reading/debug_star"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                STAR reading data
+              </a>
+            </li>
+            <li>
+              <a
                 href="/admin/sample_students"
                 style={
                   Object {
@@ -1601,6 +1661,18 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                 }
               >
                 Export discipline incidents CSV
+              </a>
+            </li>
+            <li>
+              <a
+                href="/reading/debug_csv"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Export reading benchmark data CSV
               </a>
             </li>
             <li>
