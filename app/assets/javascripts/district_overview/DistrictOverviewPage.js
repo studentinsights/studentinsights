@@ -155,6 +155,16 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>
             <li>
+              <a href="/reading/debug" style={styles.link}>
+               Benchmark reading data (eg, F&P)
+              </a>
+            </li>
+            <li>
+              <a href="/reading/debug_star" style={styles.link}>
+               STAR reading data
+              </a>
+            </li>
+            <li>
               <a href="/admin/sample_students" style={styles.link}>
                 Student sample for data quality checks
               </a>
@@ -173,6 +183,11 @@ export class DistrictOverviewPageView extends React.Component {
             <li>
               <a href="/district/discipline_csv" style={styles.link}>
                Export discipline incidents CSV
+              </a>
+            </li>
+            <li>
+              <a href="/reading/debug_csv" style={styles.link}>
+               Export reading benchmark data CSV
               </a>
             </li>
             <li>
