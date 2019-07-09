@@ -25,6 +25,8 @@ class TestPals
 
   # students
   attr_reader :healey_kindergarten_student
+  attr_reader :healey_grade_2_student1
+  attr_reader :healey_grade_2_student2
   attr_reader :west_eighth_ryan
   attr_reader :shs_freshman_mari
   attr_reader :shs_freshman_amir
@@ -215,6 +217,26 @@ class TestPals
       grade: 'KF',
       local_id: '111111111',
       state_id: '991111111',
+      enrollment_status: 'Active'
+    )
+    @healey_grade_2_student1 = Student.create!(
+      first_name: 'Pluto',
+      last_name: 'Skywalker',
+      school: @healey,
+      homeroom: @healey_kindergarten_homeroom,
+      grade: '2',
+      local_id: '111111112',
+      state_id: '991111111',
+      enrollment_status: 'Active'
+    )
+    @healey_grade_2_student2 = Student.create!(
+      first_name: 'Donald',
+      last_name: 'Skywalker',
+      school: @healey,
+      homeroom: @healey_kindergarten_homeroom,
+      grade: '2',
+      local_id: '111111113',
+      state_id: '991111113',
       enrollment_status: 'Active'
     )
 

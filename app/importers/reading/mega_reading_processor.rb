@@ -28,7 +28,6 @@ class MegaReadingProcessor
     string = (@header_rows_count > 1) ? file_text.lines[@header_rows_count-1..-1].join : file_text
     StreamingCsvTransformer.from_text(@log, string).each_with_index do |row, index|
       flattened_rows = flat_map_rows(row, index)
-      puts flattened_rows
       next if flattened_rows.nil?
 
       rows += flattened_rows
@@ -116,39 +115,30 @@ class MegaReadingProcessor
     return [nil, last_first_name]
   end
 
-  #get index of seasonal values
-  def process_data_points(file_text)
-    csv = csv.parse(file_text)
-    dates = csv[0].reject(&:blank?)
-    headrs = csv[1]
+  # #get index of seasonal values
+  # def process_data_points(file_text)
+  #   csv = csv.parse(file_text)
+  #   dates = csv[0].reject(&:blank?)
+  #   headrs = csv[1]
 
-    fall_start_index = csv[0].index(dates[0])
-    winter_start_index = csv[0].index(dates[1])
-    spring_start_index = csv[0].index(dates[2])
+  #   fall_start_index = csv[0].index(dates[0])
+  #   winter_start_index = csv[0].index(dates[1])
+  #   spring_start_index = csv[0].index(dates[2])
 
-    row.each_with_index do |field|
-      if (index < fall_start_index)
-        #shared
-      elsif (index.between?(fall_start_index, winter_start_index-1))
-        #fall
-      elsif (index.between?(winter_start_index, spring_start_index-1))
-        #winter
-      elsif (index < spring_start_index)
-        #spring
-      end
-    end
-  end
+  #   row.each_with_index do |field|
+  #     if (index < fall_start_index)
+  #       #shared
+  #     elsif (index.between?(fall_start_index, winter_start_index-1))
+  #       #fall
+  #     elsif (index.between?(winter_start_index, spring_start_index-1))
+  #       #winter
+  #     elsif (index < spring_start_index)
+  #       #spring
+  #     end
+  #   end
+  # end
 
-  def data_points_for_fall(shared, row)
-    import_data_points(shared, row, [
-      ['Last name', 'First Name', 'ELL', 'SPED', 'Reading', 'NWF-CLS', 'NWF-WWR']
-    ])
-  end
-
-  ['Last name', 'First Name', 'ELL', 'SPED', 'Reading', 'NWF-CLS', 'NWF-WWR'] #shared
-  ['DORF median WRC*', 'DORF median errors', 'Accuracy', 'F&P Instructional ', 'Instructional Needs Code', 'Fall-Winter Growth', 'F&P Growth']
-  ['DORF median WRC*', 'DORF median errors', 'Accuracy', 'F&P Instructional ', 'Instructional Needs Code', 'Winter-Spring_\ Growth', 'F&P Growth']
-  ['DORF median WRC*', 'DORF median errors', 'Accuracy', 'F&P Instructional ', 'F&P Growth']
+  # ['Last name', 'First Name', 'ELL', 'SPED', 'Reading', 'NWF-CLS', 'NWF-WWR'] #shared
 
   def data_points_for_kindergarten(shared, row)
     import_data_points(shared, row, [
@@ -198,29 +188,28 @@ class MegaReadingProcessor
 
   def data_points_for_second(shared, row)
     import_data_points(shared, row, [
-      ['2', :fall, :dibels_nwf_cls, '2 / FALL / NWF CLS'],
-      ['2', :fall, :dibels_nwf_wwr, '2 / FALL / NWF WWR'],
-      ['2', :fall, :dibels_dorf_wrc, '2 / FALL / DORF WRC'],
-      ['2', :fall, :dibels_dorf_err, '2 / FALL / DORF ERR'],
-      ['2', :fall, :dibels_dorf_acc, '2 / FALL / DORF ACC'],
-      ['2', :fall, :f_and_p_english, '2 / FALL / F&P Level English'],
-      ['2', :fall, :instructional_needs, '2 / FALL / Instructional Needs'],
-      ['2', :fall, :growth_fall_winter, '2 / FALL / Fall-Winter Growth'],
-      ['2', :fall, :growth_f_and_p, '2 / FALL / F&P Growth'],
-      ['2', :winter, :dibels_dorf_wrc, '2 / WINTER / DORF WRC'],
-      ['2', :winter, :dibels_dorf_err, '2 / WINTER / DORF ERR'],
-      ['2', :winter, :dibels_dorf_acc, '2 / WINTER / DORF ACC'],
-      ['2', :winter, :f_and_p_english, '2 / WINTER / F&P Level English'],
-      ['2', :winter, :instructional_needs, '2 / WINTER / Instructional Needs'],
-      ['2', :winter, :growth_winter_spring, '2 / WINTER / Winter-Spring Growth'],
-      ['2', :winter, :growth_f_and_p, '2 / WINTER / F&P Growth'],
-      ['2', :spring, :dibels_dorf_wrc, '2 / SPRING / DORF WRC'],
-      ['2', :spring, :dibels_dorf_err, '2 / SPRING / DORF ERR'],
-      ['2', :spring, :dibels_dorf_acc, '2 / SPRING / DORF ACC'],
-      ['2', :spring, :f_and_p_english, '2 / SPRING / F&P Level English'],
-      ['2', :spring, :instructional_needs, '2 / SPRING / Instructional Needs'],
-      ['2', :spring, :growth_winter_spring, '2 / SPRING / Winter-Spring Growth'],
-      ['2', :spring, :growth_f_and_p, '2 / SPRING / F&P Growth'],
+      ['2', :fall, :dibels_nwf_cls, 'NWF-CLS'],
+      ['2', :fall, :dibels_nwf_wwr, 'NWF-WWR'],
+      ['2', :fall, :dibels_dorf_wrc, 'DORF median WRC*'],
+      ['2', :fall, :dibels_dorf_errors, 'DORF median errors'],
+      ['2', :fall, :dibels_dorf_acc, 'Accuracy'],
+      ['2', :fall, :f_and_p_english, 'F&P Instructional'],
+      ['2', :fall, :instructional_needs, 'Instructional Needs Code'],
+      ['2', :fall, :growth_fall_winter, 'Fall-Winter Growth'],
+      ['2', :fall, :growth_f_and_p, 'F&P Growth'],
+      ['2', :winter, :dibels_dorf_wrc, 'DORF median WRC*'],
+      ['2', :winter, :dibels_dorf_errors, 'DORF median errors'],
+      ['2', :winter, :dibels_dorf_acc, 'Accuracy'],
+      ['2', :winter, :f_and_p_english, 'F&P Instructional'],
+      ['2', :winter, :instructional_needs, 'Instructional Needs Codes'],
+      ['2', :winter, :growth_winter_spring, 'Winter-Spring Growth'],
+      ['2', :winter, :growth_f_and_p, 'F&P Growth'],
+      ['2', :spring, :dibels_dorf_wrc, 'DORF median WRC*'],
+      ['2', :spring, :dibels_dorf_errors, 'DORF median errors'],
+      ['2', :spring, :dibels_dorf_acc, 'Accuracy'],
+      ['2', :spring, :f_and_p_english, '2F&P Instructional'],
+      ['2', :spring, :instructional_needs, 'Instructional Needs Code'],
+      ['2', :spring, :growth_f_and_p, 'F&P Growth'],
     ])
   end
 
@@ -236,6 +225,7 @@ class MegaReadingProcessor
     rows = []
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, row_key = tuple
+      puts row_key
       data_point = row[row_key]
       if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
         @missing_data_point +=1
