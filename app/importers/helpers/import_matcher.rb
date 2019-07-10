@@ -66,6 +66,17 @@ class ImportMatcher
     educator
   end
 
+  # Try a few methods
+  def find_educator_by_name_flexible(text)
+    educator_from_login_name = self.find_educator_by_login(tab_name, disable_metrics: true)
+    return educator_from_login_name if educator_from_login_name.present?
+      
+    educator_from_last_name = self.find_educator_by_last_name(tab_name)
+    return educator_from_last_name if educator_from_last_name.present?
+
+    nil
+  end
+
   # HS course?
   def find_course_id(value)
     course_number = value.try(:strip).upcase

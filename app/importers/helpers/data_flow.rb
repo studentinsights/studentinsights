@@ -10,6 +10,7 @@ class DataFlow
   MERGE_UPDATE_FLAG_UNMARKED = 'merge_update_flag_unmarked'
   MERGE_UPDATE_IGNORE_UNMARKED = 'merge_update_ignore_unmarked'
   MERGE_REPLACE_ALL_WITHIN_SCOPE = 'merge_replace_all_within_scope'
+  MERGE_BLINDLY_CREATE = 'merge_blindly_create'
 
   OPTION_SCHOOL_SCOPE = 'option_school_scope'
   OPTION_SKIP_OLD_RECORDS = 'option_skip_old_records'

@@ -1,17 +1,17 @@
 # Import transition notes, just notes and not services (even though
 # they are in the same sheets).
-class BedfordLaneTransitionNotesImporter
+class BedfordTeacherTransitionImporter
   def self.data_flow
     DataFlow.new({
       importer: self.name,
       source: DataFlow::SOURCE_GOOGLE_DRIVE_SHEET,
       frequency: DataFlow::FREQUENCY_ONE_TIME_BATCH,
       options: [],
-      merge: DataFlow::MERGE_REPLACE_ALL_WITHIN_SCOPE,
+      merge: DataFlow::MERGE_BLINDLY_CREATE,
       touches: [
-        ImportedForm.name
+        EventNote.name
       ],
-      description: 'Transition notes and services for elementary school students at Davis'
+      description: 'Transition notes from teachers at Lane in Bedford, imported from sheets into notes'
     })
   end
 
@@ -22,17 +22,12 @@ class BedfordLaneTransitionNotesImporter
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @syncer = options.fetch(:syncer, SimpleSyncer.new(log: @log))
+    @note_prefix = options.fetch(:note_prefix, note_prefix())
   end
 
   def import
     rows = dry_run()
-    records = rows.map {|row| ImportedForm.new(row) }
-
-    # sync
-    form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
-    records_within_scope = ImportedForm.where(form_key: form_key)
-    @syncer.sync_and_delete_unmarked!(records, records_within_scope)
-    log "stats.to_json: #{stats.to_json}"
+    rows.each {|row| EventNote.create!(row) }
     nil
   end
 
@@ -52,7 +47,7 @@ class BedfordLaneTransitionNotesImporter
 
   private
   def read_folder_id_from_env
-    PerDistrict.new.imported_google_folder_ids('bedford_lane_transition_notes_folder_id')
+    PerDistrict.new.imported_google_folder_ids('bedford_teacher_transition_notes_folder_id')
   end
 
   def fetch_tabs
@@ -61,23 +56,22 @@ class BedfordLaneTransitionNotesImporter
 
   def process_tab(tab)
     # skip info tab
-    return [] if tab.tab_name == 'INFO'
+    return [] if tab.tab_name == 'ALL'
 
     # url to specific tab
     form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
 
-    # find educator and homeroom by tab.tab_name
+    # find educator from tab
     educator = @matcher.find_educator_by_name_flexible(tab.tab_name)
     return [] if educator.nil?
 
     # process and create
-    processor = BedfordEndOfYearTransitionProcessor.new(educator, form_url, log: @log)
+    processor = BedfordTeacherTransitionProcessor.new(educator, form_url, log: @log)
     processor.dry_run(tab.tab_csv)
   end
 
-
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "BedfordLaneTransitionNotesImporter: #{text}"
+    @log.puts "BedfordTeacherTransitionImporter: #{text}"
   end
 end
