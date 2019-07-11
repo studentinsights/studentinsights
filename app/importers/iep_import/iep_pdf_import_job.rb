@@ -2,6 +2,15 @@ require 'zip'
 require 'tempfile'
 require 'fileutils'
 
+# In Somerville, EasyIEP runs "change export" of IEP PDFs that have changed and sends
+# them to an SFTP nightly. Somerville IT runs a job to copy those files into Aspen and
+# another job to copy those files to an Insights SFTP site. We then import the PDFs to
+# Insights.
+# 
+# See IepTextParser for details on the contents of the files; they are not entirely
+# consistent and we've done different analyses to see how much automated parsing we
+# can do (which is unfortunately all working around the underlying limitations the
+# district faces working with the vendor).
 class IepPdfImportJob
 
   REQUIRED_KEYS = [
