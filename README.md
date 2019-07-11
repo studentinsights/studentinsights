@@ -28,9 +28,9 @@ Check out the [**demo site**](https://somerville-teacher-tool-demo.herokuapp.com
 All accounts use the password: `demo-password`.
 
 # Contributing
-We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
+We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for Boston, in Kendall Square, Cambridge.
 
-# Development Environment
+## Development Environment
 
 This is a Ruby on Rails app that uses a PostgreSQL database as the primary data store, and relies on React for much of the UI code.
 
