@@ -37,7 +37,7 @@
     "highcharts": "^6.0.2",
     "jest-fetch-mock": "^1.4.2",
     "jquery": "^3.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "lunr": "^2.3.6",
     "moment": "2.19.3",
     "object-assign": "^4.1.1",
