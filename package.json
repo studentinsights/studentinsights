@@ -85,5 +85,9 @@
     "webpack": "^3.8.1",
     "webpack-manifest-plugin": "^1.3.2",
     "webpack-merge": "^4.1.0"
+  },
+  "resolutions": {
+    "lodash.mergewith": "^4.6.2",
+    "lodash-es": "^4.17.14"
   }
 }
