@@ -14,7 +14,7 @@ It’s people closest to the work, **within school communities** - teachers, you
 
 We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle **what matters for our students**.
 
-Learn more at [studentinsights.org](https://www.studentinsights.org).
+Learn more at [**studentinsights.org**](https://www.studentinsights.org).
 
 ### Demo site
 Check out the [**demo site**](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
@@ -28,24 +28,11 @@ Check out the [**demo site**](https://somerville-teacher-tool-demo.herokuapp.com
 All accounts use the password: `demo-password`.
 
 # Contributing
-We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
+We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for Boston, in Kendall Square, Cambridge.
 
-# How it works
-The project is a Rails app with a Postgres database.  There are background tasks that replicate data from the Aspen SIS system and STAR assessment system into the Postgres database.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  The Postgres database is the system of record for unique data captured by the Student Insights product (eg., notes from clinical meetings and information about targeted interventions that students are receiving).  Authentication is handled by the district's LDAP service.
+## Development Environment
 
-![how it works](docs/readme_images/how_it_works.png)
-
-## Admin dashboard
-
-This project includes an admin dashboard built with [thoughtbot/administrate](https://github.com/thoughtbot/administrate).
-
-The admin dashboard has one function: Allow admins (principals, assistant principals, district admins) to set user roles and permissions for other staff, in particular staff who are not classroom-based teachers.
-
-The admin dashboard is available at `/admin` for educators whose `admin` attribute is `true`.
-
-# Development Environment
-
-This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React for much of the UI code.
+This is a Ruby on Rails app that uses a PostgreSQL database as the primary data store, and relies on React for much of the UI code.
 
 ## 1. Install dependencies
 
@@ -125,12 +112,31 @@ Running `yarn storybook` will start a storybook server on port 6006. You can use
 8. Add Guardrails
 - Install [git-secrets](https://github.com/awslabs/git-secrets#installing-git-secrets) and ensure the hook is set for the repo
 
-# Browser/OS Targeting
 
-Category | Target | Comment
---- | --- | ---
-Browser | IE 11 | "Should be all IE 11 by now." <br>    – John Breslin, Technology Department, Somerville Public Schools
-OS | Windows 7 and 8.1 | "Maybe some Win10 next year." <br>    – John Breslin, Technology Department, Somerville Public Schools
+# System overview
+The project is a Rails app with a Postgres database.  There are background tasks that import data from district SIS systems, vendor systems like STAR, and district data sources within Google Drive.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  Student Insights is the system of record for some unique data (eg., notes from clinical meetings and information about targeted interventions that students are receiving).  Authentication is typically handled by the district's LDAP service.
+
+District project leads have access administrative tools for adjusting educator permissions and roles, for doing data quality checks, reviewing health of import tasks, and exporting data.
+
+Understanding the human pieces of how data flows through the system, which is critical for understanding accuracy and representativeness, is quite complex and varies within and across districts.  This is important to keep in mind when making product and engineering decisions.  With that caveat, here's an abstracted engineering-centric view on the pieces of the system and kinds of data flow:
+
+![systems overview](docs/readme_images/systems-overview.png)
+![data systems](docs/readme_images/data-systems.png)
+
+All districts share the same codebase, but are deployed in isolated instances.
+
+### Differences between districts
+There are many differences within and across districts.  Some of this is driven by districts focusing on different things or being at different places in adoption, and some is different by inherent differences.  When trying to learn about or understand how Student Insights handles these differences, a good triage process is:
+
+- check `per_district.rb` and `PerDistrict.js` in source code
+- look at differences in environment variables
+- check for differences in actual data (eg, fields used or specific enum values)
+- also look at `EducatorLabel` which describes different feature switches, which are often related to important differences across or within districts
+
+For educator-facing document, see also:
+
+- [Student Insights: Project Lead FAQ](https://docs.google.com/document/d/1Q5CFXd9kYYnQXl2g73A0woS00YgDG19L9nITO3JCS2s/edit#)
+- [Student Insights: Educator FAQ](https://docs.google.com/document/d/1OSSFQ13KjgCOHNbWjbAMCdDW3S_U8LEcByfBAXSYbTo/edit#)
 
 
 # Deployment
@@ -149,19 +155,6 @@ See our guide:
 
 [Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with district LDAP servers which are firewalled.  The `QUOTAGUARDSTATIC_MASK` environment variable is a subnet mask for routing only certain outbound requests through the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
 
-### Data differences between districts
-
-District | Data Source | Data Import Notes
---- | --- | ---
-Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs and dump them to an SFTP site. We import the CSVs to Insights nightly.
-Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site. We import the CSVs to Insights nightly.
-Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and sends them to an SFTP nightly. Somerville IT runs a job to copy those files into Aspen and another job to copy those files to an Insights SFTP site. We import the PDFs to Insights nightly.
-
-### Feature differences between districts
-
-District | Feature Area | Feature Notes
---- | --- | ---
-Somerville | School Overview Page | Somerville High School Housemasters are requesting a feature that will let them sort students by House. [(More info on houses here.)](http://www.somerville.k12.ma.us/schools/somerville-high-school/daily-life)
 
 # Ops
 Here are some notes on maintaining, troubleshooting and performance.
@@ -175,6 +168,6 @@ You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to ge
 # More information
 
 - [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
-- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or on Code for Boston Slack
+- Connect with [Kevin](https://twitter.com/krob) on Twitter or on Code for Boston Slack
 - More docs in the `docs` folder!
 - Learn more at [studentinsights.org](https://www.studentinsights.org).
