@@ -16,8 +16,21 @@ rvm:
 
 sudo: required
 
-services:
-  - postgresql
+# Use a more recent version of Postgres that supports full text search
+# (eg, see search_notes_queries.rb).  If not, Travis defaults to an
+# older version that doesn't suppor this.
+# See https://docs.travis-ci.com/user/database-setup/#using-a-different-postgresql-version
+addons:
+  postgresql: "11"
+  apt:
+    packages:
+    - postgresql-11
+    - postgresql-client-11
+
+env:
+  global:
+  - PGPORT=5433
+
 
 branches:
   only:
