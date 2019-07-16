@@ -1,22 +1,15 @@
 dist: xenial
 language: ruby
 
-env:
-  # for parallelizing tests across VMS, see https://docs.travis-ci.com/user/speeding-up-the-build/
-  - TRAVIS_TEST_SUITE=js
-  - TRAVIS_TEST_SUITE=ruby
-  # for install specific Postgres version, see `addons` below
-  - PGPORT=5433
+rvm:
+  - ruby-2.5.3
+
+sudo: required
 
 cache:
   directories:
   - $HOME/.cache/yarn # yarn
   - node_modules # yarn
-
-rvm:
-  - ruby-2.5.3
-
-sudo: required
 
 # Use a more recent version of Postgres that supports full text search
 # (eg, see search_notes_queries.rb).  If not, Travis defaults to an
@@ -28,6 +21,16 @@ addons:
     packages:
     - postgresql-11
     - postgresql-client-11
+
+env:
+  # for install specific Postgres version, see `addons` below
+  global:
+  - PGPORT=5433
+
+  # for parallelizing tests across VMS, see https://docs.travis-ci.com/user/speeding-up-the-build/
+  matrix:
+  - TRAVIS_TEST_SUITE=js
+  - TRAVIS_TEST_SUITE=ruby
 
 branches:
   only:
