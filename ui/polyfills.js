@@ -35,12 +35,3 @@ if (window.NodeList && !NodeList.prototype.forEach) {
 // see https://reactjs.org/docs/javascript-environment-requirements.html
 import 'core-js/es6/map';
 import 'core-js/es6/set';
-
-
-// Prevent further Object.prototype pollution from happening
-// (example: https://snyk.io/vuln/SNYK-JS-SETVALUE-450213)
-try {
-  Object.freeze(Object.prototype);
-} catch (err) {
-  console.error('Object.freeze(Object.prototype) failed', err);
-}
