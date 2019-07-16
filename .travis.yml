@@ -41,9 +41,6 @@ before_install:
   # see https://github.com/travis-ci/travis-ci/issues/7471#issuecomment-288832948
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"; fi
-  # workaround for postgres version on travis (see https://github.com/travis-ci/travis-ci/issues/9624#issuecomment-389537036)
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo service postgresql restart; fi
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sleep 1; fi
   # libsodium binary, from Heroku-16 stack (https://github.com/heroku/stack-images/blob/master/heroku-16/bin/heroku-16.sh#L7)
   # Even though we run Heroku-18 in production, our Travis setup is still running Ubuntu 16
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then echo "deb http://archive.ubuntu.com/ubuntu/ xenial main universe" | sudo tee -a /etc/apt/sources.list; fi
