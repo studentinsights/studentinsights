@@ -197,9 +197,6 @@ RSpec.describe X2AssessmentImporter do
       allow(importer).to receive(:download_csv).and_return(csv)
       importer.import
 
-      puts StudentAssessment.count
-      puts log.output
-      puts '---- done ---'
       expect(log.output).to include('encountered_test_names_count_map: {"MCAS"=>11, "ACCESS"=>8}')
       expect(log.output).to include('skipped_because_of_test_type: 0')
       expect(log.output).to include('created_rows_count: 16')
