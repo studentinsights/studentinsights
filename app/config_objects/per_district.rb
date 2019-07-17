@@ -472,6 +472,8 @@ class PerDistrict
       else
         row[:assessment_subject]
       end
+    elsif @district_key == NEW_BEDFORD
+      row[:assessment_subject] # no changes
     else
       raise_not_handled!
     end

@@ -201,6 +201,7 @@ RSpec.describe PerDistrict do
     end
 
     it 'raises for New Bedford' do
+      # TODO(Kr)
       expect { for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS') }.to raise_error Exceptions::DistrictKeyNotHandledError
     end
   end
