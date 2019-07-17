@@ -200,8 +200,12 @@ RSpec.describe PerDistrict do
       expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'ACCESS')).to eq nil
     end
 
-    it 'raises for New Bedford' do
-      expect { for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS') }.to raise_error Exceptions::DistrictKeyNotHandledError
+    it 'works for New Bedford' do
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS')).to eq McasRow
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'ACCESS')).to eq AccessRow
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'WIDA')).to eq nil
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'WIDA-ACCESS')).to eq nil
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'DIBELS')).to eq nil
     end
   end
 
