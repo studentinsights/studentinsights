@@ -447,6 +447,12 @@ class PerDistrict
       else
         nil
       end
+    elsif @district_key == NEW_BEDFORD
+      case row[:assessment_test]
+        when 'MCAS' then McasRow
+        when 'ACCESS' then AccessRow
+        else nil
+      end
     else
       raise_not_handled!
     end
