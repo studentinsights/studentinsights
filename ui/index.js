@@ -1,10 +1,10 @@
-import './freeze.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {readEnv} from '../app/assets/javascripts/envForJs';
 import StudentSearchbar, {clearStorage} from '../app/assets/javascripts/components/StudentSearchbar';
 import App from './App';
+import './freeze.js';
 
 
 // Clear browser cache on sign out, and add extra guard that
