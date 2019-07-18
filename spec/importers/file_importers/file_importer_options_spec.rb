@@ -2,6 +2,31 @@ require 'rails_helper'
 
 RSpec.describe FileImporterOptions do
 
+  describe '#all_data_flows' do
+    it 'references :importer classes that implement #import' do
+      data_flows = FileImporterOptions.new.all_data_flows
+      importer_classes = data_flows.flat_map(&:importer).map(&:constantize)
+      importer_classes.each do |importer_class|
+        expect(importer_class.instance_methods(false)).to include(:import)
+      end
+    end
+
+    it 'references ApplicationRecord classes with :touches' do
+      model_class_names = ApplicationRecord.descendants.map(&:name)
+      touches = FileImporterOptions.new.all_data_flows.flat_map(&:touches)
+      expect { touches.map(&:constantize) }.not_to raise_error
+      expect(touches - model_class_names).to eq []
+    end
+
+    it 'can describe data flows for all importer classes' do
+      data_flows = FileImporterOptions.new.all_data_flows
+      expect(data_flows.size).to eq(13)
+      sorted_json = data_flows.as_json.sort_by {|j| j['importer'] }
+      fixture_json = JSON.parse(IO.read("#{Rails.root}/spec/importers/helpers/data_flows_fixture.json"))
+      expect(sorted_json).to eq(fixture_json)
+    end
+  end
+
   describe '#all_importer_keys' do
     it 'requires writing the keys written out again test to verify they are correct' do
       expect(FileImporterOptions.new.all_importer_keys).to contain_exactly(*[

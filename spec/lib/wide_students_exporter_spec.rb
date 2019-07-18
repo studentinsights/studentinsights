@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StudentsSpreadsheet do
+RSpec.describe WideStudentsExporter do
   context 'with generated students' do
     let!(:pals) { TestPals.create! }
     let!(:school) { School.find_by_name('Arthur D Healey') }
@@ -15,15 +15,20 @@ RSpec.describe StudentsSpreadsheet do
 
     describe '#csv_string' do
       it 'generates a CSV with the expected number of lines' do
-        csv_string = StudentsSpreadsheet.new.csv_string(school.students, school)
+        csv_string = WideStudentsExporter.new(pals.uri).csv_string(school.students)
         expect(csv_string.split("\n").size).to eq(1 + school.students.size)
       end
     end
 
     describe '#flat_row_hash' do
-      it 'creates expected fields' do
-        flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all, school)
-        expect(flat_row_hash.keys).to match_array([
+      it 'creates expected fields with all options' do
+        exporter = WideStudentsExporter.new(pals.uri, {
+          include_additional_fields: true,
+          include_services: true,
+          include_event_notes: true
+        })
+        flat_row_hash = exporter.send(:flat_row_hash, school.students.first)
+        expect(flat_row_hash.keys).to contain_exactly(*[
            'id',
            'grade',
            'free_reduced_lunch',
@@ -35,6 +40,12 @@ RSpec.describe StudentsSpreadsheet do
            'school_id',
            'registration_date',
            'local_id',
+           'counselor',
+           'hispanic_latino',
+           'house',
+           'race',
+           'sped_liaison',
+           'student_address',
            'program_assigned',
            'sped_placement',
            'disability',
@@ -55,12 +66,14 @@ RSpec.describe StudentsSpreadsheet do
            'missing_from_last_export',
            'date_of_birth',
            'gender',
+           'primary_email',
+           'primary_phone',
+
+           'homeroom_name',
            'discipline_incidents_count',
            'absences_count',
            'tardies_count',
-           'homeroom_name',
-           'primary_email',
-           'primary_phone',
+
            'Attendance Officer (active_service_date_started)',
            'Attendance Contract (active_service_date_started)',
            'Behavior Contract (active_service_date_started)',
@@ -94,6 +107,52 @@ RSpec.describe StudentsSpreadsheet do
            'SPED Meeting (last_event_note_recorded_at)'
          ].sort
         )
+      end
+
+      it 'limits default fields' do
+        exporter = WideStudentsExporter.new(pals.uri)
+        flat_row_hash = exporter.send(:flat_row_hash, school.students.first)
+        expect(flat_row_hash.keys).to contain_exactly(*[
+          'id',
+          'grade',
+          'free_reduced_lunch',
+          'homeroom_id',
+          'first_name',
+          'last_name',
+          'state_id',
+          'home_language',
+          'school_id',
+          'registration_date',
+          'local_id',
+          'counselor',
+          'hispanic_latino',
+          'house',
+          'race',
+          'sped_liaison',
+          'student_address',
+          'program_assigned',
+          'sped_placement',
+          'disability',
+          'sped_level_of_need',
+          'plan_504',
+          'limited_english_proficiency',
+          'ell_entry_date',
+          'ell_transition_date',
+          'most_recent_mcas_math_growth',
+          'most_recent_mcas_ela_growth',
+          'most_recent_mcas_math_performance',
+          'most_recent_mcas_ela_performance',
+          'most_recent_mcas_math_scaled',
+          'most_recent_mcas_ela_scaled',
+          'most_recent_star_reading_percentile',
+          'most_recent_star_math_percentile',
+          'enrollment_status',
+          'missing_from_last_export',
+          'date_of_birth',
+          'gender',
+          'primary_email',
+          'primary_phone'
+        ])
       end
     end
   end

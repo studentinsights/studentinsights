@@ -55,13 +55,13 @@ class EducatorPage extends React.Component {
             <div>Sections: {educator.sections.length === 0
               ? 'None'
               : <ul>{educator.sections.map(section =>
-                  <li key={section.id}>
-                    <Section
-                      id={section.id}
-                      sectionNumber={section.section_number}
-                      courseDescription={section.course_description} />
-                    </li>
-                )}</ul>}
+                <li key={section.id}>
+                  <Section
+                    id={section.id}
+                    sectionNumber={section.section_number}
+                    courseDescription={section.course_description} />
+                </li>
+              )}</ul>}
             </div>
           </div>
           <pre style={styles.rawColumn}>

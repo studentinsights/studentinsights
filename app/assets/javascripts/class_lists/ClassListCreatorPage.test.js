@@ -59,7 +59,7 @@ it('renders without crashing on entrypoint', () => {
     <MemoryRouter initialEntries={['/classlists']}>
       {testEl(props)}
     </MemoryRouter>
-  , el);
+    , el);
 });
 
 it('renders without crashing with balanceId', () => {
@@ -69,7 +69,7 @@ it('renders without crashing with balanceId', () => {
     <MemoryRouter initialEntries={['/classlists/foo-id']}>
       {testEl(props)}
     </MemoryRouter>
-  , el);
+    , el);
 });
 
 it('integration test for state changes, server requests and autosave', done => {

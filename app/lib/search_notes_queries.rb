@@ -66,7 +66,10 @@ class SearchNotesQueries
       qs = qs.joins(:student).where(students: {grade: grade}) if grade.present?
       qs = qs.joins(:student).where(students: {house: house}) if house.present?
       qs = qs.where(event_note_type_id: event_note_type_id) if event_note_type_id.present?
-      qs = qs.where('to_tsvector(text) @@ plainto_tsquery(?)', text) if text.present?
+
+      # see https://www.postgresql.org/docs/11/textsearch-controls.html for
+      # info about syntax supported by `websearch_to_tsquery`
+      qs = qs.where('to_tsvector(text) @@ websearch_to_tsquery(?)', text) if text.present?
 
       # adjust scope
       qs = qs.where(educator_id: @educator.id) if scope_key == SCOPE_MY_NOTES_ONLY

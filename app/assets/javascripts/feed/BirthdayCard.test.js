@@ -15,8 +15,8 @@ it('renders without crashing', () => {
     withDefaultNowContext(
       <BirthdayCard studentBirthdayCard={studentBirthdayCard} />
     )
-  , el);
-  expect($(el).text()).toContain("🎉Luke Kenobi's birthday was on Monday 3/5!");
+    , el);
+  expect($(el).text()).toContain("🎉Luke Kenobi’s birthday was on Monday 3/5!");
   expect($(el).find('a').attr('href')).toEqual('/students/4');
 });
 
@@ -32,6 +32,6 @@ it('renders `is` for birthday today', () => {
     withNowContext('2012-03-05T09:23:14.000Z', 
       <BirthdayCard studentBirthdayCard={studentBirthdayCard} />
     )
-  , el);
-  expect($(el).text()).toContain("🎉Luke Kenobi's birthday is on Monday 3/5!");
+    , el);
+  expect($(el).text()).toContain("🎉Luke Kenobi’s birthday is on Monday 3/5!");
 });

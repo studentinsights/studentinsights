@@ -1,23 +1,36 @@
 dist: xenial
 language: ruby
 
-# for parallelizing tests across VMS, see https://docs.travis-ci.com/user/speeding-up-the-build/
-env:
-  - TRAVIS_TEST_SUITE=js
-  - TRAVIS_TEST_SUITE=ruby
+rvm:
+  - ruby-2.5.3
+
+sudo: required
 
 cache:
   directories:
   - $HOME/.cache/yarn # yarn
   - node_modules # yarn
 
-rvm:
-  - ruby-2.5.3
+# Use a more recent version of Postgres that supports full text search
+# (eg, see search_notes_queries.rb).  If not, Travis defaults to an
+# older version that doesn't support this.  Requires `env` to be set above as well.
+# See https://docs.travis-ci.com/user/database-setup/#using-a-different-postgresql-version
+addons:
+  postgresql: "11"
+  apt:
+    packages:
+    - postgresql-11
+    - postgresql-client-11
 
-sudo: required
+env:
+  # for install specific Postgres version, see `addons` below
+  global:
+  - PGPORT=5433
 
-services:
-  - postgresql
+  # for parallelizing tests across VMS, see https://docs.travis-ci.com/user/speeding-up-the-build/
+  matrix:
+  - TRAVIS_TEST_SUITE=js
+  - TRAVIS_TEST_SUITE=ruby
 
 branches:
   only:
@@ -49,7 +62,10 @@ install:
 script:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec ruby-audit check; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle audit check --update; fi
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test; fi
+  # This DATABASE_URL assumes '' for the host is set in database.yml,
+  # which is needed in Travis when using a specific version of Postgres
+  # that's different than the default.
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate DATABASE_URL=postgres:///student_insights_test; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake immigrant:check_keys; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then rubocop; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest; fi

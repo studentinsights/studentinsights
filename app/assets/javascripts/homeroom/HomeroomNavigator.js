@@ -49,7 +49,7 @@ export default class HomeroomNavigator extends React.Component {
         <Button
           isDisabled={homeroomOption === null}
           onClick={this.onNavigate}
-          >Go</Button>
+        >Go</Button>
       </div>
     );
   }

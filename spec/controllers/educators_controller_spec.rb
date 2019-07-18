@@ -122,6 +122,47 @@ describe EducatorsController, :type => :controller do
     end
   end
 
+  describe '#services_json' do
+    def get_services_json(educator)
+      request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      get :services_json, params: { format: :json }
+      response
+    end
+
+    let!(:pals) { TestPals.create! }
+
+    it 'works for Uri as an example' do
+      FactoryBot.create(:service, student: pals.shs_freshman_mari)
+      response = get_services_json(pals.uri)
+      expect(response).to be_successful
+      expect(JSON.parse!(response.body)['services'].first.keys).to contain_exactly(*[
+        'id',
+        'date_started',
+        'discontinued_at',
+        'discontinued_by_educator_id',
+        'estimated_end_date',
+        'service_type',
+        'service_type_id',
+        'service_upload_id',
+        'student',
+        'student_id',
+        'provided_by_educator_name',
+        'recorded_at',
+        'recorded_by_educator_id',
+        'created_at',
+        'updated_at'
+      ])
+    end
+
+    it 'guards authorization, testing with Laura' do
+      FactoryBot.create(:service, student: pals.shs_freshman_mari)
+      response = get_services_json(pals.healey_laura_principal)
+      expect(response).to be_successful
+      expect(JSON.parse!(response.body)['services']).to eq []
+    end
+  end
+
   describe '#student_searchbar_json' do
     let(:school) { FactoryBot.create(:healey) }
 

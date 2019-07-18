@@ -49,7 +49,7 @@ export function classifyLevel(level) {
   const isBenchmark = level.toUpperCase().charCodeAt() >= 'N'.charCodeAt();
   const color = (!level) ? null 
     : (isRisk) ? low
-    : (isBenchmark) ? high
-    : medium;
+      : (isBenchmark) ? high
+        : medium;
   return {isRisk, isBenchmark, color};
 }

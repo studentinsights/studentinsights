@@ -52,6 +52,23 @@ RSpec.describe PerDistrict do
     end
   end
 
+  describe '#imported_google_folder_ids' do
+    before do
+      @IMPORTED_GOOGLE_FOLDER_IDS_JSON = ENV['IMPORTED_GOOGLE_FOLDER_IDS_JSON']
+      ENV['IMPORTED_GOOGLE_FOLDER_IDS_JSON'] = '{"foo":"bar"}'
+    end
+    after do
+      ENV['IMPORTED_GOOGLE_FOLDER_IDS_JSON'] = @IMPORTED_GOOGLE_FOLDER_IDS_JSON
+    end
+
+    it 'works across districts' do
+      expect { for_somerville.imported_google_folder_ids('foo') }.to raise_error(Exceptions::DistrictKeyNotHandledError)
+      expect { for_new_bedford.imported_google_folder_ids('foo') }.to raise_error(Exceptions::DistrictKeyNotHandledError)
+      expect { for_demo.imported_google_folder_ids('foo') }.to raise_error(Exceptions::DistrictKeyNotHandledError)
+      expect(for_bedford.imported_google_folder_ids('foo')).to eq 'bar'
+    end
+  end
+
   describe '#find_educator_by_login_text' do
     it 'works for Somerville, username or email' do
       pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
@@ -183,8 +200,12 @@ RSpec.describe PerDistrict do
       expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'ACCESS')).to eq nil
     end
 
-    it 'raises for New Bedford' do
-      expect { for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS') }.to raise_error Exceptions::DistrictKeyNotHandledError
+    it 'works for New Bedford' do
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS')).to eq McasRow
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'ACCESS')).to eq AccessRow
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'WIDA')).to eq nil
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'WIDA-ACCESS')).to eq nil
+      expect(for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'DIBELS')).to eq nil
     end
   end
 

@@ -83,15 +83,15 @@ export function MultipleChips(props) {
     height: '100%',
     width: '100%'
   }}>{_.compact(chips).map((chip, index) => (
-    <div key={index} style={{
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      position: 'relative',
-      height: '100%'
-    }}>{chip}</div>
-  ))}</div>;
+      <div key={index} style={{
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        position: 'relative',
+        height: '100%'
+      }}>{chip}</div>
+    ))}</div>;
 }
 MultipleChips.propTypes = {
   chips: PropTypes.arrayOf(PropTypes.node).isRequired

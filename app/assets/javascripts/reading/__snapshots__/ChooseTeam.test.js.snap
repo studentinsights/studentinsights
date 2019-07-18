@@ -359,7 +359,7 @@ exports[`snapshots 1`] = `
       }
     }
   >
-    You can't change the school, grade level or benchmark window once you've moved forward.  If you need to change this, create a new grouping instead.
+    You can’t change the school, grade level or benchmark window once you’ve moved forward.  If you need to change this, create a new grouping instead.
   </div>
   <div>
     <div
@@ -624,7 +624,7 @@ exports[`snapshots when not isEditable 1`] = `
       }
     }
   >
-    You can't change the school, grade level or benchmark window once you've moved forward.  If you need to change this, create a new grouping instead.
+    You can’t change the school, grade level or benchmark window once you’ve moved forward.  If you need to change this, create a new grouping instead.
   </div>
   <div>
     <div

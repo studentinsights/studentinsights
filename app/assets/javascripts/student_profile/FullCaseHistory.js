@@ -16,7 +16,7 @@ export default class FullCaseHistory extends React.Component {
     // Given a service_type_id, returns a message suitable for human consumption describing the service.
     const {serviceTypesIndex} = this.props;
 
-    return (serviceTypesIndex.hasOwnProperty(service_type_id))
+    return (_.has(serviceTypesIndex, service_type_id))
       ? serviceTypesIndex[service_type_id].name
       : "Description not found for code: " + service_type_id;
   }

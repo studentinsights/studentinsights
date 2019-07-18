@@ -21,7 +21,7 @@ import {
   SOUNDS_IN_WORDS_SEARCH,
   SOUNDS_AND_LETTERS_SEARCH
 } from './TextSearchForReading';
-import ChipForIEP, {buildLunrIndexForIEP, findWithinIEP, cleanedIepFullText} from './ChipForIEP';
+import ChipForIEP, {buildLunrIndexForIEP, findWithinIEP} from './ChipForIEP';
 import ChipForNotes, {buildLunrIndexForNotes, findWithinNotes} from './ChipForNotes';
 import ChipForLanguage from './ChipForLanguage';
 import ChipForDibels from './ChipForDibels';
@@ -50,11 +50,8 @@ export default class ReaderProfileJune extends React.Component {
     const {feedCards, iepContents} = this.props;
     const notes = feedCards.map(card => card.json);
     const lunrIndex = buildLunrIndexForNotes(notes);
-    const cleanIepFullText = (iepContents)
-      ? cleanedIepFullText(iepContents.pages.map(page => page.text).join('\n'))
-      : null;
-    const iepLunrIndex = (iepContents)
-      ? buildLunrIndexForIEP(cleanIepFullText)
+    const iepLunrIndex = (iepContents && iepContents.parsed)
+      ? buildLunrIndexForIEP(iepContents.parsed.cleaned_text)
       : null;
 
     return (
@@ -65,12 +62,12 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SEE_AS_READER_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(SEE_AS_READER_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(SEE_AS_READER_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
-            <Sub name="in small groups" />,
-            <Sub name="independently" />
+            <Sub key="groups" name="in small groups" />,
+            <Sub key="independently" name="independently" />
           ]}
         />
 
@@ -80,12 +77,12 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(ORAL_LANGUAGE_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(ORAL_LANGUAGE_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(ORAL_LANGUAGE_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
-            <Sub name="expressive" />,
-            <Sub name="receptive" />
+            <Sub key="expressive" name="expressive" />,
+            <Sub key="receiptive" name="receptive" />
           ]}
         />
 
@@ -95,15 +92,19 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(ENGLISH_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(ENGLISH_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(ENGLISH_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
-            <Sub name="spoken"
+            <Sub
+              key="spoken"
+              name="spoken"
               screener={this.renderChipForLanguage('oral')}
               intervention={<MultipleChips chips={this.renderChipsForServices([510])} />}
             />,
-            <Sub name="written"
+            <Sub
+              key="written"
+              name="written"
               screener={this.renderChipForLanguage('literacy')}
               intervention={<MultipleChips chips={this.renderChipsForServices([510])} />}
             />
@@ -115,11 +116,12 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SOUNDS_IN_WORDS_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(SOUNDS_IN_WORDS_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(SOUNDS_IN_WORDS_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
             <Sub
+              key="blending"
               name="blending"
               diagnostic={
                 <Suggestion
@@ -137,24 +139,11 @@ export default class ReaderProfileJune extends React.Component {
                   }
                 />
               }
-              intervention={
-                <Suggestion
-                  text="SPS Heggerty"
-                  dialog={
-                    <div>
-                      <Why>
-                        <p>The SPS Heggerty intervention is short 1:1 phonological awareness program, intended for 4-8 week intervention cycles.</p>
-                        <p>You can determine where to start with the SPS PAST, and get a sense of progress over a cycle with using the PAST as a post-test.</p>
-                      </Why>
-                      <External style={{display: 'block'}} href="https://www.dropbox.com/s/u6e1ek42b1gzun8/SPS%20Heggerty%20PA%20Intervention.docx?dl=0">SPS Heggerty Intervention</External>
-                    </div>
-                  }
-                />
-              }
+              intervention={this.renderPhonologicalIntervention()}
               screener={this.renderChipForDibels('blending', DIBELS_PSF)}
             />,
-            <Sub name="deleting" />,
-            <Sub name="substituting" />
+            <Sub key="deleting" name="deleting" />,
+            <Sub key="substituting" name="substituting" />
           ]}
         />
 
@@ -164,14 +153,18 @@ export default class ReaderProfileJune extends React.Component {
           notes={
             <NotesContainer>
               {this.renderChipForNotes(SOUNDS_AND_LETTERS_SEARCH, lunrIndex)}
-              {this.renderChipForIEP(SOUNDS_AND_LETTERS_SEARCH, iepLunrIndex, cleanIepFullText)}
+              {this.renderChipForIEP(SOUNDS_AND_LETTERS_SEARCH, iepLunrIndex)}
             </NotesContainer>
           }
           subs={[
-            <Sub name="letters"
+            <Sub
+              key="letters"
+              name="letters"
               screener={this.renderChipForDibels('letters', DIBELS_LNF)}
             />,
-            <Sub name="accurate"
+            <Sub
+              key="accurate"
+              name="accurate"
               diagnostic={
                 <Suggestion
                   text="phonics screeners"
@@ -189,7 +182,9 @@ export default class ReaderProfileJune extends React.Component {
               }
               screener={this.renderChipForDibels('accurate', DIBELS_DORF_ACC)}
             />,
-            <Sub name="fluent"
+            <Sub
+              key="fluent"
+              name="fluent"
               screener={
                 <MultipleChips chips={[
                   this.renderChipForDibels('fluent', DIBELS_DORF_WPM),
@@ -203,7 +198,9 @@ export default class ReaderProfileJune extends React.Component {
                 />
               }
             />,
-            <Sub name="comprehension"
+            <Sub
+              key="comprehension"
+              name="comprehension"
               screener={this.renderChipForFAndPEnglish('comprehension')}
             />
           ]}
@@ -212,10 +209,30 @@ export default class ReaderProfileJune extends React.Component {
     );
   }
 
-  renderChipForIEP(words, iepLunrIndex, cleanIepFullText) {
-    if (iepLunrIndex === null || cleanIepFullText === null) return null;
+  renderPhonologicalIntervention() {
+    const chips = this.renderChipsForServices([601, 602, 603, 604]);
+    if (chips.length > 0) return <MultipleChips chips={chips} />;
+
+    return (
+      <Suggestion
+        text="SPS Heggerty"
+        dialog={
+          <div>
+            <Why>
+              <p>The SPS Heggerty intervention is short 1:1 phonological awareness program, intended for 4-8 week intervention cycles.</p>
+              <p>You can determine where to start with the SPS PAST, and get a sense of progress over a cycle with using the PAST as a post-test.</p>
+            </Why>
+            <External style={{display: 'block'}} href="https://www.dropbox.com/s/u6e1ek42b1gzun8/SPS%20Heggerty%20PA%20Intervention.docx?dl=0">SPS Heggerty Intervention</External>
+          </div>
+        }
+      />
+    );
+  }
+
+  renderChipForIEP(words, iepLunrIndex) {
+    if (iepLunrIndex === null) return null;
     
-    const {student} = this.props;
+    const {student, iepContents} = this.props;
     const iepMatchPositions = findWithinIEP(iepLunrIndex, words);
     if (iepMatchPositions.length === 0) return null;
     
@@ -223,8 +240,8 @@ export default class ReaderProfileJune extends React.Component {
       <ReaderProfileDialog
         icon={
           <ChipForIEP
+            iepContents={iepContents}
             iepMatchPositions={iepMatchPositions}
-            iepFullText={cleanIepFullText}
           />
         }
         title={`IEP at-a-glance for ${student.first_name}`}
@@ -238,7 +255,7 @@ export default class ReaderProfileJune extends React.Component {
               }}
               href={`/students/${student.id}/latest_iep_document`}
             >Download IEP at a glance PDF</External>
-            <NoteText text={cleanIepFullText} />
+            <NoteText text={iepContents.parsed.cleaned_text} />
           </div>
         }
         modalStyle={styles.rightDialog}
@@ -343,6 +360,7 @@ ReaderProfileJune.propTypes = {
   iepContents: PropTypes.object,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
     grade: PropTypes.any.isRequired
   }).isRequired,
   feedCards: PropTypes.arrayOf(PropTypes.object).isRequired,

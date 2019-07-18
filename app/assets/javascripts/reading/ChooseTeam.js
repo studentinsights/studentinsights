@@ -68,7 +68,7 @@ export default function ChooseTeam(props = {}) {
           })}
         />
       </div>
-      <div style={{marginTop: 20}}>You can't change the school, grade level or benchmark window once you've moved forward.  If you need to change this, create a new grouping instead.</div>
+      <div style={{marginTop: 20}}>You can’t change the school, grade level or benchmark window once you’ve moved forward.  If you need to change this, create a new grouping instead.</div>
       <div>
         <Button
           style={{marginTop: 20}}

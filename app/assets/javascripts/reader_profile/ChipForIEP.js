@@ -13,18 +13,18 @@ import {unrollAndSortPositions} from './TextSearchForReading';
 export default class ChipForIEP extends React.Component {
   render() {
     const {nowFn} = this.context;
-    const {iepMatchPositions, iepFullText, style} = this.props;
+    const {iepMatchPositions, iepContents, style} = this.props;
 
     // date from IEP
-    const matchStartDate = iepFullText.match(/IEP Begin Date:(\s+)([^\s]*)(\s+)IEP End Date/);
-    const matchEndDate = iepFullText.match(/IEP End Date:(\s+)([^\s]*)(\s+)Parent and\/or Student Concerns/);
-    const startMoment = matchStartDate ? toMoment(matchStartDate[2]) : null;
-    const endMoment = matchEndDate ? toMoment(matchEndDate[2]) : null;
+    const [startDateText, endDateText] = iepContents.parsed.match_dates || [null, null];
+    const startMoment = startDateText ? toMoment(startDateText) : null;
+    const endMoment = endDateText ? toMoment(endDateText) : null;
     const daysAgo = (endMoment)
       ? nowFn().clone().diff(endMoment, 'days')
       : null;
 
     // tooltip
+    const iepFullText = iepContents.parsed.cleaned_text;
     const tooltipText = (iepFullText.length > 512)
       ? (iepFullText.slice(0, 512) + '\n\n...')
       : iepFullText;
@@ -63,7 +63,15 @@ ChipForIEP.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 ChipForIEP.propTypes = {
-  iepFullText: PropTypes.string.isRequired,
+  iepContents: PropTypes.shape({
+    iep_document: PropTypes.object.isRequired,
+    parsed: PropTypes.shape({
+      cleaned_text: PropTypes.string.isRequired,
+      segments: PropTypes.array.isRequired,
+      any_grid: PropTypes.string.isRequired,
+      match_dates: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
   iepMatchPositions: PropTypes.array.isRequired,
   style: PropTypes.object
 };
@@ -131,13 +139,3 @@ IepHighlights.propTypes = {
   style: PropTypes.object
 };
 
-
-//'  jifdso     \n\n\n\n   ji'.replace(/( +)/g, '$').replace(/\n\n(\n+)/g, '\n\n')
-export function cleanedIepFullText(iepFullText) {
-  return iepFullText
-    .replace(/( +)/g, ' ') // multiple spaces
-    .replace(/-\n\n(\w)/g, '-$1') // hyphenation
-    .replace(/\n( +)(\w)/g, '\n$2') // indent after newline
-    .replace(/([a-z])\n\n([a-z])/g, '$1$2') // no newlines cutting between sentences
-    .replace(/\n\n(\n+)/g, '\n\n'); // newlines beyond 2
-}

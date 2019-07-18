@@ -9,5 +9,5 @@ it('renders without crashing', () => {
       id={321}
       sectionNumber="101"
       courseDescription="ALGEBRA 2" />
-  , el);
+    , el);
 });

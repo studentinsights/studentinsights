@@ -834,11 +834,11 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "background": "#ccc",
+                            "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "50%",
                           }
                         }
                       >
@@ -847,17 +847,47 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "color": "#ccc",
+                            "color": "rgba(0,128,0,0.5)",
                             "left": "0%",
                             "paddingRight": 1,
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "50%",
                           }
                         }
                       >
-                        6
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "50%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "50%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "50%",
+                          }
+                        }
+                      >
+                        3
                       </div>
                     </div>
                   </div>
@@ -1893,11 +1923,11 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "background": "#ccc",
+                            "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "29%",
                           }
                         }
                       >
@@ -1906,17 +1936,47 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "color": "#ccc",
+                            "color": "rgba(0,128,0,0.5)",
                             "left": "0%",
                             "paddingRight": 1,
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "29%",
                           }
                         }
                       >
-                        7
+                        2
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "29%",
+                            "position": "absolute",
+                            "width": "72%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "29%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "72%",
+                          }
+                        }
+                      >
+                        5
                       </div>
                     </div>
                   </div>

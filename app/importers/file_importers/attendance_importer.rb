@@ -2,6 +2,24 @@
 # tables.
 # See http://aspenhelp.follettlearning.com/570/SI/guides/Attendance.pdf
 class AttendanceImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_SIS_SFTP_CSV,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      options: [
+        DataFlow::OPTION_SCHOOL_SCOPE,
+        DataFlow::OPTION_IDIOSYNCRATIC
+      ],
+      merge: DataFlow::MERGE_UPDATE_IGNORE_UNMARKED,
+      touches: [
+        Absence.name,
+        Tardy.name
+      ],
+      description: 'SIS attendance data, processed into absences and tardies.'
+    })
+  end
+
   def initialize(options:)
     @log = options.fetch(:log)
 

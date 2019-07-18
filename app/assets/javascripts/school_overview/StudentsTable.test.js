@@ -22,7 +22,7 @@ function testRender(props) {
     <PerDistrictContainer districtKey={SOMERVILLE}>
       <StudentsTable {...props} />
     </PerDistrictContainer>
-  , el);
+    , el);
   return {el};
 }
 
@@ -104,8 +104,8 @@ describe('high-level integration test', () => {
           { "recorded_at": "2010-11-28T00:00:00.000Z",
             "event_note_type_id": 300 }
         ],
-          active_services: [],
-          id: '1'
+        active_services: [],
+        id: '1'
         }
       ],
     });

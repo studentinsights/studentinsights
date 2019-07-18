@@ -13,10 +13,10 @@ class SchoolwideTardies extends React.Component {
 
   render() {
     return (
-        <SchoolTardiesDashboard
-          schoolTardyEvents = {this.schoolTardyEvents()}
-          dashboardStudents = {this.props.dashboardStudents}
-          school={this.props.school} />);
+      <SchoolTardiesDashboard
+        schoolTardyEvents = {this.schoolTardyEvents()}
+        dashboardStudents = {this.props.dashboardStudents}
+        school={this.props.school} />);
   }
 }
 

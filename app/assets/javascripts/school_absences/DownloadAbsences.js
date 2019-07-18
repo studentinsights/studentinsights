@@ -28,11 +28,11 @@ export default class DownloadAbsences extends React.Component {
       <div className="DownloadAbsences" onClick={this.onDownloadDialogToggled}>
         {isDownloadOpen
           ? <ReactModal
-              isOpen={true}
-              onRequestClose={this.onDownloadDialogToggled}
-              style={modalFromRight}>
-              {this.renderLinkWithCsvDataInline()}
-            </ReactModal>
+            isOpen={true}
+            onRequestClose={this.onDownloadDialogToggled}
+            style={modalFromRight}>
+            {this.renderLinkWithCsvDataInline()}
+          </ReactModal>
           : <DownloadIcon />
         }
       </div>

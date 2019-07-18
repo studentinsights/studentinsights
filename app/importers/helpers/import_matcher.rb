@@ -43,6 +43,29 @@ class ImportMatcher
     educator_id
   end
 
+  # This will usually be imprecise, use with care or check the
+  # error rates.
+  def find_educator_by_last_name(educator_last_name)
+    matches = Educator.where('full_name LIKE ?', "#{educator_last_name}, %")
+    if matches.size != 1
+      @invalid_rows_count += 1
+      @invalid_educator_last_names = (@invalid_educator_last_names + [educator_last_name]).uniq
+      return nil
+    end
+    matches.first
+  end
+
+  def find_educator_by_login(educator_login, options = {})
+    disable_metrics = options.fetch(:disable_metrics, false)
+    educator = Educator.find_by_login_name(educator_login)
+    if educator.nil?
+      @invalid_rows_count += 1 unless disable_metrics
+      @invalid_educator_logins = (@invalid_educator_logins + [educator_login]).uniq unless disable_metrics
+      return nil
+    end
+    educator
+  end
+
   # HS course?
   def find_course_id(value)
     course_number = value.try(:strip).upcase
@@ -87,6 +110,10 @@ class ImportMatcher
     DateTime.strptime(est_with_timezeone, '%m/%d/%Y %k:%M:%S %Z').new_offset(0)
   end
 
+  def parse_human_date_text(string)
+    Date.strptime(string, '%m/%d/%Y') rescue nil
+  end
+
   def count_valid_row
     @valid_rows_count += 1
   end
@@ -101,7 +128,9 @@ class ImportMatcher
       valid_rows_count: @valid_rows_count,
       invalid_rows_count: @invalid_rows_count,
       invalid_student_local_ids: @invalid_student_local_ids,
-      invalid_educator_emails: @invalid_educator_emails,
+      invalid_educator_emails_size: @invalid_educator_emails.size,
+      invalid_educator_last_names_size: @invalid_educator_last_names.size,
+      invalid_educator_logins_size: @invalid_educator_logins.size,
       invalid_course_numbers: @invalid_course_numbers,
       invalid_sep_oids: @invalid_sep_oids
     }
@@ -113,6 +142,8 @@ class ImportMatcher
     @invalid_rows_count = 0
     @invalid_student_local_ids = []
     @invalid_educator_emails = []
+    @invalid_educator_last_names = []
+    @invalid_educator_logins = []
     @invalid_course_numbers = []
     @invalid_sep_oids = []
   end

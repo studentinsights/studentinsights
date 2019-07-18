@@ -34,7 +34,7 @@ export default class CleanSlateFeedView extends React.Component {
           isViewingFullHistory={isViewingAllNotes}
           onToggleVisibility={this.onToggleVisibility}
           xAmountOfDataText={`${schoolYearsBack.textYears} of data`}
-      />
+        />
       </div>
     );
   }

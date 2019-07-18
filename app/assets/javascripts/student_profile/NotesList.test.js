@@ -156,7 +156,7 @@ it('allows editing a note you wrote', () => {
       "event_note_revisions_count": 0,
       "attachments": []
     }]
-  )}));
+    )}));
   expect($(el).find('.NoteText').length).toEqual(0);
   expect($(el).find('.EditableNoteText').length).toEqual(1);
 });
@@ -179,7 +179,7 @@ it('does not allow editing notes written by someone else', () => {
       "event_note_revisions_count": 0,
       "attachments": []
     }]
-  )}));
+    )}));
   expect($(el).find('.NoteText').length).toEqual(1);
   expect($(el).find('.EditableNoteText').length).toEqual(0);
 });

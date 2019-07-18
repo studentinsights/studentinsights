@@ -4,15 +4,13 @@
 # EOD
 # form_url = '...'
 # educator = Educator.find_by_login_name('...')
-# homeroom = educator.homeroom
-# importer = BedfordEndOfYearTransitionProcessor.new(educator, homeroom, form_url)
+# importer = BedfordEndOfYearTransitionProcessor.new(educator, form_url)
 # records = importer.create!(file_text);nil
 class BedfordEndOfYearTransitionProcessor
-  def initialize(educator, homeroom, form_url, options = {})
+  def initialize(educator, form_url, options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
     @educator = educator
-    @homeroom = homeroom
     @form_url = form_url
     @form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
     @matcher = ImportMatcher.new
@@ -45,13 +43,6 @@ class BedfordEndOfYearTransitionProcessor
     fullname_text = row['Student Name']
     student_id = @matcher.find_student_id_with_exact_or_fuzzy_match(local_id_text, fullname_text)
     return nil if student_id.nil?
-
-    # warn if homeroom doesn't match
-    student = Student.find(student_id)
-    if student.homeroom.id != @homeroom.id
-      @log.puts "BedfordEndOfYearTransitionProcessor: homeroom does not match for student_id: #{student_id}"
-      return nil
-    end
 
     # warn if teacher name doesn't match
     teacher_last_name = row['Teacher'].split(' ').last

@@ -4,8 +4,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import {formatEducatorName} from '../helpers/educatorName';
 import SecondTransitionNoteDialog, {
   renderAsTextWithoutRestrictedText,
-  docFromJson,
-  enableTransitionNoteDialog
+  docFromJson
 } from './SecondTransitionNoteDialog';
 import GenericLoader from '../components/GenericLoader';
 import NoteText from '../components/NoteText';
@@ -83,16 +82,12 @@ export default class SecondTransitionNoteInline extends React.Component {
   }
 
   renderEditLink() {
-    const {student, currentEducator} = this.props;
+    const {allowEditing} = this.props;
     const {isOpen} = this.state;
-    const showEditLink = (
-      (window.location.search.indexOf('enable_editing') !== -1) &&
-      enableTransitionNoteDialog(currentEducator, student)
-    );
 
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
-        {showEditLink && (
+        {allowEditing && (
           <a style={styles.link} href="#" onClick={e => {
             e.preventDefault();
             this.setState({isOpen: true});
@@ -133,9 +128,11 @@ SecondTransitionNoteInline.propTypes = {
   json: PropTypes.object.isRequired,
   currentEducator: PropTypes.object.isRequired,
   student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  allowEditing: PropTypes.bool
 };
 
 const styles = {

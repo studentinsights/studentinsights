@@ -1,3 +1,4 @@
+import './freeze.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
@@ -41,5 +42,5 @@ if (mainEl) {
         districtKey={districtKey}
         sessionTimeoutInSeconds={sessionTimeoutInSeconds} />
     </BrowserRouter>
-  , mainEl);
+    , mainEl);
 }

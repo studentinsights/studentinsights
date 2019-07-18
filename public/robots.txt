@@ -3,4 +3,6 @@
 # This says "please don't index anything except for the root / page"
 User-agent: *
 Allow: /$
+Allow: /icon.png$
+Allow: /favicon.ico$
 Disallow: /

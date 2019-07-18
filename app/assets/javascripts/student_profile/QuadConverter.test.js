@@ -28,7 +28,7 @@ describe('QuadConverter', () => {
       const toISOString = function(m){return m.toISOString(); };
       expect(
         schoolYearStartDates([moment.utc("2013-10-11"), moment.utc("2017-05-01")])
-        .map(toISOString)
+          .map(toISOString)
       ).toEqual(
         [
           moment.utc("2013-08-15"),
