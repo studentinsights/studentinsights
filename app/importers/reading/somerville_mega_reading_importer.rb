@@ -12,7 +12,7 @@ class SomervilleMegaReadingImporter
   end
 
   def import
-    streaming_csv = read_or_fetch_csv
+    streaming_csvs = read_or_fetch_sheet
     if streaming_csv.nil?
       log('Aborting since no CSV found...')
       return
@@ -25,9 +25,10 @@ class SomervilleMegaReadingImporter
 
     log('Starting loop...')
     reset_counters!
-    streaming_csv.each_with_index do |row, index|
-      import_row(row)
-      log("processed #{index} rows.") if index % 1000 == 0
+    processor = MegaReadingProcessor.new(header_rows_count: 2)
+    streaming_csvs.each_with_index do |csv, index|
+      processor.procces(csv)
+      log("processed #{index} sheets.") if index % 1000 == 0
     end
     log('Done loop.')
     # TODO log counts on stats
@@ -47,12 +48,11 @@ class SomervilleMegaReadingImporter
     # TODO set instance variables to 0
   end
 
-  def read_or_fetch_csv
+  def read_or_fetch_sheet
     raise 'unfinished'
     fetcher = GoogleSheetsFetcher.new
     fetcher.get_spreadsheet(SHEET_URL)
-    # TODO read from google or mock and return `streaming_csv` that responds
-    # to #each_with_index
+    # TODO add sheet url to ENV
   end
 
   def import_row(row, index)
