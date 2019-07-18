@@ -28,7 +28,6 @@ RSpec.describe MegaReadingProcessor do
     it 'works on happy path' do
       pals = TestPals.create!
       students = create_test_students(pals)
-      matcher = ImportMatcher.new
       importer = MegaReadingProcessor.new(pals.uri.id, header_rows_count: 2)
       reading_data = importer.process(fixture_file_text)
       puts reading_data
