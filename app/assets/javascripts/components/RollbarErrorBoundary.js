@@ -25,10 +25,9 @@ export default class RollbarErrorBoundary extends React.Component {
   }
 
   rollbarErrorFn(msg, obj = {}) {
-    const rollbarErrorFn = (window.Rollbar && window.Rollbar.error)
-      ? window.Rollbar.error
-      : this.props.rollbarErrorFn;
-    if (rollbarErrorFn) rollbarErrorFn(msg, obj);
+    if (this.props.rollbarErrorFn) return this.props.rollbarErrorFn(msg, obj);
+    if (window.Rollbar.error) return window.Rollbar.error(msg, obj);
+    console.error('RollbarErrorBoundary#rollbarErrorFn could not find function for reporting error:', msg, obj);
   }
 
   render() {
