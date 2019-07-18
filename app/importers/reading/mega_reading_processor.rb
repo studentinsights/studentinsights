@@ -44,7 +44,6 @@ class MegaReadingProcessor
     #   f_and_ps = rows.map {|row| FAndPAssessment.create!(row) }
     # end
     # f_and_ps
-    puts rows
     [rows, stats]
   end
 
@@ -115,46 +114,15 @@ class MegaReadingProcessor
     return [nil, last_first_name]
   end
 
-  # #get index of seasonal values
-  # def process_data_points(file_text)
-  #   csv = csv.parse(file_text)
-  #   dates = csv[0].reject(&:blank?)
-  #   headrs = csv[1]
-
-  #   fall_start_index = csv[0].index(dates[0])
-  #   winter_start_index = csv[0].index(dates[1])
-  #   spring_start_index = csv[0].index(dates[2])
-
-  #   row.each_with_index do |field|
-  #     if (index < fall_start_index)
-  #       #shared
-  #     elsif (index.between?(fall_start_index, winter_start_index-1))
-  #       #fall
-  #     elsif (index.between?(winter_start_index, spring_start_index-1))
-  #       #winter
-  #     elsif (index < spring_start_index)
-  #       #spring
-  #     end
-  #   end
-  # end
-
-  # ['Last name', 'First Name', 'ELL', 'SPED', 'Reading', 'NWF-CLS', 'NWF-WWR'] #shared
-
   def data_points_for_kindergarten(shared, row)
     import_data_points(shared, row, [
-      ['KF', :fall, :dibels_fsf, 'K / FALL / FSF'],
-      ['KF', :fall, :dibels_lnf, 'K / FALL / LNF'],
-      ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
-      ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
-      ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
-      ['KF', :winter, :dibels_nwf_cls, 'K / WINTER / NWF CLS'],
-      ['KF', :winter, :dibels_nwf_wwr, 'K / WINTER / NWF WWR'],
-      ['KF', :winter, :f_and_p_english, 'K / WINTER / F&P Level English'],
-      ['KF', :winter, :instructional_needs, 'K / WINTER / Instructional needs'],
-      ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
-      ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
-      ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
-      ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR']
+      ['KF', :fall, :dibels_fsf, 'fall K - FSF'],
+      ['KF', :fall, :dibels_lnf, 'fall K - LNF'],
+      ['KF', :winter, :dibels_fsf, 'winter K - FSF'],
+      ['KF', :winter, :dibels_lnf, 'winter K - LNF'],
+      ['KF', :winter, :dibels_psf, 'winter K - PSF'],
+      ['KF', :winter, :dibels_nwf_cls, 'winter K - NWF CLS'],
+      ['KF', :winter, :dibels_nwf_growth, 'LNF Growth'],
     ])
   end
 
@@ -225,7 +193,6 @@ class MegaReadingProcessor
     rows = []
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, row_key = tuple
-      puts row_key
       data_point = row[row_key]
       if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
         @missing_data_point +=1

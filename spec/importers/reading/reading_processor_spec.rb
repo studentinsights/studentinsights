@@ -5,24 +5,65 @@ RSpec.describe MegaReadingProcessor do
     IO.read("#{Rails.root}/spec/importers/reading/reading_processor.csv")
   end
 
+  def create_test_students(pals)
+    Student.create!(
+      first_name: 'Pluto',
+      last_name: 'Skywalker',
+      school: pals.healey,
+      grade: '2',
+      local_id: '2',
+      enrollment_status: 'Active'
+    )
+    Student.create!(
+      first_name: 'Donald',
+      last_name: 'Skywalker',
+      school: pals.healey,
+      grade: '2',
+      local_id: '3',
+      enrollment_status: 'Active'
+    )
+  end
+
   describe 'integration test' do
     it 'works on happy path' do
       pals = TestPals.create!
-      # benchmark_date = Date.parse('2018/12/19')
-      # matcher = ImportMatcher.new
+      students = create_test_students(pals)
+      matcher = ImportMatcher.new
       importer = MegaReadingProcessor.new(pals.uri.id, header_rows_count: 2)
-      puts importer.process(fixture_file_text)
+      reading_data = importer.process(fixture_file_text)
+      puts reading_data
 
-      expect(f_and_ps.size).to eq 1
-      expect(ReadingProcessor.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
-        "student_id"=>pals.healey_kindergarten_student.id,
-        "benchmark_date"=>benchmark_date,
-        "instructional_level"=>"A",
-        "f_and_p_code"=>"WC",
-        "uploaded_by_educator_id"=>pals.uri.id
-      }])
-      expect(matcher.stats[:valid_rows_count]).to eq 1
-      expect(matcher.stats[:invalid_rows_count]).to eq 0
+      expect(reading_data.size).to eq 2
+      expect(reading_data[0]).to eq([{:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_nwf_cls, :data_point=>"77"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_nwf_wwr, :data_point=>"23"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_dorf_wrc, :data_point=>"41"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_dorf_errors, :data_point=>"6"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_dorf_acc, :data_point=>"87%"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:growth_fall_winter, :data_point=>"25orf 9acc."},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:growth_f_and_p, :data_point=>"1 level"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:dibels_dorf_wrc, :data_point=>"41"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:dibels_dorf_errors, :data_point=>"6"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:dibels_dorf_acc, :data_point=>"87%"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:growth_f_and_p, :data_point=>"1 level"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:dibels_dorf_wrc, :data_point=>"41"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:dibels_dorf_errors, :data_point=>"6"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:dibels_dorf_acc, :data_point=>"87%"},
+        {:student_id=>6, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:growth_f_and_p, :data_point=>"1 level"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_nwf_cls, :data_point=>"70"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_nwf_wwr, :data_point=>"20"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_dorf_wrc, :data_point=>"40"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_dorf_errors, :data_point=>"5"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:dibels_dorf_acc, :data_point=>"80%"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:growth_fall_winter, :data_point=>"25orf 9acc."},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:fall, :assessment_key=>:growth_f_and_p, :data_point=>"2 levels"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:dibels_dorf_wrc, :data_point=>"40"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:dibels_dorf_errors, :data_point=>"5"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:dibels_dorf_acc, :data_point=>"80%"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:winter, :assessment_key=>:growth_f_and_p, :data_point=>"2 levels"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:dibels_dorf_wrc, :data_point=>"40"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:dibels_dorf_errors, :data_point=>"5"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:dibels_dorf_acc, :data_point=>"80%"},
+        {:student_id=>7, :imported_by_educator_id=>999999, :grade=>"2", :assessment_period=>:spring, :assessment_key=>:growth_f_and_p, :data_point=>"2 levels"}])
     end
   end
 end
