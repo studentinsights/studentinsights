@@ -28,7 +28,7 @@ class SomervilleMegaReadingImporter
     processor = MegaReadingProcessor.new(header_rows_count: 2)
     streaming_csvs.each_with_index do |csv, index|
       processor.procces(csv)
-      log("processed #{index} sheets.") if index % 1000 == 0
+      log("processed #{index} sheets.")
     end
     log('Done loop.')
     # TODO log counts on stats
