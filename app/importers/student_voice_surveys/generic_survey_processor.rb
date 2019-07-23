@@ -59,10 +59,7 @@ class GenericSurveyProcessor
 
   private
   def create_streaming_csv(file_text)
-    csv_transformer = StreamingCsvTransformer.new(@log, {
-      csv_options: { header_converters: nil }
-    })
-    csv_transformer.transform(file_text)
+    StreamingCsvTransformer.from_text(@log, file_text)
   end
 
   def log(msg)
