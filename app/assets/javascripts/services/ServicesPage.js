@@ -69,8 +69,11 @@ export class ServicesView extends React.Component {
         return (maybeEndMoment) ? maybeEndMoment.unix() : 0;
       },
       time_range(service) {
-        const {startMoment, maybeEndMoment} = timeRangeForService(service);
-        return (maybeEndMoment || nowMoment).diff(startMoment, 'days');
+        const {maybeEndMoment, startMoment} = timeRangeForService(service);
+        const endDateTimestamp = (maybeEndMoment) ? maybeEndMoment.unix() : Number.MIN_VALUE;
+        const nDays = (maybeEndMoment || nowMoment).diff(startMoment, 'days');
+        const value = [endDateTimestamp, nDays + 10000]; // most recent, then longest
+        return value;
       }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
