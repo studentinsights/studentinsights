@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_204706) do
+ActiveRecord::Schema.define(version: 2019_07_23_204033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -261,7 +261,6 @@ ActiveRecord::Schema.define(version: 2019_07_23_204706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_restricted", default: false, null: false
-    t.json "source_json"
   end
 
   create_table "f_and_p_assessments", force: :cascade do |t|
