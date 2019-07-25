@@ -1,11 +1,10 @@
 # usage:
-# processor = RestrictedNotesProcessor.new(source_json: '...')
+# processor = RestrictedNotesProcessor.new
 # rows = processor.dry_run(file_text)
 class RestrictedNotesProcessor
 
   def initialize(options = {})
     @log = options.fetch(:log, STDOUT)
-    @source_json = options.fetch(:source_json, nil)
     @time_now = options.fetch(:time_now, Time.now)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @processor = GenericSurveyProcessor.new(log: @log) do |row|
@@ -54,7 +53,6 @@ class RestrictedNotesProcessor
       educator_id: educator.id,
       event_note_type_id: event_note_type_id,
       recorded_at: form_timestamp
-        # source_json: @source_json
     }
   end
 end
