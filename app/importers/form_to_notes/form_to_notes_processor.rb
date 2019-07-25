@@ -35,7 +35,7 @@ class FormToNotesProcessor
     return nil if educator.nil?
 
     # type, default to "something else"
-    event_note_type_id = row.fetch('event_note_type_id', 304)
+    event_note_type_id = row.fetch('event_note_type_id', '304').to_i
 
     # timestamp from form, or import time
     timestamp_text = row['Timestamp']
