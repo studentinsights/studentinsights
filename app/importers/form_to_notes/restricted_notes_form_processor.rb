@@ -1,7 +1,7 @@
 # usage:
-# processor = RestrictedNotesProcessor.new
+# processor = RestrictedNotesFormProcessor.new
 # rows = processor.dry_run(file_text)
-class RestrictedNotesProcessor
+class RestrictedNotesFormProcessor
 
   def initialize(options = {})
     @log = options.fetch(:log, STDOUT)
@@ -35,7 +35,7 @@ class RestrictedNotesProcessor
     return nil if educator.nil?
 
     # type, default to "something else"
-    event_note_type_id = row.fetch('event_note_type_id', 304)
+    event_note_type_id = row.fetch('event_note_type_id', '304').to_i
 
     # timestamp from form, or import time
     timestamp_text = row['Timestamp']
