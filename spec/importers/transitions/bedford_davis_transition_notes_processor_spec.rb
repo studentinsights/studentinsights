@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe BedfordEndOfYearTransitionProcessor do
+RSpec.describe BedfordDavisTransitionNotesProcessor do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/transitions/bedford_end_of_year_transition_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/transitions/bedford_davis_transition_notes_fixture.csv")
   end
 
   describe 'integration test' do
@@ -11,7 +11,7 @@ RSpec.describe BedfordEndOfYearTransitionProcessor do
     it 'works for importing records' do
       log = LogHelper::FakeLog.new
       form_url = 'https://example.com/form_url'
-      importer = BedfordEndOfYearTransitionProcessor.new(pals.healey_vivian_teacher, form_url, {
+      importer = BedfordDavisTransitionNotesProcessor.new(pals.healey_vivian_teacher, form_url, {
         log: log,
         time_now: pals.time_now
       })
@@ -21,7 +21,7 @@ RSpec.describe BedfordEndOfYearTransitionProcessor do
       expect(imported_forms.as_json(except: [:id, :created_at, :updated_at]).first).to eq({
         'student_id' => pals.healey_kindergarten_student.id,
         'educator_id' => pals.healey_vivian_teacher.id,
-        'form_key' => ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM,
+        'form_key' => ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM,
         'form_url' => 'https://example.com/form_url',
         'form_timestamp' => pals.time_now,
         "form_json"=>{

@@ -1,6 +1,6 @@
 # Import transition notes, just notes and not services (even though
 # they are in the same sheets).
-class BedfordLaneTransitionNotesImporter
+class BedfordDavisTransitionNotesImporter
   def self.data_flow
     DataFlow.new({
       importer: self.name,
@@ -29,7 +29,7 @@ class BedfordLaneTransitionNotesImporter
     records = rows.map {|row| ImportedForm.new(row) }
 
     # sync
-    form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    form_key = ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM
     records_within_scope = ImportedForm.where(form_key: form_key)
     @syncer.sync_and_delete_unmarked!(records, records_within_scope)
     log "stats.to_json: #{stats.to_json}"
@@ -52,7 +52,7 @@ class BedfordLaneTransitionNotesImporter
 
   private
   def read_folder_id_from_env
-    PerDistrict.new.imported_google_folder_ids('bedford_lane_transition_notes_folder_id')
+    PerDistrict.new.imported_google_folder_ids('bedford_davis_transition_notes_importer_folder_id')
   end
 
   def fetch_tabs
@@ -71,7 +71,7 @@ class BedfordLaneTransitionNotesImporter
     return [] if educator.nil?
 
     # process and create
-    processor = BedfordEndOfYearTransitionProcessor.new(educator, form_url, log: @log)
+    processor = BedfordDavisTransitionNotesProcessor.new(educator, form_url, log: @log)
     processor.dry_run(tab.tab_csv)
   end
 
@@ -93,6 +93,6 @@ class BedfordLaneTransitionNotesImporter
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "BedfordLaneTransitionNotesImporter: #{text}"
+    @log.puts "BedfordDavisTransitionNotesImporter: #{text}"
   end
 end
