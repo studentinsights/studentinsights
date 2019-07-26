@@ -19,6 +19,8 @@ import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassLists
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
 import CounselorMeetingsPage from '../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage';
 import TransitionsPage from '../app/assets/javascripts/transitions/TransitionsPage';
+import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
+import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -39,6 +41,8 @@ jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
 jest.mock('../app/assets/javascripts/student_profile/StudentProfilePage');
 jest.mock('../app/assets/javascripts/counselor_meetings/CounselorMeetingsPage');
 jest.mock('../app/assets/javascripts/transitions/TransitionsPage');
+jest.mock('../app/assets/javascripts/service_types/IsServiceWorking');
+jest.mock('../app/assets/javascripts/login_activity/LoginActivityPageContainer');
 
 
 
@@ -233,6 +237,17 @@ it('renders counselor meetings page', () => {
   expect(wrapper.contains(<TransitionsPage />)).toEqual(true);
 });
 
+it('renders login activity', () => {
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/internal/login_activity', {educator}));
+  expect(wrapper.contains(<LoginActivityPageContainer />)).toEqual(true);
+});
+
+it('renders service working prototype', () => {
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/internal/is_service_working', {educator}));
+  expect(wrapper.contains(<IsServiceWorking />)).toEqual(true);
+});
 
 describe('unknown route', () => {
   it('reports to Rollbar', () => {
