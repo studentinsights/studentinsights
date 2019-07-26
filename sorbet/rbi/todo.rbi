@@ -56,6 +56,9 @@ module ::SomervilleHighLevelsDefinitions; end
 module ::SomervilleHighLevelsDefinitions; end
 module ::SomervilleHighLevelsDefinitions; end
 module ::Spring; end
+module ::StudentProfileChart; end
+module ::StudentProfileChart; end
+module ::StudentProfileChart; end
 module ::StudentRow; end
 module ::StudentRow; end
 module ::StudentRow; end
@@ -113,6 +116,7 @@ module ProfileController::EventNoteSerializer; end
 module ProfileController::ServiceSerializer; end
 module ProfileController::ServiceSerializer; end
 module ProfileController::ServiceSerializer; end
+module ProfileController::StudentProfileChart; end
 module ProfileInsights::ProfileInsight; end
 module ProfileInsights::ProfileInsight; end
 module ProfileInsights::ProfileInsight; end
