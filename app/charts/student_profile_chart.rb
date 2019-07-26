@@ -1,6 +1,8 @@
-# typed: ignore
-class StudentProfileChart < Struct.new :student
-
+# typed: true
+require 'sorbet-runtime'
+class StudentProfileChart < T::Struct
+  prop :student, Student
+  
   def chart_data
     mcas_mathematics_results = student.mcas_mathematics_results
     mcas_ela_results = student.mcas_ela_results
