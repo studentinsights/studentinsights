@@ -1,3 +1,4 @@
+# typed: strict
 # Filter all parameters from the log file, since whitelists are hard to
 # maintain accurately as you build things over time.  See also the Rollbar config.
 #

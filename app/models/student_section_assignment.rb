@@ -1,3 +1,4 @@
+# typed: strong
 class StudentSectionAssignment < ApplicationRecord
   belongs_to :student
   belongs_to :section

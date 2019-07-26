@@ -1,3 +1,4 @@
+# typed: true
 # This is the data sent down to the JS code in the UI
 # Keep in mind that anything here is insecure.
 class EnvForJs

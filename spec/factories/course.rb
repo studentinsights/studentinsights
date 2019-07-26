@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   sequence(:course_number_seq) { |n| "COURSE-#{n}" }
 

@@ -1,3 +1,4 @@
+# typed: false
 class RemoveIncorrectStarMathAssessment < ActiveRecord::Migration[4.2]
   def change
     # "STAR Math" => incorrect

@@ -1,3 +1,4 @@
+# typed: true
 class PrecomputedStudentHashesDocs < ActiveRecord::Migration[4.2]
   def change
     create_table :precomputed_student_hashes_docs, id: false do |t|

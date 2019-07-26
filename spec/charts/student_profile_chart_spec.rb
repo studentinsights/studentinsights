@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe StudentProfileChart do
 
   describe '#chart_data' do

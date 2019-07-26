@@ -1,3 +1,4 @@
+# typed: false
 class EdPlan < ApplicationRecord
   belongs_to :student
   has_many :ed_plan_accommodations, dependent: :destroy

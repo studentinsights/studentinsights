@@ -1,3 +1,4 @@
+# typed: strict
 require "#{Rails.root}/app/lib/ldap_authenticatable_tiny/strategy";
 require "#{Rails.root}/app/lib/ldap_authenticatable_tiny/model";
 

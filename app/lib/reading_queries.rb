@@ -1,3 +1,4 @@
+# typed: true
 class ReadingQueries
   def groups_for_grid(students)
     reading_benchmark_data_points = ReadingBenchmarkDataPoint.all

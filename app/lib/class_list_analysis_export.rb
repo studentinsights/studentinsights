@@ -1,3 +1,4 @@
+# typed: true
 # For analysis of class list placements, drift, and exploratory analysis around equity
 # and diversity.
 #

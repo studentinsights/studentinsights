@@ -1,3 +1,4 @@
+# typed: ignore
 class FeedCard < Struct.new(:type, :timestamp, :json)
   # Create json for exactly what UI needs and return as `FeedCard`
   def self.event_note_card(event_note)

@@ -1,3 +1,4 @@
+# typed: true
 require "administrate/field/base"
 
 class PostgresArrayField < Administrate::Field::Base

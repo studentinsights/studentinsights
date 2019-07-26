@@ -1,3 +1,4 @@
+# typed: true
 class EquityController < ApplicationController
   before_action :ensure_authorized!
 

@@ -1,3 +1,4 @@
+# typed: true
 class FakeStarReadingResultGenerator
   def initialize(student, options = {}, index)
     @student = student

@@ -1,3 +1,4 @@
+# typed: false
 module ApplicationHelper
   # IE11 reports HTML1500 warnings on the console if tags are not explicitly
   # closed (like happens if you used `tag`).  Here we're rendering tags with

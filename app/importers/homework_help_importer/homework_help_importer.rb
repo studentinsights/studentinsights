@@ -1,3 +1,4 @@
+# typed: false
 # Used on the console to import data about homework help sessions.
 #
 # Usage:

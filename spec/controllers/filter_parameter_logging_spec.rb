@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe 'filter_parameter_loggin', :type => :controller do
   class GeneratedController < ApplicationController;end
   controller GeneratedController do

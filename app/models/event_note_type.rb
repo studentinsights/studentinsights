@@ -1,3 +1,4 @@
+# typed: true
 class EventNoteType < ApplicationRecord
   def self.seed_for_all_districts
     EventNoteType.destroy_all

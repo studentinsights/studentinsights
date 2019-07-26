@@ -1,3 +1,4 @@
+# typed: false
 class StudentSectionGradesImporter
   def self.data_flow
     DataFlow.new({

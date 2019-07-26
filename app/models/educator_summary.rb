@@ -1,3 +1,4 @@
+# typed: false
 class EducatorSummary
 
   def initialize(options = {})

@@ -1,3 +1,4 @@
+# typed: true
 class AddReadingGroupingSnapshot < ActiveRecord::Migration[5.2]
   def change
     create_table :reading_grouping_snapshots do |t|

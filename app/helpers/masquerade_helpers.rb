@@ -1,3 +1,4 @@
+# typed: false
 # This is intended to be mixed into `ApplicationController`, and other
 # controllers that don't inherit from `ApplicationController`
 # (eg, Administrate::ApplicationController).  This enables masquerading

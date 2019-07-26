@@ -1,3 +1,4 @@
+# typed: true
 class ReadingGroupingSnapshot < ApplicationRecord
   VALID_BENCHMARK_PERIOD_KEYS = ['fall', 'winter', 'spring']
 

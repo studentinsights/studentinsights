@@ -1,3 +1,4 @@
+# typed: strong
 # deprecated, see ReadingBenchmarkDataPoint
 class FAndPAssessment < ApplicationRecord
   belongs_to :student

@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   sequence(:section_number_seq) { |n| "SECTION-#{n}" }
 

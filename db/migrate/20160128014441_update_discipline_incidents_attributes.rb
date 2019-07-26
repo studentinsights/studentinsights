@@ -1,3 +1,4 @@
+# typed: true
 class UpdateDisciplineIncidentsAttributes < ActiveRecord::Migration[4.2]
   def change
     remove_column :discipline_incidents, :student_id, :integer

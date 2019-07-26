@@ -1,3 +1,4 @@
+# typed: true
 # Performs multifactor authentication for either an authenticator app
 # or from an OTP send via SMS.  This does not handle provisioning for
 # either case, and assumes that is already set.

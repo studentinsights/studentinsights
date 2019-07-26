@@ -1,3 +1,4 @@
+# typed: false
 class IepDocument < ApplicationRecord
   belongs_to :student
   validates :file_name, presence: true

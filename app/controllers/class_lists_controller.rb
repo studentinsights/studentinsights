@@ -1,3 +1,4 @@
+# typed: true
 class ClassListsController < ApplicationController
   before_action :ensure_feature_enabled_for_district!
 

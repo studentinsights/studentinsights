@@ -1,3 +1,4 @@
+# typed: true
 class Section < ApplicationRecord
   # Exclude term values that are empty strings
   VALID_TERM_VALUES = [

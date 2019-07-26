@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   sequence(:name) { |n| n.to_s }
 

@@ -1,3 +1,4 @@
+# typed: false
 # Storage mechanism for a variety of form types
 class ImportedForm < ApplicationRecord
   SHS_Q2_SELF_REFLECTION = 'shs_q2_self_reflection';

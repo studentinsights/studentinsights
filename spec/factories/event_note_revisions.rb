@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :event_note_revision do
     association :event_note

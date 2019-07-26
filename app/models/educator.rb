@@ -1,3 +1,4 @@
+# typed: false
 class Educator < ApplicationRecord
   devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text, :login_code]
 

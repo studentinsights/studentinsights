@@ -1,3 +1,4 @@
+# typed: false
 # This can't be moved and has to be run first.  See https://github.com/colszowka/simplecov#troubleshooting
 require 'simplecov'
 SimpleCov.start

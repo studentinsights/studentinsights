@@ -1,3 +1,4 @@
+# typed: false
 # This is a mixin becasue I couldn't get it to be able to call `allow` as a standalone class.
 module FeatureHelpers
   # Sign in by either standard or MFA methods

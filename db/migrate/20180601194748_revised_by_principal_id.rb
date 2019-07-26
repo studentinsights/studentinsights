@@ -1,3 +1,4 @@
+# typed: true
 class RevisedByPrincipalId < ActiveRecord::Migration[5.1]
   def change
     add_column :class_lists, :revised_by_principal_educator_id, :integer

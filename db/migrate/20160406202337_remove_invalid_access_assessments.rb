@@ -1,3 +1,4 @@
+# typed: false
 class RemoveInvalidAccessAssessments < ActiveRecord::Migration[4.2]
   def change
     access_ell_assessment = Assessment.find_by_family_and_subject('ACCESS', 'ELL')

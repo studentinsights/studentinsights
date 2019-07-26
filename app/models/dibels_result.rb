@@ -1,3 +1,4 @@
+# typed: true
 # This model stores data for the DIBELS K-6 literacy assessment:
 # https://dibels.uoregon.edu/assessment/dibels
 

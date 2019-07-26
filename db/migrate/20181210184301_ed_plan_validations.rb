@@ -1,3 +1,4 @@
+# typed: true
 class EdPlanValidations < ActiveRecord::Migration[5.2]
   def change
     # ed plans

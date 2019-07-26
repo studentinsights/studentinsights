@@ -1,3 +1,4 @@
+# typed: true
 class RemoveAssociationBetweenEventsAndStudentSchoolYear < ActiveRecord::Migration[5.0]
   def change
     remove_column :absences, :student_school_year_id

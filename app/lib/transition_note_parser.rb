@@ -1,3 +1,4 @@
+# typed: true
 # See transitionNoteParser.js
 class TransitionNoteParser
   STRENGTHS_PROMPT = "What are this student's strengths?"

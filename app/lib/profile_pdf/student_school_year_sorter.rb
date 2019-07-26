@@ -1,3 +1,4 @@
+# typed: true
 module ProfilePdf
   class StudentSchoolYearSorter
 

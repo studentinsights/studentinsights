@@ -1,3 +1,4 @@
+# typed: false
 module LogHelper
   class Redirect
     include Singleton

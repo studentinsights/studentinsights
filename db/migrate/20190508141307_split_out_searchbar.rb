@@ -1,3 +1,4 @@
+# typed: true
 class SplitOutSearchbar < ActiveRecord::Migration[5.2]
   def change
     create_table :educator_searchbars, id: :uuid do |t|

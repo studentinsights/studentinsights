@@ -1,3 +1,4 @@
+# typed: true
 class AddTenthGradeExperienceTeamNoteType < ActiveRecord::Migration[5.1]
   def change
     return if EventNoteType.where(id: 306).present?

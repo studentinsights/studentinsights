@@ -1,3 +1,4 @@
+# typed: false
 class StudentVoiceSurveyImporter
   def initialize(file_text, upload_attrs, options = {})
     @file_text = file_text

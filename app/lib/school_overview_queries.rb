@@ -1,3 +1,4 @@
+# typed: false
 class SchoolOverviewQueries
   # include notes that are is_restricted, but without their content
   INCLUDE_FOR_EVENT_NOTES = [

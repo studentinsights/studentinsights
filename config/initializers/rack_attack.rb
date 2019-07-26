@@ -1,3 +1,4 @@
+# typed: true
 # See https://github.com/kickstarter/rack-attack/blob/master/docs/example_configuration.md
 # and https://github.com/kickstarter/rack-attack/blob/master/docs/advanced_configuration.md
 class Rack::Attack

@@ -1,3 +1,4 @@
+# typed: true
 # This class was added in July 2018, login activity before that date wasn't tracked.
 
 # A LoginActivity record can belong to an Educator record, using a polymorphic

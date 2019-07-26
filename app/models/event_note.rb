@@ -1,3 +1,4 @@
+# typed: false
 class EventNote < ApplicationRecord
   belongs_to :educator
   belongs_to :student

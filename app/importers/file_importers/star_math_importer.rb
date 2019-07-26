@@ -1,3 +1,4 @@
+# typed: false
 class StarMathImporter
   def self.data_flow
     DataFlow.new({

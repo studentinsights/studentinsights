@@ -1,3 +1,4 @@
+# typed: false
 class SearchNotesQueries
   SCOPE_ALL_STUDENTS = 'SCOPE_ALL_STUDENTS'
   SCOPE_FEED_STUDENTS = 'SCOPE_FEED_STUDENTS'

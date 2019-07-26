@@ -1,3 +1,4 @@
+# typed: false
 class TransitionNote < ApplicationRecord
   belongs_to :educator
   belongs_to :student

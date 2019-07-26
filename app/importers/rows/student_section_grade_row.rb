@@ -1,3 +1,4 @@
+# typed: ignore
 class StudentSectionGradeRow < Struct.new(:row, :student_id, :section_id, :school_ids_dictionary)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   # This structure represents student section grades.

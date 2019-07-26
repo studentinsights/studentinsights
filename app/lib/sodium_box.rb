@@ -1,3 +1,4 @@
+# typed: true
 require 'rbnacl'
 require 'base64'
 

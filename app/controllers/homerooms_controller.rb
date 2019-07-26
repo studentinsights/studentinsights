@@ -1,3 +1,4 @@
+# typed: false
 class HomeroomsController < ApplicationController
   def homeroom_json
     homeroom_id_or_slug = params.permit(:id)[:id]

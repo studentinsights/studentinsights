@@ -1,3 +1,4 @@
+# typed: true
 class AddSeparateStarTables < ActiveRecord::Migration[5.2]
   def change
     create_table :star_math_results do |t|

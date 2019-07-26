@@ -1,3 +1,4 @@
+# typed: true
 # Take SurveyReader rows and import them as flat notes (eg, flatten
 # the survey content into `text`).
 class FlatNoteImporter

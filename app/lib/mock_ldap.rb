@@ -1,3 +1,4 @@
+# typed: true
 # This code mocks the LDAP services that provide authentication to Student Insights
 # by implementing the `bind` method. It uses a dummy password defined in ENV
 # instead of real passwords.

@@ -1,3 +1,4 @@
+# typed: true
 class IsServiceWorkingController < ApplicationController
   before_action :authorize_for_districtwide_access_admin
 

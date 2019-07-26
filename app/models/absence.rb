@@ -1,3 +1,4 @@
+# typed: strong
 class Absence < ApplicationRecord
   belongs_to :student
 

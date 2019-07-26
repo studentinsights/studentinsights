@@ -1,3 +1,4 @@
+# typed: false
 class PhotoStorer
   def initialize(path_to_file:,
                  local_id:,

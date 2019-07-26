@@ -1,3 +1,4 @@
+# typed: false
 require 'rails_helper'
 load File.expand_path('../../../../lib/tasks/import.thor', __FILE__)
 

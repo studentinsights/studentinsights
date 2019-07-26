@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe 'LdapAuthenticatableTiny' do
   before(:each) do
     @timing = ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS']

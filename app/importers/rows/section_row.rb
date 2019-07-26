@@ -1,3 +1,4 @@
+# typed: ignore
 class SectionRow < Struct.new(:row, :school_ids_dictionary, :course_id)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   # This structure represents sections.

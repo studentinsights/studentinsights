@@ -1,3 +1,4 @@
+# typed: true
 # Define when school years start and end.  See also schoolYear.js.
 class SchoolYear
   # date: A JS date object or Moment object.

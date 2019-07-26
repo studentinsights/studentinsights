@@ -1,3 +1,4 @@
+# typed: true
 # These are regex heuristics, developed and tested and production data.
 # Updating this requires production data quality checks.
 class IepTextParser

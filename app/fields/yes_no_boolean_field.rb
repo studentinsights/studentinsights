@@ -1,3 +1,4 @@
+# typed: true
 require "administrate/field/base"
 
 class YesNoBooleanField < Administrate::Field::Base

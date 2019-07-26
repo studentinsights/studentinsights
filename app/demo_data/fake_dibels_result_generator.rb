@@ -1,3 +1,4 @@
+# typed: false
 class FakeDibelsResultGenerator
   def initialize(student, options = {}, index)
     @student = student

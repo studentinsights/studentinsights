@@ -1,3 +1,4 @@
+# typed: true
 class AddHouseEducatorMappings < ActiveRecord::Migration[5.2]
   def change
     create_table :house_educator_mappings do |t|

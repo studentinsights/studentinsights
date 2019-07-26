@@ -1,3 +1,4 @@
+# typed: false
 # Load spreadsheet on athletic enrollment
 #
 # Example:

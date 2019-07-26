@@ -1,3 +1,4 @@
+# typed: true
 # Lookup in memory, instead of querying db for every row
 class StudentIdsMap
   def initialize

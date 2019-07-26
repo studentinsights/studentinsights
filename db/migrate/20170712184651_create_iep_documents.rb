@@ -1,3 +1,4 @@
+# typed: true
 class CreateIepDocuments < ActiveRecord::Migration[5.0]
   def change
     create_table :iep_documents do |t|

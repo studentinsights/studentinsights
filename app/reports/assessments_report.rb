@@ -1,3 +1,4 @@
+# typed: ignore
 class AssessmentsReport < Struct.new :log
 
   def print_report

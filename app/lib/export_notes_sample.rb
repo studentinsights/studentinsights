@@ -1,3 +1,4 @@
+# typed: true
 # This is intended for use in a one-off analysis task.
 #
 # See NotesReview for group reflection.

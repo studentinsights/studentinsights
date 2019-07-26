@@ -1,3 +1,4 @@
+# typed: strong
 class StudentPhoto < ApplicationRecord
   belongs_to :student
 

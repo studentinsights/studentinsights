@@ -1,3 +1,4 @@
+# typed: ignore
 require 'csv'
 
 class AnalyzeStaffTable < Struct.new(:path)

@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
 
   factory :event_note do

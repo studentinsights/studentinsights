@@ -1,3 +1,4 @@
+# typed: true
 # Dispatches different questions about authorization
 # to specific methods for specific models.
 class AuthorizedDispatcher

@@ -351,6 +351,10 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    sorbet (0.4.4507)
+      sorbet-static (= 0.4.4507)
+    sorbet-runtime (0.4.4507)
+    sorbet-static (0.4.4507-universal-darwin-14)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.2)
@@ -446,6 +450,8 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   secure_headers
   simplecov
+  sorbet
+  sorbet-runtime
   spring
   sprockets
   thor

@@ -1,3 +1,4 @@
+# typed: false
 
 #This script uses browserstack.com to spin up an instance of windows
 #and open an instance of Internet Explorer version 11 and then

@@ -1,3 +1,4 @@
+# typed: true
 class MultifactorAddRotpSecrets < ActiveRecord::Migration[5.2]
   def change
     add_column :educator_multifactor_text_numbers, :rotp_secret, :string, null: false

@@ -1,3 +1,4 @@
+# typed: true
 class AddGradeToStudentSectionAssignment < ActiveRecord::Migration[5.1]
   def change
     add_column :student_section_assignments, :id, :primary_key

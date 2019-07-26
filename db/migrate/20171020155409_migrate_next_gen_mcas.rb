@@ -1,3 +1,4 @@
+# typed: true
 class MigrateNextGenMcas < ActiveRecord::Migration[5.1]
   def change
     return if Assessment.find_by(family: 'Next Gen MCAS')

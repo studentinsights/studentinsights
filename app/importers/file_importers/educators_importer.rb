@@ -1,3 +1,4 @@
+# typed: false
 # This importer also creates Homeroom records.
 class EducatorsImporter
   def self.data_flow

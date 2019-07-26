@@ -1,3 +1,4 @@
+# typed: true
 class FeedFilter
   def initialize(educator)
     @educator = educator

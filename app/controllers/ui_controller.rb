@@ -1,3 +1,4 @@
+# typed: true
 class UiController < ApplicationController
 
   # This is a generic route for the server to respond and

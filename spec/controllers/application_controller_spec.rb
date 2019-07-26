@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe ApplicationController, :type => :controller do
   let!(:pals) { TestPals.create! }
 

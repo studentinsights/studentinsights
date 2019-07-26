@@ -1,3 +1,4 @@
+# typed: false
 class DemoDataUtil
   FIVE_YEARS_OF_SECONDS = 157766400
 

@@ -1,3 +1,4 @@
+# typed: true
 class DataFlow
   FREQUENCY_DAILY = 'frequency_daily'
   FREQUENCY_ONE_TIME_BATCH = 'frequency_one_time_batch'

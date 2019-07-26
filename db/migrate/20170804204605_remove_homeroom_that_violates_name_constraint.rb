@@ -1,3 +1,4 @@
+# typed: true
 class RemoveHomeroomThatViolatesNameConstraint < ActiveRecord::Migration[5.0]
   def change
     Homeroom.where(name: nil).each do |homeroom|

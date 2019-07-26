@@ -1,3 +1,4 @@
+# typed: false
 class StarReadingResult < ApplicationRecord
   belongs_to :student
   validate :valid_percentile_rank

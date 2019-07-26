@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
 
   factory :student_voice_survey_upload do

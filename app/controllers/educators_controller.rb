@@ -1,3 +1,4 @@
+# typed: false
 class EducatorsController < ApplicationController
   # Allow the :probe endpoint to be called without extending
   # Devise Timeoutable

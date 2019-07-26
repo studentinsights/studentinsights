@@ -1,3 +1,4 @@
+# typed: false
 class EventNotesController < ApplicationController
   def restricted_note_json
     safe_params = params.permit(:id)

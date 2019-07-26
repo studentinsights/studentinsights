@@ -1,3 +1,4 @@
+# typed: strict
 Rails.application.configure do
   # Local env variables for dev
   env_file = File.join(Rails.root, 'config', 'local_env.yml')

@@ -1,3 +1,4 @@
+# typed: true
 require 'csv'
 
 # Creates a string of a flat CSV representing fields of

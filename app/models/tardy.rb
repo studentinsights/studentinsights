@@ -1,3 +1,4 @@
+# typed: strong
 class Tardy < ApplicationRecord
   belongs_to :student
 

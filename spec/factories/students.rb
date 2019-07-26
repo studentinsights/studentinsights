@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
 
   sequence(:student_local_id) { |n| "#{n}000" }

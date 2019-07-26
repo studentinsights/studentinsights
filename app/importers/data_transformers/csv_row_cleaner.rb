@@ -1,3 +1,4 @@
+# typed: ignore
 class CsvRowCleaner < Struct.new :row
   DATE_HEADERS = [:event_date, :date_taken]
 

@@ -1,3 +1,4 @@
+# typed: false
 class ProfileInsights
   def initialize(student, options = {})
     @student = student

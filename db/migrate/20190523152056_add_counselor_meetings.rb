@@ -1,3 +1,4 @@
+# typed: true
 class AddCounselorMeetings < ActiveRecord::Migration[5.2]
   def change
     create_table :counselor_meetings do |t|

@@ -1,3 +1,4 @@
+# typed: true
 class CoverageChecker
   ERROR_STATUS_CODE = 172
 

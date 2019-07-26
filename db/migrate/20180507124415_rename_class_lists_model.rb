@@ -1,3 +1,4 @@
+# typed: true
 class RenameClassListsModel < ActiveRecord::Migration[5.1]
   def change
     rename_table :classrooms_for_grades, :class_lists

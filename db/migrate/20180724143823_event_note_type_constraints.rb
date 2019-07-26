@@ -1,3 +1,4 @@
+# typed: true
 class EventNoteTypeConstraints < ActiveRecord::Migration[5.2]
   def change
     add_foreign_key :event_notes, :event_note_types

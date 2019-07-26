@@ -1,3 +1,4 @@
+# typed: false
 class ImportTaskReport
 
   attr_accessor :models_for_report

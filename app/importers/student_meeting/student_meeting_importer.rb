@@ -1,3 +1,4 @@
+# typed: true
 # Used on the console to import student meetings.
 #
 # Usage:

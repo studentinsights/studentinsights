@@ -1,3 +1,4 @@
+# typed: true
 class CreateLoginActivities < ActiveRecord::Migration[5.2]
   def change
     create_table :login_activities do |t|

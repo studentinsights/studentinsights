@@ -1,3 +1,4 @@
+# typed: false
 class StudentsImporter
 
   def self.data_flow

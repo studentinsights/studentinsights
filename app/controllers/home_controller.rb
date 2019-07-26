@@ -1,3 +1,4 @@
+# typed: true
 class HomeController < ApplicationController
   # The feed of everything going on with all students the educator has access
   # to view.

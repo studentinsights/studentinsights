@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 
 RSpec.describe 'checking authentication guards around all routes', :type => :request do

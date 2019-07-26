@@ -1,3 +1,4 @@
+# typed: true
 class AddKeysForCounselorMeetings < ActiveRecord::Migration[5.2]
   def change
     add_foreign_key "counselor_meetings", "educators", name: "counselor_meetings_educator_id_fk"

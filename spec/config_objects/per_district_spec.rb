@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe PerDistrict do
   # Preserve global app config
   before { @district_key = ENV['DISTRICT_KEY'] }

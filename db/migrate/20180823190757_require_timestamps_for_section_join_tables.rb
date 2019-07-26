@@ -1,3 +1,4 @@
+# typed: true
 class RequireTimestampsForSectionJoinTables < ActiveRecord::Migration[5.2]
   def change
     change_column :student_section_assignments, :created_at, :datetime, null: false

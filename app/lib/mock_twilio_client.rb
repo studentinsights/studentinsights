@@ -1,3 +1,4 @@
+# typed: false
 # Fragile minimal implementation of `Twilio::REST::Client`
 # puts the message and fake id to the logger
 class MockTwilioClient

@@ -1,3 +1,4 @@
+# typed: true
 class HomeworkHelp < ActiveRecord::Migration[5.2]
   def change
     create_table :homework_help_sessions do |t|

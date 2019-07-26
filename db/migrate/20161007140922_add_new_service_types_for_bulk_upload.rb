@@ -1,3 +1,4 @@
+# typed: false
 class AddNewServiceTypesForBulkUpload < ActiveRecord::Migration[4.2]
   def change
     if ServiceType.find_by_id(509).nil?

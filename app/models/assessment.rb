@@ -1,3 +1,4 @@
+# typed: false
 class Assessment < ApplicationRecord
   VALID_FAMILY_VALUES = [
     'MCAS',

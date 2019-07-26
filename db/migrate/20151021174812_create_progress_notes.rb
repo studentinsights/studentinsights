@@ -1,3 +1,4 @@
+# typed: true
 class CreateProgressNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :progress_notes do |t|

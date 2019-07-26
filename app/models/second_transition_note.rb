@@ -1,3 +1,4 @@
+# typed: false
 class SecondTransitionNote < ApplicationRecord
   SOMERVILLE_TRANSITION_2019 = 'somerville_8th_to_9th_grade' # also used for 5th > 6th
   SOMERVILLE_TRANSITION_2019_KEYS = [

@@ -1,3 +1,4 @@
+# typed: true
 class CreateMasqueradingLog < ActiveRecord::Migration[5.1]
   def change
     create_table :masquerading_logs do |t|

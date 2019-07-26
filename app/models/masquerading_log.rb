@@ -1,3 +1,4 @@
+# typed: strict
 # Logs when the user masquerades as another other
 # or clears.
 class MasqueradingLog < ApplicationRecord

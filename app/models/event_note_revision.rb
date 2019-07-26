@@ -1,3 +1,4 @@
+# typed: true
 class EventNoteRevision < ApplicationRecord
   belongs_to :event_note
   belongs_to :educator

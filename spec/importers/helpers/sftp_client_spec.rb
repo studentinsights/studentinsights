@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe SftpClient do
   def mock_env_for_x2
     allow(ENV).to receive(:[]).with('SIS_SFTP_HOST').and_return "sis.x2.com"

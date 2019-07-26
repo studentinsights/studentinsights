@@ -1,3 +1,4 @@
+# typed: false
 class ProfileController < ApplicationController
   include ApplicationHelper
 

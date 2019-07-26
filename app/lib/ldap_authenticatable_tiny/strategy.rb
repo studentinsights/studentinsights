@@ -1,3 +1,4 @@
+# typed: false
 module Devise
   module Strategies
     class LdapAuthenticatableTiny < Authenticatable

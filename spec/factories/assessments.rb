@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :assessment do
     sequence(:family) { Assessment::VALID_FAMILY_VALUES.sample }

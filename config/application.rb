@@ -1,3 +1,4 @@
+# typed: strict
 require_relative 'boot'
 
 # Include railties manually, to avoid including `active_storage/engine` which add routes

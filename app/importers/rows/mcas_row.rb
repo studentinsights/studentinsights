@@ -1,3 +1,4 @@
+# typed: ignore
 class McasRow < Struct.new :row, :student_id, :assessments_array
   def build
     assessment_id = find_assessment_id(row)

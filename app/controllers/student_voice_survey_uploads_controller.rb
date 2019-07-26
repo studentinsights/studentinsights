@@ -1,3 +1,4 @@
+# typed: true
 class StudentVoiceSurveyUploadsController < ApplicationController
   before_action :ensure_authorized!
   before_action :ensure_feature_is_enabled!

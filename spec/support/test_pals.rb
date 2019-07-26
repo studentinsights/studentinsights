@@ -1,3 +1,4 @@
+# typed: false
 # This class defines a set of users, schools, homerooms and students
 # that can be used for testing authorization rules.
 #

@@ -1,3 +1,4 @@
+# typed: true
 # This class provides an API for interacting with Warden
 # sessions so that we can store values allowing users with elevated
 # permissions to masquerade as another user.

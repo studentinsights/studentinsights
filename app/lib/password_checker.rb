@@ -1,3 +1,4 @@
+# typed: true
 # Perform checks on passwords, computed stats and then throwing some bits away
 # and encrypting the result.
 class PasswordChecker

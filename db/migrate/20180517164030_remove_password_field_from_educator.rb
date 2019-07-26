@@ -1,3 +1,4 @@
+# typed: true
 class RemovePasswordFieldFromEducator < ActiveRecord::Migration[5.1]
   def change
     remove_column :educators, :encrypted_password

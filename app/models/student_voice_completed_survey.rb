@@ -1,3 +1,4 @@
+# typed: true
 # A survey that a student completed.
 class StudentVoiceCompletedSurvey < ApplicationRecord
   belongs_to :student

@@ -1,3 +1,4 @@
+# typed: strong
 class EventNoteAttachment < ApplicationRecord
   belongs_to :event_note
   validates :url, presence: true

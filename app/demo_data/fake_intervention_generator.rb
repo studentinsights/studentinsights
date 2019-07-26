@@ -1,3 +1,4 @@
+# typed: true
 class FakeInterventionGenerator
 
   def initialize(student)

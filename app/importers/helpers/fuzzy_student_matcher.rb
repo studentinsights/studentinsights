@@ -1,3 +1,4 @@
+# typed: true
 # Helper for fuzzily matching names to student records
 # Intended more for semi-automated console use, patching up data before import.
 # Includes inactive students by default so data is still imported (eg,

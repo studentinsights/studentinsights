@@ -1,3 +1,4 @@
+# typed: true
 class DiscontinuedServices < ActiveRecord::Migration[4.2]
   def change
     create_table :discontinued_services do |t|

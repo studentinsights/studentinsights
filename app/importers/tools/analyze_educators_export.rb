@@ -1,3 +1,4 @@
+# typed: ignore
 require 'csv'
 
 class AnalyzeEducatorsExport < Struct.new :path

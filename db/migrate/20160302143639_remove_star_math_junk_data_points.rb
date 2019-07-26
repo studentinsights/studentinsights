@@ -1,3 +1,4 @@
+# typed: false
 class RemoveStarMathJunkDataPoints < ActiveRecord::Migration[4.2]
   def change
     star_math = Assessment.find_by_family_and_subject('STAR', 'Mathematics')

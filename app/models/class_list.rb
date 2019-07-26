@@ -1,3 +1,4 @@
+# typed: false
 # Within a `workspace_id`, there are multiple ClassList records
 # holding states over time.  There might be hundreds of ClassList records
 # within a single `workspace_id` if a teacher is making many revisions.

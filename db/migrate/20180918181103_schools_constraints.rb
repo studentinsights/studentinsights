@@ -1,3 +1,4 @@
+# typed: true
 class SchoolsConstraints < ActiveRecord::Migration[5.2]
   def change
     # make these all non-nullable

@@ -1,3 +1,4 @@
+# typed: true
 class DashboardQueries
   def initialize(educator, options = {})
     @educator = educator

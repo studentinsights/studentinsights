@@ -1,3 +1,4 @@
+# typed: ignore
 require 'csv'
 
 class AnalyzeStudentAttendanceTable < Struct.new(:path)

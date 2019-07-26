@@ -1,3 +1,4 @@
+# typed: true
 class EducatorMultifactorTextNumbers < ActiveRecord::Migration[5.2]
   def change
     create_table :educator_multifactor_text_numbers do |t|

@@ -1,3 +1,4 @@
+# typed: true
 class AddReferencesFromEventsToStudents < ActiveRecord::Migration[5.0]
   def change
     add_reference :absences, :student, index: true, foreign_key: true

@@ -1,3 +1,4 @@
+# typed: true
 class ClassroomBalancingEducatorKey < ActiveRecord::Migration[5.1]
   def change
     add_foreign_key "classrooms_for_grades", "educators", {

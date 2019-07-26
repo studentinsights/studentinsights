@@ -1,3 +1,4 @@
+# typed: true
 # NOTE: Right now, this single model holds data forboth  MCAS and ACCESS.
 # Over time, we want to create a separate model
 # and table for each assessment. Each assessment has its own unique fields.

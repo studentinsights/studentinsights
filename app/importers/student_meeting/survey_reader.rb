@@ -1,3 +1,4 @@
+# typed: false
 # Deprecated, prefer generic_survey_processor.rb
 
 # Takes a CSV processes each row to join keys with Insights (eg, from say a survey).

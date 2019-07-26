@@ -1,3 +1,4 @@
+# typed: false
 class Homeroom < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged

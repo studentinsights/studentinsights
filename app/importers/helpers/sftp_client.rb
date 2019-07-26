@@ -1,3 +1,4 @@
+# typed: ignore
 require 'fileutils'
 
 # These are keys into ENV

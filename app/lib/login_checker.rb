@@ -1,3 +1,4 @@
+# typed: true
 # Check for suspicious bits about the login, for warning.
 class LoginChecker
   def initialize(educator, options = {})

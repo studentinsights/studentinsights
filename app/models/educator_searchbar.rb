@@ -1,3 +1,4 @@
+# typed: false
 class EducatorSearchbar < ApplicationRecord
   belongs_to  :educator
   validates :educator, presence: true, uniqueness: true

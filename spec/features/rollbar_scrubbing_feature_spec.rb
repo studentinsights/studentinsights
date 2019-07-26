@@ -1,3 +1,4 @@
+# typed: false
 require 'rails_helper'
 
 describe 'Rollbar scrubs properly', type: :feature do

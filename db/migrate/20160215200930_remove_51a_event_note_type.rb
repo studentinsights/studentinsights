@@ -1,3 +1,4 @@
+# typed: true
 class Remove51aEventNoteType < ActiveRecord::Migration[4.2]
   def change
     # This type is being removed, and this will be capture as a 'service' instead.

@@ -1,3 +1,4 @@
+# typed: false
 class SquasherClean < ActiveRecord::Migration[4.2]
   class SchemaMigration < ActiveRecord::Base
   end

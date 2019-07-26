@@ -1,3 +1,4 @@
+# typed: true
 class DatabaseConstants
   # Used for initializing the constants in a new database.  This
   # is factored out of the main seed file so it can be used for

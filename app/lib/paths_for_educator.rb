@@ -1,3 +1,4 @@
+# typed: true
 # Determine paths for educators, based on what they have authorization to access.
 class PathsForEducator
   def initialize(educator)

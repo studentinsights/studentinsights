@@ -1,3 +1,4 @@
+# typed: false
 class LevelsController < ApplicationController
   before_action :ensure_feature_enabled_for_district!
 

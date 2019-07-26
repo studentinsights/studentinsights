@@ -1,3 +1,4 @@
+# typed: false
 class RemoveJunkStarDataPoints < ActiveRecord::Migration[4.2]
   def change
     star = Assessment.find_by_family('STAR')

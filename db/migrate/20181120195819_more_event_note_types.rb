@@ -1,3 +1,4 @@
+# typed: true
 class MoreEventNoteTypes < ActiveRecord::Migration[5.2]
   def change
     EventNoteType.find_or_create_by!({ id: 501, name: "CAT Meeting" })

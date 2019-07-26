@@ -1,3 +1,4 @@
+# typed: false
 # Store a historical data point about levels for SHS students
 class HistoricalLevelsSnapshot < ApplicationRecord
   def self.snapshot!(options = {})

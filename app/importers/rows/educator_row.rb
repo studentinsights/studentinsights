@@ -1,3 +1,4 @@
+# typed: ignore
 class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   # Returns a new or existing Educator record matching the row, or nil if it can't
   # understand the row.

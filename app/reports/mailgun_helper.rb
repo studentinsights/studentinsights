@@ -1,3 +1,4 @@
+# typed: true
 class MailgunHelper
   # Parse the Heroku environment variables into the URL form the Mailgun API expects
   def mailgun_url_from_env(env)

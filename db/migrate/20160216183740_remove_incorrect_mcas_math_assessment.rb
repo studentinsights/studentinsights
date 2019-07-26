@@ -1,3 +1,4 @@
+# typed: false
 class RemoveIncorrectMcasMathAssessment < ActiveRecord::Migration[4.2]
   def change
     # "MCAS Math" => incorrect

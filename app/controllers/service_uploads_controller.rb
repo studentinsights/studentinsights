@@ -1,3 +1,4 @@
+# typed: false
 class ServiceUploadsController < ApplicationController
   before_action :ensure_authorized_for_project_lead!
 

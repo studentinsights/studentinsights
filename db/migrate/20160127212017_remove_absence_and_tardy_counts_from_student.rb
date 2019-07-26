@@ -1,3 +1,4 @@
+# typed: true
 class RemoveAbsenceAndTardyCountsFromStudent < ActiveRecord::Migration[4.2]
   def up
     remove_column :students, :absences_count_most_recent_school_year

@@ -1,3 +1,4 @@
+# typed: true
 class AddKeys < ActiveRecord::Migration[5.1]
   def change
     add_foreign_key "courses", "schools", name: "courses_school_id_fk"

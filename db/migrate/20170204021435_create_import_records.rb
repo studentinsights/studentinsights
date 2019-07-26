@@ -1,3 +1,4 @@
+# typed: true
 class CreateImportRecords < ActiveRecord::Migration[4.2]
   def change
     create_table :import_records do |t|

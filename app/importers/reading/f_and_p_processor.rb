@@ -1,3 +1,4 @@
+# typed: false
 # deprecated, see MegaReadingProcessor and ReadingBenchmarkDataPoint
 # Used on the console to import data about F&P assessments.
 #

@@ -1,3 +1,4 @@
+# typed: true
 class CreateEducatorSectionAssignments < ActiveRecord::Migration[5.0]
   def change
     create_table :educator_section_assignments, id: false do |t|

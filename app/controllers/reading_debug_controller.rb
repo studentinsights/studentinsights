@@ -1,3 +1,4 @@
+# typed: true
 require 'csv'
 
 class ReadingDebugController < ApplicationController

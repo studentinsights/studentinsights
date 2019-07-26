@@ -1,3 +1,4 @@
+# typed: true
 class CreateStudentRiskLevels < ActiveRecord::Migration[4.2]
   def change
     create_table :student_risk_levels do |t|

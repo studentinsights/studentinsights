@@ -1,3 +1,4 @@
+# typed: true
 class FileImporterOptions
   # Describe all configured importers
   def all_importer_keys

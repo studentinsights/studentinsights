@@ -1,3 +1,4 @@
+# typed: true
 class StarDebugQueries
   def fetch_json(students, options = {})
     cutoff_date = options.fetch(:cutoff_date, SchoolYear.first_day_of_school_for_year(2017))

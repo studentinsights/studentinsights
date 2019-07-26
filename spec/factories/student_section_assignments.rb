@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :student_section_assignment do
     association :student

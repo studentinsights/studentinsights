@@ -1,3 +1,4 @@
+# typed: true
 class AddStudentVoiceSurveyUpload < ActiveRecord::Migration[5.2]
   def change
     create_table :student_voice_survey_uploads do |t|

@@ -1,3 +1,4 @@
+# typed: true
 class MultifactorController < ApplicationController
   skip_before_action :authenticate_educator!, only: [:multifactor]
 

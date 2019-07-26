@@ -1,3 +1,4 @@
+# typed: true
 class InsightStudentsWithLowGrades
   def initialize(educator, options = {})
     @educator = educator

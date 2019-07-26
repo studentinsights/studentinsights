@@ -1,3 +1,4 @@
+# typed: true
 class EnvironmentVariable
   def self.is_true(string_key)
     value = ENV[string_key]

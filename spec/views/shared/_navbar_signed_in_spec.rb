@@ -1,3 +1,4 @@
+# typed: false
 require "spec_helper"
 
 describe '_navbar_signed_in partial' do

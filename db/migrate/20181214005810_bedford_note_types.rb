@@ -1,3 +1,4 @@
+# typed: true
 class BedfordNoteTypes < ActiveRecord::Migration[5.2]
   def change
     return unless PerDistrict.new.district_key == PerDistrict::BEDFORD

@@ -1,3 +1,4 @@
+# typed: true
 class AddKeysForHistoricalGrades < ActiveRecord::Migration[5.2]
   def change
     add_foreign_key "historical_grades", "sections", name: "historical_grades_section_id_fk"

@@ -1,3 +1,4 @@
+# typed: true
 class AddTimestamps < ActiveRecord::Migration[5.2]
   def change
     add_column :student_section_assignments, :created_at, :datetime

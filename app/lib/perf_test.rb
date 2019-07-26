@@ -1,3 +1,4 @@
+# typed: false
 class PerfTest
   # querying and serializing data for absence dashboard at a particular school
   def self.absences_dashboard(percentage, options = ())

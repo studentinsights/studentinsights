@@ -1,3 +1,4 @@
+# typed: ignore
 require 'csv'
 require 'date'
 

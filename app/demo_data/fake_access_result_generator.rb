@@ -1,3 +1,4 @@
+# typed: false
 class FakeAccessResultGenerator
 
   def initialize(student)

@@ -1,3 +1,4 @@
+# typed: true
 class FakeEventNoteGenerator
 
   def initialize(student)

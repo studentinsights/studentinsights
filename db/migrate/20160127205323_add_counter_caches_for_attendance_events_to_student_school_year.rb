@@ -1,3 +1,4 @@
+# typed: true
 class AddCounterCachesForAttendanceEventsToStudentSchoolYear < ActiveRecord::Migration[4.2]
   def change
     add_column :student_school_years, :tardies_count, :integer, default: 0

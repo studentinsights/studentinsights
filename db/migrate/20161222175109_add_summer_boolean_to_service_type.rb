@@ -1,3 +1,4 @@
+# typed: false
 class AddSummerBooleanToServiceType < ActiveRecord::Migration[4.2]
   def change
     add_column :service_types, :summer_program, :boolean, default: false

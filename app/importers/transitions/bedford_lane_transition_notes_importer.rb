@@ -1,3 +1,4 @@
+# typed: false
 # Import transition notes, just notes and not services (even though
 # they are in the same sheets).
 class BedfordLaneTransitionNotesImporter

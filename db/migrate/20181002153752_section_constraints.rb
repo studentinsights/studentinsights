@@ -1,3 +1,4 @@
+# typed: true
 class SectionConstraints < ActiveRecord::Migration[5.2]
   def change
     change_column :sections, :section_number, :string, null: false

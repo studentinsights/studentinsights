@@ -1,3 +1,4 @@
+# typed: true
 # experimental
 class SimpleSyncer
   def initialize(options = {})

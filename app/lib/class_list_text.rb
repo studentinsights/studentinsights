@@ -1,3 +1,4 @@
+# typed: true
 class ClassListText
   def initialize(class_list)
     @class_list = class_list

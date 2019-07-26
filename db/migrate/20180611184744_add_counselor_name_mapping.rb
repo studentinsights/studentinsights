@@ -1,3 +1,4 @@
+# typed: true
 class AddCounselorNameMapping < ActiveRecord::Migration[5.1]
   def change
     create_table :counselor_name_mappings do |t|

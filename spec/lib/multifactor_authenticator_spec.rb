@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe 'MultifactorAuthenticator' do
   let!(:pals) { TestPals.create! }
 

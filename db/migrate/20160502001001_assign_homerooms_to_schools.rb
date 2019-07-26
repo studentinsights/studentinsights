@@ -1,3 +1,4 @@
+# typed: true
 class AssignHomeroomsToSchools < ActiveRecord::Migration[4.2]
   def change
     Homeroom.find_each do |homeroom|

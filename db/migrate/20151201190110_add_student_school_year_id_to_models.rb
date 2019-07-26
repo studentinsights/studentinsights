@@ -1,3 +1,4 @@
+# typed: true
 class AddStudentSchoolYearIdToModels < ActiveRecord::Migration[4.2]
   def change
     add_column :student_assessments, :student_school_year_id, :integer

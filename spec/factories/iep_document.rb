@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :iep_document do
     association :student

@@ -1,3 +1,4 @@
+# typed: true
 class CreateEventNoteAttachments < ActiveRecord::Migration[4.2]
   def change
     create_table :event_note_attachments do |t|

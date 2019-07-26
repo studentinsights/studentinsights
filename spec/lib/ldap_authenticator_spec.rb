@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe 'LdapAuthenticator' do
   def test_tls_options_text
     '{"tls_foo": "tls_bar"}'

@@ -1,3 +1,4 @@
+# typed: true
 class AddEdPlan < ActiveRecord::Migration[5.2]
   def change
     create_table :ed_plans do |t|

@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :absence do
     occurred_at { Time.now }

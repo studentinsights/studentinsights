@@ -1,3 +1,4 @@
+# typed: false
 class FakeNextGenMcasMathResultGenerator
   def initialize(student, options = {}, index)
     @student = student

@@ -1,3 +1,4 @@
+# typed: true
 class GradeLevels
   ORDERED_GRADE_LEVELS = [
     'OOPK',

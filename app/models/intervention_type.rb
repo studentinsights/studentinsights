@@ -1,3 +1,4 @@
+# typed: true
 # Deprecated
 class InterventionType < ApplicationRecord
   has_many :interventions

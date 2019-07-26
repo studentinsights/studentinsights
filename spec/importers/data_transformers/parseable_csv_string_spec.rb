@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe ParseableCsvString do
   def parseable_string_from(string)
     log = LogHelper::FakeLog.new

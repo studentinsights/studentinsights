@@ -1,3 +1,4 @@
+# typed: true
 class PrecomputedQueryDoc < ApplicationRecord
   # A key-value store for holding a precomputed JSON doc (eg, for a query that's hard to optimize
   # or wants to use arbitrary Ruby code).  It's intended to be precomputed and durable, not a

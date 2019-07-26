@@ -1,3 +1,4 @@
+# typed: false
 class StudentsController < ApplicationController
   include ApplicationHelper
 

@@ -1,3 +1,4 @@
+# typed: true
 class MissingStudentAssessment
   def growth_percentile; nil end
 

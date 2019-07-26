@@ -1,3 +1,4 @@
+# typed: true
 class AddUsefulIndicesToStudentSchoolYears < ActiveRecord::Migration[4.2]
   def change
     change_column_null :student_school_years, :student_id, false

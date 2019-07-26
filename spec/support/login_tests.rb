@@ -1,3 +1,4 @@
+# typed: true
 # There are security measures for logins that make some feature specs
 # slow.  These security measure are enabled by default in development
 # and in all tests, but this allows particular specs to opt-out of these

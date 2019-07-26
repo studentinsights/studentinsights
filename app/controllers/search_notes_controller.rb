@@ -1,3 +1,4 @@
+# typed: true
 class SearchNotesController < ApplicationController
   before_action :ensure_authorized!
 

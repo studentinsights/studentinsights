@@ -1,3 +1,4 @@
+# typed: true
 class AddHomeroomConstraints < ActiveRecord::Migration[5.2]
   def change
     add_foreign_key "homerooms", "educators", name: "homerooms_for_educator_id_fk"

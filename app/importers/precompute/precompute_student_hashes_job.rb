@@ -1,3 +1,4 @@
+# typed: ignore
 class PrecomputeStudentHashesJob < Struct.new :log
   # Runs the job for a particular day, querying for all educators' authorizations,
   # precomputing the `student_hashes` for them and writing them to the database.

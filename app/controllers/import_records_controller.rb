@@ -1,3 +1,4 @@
+# typed: true
 class ImportRecordsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
   before_action :authorize_for_districtwide_access_admin # Extra authentication layer

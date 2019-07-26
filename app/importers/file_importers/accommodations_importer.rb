@@ -1,3 +1,4 @@
+# typed: false
 class EdPlanImporter
 
   def initialize(options:)

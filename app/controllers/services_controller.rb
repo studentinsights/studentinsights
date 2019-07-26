@@ -1,3 +1,4 @@
+# typed: false
 class ServicesController < ApplicationController
   before_action :authorize!
 

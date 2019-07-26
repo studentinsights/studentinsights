@@ -1,3 +1,4 @@
+# typed: true
 class RemoveAssessmentSubjectAndFamilyTables < ActiveRecord::Migration[5.1]
   def change
     drop_table :assessment_families

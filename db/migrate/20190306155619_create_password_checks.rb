@@ -1,3 +1,4 @@
+# typed: true
 class CreatePasswordChecks < ActiveRecord::Migration[5.2]
   def change
     create_table :password_checks, id: :uuid do |t|

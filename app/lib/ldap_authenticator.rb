@@ -1,3 +1,4 @@
+# typed: true
 class LdapAuthenticator
   def initialize(options = {})
     @logger = options.fetch(:logger, Rails.logger)

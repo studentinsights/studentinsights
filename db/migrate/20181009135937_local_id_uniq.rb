@@ -1,3 +1,4 @@
+# typed: true
 class LocalIdUniq < ActiveRecord::Migration[5.2]
   def change
     remove_index :students, :local_id

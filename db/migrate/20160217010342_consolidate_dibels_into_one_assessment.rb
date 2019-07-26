@@ -1,3 +1,4 @@
+# typed: true
 class ConsolidateDibelsIntoOneAssessment < ActiveRecord::Migration[4.2]
   def change
     if Assessment.where(family: 'DIBELS').count > 1

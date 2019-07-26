@@ -1,3 +1,4 @@
+# typed: true
 # Monkey patching to override logging the filename; we want to give users
 # descriptive filenames, and that means they may have sensitive info that we
 # don't want logged.

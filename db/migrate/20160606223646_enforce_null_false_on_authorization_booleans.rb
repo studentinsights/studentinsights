@@ -1,3 +1,4 @@
+# typed: true
 class EnforceNullFalseOnAuthorizationBooleans < ActiveRecord::Migration[4.2]
   def change
     change_column :educators, :schoolwide_access, :boolean, null: false

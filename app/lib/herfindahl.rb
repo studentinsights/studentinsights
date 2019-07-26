@@ -1,3 +1,4 @@
+# typed: true
 class Herfindahl
   # The share of "whiteness" etc.
   def self.default_dimensions

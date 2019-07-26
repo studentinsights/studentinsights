@@ -1,3 +1,4 @@
+# typed: true
 class AbsenceNotNull < ActiveRecord::Migration[5.2]
   def change
     # This was nullable before and it shouldn't be.

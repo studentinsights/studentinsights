@@ -1,3 +1,4 @@
+# typed: false
 class IepStorer
   def self.bucket_name
     ENV['AWS_S3_IEP_BUCKET']

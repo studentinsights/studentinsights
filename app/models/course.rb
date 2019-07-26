@@ -1,3 +1,4 @@
+# typed: strong
 class Course < ApplicationRecord
   validates :course_number, presence: true, uniqueness: {
     # Different courses at different schools can have the same course number

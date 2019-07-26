@@ -1,3 +1,4 @@
+# typed: true
 class SectionsController < ApplicationController
   before_action :ensure_feature_enabled!
 

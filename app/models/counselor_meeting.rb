@@ -1,3 +1,4 @@
+# typed: strong
 class CounselorMeeting < ApplicationRecord
   belongs_to :educator
   belongs_to :student

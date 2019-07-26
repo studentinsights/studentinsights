@@ -1,3 +1,4 @@
+# typed: false
 class FakeStudent
   ATTENDANCE_EVENT_REASONS = %w[
     Appointment

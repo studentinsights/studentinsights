@@ -1,3 +1,4 @@
+# typed: true
 class MigratePrecomputedStudentHashesToUniqueKey < ActiveRecord::Migration[4.2]
   # This removes the `precomputed_student_hashes_docs` table, where we've run into
   # issues with Rails not encoding the string type for the primary key into schema.rb,

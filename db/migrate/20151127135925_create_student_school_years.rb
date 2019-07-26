@@ -1,3 +1,4 @@
+# typed: true
 class CreateStudentSchoolYears < ActiveRecord::Migration[4.2]
   def change
     create_table :student_school_years do |t|

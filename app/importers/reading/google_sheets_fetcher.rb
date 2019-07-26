@@ -1,3 +1,4 @@
+# typed: ignore
 # Returns array of CSVs from a Google Drive Folder.
 # Requires a Google Service Account with read permissions for
 # the folder.

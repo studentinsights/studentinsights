@@ -1,3 +1,4 @@
+# typed: true
 # This is only for legacy reads; see `SecondTransitionNote` instead.
 class TransitionNotesController < ApplicationController
   def restricted_transition_note_json

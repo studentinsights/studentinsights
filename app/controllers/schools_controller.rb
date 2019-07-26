@@ -1,3 +1,4 @@
+# typed: false
 class SchoolsController < ApplicationController
   before_action :set_school, :ensure_authorized_for_school!
 

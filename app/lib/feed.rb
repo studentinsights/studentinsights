@@ -1,3 +1,4 @@
+# typed: false
 class Feed
   # What students should be shown in an educator's feed?
   # This isn't always exactly the same as "who is this educator authorized

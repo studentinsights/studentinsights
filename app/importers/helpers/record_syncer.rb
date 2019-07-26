@@ -1,3 +1,4 @@
+# typed: true
 # For syncing between a CSV snapshot and an Insights model, particularly
 # for tracking and then removing records in Insights that have been removed
 # in the CSV snapshot.

@@ -1,3 +1,4 @@
+# typed: true
 class SampleStudentsController < ApplicationController
   before_action :ensure_authorized!
 

@@ -1,3 +1,4 @@
+# typed: false
 class StatForBedford < ActiveRecord::Migration[5.2]
   def change
     if EventNoteType.find_by_id(500).nil?

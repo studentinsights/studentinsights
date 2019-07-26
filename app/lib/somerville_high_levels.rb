@@ -1,3 +1,4 @@
+# typed: false
 # This class is for expressing the different levels
 # of support that students should be receiving, to help
 # educators find gaps and take action to provide students with

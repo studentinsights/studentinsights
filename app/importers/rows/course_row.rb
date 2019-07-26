@@ -1,3 +1,4 @@
+# typed: ignore
 class CourseRow < Struct.new(:row, :school_ids_dictionary)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   # This structure represents courses ignoring the section data. Unfortunately this is run

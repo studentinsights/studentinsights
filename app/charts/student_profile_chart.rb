@@ -1,3 +1,4 @@
+# typed: ignore
 class StudentProfileChart < Struct.new :student
 
   def chart_data

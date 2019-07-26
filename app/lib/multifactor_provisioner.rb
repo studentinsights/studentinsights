@@ -1,3 +1,4 @@
+# typed: true
 # Usage
 # > sofia = Educator.find_by_login_name('sofia')
 # > MultifactorProvisioner.new.enable_and_provision!

@@ -1,3 +1,4 @@
+# typed: true
 class DestroyInactiveIepDocuments < ActiveRecord::Migration[5.1]
   def change
     district_name = ENV['DISTRICT_NAME']

@@ -1,3 +1,4 @@
+# typed: false
 class EducatorSectionAssignmentsImporter
   def self.data_flow
     DataFlow.new({

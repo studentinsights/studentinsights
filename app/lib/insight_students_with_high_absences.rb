@@ -1,3 +1,4 @@
+# typed: true
 class InsightStudentsWithHighAbsences
   def self.time_threshold_capped_to_school_year(time_now, days_back)
     time_threshold = time_now - days_back

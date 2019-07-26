@@ -1,3 +1,4 @@
+# typed: ignore
 class EventNoteSerializer < Struct.new :event_note, :options
   def self.safe(event_note)
     EventNoteSerializer.new(event_note, {})

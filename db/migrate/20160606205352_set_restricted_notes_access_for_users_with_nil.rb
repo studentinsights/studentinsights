@@ -1,3 +1,4 @@
+# typed: true
 class SetRestrictedNotesAccessForUsersWithNil < ActiveRecord::Migration[4.2]
   def change
     Educator.find_each do |educator|

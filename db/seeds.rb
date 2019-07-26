@@ -1,3 +1,4 @@
+# typed: false
 require "#{Rails.root}/db/seeds/database_constants"
 require "#{Rails.root}/spec/support/test_pals"
 require "#{Rails.root}/app/lib/environment_variable"

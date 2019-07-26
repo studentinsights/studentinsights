@@ -1,3 +1,4 @@
+# typed: false
 module Admin
   class EducatorsController < Admin::ApplicationController
     # To customize the behavior of this controller,

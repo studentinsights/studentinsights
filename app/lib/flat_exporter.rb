@@ -1,3 +1,4 @@
+# typed: true
 require 'csv'
 
 # For exporting nested json as a flat CSV

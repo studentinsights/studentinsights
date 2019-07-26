@@ -1,3 +1,4 @@
+# typed: ignore
 class SomervilleHighLevelsDefinitions
   def self.levels_input(options = {})
     LevelsInput.new(options)

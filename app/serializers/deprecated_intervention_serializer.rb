@@ -1,3 +1,4 @@
+# typed: ignore
 class DeprecatedInterventionSerializer < Struct.new :intervention
 
   def serialize_intervention

@@ -1,3 +1,4 @@
+# typed: true
 class TransitionNotesRecordedAt < ActiveRecord::Migration[5.2]
   def change
     TransitionNote.all.each do |transition_note|

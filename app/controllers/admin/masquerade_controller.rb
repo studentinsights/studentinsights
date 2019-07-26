@@ -1,3 +1,4 @@
+# typed: false
 module Admin
   class MasqueradeController < ::ApplicationController # does not inherit from administrate
     before_action :ensure_can_masquerade!

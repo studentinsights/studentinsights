@@ -1,3 +1,4 @@
+# typed: true
 class ConsistentTiming
   # Allow running a block of some execution time, and
   # clamping it to take at least N milliseconds regardless of how

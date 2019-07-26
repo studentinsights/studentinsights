@@ -1,3 +1,4 @@
+# typed: false
 def example_incident_codes
   [
     "?",

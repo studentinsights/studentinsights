@@ -1,3 +1,4 @@
+# typed: false
 # Helper functions for doing an import, and matching different values in an imported row to
 # the database.
 class ImportMatcher

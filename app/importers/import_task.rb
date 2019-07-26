@@ -1,3 +1,4 @@
+# typed: false
 class ImportTask
   def initialize(options:)
     @options = options

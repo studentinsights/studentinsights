@@ -1,3 +1,4 @@
+# typed: true
 class CreateDibelsResults < ActiveRecord::Migration[5.2]
   def change
     create_table :dibels_results do |t|

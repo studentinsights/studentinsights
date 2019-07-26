@@ -1,3 +1,4 @@
+# typed: true
 class CreateTransitionNotes < ActiveRecord::Migration[5.1]
   def change
     create_table :transition_notes do |t|

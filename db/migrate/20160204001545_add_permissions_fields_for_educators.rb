@@ -1,3 +1,4 @@
+# typed: true
 class AddPermissionsFieldsForEducators < ActiveRecord::Migration[4.2]
   def change
     add_column :educators, :schoolwide_access, :boolean, default: false

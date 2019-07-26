@@ -1,3 +1,4 @@
+# typed: false
 class EdPlansImporter
   def self.data_flow
     DataFlow.new({

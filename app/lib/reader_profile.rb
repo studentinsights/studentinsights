@@ -1,3 +1,4 @@
+# typed: true
 class ReaderProfile
   def initialize(student, options = {})
     @student = student

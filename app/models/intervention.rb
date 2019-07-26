@@ -1,3 +1,4 @@
+# typed: false
 class Intervention < ApplicationRecord
   belongs_to :student
   belongs_to :educator

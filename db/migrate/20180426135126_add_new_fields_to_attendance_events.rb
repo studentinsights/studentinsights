@@ -1,3 +1,4 @@
+# typed: true
 class AddNewFieldsToAttendanceEvents < ActiveRecord::Migration[5.1]
   def change
     add_column :absences, :dismissed, :boolean

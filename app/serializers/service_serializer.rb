@@ -1,3 +1,4 @@
+# typed: ignore
 class ServiceSerializer < Struct.new :service
 
   def serialize_service

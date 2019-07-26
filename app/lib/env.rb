@@ -1,3 +1,4 @@
+# typed: false
 class Env
   # ENV setup that's shared across development and test modes.
   #

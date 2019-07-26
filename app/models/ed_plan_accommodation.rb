@@ -1,3 +1,4 @@
+# typed: strong
 class EdPlanAccommodation < ApplicationRecord
   belongs_to :ed_plan
 

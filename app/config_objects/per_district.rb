@@ -1,3 +1,4 @@
+# typed: false
 # Server code that's different per-district.  Centralize here
 # whereever possible rather than leaking out to different places in
 # the codebase.

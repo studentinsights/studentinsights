@@ -1,3 +1,4 @@
+# typed: false
 class EducatorMultifactorConfig < ApplicationRecord
   belongs_to :educator
 

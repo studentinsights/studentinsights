@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 
 # This is just sugar, mirroring how this is used in controller code

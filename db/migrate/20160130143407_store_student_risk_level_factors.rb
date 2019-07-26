@@ -1,3 +1,4 @@
+# typed: true
 class StoreStudentRiskLevelFactors < ActiveRecord::Migration[4.2]
   def change
     add_column :student_risk_levels, :mcas_math_risk_level, :integer

@@ -1,3 +1,4 @@
+# typed: true
 class AddAttributesToEducators < ActiveRecord::Migration[4.2]
   def change
     add_column :educators, :full_name, :string

@@ -1,3 +1,4 @@
+# typed: true
 class AddReadingBenchmarkDataPoints < ActiveRecord::Migration[5.2]
   def change
     create_table :reading_benchmark_data_points do |t|

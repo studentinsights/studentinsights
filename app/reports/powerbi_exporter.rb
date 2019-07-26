@@ -1,3 +1,4 @@
+# typed: true
 require 'csv'
 
 # Creates a CSV string of flat tables

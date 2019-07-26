@@ -53,6 +53,11 @@ gem 'ruby_audit'
 # used to seed demo data in production
 gem 'factory_bot_rails'
 
+# sorbet dev and production
+gem 'sorbet', :group => :development
+gem 'sorbet-runtime'
+gem 'sorbet-rails'
+
 group :development, :test do
   gem 'bourbon', '~> 4.3.2'
   gem 'capybara'

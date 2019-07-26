@@ -1,3 +1,4 @@
+# typed: strict
 SecureHeaders::Configuration.default do |config|
   # Set these all explicitly on top of the defaults, starting from guidance in
   # https://github.com/twitter/secure_headers/blob/5c47914f9c481d8c69fb7af141ed5a79b213bfa1/README.md#configuration

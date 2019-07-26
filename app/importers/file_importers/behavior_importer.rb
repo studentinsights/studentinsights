@@ -1,3 +1,4 @@
+# typed: false
 class BehaviorImporter
   def self.data_flow
     DataFlow.new({

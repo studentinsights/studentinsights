@@ -1,3 +1,4 @@
+# typed: true
 class CreateEventNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :event_notes do |t|

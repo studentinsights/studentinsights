@@ -1,3 +1,4 @@
+# typed: false
 class SomervilleMegaReadingImporter
   def initialize(options:)
     @log = options.fetch(:log)

@@ -1,3 +1,4 @@
+# typed: true
 require 'devise/strategies/authenticatable'
 module Devise
   module Models

@@ -1,3 +1,4 @@
+# typed: true
 class RemoveStudentRiskLevelRecords < ActiveRecord::Migration[5.1]
   # See https://github.com/studentinsights/studentinsights/issues/1071
 

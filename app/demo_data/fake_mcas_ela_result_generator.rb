@@ -1,3 +1,4 @@
+# typed: false
 class FakeMcasElaResultGenerator
   def initialize(student, options = {}, index)
     @student = student

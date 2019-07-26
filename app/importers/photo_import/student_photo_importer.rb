@@ -1,3 +1,4 @@
+# typed: false
 require 'zip'
 require 'tempfile'
 require 'fileutils'

@@ -1,3 +1,4 @@
+# typed: strong
 module Exceptions
   class NoAssignedHomeroom < StandardError; end
   class NoAssignedSections < StandardError; end

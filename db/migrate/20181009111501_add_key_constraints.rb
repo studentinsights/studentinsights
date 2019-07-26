@@ -1,3 +1,4 @@
+# typed: true
 class AddKeyConstraints < ActiveRecord::Migration[5.2]
   def change
     change_column :courses, :school_id, :integer, null: false

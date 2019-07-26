@@ -1,3 +1,4 @@
+# typed: true
 # This class defines authorization rules.
 # If you want student data, ask through this class.
 # Ideally, start with using `authorized`.

@@ -1,3 +1,4 @@
+# typed: ignore
 class BehaviorRow < Struct.new(:row, :student_id)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   #

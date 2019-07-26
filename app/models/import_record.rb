@@ -1,3 +1,4 @@
+# typed: false
 class ImportRecord < ApplicationRecord
 
   def completed?

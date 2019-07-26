@@ -1,3 +1,4 @@
+# typed: true
 class AddHistoricalGrade < ActiveRecord::Migration[5.2]
   def change
     create_table :historical_grades do |t|

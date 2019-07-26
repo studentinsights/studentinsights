@@ -1,3 +1,4 @@
+# typed: true
 class LogSearches < ActiveRecord::Migration[5.2]
   def change
     create_table :logged_searches do |t|

@@ -1,3 +1,4 @@
+# typed: true
 require 'csv'
 
 # This class handles encoding issues with CSV strings, and other

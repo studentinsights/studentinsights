@@ -1,3 +1,4 @@
+# typed: false
 RSpec.describe 'ConsistentTiming' do
   def read_clock
     Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond)

@@ -1,3 +1,4 @@
+# typed: true
 class AddMinimalFp < ActiveRecord::Migration[5.2]
   def change
     create_table :f_and_p_assessments do |t|

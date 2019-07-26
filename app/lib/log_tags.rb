@@ -1,3 +1,4 @@
+# typed: true
 class LogTags
   def request_identifier(req)
     "r:#{req.request_id.first(8)}"

@@ -1,3 +1,4 @@
+# typed: true
 # Used by importers, for one-time imports, or "drop and overwrite" sync
 # strategies.
 #

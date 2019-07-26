@@ -1,3 +1,4 @@
+# typed: true
 class RemoveHomeroomsForStudentsWithoutHomeroom < ActiveRecord::Migration[5.0]
   def change
     district_name = ENV['DISTRICT_NAME']

@@ -1,3 +1,4 @@
+# typed: true
 # Intended to be used in controller
 class StudentPhotoSender
   def initialize(s3_client)

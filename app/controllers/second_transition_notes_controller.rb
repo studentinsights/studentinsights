@@ -1,3 +1,4 @@
+# typed: false
 class SecondTransitionNotesController < ApplicationController
   before_action :ensure_authorized_for_feature!
 

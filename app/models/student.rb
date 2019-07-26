@@ -1,3 +1,4 @@
+# typed: false
 class Student < ApplicationRecord
   VALID_FREE_REDUCED_LUNCH_VALUES = [
     "Free Lunch",

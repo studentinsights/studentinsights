@@ -1,3 +1,4 @@
+# typed: false
 class X2AssessmentImporter
   def self.data_flow
     DataFlow.new({

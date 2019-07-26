@@ -1,3 +1,4 @@
+# typed: false
 class StarReadingImporter
   def self.data_flow
     DataFlow.new({
