@@ -378,7 +378,7 @@ class PerDistrict
     if @district_key == SOMERVILLE
       ['Limited'].include?(student.limited_english_proficiency)
     elsif @district_key == NEW_BEDFORD
-      ['Limited English' || 'Non-English'].include?(student.limited_english_proficiency)
+      ['Limited English', 'Non-English'].include?(student.limited_english_proficiency)
     elsif @district_key == BEDFORD
       ['Limited English', 'Not Capable'].include?(student.limited_english_proficiency)
     else
