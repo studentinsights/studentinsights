@@ -1,4 +1,4 @@
-# typed: true
+# typed: ignore
 class SplitAttendanceEventTables < ActiveRecord::Migration[4.2]
   class AttendanceEvent20160127 < ActiveRecord::Base
     self.table_name = :attendance_events

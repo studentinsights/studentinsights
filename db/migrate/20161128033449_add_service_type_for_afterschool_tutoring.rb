@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class AddServiceTypeForAfterschoolTutoring < ActiveRecord::Migration[4.2]
   def change
     if ServiceType.find_by_id(511).nil?

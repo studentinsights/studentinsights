@@ -353,6 +353,7 @@ GEM
     simplecov-html (0.10.2)
     sorbet (0.4.4507)
       sorbet-static (= 0.4.4507)
+    sorbet-rails (0.4.0)
     sorbet-runtime (0.4.4507)
     sorbet-static (0.4.4507-universal-darwin-14)
     spring (2.0.2)
@@ -451,6 +452,7 @@ DEPENDENCIES
   secure_headers
   simplecov
   sorbet
+  sorbet-rails
   sorbet-runtime
   spring
   sprockets

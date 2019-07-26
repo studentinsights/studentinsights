@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # Stores a mapping from the Student `house` field to an `educator` record
 # indicating the educator belongs to that house.
 class HouseEducatorMapping < ApplicationRecord

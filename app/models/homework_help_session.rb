@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # A student's attendance at a homework help session
 class HomeworkHelpSession < ApplicationRecord
   belongs_to :student

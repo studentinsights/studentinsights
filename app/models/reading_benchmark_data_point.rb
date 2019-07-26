@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class ReadingBenchmarkDataPoint < ApplicationRecord
   VALID_BENCHMARK_PERIOD_KEYS = ['fall', 'winter', 'spring']
   VALID_BENCHMARK_ASSESSMENT_KEYS = [

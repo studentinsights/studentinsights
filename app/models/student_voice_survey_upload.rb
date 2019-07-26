@@ -1,4 +1,4 @@
-# typed: strict
+# typed: strong
 # An upload that an Insights user performed.  It probably created some `StudentVoiceCompletedSurveys`
 class StudentVoiceSurveyUpload < ApplicationRecord
   belongs_to :uploaded_by_educator, class_name: 'Educator'

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class DestroyStudentAssessmentsWithNoStudents < ActiveRecord::Migration[4.2]
   def change
     StudentAssessment.find_each do |student_assessment|

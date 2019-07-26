@@ -1,4 +1,4 @@
-# typed: true
+# typed: false
 class ClassListSnapshot < ApplicationRecord
   belongs_to :class_list
 

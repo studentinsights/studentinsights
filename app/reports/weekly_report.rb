@@ -1,4 +1,4 @@
-# typed: true
+# typed: false
 # Reports on aggregate, non-personally identifiable usage data.
 # Intended to be run weekly.
 class WeeklyReport

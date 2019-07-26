@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class TeamMembership < ApplicationRecord
   belongs_to :student
 

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # Server code that's different per-district.  Centralize here
 # whereever possible rather than leaking out to different places in
 # the codebase.
@@ -213,9 +213,9 @@ class PerDistrict
   def find_educator_by_login_text(login_text)
     cleaned_login_text = login_text.downcase.strip
     if @district_key == BEDFORD
-      Educator.find_by_login_name(cleaned_login_text)
+      Educator.find_by(login_name: cleaned_login_text)
     elsif @district_key == SOMERVILLE || @district_key == NEW_BEDFORD || @district_key == DEMO
-      Educator.find_by_login_name(cleaned_login_text) || Educator.find_by_email(cleaned_login_text)
+      Educator.find_by(login_name: cleaned_login_text) || Educator.find_by(email: cleaned_login_text)
     else
       raise_not_handled!
     end
@@ -244,13 +244,13 @@ class PerDistrict
 
     if @district_key == BEDFORD
       login_name = ldap_login.split('@').first
-      Educator.find_by_login_name(login_name)
+      Educator.find_by(login_name: login_name)
     elsif @district_key == SOMERVILLE
-      Educator.find_by_email(ldap_login)
+      Educator.find_by(email: ldap_login)
     elsif @district_key == NEW_BEDFORD
-      Educator.find_by_email(ldap_login)
+      Educator.find_by(email: ldap_login)
     elsif @district_key == DEMO
-      Educator.find_by_email(ldap_login)
+      Educator.find_by(email: ldap_login)
     else
       raise_not_handled!
     end
@@ -379,7 +379,7 @@ class PerDistrict
     if @district_key == SOMERVILLE
       ['Limited'].include?(student.limited_english_proficiency)
     elsif @district_key == NEW_BEDFORD
-      ['Limited English' || 'Non-English'].include?(student.limited_english_proficiency)
+      ['Limited English', 'Non-English'].include?(student.limited_english_proficiency)
     elsif @district_key == BEDFORD
       ['Limited English', 'Not Capable'].include?(student.limited_english_proficiency)
     else

@@ -1,4 +1,4 @@
-# typed: true
+# typed: false
 class ProfilePdfController < ApplicationController
   include ApplicationHelper
 

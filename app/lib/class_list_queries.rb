@@ -1,4 +1,4 @@
-# typed: true
+# typed: false
 # This class is authorization-aware, and checks authorization for the grade level
 # in a different, more permissive way than normal.  This lets a classroom teacher
 # at a particular grade access all students in their school at that same grade level.
