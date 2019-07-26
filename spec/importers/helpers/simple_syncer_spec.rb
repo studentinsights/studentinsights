@@ -10,7 +10,7 @@ RSpec.describe SimpleSyncer do
   describe '#sync_and_delete_unmarked!' do
     it 'works on happy path' do
       # one record already exists from TestPals
-      form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+      form_key = ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM
       record = ImportedForm.new({
         student_id: pals.healey_kindergarten_student.id,
         educator_id: pals.healey_vivian_teacher.id,

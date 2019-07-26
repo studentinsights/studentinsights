@@ -2,7 +2,7 @@
 class ImportedForm < ApplicationRecord
   SHS_Q2_SELF_REFLECTION = 'shs_q2_self_reflection';
   SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR = 'shs_what_i_want_my_teacher_to_know_mid_year';
-  BEDFORD_END_OF_YEAR_TRANSITION_FORM = 'bedford_end_of_year_transition_one'
+  BEDFORD_DAVIS_TRANSITION_NOTES_FORM = 'bedford_davis_transition_notes_form'
   BEDFORD_SIXTH_GRADE_TRANSITION_FORM = 'bedford_sixth_grade_transition_form'
 
   belongs_to :student
@@ -17,7 +17,7 @@ class ImportedForm < ApplicationRecord
     in: [
       SHS_Q2_SELF_REFLECTION,
       SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR,
-      BEDFORD_END_OF_YEAR_TRANSITION_FORM,
+      BEDFORD_DAVIS_TRANSITION_NOTES_FORM,
       BEDFORD_SIXTH_GRADE_TRANSITION_FORM
     ]
   }
@@ -66,7 +66,7 @@ class ImportedForm < ApplicationRecord
         "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?",
         "What other information is important for your teachers to know so that we can support you and your learning? (For example, tutor, mentor, before school HW help, study group, etc)"
       ]
-    elsif form_key == BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    elsif form_key == BEDFORD_DAVIS_TRANSITION_NOTES_FORM
       [
         'LLI',
         'Reading Intervention (w/ specialist)',
@@ -88,7 +88,7 @@ class ImportedForm < ApplicationRecord
     form_title = case form_key
       when SHS_Q2_SELF_REFLECTION then 'Q2 Self-reflection'
       when SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR then 'What I want my teachers to know'
-      when BEDFORD_END_OF_YEAR_TRANSITION_FORM then 'Transition Information'
+      when BEDFORD_DAVIS_TRANSITION_NOTES_FORM then 'Transition Information'
       when BEDFORD_SIXTH_GRADE_TRANSITION_FORM then 'Transition to Grade 6'
       else 'Student voice survey'
     end

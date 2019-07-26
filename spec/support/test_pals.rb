@@ -581,7 +581,7 @@ class TestPals
     ImportedForm.create!({
       'student_id' => healey_kindergarten_student.id,
       'educator_id' => healey_vivian_teacher.id,
-      'form_key' => ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM,
+      'form_key' => ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM,
       'form_url' => 'https://example.com/form_url',
       'form_timestamp' => time_now,
       "form_json"=>{

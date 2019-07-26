@@ -160,7 +160,7 @@ class ProfileController < ApplicationController
   def bedford_end_of_year_transitions(student_id)
     return [] unless PerDistrict.new.include_bedford_end_of_year_transition?
 
-    form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    form_key = ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM
     imported_form = ImportedForm.latest_for_student_id(student_id, form_key)
     return [] if imported_form.nil?
     json = imported_form.as_json({

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe BedfordLaneTransitionNotesImporter do
+RSpec.describe BedfordDavisTransitionNotesImporter do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/transitions/bedford_end_of_year_transition_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/transitions/bedford_davis_transition_notes_fixture.csv")
   end
 
   def fixture_tabs
@@ -26,7 +26,7 @@ RSpec.describe BedfordLaneTransitionNotesImporter do
   def create_importer(test_folder_id, options = {})
     log = LogHelper::FakeLog.new
     fetcher = create_mock_fetcher(test_folder_id)
-    importer = BedfordLaneTransitionNotesImporter.new(options: {
+    importer = BedfordDavisTransitionNotesImporter.new(options: {
       folder_id: test_folder_id,
       log: log,
       fetcher: fetcher,
@@ -70,12 +70,12 @@ RSpec.describe BedfordLaneTransitionNotesImporter do
         }
       })
 
-      imported_forms = ImportedForm.where(form_key: ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM)
+      imported_forms = ImportedForm.where(form_key: ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM)
       expect(imported_forms.size).to eq 1
       expect(imported_forms.as_json(except: [:id, :created_at, :updated_at])).to contain_exactly(*[{
         "student_id"=>pals.healey_kindergarten_student.id,
         "form_timestamp"=>anything(),
-        "form_key"=>"bedford_end_of_year_transition_one",
+        "form_key"=>"bedford_davis_transition_notes_form",
         "form_url"=>"https://example.com/foo#gid=123456",
         "form_json"=>{
           "LLI"=>"yes",
