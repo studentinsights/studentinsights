@@ -79,7 +79,7 @@ class ServiceType < ApplicationRecord
     },
     {
       id: 705,
-      name: "Reading Intervention",
+      name: "Reading intervention, with specialist",
       description: "Specific documented reading intervention",
       intensity: "2-3 x 30",
       data_owner: "specialist"
@@ -97,6 +97,13 @@ class ServiceType < ApplicationRecord
       description: "Interventions developed with math CC, typically delivered in small group, occasionally one on one",
       intensity: "Varies 2-5x per week",
       data_owner: "Classroom staff w/ math CC consult"
+    },
+    {
+      id: 708,
+      name: 'Formal Behavior Plan',
+      description: 'Behavior plan written by or in consultation with BCBA',
+      intensity: 'varies',
+      data_owner: 'BCBA'
     }])
   end
 end
