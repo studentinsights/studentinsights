@@ -8,31 +8,33 @@
 class BedfordDavisServicesProcessor
   def initialize(recorded_by_educator, options = {})
     @recorded_by_educator = recorded_by_educator
-    @form_url = form_url
 
     @time_now = options.fetch(:time_now, Time.now)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(@time_now))
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = ImportMatcher.new
-    @processor = GenericSurveyProcessor.new(log: @log) do |row|
-      process_row_or_nil(row)
-    end
   end
 
   def dry_run(file_text)
-    @processor.dry_run(file_text)
+    rows = []
+    StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
+      flattened_rows = flat_map_rows(row)
+      next if flattened_rows.nil?
+      rows += flattened_rows
+      # flattened_rows.size.times { @matcher.count_valid_row }
+    end
+    rows
   end
 
   def stats
     {
-      importer: @matcher.stats,
-      processor: @processor.stats
+      importer: @matcher.stats
     }
   end
 
   private
-  # Map `row` into `Service` attributes
-  def process_row_or_nil(row)
+  # Map `row` into list of `Service` attributes
+  def flat_map_rows(row)
     # match student by id
     student_id = @matcher.find_student_id(row['LASID'])
     return nil if student_id.nil?
@@ -40,8 +42,7 @@ class BedfordDavisServicesProcessor
     # timestamp, just used import time since it's not in the sheet
     form_timestamp = @time_now
 
-    # look for service names, but also accept a mapping to work around
-    # typo or naming bugs in forms
+    # look for service names
     found_service_type_names = find_service_type_names(row)
 
     # time range is coarse, whole school year
@@ -66,7 +67,13 @@ class BedfordDavisServicesProcessor
 
   def find_service_type_names(row)
     found_service_type_names = []
+    ServiceType.all.pluck(:name).each do |service_type_name|
+      if (row.fetch(service_type_name, '').upcase == 'TRUE')
+        found_service_type_names << service_type_name
+      end
+    end
 
+    # also accept a mapping to work around typo or naming bugs in forms
     service_name_mapping = {
       'Soc.Emo. Check in w/ counselor' => 'Soc.emo check in',
       'Soc. Emo. Small group' => 'Social Group',
@@ -75,13 +82,8 @@ class BedfordDavisServicesProcessor
       'Reading Intervention (w/ specialist)' => 'Reading intervention, with specialist',
       'Math Intervention (w/ consult from SD)' => 'Math Intervention'
     }
-    service_name_mapping.keys.each do |service_type_name, column_name|
-      if (row[column_name].upcase == 'TRUE')
-        found_service_type_names << service_type_name
-      end
-    end
-    ServiceType.all.pluck(:name).each do |service_type_name|
-      if (row[column_name].upcase == 'TRUE')
+    service_name_mapping.each do |column_name, service_type_name|
+      if (row.fetch(column_name, '').upcase == 'TRUE')
         found_service_type_names << service_type_name
       end
     end

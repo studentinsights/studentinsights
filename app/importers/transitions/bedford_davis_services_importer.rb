@@ -13,7 +13,7 @@ class BedfordDavisServicesImporter
       touches: [
         Service.name
       ],
-      description: 'Services from transition forms at Davis'
+      description: 'Services from social emotional and transition note sheets at Davis'
     })
   end
 
@@ -21,21 +21,14 @@ class BedfordDavisServicesImporter
     @folder_ids = options.fetch(:folder_ids, read_folder_ids_from_env())
 
     @log = options.fetch(:log, STDOUT)
+    @time_now = options.fetch(:time_now, Time.now)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @syncer = options.fetch(:syncer, SimpleSyncer.new(log: @log))
   end
 
   def import
-    rows = dry_run()
-    records = rows.map {|row| ImportedForm.new(row) }
-
-    # sync
-    form_key = ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM
-    records_within_scope = ImportedForm.where(form_key: form_key)
-    @syncer.sync_and_delete_unmarked!(records, records_within_scope)
-    log "stats.to_json: #{stats.to_json}"
-    nil
+    raise 'This should be done manually, because of DataFlow::MERGE_CREATE_NAIVELY strategy.  Use #dry_run instead.'
   end
 
   def dry_run
@@ -43,10 +36,6 @@ class BedfordDavisServicesImporter
       process_tab(tab)
     end
     rows
-  end
-
-  def import
-    raise 'do this manually, because of DataFlow::MERGE_CREATE_NAIVELY strategy'
   end
 
   def stats
@@ -71,15 +60,15 @@ class BedfordDavisServicesImporter
     # skip info tab
     return [] if tab.tab_name == 'INFO'
 
-    # url to specific tab
-    form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
-
     # find educator and homeroom by tab.tab_name
     educator = match_educator(tab.tab_name)
     return [] if educator.nil?
 
     # process
-    processor = BedfordDavisServicesProcessor.new(educator, form_url, log: @log)
+    processor = BedfordDavisServicesProcessor.new(educator, {
+      log: @log,
+      time_now: @time_now
+    })
     processor.dry_run(tab.tab_csv)
   end
 
