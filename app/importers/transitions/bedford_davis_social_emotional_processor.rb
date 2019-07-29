@@ -82,7 +82,7 @@ class BedfordDavisSocialEmotionalProcessor
     ].select do |key|
       row.to_h[key].upcase == 'TRUE'
     end
-    
+
     text_lines = []
     if checked_services.size > 0
       text_lines += ['Social emotional services during 2018-2019']
