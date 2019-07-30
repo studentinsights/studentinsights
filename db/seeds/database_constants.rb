@@ -7,6 +7,7 @@ class DatabaseConstants
   # are used for local development as well and relied on in tests.
   def seed_for_all_districts!
     puts "seed_for_all_districts! starting..."
+    ServiceType.reset_column_information
     puts "  ServiceType.all.size: #{ServiceType.all.size}"
     puts "  ServiceType.columns.map(&:name): #{ServiceType.columns.map(&:name)}"
     Assessment.seed_for_all_districts
@@ -16,6 +17,7 @@ class DatabaseConstants
     ServiceType.add_summer_program_status_to_service_types
     ServiceType.add_somerville_summer_2018_service_types
     puts "seed_for_all_districts! done."
+    ServiceType.reset_column_information
     puts "  ServiceType.all.size: #{ServiceType.all.size}"
     puts "  ServiceType.columns.map(&:name): #{ServiceType.columns.map(&:name)}"
     nil
