@@ -65,7 +65,7 @@ script:
   # This DATABASE_URL assumes '' for the host is set in database.yml,
   # which is needed in Travis when using a specific version of Postgres
   # that's different than the default.
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate DATABASE_URL=postgres:///student_insights_test; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres:///student_insights_test; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake immigrant:check_keys; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then rubocop; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest; fi

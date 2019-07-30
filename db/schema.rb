@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_201307) do
+ActiveRecord::Schema.define(version: 2019_07_29_160808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -504,6 +504,9 @@ ActiveRecord::Schema.define(version: 2019_07_26_201307) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "summer_program", default: false
+    t.string "description"
+    t.string "intensity"
+    t.string "data_owner"
   end
 
   create_table "service_uploads", id: :serial, force: :cascade do |t|
