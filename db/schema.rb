@@ -500,7 +500,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_160808) do
   end
 
   create_table "service_types", id: :serial, force: :cascade do |t|
-    t.string "name", default: "f"
+    t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "summer_program", default: false
