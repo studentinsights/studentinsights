@@ -31,6 +31,7 @@
     "USE_PLACEHOLDER_IEP_DOCUMENT": "true",
     "RACK_ENV": "production",
     "RAILS_ENV": "production",
+    "PGSSLMODE": "require",
     "SECRET_KEY_BASE": {
       "description": "verifies integrity of signed cookies",
       "generator": "secret"
