@@ -68,8 +68,6 @@ class MegaReadingProcessor
     }
   end
 
-
-
   def flat_map_rows(row, index)
     # match student
     student_id, student_match_failure = match_student(row)
