@@ -30,40 +30,38 @@ RSpec.describe MegaReadingProcessor do
       students = create_test_students(pals)
       processor = MegaReadingProcessor.new(pals.uri.id, header_rows_count: 3)
       reading_data = processor.process(fixture_file_text)
-      puts reading_data
+      puts reading_data[0].as_json(except: [:student_id, :imported_by_educator_id])
 
       expect(reading_data.size).to eq 2
       expect(reading_data[0].as_json(except: [:student_id, :imported_by_educator_id])).to eq([
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_cls", "data_point"=>"77"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_wwr", "data_point"=>"23"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"41"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"6"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_acc", "data_point"=>"87%"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"growth_fall_winter", "data_point"=>"25orf 9acc."},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"growth_f_and_p", "data_point"=>"1 level"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"41"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"6"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"dibels_dorf_acc", "data_point"=>"87%"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"growth_f_and_p", "data_point"=>"1 level"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"41"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"6"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"dibels_dorf_acc", "data_point"=>"87%"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"growth_f_and_p", "data_point"=>"1 level"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_cls", "data_point"=>"70"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_wwr", "data_point"=>"20"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"40"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"5"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_acc", "data_point"=>"80%"},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"growth_fall_winter", "data_point"=>"25orf 9acc."},
-        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"growth_f_and_p", "data_point"=>"2 levels"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"40"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"5"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"dibels_dorf_acc", "data_point"=>"80%"},
-        {"grade"=>"2", "assessment_period"=>"winter", "assessment_key"=>"growth_f_and_p", "data_point"=>"2 levels"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"40"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"5"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"dibels_dorf_acc", "data_point"=>"80%"},
-        {"grade"=>"2", "assessment_period"=>"spring", "assessment_key"=>"growth_f_and_p", "data_point"=>"2 levels"}])
+        {"grade"=>"KF", "assessment_period"=>"fall", "assessment_key"=>"dibels_lnf", "data_point"=>"1"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"dibels_fsf", "data_point"=>"25"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"dibels_lnf", "data_point"=>"18"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"dibels_psf", "data_point"=>"9"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"f_and_p_english", "data_point"=>"AA"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"f_and_p_spanish", "data_point"=>"AA"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_lnf", "data_point"=>"35"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_psf", "data_point"=>"28"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_nwf_cls", "data_point"=>"25"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_nwf_wwr", "data_point"=>"0"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"f_and_p_english", "data_point"=>"AA"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"f_and_p_spanish", "data_point"=>"AA"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"las_links_speaking", "data_point"=>"1"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"las_links_listening", "data_point"=>"1"},
+        {"grade"=>"KF", "assessment_period"=>"fall", "assessment_key"=>"dibels_lnf", "data_point"=>"5"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"dibels_fsf", "data_point"=>"26"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"dibels_lnf", "data_point"=>"19"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"dibels_psf", "data_point"=>"10"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"f_and_p_english", "data_point"=>"A"},
+        {"grade"=>"KF", "assessment_period"=>"winter", "assessment_key"=>"f_and_p_spanish", "data_point"=>"A"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_lnf", "data_point"=>"36"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_psf", "data_point"=>"29"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_nwf_cls", "data_point"=>"26"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"dibels_nwf_wwr", "data_point"=>"1"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"f_and_p_english", "data_point"=>"A"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"f_and_p_spanish", "data_point"=>"A"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"las_links_speaking", "data_point"=>"2"},
+        {"grade"=>"KF", "assessment_period"=>"spring", "assessment_key"=>"las_links_listening", "data_point"=>"2"}])
     end
   end
 end

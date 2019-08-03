@@ -25,8 +25,8 @@ class MegaReadingProcessor
     # parse
     rows = []
     #last row before data is the header
-    string = (@header_rows_count > 1) ? file_text.lines[@header_rows_count-1..-1].join : file_text
-    StreamingCsvTransformer.from_text(@log, string).each_with_index do |row, index|
+    # string = (@header_rows_count > 1) ? file_text.lines[@header_rows_count-1..-1].join : file_text
+    StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
       flattened_rows = flat_map_rows(row, index)
       next if flattened_rows.nil?
 
@@ -69,7 +69,6 @@ class MegaReadingProcessor
   end
 
   def flat_map_rows(row, index)
-    puts row
     # Support multiple header rows to explain to users
     # how to enter data, etc.
     if (index + 1) < @header_rows_count
@@ -110,9 +109,10 @@ class MegaReadingProcessor
     return [student.id, nil] if student.present?
 
     # fuzzy
-    last_first_name = row["First Name "] + " " + row['Last Name']
+    last_first_name = row['student_last_names_first_names']
+    puts last_first_name
 
-    fuzzy_match = @fuzzy_student_matcher.match_from_full_name(last_first_name)
+    fuzzy_match = @fuzzy_student_matcher.match_from_last_first(last_first_name)
     return [fuzzy_match[:student_id], nil] if fuzzy_match.present?
 
     # no match
@@ -127,18 +127,18 @@ class MegaReadingProcessor
       ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
       ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
       ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
-      ['KF', :winter, :instructional_needs, '1 / WINTER / Instructional needs'],
-      ['KF', :winter, :f_and_p_english, '1 / WINTER / F&P Level English'],
-      ['KF', :winter, :f_and_p_spanish, '1 / WINTER / F&P Level Spanish'],
+      ['KF', :winter, :instructional_needs, 'K / WINTER / Instructional needs'],
+      ['KF', :winter, :f_and_p_english, 'K / WINTER / F&P Level English'],
+      ['KF', :winter, :f_and_p_spanish, 'K / WINTER / F&P Level Spanish'],
       ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
       ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
       ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
       ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR'],
-      ['KF', :spring, :instructional_needs, '1 / SPRING / Instructional needs'],
-      ['KF', :spring, :f_and_p_english, '1 / SPRING / F&P Level English'],
-      ['KF', :spring, :f_and_p_spanish, '1 / SPRING / F&P Level Spanish'],
-      ['KF', :spring, :instructional_needs, '1 / WINTER / LAS Links Speaking'],
-      ['KF', :spring, :f_and_p_english, '1 / WINTER / LAS Links Listening']
+      ['KF', :spring, :instructional_needs, 'K / SPRING / Instructional needs'],
+      ['KF', :spring, :f_and_p_english, 'K / SPRING / F&P Level English'],
+      ['KF', :spring, :f_and_p_spanish, 'K / SPRING / F&P Level Spanish'],
+      ['KF', :spring, :las_links_speaking, 'K / SPRING / LAS Links Speaking'],
+      ['KF', :spring, :las_links_listening, 'K / SPRING / LAS Links Listening']
     ])
   end
 
