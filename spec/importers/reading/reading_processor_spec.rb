@@ -28,12 +28,13 @@ RSpec.describe MegaReadingProcessor do
     it 'works on happy path' do
       pals = TestPals.create!
       students = create_test_students(pals)
-      processor = MegaReadingProcessor.new(pals.uri.id, header_rows_count: 2)
+      processor = MegaReadingProcessor.new(pals.uri.id, header_rows_count: 3)
       reading_data = processor.process(fixture_file_text)
       puts reading_data
 
       expect(reading_data.size).to eq 2
-      expect(reading_data[0].as_json(except: [:student_id, :imported_by_educator_id])).to eq([{"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_cls", "data_point"=>"77"},
+      expect(reading_data[0].as_json(except: [:student_id, :imported_by_educator_id])).to eq([
+        {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_cls", "data_point"=>"77"},
         {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_nwf_wwr", "data_point"=>"23"},
         {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_wrc", "data_point"=>"41"},
         {"grade"=>"2", "assessment_period"=>"fall", "assessment_key"=>"dibels_dorf_errors", "data_point"=>"6"},

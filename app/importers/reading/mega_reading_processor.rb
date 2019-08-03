@@ -69,6 +69,12 @@ class MegaReadingProcessor
   end
 
   def flat_map_rows(row, index)
+    # Support multiple header rows to explain to users
+    # how to enter data, etc.
+    if (index + 1) < @header_rows_count
+      return nil
+    end
+
     # match student
     student_id, student_match_failure = match_student(row)
     if student_id.nil?
@@ -120,17 +126,17 @@ class MegaReadingProcessor
       ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
       ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
       ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
-      ['KF', :winter, :instructional_needs, '1 / WINTER / Instructional needs']
+      ['KF', :winter, :instructional_needs, '1 / WINTER / Instructional needs'],
       ['KF', :winter, :f_and_p_english, '1 / WINTER / F&P Level English'],
       ['KF', :winter, :f_and_p_spanish, '1 / WINTER / F&P Level Spanish'],
       ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
       ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
       ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
       ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR'],
-      ['KF', :spring, :instructional_needs, '1 / SPRING / Instructional needs']
+      ['KF', :spring, :instructional_needs, '1 / SPRING / Instructional needs'],
       ['KF', :spring, :f_and_p_english, '1 / SPRING / F&P Level English'],
       ['KF', :spring, :f_and_p_spanish, '1 / SPRING / F&P Level Spanish'],
-      ['KF', :spring, :instructional_needs, '1 / WINTER / LAS Links Speaking']
+      ['KF', :spring, :instructional_needs, '1 / WINTER / LAS Links Speaking'],
       ['KF', :spring, :f_and_p_english, '1 / WINTER / LAS Links Listening']
     ])
   end
