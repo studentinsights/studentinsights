@@ -69,6 +69,7 @@ class MegaReadingProcessor
   end
 
   def flat_map_rows(row, index)
+    puts row
     # Support multiple header rows to explain to users
     # how to enter data, etc.
     if (index + 1) < @header_rows_count
