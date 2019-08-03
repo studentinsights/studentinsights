@@ -114,13 +114,24 @@ class MegaReadingProcessor
 
   def data_points_for_kindergarten(shared, row)
     import_data_points(shared, row, [
-      ['KF', :fall, :dibels_fsf, 'fall K - FSF'],
-      ['KF', :fall, :dibels_lnf, 'fall K - LNF'],
-      ['KF', :winter, :dibels_fsf, 'winter K - FSF'],
-      ['KF', :winter, :dibels_lnf, 'winter K - LNF'],
-      ['KF', :winter, :dibels_psf, 'winter K - PSF'],
-      ['KF', :winter, :dibels_nwf_cls, 'winter K - NWF CLS'],
-      ['KF', :winter, :dibels_nwf_growth, 'LNF Growth'],
+      ['KF', :fall, :dibels_fsf, 'K / FALL / FSF'],
+      ['KF', :fall, :dibels_lnf, 'K / FALL / LNF'],
+      ['KF', :fall, :instructional_needs, 'K / FALL / Instructional needs'],
+      ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
+      ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
+      ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
+      ['KF', :winter, :instructional_needs, '1 / WINTER / Instructional needs']
+      ['KF', :winter, :f_and_p_english, '1 / WINTER / F&P Level English'],
+      ['KF', :winter, :f_and_p_spanish, '1 / WINTER / F&P Level Spanish'],
+      ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
+      ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
+      ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
+      ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR'],
+      ['KF', :spring, :instructional_needs, '1 / SPRING / Instructional needs']
+      ['KF', :spring, :f_and_p_english, '1 / SPRING / F&P Level English'],
+      ['KF', :spring, :f_and_p_spanish, '1 / SPRING / F&P Level Spanish'],
+      ['KF', :spring, :instructional_needs, '1 / WINTER / LAS Links Speaking']
+      ['KF', :spring, :f_and_p_english, '1 / WINTER / LAS Links Listening']
     ])
   end
 
