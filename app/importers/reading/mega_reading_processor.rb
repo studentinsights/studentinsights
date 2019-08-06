@@ -263,7 +263,6 @@ class MegaReadingProcessor
     ])
   end
 
-
   # just sugar for unrolling these
   def import_data_points(shared, row, tuples)
     rows = []

@@ -50,8 +50,8 @@ class SomervilleMegaReadingImporter
 
   def read_or_fetch_sheet
     raise 'unfinished'
-    fetcher = GoogleSheetsFetcher.new
-    fetcher.get_spreadsheet(SHEET_URL)
+    # fetcher = GoogleSheetsFetcher.new
+    # fetcher.get_spreadsheet(SHEET_URL)
     # TODO add sheet url to ENV
   end
 
