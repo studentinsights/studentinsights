@@ -7,13 +7,17 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     'dibels_nwf_cls',
     'dibels_nwf_wwr',
     'dibels_dorf_wpm',
+    "dibels_dorf_wrc",
     'dibels_dorf_errors',
     'dibels_dorf_acc',
     'f_and_p_english',
     'f_and_p_spanish',
     'instructional_needs',
     "las_links_speaking",
-    "las_links_listening"
+    "las_links_listening",
+    "las_links_reading",
+    "las_links_writing",
+    "las_links_overall"
   ]
 
   belongs_to :student
