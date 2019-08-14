@@ -26,7 +26,7 @@ gem 'memory_profiler'       # Used in rake task so needs to be included in produ
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'net-ldap'
-gem 'nokogiri'
+gem 'nokogiri', '~> 1.10.4' # https://github.com/sparklemotion/nokogiri/issues/1915
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'openssl'
