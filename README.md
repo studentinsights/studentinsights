@@ -165,6 +165,8 @@ Look in the Heroku metrics panel.
 ## Postgres
 You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to get helpful diagnostic information about slow queries, index usage, and table scans.
 
+Heroku Postgres supports a maintenance window for standard database operations that require minutes of downtime.  See `heroku pg:maintenance`.
+
 # More information
 
 - [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
