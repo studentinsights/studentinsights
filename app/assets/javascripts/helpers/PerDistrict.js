@@ -250,6 +250,19 @@ export function recordServiceChoices(districtKey) {
 }
 
 
+// What service types should be in included in phaseslines for non-academic
+// information (eg, attendance, behavior, social or emotional?)
+export function nonAcademicServiceTypeIdsForPhaselines(districtKey) {
+  if (districtKey === BEDFORD) {
+    return [703, 704, 702, 704, 709];
+  }
+  if ([SOMERVILLE, DEMO, NEW_BEDFORD].indexOf(districtKey) !== -1) {
+    return [703, 704, 702, 704, 709];
+  }
+  throw new Error(`unsupported districtKey: ${districtKey}`);
+}
+
+
 // See PerDistrict.rb#does_students_export_include_rows_for_inactive_students?
 export function isStudentActive(districtKey, student) {
   if (districtKey === BEDFORD) return !student.missing_from_last_export;

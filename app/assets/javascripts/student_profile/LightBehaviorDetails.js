@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {toMomentFromTimestamp, toMomentFromRailsDate} from '../helpers/toMoment';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
+import {nonAcademicServiceTypeIdsForPhaselines} from '../helpers/PerDistrict';
 import IncidentCard from '../feed/IncidentCard';
 import DetailsSection from './DetailsSection';
 import ProfileBarChart, {servicePhaselines} from './ProfileBarChart';
@@ -53,13 +54,15 @@ export default class LightBehaviorDetails extends React.Component {
   }
 
   servicePhaselines() {
+    const {districtKey} = this.context;
     const {activeServices, serviceTypesIndex} = this.props;
     const cutoffMoment = this.filterCutoffMoment();
     const filteredPhaselines = activeServices.filter(service => {
       const phaselineMoment = toMomentFromRailsDate(service.date_started);
       return phaselineMoment.isAfter(cutoffMoment);
     });
-    return servicePhaselines(filteredPhaselines, serviceTypesIndex);
+    const relevantServiceTypeIds = nonAcademicServiceTypeIdsForPhaselines(districtKey);
+    return servicePhaselines(relevantServiceTypeIds, filteredPhaselines, serviceTypesIndex);
   }
 
   onToggleCaseHistory() {
@@ -140,6 +143,9 @@ export default class LightBehaviorDetails extends React.Component {
     );
   }
 }
+LightBehaviorDetails.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 LightBehaviorDetails.propTypes = {
   disciplineIncidents: PropTypes.array.isRequired,
   activeServices: PropTypes.arrayOf(PropTypes.shape({

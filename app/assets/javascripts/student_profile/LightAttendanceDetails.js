@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import {nonAcademicServiceTypeIdsForPhaselines} from '../helpers/PerDistrict';
 import ProfileBarChart, {
   tooltipEventTextFn,
   createUnsafeTooltipFormatter,
@@ -10,8 +11,10 @@ import ProfileBarChart, {
 
 export default class LightAttendanceDetails extends React.Component {
   phaselines() {
+    const {districtKey} = this.context;
     const {activeServices, serviceTypesIndex} = this.props;
-    return servicePhaselines(activeServices, serviceTypesIndex);
+    const relevantServiceTypeIds = nonAcademicServiceTypeIdsForPhaselines(districtKey);
+    return servicePhaselines(relevantServiceTypeIds, activeServices, serviceTypesIndex);
   }
 
   render() {
@@ -48,7 +51,9 @@ export default class LightAttendanceDetails extends React.Component {
     );
   }
 }
-
+LightAttendanceDetails.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 LightAttendanceDetails.propTypes = {
   absences: PropTypes.array.isRequired,
   tardies: PropTypes.array.isRequired,

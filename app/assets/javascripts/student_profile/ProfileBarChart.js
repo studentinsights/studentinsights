@@ -133,10 +133,9 @@ export function tooltipEventTextFn(e) {
 
 // Given a list of activeServices, return a list of `phaselines` that can be passed to `ProfileBarChart`
 // to render the services as phaseline interventions.
-export function servicePhaselines(activeServices, serviceTypesIndex) {
-  const attendanceServiceTypes = [502, 503, 504, 505, 506];
+export function servicePhaselines(relevantServiceTypeIds, activeServices, serviceTypesIndex) {
   const attendanceServices = activeServices.filter(service => {
-    return (attendanceServiceTypes.indexOf(service.service_type_id) > -1);
+    return (relevantServiceTypeIds.indexOf(service.service_type_id) > -1);
   });
 
   return attendanceServices.map(service => {
