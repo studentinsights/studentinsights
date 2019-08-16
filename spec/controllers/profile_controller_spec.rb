@@ -738,26 +738,28 @@ describe ProfileController, :type => :controller do
     end
 
     it 'returns correct shape on happy path' do
-      get_reader_profile_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id)
-      expect(response.status).to eq 200
-      json = JSON.parse(response.body)
-      expect(json).to eq({
-        "current_school_year" => 2018,
-        "access" => {
-          "composite"=>nil,
-          "comprehension"=>nil,
-          "literacy"=>nil,
-          "oral"=>nil,
-          "listening"=>nil,
-          "reading"=>nil,
-          "speaking"=>nil,
-          "writing"=>nil
-        },
-        "benchmark_data_points" => [],
-        "feed_cards" => [],
-        "iep_contents" => nil,
-        "services" => []
-      })
+      Timecop.freeze(pals.time_now) do
+        get_reader_profile_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json).to eq({
+          "current_school_year" => 2017,
+          "access" => {
+            "composite"=>nil,
+            "comprehension"=>nil,
+            "literacy"=>nil,
+            "oral"=>nil,
+            "listening"=>nil,
+            "reading"=>nil,
+            "speaking"=>nil,
+            "writing"=>nil
+          },
+          "benchmark_data_points" => [],
+          "feed_cards" => [],
+          "iep_contents" => nil,
+          "services" => []
+        })
+      end
     end
   end
 end
