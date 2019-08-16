@@ -4,6 +4,7 @@ import Datepicker from '../components/Datepicker';
 import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
+import {recordServiceChoices} from '../helpers/PerDistrict';
 import {toSchoolYear, lastDayOfSchool} from '../helpers/schoolYear';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
 
@@ -115,6 +116,8 @@ export default class RecordService extends React.Component {
   }
 
   renderWhichService() {
+    const {districtKey} = this.context;
+    const {leftServiceTypeIds, rightServiceTypeIds} = recordServiceChoices(districtKey);
     return (
       <div>
         <div style={{ marginBottom: 5, display: 'inline' }}>
@@ -122,21 +125,17 @@ export default class RecordService extends React.Component {
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
           <div style={styles.buttonWidth}>
-            {this.renderServiceButton(503)}
-            {this.renderServiceButton(502)}
-            {this.renderServiceButton(504)}
+            {leftServiceTypeIds.map(this.renderServiceButton, this)}
           </div>
           <div style={styles.buttonWidth}>
-            {this.renderServiceButton(505)}
-            {this.renderServiceButton(506)}
-            {this.renderServiceButton(507)}
+            {rightServiceTypeIds.map(this.renderServiceButton, this)}
           </div>
         </div>
       </div>
     );
   }
 
-  renderServiceButton(serviceTypeId, options) {
+  renderServiceButton(serviceTypeId) {
     const serviceText = this.props.serviceTypesIndex[serviceTypeId].name;
     const color = serviceColor(serviceTypeId);
 
@@ -243,6 +242,9 @@ export default class RecordService extends React.Component {
     );
   }
 }
+RecordService.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 RecordService.propTypes = {
   studentFirstName: PropTypes.string.isRequired,
   studentId: PropTypes.number.isRequired,

@@ -189,7 +189,6 @@ export function eventNoteTypeIdsForSearch(districtKey) {
   return _.uniq(leftEventNoteTypeIds.concat(rightEventNoteTypeIds));
 }
 
-
 // What choices do educators have for taking notes in the product?
 export function takeNotesChoices(districtKey) {
   if (districtKey === SOMERVILLE || districtKey === DEMO) {
@@ -226,6 +225,26 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306, 307, 308];
   // Includes elementary/middle, Capuano early childhood, and SPED.
   if (isSomervilleOrDemo) return [300, 301];
+
+  throw new Error(`unsupported districtKey: ${districtKey}`);
+}
+
+
+// What choices do educators have for recording services in the product?
+export function recordServiceChoices(districtKey) {
+  if (districtKey === BEDFORD) {
+    return {
+      leftServiceTypeIds: [701, 708, 706, 707],
+      rightServiceTypeIds: [703, 704, 702, 704, 709]
+    };
+  }
+
+  if ([SOMERVILLE, DEMO, NEW_BEDFORD].indexOf(districtKey) !== -1) {
+    return {
+      leftServiceTypeIds: [503, 502, 504],
+      rightServiceTypeIds: [505, 506, 507]
+    };
+  }
 
   throw new Error(`unsupported districtKey: ${districtKey}`);
 }
