@@ -49,7 +49,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
       it 'returns an array of student lasids' do
         sign_in(educator)
         make_request
-        expect(parsed_response).to eq [
+        expect(parsed_response).to contain_exactly(*[
           'Afterschool Tutoring',
           'Attendance Contract',
           'Attendance Officer',
@@ -60,14 +60,23 @@ RSpec.describe ServiceUploadsController, type: :controller do
           'Counseling, in-house',
           'Counseling, outside',
           'Focused Math Intervention',
+          'Formal Behavior Plan',
           'Freedom School',
+          'Individual Counseling',
+          'LLI Reading Instruction',
+          'Lunch bunch',
           'Math intervention',
+          'Math Intervention, small group',
           'Reading intervention',
+          'Reading intervention, with specialist',
+          'Soc.emo check in',
+          'Social Group',
           'SomerSession',
           'Summer Explore',
           'Summer Program for English Language Learners',
+          'Title 1 Math intervention',
           'X-Block'
-        ]
+        ])
       end
     end
 

@@ -5,14 +5,14 @@ RSpec.describe EducatorSearchbar do
     let!(:pals) { TestPals.create! }
 
     it 'works for two TestPals as test cases' do
-      expect(EducatorSearchbar.names_for_json(pals.uri)).to eq([
+      expect(EducatorSearchbar.names_for_json(pals.uri)).to contain_exactly(*[
         { 'label' =>"Garfield Skywalker - HEA - KF", 'id' => pals.healey_kindergarten_student.id },
         { 'label' =>"Ryan Rodriguez - WSNS - 8", 'id' => pals.west_eighth_ryan.id },
         { 'label' =>"Mari Kenobi - SHS - 9", 'id' => pals.shs_freshman_mari.id },
         { 'label' =>"Amir Solo - SHS - 9", 'id' => pals.shs_freshman_amir.id },
         { 'label' =>"Kylo Ren - SHS - 12", 'id' => pals.shs_senior_kylo.id }
       ])
-      expect(EducatorSearchbar.names_for_json(pals.healey_vivian_teacher)).to eq([
+      expect(EducatorSearchbar.names_for_json(pals.healey_vivian_teacher)).to contain_exactly(*[
         { 'label' =>"Garfield Skywalker - HEA - KF", 'id' => pals.healey_kindergarten_student.id }
       ])
     end
