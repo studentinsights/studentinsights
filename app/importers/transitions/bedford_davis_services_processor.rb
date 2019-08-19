@@ -74,13 +74,14 @@ class BedfordDavisServicesProcessor
     end
 
     # also accept a mapping to work around typo or naming bugs in forms
+    # that we can't control
     service_name_mapping = {
       'Soc.Emo. Check in w/ counselor' => 'Soc.emo check in',
       'Soc. Emo. Small group' => 'Social Group',
       'Soc. Emo. individual counseling' => 'Individual Counseling',
       'LLI' => 'LLI Reading Instruction',
       'Reading Intervention (w/ specialist)' => 'Reading intervention, with specialist',
-      'Math Intervention (w/ consult from SD)' => 'Math Intervention'
+      'Math Intervention (w/ consult from SD)' => 'Math Intervention, small group' # not the same as plain "math intervention"
     }
     service_name_mapping.each do |column_name, service_type_name|
       if (row.fetch(column_name, '').upcase == 'TRUE')
