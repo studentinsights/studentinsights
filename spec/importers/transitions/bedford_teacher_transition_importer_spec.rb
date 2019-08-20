@@ -3,35 +3,35 @@ require 'rails_helper'
 RSpec.describe BedfordTeacherTransitionImporter do
   let!(:pals) { TestPals.create! }
 
-  # def create_mock_fetcher_from_map(folder_id_to_tab_map)
-  #   mock_fetcher = GoogleSheetsFetcher.new
-  #   allow(GoogleSheetsFetcher).to receive(:new).and_return(mock_fetcher)
-  #   folder_id_to_tab_map.each do |folder_id, tab|
-  #     allow(mock_fetcher).to receive(:get_tabs_from_folder).with(folder_id).and_return(tab)
-  #   end
-  #   mock_fetcher
-  # end
+  def create_mock_fetcher_from_map(folder_id_to_tab_map)
+    mock_fetcher = GoogleSheetsFetcher.new
+    allow(GoogleSheetsFetcher).to receive(:new).and_return(mock_fetcher)
+    folder_id_to_tab_map.each do |folder_id, tab|
+      allow(mock_fetcher).to receive(:get_tabs_from_folder).with(folder_id).and_return(tab)
+    end
+    mock_fetcher
+  end
 
-  # def create_mock_fetcher
-  #   create_mock_fetcher_from_map({
-  #     'mock_folder_id_A' => GoogleSheetsFetcher::Tab.new({
-  #       spreadsheet_id: 'test-social-emotional-sheet-id',
-  #       spreadsheet_name: 'Test Social Emotional Sheet',
-  #       spreadsheet_url: 'https://example.com/se',
-  #       tab_id: '123456',
-  #       tab_name: 'vivian',
-  #       tab_csv: IO.read("#{Rails.root}/spec/importers/transitions/bedford_davis_social_emotional_fixture.csv")
-  #     }),
-  #     'mock_folder_id_B' => GoogleSheetsFetcher::Tab.new({
-  #       spreadsheet_id: 'test-transition-sheet-id',
-  #       spreadsheet_name: 'Test Transition notes Sheet',
-  #       spreadsheet_url: 'https://example.com/transition',
-  #       tab_id: '987765',
-  #       tab_name: 'vivian',
-  #       tab_csv: IO.read("#{Rails.root}/spec/importers/transitions/bedford_davis_transition_notes_fixture.csv")
-  #     })
-  #   })
-  # end
+  def create_mock_fetcher
+    create_mock_fetcher_from_map({
+      'mock_folder_id_A' => GoogleSheetsFetcher::Tab.new({
+        spreadsheet_id: 'test-sheet-id',
+        spreadsheet_name: 'Test Teacher Notes Sheet',
+        spreadsheet_url: 'https://example.com/sheets/test-sheet-id',
+        tab_id: '123456',
+        tab_name: 'vivian',
+        tab_csv: IO.read("#{Rails.root}/spec/importers/transitions/bedford_teacher_transition_vivian_tab.csv")
+      }),
+      'mock_folder_id_B' => GoogleSheetsFetcher::Tab.new({
+        spreadsheet_id: 'test-sheet-id',
+        spreadsheet_name: 'Test Teacher Notes Sheet',
+        spreadsheet_url: 'https://example.com/sheets/test-sheet-id',
+        tab_id: '987765',
+        tab_name: 'marcus',
+        tab_csv: IO.read("#{Rails.root}/spec/importers/transitions/bedford_teacher_transition_marcus_tab.csv")
+      })
+    })
+  end
 
   # def create_importer_with_fetcher_mocked(options = {})
   #   log = LogHelper::FakeLog.new

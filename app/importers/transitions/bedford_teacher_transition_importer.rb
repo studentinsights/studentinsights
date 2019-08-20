@@ -21,7 +21,6 @@ class BedfordTeacherTransitionImporter
     @log = options.fetch(:log, STDOUT)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
-    @syncer = options.fetch(:syncer, SimpleSyncer.new(log: @log))
     @note_prefix = options.fetch(:note_prefix, note_prefix())
   end
 
@@ -37,8 +36,7 @@ class BedfordTeacherTransitionImporter
 
   def stats
     {
-      matcher: @matcher.stats,
-      syncer: @syncer.stats
+      matcher: @matcher.stats
     }
   end
 
