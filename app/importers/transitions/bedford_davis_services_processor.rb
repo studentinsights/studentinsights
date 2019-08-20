@@ -1,3 +1,6 @@
+# Processes two kinds of forms from Bedford, ignoring
+# the notes data and reading only the services.
+
 # Usage:
 # file_text = <<EOD
 # ...
@@ -21,7 +24,7 @@ class BedfordDavisServicesProcessor
       flattened_rows = flat_map_rows(row)
       next if flattened_rows.nil?
       rows += flattened_rows
-      # flattened_rows.size.times { @matcher.count_valid_row }
+      flattened_rows.size.times { @matcher.count_valid_row }
     end
     rows
   end

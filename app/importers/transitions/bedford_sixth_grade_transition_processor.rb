@@ -1,3 +1,7 @@
+# Student voice survey for Bedford students transitioning
+# schools from 5th grade to 6th grade.
+# See `bedford_sixth_grade_transition_notes_importer_sheet_id` in env.
+#
 # Usage:
 # file_text = <<EOD
 # ...

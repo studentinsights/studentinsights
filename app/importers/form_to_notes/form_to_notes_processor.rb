@@ -1,3 +1,9 @@
+# Takes a generic form and processes it to create plain objects
+# that can be created as EventNote records.
+# 
+# Looks for columns starting with "Q: " to process as prompts,
+# and flattens those into plain text.
+#
 # usage:
 # processor = FormToNotesProcessor.new
 # rows = processor.dry_run(file_text)

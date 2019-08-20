@@ -1,3 +1,6 @@
+# Process "transition notes" from Bedford, part of
+# bootstrapping start-of-school usage within support meetings.
+#
 # Usage:
 # file_text = <<EOD
 # ...
