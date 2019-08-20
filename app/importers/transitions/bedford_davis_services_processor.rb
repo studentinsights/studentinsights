@@ -18,6 +18,10 @@ class BedfordDavisServicesProcessor
     @matcher = ImportMatcher.new
   end
 
+  def create!(file_text)
+    raise 'Not implemented, use #dry_run manually instead.'
+  end
+  
   def dry_run(file_text)
     rows = []
     StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|

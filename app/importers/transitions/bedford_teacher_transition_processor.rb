@@ -1,11 +1,8 @@
 class BedfordTeacherTransitionProcessor
-    # MAGIC_TEXT = '(from Grade 5/6 Transition form)'
-
-  def initialize(educator, form_url, options = {})
+  def initialize(educator, options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
     @educator = educator
-    @form_url = form_url
     @matcher = ImportMatcher.new
     @time_now = options.fetch(:time_now, Time.now)
     @processor = GenericSurveyProcessor.new(log: @log) do |row|
@@ -14,7 +11,7 @@ class BedfordTeacherTransitionProcessor
   end
 
   def create!(file_text)
-    @processor.create!(file_text, ImportedForm)
+    raise 'Not implemented, use #dry_run manually instead.'
   end
 
   def dry_run(file_text)
@@ -41,7 +38,6 @@ class BedfordTeacherTransitionProcessor
 
     prompt_text = 'what helped you connect with this student and/or can you comment on one success the student had this year?'
     response_text = row[prompt_text]
-      # text = "#{response_text}\n\n#{MAGIC_TEXT}"
     text = response_text
 
     # event_note

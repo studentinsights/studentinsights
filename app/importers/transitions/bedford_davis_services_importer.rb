@@ -32,10 +32,9 @@ class BedfordDavisServicesImporter
   end
 
   def dry_run
-    rows = fetch_tabs().flat_map do |tab|
+    fetch_tabs().flat_map do |tab|
       process_tab(tab)
     end
-    rows
   end
 
   def stats

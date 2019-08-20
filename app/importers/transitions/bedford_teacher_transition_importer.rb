@@ -26,16 +26,13 @@ class BedfordTeacherTransitionImporter
   end
 
   def import
-    rows = dry_run()
-    rows.each {|row| EventNote.create!(row) }
-    nil
+    raise 'This should be done manually, because of DataFlow::MERGE_CREATE_NAIVELY strategy.  Use #dry_run instead.'
   end
 
   def dry_run
-    rows = fetch_tabs().flat_map do |tab|
+    fetch_tabs().flat_map do |tab|
       process_tab(tab)
     end
-    rows
   end
 
   def stats
@@ -55,18 +52,18 @@ class BedfordTeacherTransitionImporter
   end
 
   def process_tab(tab)
-    # skip info tab
+    # skip join table tab
     return [] if tab.tab_name == 'ALL'
 
-    # url to specific tab
-    form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
+    # url to specific tab (not stored)
+    # form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
 
     # find educator from tab
     educator = @matcher.find_educator_by_name_flexible(tab.tab_name)
     return [] if educator.nil?
 
     # process and create
-    processor = BedfordTeacherTransitionProcessor.new(educator, form_url, log: @log)
+    processor = BedfordTeacherTransitionProcessor.new(educator, log: @log)
     processor.dry_run(tab.tab_csv)
   end
 
