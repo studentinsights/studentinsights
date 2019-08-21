@@ -4,15 +4,15 @@
 # EOD
 # form_url = '...'
 # educator = Educator.find_by_login_name('...')
-# importer = BedfordEndOfYearTransitionProcessor.new(educator, form_url)
+# importer = BedfordDavisTransitionNotesProcessor.new(educator, form_url)
 # records = importer.create!(file_text);nil
-class BedfordEndOfYearTransitionProcessor
+class BedfordDavisTransitionNotesProcessor
   def initialize(educator, form_url, options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
     @educator = educator
     @form_url = form_url
-    @form_key = ImportedForm::BEDFORD_END_OF_YEAR_TRANSITION_FORM
+    @form_key = ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM
     @matcher = ImportMatcher.new
     @time_now = options.fetch(:time_now, Time.now)
     @processor = GenericSurveyProcessor.new(log: @log) do |row|
@@ -47,7 +47,7 @@ class BedfordEndOfYearTransitionProcessor
     # warn if teacher name doesn't match
     teacher_last_name = row['Teacher'].split(' ').last
     if !@educator.full_name.downcase.include?(teacher_last_name.downcase)
-      @log.puts "BedfordEndOfYearTransitionProcessor: provided educator does not match teacher name on sheet: #{teacher_last_name}"
+      @log.puts "BedfordDavisTransitionNotesProcessor: provided educator does not match teacher name on sheet: #{teacher_last_name}"
       nil
     end
 

@@ -1,5 +1,6 @@
 class ServiceType < ApplicationRecord
   has_many :services
+  validates :name, presence: true, uniqueness: true
 
   COMMUNITY_SCHOOLS = 513
 
@@ -46,5 +47,70 @@ class ServiceType < ApplicationRecord
       { id: 603, name: 'SPS Heggerty, week 9' },
       { id: 604, name: 'SPS Heggerty, week 13' }
     ])
+  end
+
+  def self.add_bedford_service_types
+    ServiceType.create!([{
+      id: 701,
+      name: 'Title 1 Math intervention',
+      description: 'Title One Math afterschool program',
+      intensity: '2 x 45',
+      data_owner: 'AP at Lane, this is only a Lane program'
+    }, {
+      id: 702,
+      name: "Lunch bunch",
+      description: "Small group lunch bunch with counseling staff focusing on social skills",
+      intensity: "1x20min",
+      data_owner: "counselor"
+    },
+    {
+      id: 703,
+      name: "Soc.emo check in",
+      description: "Short regular check ins",
+      intensity: "1-3x 10min",
+      data_owner: "counselor"
+    },
+    {
+      id: 704,
+      name: "Individual Counseling",
+      description: "1:1 counseling sessions",
+      intensity: "1x30 min",
+      data_owner: "counselor"
+    },
+    {
+      id: 705,
+      name: "Social Group",
+      description: "Small groups",
+      intensity: "1 or 2 x 30",
+      data_owner: "counselor"
+    },
+    {
+      id: 706,
+      name: "Reading intervention, with specialist",
+      description: "Specific documented reading intervention",
+      intensity: "2-3 x 30",
+      data_owner: "specialist"
+    },
+    {
+      id: 707,
+      name: "LLI Reading Instruction",
+      description: "Leveled Literacy Instruction by trained staff",
+      intensity: "5x30",
+      data_owner: "specialist"
+    },
+    {
+      id: 708,
+      name: "Math Intervention, small group",
+      description: "Interventions developed with math CC, typically delivered in small group, occasionally one on one",
+      intensity: "Varies 2-5x per week",
+      data_owner: "Classroom staff w/ math CC consult"
+    },
+    {
+      id: 709,
+      name: 'Formal Behavior Plan',
+      description: 'Behavior plan written by or in consultation with BCBA',
+      intensity: 'varies',
+      data_owner: 'BCBA'
+    }])
   end
 end

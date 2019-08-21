@@ -83,6 +83,7 @@
     "webpack-merge": "^4.1.0"
   },
   "resolutions": {
+    "rollbar-browser/extend": "^3.0.2",
     "lodash": "^4.17.14",
     "lodash.mergewith": "^4.6.2",
     "lodash-es": "^4.17.14",

@@ -23,12 +23,6 @@ sftp_filenames:
     - /home/jbreslin/data/student-documents-2.zip
     - /home/jbreslin/data/student-documents-1.zip
 
-star_filenames:
-  FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
-  FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
-  FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
-
-
 # See FeedFilter::CommunitySchoolFilter
 # Manual through console
 community_schools_educators_sheet:

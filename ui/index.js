@@ -1,10 +1,10 @@
-import './freeze.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {readEnv} from '../app/assets/javascripts/envForJs';
 import StudentSearchbar, {clearStorage} from '../app/assets/javascripts/components/StudentSearchbar';
 import App from './App';
+import './freeze.js';
 
 
 // Clear browser cache on sign out, and add extra guard that
@@ -33,7 +33,9 @@ if (mainEl) {
   const serializedData = $('#serialized-data').data() || {};
   const {currentEducator} = serializedData;
   const {sessionTimeoutInSeconds} = readEnv();
-  const rollbarErrorFn = window.Rollbar.error || console.warn; // eslint-disable-line no-console
+  const rollbarErrorFn = (window.Rollbar && window.Rollbar.error)
+    ? window.Rollbar.error.bind(window.Rollbar)
+    : console.warn.bind(console); // eslint-disable-line no-console
   ReactDOM.render(
     <BrowserRouter>
       <App

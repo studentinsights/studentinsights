@@ -126,8 +126,8 @@ export default class App extends React.Component {
         <Route exact path="/district/homerooms" render={this.renderDistrictHomeroomsPage.bind(this)}/>
         <Route exact path="/district" render={this.renderDistrictOverviewPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderLevelsPage.bind(this)}/>
-        <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
-        <Route exact path='/login_activity' render={this.renderLoginActivity.bind(this)}/>
+        <Route exact path="/internal/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
+        <Route exact path='/internal/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route exact path='/service_uploads' render={this.renderServiceUploads.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>

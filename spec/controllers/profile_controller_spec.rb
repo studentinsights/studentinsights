@@ -307,7 +307,16 @@ describe ProfileController, :type => :controller do
             '515' => {'id'=>515, 'name'=>"Calculus Project"},
             '516' => {'id'=>516, 'name'=>"Boston Breakthrough"},
             '517' => {'id'=>517, 'name'=>"Summer Explore"},
-            '518' => {'id'=>518, 'name'=>"Focused Math Intervention"}
+            '518' => {'id'=>518, 'name'=>"Focused Math Intervention"},
+            '701' => {'id'=>701, 'name'=>"Title 1 Math intervention"},
+            '702' => {'id'=>702, 'name'=>"Lunch bunch"},
+            '703' => {'id'=>703, 'name'=>"Soc.emo check in"},
+            '704' => {'id'=>704, 'name'=>"Individual Counseling"},
+            '705' => {'id'=>705, 'name'=>"Social Group"},
+            '706' => {'id'=>706, 'name'=>"Reading intervention, with specialist"},
+            '707' => {'id'=>707, 'name'=>"LLI Reading Instruction"},
+            '708' => {'id'=>708, 'name'=>"Math Intervention, small group"},
+            '709' => {'id'=>709, 'name'=>"Formal Behavior Plan"}
           })
 
           expect(json['educators_index']).to include({
@@ -729,26 +738,28 @@ describe ProfileController, :type => :controller do
     end
 
     it 'returns correct shape on happy path' do
-      get_reader_profile_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id)
-      expect(response.status).to eq 200
-      json = JSON.parse(response.body)
-      expect(json).to eq({
-        "current_school_year" => 2018,
-        "access" => {
-          "composite"=>nil,
-          "comprehension"=>nil,
-          "literacy"=>nil,
-          "oral"=>nil,
-          "listening"=>nil,
-          "reading"=>nil,
-          "speaking"=>nil,
-          "writing"=>nil
-        },
-        "benchmark_data_points" => [],
-        "feed_cards" => [],
-        "iep_contents" => nil,
-        "services" => []
-      })
+      Timecop.freeze(pals.time_now) do
+        get_reader_profile_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json).to eq({
+          "current_school_year" => 2017,
+          "access" => {
+            "composite"=>nil,
+            "comprehension"=>nil,
+            "literacy"=>nil,
+            "oral"=>nil,
+            "listening"=>nil,
+            "reading"=>nil,
+            "speaking"=>nil,
+            "writing"=>nil
+          },
+          "benchmark_data_points" => [],
+          "feed_cards" => [],
+          "iep_contents" => nil,
+          "services" => []
+        })
+      end
     end
   end
 end
