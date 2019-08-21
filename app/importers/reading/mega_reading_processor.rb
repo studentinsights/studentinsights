@@ -14,7 +14,6 @@ class MegaReadingProcessor
     @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
-    @fuzzy_student_matcher = FuzzyStudentMatcher.new
     @should_use_heuristic_about_moving = options.fetch(:should_use_heuristic_about_moving, false)
 
     # The standard 8/20/19 template has two extra rows explaining the columns,
