@@ -7,11 +7,13 @@
 # ...
 # EOD
 # educator = Educator.find_by_login_name('...')
-# processor = MegaReadingProcessor.new(educator.id)
+# processor = MegaReadingProcessor.new(educator.id, 2018)
 # output = processor.process(file_text);nil
+# rows, stats = output;nil
 class MegaReadingProcessor
-  def initialize(educator_id, options = {})
+  def initialize(educator_id, benchmark_school_year, options = {})
     @educator_id = educator_id
+    @benchmark_school_year = benchmark_school_year
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @should_use_heuristic_about_moving = options.fetch(:should_use_heuristic_about_moving, false)
@@ -56,18 +58,18 @@ class MegaReadingProcessor
     @missing_data_point_because_student_moved_school = 0
     @invalid_student_name_count = 0
     @invalid_student_names_list = []
-    @valid_data_points = 0
-    @valid_student_name = 0
+    @valid_data_points_count = 0
+    @valid_student_names_count = 0
   end
 
   def stats
     {
       invalid_student_name_count: @invalid_student_name_count,
       invalid_student_names_list_size: @invalid_student_names_list.size,
-      valid_student_name: @valid_student_name,
+      valid_student_names_count: @valid_student_names_count,
       blank_data_points_count: @blank_data_points_count,
       missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
-      valid_data_points: @valid_data_points
+      valid_data_points_count: @valid_data_points_count
     }
   end
 
@@ -87,11 +89,12 @@ class MegaReadingProcessor
       @invalid_student_names_list << student_match_failure
       return nil
     end
-    @valid_student_name += 1
+    @valid_student_names_count += 1
 
     shared = {
       student_id: student_id,
-      imported_by_educator_id: @educator_id
+      educator_id: @educator_id,
+      benchmark_school_year: @benchmark_school_year
     }
 
     # data points for each grade
@@ -298,12 +301,14 @@ class MegaReadingProcessor
         next
       end
 
-      @valid_data_points += 1
+      @valid_data_points_count += 1
       rows << shared.merge({
-        grade: grade,
-        assessment_period: assessment_period,
-        assessment_key: assessment_key,
-        data_point: data_point
+        benchmark_grade: grade,
+        benchmark_period_key: assessment_period,
+        benchmark_assessment_key: assessment_key,
+        json: {
+          value: data_point
+        }
       })
     end
     rows
