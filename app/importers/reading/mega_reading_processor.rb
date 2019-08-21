@@ -16,12 +16,13 @@ class MegaReadingProcessor
     @benchmark_school_year = benchmark_school_year
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
-    @should_use_heuristic_about_moving = options.fetch(:should_use_heuristic_about_moving, false)
 
     # The standard 8/20/19 template has two extra rows explaining the columns,
     # we skip them for importing the data.  Some one-off imports may use
     # the 'raw' format and those can be imported by setting this to 0.
     @skip_explanation_rows_count = options.fetch(:skip_explanation_rows_count, 2)
+    @use_heuristic_about_moving = options.fetch(:use_heuristic_about_moving, false)
+    @include_benchmark_grade = options.fetch(:include_benchmark_grade, false)
 
     reset_counters!
   end
@@ -296,20 +297,27 @@ class MegaReadingProcessor
       #
       # Since some fields are text, heuristics to infer the codes that educators are
       # going to be noisy, so disabled is a good default.
-      if @should_use_heuristic_about_moving && data_point.starts_with?('@') || data_point.downcase.include?('move')
+      if @use_heuristic_about_moving && data_point.starts_with?('@') || data_point.downcase.include?('move')
         @missing_data_point_because_student_moved_school +=1
         next
       end
 
-      @valid_data_points_count += 1
-      rows << shared.merge({
-        benchmark_grade: grade,
+      # Optionally add the grade (could be useful in cases where grade and
+      # school year don't line up).
+      optional_grade_attrs = if @include_benchmark_grade
+        { benchmark_grade: grade }
+      else
+        {}
+      end
+      row = shared.merge(optional_grade_attrs).merge({
         benchmark_period_key: assessment_period,
         benchmark_assessment_key: assessment_key,
         json: {
           value: data_point
         }
       })
+
+      @valid_data_points_count += 1
     end
     rows
   end
