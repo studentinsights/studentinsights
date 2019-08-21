@@ -7,7 +7,8 @@
 # ...
 # EOD
 # educator = Educator.find_by_login_name('...')
-# output = MegaReadingProcessor.new(educator.id).process(file_text);nil
+# processor = MegaReadingProcessor.new(educator.id)
+# output = processor.process(file_text);nil
 class MegaReadingProcessor
   def initialize(educator_id, options = {})
     @educator_id = educator_id
