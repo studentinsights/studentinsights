@@ -1,6 +1,6 @@
 # This is for manually importing a large spreadsheet, with historical data
 # about students across a range of reading assessments.
-# It outputs JSON to the console.
+# Returns [rows, stats].
 #
 # Usage:
 # file_text = <<EOD
@@ -14,9 +14,14 @@ class MegaReadingProcessor
     @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
-    @header_rows_count = options.fetch(:header_rows_count, 1)
-
     @fuzzy_student_matcher = FuzzyStudentMatcher.new
+    @should_use_heuristic_about_moving = options.fetch(:should_use_heuristic_about_moving, false)
+
+    # The standard 8/20/19 template has two extra rows explaining the columns,
+    # we skip them for importing the data.  Some one-off imports may use
+    # the 'raw' format and those can be imported by setting this to 0.
+    @skip_explanation_rows_count = options.fetch(:skip_explanation_rows_count, 2)
+
     reset_counters!
   end
 
@@ -30,7 +35,7 @@ class MegaReadingProcessor
       next if flattened_rows.nil?
 
       rows += flattened_rows
-      @matcher.count_valid_row
+      flattened_rows.size.times { @matcher.count_valid_row }
     end
     log "matcher#stats: #{@matcher.stats}"
     log "MegaReadingProcessor#stats: #{stats}"
@@ -48,7 +53,7 @@ class MegaReadingProcessor
 
   private
   def reset_counters!
-    @missing_data_point = 0
+    @blank_data_points_count = 0
     @missing_data_point_because_student_moved_school = 0
     @invalid_student_name_count = 0
     @invalid_student_names_list = []
@@ -61,17 +66,19 @@ class MegaReadingProcessor
       invalid_student_name_count: @invalid_student_name_count,
       invalid_student_names_list_size: @invalid_student_names_list.size,
       valid_student_name: @valid_student_name,
-      missing_data_point: @missing_data_point,
+      blank_data_points_count: @blank_data_points_count,
       missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
       valid_data_points: @valid_data_points
     }
   end
 
+  # Map a row of the sheet to attributes that could make ReadingBenchmarkDataPoint
+  # records, or nil if the row is invalid.
   def flat_map_rows(row, index)
     # Support multiple header rows to explain to users
     # how to enter data, etc.
-    if (index + 1) < @header_rows_count
-      return nil
+    if (index) < @skip_explanation_rows_count
+      return []
     end
 
     # match student
@@ -102,10 +109,11 @@ class MegaReadingProcessor
   # returns [student_id, debug_match_failure_text]
   # exact primary key
   def match_student(row, index)
-    student = if row.has_key?('LASID')
+    # use canonical key, but support fallback
+    student = if row.has_key?('student_local_id')
+      Student.find_by_local_id(row['student_local_id'])
+    elsif row.has_key?('LASID')
       Student.find_by_local_id(row['LASID'])
-    elsif row.has_key?('local_id')
-      Student.find_by_local_id(row['local_id'])
     else
       nil
     end
@@ -264,14 +272,29 @@ class MegaReadingProcessor
     rows = []
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, row_key = tuple
-      data_point = row[row_key]
-      if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
-        @missing_data_point +=1
+
+      # If the key isn't there, skip it silently.  This treats
+      # each row as if it were really wide with only some columns present.
+      if !row.has_key?(row_key)
         next
       end
 
-      # TODO(kr) remove?
-      if data_point.starts_with?('@') || data_point.downcase.include?('move')
+      # This isn't necessarily a problem, for many templates there are fields
+      # that are filled out as the year progresses.
+      data_point = row[row_key]
+      if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
+        @blank_data_points_count +=1
+        next
+      end
+
+      # This heuristic can make sense for one-time imports for specific purposes,
+      # but in the typical case having empty cells is normal, as benchmark data
+      # points are filled in throughout the school year, and gaps are also normal
+      # when students move around.
+      #
+      # Since some fields are text, heuristics to infer the codes that educators are
+      # going to be noisy, so disabled is a good default.
+      if @should_use_heuristic_about_moving && data_point.starts_with?('@') || data_point.downcase.include?('move')
         @missing_data_point_because_student_moved_school +=1
         next
       end
