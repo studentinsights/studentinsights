@@ -114,29 +114,6 @@ export class DistrictOverviewPageView extends React.Component {
         </div>
 
         <div>
-          <div style={styles.section}>Syncs and imports</div>
-          <ul style={styles.plainList}>
-            <li>
-              <a href="/service_uploads" style={styles.link}>
-               Upload student services file
-              </a>
-            </li>
-            {enableStudentVoiceUploads &&
-              <li>
-                <a href="/admin/student_voice_survey_uploads" style={styles.link}>
-                 Upload student voice survey CSV
-                </a>
-              </li>
-            }
-            <li>
-              <a href="/admin/import_records" style={styles.link}>
-                Import records
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
           <div style={styles.section}>Data quality checks</div>
           <ul style={styles.plainList}>
             <li>
@@ -172,6 +149,29 @@ export class DistrictOverviewPageView extends React.Component {
           </ul>
         </div>
 
+        <div>
+          <div style={styles.section}>Syncs and imports</div>
+          <ul style={styles.plainList}>
+            <li>
+              <a href="/admin/import_records" style={styles.link}>
+                SIS import history
+              </a>
+            </li>
+            <li>
+              <a href="/service_uploads" style={styles.link}>
+               Upload student services file
+              </a>
+            </li>
+            {enableStudentVoiceUploads &&
+              <li>
+                <a href="/admin/student_voice_survey_uploads" style={styles.link}>
+                 Upload student voice survey CSV
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+        
         <div>
           <div style={styles.section}>Export districtwide data</div>
           <ul style={styles.plainList}>
