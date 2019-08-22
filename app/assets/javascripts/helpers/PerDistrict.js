@@ -281,25 +281,35 @@ export function enhancedStudentPhotoStyles(districtKey) {
   };
 }
 
-// For shorter names and prettier UI
+// For shorter names and prettier UI, returns string or throws if unsupported
 export function shortSchoolName(districtKey, schoolLocalId) {
-  if (districtKey !== SOMERVILLE) {
-    throw new Error(`unsupported districtKey: ${districtKey}`);
+  if (districtKey === SOMERVILLE) {
+    return tryShortSchoolName(districtKey, schoolLocalId) || 'Unknown school';
   }
 
-  return {
-    BRN: 'Brown',
-    HEA: 'Healey',
-    KDY: 'Kennedy',
-    AFAS: 'Argenziano',
-    ESCS: 'East',
-    WSNS: 'West',
-    WHCS: 'Winter Hill',
-    NW: 'Next Wave',
-    SHS: 'Somerville High',
-    FC: 'Full Circle',
-    CAP: 'Capuano',
-    PIC: 'Parent PIC',
-    SPED: 'Special Education'
-  }[schoolLocalId] || 'Unknown school';
+  throw new Error(`unsupported districtKey: ${districtKey}`);
+}
+
+// For shorter names and prettier UI, may be null if not supported
+// by district or not found.
+export function tryShortSchoolName(districtKey, schoolLocalId) {
+  if (districtKey === SOMERVILLE) {
+    return {
+      BRN: 'Brown',
+      HEA: 'Healey',
+      KDY: 'Kennedy',
+      AFAS: 'Argenziano',
+      ESCS: 'East',
+      WSNS: 'West',
+      WHCS: 'Winter Hill',
+      NW: 'Next Wave',
+      SHS: 'Somerville High',
+      FC: 'Full Circle',
+      CAP: 'Capuano',
+      PIC: 'Parent PIC',
+      SPED: 'Special Education'
+    }[schoolLocalId] || null;
+  }
+
+  return null;
 }
