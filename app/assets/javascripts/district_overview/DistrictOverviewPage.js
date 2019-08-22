@@ -150,13 +150,13 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>
             <li>
-              <a href="/educators/services" style={styles.link}>
-               Services for all students
+              <a href="/admin/sample_students" style={styles.link}>
+                Student sample for data quality checks
               </a>
             </li>
             <li>
-              <a href="/reading/debug" style={styles.link}>
-               Benchmark reading data (eg, F&P)
+              <a href="/educators/services" style={styles.link}>
+               Services for all students
               </a>
             </li>
             <li>
@@ -165,8 +165,8 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>
             <li>
-              <a href="/admin/sample_students" style={styles.link}>
-                Student sample for data quality checks
+              <a href="/reading/debug" style={styles.link}>
+               Benchmark reading data (eg, F&P)
               </a>
             </li>
           </ul>

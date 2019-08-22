@@ -283,7 +283,7 @@ export function enhancedStudentPhotoStyles(districtKey) {
 
 // For shorter names and prettier UI, returns string or throws if unsupported
 export function shortSchoolName(districtKey, schoolLocalId) {
-  if (districtKey == SOMERVILLE) {
+  if (districtKey === SOMERVILLE) {
     return tryShortSchoolName(districtKey, schoolLocalId) || 'Unknown school';
   }
 
@@ -293,7 +293,7 @@ export function shortSchoolName(districtKey, schoolLocalId) {
 // For shorter names and prettier UI, may be null if not supported
 // by district or not found.
 export function tryShortSchoolName(districtKey, schoolLocalId) {
-  if (districtKey !== SOMERVILLE) {
+  if (districtKey === SOMERVILLE) {
     return {
       BRN: 'Brown',
       HEA: 'Healey',

@@ -610,6 +610,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
+                href="/admin/sample_students"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Student sample for data quality checks
+              </a>
+            </li>
+            <li>
+              <a
                 href="/educators/services"
                 style={
                   Object {
@@ -618,18 +630,6 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
                 }
               >
                 Services for all students
-              </a>
-            </li>
-            <li>
-              <a
-                href="/reading/debug"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Benchmark reading data (eg, F&P)
               </a>
             </li>
             <li>
@@ -646,14 +646,14 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
-                href="/admin/sample_students"
+                href="/reading/debug"
                 style={
                   Object {
                     "fontSize": 14,
                   }
                 }
               >
-                Student sample for data quality checks
+                Benchmark reading data (eg, F&P)
               </a>
             </li>
           </ul>
@@ -1572,6 +1572,18 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
+                href="/admin/sample_students"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Student sample for data quality checks
+              </a>
+            </li>
+            <li>
+              <a
                 href="/educators/services"
                 style={
                   Object {
@@ -1580,18 +1592,6 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                 }
               >
                 Services for all students
-              </a>
-            </li>
-            <li>
-              <a
-                href="/reading/debug"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Benchmark reading data (eg, F&P)
               </a>
             </li>
             <li>
@@ -1608,14 +1608,14 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
-                href="/admin/sample_students"
+                href="/reading/debug"
                 style={
                   Object {
                     "fontSize": 14,
                   }
                 }
               >
-                Student sample for data quality checks
+                Benchmark reading data (eg, F&P)
               </a>
             </li>
           </ul>
