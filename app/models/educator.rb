@@ -24,6 +24,16 @@ class Educator < ApplicationRecord
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ].freeze
 
+  # Indicates the educator was missing from the last export where we expected to
+  # find them, so we treat them as no longer active.
+  def self.active
+    where(missing_from_last_export: false)
+  end
+
+  def active?
+    missing_from_last_export == false
+  end
+
   def is_principal?
     staff_type.try(:downcase) == 'principal'
   end

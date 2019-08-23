@@ -1,4 +1,13 @@
 <%= render 'navbar_for_admin_educator_permissions' %>
+<%
+  def row_style_string(educator)
+    if educator.missing_from_last_export
+      'background-color: #f8f8f8; opacity: 0.5; text-decoration: line-through;'
+    else
+      ''
+    end
+  end
+%>
 
 <div style="margin: 20px;">
   <h4 style="color: black; font-size: 24px; border-bottom: 1px solid #333; margin-bottom: 20px; padding-bottom: 10px;">
@@ -20,9 +29,12 @@
           </tr>
         </thead>
         <tbody>
-          <% educators = (@can_set_educators + @admin_educators + @districtwide_educators).uniq %>
+          <% educators = (@can_set_educators + @admin_educators + @districtwide_educators).uniq.sort_by do |educator|
+              [educator.missing_from_last_export ? 1 : 0]
+            end
+          %>
           <% educators.map do |educator| %>
-            <tr>
+            <tr style="<%= row_style_string(educator) %>">
               <td style="padding: 10px; padding-left: 5px;"><%= educator.email %></td>
               <td style="padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
               <td style="padding: 10px; padding-left: 5px;">
@@ -78,11 +90,11 @@
               sorted_educators = @all_educators.sort_by do |educator|
                 navbar_links = PathsForEducator.new(educator).navbar_links
                 @navbar_links_map[educator.id] = navbar_links
-                navbar_links.keys
+                [educator.missing_from_last_export ? 1 : 0, navbar_links.keys]
               end
             %>
             <% sorted_educators.map do |educator| %>
-              <tr style="vertical-align: top;">
+              <tr style="vertical-align: top; <%= row_style_string(educator) %>">
                 <td style="padding: 10px; padding-left: 5px;"><%= educator.email %></td>
                 <td style="padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
                 <td style="padding: 10px; padding-left: 5px;"><%= educator.school.try(:name) %></td>
