@@ -63,9 +63,8 @@ class EducatorsImporter
     log("Educator RecordSyncer#stats: #{@educator_syncer.stats}")
     log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
 
-    # Similar for Homeroom, for now.  We can tighten this but would need to do a pass
-    # on making sure there are key constraints before deleting these (or other changes if
-    # we just mark them).
+    # Preserve Homeroom records that aren't exported any more as well.
+    # This doesn't mark them though and leaves them untouched.
     log('For Homeroom, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Homeroom records.')
     log("Homeroom RecordSyncer#stats: #{@homeroom_syncer.stats}")
   end
