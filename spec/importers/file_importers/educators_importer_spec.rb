@@ -423,7 +423,7 @@ RSpec.describe EducatorsImporter do
       expect(Educator.all.size).to eq 1
       expect(Educator.find_by_login_name('ntufts').missing_from_last_export).to eq true
     end
-    
+
     it 'does not set missing_from_last_export for existing students when only importing SHS' do
       pals = TestPals.create!
 

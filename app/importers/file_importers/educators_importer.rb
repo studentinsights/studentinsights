@@ -54,7 +54,7 @@ class EducatorsImporter
     # these two separate systems independently in ways we do not control.  But an additional
     # sanity check on our end is to disallow access if the educator wasn't in the latest
     # export (and alert).
-    # 
+    #
     log('For Educator, RecordSyncer#process_unmarked_records! to set missing_from_last_export...')
     @educator_syncer.process_unmarked_records!(educator_records_within_scope) do |educator, index|
       educator.update!(missing_from_last_export: true)
@@ -83,7 +83,7 @@ class EducatorsImporter
   def educator_records_within_scope
     # match semantics of SchoolFilter, which treats `nil` as "process everything."
     return Educator.all if @school_scope.nil?
-    
+
     Educator.joins(:school).where(schools: {local_id: @school_scope})
   end
 
