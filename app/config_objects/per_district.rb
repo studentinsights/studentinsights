@@ -207,6 +207,14 @@ class PerDistrict
     ENV.fetch('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', '').split(',')
   end
 
+  # Allow specific educator records to always be considered
+  # 'active' regardless of whether they were in the latest SIS
+  # export.  This should only apply to developer accounts, which
+  # districts sometimes handle differently.
+  def educator_login_names_whitelisted_as_active
+    ENV.fetch('EDUCATOR_LOGIN_NAMES_WHITELISTED_AS_ACTIVE', '').split(',')
+  end
+
   # Allows username or full email address, depending on district.
   # Transitioning to username only.
   def find_educator_by_login_text(login_text)
