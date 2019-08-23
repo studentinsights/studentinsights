@@ -25,6 +25,24 @@ RSpec.describe EducatorsImporter do
     }.merge(attrs)
   end
 
+  # For making import rows, changing them and seeing how it updates the db
+  def make_row_from_educator_record(educator)
+    {
+      login_name: educator.login_name,
+      state_id: educator.state_id,
+      local_id: educator.local_id,
+      full_name: educator.full_name,
+      staff_type: educator.staff_type,
+      homeroom: educator.homeroom.try(:name),
+      school_local_id: educator.school.try(:local_id)
+    }
+  end
+
+  # simulating call from ImportTask
+  def all_school_ids
+    PerDistrict.new.school_definitions_for_import.map { |school| school["local_id"] }
+  end
+
   describe '#import integration tests' do
     let!(:pals) { TestPals.create! }
 
@@ -374,6 +392,82 @@ RSpec.describe EducatorsImporter do
           expect { make_educators_importer.send(:import_row, row) }.to_not raise_error
         end
       end
+    end
+  end
+
+  describe 'process_unmarked_records! integration tests' do
+    it 'sets missing_from_last_export: true for students missing from the export' do
+      TestPals.seed_somerville_schools_for_test!
+
+      # first import, all educators
+      first_log = LogHelper::FakeLog.new
+      first_importer = make_educators_importer(log: first_log, school_scope: all_school_ids)
+      allow(first_importer).to receive(:download_csv).and_return([make_test_row])
+      first_importer.import
+      expect(first_log.output).to include(':created_rows_count=>1')
+      expect(Educator.all.size).to eq 1
+      expect(Educator.active.size).to eq 1
+      expect(Educator.active.pluck(:login_name)).to eq ['ntufts']
+
+      # second one, with no educator rows in file
+      second_log = LogHelper::FakeLog.new
+      second_importer = make_educators_importer(log: second_log, school_scope: all_school_ids)
+      allow(second_importer).to receive(:download_csv).and_return([])
+      second_importer.import
+
+      # Educator is tagged a `missing_from_last_export` and no longer considered active
+      expect(second_log.output).to include('records_to_process.size: 1 within scope')
+      expect(second_log.output).to include('@missing_from_last_export_count: 1')
+      expect(Educator.where(missing_from_last_export: true).size).to eq 1
+      expect(Educator.active.size).to eq 0
+      expect(Educator.all.size).to eq 1
+      expect(Educator.find_by_login_name('ntufts').missing_from_last_export).to eq true
+    end
+    
+    it 'does not set missing_from_last_export for existing students when only importing SHS' do
+      pals = TestPals.create!
+
+      log = LogHelper::FakeLog.new
+      importer = make_educators_importer(log: log, school_scope: ['SHS'])
+      allow(importer).to receive(:download_csv).and_return([])
+      importer.import
+
+      expect(log.output).to include('@missing_from_last_export_count: 6')
+      expect(pals.shs.educators.size).to eq 6
+      expect(pals.shs.educators.active.size).to eq 0
+      expect(pals.shs.educators.where(missing_from_last_export: true).pluck(:login_name)).to contain_exactly(*[
+        'bill',
+        'fatima',
+        'harry',
+        'hugo',
+        'jodi',
+        'sofia'
+      ])
+      expect(Educator.active.pluck(:login_name)).to contain_exactly(*[
+        'alonso',
+        'laura',
+        'les',
+        'marcus',
+        'rich',
+        'sarah',
+        'silva',
+        'uri',
+        'vivian'
+      ])
+    end
+
+    it 'processes and marks all records when explicitly called with `school_scope: nil`, matching SchoolFilter behavior' do
+      pals = TestPals.create!
+
+      log = LogHelper::FakeLog.new
+      importer = make_educators_importer(log: log, school_scope: nil)
+      allow(importer).to receive(:download_csv).and_return([make_row_from_educator_record(pals.uri)])
+      importer.import
+
+      expect(log.output).to include('marked_ids_count=>1')
+      expect(Educator.active.size).to eq 1
+      expect(Educator.where(missing_from_last_export: true).size).to eq 14
+      expect(Educator.all.size).to eq 15
     end
   end
 end

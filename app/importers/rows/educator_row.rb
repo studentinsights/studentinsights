@@ -11,6 +11,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
     # login_name is the primary key, and email is always secondary
     educator = Educator.find_or_initialize_by(login_name: login_name)
     educator.assign_attributes({
+      missing_from_last_export: false,
       email: email,
       state_id: row[:state_id],
       full_name: row[:full_name],
