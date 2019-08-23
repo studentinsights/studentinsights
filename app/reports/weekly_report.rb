@@ -35,7 +35,7 @@ class WeeklyReport
     output
     output
     output
-    output "#{PerDistrict.new.district_name}: Student Insights usage (n=#{Educator.all.size})"
+    output "#{PerDistrict.new.district_name}: Student Insights usage (n=#{Educator.active.size})"
     output usage_table(include_project_leads: true)
     output
     output
