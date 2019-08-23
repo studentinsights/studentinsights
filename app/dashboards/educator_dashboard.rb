@@ -27,7 +27,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     can_view_restricted_notes: YesNoBooleanField.with_options(),
     districtwide_access: YesNoBooleanField.with_options(),
     can_set_districtwide_access: YesNoBooleanField.with_options(),
-    active: YesNoBooleanField.with_options(),
+    active?: YesNoBooleanField.with_options(),
     missing_from_last_export: YesNoBooleanField.with_options()
   }.freeze
 
@@ -39,7 +39,7 @@ class EducatorDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :full_name,
     :school_id,
-    :active,
+    :active?,
     :schoolwide_access,
     :districtwide_access,
     :can_view_restricted_notes,
@@ -51,7 +51,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     :email,
     :full_name,
     :local_id,
-    :active,
+    :active?,
     :missing_from_last_export,
 
     :school_id,
