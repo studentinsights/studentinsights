@@ -18,9 +18,10 @@ class EducatorSectionAssignmentsImporter
   def initialize(options:)
     @school_local_ids = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
-    
+    @time_now = options.fetch(:time_now, Time.now)
+
     @matcher = ::ImportMatcher.new(log: @log)
-    @course_section_matcher = ::CourseSectionMatcher.new(log: log)
+    @course_section_matcher = ::CourseSectionMatcher.new(log: @log, time_now: @time_now)
     @syncer = ::RecordSyncer.new(log: @log)
     reset_counters!
   end
@@ -43,6 +44,7 @@ class EducatorSectionAssignmentsImporter
     log("@invalid_educator_count: #{@invalid_educator_count}")
     log("@invalid_course_count: #{@invalid_course_count}")
     log("@invalid_section_count: #{@invalid_section_count}")
+    log("@warning_unexpected_district_school_year_count: #{@warning_unexpected_district_school_year_count}")
     log('')
 
     log('Calling RecordSyncer#delete_unmarked_records...')
@@ -56,6 +58,7 @@ class EducatorSectionAssignmentsImporter
     @invalid_educator_count = 0
     @invalid_course_count = 0
     @invalid_section_count = 0
+    @warning_unexpected_district_school_year_count = 0
   end
 
   # What existing Insights records should be updated or deleted from running this import?
@@ -97,16 +100,13 @@ class EducatorSectionAssignmentsImporter
   end
 
   def matching_insights_record_for_row(row)
-    course = @course_section_matcher.find_course(row)
+    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
     if course.nil?
       @invalid_course_count +=1
-      return nil
-    end
-
-    section = @course_section_matcher.find_section(row, course)
-    if section.nil?
+    elsif section.nil?
       @invalid_section_count +=1
-      return nil
+    elsif warning == :school_year_warning
+      @warning_unexpected_district_school_year_count += 1
     end
 
     educator_id = @matcher.find_educator_id(row[:login_name])

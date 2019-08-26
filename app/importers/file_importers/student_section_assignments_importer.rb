@@ -18,10 +18,10 @@ class StudentSectionAssignmentsImporter
   def initialize(options:)
     @school_local_ids = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
-    @student_ids_map = ::StudentIdsMap.new
+    @time_now = options.fetch(:time_now, Time.now)
 
-    @matcher = ::ImportMatcher.new(log: @log)
-    @course_section_matcher = ::CourseSectionMatcher.new(log: log)
+    @student_ids_map = ::StudentIdsMap.new
+    @course_section_matcher = ::CourseSectionMatcher.new(log: @log)
     @syncer = ::RecordSyncer.new(log: @log)
     reset_counters!
   end
@@ -50,6 +50,7 @@ class StudentSectionAssignmentsImporter
     log("@invalid_student_count: #{@invalid_student_count}")
     log("@invalid_course_count: #{@invalid_course_count}")
     log("@invalid_section_count: #{@invalid_section_count}")
+    log("@warning_unexpected_district_school_year_count: #{@warning_unexpected_district_school_year_count}")
     log('')
 
     log('Calling RecordSyncer#delete_unmarked_records...')
@@ -63,6 +64,7 @@ class StudentSectionAssignmentsImporter
     @invalid_student_count = 0
     @invalid_course_count = 0
     @invalid_section_count = 0
+    @warning_unexpected_district_school_year_count = 0
   end
 
   # What existing Insights records should be updated or deleted from running this import?
@@ -110,21 +112,18 @@ class StudentSectionAssignmentsImporter
   # Matches a row from a CSV export with an existing or new (unsaved) Insights record
   # Returns nil if something about the CSV row is invalid and it can't process the row.
   def matching_insights_record_for_row(row)
+    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
+    if course.nil?
+      @invalid_course_count +=1
+    elsif section.nil?
+      @invalid_section_count +=1
+    elsif warning == :school_year_warning
+      @warning_unexpected_district_school_year_count += 1
+    end
+
     student_id = find_student_id(row)
     if student_id.nil?
       @invalid_student_count += 1
-      return nil
-    end
-
-    course = @course_section_matcher.find_course(row)
-    if course.nil?
-      @invalid_course_count +=1
-      return nil
-    end
-
-    section = @course_section_matcher.find_section(row, course)
-    if section.nil?
-      @invalid_section_count +=1
       return nil
     end
 

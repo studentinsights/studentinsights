@@ -10,6 +10,28 @@ RSpec.describe StudentSectionAssignmentsImporter do
     importer
   end
 
+  def create_test_setup!(district_school_year)
+    east_history = FactoryBot.create(:course, course_number: 'SOC6', school: east)
+    shs_history = FactoryBot.create(:course, course_number: 'SOC6', school: high_school)
+    shs_ela = FactoryBot.create(:course, course_number: 'ELA6', school: high_school)
+    shs_math = FactoryBot.create(:course, course_number: 'ALG2', school: high_school)
+    east_history_section = FactoryBot.create(:section, course: east_history, section_number: 'SOC6-001', district_school_year: district_school_year)
+    shs_history_section = FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001', district_school_year: district_school_year)
+    shs_ela_section = FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002', district_school_year: district_school_year)
+    shs_math_section = FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004', district_school_year: district_school_year)
+
+    {
+      east_history: east_history,
+      shs_history: shs_history,
+      shs_ela: shs_ela,
+      shs_math: shs_math,
+      east_history_section: east_history_section,
+      shs_history_section: shs_history_section,
+      shs_ela_section: shs_ela_section,
+      shs_math_section: shs_math_section
+    }
+  end
+
   before { TestPals.seed_somerville_schools_for_test! }
   let(:high_school) { School.find_by_local_id('SHS') }
   let(:student_section_assignments_importer) { make_importer_with_initialization }
@@ -46,17 +68,25 @@ RSpec.describe StudentSectionAssignmentsImporter do
       FactoryBot.create(:student, local_id: '333')
     end
 
-    let!(:east_history) { FactoryBot.create(:course, course_number: 'SOC6', school: east) }
-    let!(:shs_history) { FactoryBot.create(:course, course_number: 'SOC6', school: high_school) }
-    let!(:shs_ela) { FactoryBot.create(:course, course_number: 'ELA6', school: high_school) }
-    let!(:shs_math) { FactoryBot.create(:course, course_number: 'ALG2', school: high_school) }
-    let!(:east_history_section) { FactoryBot.create(:section, course: east_history, section_number: 'SOC6-001') }
-    let!(:shs_history_section) { FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001') }
-    let!(:shs_ela_section) { FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002') }
-    let!(:shs_math_section) { FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004') }
+    # when no school year in db, doesn't match
+    # when wrong school year in db, doesn't match
+    # when right school year in db, matches
+    # when import has old school year, warns
+
+    # let!(:east_history) { FactoryBot.create(:course, course_number: 'SOC6', school: east) }
+    # let!(:shs_history) { FactoryBot.create(:course, course_number: 'SOC6', school: high_school) }
+    # let!(:shs_ela) { FactoryBot.create(:course, course_number: 'ELA6', school: high_school) }
+    # let!(:shs_math) { FactoryBot.create(:course, course_number: 'ALG2', school: high_school) }
+    # let!(:east_history_section) { FactoryBot.create(:section, course: east_history, section_number: 'SOC6-001') }
+    # let!(:shs_history_section) { FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001') }
+    # let!(:shs_ela_section) { FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002') }
+    # let!(:shs_math_section) { FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004') }
 
     it 'works' do
+      create_test_setup!(nil)
       importer.import
+      puts log.output
+
       expect(StudentSectionAssignment.count).to eq 4
       expect(log.output).to include '@invalid_student_count: 2'
       expect(log.output).to include '@invalid_course_count: 1'
@@ -66,6 +96,10 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
 
     it 'syncs when existing records' do
+      test_records = create_test_setup!(nil)
+      east_history_section = test_records[:east_history_section]
+      shs_math_section = test_records[:shs_math_section]
+
       # will be unchanged
       StudentSectionAssignment.create!({
         student: Student.find_by_local_id('111'),
