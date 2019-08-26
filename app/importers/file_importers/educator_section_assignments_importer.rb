@@ -32,6 +32,10 @@ class EducatorSectionAssignmentsImporter
     log('Downloading...')
     streaming_csv = download_csv
 
+    log('Building school_ids_dictionary...')
+    @school_ids_dictionary = build_school_ids_dictionary
+    log("@school_ids_dictionary built with #{@school_ids_dictionary.size} local_id keys")
+
     log('Starting loop...')
     reset_counters!
     streaming_csv.each_with_index do |row, index|
@@ -89,6 +93,10 @@ class EducatorSectionAssignmentsImporter
     SchoolFilter.new(@school_local_ids)
   end
 
+  def build_school_ids_dictionary
+    School.all.map { |school| [school.local_id, school.id] }.to_h
+  end
+
   def import_row(row)
     if !filter.include?(row[:school_local_id])
       @skipped_from_school_filter += 1
@@ -100,25 +108,25 @@ class EducatorSectionAssignmentsImporter
   end
 
   def matching_insights_record_for_row(row)
-    educator_id = @matcher.find_educator_id(row[:login_name])
-    if educator_id.nil?
+    educator = @matcher.find_educator_by_login(row[:login_name])
+    if educator.nil?
       @invalid_educator_count += 1
       return nil
     end
 
     course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
     if course.nil?
-      @invalid_course_count +=1
+      @invalid_course_count += 1
       return nil
     elsif section.nil?
-      @invalid_section_count +=1
+      @invalid_section_count += 1
       return nil
     elsif warning == :school_year_warning
       @warning_unexpected_district_school_year_count += 1
     end
 
     EducatorSectionAssignment.find_or_initialize_by({
-      educator_id: educator_id,
+      educator_id: educator.id,
       section_id: section.id
     })
   end

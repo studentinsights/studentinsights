@@ -1,3 +1,7 @@
+# Holds all-time list of sections (Course records are scoped by `district_school_year`).
+#
+# Record identity should be immutable, while values like `schedule` are mutable and
+# reflect the value from the last export.
 class Section < ApplicationRecord
   # Exclude term values that are empty strings
   VALID_TERM_VALUES = [
