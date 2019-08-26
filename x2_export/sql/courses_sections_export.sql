@@ -34,3 +34,4 @@ INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/courses_sections_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n'
+
