@@ -96,7 +96,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       district_school_year, time_now = test_district_school_year()
       Timecop.freeze(time_now) do
         test_records = create_records_for_tests_with_fixture_file(district_school_year)
-        
+
         # will be unchanged
         EducatorSectionAssignment.create!({
           educator: Educator.find_by_login_name('ngarciaparra'),
@@ -194,7 +194,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
         importer, log = make_importer_mocked_for_unit_test(school_scope: School.pluck(:local_id))
         importer.send(:import_row, row)
         expect(EducatorSectionAssignment.all.size).to eq 21
-        
+
         # delete older records after sync
         sync_records(importer)
         expect(log.output).to include 'records_within_import_scope.size: 21 in Insights'
@@ -216,7 +216,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
         importer, log = make_importer_mocked_for_unit_test(school_scope: ['SHS'])
         importer.send(:import_row, row)
         expect(EducatorSectionAssignment.all.size).to eq 21
-        
+
         # delete older records after sync
         sync_records(importer)
         expect(log.output).to include 'records_within_import_scope.size: 1 in Insights'

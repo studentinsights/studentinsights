@@ -1,4 +1,4 @@
-# Holds all-time list of courses, scoped by `district_school_year`.
+# Holds all-time list of courses.
 # Record identity should be immutable, while values like `course_description` are
 # mutable and reflect the value from the last export.
 class Course < ApplicationRecord

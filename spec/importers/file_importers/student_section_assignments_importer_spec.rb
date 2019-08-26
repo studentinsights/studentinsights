@@ -50,7 +50,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
     east = School.find_by_local_id('ESCS')
     high_school = School.find_by_local_id('SHS')
 
-    # db state    
+    # db state
     east_history = FactoryBot.create(:course, course_number: 'SOC6', school: east)
     shs_history = FactoryBot.create(:course, course_number: 'SOC6', school: high_school)
     shs_ela = FactoryBot.create(:course, course_number: 'ELA6', school: high_school)
@@ -134,7 +134,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
         expect(StudentSectionAssignment.count).to eq 0
       end
     end
-    
+
     it 'matches when section rows match district_school_year' do
       time_now = TestPals.new.time_now
       district_school_year = 1 + SchoolYear.to_school_year(time_now)
@@ -220,7 +220,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
     it 'creates a student section assignment' do
       row, _, _ = create_test_records_and_test_row()
       importer = make_importer_for_import_row_test()
-      
+
       importer.send(:import_row, row)
       expect(StudentSectionAssignment.count).to eq(1)
     end
@@ -293,7 +293,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
         district_school_year: district_school_year
       }
     end
-    
+
     it 'deletes all student section assignments except the recently imported one' do
       # other sections already in db, which should be deleted during test
       FactoryBot.create_list(:student_section_assignment, 20)

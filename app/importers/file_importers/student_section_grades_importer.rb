@@ -111,8 +111,8 @@ class StudentSectionGradesImporter
   # Assume all grades are referencing sections within the current district_school_year,
   # based on wall clock and Insights school year cutoff.
   # Ideally, this would be exported explicitly.
-  def default_district_school_year(options)
-    time_now = Time.now
+  def default_district_school_year(options = {})
+    time_now = options.fetch(:time_now, Time.now)
     school_year_now = SchoolYear.to_school_year(time_now)
     school_year_now + 1 # convert from insights to `district_school_year`
   end

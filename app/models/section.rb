@@ -1,4 +1,4 @@
-# Holds all-time list of sections (Course records are scoped by `district_school_year`).
+# Holds all-time list of sections, scoped by `district_school_year`
 #
 # Record identity should be immutable, while values like `schedule` are mutable and
 # reflect the value from the last export.
