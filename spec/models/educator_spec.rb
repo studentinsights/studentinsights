@@ -278,4 +278,22 @@ RSpec.describe Educator do
       ])
     end
   end
+
+  describe '#active' do
+    let!(:pals) { TestPals.create! }
+
+    it 'looks at missing_from_last_export' do
+      pals.rich_districtwide.update!(missing_from_last_export: true)
+      expect(pals.rich_districtwide.active?).to eq false
+    end
+
+    it 'supports whitelist' do
+      pals.rich_districtwide.update!(missing_from_last_export: true)
+
+      mock_per_district = PerDistrict.new
+      allow(mock_per_district).to receive(:educator_login_names_whitelisted_as_active).and_return(['rich'])
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      expect(pals.rich_districtwide.active?).to eq true
+    end
+  end
 end
