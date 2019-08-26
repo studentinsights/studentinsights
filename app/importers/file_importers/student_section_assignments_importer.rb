@@ -120,10 +120,10 @@ class StudentSectionAssignmentsImporter
 
     course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
     if course.nil?
-      @invalid_course_count +=1
+      @invalid_course_count += 1
       return nil
     elsif section.nil?
-      @invalid_section_count +=1
+      @invalid_section_count += 1
       return nil
     elsif warning == :school_year_warning
       @warning_unexpected_district_school_year_count += 1

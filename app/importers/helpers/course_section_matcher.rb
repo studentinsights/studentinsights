@@ -51,7 +51,7 @@ class CourseSectionMatcher
     return nil if row[:district_school_year].nil?
 
     Section.find_by({
-      course: course,
+      course_id: course.id,
       section_number: row[:section_number],
       term_local_id: row[:term_local_id],
       district_school_year: row[:district_school_year]
