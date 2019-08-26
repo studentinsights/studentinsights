@@ -10,7 +10,16 @@ RSpec.describe StudentSectionAssignmentsImporter do
     importer
   end
 
+  def create_students_for_fixture
+    FactoryBot.create(:student, local_id: '111')
+    FactoryBot.create(:student, local_id: '222')
+    FactoryBot.create(:student, local_id: '333')
+  end
+
   def create_test_setup!(district_school_year)
+    east = School.find_by_local_id('ESCS')
+
+    # db state    
     east_history = FactoryBot.create(:course, course_number: 'SOC6', school: east)
     shs_history = FactoryBot.create(:course, course_number: 'SOC6', school: high_school)
     shs_ela = FactoryBot.create(:course, course_number: 'ELA6', school: high_school)
@@ -56,22 +65,17 @@ RSpec.describe StudentSectionAssignmentsImporter do
       transformer.transform(file)
     end
 
-    let!(:east) { School.find_by_local_id('ESCS') }
-    let!(:log) { LogHelper::FakeLog.new }
-    let!(:importer) { make_importer(log: log) }
-    before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export.txt") }
+    # let!(:east) { School.find_by_local_id('ESCS') }
+    # let!(:log) { LogHelper::FakeLog.new }
+    # let!(:importer) { make_importer(log: log) }
+    # before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export.txt") }
 
     # These match the fixture file
-    before do
-      FactoryBot.create(:student, local_id: '111')
-      FactoryBot.create(:student, local_id: '222')
-      FactoryBot.create(:student, local_id: '333')
-    end
-
-    # when no school year in db, doesn't match
-    # when wrong school year in db, doesn't match
-    # when right school year in db, matches
-    # when import has old school year, warns
+    # before do
+    #   FactoryBot.create(:student, local_id: '111')
+    #   FactoryBot.create(:student, local_id: '222')
+    #   FactoryBot.create(:student, local_id: '333')
+    # end
 
     # let!(:east_history) { FactoryBot.create(:course, course_number: 'SOC6', school: east) }
     # let!(:shs_history) { FactoryBot.create(:course, course_number: 'SOC6', school: high_school) }
@@ -81,6 +85,53 @@ RSpec.describe StudentSectionAssignmentsImporter do
     # let!(:shs_history_section) { FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001') }
     # let!(:shs_ela_section) { FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002') }
     # let!(:shs_math_section) { FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004') }
+    
+    it 'considers rows without district_school_year invalid' do
+      create_students_for_fixture()
+      create_test_setup!(nil)
+
+      log = LogHelper::FakeLog.new
+      importer = make_importer(log: log)
+      mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export_without_district_school_year.txt")
+      importer.import
+      puts log.output
+
+      expect(StudentSectionAssignment.count).to eq 0
+      expect(log.output).to include '@invalid_section_count: 6'
+      expect(log.output).to include ':invalid_rows_count=>6'
+    end
+
+    it 'counts warnings when import rows have old school year' do
+      old_time_now = TestPals.new.time_now - 2.years
+      old_school_year = SchoolYear.to_school_year(time_now)
+      Timecop.freeze(old_time_now) do
+        create_test_setup!(old_school_year)
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export_2019.txt")
+        importer.import
+        puts log.output
+
+        expect(StudentSectionAssignment.count).to eq 0
+        expect(log.output).to include '@invalid_section_count: 0'
+        expect(log.output).to include '@warning_unexpected_district_school_year_count: 6'
+        expect(log.output).to include ':invalid_rows_count=>6'
+      end
+    end
+
+    # it 'does not match rows when no school year in db' do
+    #   create_test_setup!(nil)
+    #   expect(StudentSectionAssignment.count).to eq 0
+    #   expect(log.output).to include '@invalid_section_count: 6'
+    #   expect(log.output).to include ':invalid_rows_count=>6'
+    # end
+
+    # when wrong school year in db, doesn't match
+    # when right school year in db, matches
+    
+
+
+
 
     it 'works' do
       create_test_setup!(nil)
