@@ -100,19 +100,21 @@ class EducatorSectionAssignmentsImporter
   end
 
   def matching_insights_record_for_row(row)
-    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
-    if course.nil?
-      @invalid_course_count +=1
-    elsif section.nil?
-      @invalid_section_count +=1
-    elsif warning == :school_year_warning
-      @warning_unexpected_district_school_year_count += 1
-    end
-
     educator_id = @matcher.find_educator_id(row[:login_name])
     if educator_id.nil?
       @invalid_educator_count += 1
       return nil
+    end
+
+    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
+    if course.nil?
+      @invalid_course_count +=1
+      return nil
+    elsif section.nil?
+      @invalid_section_count +=1
+      return nil
+    elsif warning == :school_year_warning
+      @warning_unexpected_district_school_year_count += 1
     end
 
     EducatorSectionAssignment.find_or_initialize_by({

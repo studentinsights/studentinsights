@@ -112,19 +112,21 @@ class StudentSectionAssignmentsImporter
   # Matches a row from a CSV export with an existing or new (unsaved) Insights record
   # Returns nil if something about the CSV row is invalid and it can't process the row.
   def matching_insights_record_for_row(row)
-    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
-    if course.nil?
-      @invalid_course_count +=1
-    elsif section.nil?
-      @invalid_section_count +=1
-    elsif warning == :school_year_warning
-      @warning_unexpected_district_school_year_count += 1
-    end
-
     student_id = find_student_id(row)
     if student_id.nil?
       @invalid_student_count += 1
       return nil
+    end
+
+    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
+    if course.nil?
+      @invalid_course_count +=1
+      return nil
+    elsif section.nil?
+      @invalid_section_count +=1
+      return nil
+    elsif warning == :school_year_warning
+      @warning_unexpected_district_school_year_count += 1
     end
 
     StudentSectionAssignment.find_or_initialize_by({

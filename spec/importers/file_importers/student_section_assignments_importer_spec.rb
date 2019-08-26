@@ -10,14 +10,48 @@ RSpec.describe StudentSectionAssignmentsImporter do
     importer
   end
 
+  def make_importer(options = {})
+    StudentSectionAssignmentsImporter.new(options: {
+      school_scope: nil,
+      log: LogHelper::FakeLog.new
+    }.merge(options))
+  end
+
+  def mock_importer_with_csv(importer, csv)
+    allow(importer).to receive(:download_csv).and_return(csv)
+    importer
+  end
+
+  def fixture_without_years
+    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_without_district_school_year.txt"
+    test_csv_from_file(filename)
+  end
+
+  def fixture_for_district_school_year(district_school_year)
+    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_with_district_school_year_token.txt"
+    file = File.read(filename)
+    file_with_school_year = file.gsub('<district_school_year>', district_school_year.to_s)
+
+    transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
+    transformer.transform(file_with_school_year)
+  end
+
+  def test_csv_from_file(filename)
+    file = File.read(filename)
+    transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
+    transformer.transform(file)
+  end
+
   def create_students_for_fixture
     FactoryBot.create(:student, local_id: '111')
     FactoryBot.create(:student, local_id: '222')
     FactoryBot.create(:student, local_id: '333')
   end
 
-  def create_test_setup!(district_school_year)
+  def create_courses_and_sections(options = {})
+    district_school_year = options.fetch(:district_school_year, nil)
     east = School.find_by_local_id('ESCS')
+    high_school = School.find_by_local_id('SHS')
 
     # db state    
     east_history = FactoryBot.create(:course, course_number: 'SOC6', school: east)
@@ -41,148 +75,137 @@ RSpec.describe StudentSectionAssignmentsImporter do
     }
   end
 
-  before { TestPals.seed_somerville_schools_for_test! }
-  let(:high_school) { School.find_by_local_id('SHS') }
-  let(:student_section_assignments_importer) { make_importer_with_initialization }
-
   describe 'integration tests' do
-    def make_importer(options = {})
-      StudentSectionAssignmentsImporter.new(options: {
-        school_scope: nil,
-        log: LogHelper::FakeLog.new
-      }.merge(options))
-    end
+    before { TestPals.seed_somerville_schools_for_test! }
 
-    def mock_importer_with_csv(importer, filename)
-      csv = test_csv_from_file(filename)
-      allow(importer).to receive(:download_csv).and_return(csv)
-      importer
-    end
-
-    def test_csv_from_file(filename)
-      file = File.read(filename)
-      transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
-      transformer.transform(file)
-    end
-
-    # let!(:east) { School.find_by_local_id('ESCS') }
-    # let!(:log) { LogHelper::FakeLog.new }
-    # let!(:importer) { make_importer(log: log) }
-    # before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export.txt") }
-
-    # These match the fixture file
-    # before do
-    #   FactoryBot.create(:student, local_id: '111')
-    #   FactoryBot.create(:student, local_id: '222')
-    #   FactoryBot.create(:student, local_id: '333')
-    # end
-
-    # let!(:east_history) { FactoryBot.create(:course, course_number: 'SOC6', school: east) }
-    # let!(:shs_history) { FactoryBot.create(:course, course_number: 'SOC6', school: high_school) }
-    # let!(:shs_ela) { FactoryBot.create(:course, course_number: 'ELA6', school: high_school) }
-    # let!(:shs_math) { FactoryBot.create(:course, course_number: 'ALG2', school: high_school) }
-    # let!(:east_history_section) { FactoryBot.create(:section, course: east_history, section_number: 'SOC6-001') }
-    # let!(:shs_history_section) { FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001') }
-    # let!(:shs_ela_section) { FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002') }
-    # let!(:shs_math_section) { FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004') }
-    
-    it 'considers rows without district_school_year invalid' do
+    it 'considers section rows invalid if they are missing district_school_year, even if they would match section records with district_school_year:nil' do
       create_students_for_fixture()
-      create_test_setup!(nil)
+      create_courses_and_sections(district_school_year: nil)
 
       log = LogHelper::FakeLog.new
       importer = make_importer(log: log)
-      mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export_without_district_school_year.txt")
+      mock_importer_with_csv(importer, fixture_without_years)
       importer.import
-      puts log.output
 
+      expect(log.output).to include '@invalid_student_count: 1'
+      expect(log.output).to include '@invalid_course_count: 1'
+      expect(log.output).to include '@invalid_section_count: 5'
+      expect(log.output).to include ':passed_nil_record_count=>7'
+      expect(log.output).to include ':created_rows_count=>0'
       expect(StudentSectionAssignment.count).to eq 0
-      expect(log.output).to include '@invalid_section_count: 6'
-      expect(log.output).to include ':invalid_rows_count=>6'
     end
 
-    it 'counts warnings when import rows have old school year' do
-      old_time_now = TestPals.new.time_now - 2.years
-      old_school_year = SchoolYear.to_school_year(time_now)
-      Timecop.freeze(old_time_now) do
-        create_test_setup!(old_school_year)
+    it 'imports rows but warns if the district_school_year matches but is older than wall clock' do
+      time_now = TestPals.new.time_now
+      old_district_school_year = 1 + SchoolYear.to_school_year(time_now - 2.years)
+      Timecop.freeze(time_now) do
+        create_students_for_fixture()
+        create_courses_and_sections(district_school_year: old_district_school_year)
+
         log = LogHelper::FakeLog.new
         importer = make_importer(log: log)
-        mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export_2019.txt")
+        mock_importer_with_csv(importer, fixture_for_district_school_year(old_district_school_year))
         importer.import
-        puts log.output
 
-        expect(StudentSectionAssignment.count).to eq 0
-        expect(log.output).to include '@invalid_section_count: 0'
-        expect(log.output).to include '@warning_unexpected_district_school_year_count: 6'
-        expect(log.output).to include ':invalid_rows_count=>6'
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 1'
+        expect(log.output).to include '@warning_unexpected_district_school_year_count: 4'
+        expect(log.output).to include ':passed_nil_record_count=>3'
+        expect(log.output).to include ':created_rows_count=>4'
+        expect(StudentSectionAssignment.count).to eq 4
       end
     end
 
-    # it 'does not match rows when no school year in db' do
-    #   create_test_setup!(nil)
-    #   expect(StudentSectionAssignment.count).to eq 0
-    #   expect(log.output).to include '@invalid_section_count: 6'
-    #   expect(log.output).to include ':invalid_rows_count=>6'
-    # end
+    it 'considers section rows invalid, even if they match on all fields but district_school_year' do
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      create_students_for_fixture()
+      create_courses_and_sections(district_school_year: district_school_year - 2)
 
-    # when wrong school year in db, doesn't match
-    # when right school year in db, matches
+      Timecop.freeze(time_now) do
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(district_school_year))
+        importer.import
+
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 5'
+        expect(log.output).to include ':passed_nil_record_count=>7'
+        expect(log.output).to include ':created_rows_count=>0'
+        expect(StudentSectionAssignment.count).to eq 0
+      end
+    end
     
+    it 'matches when section rows match district_school_year' do
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      create_students_for_fixture()
+      create_courses_and_sections(district_school_year: district_school_year)
 
+      Timecop.freeze(time_now) do
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(district_school_year))
+        importer.import
 
-
-
-    it 'works' do
-      create_test_setup!(nil)
-      importer.import
-      puts log.output
-
-      expect(StudentSectionAssignment.count).to eq 4
-      expect(log.output).to include '@invalid_student_count: 2'
-      expect(log.output).to include '@invalid_course_count: 1'
-      expect(log.output).to include '@invalid_section_count: 1'
-      expect(log.output).to include ':passed_nil_record_count=>4'
-      expect(log.output).to include ':created_rows_count=>4'
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 1'
+        expect(log.output).to include ':passed_nil_record_count=>3'
+        expect(log.output).to include ':created_rows_count=>4'
+        expect(StudentSectionAssignment.count).to eq 4
+      end
     end
 
     it 'syncs when existing records' do
-      test_records = create_test_setup!(nil)
-      east_history_section = test_records[:east_history_section]
-      shs_math_section = test_records[:shs_math_section]
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      create_students_for_fixture()
+      test_records = create_courses_and_sections(district_school_year: district_school_year)
 
       # will be unchanged
+      east_history_section = test_records[:east_history_section]
       StudentSectionAssignment.create!({
         student: Student.find_by_local_id('111'),
         section: east_history_section
       })
+
       # will be deleted
+      shs_math_section = test_records[:shs_math_section]
       StudentSectionAssignment.create!({
         student: Student.find_by_local_id('333'),
         section: shs_math_section
       })
       expect(StudentSectionAssignment.count).to eq 2
 
-      importer.import
-      expect(log.output).to include '@invalid_student_count: 2'
-      expect(log.output).to include '@invalid_course_count: 1'
-      expect(log.output).to include '@invalid_section_count: 1'
-      expect(log.output).to include ':passed_nil_record_count=>4'
-      expect(log.output).to include ':unchanged_rows_count=>1'
-      expect(log.output).to include ':created_rows_count=>3'
-      expect(log.output).to include ':destroyed_records_count=>1'
-      expect(StudentSectionAssignment.count).to eq 4
-    end
+      Timecop.freeze(time_now) do
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(district_school_year))
+        importer.import
 
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 1'
+        expect(log.output).to include ':passed_nil_record_count=>3'
+        expect(log.output).to include ':unchanged_rows_count=>1'
+        expect(log.output).to include ':created_rows_count=>3'
+        expect(log.output).to include ':destroyed_records_count=>1'
+        expect(StudentSectionAssignment.count).to eq 4
+      end
+    end
   end
 
   describe '#import_row' do
+    let!(:student_section_assignments_importer) { make_importer_with_initialization }
     let!(:course) { FactoryBot.create(:course, school: high_school) }
     let!(:section) { FactoryBot.create(:section, course: course) }
     let!(:student) { FactoryBot.create(:student) }
 
     context 'happy path' do
-      let(:row) {
+      let(:row) do
         {
           local_id: student.local_id,
           course_number: section.course.course_number,
@@ -190,20 +213,20 @@ RSpec.describe StudentSectionAssignmentsImporter do
           section_number: section.section_number,
           term_local_id: 'FY'
         }
-      }
+      end
 
-        before do
-          student_section_assignments_importer.send(:import_row, row)
-        end
+      before do
+        student_section_assignments_importer.send(:import_row, row)
+      end
 
-        it 'creates a student section assignment' do
-          expect(StudentSectionAssignment.count).to eq(1)
-        end
+      it 'creates a student section assignment' do
+        expect(StudentSectionAssignment.count).to eq(1)
+      end
 
-        it 'assigns the proper student to the proper section' do
-          expect(StudentSectionAssignment.first.student).to eq(student)
-          expect(StudentSectionAssignment.first.section).to eq(section)
-        end
+      it 'assigns the proper student to the proper section' do
+        expect(StudentSectionAssignment.first.student).to eq(student)
+        expect(StudentSectionAssignment.first.section).to eq(section)
+      end
     end
 
     context 'student lasid is missing' do

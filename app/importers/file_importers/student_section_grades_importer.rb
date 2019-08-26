@@ -37,11 +37,12 @@ class StudentSectionGradesImporter
 
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
+    @district_school_year = options.fetch(:district_school_year, default_district_school_year)
     @log = options.fetch(:log)
     @student_lasid_map = Student.pluck(:local_id,:id).to_h
-    @section_number_map = Section.joins(course: :school)
+    @section_number_map = Section.where(district_school_year: district_school_year).joins(course: :school)
                                  .select("sections.id", "sections.section_number", "sections.term_local_id", "schools.local_id as school_local_id", "courses.course_number as section_course_number")
-                                 .map { |item| [item.section_number + "|" + item.term_local_id + "|" + item.school_local_id + "|"  + item.section_course_number, item.id] }
+                                 .map{|section| [make_section_key_for_row(section.as_json), section.id] }
                                  .to_h
   end
 
@@ -75,7 +76,8 @@ class StudentSectionGradesImporter
 
   def import_row(row)
     student_id = @student_lasid_map[row[:student_local_id]] if row[:student_local_id]
-    section_id = @section_number_map["#{row[:section_number]}|#{row[:term_local_id]}|#{row[:school_local_id]}|#{row[:course_number]}"]
+    section_key = make_section_key_for_row(row)
+    section_id = @section_number_map[section_key]
 
     student_section_assignment = StudentSectionGradeRow.new(row, student_id, section_id).build
     if student_section_assignment
@@ -94,5 +96,24 @@ class StudentSectionGradesImporter
         grade: row[:grade]
       })
     end
+  end
+
+  private
+  def make_section_key_for_row(row)
+    [
+      row[:section_number],
+      row[:term_local_id],
+      row[:school_local_id],
+      row[:course_number]
+    ].join('|')
+  end
+
+  # Assume all grades are referencing sections within the current district_school_year,
+  # based on wall clock and Insights school year cutoff.
+  # Ideally, this would be exported explicitly.
+  def default_district_school_year(options)
+    time_now = Time.now
+    school_year_now = SchoolYear.to_school_year(time_now)
+    school_year_now + 1 # convert from insights to `district_school_year`
   end
 end
