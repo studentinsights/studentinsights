@@ -8,9 +8,9 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     }.merge(options))
   end
 
-  def make_importer_mocked_for_unit_test()
+  def make_importer_mocked_for_unit_test(options = {})
     log = LogHelper::FakeLog.new
-    importer = make_importer(log: log)
+    importer = make_importer({log: log}.merge(options))
     importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
     [importer, log]
   end
@@ -39,8 +39,6 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   end
 
   def create_records_for_tests_with_fixture_file(district_school_year)
-    # let!(:section) { FactoryBot.create(:section) }
-    # let!(:educator) { FactoryBot.create(:educator) }
     TestPals.seed_somerville_schools_for_test!
     high_school = School.find_by_local_id('SHS')
 
@@ -61,6 +59,22 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     {
       shs_history_section: shs_history_section
     }
+  end
+
+  def make_test_row(district_school_year, options = {})
+    school = options.has_key?(:school) ? options[:school] : FactoryBot.create(:shs)
+    course = FactoryBot.create(:course, school: school)
+    section = FactoryBot.create(:section, course: course, district_school_year: district_school_year)
+    educator = FactoryBot.create(:educator)
+    row = {
+      login_name: educator.login_name,
+      course_number: section.course.course_number,
+      school_local_id: school.local_id,
+      section_number: section.section_number,
+      term_local_id: 'FY',
+      district_school_year: district_school_year
+    }
+    [row, educator, section]
   end
 
   describe '#import integration tests' do
@@ -108,22 +122,6 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   end
 
   describe '#import_row' do
-    def make_test_row(district_school_year)
-      high_school = FactoryBot.create(:shs)
-      course = FactoryBot.create(:course, school: high_school)
-      section = FactoryBot.create(:section, course: course, district_school_year: district_school_year)
-      educator = FactoryBot.create(:educator, login_name: 'pmartinez')
-      row = {
-        login_name: educator.login_name,
-        course_number: section.course.course_number,
-        school_local_id: high_school.local_id,
-        section_number: section.section_number,
-        term_local_id: 'FY',
-        district_school_year: district_school_year
-      }
-      [row, educator, section]
-    end
-
     it 'assigns the proper student to the proper section' do
       district_school_year, time_now = test_district_school_year()
       Timecop.freeze(time_now) do
@@ -184,78 +182,93 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       nil
     end
 
-    let(:log) { LogHelper::Redirect.instance.file }
-    let!(:school) { FactoryBot.create(:shs) }
-    let!(:section) { FactoryBot.create(:section) }
-    let!(:educator) { FactoryBot.create(:educator, login_name: 'pmartinez') }
-    let(:row) { {
-      login_name: 'pmartinez',
-      course_number:section.course.course_number,
-      school_local_id: section.course.school.local_id,
-      section_number:section.section_number,
-      term_local_id:section.term_local_id
-    } }
+    it 'deletes all student section assignments except the recently imported one' do
+      district_school_year, time_now = test_district_school_year()
+      Timecop.freeze(time_now) do
+        # existing
+        FactoryBot.create_list(:educator_section_assignment, 20)
+        expect(EducatorSectionAssignment.all.size).to eq 20
 
-    context 'happy path' do
-      let(:educator_section_assignments_importer) do
-        make_importer(school_scope: School.pluck(:local_id))
-      end
-
-      before do
-        FactoryBot.create_list(:educator_section_assignment,20)
-        FactoryBot.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
-
-        educator_section_assignments_importer.send(:import_row, row)
-        sync_records(educator_section_assignments_importer)
-      end
-
-      it 'deletes all student section assignments except the recently imported one' do
-        expect(EducatorSectionAssignment.count).to eq(1)
+        # import new one
+        row, _, _ = make_test_row(district_school_year)
+        importer, log = make_importer_mocked_for_unit_test(school_scope: School.pluck(:local_id))
+        importer.send(:import_row, row)
+        expect(EducatorSectionAssignment.all.size).to eq 21
+        
+        # delete older records after sync
+        sync_records(importer)
+        expect(log.output).to include 'records_within_import_scope.size: 21 in Insights'
+        expect(log.output).to include '@marked_ids.size = 1 from this import'
+        expect(log.output).to include 'records_to_process.size: 20 within scope'
+        expect(EducatorSectionAssignment.all.size).to eq 1
       end
     end
 
-    context 'delete only stale assignments from schools being imported' do
-      let(:educator_section_assignments_importer) do
-        make_importer(school_scope: ['SHS'])
-      end
+    it 'respects school_scope when syncing' do
+      district_school_year, time_now = test_district_school_year()
+      Timecop.freeze(time_now) do
+        # existing
+        FactoryBot.create_list(:educator_section_assignment, 20)
+        expect(EducatorSectionAssignment.all.size).to eq 20
 
-      before do
-        FactoryBot.create_list(:educator_section_assignment,20)
-        FactoryBot.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
-
-        educator_section_assignments_importer.send(:import_row, row)
-        sync_records(educator_section_assignments_importer)
-      end
-
-      it 'deletes all student section assignments for this school except the recently imported one' do
-        expect(EducatorSectionAssignment.count).to eq(21)
+        # import new one
+        row, _, _ = make_test_row(district_school_year)
+        importer, log = make_importer_mocked_for_unit_test(school_scope: ['SHS'])
+        importer.send(:import_row, row)
+        expect(EducatorSectionAssignment.all.size).to eq 21
+        
+        # delete older records after sync
+        sync_records(importer)
+        expect(log.output).to include 'records_within_import_scope.size: 1 in Insights'
+        expect(log.output).to include '@marked_ids.size = 1 from this import'
+        expect(log.output).to include 'records_to_process.size: 0 within scope'
+        expect(EducatorSectionAssignment.all.size).to eq 21
       end
     end
   end
 
   describe '#matching_insights_record_for_row' do
-    let!(:educator) { FactoryBot.create(:educator, login_name: 'pmartinez') }
-    let!(:section) { FactoryBot.create(:section) }
-    let!(:importer) { make_importer }
-
-    it 'works when match' do
-      maybe_assignment_record = make_importer.send(:matching_insights_record_for_row, {
-        login_name: 'pmartinez',
-        section_number: section.section_number,
-        term_local_id: section.term_local_id
-      })
-      expect(maybe_assignment_record.persisted?).to eq false
-      expect(maybe_assignment_record.educator_id).to eq educator.id
-      expect(maybe_assignment_record.section_id).to eq section.id
+    it 'works when match exists' do
+      district_school_year, time_now = test_district_school_year()
+      Timecop.freeze(time_now) do
+        row, educator, section = make_test_row(district_school_year)
+        importer, _ = make_importer_mocked_for_unit_test()
+        maybe_assignment_record = importer.send(:matching_insights_record_for_row, row)
+        expect(maybe_assignment_record.persisted?).to eq false
+        expect(maybe_assignment_record.educator_id).to eq educator.id
+        expect(maybe_assignment_record.section_id).to eq section.id
+      end
     end
 
     it 'does not match when different term_local_id' do
-      maybe_assignment_record = make_importer.send(:matching_insights_record_for_row, {
-        login_name: 'pmartinez',
-        section_number: section.section_number,
-        term_local_id: 'Q1'
-      })
-      expect(maybe_assignment_record).to eq nil
+      district_school_year, time_now = test_district_school_year()
+      Timecop.freeze(time_now) do
+        row, _, _ = make_test_row(district_school_year)
+        importer, _ = make_importer_mocked_for_unit_test()
+        maybe_assignment_record = importer.send(:matching_insights_record_for_row, row.merge({
+          term_local_id: 'Q1', # different value
+        }))
+        expect(maybe_assignment_record).to eq nil
+      end
+    end
+
+    it 'scopes the matching by section_number to within proper school' do
+      district_school_year, time_now = test_district_school_year()
+      Timecop.freeze(time_now) do
+        # existing db, with similar records across schools
+        TestPals.seed_somerville_schools_for_test!
+        _, _, _ = make_test_row(district_school_year, school: School.find_by_local_id('BRN'))
+        row, educator, healey_section = make_test_row(district_school_year, school: School.find_by_local_id('HEA'))
+        _, _, _ = make_test_row(district_school_year, school: School.find_by_local_id('WSNS'))
+        expect(Course.all.size).to eq 3
+        expect(Section.all.size).to eq 3
+
+        # matches for the correct school
+        importer, _ = make_importer_mocked_for_unit_test()
+        maybe_assignment_record = importer.send(:matching_insights_record_for_row, row)
+        expect(maybe_assignment_record.educator).to eq educator
+        expect(maybe_assignment_record.section).to eq healey_section
+      end
     end
   end
 end
