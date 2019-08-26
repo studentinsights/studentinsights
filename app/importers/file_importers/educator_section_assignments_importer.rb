@@ -18,6 +18,9 @@ class EducatorSectionAssignmentsImporter
   def initialize(options:)
     @school_local_ids = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
+    
+    @matcher = ::ImportMatcher.new(log: @log)
+    @course_section_matcher = ::CourseSectionMatcher.new(log: log)
     @syncer = ::RecordSyncer.new(log: @log)
     reset_counters!
   end
@@ -37,8 +40,9 @@ class EducatorSectionAssignmentsImporter
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@invalid_section_count: #{@invalid_section_count}")
     log("@invalid_educator_count: #{@invalid_educator_count}")
+    log("@invalid_course_count: #{@invalid_course_count}")
+    log("@invalid_section_count: #{@invalid_section_count}")
     log('')
 
     log('Calling RecordSyncer#delete_unmarked_records...')
@@ -49,8 +53,9 @@ class EducatorSectionAssignmentsImporter
   private
   def reset_counters!
     @skipped_from_school_filter = 0
-    @invalid_section_count = 0
     @invalid_educator_count = 0
+    @invalid_course_count = 0
+    @invalid_section_count = 0
   end
 
   # What existing Insights records should be updated or deleted from running this import?
@@ -92,13 +97,19 @@ class EducatorSectionAssignmentsImporter
   end
 
   def matching_insights_record_for_row(row)
-    section_id = find_section_id(row)
-    if section_id.nil?
-      @invalid_section_count += 1
+    course = @course_section_matcher.find_course(row)
+    if course.nil?
+      @invalid_course_count +=1
       return nil
     end
 
-    educator_id = find_educator_id(row)
+    section = @course_section_matcher.find_section(row, course)
+    if section.nil?
+      @invalid_section_count +=1
+      return nil
+    end
+
+    educator_id = @matcher.find_educator_id(row[:login_name])
     if educator_id.nil?
       @invalid_educator_count += 1
       return nil
@@ -106,22 +117,8 @@ class EducatorSectionAssignmentsImporter
 
     EducatorSectionAssignment.find_or_initialize_by({
       educator_id: educator_id,
-      section_id: section_id
+      section_id: section.id
     })
-  end
-
-  def find_section_id(row)
-    return nil if row[:section_number].nil?
-    return nil if row[:term_local_id].nil? # export includes empty string (<10 records) but we disallow in model validations
-    Section.find_by({
-      section_number: row[:section_number],
-      term_local_id: row[:term_local_id]
-    }).try(:id)
-  end
-
-  def find_educator_id(row)
-    return nil if row[:login_name].nil?
-    Educator.find_by(login_name: row[:login_name]).try(:id)
   end
 
   def log(msg)

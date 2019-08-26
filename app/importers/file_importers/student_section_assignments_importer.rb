@@ -19,6 +19,9 @@ class StudentSectionAssignmentsImporter
     @school_local_ids = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
     @student_ids_map = ::StudentIdsMap.new
+
+    @matcher = ::ImportMatcher.new(log: @log)
+    @course_section_matcher = ::CourseSectionMatcher.new(log: log)
     @syncer = ::RecordSyncer.new(log: @log)
     reset_counters!
   end
@@ -113,13 +116,13 @@ class StudentSectionAssignmentsImporter
       return nil
     end
 
-    course = find_course(row)
+    course = @course_section_matcher.find_course(row)
     if course.nil?
       @invalid_course_count +=1
       return nil
     end
 
-    section = find_section(row, course)
+    section = @course_section_matcher.find_section(row, course)
     if section.nil?
       @invalid_section_count +=1
       return nil
@@ -134,25 +137,6 @@ class StudentSectionAssignmentsImporter
   def find_student_id(row)
     return nil unless row[:local_id]
     @student_ids_map.lookup_student_id(row[:local_id])
-  end
-
-  def find_course(row)
-    return nil unless row[:course_number]
-
-    school_local_id = row[:school_local_id]
-    school_id = @school_ids_dictionary[school_local_id]
-
-    Course.find_by(course_number: row[:course_number], school_id: school_id)
-  end
-
-  def find_section(row, course)
-    return nil unless row[:section_number]
-
-    Section.find_by(
-      section_number: row[:section_number],
-      course: course,
-      term_local_id: row[:term_local_id]
-    )
   end
 
   def log(msg)
