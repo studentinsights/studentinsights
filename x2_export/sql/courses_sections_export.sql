@@ -28,9 +28,9 @@ LEFT JOIN course_school
 INNER JOIN school
   ON course_school.CSK_SKL_OID = school.SKL_OID
 INNER JOIN school_schedule_context
-  ON school_schedule_context.SKX_OID = school.SKL_SKX_OID_ACTIVE
+  ON school_schedule_context.SKX_OID = school.SKL_SKX_OID_ACTIV # no "E" at the end of active
  AND school_schedule_context.SKX_SCH_OID_ACTIVE = schedule.SCH_OID
 INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/courses_sections_export.txt"
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\r\n'
+  FIELDS TERMINATED BY ','
+  ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
