@@ -30,7 +30,7 @@
         </thead>
         <tbody>
           <% educators = (@can_set_educators + @admin_educators + @districtwide_educators).uniq.sort_by do |educator|
-              [educator.missing_from_last_export ? 1 : 0]
+              [educator.active? ? 0 : 1]
             end
           %>
           <% educators.map do |educator| %>
