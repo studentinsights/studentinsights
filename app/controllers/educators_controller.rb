@@ -28,9 +28,13 @@ class EducatorsController < ApplicationController
         :schoolwide_access,
         :districtwide_access,
         :grade_level_access,
+        :missing_from_last_export,
         :admin
       ],
-      :methods => [:labels],
+      :methods => [
+        :active?,
+        :labels
+      ],
       :include => {
         :school => { :only => [:id, :name] },
         :sections => {
