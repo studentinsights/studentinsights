@@ -398,11 +398,12 @@ export default class CounselorMeetingsView extends React.Component {
     );
   }
 
+  // No link, since row is clickable; folks can navigate to profile after viewing inline
   renderName(cellProps) {
     const student = cellProps.rowData;
     return (
       <div style={styles.nameBlock}>
-        <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+        <span style={{fontSize: 14}}>{student.first_name} {student.last_name}</span>
         {student.has_photo && (
           <StudentPhotoCropped
             studentId={student.id}
