@@ -34,7 +34,7 @@
             end
           %>
           <% educators.map do |educator| %>
-            <tr style="<%= row_style_string(educator) %>">
+            <tr style="cursor: default; <%= row_style_string(educator) %>">
               <td style="padding: 10px; padding-left: 5px;"><%= educator.email %></td>
               <td style="padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
               <td style="padding: 10px; padding-left: 5px;">
@@ -72,7 +72,7 @@
       </table>
     </div>
 
-    <h2 style="margin-top: 40px;">Educator homepages</h2>
+    <h2 style="margin-top: 40px;">Educator permissions</h2>
     <div style="padding-top: 20px">
       <table style="text-align: left; border-collapse: collapse;">
           <thead>
@@ -81,6 +81,7 @@
               <th style="padding: 5px; text-align: left; background: #eee;">Name</th>
               <th style="padding: 5px; text-align: left; background: #eee;">School</th>
               <th style="padding: 5px; text-align: left; background: #eee;">Links</th>
+              <th style="padding: 5px; text-align: left; background: #eee;">Labels</th>
               <th style="padding: 5px; text-align: left; background: #eee;">Masquerade</th>
             </tr>
           </thead>
@@ -90,20 +91,29 @@
               sorted_educators = @all_educators.sort_by do |educator|
                 navbar_links = PathsForEducator.new(educator).navbar_links
                 @navbar_links_map[educator.id] = navbar_links
-                [educator.missing_from_last_export ? 1 : 0, navbar_links.keys]
+                [
+                  educator.missing_from_last_export ? 1 : 0,
+                  -1 * navbar_links.size,
+                  navbar_links.keys
+                ]
               end
             %>
             <% sorted_educators.map do |educator| %>
-              <tr style="vertical-align: top; <%= row_style_string(educator) %>">
-                <td style="padding: 10px; padding-left: 5px;"><%= educator.email %></td>
-                <td style="padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
-                <td style="padding: 10px; padding-left: 5px;"><%= educator.school.try(:name) %></td>
-                <td>
-                  <% @navbar_links_map[educator.id].map do |path, key| %>
-                    <%= link_to path, key %>
+              <tr style="cursor: default; vertical-align: top; <%= row_style_string(educator) %>">
+                <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= educator.email %></td>
+                <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
+                <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= educator.school.try(:name) %></td>
+                <td style="vertical-align: top;">
+                  <% @navbar_links_map[educator.id].each do |path, key| %>
+                    <div><%= link_to path, key %></div>
                   <% end %>
                 </td>
-                <td>
+                <td style="vertical-align: top;">
+                  <% educator.labels.sort.each do |label_key| %>
+                    <div><%= label_key %></div>
+                  <% end %>
+                </td>
+                <td style="vertical-align: top;">
                   <% if current_educator(super: true) != educator && current_educator != educator %>
                     <%= link_to 'become', admin_masquerade_become_path(masquerading_educator_id: educator.id), { method: :post, class: 'become-link' } %>
                   <% end %>
