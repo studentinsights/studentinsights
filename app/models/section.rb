@@ -17,7 +17,7 @@ class Section < ApplicationRecord
   has_many :educators, through: :educator_section_assignments
 
   validates :section_number, presence: true, uniqueness: {
-    scope: [:section_number, :course_id, :term_local_id]
+    scope: [:course_id, :district_school_year, :term_local_id, :section_number]
   }
   validates :course, presence: true
   validates :section_number, presence: true
