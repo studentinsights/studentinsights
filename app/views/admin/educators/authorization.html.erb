@@ -1,10 +1,10 @@
 <%= render 'navbar_for_admin_educator_permissions' %>
 <%
   def row_style_string(educator)
-    if educator.missing_from_last_export
-      'background-color: #f8f8f8; opacity: 0.5; text-decoration: line-through;'
-    else
+    if educator.active?
       ''
+    else
+      'background-color: #f8f8f8; opacity: 0.5; text-decoration: line-through;'
     end
   end
 %>
@@ -92,7 +92,7 @@
                 navbar_links = PathsForEducator.new(educator).navbar_links
                 @navbar_links_map[educator.id] = navbar_links
                 [
-                  educator.missing_from_last_export ? 1 : 0,
+                  educator.active? ? 0 : 1,
                   -1 * navbar_links.size,
                   navbar_links.keys
                 ]
