@@ -1,346 +1,389 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentsImporter do
-  def make_importer_with_initialization(options = {})
-    importer = StudentSectionAssignmentsImporter.new(options: {
+  def make_importer(options = {})
+    StudentSectionAssignmentsImporter.new(options: {
       school_scope: nil,
-      log: LogHelper::Redirect.instance.file
+      log: LogHelper::FakeLog.new
     }.merge(options))
+  end
+
+  def make_importer_for_import_row_test
+    importer = make_importer()
     importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
     importer
   end
 
-  before { TestPals.seed_somerville_schools_for_test! }
-  let(:high_school) { School.find_by_local_id('SHS') }
-  let(:student_section_assignments_importer) { make_importer_with_initialization }
+  def mock_importer_with_csv(importer, csv)
+    allow(importer).to receive(:download_csv).and_return(csv)
+    importer
+  end
+
+  def fixture_without_years
+    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_without_district_school_year.txt"
+    test_csv_from_file(filename)
+  end
+
+  def fixture_for_district_school_year(district_school_year)
+    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_with_district_school_year_token.txt"
+    file = File.read(filename)
+    file_with_school_year = file.gsub('<district_school_year>', district_school_year.to_s)
+
+    transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
+    transformer.transform(file_with_school_year)
+  end
+
+  def test_csv_from_file(filename)
+    file = File.read(filename)
+    transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
+    transformer.transform(file)
+  end
+
+  def create_students_for_fixture
+    FactoryBot.create(:student, local_id: '111')
+    FactoryBot.create(:student, local_id: '222')
+    FactoryBot.create(:student, local_id: '333')
+  end
+
+  def create_courses_and_sections(options = {})
+    district_school_year = options.fetch(:district_school_year, nil)
+    east = School.find_by_local_id('ESCS')
+    high_school = School.find_by_local_id('SHS')
+
+    # db state
+    east_history = FactoryBot.create(:course, course_number: 'SOC6', school: east)
+    shs_history = FactoryBot.create(:course, course_number: 'SOC6', school: high_school)
+    shs_ela = FactoryBot.create(:course, course_number: 'ELA6', school: high_school)
+    shs_math = FactoryBot.create(:course, course_number: 'ALG2', school: high_school)
+    east_history_section = FactoryBot.create(:section, course: east_history, section_number: 'SOC6-001', district_school_year: district_school_year)
+    shs_history_section = FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001', district_school_year: district_school_year)
+    shs_ela_section = FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002', district_school_year: district_school_year)
+    shs_math_section = FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004', district_school_year: district_school_year)
+
+    {
+      east_history: east_history,
+      shs_history: shs_history,
+      shs_ela: shs_ela,
+      shs_math: shs_math,
+      east_history_section: east_history_section,
+      shs_history_section: shs_history_section,
+      shs_ela_section: shs_ela_section,
+      shs_math_section: shs_math_section
+    }
+  end
 
   describe 'integration tests' do
-    def make_importer(options = {})
-      StudentSectionAssignmentsImporter.new(options: {
-        school_scope: nil,
-        log: LogHelper::FakeLog.new
-      }.merge(options))
-    end
+    before { TestPals.seed_somerville_schools_for_test! }
 
-    def mock_importer_with_csv(importer, filename)
-      csv = test_csv_from_file(filename)
-      allow(importer).to receive(:download_csv).and_return(csv)
-      importer
-    end
+    it 'considers section rows invalid if they are missing district_school_year, even if they would match section records with district_school_year:nil' do
+      create_students_for_fixture()
+      create_courses_and_sections(district_school_year: nil)
 
-    def test_csv_from_file(filename)
-      file = File.read(filename)
-      transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
-      transformer.transform(file)
-    end
-
-    let!(:east) { School.find_by_local_id('ESCS') }
-    let!(:log) { LogHelper::FakeLog.new }
-    let!(:importer) { make_importer(log: log) }
-    before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/student_section_assignment_export.txt") }
-
-    # These match the fixture file
-    before do
-      FactoryBot.create(:student, local_id: '111')
-      FactoryBot.create(:student, local_id: '222')
-      FactoryBot.create(:student, local_id: '333')
-    end
-
-    let!(:east_history) { FactoryBot.create(:course, course_number: 'SOC6', school: east) }
-    let!(:shs_history) { FactoryBot.create(:course, course_number: 'SOC6', school: high_school) }
-    let!(:shs_ela) { FactoryBot.create(:course, course_number: 'ELA6', school: high_school) }
-    let!(:shs_math) { FactoryBot.create(:course, course_number: 'ALG2', school: high_school) }
-    let!(:east_history_section) { FactoryBot.create(:section, course: east_history, section_number: 'SOC6-001') }
-    let!(:shs_history_section) { FactoryBot.create(:section, course: shs_history, section_number: 'SOC6-001') }
-    let!(:shs_ela_section) { FactoryBot.create(:section, course: shs_ela, section_number: 'ELA6-002') }
-    let!(:shs_math_section) { FactoryBot.create(:section, course: shs_math, section_number: 'ALG2-004') }
-
-    it 'works' do
+      log = LogHelper::FakeLog.new
+      importer = make_importer(log: log)
+      mock_importer_with_csv(importer, fixture_without_years)
       importer.import
-      expect(StudentSectionAssignment.count).to eq 4
-      expect(log.output).to include '@invalid_student_count: 2'
+
+      expect(log.output).to include '@invalid_student_count: 1'
       expect(log.output).to include '@invalid_course_count: 1'
-      expect(log.output).to include '@invalid_section_count: 1'
-      expect(log.output).to include ':passed_nil_record_count=>4'
-      expect(log.output).to include ':created_rows_count=>4'
+      expect(log.output).to include '@invalid_section_count: 5'
+      expect(log.output).to include ':passed_nil_record_count=>7'
+      expect(log.output).to include ':created_rows_count=>0'
+      expect(StudentSectionAssignment.count).to eq 0
+    end
+
+    it 'imports rows but warns if the district_school_year matches but is older than wall clock' do
+      time_now = TestPals.new.time_now
+      old_district_school_year = 1 + SchoolYear.to_school_year(time_now - 2.years)
+      Timecop.freeze(time_now) do
+        create_students_for_fixture()
+        create_courses_and_sections(district_school_year: old_district_school_year)
+
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(old_district_school_year))
+        importer.import
+
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 1'
+        expect(log.output).to include '@warning_unexpected_district_school_year_count: 4'
+        expect(log.output).to include ':passed_nil_record_count=>3'
+        expect(log.output).to include ':created_rows_count=>4'
+        expect(StudentSectionAssignment.count).to eq 4
+      end
+    end
+
+    it 'considers section rows invalid, even if they match on all fields but district_school_year' do
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      create_students_for_fixture()
+      create_courses_and_sections(district_school_year: district_school_year - 2)
+
+      Timecop.freeze(time_now) do
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(district_school_year))
+        importer.import
+
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 5'
+        expect(log.output).to include ':passed_nil_record_count=>7'
+        expect(log.output).to include ':created_rows_count=>0'
+        expect(StudentSectionAssignment.count).to eq 0
+      end
+    end
+
+    it 'matches when section rows match district_school_year' do
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      create_students_for_fixture()
+      create_courses_and_sections(district_school_year: district_school_year)
+
+      Timecop.freeze(time_now) do
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(district_school_year))
+        importer.import
+
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 1'
+        expect(log.output).to include ':passed_nil_record_count=>3'
+        expect(log.output).to include ':created_rows_count=>4'
+        expect(StudentSectionAssignment.count).to eq 4
+      end
     end
 
     it 'syncs when existing records' do
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      create_students_for_fixture()
+      test_records = create_courses_and_sections(district_school_year: district_school_year)
+
       # will be unchanged
+      east_history_section = test_records[:east_history_section]
       StudentSectionAssignment.create!({
         student: Student.find_by_local_id('111'),
         section: east_history_section
       })
+
       # will be deleted
+      shs_math_section = test_records[:shs_math_section]
       StudentSectionAssignment.create!({
         student: Student.find_by_local_id('333'),
         section: shs_math_section
       })
       expect(StudentSectionAssignment.count).to eq 2
 
-      importer.import
-      expect(log.output).to include '@invalid_student_count: 2'
-      expect(log.output).to include '@invalid_course_count: 1'
-      expect(log.output).to include '@invalid_section_count: 1'
-      expect(log.output).to include ':passed_nil_record_count=>4'
-      expect(log.output).to include ':unchanged_rows_count=>1'
-      expect(log.output).to include ':created_rows_count=>3'
-      expect(log.output).to include ':destroyed_records_count=>1'
-      expect(StudentSectionAssignment.count).to eq 4
-    end
+      Timecop.freeze(time_now) do
+        log = LogHelper::FakeLog.new
+        importer = make_importer(log: log)
+        mock_importer_with_csv(importer, fixture_for_district_school_year(district_school_year))
+        importer.import
 
+        expect(log.output).to include '@invalid_student_count: 1'
+        expect(log.output).to include '@invalid_course_count: 1'
+        expect(log.output).to include '@invalid_section_count: 1'
+        expect(log.output).to include ':passed_nil_record_count=>3'
+        expect(log.output).to include ':unchanged_rows_count=>1'
+        expect(log.output).to include ':created_rows_count=>3'
+        expect(log.output).to include ':destroyed_records_count=>1'
+        expect(StudentSectionAssignment.count).to eq 4
+      end
+    end
   end
 
   describe '#import_row' do
-    let!(:course) { FactoryBot.create(:course, school: high_school) }
-    let!(:section) { FactoryBot.create(:section, course: course) }
-    let!(:student) { FactoryBot.create(:student) }
+    def create_test_records_and_test_row(options = {})
+      time_now = options.fetch(:time_now, TestPals.new.time_now)
+      TestPals.seed_somerville_schools_for_test!
 
-    context 'happy path' do
-      let(:row) {
-        {
-          local_id: student.local_id,
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: section.section_number,
-          term_local_id: 'FY'
-        }
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      high_school = School.find_by_local_id('SHS')
+      course = FactoryBot.create(:course, school: high_school)
+      section = FactoryBot.create(:section, course: course, district_school_year: district_school_year)
+      student = FactoryBot.create(:student)
+
+      row = {
+        local_id: student.local_id,
+        course_number: section.course.course_number,
+        school_local_id: 'SHS',
+        section_number: section.section_number,
+        term_local_id: 'FY',
+        district_school_year: district_school_year
       }
-
-        before do
-          student_section_assignments_importer.send(:import_row, row)
-        end
-
-        it 'creates a student section assignment' do
-          expect(StudentSectionAssignment.count).to eq(1)
-        end
-
-        it 'assigns the proper student to the proper section' do
-          expect(StudentSectionAssignment.first.student).to eq(student)
-          expect(StudentSectionAssignment.first.section).to eq(section)
-        end
+      [row, student, section]
     end
 
-    context 'student lasid is missing' do
-      let(:row) {
-        {
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: section.section_number,
-          term_local_id: 'FY'
-        }
-      }
+    it 'creates a student section assignment' do
+      row, _, _ = create_test_records_and_test_row()
+      importer = make_importer_for_import_row_test()
 
-      before do
-        student_section_assignments_importer.send(:import_row, row)
-      end
-
-      it 'does not create a student section assignment' do
-        expect(StudentSectionAssignment.count).to eq(0)
-      end
+      importer.send(:import_row, row)
+      expect(StudentSectionAssignment.count).to eq(1)
     end
 
-    context 'section is missing' do
-      let(:row) {
-        {
-          local_id: student.local_id,
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          term_local_id: 'FY'
-        }
-      }
+    it 'assigns the proper student to the proper section' do
+      row, student, section = create_test_records_and_test_row()
+      importer = make_importer_for_import_row_test()
 
-      before do
-        student_section_assignments_importer.send(:import_row, row)
-      end
-
-      it 'does not create a student section assignment' do
-        expect(StudentSectionAssignment.count).to eq(0)
-      end
+      importer.send(:import_row, row)
+      expect(StudentSectionAssignment.first.student).to eq(student)
+      expect(StudentSectionAssignment.first.section).to eq(section)
     end
 
-    context 'student does not exist' do
-      let(:row) {
-        {
-          local_id: 'NO EXIST',
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: section.section_number,
-          term_local_id: 'FY'
-        }
-      }
-
-      before do
-        student_section_assignments_importer.send(:import_row, row)
-      end
-
-      it 'does not create a student section assignment' do
-        expect(StudentSectionAssignment.count).to eq(0)
-      end
+    it 'is invalid if LASID field is missing' do
+      row, _, _ = create_test_records_and_test_row()
+      importer = make_importer_for_import_row_test()
+      importer.send(:import_row, row.except(:local_id))
+      expect(StudentSectionAssignment.count).to eq(0)
     end
 
-    context 'section does not exist' do
-      let(:row) {
-        {
-          local_id: student.local_id,
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: 'NO EXIST',
-          term_local_id: 'FY'
-        }
-      }
+    it 'is invalid if section_number field is missing' do
+      row, _, _ = create_test_records_and_test_row()
+      importer = make_importer_for_import_row_test()
+      importer.send(:import_row, row.except(:section_number))
+      expect(StudentSectionAssignment.count).to eq(0)
+    end
 
-      before do
-        student_section_assignments_importer.send(:import_row, row)
-      end
+    it 'is invalid if LASID reference is not in db' do
+      row, _, _ = create_test_records_and_test_row()
+      importer = make_importer_for_import_row_test()
+      importer.send(:import_row, row.merge(local_id: 'DOES NOT EXIST'))
+      expect(StudentSectionAssignment.count).to eq(0)
+    end
 
-      it 'does not create a student section assignment' do
-        expect(StudentSectionAssignment.count).to eq(0)
-      end
+    it 'is invalid if section_number reference is not in db' do
+      row, _, _ = create_test_records_and_test_row()
+      importer = make_importer_for_import_row_test()
+      importer.send(:import_row, row.merge(section_number: 'DOES NOT EXIST'))
+      expect(StudentSectionAssignment.count).to eq(0)
     end
   end
 
   describe 'deleting rows' do
+    before { TestPals.seed_somerville_schools_for_test! }
+
     def sync_records(importer)
       syncer = importer.instance_variable_get(:@syncer)
       syncer.delete_unmarked_records!(importer.send(:records_within_scope))
       nil
     end
 
-    let(:log) { LogHelper::Redirect.instance.file }
-    let!(:section) { FactoryBot.create(:section) }
-    let!(:student) { FactoryBot.create(:student) }
-    let(:row) {
+    def make_importer_for_deleting_rows_tests(options = {})
+      importer = make_importer(options)
+      importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
+      importer
+    end
+
+    def make_test_row
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      course = FactoryBot.create(:course, school: School.find_by_local_id('SHS'))
+      section = FactoryBot.create(:section, course: course, district_school_year: district_school_year)
+      student = FactoryBot.create(:student)
       {
         local_id: student.local_id,
         course_number: section.course.course_number,
         school_local_id: section.course.school.local_id,
         section_number: section.section_number,
-        term_local_id: section.term_local_id
+        term_local_id: section.term_local_id,
+        district_school_year: district_school_year
       }
-    }
-
-    context 'happy path' do
-      let(:student_section_assignments_importer) do
-        make_importer_with_initialization(school_scope: School.pluck(:local_id))
-      end
-
-      before do
-        FactoryBot.create_list(:student_section_assignment, 20)
-        FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
-
-        student_section_assignments_importer.send(:import_row, row)
-        sync_records(student_section_assignments_importer)
-      end
-
-      it 'deletes all student section assignments except the recently imported one' do
-        expect(StudentSectionAssignment.count).to eq(1)
-      end
     end
 
-    context 'delete only stale assignments from schools being imported' do
-      let(:student_section_assignments_importer) do
-        make_importer_with_initialization(school_scope: ['SHS'])
-      end
+    it 'deletes all student section assignments except the recently imported one' do
+      # other sections already in db, which should be deleted during test
+      FactoryBot.create_list(:student_section_assignment, 20)
+      expect(StudentSectionAssignment.all.size).to eq 20
 
-      before do
-        FactoryBot.create_list(:student_section_assignment, 20)
-        FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
+      # new row to import
+      row = make_test_row()
+      importer = make_importer_for_deleting_rows_tests(school_scope: School.pluck(:local_id))
+      log = importer.instance_variable_get(:@log)
+      importer.send(:import_row, row)
+      expect(StudentSectionAssignment.all.size).to eq 21
 
-        student_section_assignments_importer.send(:import_row, row)
-        sync_records(student_section_assignments_importer)
-      end
+      # sync should delete
+      sync_records(importer)
+      expect(log.output).to include('records_within_import_scope.size: 21 in Insights')
+      expect(log.output).to include('@marked_ids.size = 1')
+      expect(log.output).to include('records_to_process.size: 20 within scope')
+      expect(StudentSectionAssignment.all.size).to eq 1
+    end
 
-      it 'deletes all student section assignments for that school except the recently imported one' do
-        expect(StudentSectionAssignment.count).to eq(21)
-      end
+    it 'respects school_scope, does not touch records outside of the import scope' do
+      # other sections already in db, which should be deleted
+      FactoryBot.create_list(:student_section_assignment, 20)
+      expect(StudentSectionAssignment.all.size).to eq 20
+
+      # new row to import
+      row = make_test_row()
+      importer = make_importer_for_deleting_rows_tests(school_scope: ['SHS'])
+      log = importer.instance_variable_get(:@log)
+      importer.send(:import_row, row)
+      expect(StudentSectionAssignment.all.size).to eq 21
+
+      # sync should delete
+      sync_records(importer)
+      expect(log.output).to include('records_within_import_scope.size: 1 in Insights')
+      expect(log.output).to include('@marked_ids.size = 1')
+      expect(StudentSectionAssignment.count).to eq(21)
     end
   end
 
   describe '#matching_insights_record_for_row' do
-    let(:importer) { make_importer_with_initialization }
-    let(:student_section_assignment) { importer.send(:matching_insights_record_for_row, row) }
-    let(:healey_school) { School.find_by_local_id('HEA') }
-    let(:brown_school) { School.find_by_local_id('BRN') }
+    before { TestPals.seed_somerville_schools_for_test! }
 
-    context 'happy path' do
-      let!(:student) { FactoryBot.create(:high_school_student) }
-      let!(:course) {
-        FactoryBot.create(
-          :course, course_number: 'F100', school: healey_school
-        )
-      }
-      let!(:section) {
-        FactoryBot.create(
-          :section, course: course, section_number: 'MUSIC-005', term_local_id: 'FY'
-        )
-      }
-
-      let(:row) {
-        {
-          local_id: student.local_id,
-          section_number: 'MUSIC-005',
-          course_number: 'F100',
-          school_local_id: 'HEA',
-          term_local_id: 'FY'
-        }
-      }
-
-      it 'assigns the correct values' do
-        expect(student_section_assignment.student).to eq(student)
-        expect(student_section_assignment.section).to eq(section)
-      end
+    def create_test_music_records_for_school(school)
+      time_now = TestPals.new.time_now
+      district_school_year = 1 + SchoolYear.to_school_year(time_now)
+      student = FactoryBot.create(:student, school: school)
+      course = FactoryBot.create(:course, course_number: 'F100', school: school)
+      section = FactoryBot.create(:section, {
+        room_number: '101',
+        course: course,
+        section_number: 'MUSIC-005',
+        term_local_id: 'FY',
+        district_school_year: district_school_year
+      })
+      [district_school_year, student, section]
     end
 
-    context 'section with same section_number at different school' do
-      let!(:another_course) {
-        FactoryBot.create(:course, course_number: 'F100', school: brown_school)
-      }
-      let!(:another_section) {
-        FactoryBot.create(
-          :section, course: another_course, section_number: 'MUSIC-005', term_local_id: 'FY'
-        )
-      }
+    it 'scope the matching by section_number to within proper school' do
+      # existing db, with similar records across schools
+      _, _, _ = create_test_music_records_for_school(School.find_by_local_id('BRN'))
+      district_school_year, healey_student, healey_section = create_test_music_records_for_school(School.find_by_local_id('HEA'))
+      _, _, _ = create_test_music_records_for_school(School.find_by_local_id('WSNS'))
+      expect(Course.all.size).to eq 3
+      expect(Section.all.size).to eq 3
 
-      let!(:student) { FactoryBot.create(:high_school_student) }
-      let!(:course) {
-        FactoryBot.create(:course, course_number: 'F100', school: healey_school)
-      }
-      let!(:section) {
-        FactoryBot.create(
-          :section, course: course, section_number: 'MUSIC-005', term_local_id: 'FY'
-        )
-      }
-
-      let(:row) {
-        {
-          local_id: student.local_id,
-          section_number: 'MUSIC-005',
-          course_number: 'F100',
-          school_local_id: 'HEA',
-          term_local_id: 'FY'
-        }
-      }
-
-      it 'assigns the correct values' do
-        expect(student_section_assignment.student).to eq(student)
-        expect(student_section_assignment.section).to eq(section)
-      end
+      # import row
+      importer = make_importer_for_import_row_test()
+      maybe_record = importer.send(:matching_insights_record_for_row, {
+        room_number: '202-this-value-changed',
+        local_id: healey_student.local_id,
+        course_number: 'F100',
+        section_number: 'MUSIC-005',
+        school_local_id: 'HEA',
+        term_local_id: 'FY',
+        district_school_year: district_school_year
+      })
+      expect(maybe_record.student).to eq(healey_student)
+      expect(maybe_record.section).to eq(healey_section)
     end
 
-    context 'no course info or school_local_id' do
-      let!(:section) { FactoryBot.create(:section) }
-      let!(:student) { FactoryBot.create(:high_school_student) }
-      let(:row) {
-        {
-          local_id: student.local_id,
-          section_number: section.section_number,
-        }
-      }
-
-      it 'returns nil' do
-        expect(student_section_assignment).to be_nil
-      end
+    it 'returns nil if fields are missing and no match can be made' do
+      section = FactoryBot.create(:section)
+      student = FactoryBot.create(:high_school_student)
+      importer = make_importer_for_import_row_test()
+      maybe_record = importer.send(:matching_insights_record_for_row, {
+        local_id: student.local_id,
+        section_number: section.section_number
+      })
+      expect(maybe_record).to eq nil
     end
   end
 end

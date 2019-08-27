@@ -18,6 +18,10 @@ class EducatorSectionAssignmentsImporter
   def initialize(options:)
     @school_local_ids = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
+    @time_now = options.fetch(:time_now, Time.now)
+
+    @matcher = ::ImportMatcher.new(log: @log)
+    @course_section_matcher = ::CourseSectionMatcher.new(log: @log, time_now: @time_now)
     @syncer = ::RecordSyncer.new(log: @log)
     reset_counters!
   end
@@ -28,6 +32,10 @@ class EducatorSectionAssignmentsImporter
     log('Downloading...')
     streaming_csv = download_csv
 
+    log('Building school_ids_dictionary...')
+    @school_ids_dictionary = build_school_ids_dictionary
+    log("@school_ids_dictionary built with #{@school_ids_dictionary.size} local_id keys")
+
     log('Starting loop...')
     reset_counters!
     streaming_csv.each_with_index do |row, index|
@@ -37,8 +45,10 @@ class EducatorSectionAssignmentsImporter
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@invalid_section_count: #{@invalid_section_count}")
     log("@invalid_educator_count: #{@invalid_educator_count}")
+    log("@invalid_course_count: #{@invalid_course_count}")
+    log("@invalid_section_count: #{@invalid_section_count}")
+    log("@warning_unexpected_district_school_year_count: #{@warning_unexpected_district_school_year_count}")
     log('')
 
     log('Calling RecordSyncer#delete_unmarked_records...')
@@ -49,8 +59,10 @@ class EducatorSectionAssignmentsImporter
   private
   def reset_counters!
     @skipped_from_school_filter = 0
-    @invalid_section_count = 0
     @invalid_educator_count = 0
+    @invalid_course_count = 0
+    @invalid_section_count = 0
+    @warning_unexpected_district_school_year_count = 0
   end
 
   # What existing Insights records should be updated or deleted from running this import?
@@ -81,6 +93,10 @@ class EducatorSectionAssignmentsImporter
     SchoolFilter.new(@school_local_ids)
   end
 
+  def build_school_ids_dictionary
+    School.all.map { |school| [school.local_id, school.id] }.to_h
+  end
+
   def import_row(row)
     if !filter.include?(row[:school_local_id])
       @skipped_from_school_filter += 1
@@ -92,36 +108,27 @@ class EducatorSectionAssignmentsImporter
   end
 
   def matching_insights_record_for_row(row)
-    section_id = find_section_id(row)
-    if section_id.nil?
-      @invalid_section_count += 1
-      return nil
-    end
-
-    educator_id = find_educator_id(row)
-    if educator_id.nil?
+    educator = @matcher.find_educator_by_login(row[:login_name])
+    if educator.nil?
       @invalid_educator_count += 1
       return nil
     end
 
+    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
+    if course.nil?
+      @invalid_course_count += 1
+      return nil
+    elsif section.nil?
+      @invalid_section_count += 1
+      return nil
+    elsif warning == :school_year_warning
+      @warning_unexpected_district_school_year_count += 1
+    end
+
     EducatorSectionAssignment.find_or_initialize_by({
-      educator_id: educator_id,
-      section_id: section_id
+      educator_id: educator.id,
+      section_id: section.id
     })
-  end
-
-  def find_section_id(row)
-    return nil if row[:section_number].nil?
-    return nil if row[:term_local_id].nil? # export includes empty string (<10 records) but we disallow in model validations
-    Section.find_by({
-      section_number: row[:section_number],
-      term_local_id: row[:term_local_id]
-    }).try(:id)
-  end
-
-  def find_educator_id(row)
-    return nil if row[:login_name].nil?
-    Educator.find_by(login_name: row[:login_name]).try(:id)
   end
 
   def log(msg)
