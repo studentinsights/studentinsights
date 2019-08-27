@@ -94,16 +94,31 @@ RSpec.describe StudentSectionGradesImporter do
 
         # db state before
         expect(StudentSectionAssignment.all.size).to eq 4
-        numeric_grades_before = StudentSectionAssignment.all.pluck(:grade_numeric)
-        letter_grades_before = StudentSectionAssignment.all.pluck(:grade_letter)
 
-        # unchanged after
+        # after import, has same state as fixture file
         importer.import
         expect(log.output).to include('@invalid_student_count: 1')
-        expect(log.output).to include('@section_not_found_in_index_count: 5')
+        expect(log.output).to include('@section_not_found_in_index_count: 1')
         expect(StudentSectionAssignment.all.size).to eq 4
-        expect(StudentSectionAssignment.all.pluck(:grade_numeric)).to eq numeric_grades_before
-        expect(StudentSectionAssignment.all.pluck(:grade_letter)).to eq letter_grades_before
+        db_records_json = StudentSectionAssignment.all.as_json({
+          include: {
+            section: {only: [:section_number, :term_local_id]},
+            student: {only: [:local_id]}
+          },
+          except: [
+            :id,
+            :section_id,
+            :student_id,
+            :created_at,
+            :updated_at
+          ]
+        })
+        expect(db_records_json).to contain_exactly(*[
+          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"333"}, "grade_numeric"=>85.12.to_d, "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"111"}, "grade_numeric"=>85.45.to_d, "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"222"}, "grade_numeric"=>85.78.to_d, "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"ELA6-002", "term_local_id"=>"FY"},"student"=>{"local_id"=>"333"}, "grade_numeric"=>85.99.to_d, "grade_letter"=>"B+" },
+        ])
       end
     end
   end

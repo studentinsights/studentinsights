@@ -33,7 +33,7 @@
     "importer": "CoursesSectionsImporter",
     "source": "source_sis_sftp_csv",
     "frequency": "frequency_daily",
-    "merge": "merge_update_delete_unmarked",
+    "merge": "merge_update_ignore_unmarked",
     "touches": [
       "Section",
       "Course"
