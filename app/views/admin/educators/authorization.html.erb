@@ -19,7 +19,7 @@
       <table style="text-align: left; max-width: 1000px;">
         <thead>
           <tr>
-            <th style="padding: 5px; text-align: left; background: #eee;">Email</th>
+            <th style="padding: 5px; text-align: left; background: #eee;">Login</th>
             <th style="padding: 5px; text-align: left; background: #eee;">Name</th>
             <th style="padding: 5px; text-align: left; background: #eee;">Can set<br />permissions</th>
             <th style="padding: 5px; text-align: left; background: #eee;">Restricted<br />notes</th>
@@ -29,13 +29,9 @@
           </tr>
         </thead>
         <tbody>
-          <% educators = (@can_set_educators + @restricted_notes_educators + @districtwide_educators + @admin_educators).uniq.sort_by do |educator|
-              [educator.active? ? 0 : 1]
-            end
-          %>
-          <% educators.map do |educator| %>
+          <% @sensitive_educators.map do |educator| %>
             <tr style="cursor: default; <%= row_style_string(educator) %>">
-              <td style="padding: 10px; padding-left: 5px;"><%= educator.email %></td>
+              <td style="padding: 10px; padding-left: 5px;"><%= educator.login_name %></td>
               <td style="padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
               <td style="padding: 10px; padding-left: 5px;">
                 <% if educator.can_set_districtwide_access %>
@@ -77,7 +73,7 @@
       <table style="text-align: left; border-collapse: collapse;">
           <thead>
             <tr style="vertical-align: top;">
-              <th style="padding: 5px; text-align: left; background: #eee;">Email</th>
+              <th style="padding: 5px; text-align: left; background: #eee;">Login</th>
               <th style="padding: 5px; text-align: left; background: #eee;">Name</th>
               <th style="padding: 5px; text-align: left; background: #eee;">School</th>
               <th style="padding: 5px; text-align: left; background: #eee;">Links</th>
@@ -86,21 +82,9 @@
             </tr>
           </thead>
           <tbody>
-            <%
-              @navbar_links_map = {}
-              sorted_educators = @all_educators.sort_by do |educator|
-                navbar_links = PathsForEducator.new(educator).navbar_links
-                @navbar_links_map[educator.id] = navbar_links
-                [
-                  educator.active? ? 0 : 1,
-                  -1 * navbar_links.size,
-                  navbar_links.keys
-                ]
-              end
-            %>
-            <% sorted_educators.map do |educator| %>
+            <% @sorted_educators.map do |educator| %>
               <tr style="cursor: default; vertical-align: top; <%= row_style_string(educator) %>">
-                <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= educator.email %></td>
+                <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= educator.login_name %></td>
                 <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
                 <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= educator.school.try(:name) %></td>
                 <td style="vertical-align: top;">

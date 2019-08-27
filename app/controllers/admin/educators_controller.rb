@@ -20,18 +20,45 @@ module Admin
     end
 
     def authorization
-      @all_educators = Educator.all
+      educators_with_includes = Educator.all.includes(:educator_labels, :school, :sections, {homeroom: :school})
+      @sensitive_educators = sorted_sensitive_educators(educators_with_includes)
+      @sorted_educators, @navbar_links_map = sort_list_with_navbar_links(educators_with_includes)
+      nil
+    end
 
-      @districtwide_educators = []
-      @can_set_educators = []
-      @admin_educators = []
-      @restricted_notes_educators = []
+    def sort_list_with_navbar_links(educators)
+      navbar_links_map = {}
+      sorted_educators = educators.sort_by do |educator|
+        navbar_links = PathsForEducator.new(educator).navbar_links
+        navbar_links_map[educator.id] = navbar_links
+        [
+          educator.active? ? 0 : 1,
+          -1 * navbar_links.size,
+          navbar_links.keys
+        ]
+      end
+      [sorted_educators, navbar_links_map]
+    end
 
-      @all_educators.each do |educator|
-        @districtwide_educators << educator if educator.districtwide_access
-        @can_set_educators << educator if educator.can_set_districtwide_access
-        @admin_educators << educator if educator.admin
-        @restricted_notes_educators << educator if educator.can_view_restricted_notes
+    def sorted_sensitive_educators(educators)
+      filtered = educators.select do |educator|
+        (
+          educator.active? ||
+          educator.can_set_districtwide_access ||
+          educator.can_view_restricted_notes ||
+          educator.districtwide_access ||
+          educator.admin
+        )
+      end
+
+      filtered.sort_by do |educator|
+        [
+          educator.active? ? 0 : 1,
+          educator.can_set_districtwide_access ? 0 : 1,
+          educator.can_view_restricted_notes ? 0 : 1,
+          educator.districtwide_access ? 0 : 1,
+          educator.admin ? 0 : 1
+        ]
       end
     end
 
