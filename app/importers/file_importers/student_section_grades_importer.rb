@@ -49,7 +49,7 @@ class StudentSectionGradesImporter
 
     log('Downloading...')
     streaming_csv = download_csv
-    
+
     log('Building student_ids_map...')
     @student_ids_map.reset!
     log("@student_ids_map built with #{@student_ids_map.size} local_id keys")
@@ -57,7 +57,6 @@ class StudentSectionGradesImporter
     log('Building section_number_map...')
     @section_number_map = build_section_number_map()
     log("@section_number_map built with #{@section_number_map.size} keys")
-
 
     log('Starting loop...')
     streaming_csv.each_with_index do |row, index|
@@ -148,7 +147,7 @@ class StudentSectionGradesImporter
 
     # update
     student_section_assignment.save!
-    
+
     # also store a historical record
     if student_id && section_id
       HistoricalGrade.create!({
