@@ -26,12 +26,24 @@ class Educator < ApplicationRecord
 
   # Indicates the educator was missing from the last export where we expected to
   # find them, so we treat them as no longer active.
+  # 
+  # Student Insights admin accounts are sometimes handled differently by districts,
+  # so this enables those whitelisted accounts to be "active" regardless.
+  #
+  # `missing_from_last_export` will always reflect the SIS, while `active` is an
+  # Insights concept.
   def self.active
-    where(missing_from_last_export: false)
+    (
+      where(missing_from_last_export: false) +
+      where(login_name: PerDistrict.new.educator_login_names_whitelisted_as_active())
+    )
   end
 
   def active?
-    missing_from_last_export == false
+    (
+      missing_from_last_export == false || 
+      PerDistrict.new.educator_login_names_whitelisted_as_active().include?(login_name)
+    )
   end
 
   def is_principal?
