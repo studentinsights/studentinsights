@@ -31,7 +31,10 @@ class EducatorsController < ApplicationController
         :missing_from_last_export,
         :admin
       ],
-      :methods => [:labels],
+      :methods => [
+        :active?,
+        :labels
+      ],
       :include => {
         :school => { :only => [:id, :name] },
         :sections => {
