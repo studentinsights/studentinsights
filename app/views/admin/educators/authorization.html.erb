@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          <% educators = (@can_set_educators + @admin_educators + @districtwide_educators).uniq.sort_by do |educator|
+          <% educators = (@can_set_educators + @restricted_notes_educators + @districtwide_educators + @admin_educators).uniq.sort_by do |educator|
               [educator.active? ? 0 : 1]
             end
           %>
