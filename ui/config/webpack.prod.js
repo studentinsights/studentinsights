@@ -20,7 +20,15 @@ module.exports = merge(common, {
 
   plugins: [
     new CleanWebpackPlugin(['../../public/build'], { allowExternal: true }),
-    new UglifyJSPlugin({sourceMap: true}),
+    new UglifyJSPlugin({
+      sourceMap: true,
+
+      // so that Function.name works for React inferring `displayName`
+      // see plugin docs here https://github.com/mishoo/UglifyJS2#mangle-options
+      mangle: {
+        keep_fnames: true
+      }
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
