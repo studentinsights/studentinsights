@@ -27,7 +27,7 @@ class EducatorLabel < ApplicationRecord
         # transition notes
         'k8_counselor',
         'high_school_house_master',
-        'enable_transition_note_features',
+        'enable_transition_note_features', # Controls whether user can create new transition notes, not whether they are viewable.
         'enable_transition_note_editing',
 
         # class lists

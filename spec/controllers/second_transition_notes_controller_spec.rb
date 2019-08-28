@@ -20,6 +20,10 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
     }.merge(attrs)
   end
 
+  def remove_feature_labels!
+    EducatorLabel.where(label_key: 'enable_transition_note_features').destroy_all
+  end
+
   describe '#transition_students_json' do
     def get_transition_students_json(educator, params = {})
       sign_in(educator)
@@ -51,12 +55,15 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
       end
     end
 
-    it 'returns no students for Sofia if HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 not set' do
-      get_transition_students_json(pals.shs_sofia_counselor)
-      expect_no_students(response)
+    it 'guards access if `enable_transition_note_features` labels removed' do
+      remove_feature_labels!
+      Educator.all.each do |educator|
+        get_transition_students_json(educator)
+        expect(response.status).to eq 403
+      end
     end
 
-    it 'includes student for Les, with proper switches' do
+    it 'includes student for Les' do
       get_transition_students_json(pals.west_counselor)
       expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
     end
@@ -66,6 +73,11 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
       allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       get_transition_students_json(pals.shs_sofia_counselor)
       expect_single_transition_note_for_student_id(response, pals.west_eighth_ryan.id)
+    end
+
+    it 'returns no students for Sofia if HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 not set' do
+      get_transition_students_json(pals.shs_sofia_counselor)
+      expect_no_students(response)
     end
 
     it 'returns expected shape' do
@@ -113,6 +125,15 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
       end
     end
 
+    it 'guards access when `enable_transition_note_features` labels are removed' do
+      remove_feature_labels!
+      attrs = create_note_attrs()
+      Educator.all.each do |educator|
+        post_save_json(educator, pals.west_eighth_ryan.id, attrs)
+        expect(response.status).to eq 403
+      end
+    end
+
     it 'works to create' do
       attrs = create_note_attrs()
       post_save_json(pals.west_counselor, pals.west_eighth_ryan.id, attrs)
@@ -144,12 +165,28 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
       delete :delete_json, params: params.merge(format: :json)
     end
 
-    it 'guards access' do
-      note = SecondTransitionNote.create!(create_note_attrs({
+    def create_test_note_for_deleting!
+      SecondTransitionNote.create!(create_note_attrs({
         educator_id: pals.west_counselor.id,
         student_id: pals.west_eighth_ryan.id
       }))
+    end
+
+    it 'guards access' do
+      note = create_test_note_for_deleting!
       (Educator.all - [pals.west_counselor]).each do |educator|
+        delete_json(educator, {
+          student_id: pals.west_eighth_ryan.id,
+          second_transition_note_id: note.id
+        })
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'guards access when label is removed' do
+      note = create_test_note_for_deleting!
+      remove_feature_labels!
+      Educator.all.each do |educator|
         delete_json(educator, {
           student_id: pals.west_eighth_ryan.id,
           second_transition_note_id: note.id
@@ -160,13 +197,58 @@ RSpec.describe SecondTransitionNotesController, type: :controller do
   end
 
   describe '#restricted_text_json' do
-    def restricted_text_json(educator, params = {})
+    def get_restricted_text_json(educator, params = {})
       sign_in(educator)
       request.env['HTTPS'] = 'on'
       get :restricted_text_json, params: params.merge(format: :json)
     end
 
-    it 'guards access' do
+    def create_note_for_restricted_text_test!
+      SecondTransitionNote.create!(create_note_attrs({
+        educator_id: pals.west_counselor.id,
+        student_id: pals.west_eighth_ryan.id,
+        restricted_text: 'DANGEROUS restricted note text value'
+      }))
+    end
+
+    def get_test_case(educator, note)
+      get_restricted_text_json(educator, {
+        student_id: pals.west_eighth_ryan.id,
+        second_transition_note_id: note.id
+      })
+    end
+
+    it 'guards access by student' do
+      note = create_note_for_restricted_text_test!
+      (Educator.all - [pals.uri, pals.rich_districtwide, pals.west_counselor]).each do |educator|
+        get_test_case(educator, note)
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'guards access if `can_view_restricted_notes: false`' do
+      note = create_note_for_restricted_text_test!
+      pals.west_counselor.update!(can_view_restricted_notes: false)
+      get_test_case(pals.west_counselor, note)
+      expect(response.status).to eq 403
+    end
+
+    it 'allows access with authorization, can_view_restricted_notes, and label' do
+      note = create_note_for_restricted_text_test!
+      get_test_case(pals.west_counselor, note)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq('restricted_text' => 'DANGEROUS restricted note text value')
+    end
+
+    it 'still allows read access with authorization and can_view_restricted_notes, when label removed afterward' do
+      note = create_note_for_restricted_text_test!
+      remove_feature_labels!
+
+      get_test_case(pals.west_counselor, note)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq('restricted_text' => 'DANGEROUS restricted note text value')
     end
   end
 
