@@ -21,7 +21,11 @@ export default class RollbarErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    this.rollbarErrorFn('RollbarErrorBoundary#componentDidCatch', {error, info});
+    const {debugKey} = this.props;
+    const msg = (debugKey)
+      ? 'RollbarErrorBoundary#componentDidCatch'
+      : `RollbarErrorBoundary#componentDidCatch for debugKey=${debugKey}`;
+    this.rollbarErrorFn(msg, {error, info, debugKey});
   }
 
   rollbarErrorFn(msg, obj = {}) {
@@ -46,5 +50,6 @@ export default class RollbarErrorBoundary extends React.Component {
 }
 RollbarErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
-  rollbarErrorFn: PropTypes.func
+  rollbarErrorFn: PropTypes.func,
+  debugKey: PropTypes.string
 };

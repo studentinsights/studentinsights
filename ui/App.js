@@ -62,7 +62,7 @@ export default class App extends React.Component {
   render() {
     const {districtKey, rollbarErrorFn, sessionTimeoutInSeconds} = this.props;
     return (
-      <RollbarErrorBoundary rollbarErrorFn={rollbarErrorFn}>
+      <RollbarErrorBoundary debugKey="App" rollbarErrorFn={rollbarErrorFn}>
         <NowContainer nowFn={() => moment.utc()}>
           <PerDistrictContainer districtKey={districtKey}>
             <div className="App-content" style={styles.flexVertical}>
