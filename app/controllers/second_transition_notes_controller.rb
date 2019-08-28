@@ -1,6 +1,4 @@
 class SecondTransitionNotesController < ApplicationController
-  before_action :ensure_authorized_for_feature!
-
   # The full list for the transition note page.
   def transition_students_json
     ensure_authorized_for_feature!
@@ -38,6 +36,7 @@ class SecondTransitionNotesController < ApplicationController
 
   # post
   def save_json
+    ensure_authorized_for_feature!
     ensure_authorized_to_write!
     safe_params = params.permit(*[
       :student_id,
@@ -83,6 +82,7 @@ class SecondTransitionNotesController < ApplicationController
 
   # delete
   def delete_json
+    ensure_authorized_for_feature!
     ensure_authorized_to_write!
     safe_params = params.permit(:student_id, :second_transition_note_id)
     second_transition_note = verify_authorized_or_raise!(safe_params[:student_id], safe_params[:second_transition_note_id])
@@ -92,8 +92,11 @@ class SecondTransitionNotesController < ApplicationController
   end
 
   # get
+  # This is the only endpoint accessible afterward to folks who don't have access
+  # to the feature afterward.
   def restricted_text_json
     ensure_authorized_to_read!
+    ensure_authorized_for_restricted_notes!
     safe_params = params.permit(*[
       :student_id,
       :second_transition_note_id,
@@ -108,6 +111,7 @@ class SecondTransitionNotesController < ApplicationController
 
   # get
   def next_student_json
+    ensure_authorized_for_feature!
     ensure_authorized_to_read!
     params.require(:student_id)
     student_id = params[:student_id]
@@ -146,18 +150,23 @@ class SecondTransitionNotesController < ApplicationController
     to_high_school.or(to_middle_school)
   end
 
+  # Controls whether links are enabled, and they can create and edit transition notes.
   def ensure_authorized_for_feature!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_transition_note_features')
   end
 
+  def ensure_authorized_for_restricted_notes!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
+  end
+
   def ensure_authorized_to_read!
-    ensure_authorized_for_feature!
     student = Student.find(params[:student_id])
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
   def ensure_authorized_to_write!
     ensure_authorized_to_read!
+    ensure_authorized_for_restricted_notes!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('k8_counselor')
   end
 
