@@ -42,8 +42,7 @@ module Admin
 
     def sorted_sensitive_educators(educators)
       filtered = educators.select do |educator|
-        (
-          educator.active? ||
+        educator.active? && (
           educator.can_set_districtwide_access ||
           educator.can_view_restricted_notes ||
           educator.districtwide_access ||
