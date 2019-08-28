@@ -88,6 +88,34 @@ function testPropsForHomeworkHelp(props = {}) {
   });
 }
 
+function testPropsForSecondTransitionNotes(props = {}) {
+  return testProps({
+    feed: {
+      ...feedWithEventNotesJson([]),
+      second_transition_notes: [{
+        id: 42,
+        created_at: '2017-05-18T14:31:29.113Z',
+        updated_at: '2017-05-18T14:31:29.113Z',
+        educator_id: 1,
+        student_id: 1,
+        form_key: 'somerville_8th_to_9th_grade',
+        form_json: {
+          strengths: '...strengths...',
+          connecting: '...connecting...',
+          community: '...community...',
+          peers: '...peers...',
+          family: '...family...',
+          other: '...other...',
+        },
+        starred: true,
+        recorded_at: '2019-05-18T14:31:29.102Z',
+        has_restricted_text: true
+      }]
+    },
+    ...props
+  });
+}
+
 function testRender(props) {
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(<NotesList {...props} />), el);
@@ -266,4 +294,41 @@ it('works for Bedford transition notes', () => {
   expect($(el).find('.BedfordTransitionSubstanceForProfile').length).toEqual(1);
   expect($(el).find('.EditableNoteText').length).toEqual(0);
   expect($(el).text()).toContain('Transition information');
+});
+
+describe('second transition notes, inline', () => {
+  it('works on happy path', () => {
+    const props = testPropsForSecondTransitionNotes();
+    const el = testRender(props);
+    expect($(el).find('.SecondTransitionNoteInline').length).toEqual(1);
+    expect($(el).find('.NoteText:eq(0)').text()).toEqual([
+      "What are Daisy's strengths?",
+      "...strengths...",
+      '',
+      "What works well for connecting with Daisy?",
+      "...connecting...",
+      '',
+      "How does Daisy relate to their peers?",
+      "...community...",
+      '',
+      "How has Daisy become involved with the school community?",
+      "...peers...",
+      '',
+      "What works well for communicating with Daisy’s family?",
+      "...family...",
+      '',
+      "Any additional comments or good things to know?",
+      "...other..."
+    ].join("\n"));
+    expect($(el).text()).toContain('What other services does Daisy receive now, and who are the points of contact (eg, social workers, mental health counselors)?');
+    expect($(el).find('.RestrictedNotePresence').length).toEqual(1);
+  });
+
+  it('includes link for restricted note when canUserAccessRestrictedNotes', () => {
+    const props = testPropsForSecondTransitionNotes({
+      canUserAccessRestrictedNotes: true
+    });
+    const el = testRender(props);
+    expect($(el).find('.RestrictedNotePresence a').text()).toEqual('show restricted note');
+  });
 });
