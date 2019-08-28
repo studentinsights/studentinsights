@@ -18,7 +18,7 @@ namespace :searchbar do
     puts 'Pruning old records...'
     records_to_prune = EducatorSearchbar.where.not(educator_id: active_educators.map(&:id))
     puts "  found #{records_to_prune.size} records_to_prune, destroying them..."
-    records_to_prune.destroy!
+    records_to_prune.each {|educator_searchbar| educator_searchbar.destroy! }
     puts 'Done prune.'
   end
 end
