@@ -457,4 +457,83 @@ RSpec.describe Authorizer do
       ]
     end
   end
+
+  context '#homerooms' do
+    # These specs are migrated over from a differnet file that didn't
+    # use TestPals; so unwind the TestPals db setup for this block of tests.
+    before do
+      TeamMembership.all.destroy_all
+      ImportedForm.all.destroy_all
+      StudentSectionAssignment.all.destroy_all
+      Student.all.destroy_all
+      Homeroom.all.destroy_all
+      CounselorNameMapping.all.destroy_all
+      HouseEducatorMapping.all.destroy_all
+      EducatorSectionAssignment.all.destroy_all
+      EducatorMultifactorConfig.all.destroy_all
+      EducatorLabel.all.destroy_all
+      Educator.all.destroy_all
+      Section.all.destroy_all
+      Course.all.destroy_all
+      School.all.destroy_all
+    end
+
+    describe '#allowed_homerooms_DEPRECATED' do
+      def allowed_homerooms(educator)
+        Authorizer.new(educator).allowed_homerooms_DEPRECATED
+      end
+
+      let!(:school) { FactoryBot.create(:healey) }
+      let!(:other_school) { FactoryBot.create(:brown) }
+
+      context 'schoolwide_access' do
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, school: school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+
+        it 'returns all homerooms in the school' do
+          expect(allowed_homerooms(educator).sort).to eq [
+            homeroom_101, homeroom_102, homeroom_103
+          ].sort
+        end
+      end
+
+      context 'districtwide_access' do
+        let(:educator) { FactoryBot.create(:educator, districtwide_access: true, school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, school: other_school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
+
+        it 'returns all homerooms in the school' do
+          expect(allowed_homerooms(educator).sort).to eq [
+            homeroom_101, homeroom_102, homeroom_103
+          ].sort
+        end
+      end
+
+      context 'homeroom teacher' do
+        let(:educator) { FactoryBot.create(:educator, school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', educator: educator, school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+        let!(:homeroom_brn) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
+
+        it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
+          expect(allowed_homerooms(educator).sort).to eq [homeroom_101, homeroom_102].sort
+        end
+      end
+
+      context 'teacher with grade level access' do
+        let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+
+        it 'returns all homerooms that match the grade level access' do
+          expect(allowed_homerooms(educator)).to eq [homeroom_103]
+        end
+      end
+    end
+  end
 end

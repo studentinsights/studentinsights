@@ -75,10 +75,6 @@ class Educator < ApplicationRecord
     grade_level_access.present? && grade_level_access.size > 0
   end
 
-  def allowed_homerooms
-    Authorizer.new(self).homerooms
-  end
-
   def allowed_sections
     Authorizer.new(self).sections
   end

@@ -125,61 +125,6 @@ RSpec.describe Educator do
     end
   end
 
-  describe '#allowed_homerooms' do
-    let!(:school) { FactoryBot.create(:healey) }
-    let!(:other_school) { FactoryBot.create(:brown) }
-
-    context 'schoolwide_access' do
-      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
-      let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
-      let!(:homeroom_102) { FactoryBot.create(:homeroom, school: school) }
-      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
-
-      it 'returns all homerooms in the school' do
-        expect(educator.allowed_homerooms.sort).to eq [
-          homeroom_101, homeroom_102, homeroom_103
-        ].sort
-      end
-    end
-
-    context 'districtwide_access' do
-      let(:educator) { FactoryBot.create(:educator, districtwide_access: true, school: school) }
-      let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
-      let!(:homeroom_102) { FactoryBot.create(:homeroom, school: other_school) }
-      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
-
-      it 'returns all homerooms in the school' do
-        expect(educator.allowed_homerooms.sort).to eq [
-          homeroom_101, homeroom_102, homeroom_103
-        ].sort
-      end
-    end
-
-    context 'homeroom teacher' do
-      let(:educator) { FactoryBot.create(:educator, school: school) }
-      let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', educator: educator, school: school) }
-      let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
-      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
-      let!(:homeroom_brn) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
-
-      it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
-        expect(educator.allowed_homerooms.sort).to eq [homeroom_101, homeroom_102].sort
-      end
-    end
-
-    context 'teacher with grade level access' do
-      let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
-      let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
-      let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
-      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
-
-      it 'returns all homerooms that match the grade level access' do
-        expect(educator.allowed_homerooms).to eq [homeroom_103]
-      end
-    end
-
-  end
-
   describe '#allowed_sections' do
     let!(:school) { FactoryBot.create(:healey) }
     let!(:other_school) { FactoryBot.create(:brown) }
