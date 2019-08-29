@@ -21,11 +21,9 @@ export default class RollbarErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    const {debugKey} = this.props;
+    const debugKey = this.props.debugKey || '(default)';
     const errorMessage = (error && error.message) ? error.message : '(missing)';
-    const msg = (debugKey)
-      ? 'RollbarErrorBoundary#componentDidCatch'
-      : `RollbarErrorBoundary#componentDidCatch for debugKey=${debugKey}, error.message=${errorMessage}`;
+    const msg = `RollbarErrorBoundary#componentDidCatch for debugKey=${debugKey}, error.message=${errorMessage}`;
 
     // Pass `error` as its own value, because of quirks in JS `Error` types
     // (see below).
