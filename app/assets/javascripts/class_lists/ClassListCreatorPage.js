@@ -127,8 +127,8 @@ export default class ClassListCreatorPage extends React.Component {
     if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
   }
 
-  rollbarError(message, params) {
-    window.Rollbar.error(message, params);
+  rollbarError(message, error) {
+    window.Rollbar.error(message, error);
   }
 
   beforeUnloadMessage() {

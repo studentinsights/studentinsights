@@ -52,8 +52,8 @@ import ClassListsEquityIndexPage from '../app/assets/javascripts/equity/ClassLis
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 export default class App extends React.Component {
-  rollbarErrorFn(msg, obj = {}) {
-    this.props.rollbarErrorFn(msg, obj);
+  rollbarErrorFn(msg, ...params) {
+    this.props.rollbarErrorFn(msg, ...params);
   }
 
   // `NowContainer` provides a fn to read the time
