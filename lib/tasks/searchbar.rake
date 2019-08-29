@@ -9,7 +9,7 @@ namespace :searchbar do
     puts "Starting update for #{active_educators.size} active educators..."
 
     active_educators.each_with_index do |educator, n|
-      puts "  updating searchbar, n=#{index}..."
+      puts "  updating searchbar, n=#{n}..."
       EducatorSearchbar.update_student_searchbar_json!(educator)
     end
     puts 'Done update.'
