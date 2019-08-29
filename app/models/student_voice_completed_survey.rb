@@ -5,6 +5,7 @@ class StudentVoiceCompletedSurvey < ApplicationRecord
 
   validates :student, presence: true
   validates :student_voice_survey_upload, presence: true
+  validates :form_timestamp, presence: true
 
   # added 9/6/2018
   def self.columns_for_form_v2
