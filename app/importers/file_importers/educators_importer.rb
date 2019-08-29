@@ -20,8 +20,8 @@ class EducatorsImporter
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
-    @educator_syncer = ::RecordSyncer.new(log: @log)
-    @homeroom_syncer = ::RecordSyncer.new(log: @log)
+    @educator_syncer = ::RecordSyncer.new(log: @log, notification_tag: 'EducatorsImporter.educator')
+    @homeroom_syncer = ::RecordSyncer.new(log: @log, notification_tag: 'EducatorsImporter.homeroom')
     reset_counters!
   end
 
