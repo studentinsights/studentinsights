@@ -166,11 +166,12 @@ export function supportsExcusedAbsences(districtKey) {
   return false;
 }
 
-// In high school, homeroom is a logical administrative assignment,
+// In SHS high school, homeroom is a logical administrative assignment,
 // but isn't meaningful to teachers or educators.  If there is
 // a homeroom, it might not necessarily be worth showing.
-export function isHomeroomMeaningful(schoolType) {
-  return (schoolType !== 'HS');
+export function isHomeroomMeaningful(districtKey, schoolLocalId) {
+  if (districtKey === SOMERVILLE && schoolLocalId === 'SHS') return false;
+  return true;
 }
 
 // What is the eventNoteTypeId to use in user-facing text about how to support
