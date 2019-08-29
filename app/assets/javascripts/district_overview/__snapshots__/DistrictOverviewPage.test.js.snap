@@ -716,7 +716,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             <li>
               Contact 
               <a
-                href="mailto://help@studentinsights.org"
+                href="mailto:help@studentinsights.org"
               >
                 help@studentinsights.org
               </a>
@@ -809,7 +809,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       >
         Please share your feedback with 
         <a
-          href="mailto://ideas@studentinsights.org"
+          href="mailto:ideas@studentinsights.org"
           style={
             Object {
               "fontWeight": "bold",
@@ -1678,7 +1678,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             <li>
               Contact 
               <a
-                href="mailto://help@studentinsights.org"
+                href="mailto:help@studentinsights.org"
               >
                 help@studentinsights.org
               </a>
