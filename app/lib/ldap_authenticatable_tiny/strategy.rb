@@ -43,9 +43,11 @@ module Devise
             return fail!(:invalid)
           end
 
-          # First, see if we can find an Educator record
+          # First, see if we can find an Educator record, and verify
+          # that it is active.
           educator = PerDistrict.new.find_educator_by_login_text(login_text)
           return fail!(:not_found_in_database) unless educator.present?
+          return fail!(:not_active) unless educator.active?
 
           # Next, check if login code if multifactor is enabled for their account.
           # Also fail if they passed something unexpected for login code when it isn't enabled

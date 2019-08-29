@@ -32,6 +32,7 @@ class MultifactorController < ApplicationController
 
     educator = PerDistrict.new.find_educator_by_login_text(login_text.downcase.strip)
     return nil if educator.nil?
+    return nil if !educator.active?
 
     authenticator = MultifactorAuthenticator.new(educator)
     return nil unless authenticator.is_multifactor_enabled?
