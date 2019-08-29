@@ -209,12 +209,12 @@ export class MyStudentsPageView extends React.Component {
 
   renderSchool(cellProps) {
     const student = cellProps.rowData;
-    const {id, name} = student.school;
+    const {name} = student.school;
 
     const shouldShowSchoolLink = false; // should check this
     return (shouldShowSchoolLink)
-      ? <a style={{marginRight: 10}} href={`/schools/${id}`}>{name}</a>
-      : <School {...student.school}  />;
+      ? <School {...student.school}  />
+      : <span style={{marginRight: 10}}>{name}</span>;
   }
 
   renderHouse(cellProps) {
