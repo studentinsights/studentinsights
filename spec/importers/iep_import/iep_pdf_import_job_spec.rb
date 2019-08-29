@@ -10,8 +10,8 @@ RSpec.describe IepPdfImportJob do
       s3_client: MockAwsS3.with_put_mocked
     }.merge(attrs))
     allow(import_job).to receive(:download_zips).and_return [
-      File.open("#{Rails.root}/spec/jobs/iep-pdfs-for-test-2.zip"),
-      File.open("#{Rails.root}/spec/jobs/iep-pdfs-for-test-1.zip")
+      File.open("#{Rails.root}/spec/importers/iep_import/iep-pdfs-for-test-2.zip"),
+      File.open("#{Rails.root}/spec/importers/iep_import/iep-pdfs-for-test-1.zip")
     ]
     import_job
   end
