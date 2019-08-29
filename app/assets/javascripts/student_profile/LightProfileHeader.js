@@ -129,6 +129,7 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderHomeroomOrEnrollmentStatus() {
+    const {districtKey} = this.context;
     const {student} =  this.props;
 
     // Not enrolled
@@ -146,14 +147,14 @@ export default class LightProfileHeader extends React.Component {
     }
 
     // Render as link or plain text
-    // (HS homeroom doesn't mean anything, and authorization
+    // (SHS homeroom doesn't mean anything, and authorization
     // rules around whether they can link to the homeroom page
     // are more complex).
     const {id, name, educator} = student.homeroom;
     return (
       <Homeroom
         style={styles.subtitleItem}
-        disableLink={!isHomeroomMeaningful(student.school_type)}
+        disableLink={!isHomeroomMeaningful(districtKey, student.school_local_id)}
         id={id}
         name={name}
         educator={educator}
