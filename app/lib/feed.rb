@@ -91,8 +91,13 @@ class Feed
 
   # Allow reading from multiple sources.
   def student_voice_cards(time_now)
-    student_voice_feed = StudentVoiceFeed.new(authorized_students)
-    student_voice_feed.student_voice_cards(time_now)
+    feed = FeedForStudentVoice.new(@authorized_students)
+
+    # This reads from two different data flows and stores in the db,
+    # which are often active at different times of the year.  So it
+    # leaves it for callers to sort and limit, rather than processing them
+    # to integrate.
+    feed.from_imported_forms(time_now) + feed.from_surveys(time_now)
   end
 
   # Merge cards of different types together, sorted by most recent timestamp
