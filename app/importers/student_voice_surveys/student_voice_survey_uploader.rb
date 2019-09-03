@@ -1,8 +1,9 @@
-class StudentVoiceSurveyImporter
+class StudentVoiceSurveyUploader
   def initialize(file_text, upload_attrs, options = {})
     @file_text = file_text
     @upload_attrs = upload_attrs
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @matcher = ImportMatcher.new
     reset_counters!
   end
 
@@ -52,9 +53,10 @@ class StudentVoiceSurveyImporter
     end
 
     # whitelist attributes for the row, translate to short symbol keys
+    # no nils here, empty strings are ok
     row_attrs = {}
     columns_map.each do |record_field_name, csv_column_text|
-      row_attrs[record_field_name] = raw_row[csv_column_text]
+      row_attrs[record_field_name] = raw_row[csv_column_text] || ''
     end
 
     # filter out if all responses are empty
@@ -71,7 +73,12 @@ class StudentVoiceSurveyImporter
       return nil
     end
 
-    row_attrs.merge(student_id: student_id)
+    # parse timestamp
+    form_timestamp = @matcher.parse_sheets_est_timestamp(row_attrs[:form_timestamp])
+    row_attrs.merge({
+      student_id: student_id,
+      form_timestamp: form_timestamp
+    })
   end
 
   def stats
