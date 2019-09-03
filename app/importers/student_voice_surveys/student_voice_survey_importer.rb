@@ -15,34 +15,31 @@ class StudentVoiceSurveyImporter
   end
 
   def initialize(options:)
-    @sheet_id = options.fetch(:sheet_id, read_sheet_id_from_env())
-    @uploaded_by_educator_id = options.fetch(:uploaded_by_educator_id, read_uploaded_by_educator_id_from_env())
-
     @log = options.fetch(:log, STDOUT)
     @time_now = options.fetch(:time_now, Time.now)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
-
-    reset_counters!
   end
 
   def import
-    log('  fetching tabs...')
-    tab = fetch_tab()
+    log('  fetching tab...')
+    sheet_id = read_sheet_id_from_env()
+    tab = fetch_tab(sheet_id)
     if tab.nil?
       raise 'fetch_tab returned nil'
     end
 
     log('  creating StudentVoiceSurveyUploader...')
-    uploader = StudentVoiceSurveyUploader.new(tab.tab_csv, {
+    upload_attrs = {
       file_name: "#{tab.spreadsheet_name} - #{tab.tab_name}",
-      uploaded_by_educator_id: @uploaded_by_educator_id
-    })
+      uploaded_by_educator_id: read_uploaded_by_educator_id_from_env()
+    }
+    uploader = StudentVoiceSurveyUploader.new(tab.tab_csv, upload_attrs, log: @log)
     log('  calling StudentVoiceSurveyUploader#create_from_text!...')
     student_voice_survey_upload = uploader.create_from_text!
     log('  done #create_from_text!')
     log("  student_voice_survey_upload.id: #{student_voice_survey_upload.id}")
     log("  student_voice_survey_upload.student_voice_completed_surveys.size: #{student_voice_survey_upload.student_voice_completed_surveys.size}")
-    log('StudentVoiceSurveyUploader#stats', uploader.stats)
+    log("StudentVoiceSurveyUploader#stats: #{uploader.stats}")
 
     nil
   end
@@ -65,8 +62,7 @@ class StudentVoiceSurveyImporter
     sheet_id
   end
 
-  def fetch_tab
-    sheet_id = read_sheet_id_from_env()
+  def fetch_tab(sheet_id)
     tabs = @fetcher.get_tabs_from_sheet(sheet_id)
     return nil if tabs.size != 1
     tabs.first
