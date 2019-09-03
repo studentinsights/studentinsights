@@ -37,6 +37,16 @@ class StudentVoiceSurveyUploader
     student_voice_survey_upload
   end
 
+  def stats
+    {
+      created_records_count: @created_records_count,
+      empty_survey_count: @empty_survey_count,
+      invalid_row_columns_count: @invalid_row_columns_count,
+      invalid_student_local_id_count: @invalid_student_local_id_count,
+      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
+    }
+  end
+
   private
   def create_streaming_csv
     csv_transformer = StreamingCsvTransformer.new(@log, {
@@ -79,16 +89,6 @@ class StudentVoiceSurveyUploader
       student_id: student_id,
       form_timestamp: form_timestamp
     })
-  end
-
-  def stats
-    {
-      created_records_count: @created_records_count,
-      empty_survey_count: @empty_survey_count,
-      invalid_row_columns_count: @invalid_row_columns_count,
-      invalid_student_local_id_count: @invalid_student_local_id_count,
-      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
-    }
   end
 
   def reset_counters!
