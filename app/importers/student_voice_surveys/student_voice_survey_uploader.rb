@@ -100,12 +100,10 @@ class StudentVoiceSurveyUploader
   # This avoids errors when there are typos in the field asking
   # for the LASID, but fall back to that if need be.
   def read_student_lasid_from_row(raw_row, row_attrs)
-    if raw_row.has_key?('Email address')
-      student_email_address = raw_row['Email address']
-      email_prefix = student_email_address.split('@').try(:first).try(:trim)
-      if /^[0-9]+$/.match?(email_prefix)
-        email_prefix
-      end
+    student_email_address = raw_row['Email Address']
+    if student_email_address.present?
+      email_prefix = student_email_address.split('@').try(:first).try(:strip)
+      return email_prefix if /^[0-9]+$/.match?(email_prefix)
     end
 
     # fall back
