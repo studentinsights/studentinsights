@@ -25,6 +25,12 @@ RSpec.describe StudentVoiceSurveyImporter do
     })
   end
 
+  # Remove some TestPals setup
+  def clear_db!
+    StudentVoiceSurveyUpload.all.destroy_all
+    StudentVoiceCompletedSurvey.all.destroy_all
+  end
+
   def create_importer_with_fetcher_mocked(options = {})
     log = LogHelper::FakeLog.new
     fetcher = create_mock_fetcher()
@@ -42,10 +48,21 @@ RSpec.describe StudentVoiceSurveyImporter do
     expect { importer.import }.to raise_error RuntimeError
   end
 
+  it 'aborts if env not setup' do
+    clear_db!
+    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+    importer, log = create_importer_with_fetcher_mocked(sheet_id: 'mock_sheet_id_A')
+    importer.import
+    puts log.output
+
+    expect(log.output).to include('Aborting')
+    expect(StudentVoiceSurveyUpload.all.size).to eq 0
+    expect(StudentVoiceCompletedSurvey.all.size).to eq 0
+  end
+
   context 'with empty db, and env setup for test' do
     before do
-      StudentVoiceSurveyUpload.all.destroy_all
-      StudentVoiceCompletedSurvey.all.destroy_all
+      clear_db!
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
 
       @STUDENT_VOICE_SURVEY_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME = ENV['STUDENT_VOICE_SURVEY_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME']

@@ -21,6 +21,11 @@ class StudentVoiceSurveyImporter
   end
 
   def import
+    if !PerDistrict.new.student_voice_survey_importer_enabled?
+      log('Aborting since not enabled...')
+      return
+    end
+
     log('  fetching tab...')
     sheet_id = read_sheet_id_from_env()
     tab = fetch_tab(sheet_id)

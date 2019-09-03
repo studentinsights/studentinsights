@@ -69,7 +69,8 @@ class FileImporterOptions
       '504' => [
         EdPlansImporter,
         EdPlanAccommodationsImporter
-      ]
+      ],
+      'student_voice_surveys' => StudentVoiceSurveyImporter
     }
   end
 
@@ -93,7 +94,8 @@ class FileImporterOptions
       StarMathImporter => 6,
       StarReadingImporter => 6,
       EdPlansImporter => 7,
-      EdPlanAccommodationsImporter => 8
+      EdPlanAccommodationsImporter => 8,
+      StudentVoiceSurveyImporter => 9
     }
   end
 end
