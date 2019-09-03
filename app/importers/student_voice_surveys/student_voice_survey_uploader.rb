@@ -1,3 +1,6 @@
+# This class was designed for use with a UI that uploads
+# CSV files.  So it is slightly different than the `Processor` classes
+# and how they handle merges and updates, but similar.
 class StudentVoiceSurveyUploader
   def initialize(file_text, upload_attrs, options = {})
     @file_text = file_text
@@ -37,6 +40,16 @@ class StudentVoiceSurveyUploader
     student_voice_survey_upload
   end
 
+  def stats
+    {
+      created_records_count: @created_records_count,
+      empty_survey_count: @empty_survey_count,
+      invalid_row_columns_count: @invalid_row_columns_count,
+      invalid_student_local_id_count: @invalid_student_local_id_count,
+      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
+    }
+  end
+
   private
   def create_streaming_csv
     csv_transformer = StreamingCsvTransformer.new(@log, {
@@ -65,11 +78,12 @@ class StudentVoiceSurveyUploader
       return nil
     end
 
-    # match student
-    student_id = Student.find_by_local_id(row_attrs[:student_lasid]).try(:id)
+    # match student (look at email, outside of whitelist)
+    student_lasid = read_student_lasid_from_row(raw_row, row_attrs)
+    student_id = Student.find_by_local_id(student_lasid).try(:id)
     if student_id.nil?
       @invalid_student_local_id_count += 1
-      @invalid_student_lodal_ids_list << row_attrs[:student_lasid]
+      @invalid_student_lodal_ids_list << student_lasid
       return nil
     end
 
@@ -81,14 +95,21 @@ class StudentVoiceSurveyUploader
     })
   end
 
-  def stats
-    {
-      created_records_count: @created_records_count,
-      empty_survey_count: @empty_survey_count,
-      invalid_row_columns_count: @invalid_row_columns_count,
-      invalid_student_local_id_count: @invalid_student_local_id_count,
-      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
-    }
+  # Read the value from `Email address` if it was collected,
+  # and if the username is numeric (ie, a LASID).
+  # This avoids errors when there are typos in the field asking
+  # for the LASID, but fall back to that if need be.
+  def read_student_lasid_from_row(raw_row, row_attrs)
+    if raw_row.has_key?('Email address')
+      student_email_address = raw_row['Email address']
+      email_prefix = student_email_address.split('@').try(:first).try(:trim)
+      if /^[0-9]+$/.match?(email_prefix)
+        email_prefix
+      end
+    end
+
+    # fall back
+    row_attrs[:student_lasid]
   end
 
   def reset_counters!

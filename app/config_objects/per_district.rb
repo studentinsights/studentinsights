@@ -421,7 +421,7 @@ class PerDistrict
   # educators mistakenly set any folders or documents to have
   # public permissions.
   def imported_google_folder_ids(key)
-    if @district_key == BEDFORD
+    if @district_key == BEDFORD || @district_key == SOMERVILLE
       json = JSON.parse(ENV.fetch('IMPORTED_GOOGLE_FOLDER_IDS_JSON', '{}'))
       json.fetch(key, nil)
     else
