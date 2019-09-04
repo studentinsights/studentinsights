@@ -17,7 +17,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
 
   private
   def school_overview_precompute_jobs
-    Educator.all.order(:id).flat_map { |educator| jobs_for_educator(educator) }.uniq
+    Educator.active.sort_by(&:id).flat_map { |educator| jobs_for_educator(educator) }.uniq
   end
 
   # Educators may have access to this for multiple schools, and with different

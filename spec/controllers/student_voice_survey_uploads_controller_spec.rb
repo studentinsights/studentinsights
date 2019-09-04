@@ -35,8 +35,8 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         "student_voice_survey_uploads"=>[{
           "id"=>a_kind_of(Integer),
           "file_name"=>"student_voice_survey_v2.csv",
-          "file_size"=>542,
-          "file_digest"=>"07e1baadcd3fd9c07ea1e149644ecaa6634ec0c7ac852df871741d353ce76266",
+          "file_size"=>534,
+          "file_digest"=>"944dd188a9ade53c95115f33d7fe2920cced21ffb6f7c42ba94b798bbf89b8b2",
           "completed"=>true,
           "stats"=>{
             "created_records_count"=>1,
@@ -110,8 +110,8 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       expect(upload.as_json).to include({
         "id"=>a_kind_of(Integer),
         "file_name"=>"student_voice_survey_v2.csv",
-        "file_size"=>542,
-        "file_digest"=> "07e1baadcd3fd9c07ea1e149644ecaa6634ec0c7ac852df871741d353ce76266",
+        "file_size"=>534,
+        "file_digest"=> "944dd188a9ade53c95115f33d7fe2920cced21ffb6f7c42ba94b798bbf89b8b2",
         "created_at"=>a_kind_of(ActiveSupport::TimeWithZone),
         "updated_at"=>a_kind_of(ActiveSupport::TimeWithZone),
         "uploaded_by_educator_id"=>pals.uri.id,

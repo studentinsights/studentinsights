@@ -62,10 +62,10 @@ RSpec.describe PerDistrict do
     end
 
     it 'works across districts' do
-      expect { for_somerville.imported_google_folder_ids('foo') }.to raise_error(Exceptions::DistrictKeyNotHandledError)
       expect { for_new_bedford.imported_google_folder_ids('foo') }.to raise_error(Exceptions::DistrictKeyNotHandledError)
       expect { for_demo.imported_google_folder_ids('foo') }.to raise_error(Exceptions::DistrictKeyNotHandledError)
       expect(for_bedford.imported_google_folder_ids('foo')).to eq 'bar'
+      expect(for_somerville.imported_google_folder_ids('foo')).to eq 'bar'
     end
   end
 

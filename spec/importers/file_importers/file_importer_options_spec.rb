@@ -20,7 +20,7 @@ RSpec.describe FileImporterOptions do
 
     it 'can describe data flows for all importer classes' do
       data_flows = FileImporterOptions.new.all_data_flows
-      expect(data_flows.size).to eq(13)
+      expect(data_flows.size).to eq(14)
       sorted_json = data_flows.as_json.sort_by {|j| j['importer'] }
       fixture_json = JSON.parse(IO.read("#{Rails.root}/spec/importers/helpers/data_flows_fixture.json"))
       expect(sorted_json).to eq(fixture_json)
@@ -31,7 +31,9 @@ RSpec.describe FileImporterOptions do
     it 'requires writing the keys written out again test to verify they are correct' do
       expect(FileImporterOptions.new.all_importer_keys).to contain_exactly(*[
         'x2',
+        '504',
         'star',
+        'google',
         'students',
         'assessments',
         'behavior',
@@ -45,7 +47,7 @@ RSpec.describe FileImporterOptions do
         'star_reading',
         'ed_plans',
         'ed_plan_accommodations',
-        '504'
+        'student_voice_surveys'
       ])
     end
   end

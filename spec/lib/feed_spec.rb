@@ -194,7 +194,7 @@ RSpec.describe Feed do
     end
 
     it 'never shows restricted notes, even if access' do
-      event_note = EventNote.create!(
+      EventNote.create!(
         is_restricted: true,
         student: pals.shs_freshman_mari,
         educator: pals.uri,
@@ -263,7 +263,7 @@ RSpec.describe Feed do
   end
 
   describe '#student_voice_cards' do
-    it 'works correctly, with one per day' do
+    it 'works correctly for imported cards, with one per day' do
       feed = feed_for(pals.shs_jodi)
       cards = feed.student_voice_cards(time_now)
       expect(cards.size).to eq 1
@@ -275,6 +275,48 @@ RSpec.describe Feed do
         'json' => {
           "latest_form_timestamp"=>"2018-03-11T11:03:00.000Z",
           "imported_forms_for_date_count"=>2,
+          'students' => [{
+            'id' => pals.shs_freshman_mari.id,
+            'first_name' => "Mari",
+            'last_name' => "Kenobi"
+          }]
+        }
+      }])
+    end
+
+    it 'works correctly for fall surveys, with one per day' do
+      ImportedForm.all.destroy_all
+      student_voice_survey_upload = StudentVoiceSurveyUpload.create!({
+        file_name: 'foo',
+        file_size: 123,
+        file_digest: 'xyz',
+        uploaded_by_educator_id: pals.shs_jodi.id,
+        completed: true,
+        stats: { foo: 'bar' }
+      })
+      StudentVoiceCompletedSurvey.create!({
+        student_voice_survey_upload_id: student_voice_survey_upload.id,
+        student_id: pals.shs_freshman_mari.id,
+        form_timestamp: DateTime.parse('2018-03-11T07:03:00.000Z'),
+        first_name: 'Mari',
+        student_lasid: pals.shs_freshman_mari.local_id,
+        proud: 'I am so proud!',
+        best_qualities: 'thoughts on best_qualities...',
+        activities_and_interests: 'thoughts on activities_and_interests...',
+        nervous_or_stressed: 'thoughts on nervous_or_stressed...',
+        learn_best: 'thoughts on learn_best...'
+      })
+
+      feed = feed_for(pals.shs_jodi)
+      cards = feed.student_voice_cards(time_now)
+      expect(cards.size).to eq 1
+      expect(cards.first.type).to eq(:student_voice)
+      expect(cards.as_json).to eq([{
+        'type' => "student_voice",
+        'timestamp' => "2018-03-11T07:03:00.000Z",
+        'json' => {
+          "latest_form_timestamp"=>"2018-03-11T07:03:00.000Z",
+          "imported_forms_for_date_count"=>1,
           'students' => [{
             'id' => pals.shs_freshman_mari.id,
             'first_name' => "Mari",

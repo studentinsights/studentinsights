@@ -201,8 +201,11 @@ class PerfTest
 
   private
   def debug!
-    Rails.configuration.log_level = :debug
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    # This is dangerous, as it can result in logging sensitive information.
+    # Use with caution, and verify the impact locally first.
+    #
+    # Rails.configuration.log_level = :debug
+    # ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
 
   def reset!

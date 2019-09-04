@@ -152,6 +152,17 @@
     "description": "SIS current computer grades for courses.  These may change over time, and primary keys may be recycled in some circumstances."
   },
   {
+    "importer": "StudentVoiceSurveyImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_daily",
+    "merge": "merge_append_only",
+    "touches": [
+      "StudentVoiceSurveyUpload",
+      "StudentVoiceCompletedSurvey"
+    ],
+    "options": [],
+    "description": "Import student voice surveys, append-only style, by reading sheet generated from Google Form"},
+  {
     "importer": "StudentsImporter",
     "source": "source_sis_sftp_csv",
     "frequency": "frequency_daily",

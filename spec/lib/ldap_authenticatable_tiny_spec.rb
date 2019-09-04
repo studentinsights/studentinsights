@@ -183,6 +183,22 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect_failure(strategy, :not_found_in_database)
     end
 
+    it 'calls fail when email found but not active?, without querying LDAP' do
+      pals.shs_jodi.update!(missing_from_last_export: true)
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi',
+          login_code: 'NO_CODE'
+        },
+        password: 'correct-password'
+      })
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
+
+      strategy.authenticate!
+      expect_failure(strategy, :not_active)
+    end
+
     it 'calls fail when email found but not is_authorized_by_ldap?' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
