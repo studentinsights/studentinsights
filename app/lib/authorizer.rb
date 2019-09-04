@@ -168,6 +168,8 @@ class Authorizer
   # Determine access to homerooms through authorization rules for students.
   # Only allow access to homeroom if the educator is assigned to the homeroom
   # explicitly or if they have access to all students in the homeroom.
+  # The intention is to centralize authorization rules into student methods
+  # (ie, `why_authorized_for_student?`).
   #
   # This is optimized to run over many educators, verify the impact on
   # `PerfTest.homerooms` before making changes.
@@ -196,8 +198,6 @@ class Authorizer
       # Load all potentially relevant homerooms eagerly in one shot.
       Homeroom.includes(:students).where(id: relevant_homeroom_ids)
     end
-    puts '>> potential_homerooms'
-    puts potential_homerooms.as_json
 
     # Iterate in memory, and find only homerooms where educator
     # can access all students.
@@ -209,13 +209,13 @@ class Authorizer
 
       homerooms << homeroom
     end
-    puts '>> homerooms'
-    puts homerooms.as_json
     homerooms
   end
 
   # deprecated, use `#homerooms` instead
-  def allowed_homerooms_DEPRECATED
+  def allowed_homerooms_DEPRECATED(options = {})
+    raise Exceptions::DeprecatedFeatureError unless options.fetch(:acknowledge_deprecation, false)
+
     if @educator.districtwide_access?
       Homeroom.all
     elsif @educator.schoolwide_access?

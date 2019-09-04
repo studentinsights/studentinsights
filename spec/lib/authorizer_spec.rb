@@ -458,7 +458,7 @@ RSpec.describe Authorizer do
     end
   end
 
-  context '#homerooms' do
+  context '#allowed_homerooms_DEPRECATED' do
     # These specs are migrated over from a differnet file that didn't
     # use TestPals; so unwind the TestPals db setup for this block of tests.
     before do
@@ -478,67 +478,69 @@ RSpec.describe Authorizer do
       School.all.destroy_all
     end
 
-    describe '#allowed_homerooms_DEPRECATED' do
-      def allowed_homerooms(educator)
-        Authorizer.new(educator).allowed_homerooms_DEPRECATED
+    def allowed_homerooms(educator)
+      Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
+    end
+
+    let!(:school) { FactoryBot.create(:healey) }
+    let!(:other_school) { FactoryBot.create(:brown) }
+
+    it 'raises unless acknowledge_deprecation: true' do
+      expect { Authorizer.new(educator).allowed_homerooms_DEPRECATED() }.to raise_error(Exceptions::DeprecatedFeatureError)
+    end
+
+    context 'schoolwide_access' do
+      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, school: school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+
+      it 'returns all homerooms in the school' do
+        expect(allowed_homerooms(educator).sort).to eq [
+          homeroom_101, homeroom_102, homeroom_103
+        ].sort
       end
+    end
 
-      let!(:school) { FactoryBot.create(:healey) }
-      let!(:other_school) { FactoryBot.create(:brown) }
+    context 'districtwide_access' do
+      let(:educator) { FactoryBot.create(:educator, districtwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, school: other_school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
 
-      context 'schoolwide_access' do
-        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
-        let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
-        let!(:homeroom_102) { FactoryBot.create(:homeroom, school: school) }
-        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
-
-        it 'returns all homerooms in the school' do
-          expect(allowed_homerooms(educator).sort).to eq [
-            homeroom_101, homeroom_102, homeroom_103
-          ].sort
-        end
+      it 'returns all homerooms in the school' do
+        expect(allowed_homerooms(educator).sort).to eq [
+          homeroom_101, homeroom_102, homeroom_103
+        ].sort
       end
+    end
 
-      context 'districtwide_access' do
-        let(:educator) { FactoryBot.create(:educator, districtwide_access: true, school: school) }
-        let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
-        let!(:homeroom_102) { FactoryBot.create(:homeroom, school: other_school) }
-        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
+    context 'homeroom teacher' do
+      let(:educator) { FactoryBot.create(:educator, school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', educator: educator, school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+      let!(:homeroom_brn) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
 
-        it 'returns all homerooms in the school' do
-          expect(allowed_homerooms(educator).sort).to eq [
-            homeroom_101, homeroom_102, homeroom_103
-          ].sort
-        end
+      it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
+        expect(allowed_homerooms(educator).sort).to eq [homeroom_101, homeroom_102].sort
       end
+    end
 
-      context 'homeroom teacher' do
-        let(:educator) { FactoryBot.create(:educator, school: school) }
-        let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', educator: educator, school: school) }
-        let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
-        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
-        let!(:homeroom_brn) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
+    context 'teacher with grade level access' do
+      let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
 
-        it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
-          expect(allowed_homerooms(educator).sort).to eq [homeroom_101, homeroom_102].sort
-        end
-      end
-
-      context 'teacher with grade level access' do
-        let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
-        let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
-        let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
-        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
-
-        it 'returns all homerooms that match the grade level access' do
-          expect(allowed_homerooms(educator)).to eq [homeroom_103]
-        end
+      it 'returns all homerooms that match the grade level access' do
+        expect(allowed_homerooms(educator)).to eq [homeroom_103]
       end
     end
 
     context 'parity tests with #allowed_homerooms_DEPRECATED' do
       def deprecated_method(educator)
-        Authorizer.new(educator).allowed_homerooms_DEPRECATED
+        Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
       end
 
       def new_method(educator)
@@ -618,6 +620,146 @@ RSpec.describe Authorizer do
           expect(new_method(educator)).to contain_exactly(*expected)
         end
       end
+    end
+  end
+
+  context '#homerooms' do
+    def homeroom_slugs_for(educator, options = {})
+      Authorizer.new(educator).homerooms(options).map(&:slug).sort
+    end
+
+    def diff_from_deprecated_method(educator, options = {})
+      authorizer = Authorizer.new(educator)
+      deprecated_slugs = authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true).sort.map(&:slug)
+      slugs = homeroom_slugs_for(educator, options)
+      added = slugs - deprecated_slugs
+      removed = deprecated_slugs - slugs
+
+      added.map {|slug| "+ #{slug}"} + removed.map {|slug| "- #{slug}" }
+    end
+
+    it 'includes homeroom if set explicitly' do
+      expect(homeroom_slugs_for(pals.healey_vivian_teacher)).to include('hea-003')
+    end
+
+    it 'includes homeroom if schoolwide, but not homeroom' do
+      expect(homeroom_slugs_for(pals.healey_laura_principal)).to include('hea-003')
+    end
+
+    it 'includes homeroom if districtwide, but not homeroom' do
+      expect(homeroom_slugs_for(pals.rich_districtwide)).to include('hea-003')
+    end
+
+    it 'excludes homeroom if set explicitly, but no students' do
+      expect(homeroom_slugs_for(pals.west_marcus_teacher)).to eq([])
+    end
+
+    it 'would includes homeroom, if it did have active students' do
+      FactoryBot.create(:student, {
+        homeroom: pals.west_fifth_homeroom,
+        school: pals.west
+      })
+      expect(homeroom_slugs_for(pals.west_marcus_teacher)).to eq(['wsns-501'])
+      expect(homeroom_slugs_for(pals.west_counselor)).to eq(['wsns-501'])
+    end
+
+    it 'would exclude homeroom, if it only had inactive students' do
+      FactoryBot.create(:student, homeroom: pals.west_fifth_homeroom, missing_from_last_export: true)
+      expect(homeroom_slugs_for(pals.west_marcus_teacher)).to eq([])
+      expect(homeroom_slugs_for(pals.west_counselor)).to eq([])
+    end
+
+    it 'would exclude access to homeroom if only connection was same grade level as assigned homeroom (fixing bug in deprecated method)' do
+      expect(homeroom_slugs_for(pals.shs_bill_nye)).to eq([])
+      expect(diff_from_deprecated_method(pals.shs_bill_nye)).to include('- shs-942')
+    end
+
+    it 'works across all TestPals' do
+      expect(Educator.all.size).to eq 15
+      expect(homeroom_slugs_for(pals.uri)).to eq(['hea-003','shs-942']) # districtwide
+      expect(homeroom_slugs_for(pals.rich_districtwide)).to eq(['hea-003','shs-942']) # districtwide
+      expect(homeroom_slugs_for(pals.healey_vivian_teacher)).to eq(['hea-003']) # homeroom
+      expect(homeroom_slugs_for(pals.healey_ell_teacher)).to eq([])
+      expect(homeroom_slugs_for(pals.healey_sped_teacher)).to eq([])
+      expect(homeroom_slugs_for(pals.healey_laura_principal)).to eq(['hea-003']) # schoolwide
+      expect(homeroom_slugs_for(pals.healey_sarah_teacher)).to eq([])
+      expect(homeroom_slugs_for(pals.west_marcus_teacher)).to eq([]) # no students
+      expect(homeroom_slugs_for(pals.west_counselor)).to eq([]) # no students
+      expect(homeroom_slugs_for(pals.shs_jodi)).to eq(['shs-942']) # homeroom
+      expect(homeroom_slugs_for(pals.shs_bill_nye)).to eq([])
+      expect(homeroom_slugs_for(pals.shs_hugo_art_teacher)).to eq([])
+      expect(homeroom_slugs_for(pals.shs_sofia_counselor)).to eq(['shs-942']) # schoolwide
+      expect(homeroom_slugs_for(pals.shs_fatima_science_teacher)).to eq(['shs-942']) # schoolwide
+      expect(homeroom_slugs_for(pals.shs_harry_housemaster)).to eq(['shs-942']) # schoolwide
+    end
+
+    it 'has expected differences with deprecated method (excludes homerooms with no active students)' do
+      educator_diff_map = Educator.all.reduce({}) do |map, educator|
+        diff = diff_from_deprecated_method(educator)
+        map.merge(educator.login_name.to_sym => diff)
+      end
+      expect(educator_diff_map).to eq({
+        alonso: [],
+        bill: ['- shs-942', '- shs-917'],
+        fatima: ['- shs-all', '- shs-917'],
+        harry: ['- shs-all', '- shs-917'],
+        hugo: [],
+        jodi: ['- shs-917'],
+        laura: ['- hea-500'],
+        les: ['- wsns-501'],
+        marcus: ['- wsns-501'],
+        rich: ['- hea-500', '- wsns-501', '- shs-all', '- shs-917'],
+        sarah: ['- hea-500'],
+        silva: [],
+        sofia: ['- shs-all', '- shs-917'],
+        uri: ['- hea-500', '- wsns-501', '- shs-all', '- shs-917'],
+        vivian: []
+      })
+    end
+
+    it 'respects force_search_all_homerooms option' do
+      expect(homeroom_slugs_for(pals.uri, force_search_all_homerooms: true)).to eq([
+        'hea-003',
+        'hea-500',
+        'shs-917',
+        'shs-942',
+        'shs-all',
+        'wsns-501'
+      ])
+    end
+
+    it 'has expected diff with force_search_all_homerooms:true option, and is overly inclusive' do
+      educator_diff_map = Educator.all.reduce({}) do |map, educator|
+        diff = diff_from_deprecated_method(educator, force_search_all_homerooms: true)
+        map.merge(educator.login_name.to_sym => diff)
+      end
+      expect(educator_diff_map).to eq({
+        alonso: ["+ hea-500", "+ shs-917", "+ shs-all", "+ wsns-501"],
+        bill: ["+ hea-500", "+ shs-all", "+ wsns-501", "- shs-942"], # one homeroom still removed
+        fatima: ["+ hea-500", "+ wsns-501"],
+        harry: ["+ hea-500", "+ wsns-501"],
+        hugo: ["+ hea-500", "+ shs-917", "+ shs-all", "+ wsns-501"],
+        jodi: ["+ hea-500", "+ shs-all", "+ wsns-501"],
+        laura: ["+ shs-917", "+ shs-all", "+ wsns-501"],
+        les: ["+ hea-500", "+ shs-917", "+ shs-all"],
+        marcus: ["+ hea-500", "+ shs-917", "+ shs-all"],
+        rich: [],
+        sarah: ["+ shs-917", "+ shs-all", "+ wsns-501"],
+        silva: ["+ hea-500", "+ shs-917", "+ shs-all", "+ wsns-501"],
+        sofia: ["+ hea-500", "+ wsns-501"],
+        uri: [],
+        vivian: ["+ hea-500", "+ shs-917", "+ shs-all", "+ wsns-501"],
+      })
+
+      # diff is only rooms with no students, and bug fix related to homerooms
+      # at the same grade
+      expect(educator_diff_map.values.flatten.uniq.sort).to eq([
+        "+ hea-500",
+        "+ shs-917",
+        "+ shs-all",
+        "+ wsns-501",
+        "- shs-942" # bug fix
+      ])
     end
   end
 end
