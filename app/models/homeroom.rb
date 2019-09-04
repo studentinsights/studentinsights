@@ -14,6 +14,9 @@ class Homeroom < ApplicationRecord
   validate :validate_school_matches_educator_school
 
   private
+  # This doesn't work for mixed-grade homerooms (eg, special education).
+  # We should migrate to `Homeroom#grades` or querying students on-demand
+  # instead.
   def update_grade(student)
     # Set homeroom grade level to be first student's grade level, since
     # we don't have any crosswalk between homerooms and grades in
@@ -21,6 +24,7 @@ class Homeroom < ApplicationRecord
 
     return if self.grade.present?
     return if student.grade.blank?
+
     update_attribute(:grade, student.grade)
   end
 

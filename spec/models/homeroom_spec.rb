@@ -18,18 +18,47 @@ RSpec.describe Homeroom do
   end
 
   describe '#grade' do
-    context 'with PK student' do
-      let(:homeroom) { FactoryBot.create(:homeroom_with_pre_k_student) }
-      it 'is "PK"' do
-        expect(homeroom.grade).to eq "PK"
+    it 'works for all PK students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        3.times { h.students << FactoryBot.create(:student, grade: 'PK') }
       end
+      expect(homeroom.grade).to eq "PK"
     end
-    context 'with 2nd grade student' do
-      let(:homeroom) { FactoryBot.create(:homeroom_with_second_grader) }
-      it 'is "2"' do
-        expect(homeroom.grade).to eq "2"
+
+    it 'works for all 2nd grade students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        3.times { h.students << FactoryBot.create(:student, grade: '2') }
       end
+      expect(homeroom.grade).to eq "2"
     end
   end
 
+  # These describe existing quirks and why migrating from eager `homeroom#grade` to
+  # lazy `homeroom#grades` is better longer term.
+  context '#update_grade' do
+    it 'returns value for first student added in mixed-grade homerooms (eg, special education)' do
+      grades = ['PK', '1', '2']
+      5.times do
+        shuffled = grades.shuffle
+        homeroom = FactoryBot.create(:homeroom).tap do |h|
+          shuffled.each do |grade|
+            h.students << FactoryBot.create(:student, grade: grade)
+          end
+        end
+        expect(homeroom.grade).to eq shuffled.first
+      end
+    end
+
+    it 'has the value for first student added, even if they are later removed and no students left in that grade (eg, special education)' do
+      homeroom = FactoryBot.create(:homeroom)
+      prek_student = FactoryBot.create(:student, grade: 'PK')
+      second_grade_student = FactoryBot.create(:student, grade: '2')
+      homeroom.students << prek_student
+      homeroom.students << second_grade_student
+      expect(homeroom.grade).to eq 'PK'
+
+      prek_student.destroy!
+      expect(homeroom.grade).to eq 'PK' # not really what we want, but current behavior
+    end
+  end
 end
