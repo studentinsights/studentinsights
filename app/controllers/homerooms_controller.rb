@@ -26,6 +26,17 @@ class HomeroomsController < ApplicationController
   end
 
   private
+  def authorize_and_assign_homeroom!(homeroom_id_or_slug)
+    homeroom = find_homeroom_by_id_or_slug(homeroom_id_or_slug)
+    raise Exceptions::EducatorNotAuthorized unless authorized_homerooms().include? homeroom
+    homeroom
+  end
+
+  # Migrating this to `authorizer#homerooms`
+  def authorized_homerooms
+    authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
+  end
+
   def eager_students(homeroom, *additional_includes)
     homeroom.students.active.includes([
       :event_notes,
@@ -54,16 +65,6 @@ class HomeroomsController < ApplicationController
       interventions: student.interventions,
       sped_data: sped_data(student)
     }))
-  end
-
-  def authorize_and_assign_homeroom!(homeroom_id_or_slug)
-    homeroom = find_homeroom_by_id_or_slug(homeroom_id_or_slug)
-    raise Exceptions::EducatorNotAuthorized unless authorized_homerooms.include? homeroom
-    homeroom
-  end
-
-  def authorized_homerooms
-    @authorized_homerooms ||= authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
   end
 
   # Calling `Homeroom.friendly.find` with a string version of an id will first

@@ -249,50 +249,88 @@ describe HomeroomsController, :type => :controller do
       end
     end
 
-    it 'returns proper list' do
-      pending
+    context 'returns list of homerooms' do
+      let!(:pals) { TestPals.create! }
+
+      it 'works as expected, when unit testing #authorized_homerooms method' do
+        allowed_access_map = Educator.all.reduce({}) do |map, educator|
+          controller.instance_variable_set(:@authorizer, Authorizer.new(educator))
+          homeroom_slugs = controller.send(:authorized_homerooms).map(&:slug).sort
+          map.merge(educator.login_name.to_sym => homeroom_slugs)
+        end
+        expect(allowed_access_map).to eq({
+          alonso: [],
+          bill: ["shs-917", "shs-942"],
+          fatima: ["shs-917", "shs-942", "shs-all"],
+          harry: ["shs-917", "shs-942", "shs-all"],
+          hugo: [],
+          jodi: ["shs-917", "shs-942"],
+          laura: ["hea-003", "hea-500"],
+          les: ["wsns-501"],
+          marcus: ["wsns-501"],
+          rich: ["hea-003", "hea-500", "shs-917", "shs-942", "shs-all", "wsns-501"],
+          sarah: ["hea-500"],
+          silva: [],
+          sofia: ["shs-917", "shs-942", "shs-all"],
+          uri: ["hea-003", "hea-500", "shs-917", "shs-942", "shs-all", "wsns-501"],
+          vivian: ["hea-003"],
+        })
+      end
     end
 
     context 'guards access' do
-      def response_code_for(educator, homeroom)
+      let!(:pals) { TestPals.create! }
+
+      def get_homeroom(educator, homeroom)
+        # Avoid test pollution; instance variables on the controller
+        # itself are fine, but experimenting with this shows that
+        # ApplicationController instance variable are NOT cleared
+        # by a call into a controller action by rspec.  This violates
+        # how I would expect this to work, but makes sense if you want
+        # to enforce one example to test one action.
+        #
+        # For our case here, it's helpful to loop through fixture
+        # data and make assertions across all cases at once,
+        # so this explicitly clears authorizations.
+        controller.instance_variable_set(:@authorizer, nil)
+
+        request.env['HTTPS'] = 'on'
         sign_in(educator)
-        make_request(homeroom.slug)
-        response_code = response.status
-        puts ">> #{educator.login_name} / #{homeroom.slug} / #{response.status}"
+        request.env['HTTP_ACCEPT'] = 'application/json'
+        get :homeroom_json, params: { id: homeroom.slug }
+        r = response
         sign_out(educator)
-        response_code
+        r
       end
 
-      def allowed_access_to(educator, homerooms)
-        allowed_homerooms = homerooms.select do |homeroom|
-          response_code_for(educator, homeroom) == 200
+      def allowed_access_to(educator)
+        allowed_homerooms = Homeroom.all.select do |homeroom|
+          get_homeroom(educator, homeroom).status == 200
         end
         allowed_homerooms.map(&:slug).sort
       end
 
       it 'works across TestPals' do
-        TestPals.create!
-        homerooms = Homeroom.all
         allowed_access_map = Educator.all.reduce({}) do |map, educator|
-          homeroom_slugs = allowed_access_to(educator, homerooms)
+          homeroom_slugs = allowed_access_to(educator)
           map.merge(educator.login_name.to_sym => homeroom_slugs)
         end
         expect(allowed_access_map).to eq({
-          alonso: ["hea-003", "shs-942"],
-          bill: ["hea-003", "shs-942"],
-          fatima: ["hea-003", "shs-942"],
-          harry: ["hea-003", "shs-942"],
-          hugo: ["hea-003", "shs-942"],
-          jodi: ["hea-003", "shs-942"],
-          laura: ["hea-003", "shs-942"],
-          les: ["hea-003", "shs-942"],
-          marcus: ["hea-003", "shs-942"],
-          rich: ["hea-003", "shs-942"],
-          sarah: ["hea-003", "shs-942"],
-          silva: ["hea-003", "shs-942"],
-          sofia: ["hea-003", "shs-942"],
-          uri: ["hea-003", "shs-942"],
-          vivian: ["hea-003", "shs-942"]
+          alonso: [],
+          bill: ['shs-917', 'shs-942'],
+          fatima: ['shs-917', 'shs-942', 'shs-all'],
+          harry: ['shs-917', 'shs-942', 'shs-all'],
+          hugo: [],
+          jodi: ['shs-917', 'shs-942'],
+          laura: ['hea-003', 'hea-500'],
+          les: ['wsns-501'],
+          marcus: ['wsns-501'],
+          rich: ['hea-003', 'hea-500', 'shs-917', 'shs-942', 'shs-all', 'wsns-501'],
+          sarah: ['hea-500'],
+          silva: [],
+          sofia: ['shs-917', 'shs-942', 'shs-all'],
+          uri: ['hea-003', 'hea-500', 'shs-917', 'shs-942', 'shs-all', 'wsns-501'],
+          vivian: ['hea-003'],
         })
       end
     end
