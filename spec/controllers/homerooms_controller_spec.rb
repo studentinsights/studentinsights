@@ -252,7 +252,7 @@ describe HomeroomsController, :type => :controller do
     context 'returns list of homerooms' do
       let!(:pals) { TestPals.create! }
 
-      it 'works as expected, when unit testing #authorized_homerooms method' do
+      it 'works as expected before cutover, when unit testing #authorized_homerooms method' do
         allowed_access_map = Educator.all.reduce({}) do |map, educator|
           allow(controller).to receive(:current_educator).and_return(educator)
           homeroom_slugs = controller.send(:authorized_homerooms).map(&:slug).sort
@@ -273,6 +273,33 @@ describe HomeroomsController, :type => :controller do
           silva: [],
           sofia: ["shs-917", "shs-942", "shs-all"],
           uri: ["hea-003", "hea-500", "shs-917", "shs-942", "shs-all", "wsns-501"],
+          vivian: ["hea-003"],
+        })
+      end
+
+      it 'works as expected after cutover, when unit testing #authorized_homerooms method' do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('ENABLE_HOMEROOM_AUTHORIZATION_V2').and_return('true')
+        allowed_access_map = Educator.all.reduce({}) do |map, educator|
+          allow(controller).to receive(:current_educator).and_return(educator)
+          homeroom_slugs = controller.send(:authorized_homerooms).map(&:slug).sort
+          map.merge(educator.login_name.to_sym => homeroom_slugs)
+        end
+        expect(allowed_access_map).to eq({
+          alonso: [],
+          bill: [],
+          fatima: ["shs-942"],
+          harry: ["shs-942"],
+          hugo: [],
+          jodi: ["shs-942"],
+          laura: ["hea-003"],
+          les: [],
+          marcus: [],
+          rich: ["hea-003", "shs-942"],
+          sarah: [],
+          silva: [],
+          sofia: ["shs-942"],
+          uri: ["hea-003", "shs-942"],
           vivian: ["hea-003"],
         })
       end
@@ -298,7 +325,7 @@ describe HomeroomsController, :type => :controller do
         allowed_homerooms.map(&:slug).sort
       end
 
-      it 'works across TestPals' do
+      it 'works across TestPals, before cutover' do
         allowed_access_map = Educator.all.reduce({}) do |map, educator|
           homeroom_slugs = allowed_access_to(educator)
           map.merge(educator.login_name.to_sym => homeroom_slugs)
@@ -318,6 +345,32 @@ describe HomeroomsController, :type => :controller do
           silva: [],
           sofia: ['shs-917', 'shs-942', 'shs-all'],
           uri: ['hea-003', 'hea-500', 'shs-917', 'shs-942', 'shs-all', 'wsns-501'],
+          vivian: ['hea-003'],
+        })
+      end
+
+      it 'works across TestPals, after cutover' do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('ENABLE_HOMEROOM_AUTHORIZATION_V2').and_return('true')
+        allowed_access_map = Educator.all.reduce({}) do |map, educator|
+          homeroom_slugs = allowed_access_to(educator)
+          map.merge(educator.login_name.to_sym => homeroom_slugs)
+        end
+        expect(allowed_access_map).to eq({
+          alonso: [],
+          bill: [],
+          fatima: ["shs-942"],
+          harry: ["shs-942"],
+          hugo: [],
+          jodi: ["shs-942"],
+          laura: ["hea-003"],
+          les: [],
+          marcus: [],
+          rich: ["hea-003", "shs-942"],
+          sarah: [],
+          silva: [],
+          sofia: ["shs-942"],
+          uri: ["hea-003", "shs-942"],
           vivian: ['hea-003'],
         })
       end

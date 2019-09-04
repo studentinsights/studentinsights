@@ -34,7 +34,11 @@ class HomeroomsController < ApplicationController
 
   # Migrating this to `authorizer#homerooms`
   def authorized_homerooms
-    authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
+    if EnvironmentVariable.is_true('ENABLE_HOMEROOM_AUTHORIZATION_V2')
+      authorizer.homerooms
+    else
+      authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
+    end
   end
 
   def eager_students(homeroom, *additional_includes)
