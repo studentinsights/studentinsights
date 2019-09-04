@@ -254,7 +254,7 @@ describe HomeroomsController, :type => :controller do
 
       it 'works as expected, when unit testing #authorized_homerooms method' do
         allowed_access_map = Educator.all.reduce({}) do |map, educator|
-          controller.instance_variable_set(:@authorizer, Authorizer.new(educator))
+          allow(controller).to receive(:current_educator).and_return(educator)
           homeroom_slugs = controller.send(:authorized_homerooms).map(&:slug).sort
           map.merge(educator.login_name.to_sym => homeroom_slugs)
         end
@@ -282,18 +282,6 @@ describe HomeroomsController, :type => :controller do
       let!(:pals) { TestPals.create! }
 
       def get_homeroom(educator, homeroom)
-        # Avoid test pollution; instance variables on the controller
-        # itself are fine, but experimenting with this shows that
-        # ApplicationController instance variable are NOT cleared
-        # by a call into a controller action by rspec.  This violates
-        # how I would expect this to work, but makes sense if you want
-        # to enforce one example to test one action.
-        #
-        # For our case here, it's helpful to loop through fixture
-        # data and make assertions across all cases at once,
-        # so this explicitly clears authorizations.
-        controller.instance_variable_set(:@authorizer, nil)
-
         request.env['HTTPS'] = 'on'
         sign_in(educator)
         request.env['HTTP_ACCEPT'] = 'application/json'
