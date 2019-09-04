@@ -249,6 +249,53 @@ describe HomeroomsController, :type => :controller do
       end
     end
 
+    it 'returns proper list' do
+      pending
+    end
+
+    context 'guards access' do
+      def response_code_for(educator, homeroom)
+        sign_in(educator)
+        make_request(homeroom.slug)
+        response_code = response.status
+        puts ">> #{educator.login_name} / #{homeroom.slug} / #{response.status}"
+        sign_out(educator)
+        response_code
+      end
+
+      def allowed_access_to(educator, homerooms)
+        allowed_homerooms = homerooms.select do |homeroom|
+          response_code_for(educator, homeroom) == 200
+        end
+        allowed_homerooms.map(&:slug).sort
+      end
+
+      it 'works across TestPals' do
+        TestPals.create!
+        homerooms = Homeroom.all
+        allowed_access_map = Educator.all.reduce({}) do |map, educator|
+          homeroom_slugs = allowed_access_to(educator, homerooms)
+          map.merge(educator.login_name.to_sym => homeroom_slugs)
+        end
+        expect(allowed_access_map).to eq({
+          alonso: ["hea-003", "shs-942"],
+          bill: ["hea-003", "shs-942"],
+          fatima: ["hea-003", "shs-942"],
+          harry: ["hea-003", "shs-942"],
+          hugo: ["hea-003", "shs-942"],
+          jodi: ["hea-003", "shs-942"],
+          laura: ["hea-003", "shs-942"],
+          les: ["hea-003", "shs-942"],
+          marcus: ["hea-003", "shs-942"],
+          rich: ["hea-003", "shs-942"],
+          sarah: ["hea-003", "shs-942"],
+          silva: ["hea-003", "shs-942"],
+          sofia: ["hea-003", "shs-942"],
+          uri: ["hea-003", "shs-942"],
+          vivian: ["hea-003", "shs-942"]
+        })
+      end
+    end
   end
 
   describe '#find_homeroom_by_id_or_slug' do

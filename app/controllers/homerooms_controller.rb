@@ -6,7 +6,7 @@ class HomeroomsController < ApplicationController
     rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
 
     # For navigation
-    allowed_homerooms = current_educator.allowed_homerooms.order(:name)
+    allowed_homerooms = authorized_homerooms().sort_by(&:name)
 
     render json: {
       homeroom: homeroom.as_json({
@@ -58,8 +58,12 @@ class HomeroomsController < ApplicationController
 
   def authorize_and_assign_homeroom!(homeroom_id_or_slug)
     homeroom = find_homeroom_by_id_or_slug(homeroom_id_or_slug)
-    raise Exceptions::EducatorNotAuthorized unless current_educator.allowed_homerooms.include? homeroom
+    raise Exceptions::EducatorNotAuthorized unless authorized_homerooms.include? homeroom
     homeroom
+  end
+
+  def authorized_homerooms
+    @authorized_homerooms ||= authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
   end
 
   # Calling `Homeroom.friendly.find` with a string version of an id will first
