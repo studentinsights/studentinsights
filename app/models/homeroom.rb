@@ -5,6 +5,7 @@ class Homeroom < ApplicationRecord
   belongs_to :educator, optional: true
   belongs_to :school
 
+  validates :grade, inclusion: { in: [nil] + GradeLevels::ORDERED_GRADE_LEVELS }
   validates :name, presence: true, uniqueness: { scope: [:name, :school] }
   validates :slug, presence: true, uniqueness: true
   validates :school, presence: true
