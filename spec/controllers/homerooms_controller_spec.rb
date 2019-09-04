@@ -317,7 +317,7 @@ describe HomeroomsController, :type => :controller do
         request.env['HTTPS'] = 'on'
         sign_in(educator)
         request.env['HTTP_ACCEPT'] = 'application/json'
-        get :homeroom_json, params: { id: homeroom.slug }
+        get :homeroom_json, params: { id: homeroom.id }
         r = response
         sign_out(educator)
         r
