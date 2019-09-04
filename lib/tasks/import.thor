@@ -11,7 +11,7 @@ class Import
     class_option :source,
       type: :array,
       default: FileImporterOptions.new.all_importer_keys,
-      desc: "Import data from one of #{FileImporterOptions.new.all_importer_keys}"
+      desc: "Import data from one of the keys in 'FileImporterOptions'"
     class_option :only_recent_attendance,
       type: :boolean,
       default: false,

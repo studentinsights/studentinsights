@@ -31,7 +31,9 @@ RSpec.describe FileImporterOptions do
     it 'requires writing the keys written out again test to verify they are correct' do
       expect(FileImporterOptions.new.all_importer_keys).to contain_exactly(*[
         'x2',
+        '504',
         'star',
+        'google',
         'students',
         'assessments',
         'behavior',
@@ -45,7 +47,6 @@ RSpec.describe FileImporterOptions do
         'star_reading',
         'ed_plans',
         'ed_plan_accommodations',
-        '504',
         'student_voice_surveys'
       ])
     end
