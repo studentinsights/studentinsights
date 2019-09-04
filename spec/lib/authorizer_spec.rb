@@ -535,5 +535,89 @@ RSpec.describe Authorizer do
         end
       end
     end
+
+    context 'parity tests with #allowed_homerooms_DEPRECATED' do
+      def deprecated_method(educator)
+        Authorizer.new(educator).allowed_homerooms_DEPRECATED
+      end
+
+      def new_method(educator)
+        Authorizer.new(educator).homerooms
+      end
+
+      def homeroom_with_student(school, attrs = {})
+        homeroom = FactoryBot.create(:homeroom, attrs.merge(school: school))
+        student = FactoryBot.create(:student, :registered_last_year, {homeroom: homeroom}, school)
+        homeroom.students << student
+        homeroom
+      end
+
+      let!(:school) { FactoryBot.create(:healey) }
+      let!(:other_school) { FactoryBot.create(:brown) }
+
+      context 'schoolwide_access' do
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
+        let!(:homeroom_101) { homeroom_with_student(school) }
+        let!(:homeroom_102) { homeroom_with_student(school) }
+        let!(:homeroom_103) { homeroom_with_student(school, grade: '2') }
+
+        it 'returns all homerooms in the school (parity)' do
+          puts "students:"
+          puts Student.active.as_json
+          puts
+          puts
+          puts
+          expected = [homeroom_101, homeroom_102, homeroom_103]
+          puts "expected:"
+          puts expected.sort.as_json
+          puts "deprecated:"
+          puts deprecated_method(educator).sort.as_json
+          puts "new_method:"
+          puts new_method(educator).sort.as_json
+          expect(deprecated_method(educator)).to contain_exactly(*expected)
+          expect(new_method(educator)).to contain_exactly(*expected)
+        end
+      end
+
+      context 'districtwide_access' do
+        let(:educator) { FactoryBot.create(:educator, districtwide_access: true, school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, school: other_school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
+
+        it 'returns all homerooms in the school (parity)' do
+          expected = [homeroom_101, homeroom_102, homeroom_103]
+          expect(deprecated_method(educator)).to contain_exactly(*expected)
+          expect(new_method(educator)).to contain_exactly(*expected)
+        end
+      end
+
+      context 'homeroom teacher' do
+        let(:educator) { FactoryBot.create(:educator, school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', educator: educator, school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+        let!(:homeroom_brn) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
+
+        it 'returns educator\'s homeroom plus other homerooms at same grade level in same school (parity)' do
+          expected = [homeroom_101, homeroom_102]
+          expect(deprecated_method(educator)).to contain_exactly(*expected)
+          expect(new_method(educator)).to contain_exactly(*expected)
+        end
+      end
+
+      context 'teacher with grade level access' do
+        let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
+        let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+        let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+        let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+
+        it 'returns all homerooms that match the grade level access' do
+          expected = [homeroom_103]
+          expect(deprecated_method(educator)).to contain_exactly(*expected)
+          expect(new_method(educator)).to contain_exactly(*expected)
+        end
+      end
+    end
   end
 end

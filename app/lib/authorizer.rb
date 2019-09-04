@@ -165,6 +165,55 @@ class Authorizer
     true
   end
 
+  # Determine access to homerooms through authorization rules for students.
+  # Only allow access to homeroom if the educator is assigned to the homeroom
+  # explicitly or if they have access to all students in the homeroom.
+  #
+  # This is optimized to run over many educators, verify the impact on
+  # `PerfTest.homerooms` before making changes.
+  def homerooms(options = {})
+    # Get all authorized students; allow passing in students with eager loading
+    # for further optimization by callers if need be.
+    students = authorized do
+      if options.has_key?(:students)
+        options[:students]
+      else
+        Student.active.includes(:homeroom).to_a
+      end
+    end
+
+    # In the deprecated method, it would include access to Homerooms that
+    # had no students.  In the new method, this doesn't make sense (and there's
+    # no real point).  But this allows an option to force using the older method,
+    # which will over-include homerooms with zero students.
+    potential_homerooms = if options.fetch(:force_search_all_homerooms, false)
+      Homeroom.all.includes(:students)
+    else
+      # What homerooms are even relevant for this educator, based
+      # on what students they have access to?
+      relevant_homeroom_ids = students.map(&:homeroom_id).uniq.compact
+
+      # Load all potentially relevant homerooms eagerly in one shot.
+      Homeroom.includes(:students).where(id: relevant_homeroom_ids)
+    end
+    puts '>> potential_homerooms'
+    puts potential_homerooms.as_json
+
+    # Iterate in memory, and find only homerooms where educator
+    # can access all students.
+    homerooms = []
+    potential_homerooms.each do |homeroom|
+      students_in_homeroom = homeroom.students
+      authorized_students_in_homeroom = students.select{|s| s.homeroom_id == homeroom.id }
+      next if Set.new(students_in_homeroom) != Set.new(authorized_students_in_homeroom)
+
+      homerooms << homeroom
+    end
+    puts '>> homerooms'
+    puts homerooms.as_json
+    homerooms
+  end
+
   # deprecated, use `#homerooms` instead
   def allowed_homerooms_DEPRECATED
     if @educator.districtwide_access?
@@ -177,44 +226,6 @@ class Authorizer
       @educator.school.homerooms.where(grade: @educator.grade_level_access)
     else
       []
-    end
-  end
-
-  # Determine access to homerooms through authorization rules for students.
-  # Only allow access to homeroom if the educator is assigned to the homeroom
-  # explicitly or if they have access to all students in the homeroom.
-  #
-  # This is optimized to run over many educators, verify the impact on
-  # `PerfTest.homerooms` before making changes.
-  def homerooms(options = {})
-    # Get all authorized students; allow passing in students with eager loading
-    # for further optimization call-side.
-    students = authorized do
-      if options.has_key?(:students)
-        options[:students]
-      else
-        Student.active.includes(:homeroom)
-      end
-    end
-
-    # What homerooms are even relevant for this educator, based
-    # on what students they have access to?
-    relevant_homeroom_ids = students.map(&:homeroom_id).uniq.compact
-
-    # Load all potentially relevant homerooms eagerly in one shot.
-    potential_homerooms = Homeroom
-      .includes(:students)
-      .where(id: relevant_homeroom_ids)
-
-    # Iterate in memory, and find only homerooms where educator
-    # can access all students.
-    homerooms = []
-    potential_homerooms.each do |homeroom|
-      students_in_homeroom = homeroom.students
-      authorized_students_in_homeroom = students.select{|s| s.homeroom_id == homeroom.id }
-      next if Set.new(students_in_homeroom) != Set.new(authorized_students_in_homeroom)
-
-      homerooms << homeroom
     end
   end
 

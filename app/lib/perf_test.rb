@@ -26,6 +26,13 @@ class PerfTest
     end
   end
 
+  # Critical path for authorization
+  def self.authorized_homerooms(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      Authorizer.new(educator).homerooms
+    end
+  end
+
   # See educators_controller#my_students_json
   def self.my_students(percentage, options = {})
     PerfTest.new.simple(percentage, options) do |educator|
