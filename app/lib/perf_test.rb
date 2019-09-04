@@ -26,14 +26,12 @@ class PerfTest
     end
   end
 
-  # Critical path for authorization
   def self.authorized_homerooms(percentage, options = {})
     PerfTest.new.simple(percentage, options) do |educator|
       Authorizer.new(educator).homerooms
     end
   end
 
-  # Critical path for authorization
   def self.authorized_homerooms_DEPRECATED(percentage, options = {})
     PerfTest.new.simple(percentage, options) do |educator|
       Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
