@@ -174,39 +174,31 @@ class Authorizer
   # This is optimized to run over many educators, verify the impact on
   # `PerfTest.homerooms` before making changes.
   def homerooms(options = {})
-    # Get all authorized students; allow passing in students with eager loading
-    # for further optimization by callers if need be.
-    students = authorized do
-      if options.has_key?(:students)
-        options[:students]
-      else
-        Student.active.includes(:homeroom).to_a
-      end
-    end
+    # Query for all students up front, then pass through authorizer.
+    unsafe_all_students = Student.active.includes(:homeroom).to_a
+    students = authorized { unsafe_all_students }
+
+    # In memory, group each list by homeroom.
+    unsafe_students_by_homeroom = unsafe_all_students.group_by(&:homeroom)
+    authorized_students_by_homeroom = students.group_by(&:homeroom)
 
     # In the deprecated method, it would include access to Homerooms that
     # had no students.  In the new method, this doesn't make sense (and there's
-    # no real point).  But this allows an option to force using the older method,
-    # which will over-include homerooms with zero students.
+    # no real point).  But this allows an option to force using the older method
+    # within tests, which will over-include homerooms with zero students.
     potential_homerooms = if options.fetch(:force_search_all_homerooms, false)
       Homeroom.all.includes(:students)
     else
-      # What homerooms are even relevant for this educator, based
-      # on what students they have access to?
-      relevant_homeroom_ids = students.map(&:homeroom_id).uniq.compact
-
-      # Load all potentially relevant homerooms eagerly in one shot.
-      Homeroom.includes(:students).where(id: relevant_homeroom_ids)
+      authorized_students_by_homeroom.keys.compact
     end
 
     # Iterate in memory, and find only homerooms where educator
     # can access all students.
     homerooms = []
     potential_homerooms.each do |homeroom|
-      students_in_homeroom = homeroom.students
-      authorized_students_in_homeroom = students.select{|s| s.homeroom_id == homeroom.id }
-      next if Set.new(students_in_homeroom) != Set.new(authorized_students_in_homeroom)
-
+      authorized_students_in_homeroom = authorized_students_by_homeroom[homeroom]
+      unsafe_students_in_homeroom = unsafe_students_by_homeroom[homeroom]
+      next if Set.new(unsafe_students_in_homeroom) != Set.new(authorized_students_in_homeroom)
       homerooms << homeroom
     end
     homerooms
