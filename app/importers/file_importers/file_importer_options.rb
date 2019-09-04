@@ -49,9 +49,16 @@ class FileImporterOptions
         EdPlansImporter,
         EdPlanAccommodationsImporter
       ],
+      '504' => [
+        EdPlansImporter,
+        EdPlanAccommodationsImporter
+      ],
       'star' => [
         StarReadingImporter,
         StarMathImporter
+      ],
+      'google' => [
+        StudentVoiceSurveyImporter
       ],
       'students' => StudentsImporter,
       'assessments' => X2AssessmentImporter,
@@ -62,14 +69,10 @@ class FileImporterOptions
       'student_section_assignments' => StudentSectionAssignmentsImporter,
       'student_section_grades' => StudentSectionGradesImporter,
       'educator_section_assignments' => EducatorSectionAssignmentsImporter,
-      'star_math' => StarMathImporter,
-      'star_reading' => StarReadingImporter,
       'ed_plans' => EdPlansImporter,
       'ed_plan_accommodations' => EdPlanAccommodationsImporter,
-      '504' => [
-        EdPlansImporter,
-        EdPlanAccommodationsImporter
-      ],
+      'star_math' => StarMathImporter,
+      'star_reading' => StarReadingImporter,
       'student_voice_surveys' => StudentVoiceSurveyImporter
     }
   end

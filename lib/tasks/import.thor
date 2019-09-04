@@ -10,8 +10,8 @@ class Import
       desc: "Scope by school"
     class_option :source,
       type: :array,
-      default: ['x2', 'star'],  # This runs all X2 and STAR importers
-      desc: "Import data from one of #{FileImporterOptions.new.all_importer_keys}"
+      default: FileImporterOptions.new.all_importer_keys,
+      desc: "Import data from one of the keys in 'FileImporterOptions'"
     class_option :only_recent_attendance,
       type: :boolean,
       default: false,
