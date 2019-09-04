@@ -79,6 +79,8 @@ class HomeroomsController < ApplicationController
   # > Homeroom.find_by_id('7-263') => #<Homeroom id: 7, name: "H-001", ... >
   # So ensure that this any id lookup is really an integer and manually convert these
   # types.
+  #
+  # See https://github.com/studentinsights/studentinsights/pull/2588 for more.
   def find_homeroom_by_id(homeroom_id)
     strict_homeroom_id = homeroom_id.to_i.to_s.to_i
     if homeroom_id.to_s == strict_homeroom_id.to_s
