@@ -109,6 +109,6 @@ class ApplicationController < ActionController::Base
 
   private
   def authorizer
-    @authorizer ||= Authorizer.new(current_educator)
+    Authorizer.new(current_educator)
   end
 end
