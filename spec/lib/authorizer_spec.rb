@@ -153,6 +153,54 @@ RSpec.describe Authorizer do
           pals.shs_freshman_mari.id
         ])
       end
+
+      context 'with grade_level_access field set' do
+        def with_grade_level_access(educator, grade_level)
+          educator.update!(grade_level_access: grade_level)
+          authorized(educator) { Student.all }
+        end
+
+        it 'works as expected across TestPals, and will not cross school boundaries' do
+          expect(with_grade_level_access(pals.healey_vivian_teacher, ['8', '9'])).to match_array [
+            pals.healey_kindergarten_student
+          ]
+          expect(with_grade_level_access(pals.shs_jodi, ['KF', '8'])).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir
+          ]
+          expect(with_grade_level_access(pals.shs_bill_nye, ['12'])).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_senior_kylo
+          ]
+        end
+
+        it 'works as expected with specific examples' do
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.healey), ['1', '2', '3'])).to match_array []
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.healey), ['KF'])).to match_array [
+            pals.healey_kindergarten_student
+          ]
+
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.west), ['5', '6', '7'])).to match_array []
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.west), ['8'])).to match_array [
+            pals.west_eighth_ryan
+          ]
+
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.shs), ['9'])).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir
+          ]
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.shs), ['10'])).to match_array []
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.shs), ['11'])).to match_array []
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.shs), ['12'])).to match_array [
+            pals.shs_senior_kylo
+          ]
+          expect(with_grade_level_access(FactoryBot.create(:educator, school: pals.shs), ['9', '12'])).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ]
+        end
+      end
     end
 
     describe 'EventNote' do
