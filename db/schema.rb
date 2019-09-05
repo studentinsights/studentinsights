@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_05_165958) do
+ActiveRecord::Schema.define(version: 2019_09_05_201813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -605,6 +605,8 @@ ActiveRecord::Schema.define(version: 2019_09_05_165958) do
     t.text "learn_best", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["form_timestamp"], name: "index_student_voice_completed_surveys_on_form_timestamp"
+    t.index ["student_id"], name: "index_student_voice_completed_surveys_on_student_id"
   end
 
   create_table "student_voice_survey_uploads", force: :cascade do |t|
@@ -659,8 +661,10 @@ ActiveRecord::Schema.define(version: 2019_09_05_165958) do
     t.boolean "missing_from_last_export", default: false, null: false
     t.date "ell_entry_date"
     t.date "ell_transition_date"
+    t.index ["enrollment_status"], name: "index_students_on_enrollment_status"
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
     t.index ["local_id"], name: "index_students_on_local_id", unique: true
+    t.index ["missing_from_last_export"], name: "index_students_on_missing_from_last_export"
     t.index ["school_id"], name: "index_students_on_school_id"
     t.index ["state_id"], name: "index_students_on_state_id"
   end
