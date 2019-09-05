@@ -91,7 +91,6 @@ HomeroomPageView.propTypes = {
   homeroom: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
     school: PropTypes.object.isRequired,
     educator: PropTypes.object,
   }),

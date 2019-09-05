@@ -5,7 +5,7 @@ class Homeroom < ApplicationRecord
   belongs_to :educator, optional: true
   belongs_to :school
 
-  validates :grade, inclusion: { in: [nil] + GradeLevels::ORDERED_GRADE_LEVELS }
+  validates :grade, inclusion: { in: [nil] + GradeLevels::ORDERED_GRADE_LEVELS } # deprecated
   validates :name, presence: true, uniqueness: { scope: [:name, :school] }
   validates :slug, presence: true, uniqueness: true
   validates :school, presence: true
@@ -13,6 +13,12 @@ class Homeroom < ApplicationRecord
   has_many :students, after_add: :update_grade
 
   validate :validate_school_matches_educator_school
+
+  # Query students on-demand rather than using deprecated `grade`.
+  # Returns sorted and compacted list.
+  def grades
+    GradeLevels.sort students.flat_map(&:grade).compact.uniq
+  end
 
   private
   # This doesn't work for mixed-grade homerooms (eg, special education).

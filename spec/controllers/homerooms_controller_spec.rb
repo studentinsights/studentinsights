@@ -106,7 +106,7 @@ describe HomeroomsController, :type => :controller do
           it 'assigns correct homerooms to drop-down' do
             make_request(educator.homeroom.id)
             json = JSON.parse(response.body)
-            expect(json['homerooms']).to eq([educator.homeroom].as_json(only: [:slug, :name]))
+            expect(json['homerooms']).to eq([educator.homeroom].as_json(only: [:id, :name], methods: [:grades]))
           end
 
           context 'when there are no students' do
@@ -118,8 +118,8 @@ describe HomeroomsController, :type => :controller do
           end
 
           context 'when there are students' do
-            let!(:first_student) { FactoryBot.create(:student, :registered_last_year, homeroom: educator.homeroom) }
-            let!(:second_student) { FactoryBot.create(:student, :registered_last_year, homeroom: educator.homeroom) }
+            let!(:first_student) { FactoryBot.create(:student, :registered_last_year, school: educator.school, homeroom: educator.homeroom) }
+            let!(:second_student) { FactoryBot.create(:student, :registered_last_year, school: educator.school, homeroom: educator.homeroom) }
             let!(:third_student) { FactoryBot.create(:student, :registered_last_year) }
 
             it 'assigns rows to a non-empty array' do
@@ -211,7 +211,7 @@ describe HomeroomsController, :type => :controller do
           it 'assigns correct homerooms to drop-down' do
             make_request(homeroom.id)
             json = JSON.parse(response.body)
-            expect(json['homerooms']).to contain_exactly(*Homeroom.all.as_json(only: [:name, :slug]))
+            expect(json['homerooms']).to contain_exactly(*Homeroom.all.as_json(only: [:id, :name], methods: [:grades]))
           end
         end
 
