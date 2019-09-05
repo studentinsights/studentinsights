@@ -21,7 +21,10 @@ class HomeroomsController < ApplicationController
         }
       }),
       rows: rows,
-      homerooms: allowed_homerooms.as_json(only: [:id, :name])
+      homerooms: allowed_homerooms.as_json({
+        only: [:id, :name],
+        methods: [:grades]
+      })
     }
   end
 
@@ -41,9 +44,16 @@ class HomeroomsController < ApplicationController
     end
   end
 
+  # Query for students through homeroom, but scoped within student-level authorization check.
+  # This is essentially double-wrapping the authorizaiton checks; the homeroom authorization
+  # check should separately only allow access when the educator can access all students in the
+  # homeroom.
   def authorized_students(homeroom)
     authorized do
-      homeroom.students.active.includes(:event_notes, :interventions, :homeroom)
+      homeroom.students
+        .active
+        .includes(:event_notes, :interventions, :homeroom)
+        .to_a
     end
   end
 
