@@ -24,8 +24,8 @@ export default class HomeroomNavigator extends React.Component {
 
   onNavigate() {
     const {homeroomOption} = this.state;
-    const slug = homeroomOption.value;
-    window.location = Routes.homeroom(slug);
+    const id = homeroomOption.value;
+    window.location = Routes.homeroom(id);
   }
 
   render() {
@@ -41,7 +41,7 @@ export default class HomeroomNavigator extends React.Component {
           onChange={this.onHomeroomItemChanged}
           options={_.sortBy(homerooms, 'name').map(homeroom => {
             return {
-              value: homeroom.slug,
+              value: homeroom.id,
               label: homeroom.name
             };
           })}
@@ -57,7 +57,7 @@ export default class HomeroomNavigator extends React.Component {
 HomeroomNavigator.propTypes = {
   homerooms: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired
+    id: PropTypes.number.isRequired
   })).isRequired,
   style: PropTypes.object
 };
