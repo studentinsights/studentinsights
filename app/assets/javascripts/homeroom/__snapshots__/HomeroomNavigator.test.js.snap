@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="HomeroomNavigator"
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <div
+    className="Select is-clearable is-searchable Select--single"
+  >
+    <div
+      className="Select-control"
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "marginRight": 10,
+          "width": "15em",
+        }
+      }
+    >
+      <div
+        className="Select-multi-value-wrapper"
+        id="react-select-3--value"
+      >
+        <div
+          className="Select-placeholder"
+        >
+          Find homeroom...
+        </div>
+        <div
+          className="Select-input"
+          style={
+            Object {
+              "display": "inline-block",
+            }
+          }
+        >
+          <input
+            aria-activedescendant="react-select-3--value"
+            aria-expanded="false"
+            aria-haspopup="false"
+            aria-owns=""
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            role="combobox"
+            style={
+              Object {
+                "boxSizing": "content-box",
+                "width": "5px",
+              }
+            }
+            value=""
+          />
+          <div
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "overflow": "scroll",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+                "whiteSpace": "pre",
+              }
+            }
+          >
+            
+          </div>
+        </div>
+      </div>
+      <span
+        className="Select-arrow-zone"
+        onMouseDown={[Function]}
+      >
+        <span
+          className="Select-arrow"
+          onMouseDown={[Function]}
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    className="Hover"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={Object {}}
+  >
+    <button
+      style={
+        Object {
+          "background": "#aaa",
+          "border": "none",
+          "borderRadius": 28,
+          "color": "#eee",
+          "cursor": "default",
+          "fontSize": 14,
+          "padding": "8px 25px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Go
+    </button>
+  </div>
+</div>
+`;
