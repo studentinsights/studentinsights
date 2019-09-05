@@ -20,7 +20,7 @@ module Admin
     end
 
     def authorization
-      educators_with_includes = Educator.all.includes(:educator_labels, :school, :sections, {homeroom: :school})
+      educators_with_includes = Educator.all.includes(:educator_labels, :school, :sections, {homeroom: [:school, :students]})
       @sensitive_educators = sorted_sensitive_educators(educators_with_includes)
       @sorted_educators, @navbar_links_map = sort_list_with_navbar_links(educators_with_includes)
       nil

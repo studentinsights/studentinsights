@@ -38,7 +38,7 @@ class PathsForEducator
       links[:section] = url_helpers.educators_my_sections_path
     end
 
-    if @educator.homeroom.present? && !@educator.homeroom.school.is_high_school? && @educator.homeroom.students_count > 0
+    if @educator.homeroom.present? && !@educator.homeroom.school.is_high_school? && @educator.homeroom.students.active.size > 0
       links[:homeroom] = url_helpers.homeroom_path(@educator.homeroom.id) # explicitly use id, not slug.  see Homeroom.rb for more
     end
 
