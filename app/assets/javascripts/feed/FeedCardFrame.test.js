@@ -29,6 +29,29 @@ function testStudent() {
   };
 }
 
+function testStudentFullCircle() {
+  return {
+    id: 66,
+    first_name: 'Obi',
+    last_name: 'Ren',
+    grade: '9',
+    house: null,
+    school: {
+      local_id: 'FC',
+      school_type: 'HS'
+    },
+    homeroom: {
+      id: 15,
+      name: 'FC-004',
+      educator: {
+        id: 5,
+        email: 'dt@demo.studentinsights.org',
+        full_name: 'Teacher, Darth',
+      }
+    }
+  };
+}
+
 function testStudentElementary() {
   return {
     id: 32,
@@ -78,7 +101,7 @@ function testRender(props = {}, context = {}) {
   return el;
 }
 
-it('renders for HS without crashing', () => {
+it('renders for SHS without homeroom info', () => {
   const el = testRender(testProps(testStudent()));
   expect($(el).text()).toContain('Mari Skywalker');
   expect($(el).text()).toContain('9th grade');
@@ -89,6 +112,13 @@ it('renders for HS without crashing', () => {
   expect($(el).text()).toContain('when');
   expect($(el).text()).toContain('badges');
   expect($(el).text()).toContain('kids');
+});
+
+it('renders homeroom info for FC', () => {
+  const el = testRender(testProps(testStudentFullCircle()));
+  expect($(el).text()).toContain('Obi Ren');
+  expect($(el).text()).toContain('FC-004');
+  expect($(el).text()).toContain('with Darth Teacher');
 });
 
 it('renders homeroom for ESMS', () => {
@@ -104,6 +134,7 @@ it('matches all snapshots', () => {
       <div>
         {testEl(testProps(testStudent()))}
         {testEl(testProps(testStudentElementary()))}
+        {testEl(testProps(testStudentFullCircle()))}
       </div>
     )
     .toJSON();

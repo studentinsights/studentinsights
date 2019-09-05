@@ -165,8 +165,49 @@ class Authorizer
     true
   end
 
-  # TODO(kr) remove implementation
-  def homerooms
+  # Determine access to homerooms through authorization rules for students.
+  # Only allow access to homeroom if the educator is assigned to the homeroom
+  # explicitly or if they have access to all students in the homeroom.
+  # The intention is to centralize authorization rules into student methods
+  # (ie, `why_authorized_for_student?`).
+  #
+  # This is optimized to run over many educators, verify the impact on
+  # `PerfTest.homerooms` before making changes.
+  def homerooms(options = {})
+    # Query for all students up front, then pass through authorizer.
+    unsafe_all_students = Student.active.includes(:homeroom).to_a
+    students = authorized { unsafe_all_students }
+
+    # In memory, group each list by homeroom.
+    unsafe_students_by_homeroom = unsafe_all_students.group_by(&:homeroom)
+    authorized_students_by_homeroom = students.group_by(&:homeroom)
+
+    # In the deprecated method, it would include access to Homerooms that
+    # had no students.  In the new method, this doesn't make sense (and there's
+    # no real point).  But this allows an option to force using the older method
+    # within tests, which will over-include homerooms with zero students.
+    potential_homerooms = if options.fetch(:force_search_all_homerooms, false)
+      Homeroom.all.includes(:students)
+    else
+      authorized_students_by_homeroom.keys.compact
+    end
+
+    # Iterate in memory, and find only homerooms where educator
+    # can access all students.
+    homerooms = []
+    potential_homerooms.each do |homeroom|
+      authorized_students_in_homeroom = authorized_students_by_homeroom[homeroom]
+      unsafe_students_in_homeroom = unsafe_students_by_homeroom[homeroom]
+      next if Set.new(unsafe_students_in_homeroom) != Set.new(authorized_students_in_homeroom)
+      homerooms << homeroom
+    end
+    homerooms
+  end
+
+  # deprecated, use `#homerooms` instead
+  def allowed_homerooms_DEPRECATED(options = {})
+    raise Exceptions::DeprecatedFeatureError unless options.fetch(:acknowledge_deprecation, false)
+
     if @educator.districtwide_access?
       Homeroom.all
     elsif @educator.schoolwide_access?

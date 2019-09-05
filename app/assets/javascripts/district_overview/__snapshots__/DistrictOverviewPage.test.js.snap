@@ -517,63 +517,6 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               }
             }
           >
-            Syncs and imports
-          </div>
-          <ul
-            style={
-              Object {
-                "listStyleType": "none",
-                "paddingLeft": 0,
-              }
-            }
-          >
-            <li>
-              <a
-                href="/service_uploads"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Upload student services file
-              </a>
-            </li>
-            <li>
-              <a
-                href="/admin/student_voice_survey_uploads"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Upload student voice survey CSV
-              </a>
-            </li>
-            <li>
-              <a
-                href="/admin/import_records"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Import records
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div
-            style={
-              Object {
-                "fontSize": 18,
-                "marginTop": 15,
-              }
-            }
-          >
             Data quality checks
           </div>
           <ul
@@ -610,6 +553,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
+                href="/admin/sample_students"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Student sample for data quality checks
+              </a>
+            </li>
+            <li>
+              <a
                 href="/educators/services"
                 style={
                   Object {
@@ -618,18 +573,6 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
                 }
               >
                 Services for all students
-              </a>
-            </li>
-            <li>
-              <a
-                href="/reading/debug"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Benchmark reading data (eg, F&P)
               </a>
             </li>
             <li>
@@ -646,14 +589,71 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
-                href="/admin/sample_students"
+                href="/reading/debug"
                 style={
                   Object {
                     "fontSize": 14,
                   }
                 }
               >
-                Student sample for data quality checks
+                Benchmark reading data (eg, F&P)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Syncs and imports
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/admin/import_records"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                SIS import history
+              </a>
+            </li>
+            <li>
+              <a
+                href="/service_uploads"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Upload student services file
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/student_voice_survey_uploads"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Upload student voice survey CSV
               </a>
             </li>
           </ul>
@@ -716,7 +716,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             <li>
               Contact 
               <a
-                href="mailto://help@studentinsights.org"
+                href="mailto:help@studentinsights.org"
               >
                 help@studentinsights.org
               </a>
@@ -809,7 +809,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       >
         Please share your feedback with 
         <a
-          href="mailto://ideas@studentinsights.org"
+          href="mailto:ideas@studentinsights.org"
           style={
             Object {
               "fontWeight": "bold",
@@ -1479,63 +1479,6 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               }
             }
           >
-            Syncs and imports
-          </div>
-          <ul
-            style={
-              Object {
-                "listStyleType": "none",
-                "paddingLeft": 0,
-              }
-            }
-          >
-            <li>
-              <a
-                href="/service_uploads"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Upload student services file
-              </a>
-            </li>
-            <li>
-              <a
-                href="/admin/student_voice_survey_uploads"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Upload student voice survey CSV
-              </a>
-            </li>
-            <li>
-              <a
-                href="/admin/import_records"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Import records
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div
-            style={
-              Object {
-                "fontSize": 18,
-                "marginTop": 15,
-              }
-            }
-          >
             Data quality checks
           </div>
           <ul
@@ -1572,6 +1515,18 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
+                href="/admin/sample_students"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Student sample for data quality checks
+              </a>
+            </li>
+            <li>
+              <a
                 href="/educators/services"
                 style={
                   Object {
@@ -1580,18 +1535,6 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                 }
               >
                 Services for all students
-              </a>
-            </li>
-            <li>
-              <a
-                href="/reading/debug"
-                style={
-                  Object {
-                    "fontSize": 14,
-                  }
-                }
-              >
-                Benchmark reading data (eg, F&P)
               </a>
             </li>
             <li>
@@ -1608,14 +1551,71 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
-                href="/admin/sample_students"
+                href="/reading/debug"
                 style={
                   Object {
                     "fontSize": 14,
                   }
                 }
               >
-                Student sample for data quality checks
+                Benchmark reading data (eg, F&P)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Syncs and imports
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/admin/import_records"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                SIS import history
+              </a>
+            </li>
+            <li>
+              <a
+                href="/service_uploads"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Upload student services file
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/student_voice_survey_uploads"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Upload student voice survey CSV
               </a>
             </li>
           </ul>
@@ -1678,7 +1678,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             <li>
               Contact 
               <a
-                href="mailto://help@studentinsights.org"
+                href="mailto:help@studentinsights.org"
               >
                 help@studentinsights.org
               </a>

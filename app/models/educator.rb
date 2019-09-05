@@ -24,6 +24,28 @@ class Educator < ApplicationRecord
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ].freeze
 
+  # Indicates the educator was missing from the last export where we expected to
+  # find them, so we treat them as no longer active.
+  #
+  # Student Insights admin accounts are sometimes handled differently by districts,
+  # so this enables those whitelisted accounts to be "active" regardless.
+  #
+  # `missing_from_last_export` will always reflect the SIS, while `active` is an
+  # Insights concept.
+  def self.active
+    (
+      where(missing_from_last_export: false) +
+      where(login_name: PerDistrict.new.educator_login_names_whitelisted_as_active())
+    )
+  end
+
+  def active?
+    (
+      missing_from_last_export == false ||
+      PerDistrict.new.educator_login_names_whitelisted_as_active().include?(login_name)
+    )
+  end
+
   def is_principal?
     staff_type.try(:downcase) == 'principal'
   end
@@ -51,10 +73,6 @@ class Educator < ApplicationRecord
 
   def has_access_to_grade_levels?
     grade_level_access.present? && grade_level_access.size > 0
-  end
-
-  def allowed_homerooms
-    Authorizer.new(self).homerooms
   end
 
   def allowed_sections

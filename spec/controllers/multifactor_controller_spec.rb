@@ -78,6 +78,16 @@ describe MultifactorController, :type => :controller do
       expect(response.status).to eq 204
     end
 
+    it 'does not call send_login_code_if_necessary! for Uri, when active? false' do
+      pals.uri.update!(missing_from_last_export: true)
+      fake_authenticator = MultifactorAuthenticator.new(pals.uri)
+      allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
+      expect(fake_authenticator).not_to receive(:send_login_code_if_necessary!)
+
+      post_multifactor(multifactor: { login_text: 'uri@demo.studentinsights.org' })
+      expect(response.status).to eq 204
+    end
+
     it 'fails when already signed in' do
       request.env['HTTPS'] = 'on'
       sign_in(pals.uri)

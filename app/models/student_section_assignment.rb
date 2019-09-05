@@ -1,3 +1,4 @@
+# Stateful, only current value from latest export.
 class StudentSectionAssignment < ApplicationRecord
   belongs_to :student
   belongs_to :section

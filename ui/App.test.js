@@ -5,6 +5,7 @@ import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
+import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import ServicesPage from '../app/assets/javascripts/services/ServicesPage';
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
@@ -27,6 +28,7 @@ import {MemoryRouter} from 'react-router-dom';
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/search_notes/SearchNotesPage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
+jest.mock('../app/assets/javascripts/homeroom/HomeroomPage');
 jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/services/ServicesPage');
 jest.mock('../app/assets/javascripts/my_notes/MyNotesPage');
@@ -108,6 +110,11 @@ it('renders EducatorPage without crashing', () => {
   expect(wrapper.contains(
     <EducatorPage educatorId={12} />
   )).toEqual(true);
+});
+
+it('renders HomeroomPage without crashing', () => {
+  const wrapper = mount(renderPath('/homerooms/12'));
+  expect(wrapper.contains(<HomeroomPage homeroomId={12} />)).toEqual(true);
 });
 
 it('render SchoolCoursesPage without crashing', () => {

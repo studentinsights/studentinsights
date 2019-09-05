@@ -20,14 +20,14 @@ class EducatorLabel < ApplicationRecord
         'use_community_school_based_feed',
 
         # reading
-        'profile_enable_minimal_reading_data',
-        'enable_reading_benchmark_data_entry',
+        'profile_enable_minimal_reading_data', # deprecated
+        'enable_reading_benchmark_data_entry', # deprecated
         'enable_reading_debug',
 
         # transition notes
         'k8_counselor',
         'high_school_house_master',
-        'enable_transition_note_features',
+        'enable_transition_note_features', # Controls whether user can create new transition notes, not whether they are viewable.
         'enable_transition_note_editing',
 
         # class lists
@@ -67,8 +67,7 @@ class EducatorLabel < ApplicationRecord
     end
 
     # Levels link: Anyone at SHS (can also be added manually)
-    shs_school_id = School.find_by_local_id('SHS').try(:id)
-    if shs_school_id.present? && educator.school_id == shs_school_id
+    if educator.school.present? && educator.school.local_id == 'SHS'
       dynamic_labels << 'should_show_levels_shs_link'
     end
 

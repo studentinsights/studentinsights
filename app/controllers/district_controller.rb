@@ -44,8 +44,8 @@ class DistrictController < ApplicationController
   end
 
   def homerooms_json
-    students = authorized do
-      Student.active.includes(:homeroom, :school).to_a
+    students = authorizer.authorized do
+      Student.active.includes(:school, :student_photos, :homeroom => [:educator]).to_a
     end
     students_json = students.as_json({
       only: [

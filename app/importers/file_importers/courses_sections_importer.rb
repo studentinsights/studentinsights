@@ -7,7 +7,7 @@ class CoursesSectionsImporter
       options: [
         DataFlow::OPTION_SCHOOL_SCOPE
       ],
-      merge: DataFlow::MERGE_UPDATE_DELETE_UNMARKED,
+      merge: DataFlow::MERGE_UPDATE_IGNORE_UNMARKED, # leave old records be
       touches: [
         Section.name,
         Course.name
@@ -40,6 +40,10 @@ class CoursesSectionsImporter
     log("@invalid_course_school_count: #{@invalid_course_school_count}")
     log("@invalid_course_count: #{@invalid_course_count}")
     log("@invalid_section_count: #{@invalid_section_count}")
+
+    # Records should be scoped by `district_school_year`, so old records stay
+    # as they are. They'll be orphaned over time but remain valid stable references
+    # for looking at historical data or changes over time.
   end
 
   private
