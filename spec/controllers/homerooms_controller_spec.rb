@@ -4,10 +4,10 @@ describe HomeroomsController, :type => :controller do
   let!(:school) { FactoryBot.create(:school) }
 
   describe '#homeroom_json' do
-    def make_request(slug = nil)
+    def make_request(id = nil)
       request.env['HTTPS'] = 'on'
       request.env['HTTP_ACCEPT'] = 'application/json'
-      get :homeroom_json, params: { id: slug }
+      get :homeroom_json, params: { id: id }
     end
 
     context 'happy path' do
@@ -17,7 +17,7 @@ describe HomeroomsController, :type => :controller do
       before { sign_in(educator) }
 
       it 'returns the right shape of data' do
-        make_request(educator.homeroom.slug)
+        make_request(educator.homeroom.id)
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['rows'].length).to eq 1
@@ -71,11 +71,16 @@ describe HomeroomsController, :type => :controller do
         ])
       end
 
-      it 'works with an id instead of slug' do
+      it 'works with an id' do
         make_request(educator.homeroom.id)
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['rows'].length).to eq 1
+      end
+
+      it 'does not work with a slug' do
+        make_request(educator.homeroom.slug)
+        expect(response.status).to eq 404
       end
     end
 
@@ -95,18 +100,18 @@ describe HomeroomsController, :type => :controller do
 
         context 'params for homeroom belonging to educator' do
           it 'is successful' do
-            make_request(educator.homeroom.slug)
+            make_request(educator.homeroom.id)
             expect(response.status).to eq 200
           end
           it 'assigns correct homerooms to drop-down' do
-            make_request(educator.homeroom.slug)
+            make_request(educator.homeroom.id)
             json = JSON.parse(response.body)
             expect(json['homerooms']).to eq([educator.homeroom].as_json(only: [:slug, :name]))
           end
 
           context 'when there are no students' do
             it 'assigns rows to empty' do
-              make_request(educator.homeroom.slug)
+              make_request(educator.homeroom.id)
               json = JSON.parse(response.body)
               expect(json['rows']).to be_empty
             end
@@ -118,7 +123,7 @@ describe HomeroomsController, :type => :controller do
             let!(:third_student) { FactoryBot.create(:student, :registered_last_year) }
 
             it 'assigns rows to a non-empty array' do
-              make_request(educator.homeroom.slug)
+              make_request(educator.homeroom.id)
               expected_student_ids = [first_student, second_student].map(&:id)
               json = JSON.parse(response.body)
               expect(json['rows'].map {|row| row['id'] }).to match_array(expected_student_ids)
@@ -131,7 +136,7 @@ describe HomeroomsController, :type => :controller do
           context 'homeroom is grade level as educator\'s and same school' do
             let(:another_homeroom) { FactoryBot.create(:homeroom, grade: '5', school: school) }
             it 'is successful' do
-              make_request(another_homeroom.slug)
+              make_request(another_homeroom.id)
               expect(response.status).to eq 200
             end
           end
@@ -139,7 +144,7 @@ describe HomeroomsController, :type => :controller do
           context 'homeroom is grade level as educator\'s -- but different school!' do
             let(:another_homeroom) { FactoryBot.create(:homeroom, grade: '5', school: FactoryBot.create(:school)) }
             it 'guards access' do
-              make_request(another_homeroom.slug)
+              make_request(another_homeroom.id)
               expect(response.status).to eq 403
             end
           end
@@ -147,7 +152,7 @@ describe HomeroomsController, :type => :controller do
           context 'homeroom is different grade level from educator\'s' do
             let(:yet_another_homeroom) { FactoryBot.create(:homeroom, school: school) }
             it 'guards access' do
-              make_request(yet_another_homeroom.slug)
+              make_request(yet_another_homeroom.id)
               expect(response.status).to eq 403
             end
           end
@@ -157,7 +162,7 @@ describe HomeroomsController, :type => :controller do
             let(:homeroom) { FactoryBot.create(:homeroom, grade: '5', school: school) }
 
             it 'is successful' do
-              make_request(homeroom.slug)
+              make_request(homeroom.id)
               expect(response.status).to eq 200
             end
           end
@@ -169,7 +174,7 @@ describe HomeroomsController, :type => :controller do
             let(:homeroom) { FactoryBot.create(:homeroom, grade: '5', school: school) }
 
             it 'redirects' do
-              make_request(homeroom.slug)
+              make_request(homeroom.id)
               expect(response.status).to eq(403)
             end
           end
@@ -200,11 +205,11 @@ describe HomeroomsController, :type => :controller do
         context 'good homeroom params' do
           let(:homeroom) { FactoryBot.create(:homeroom, grade: '5', school: school) }
           it 'is successful' do
-            make_request(homeroom.slug)
+            make_request(homeroom.id)
             expect(response.status).to eq 200
           end
           it 'assigns correct homerooms to drop-down' do
-            make_request(homeroom.slug)
+            make_request(homeroom.id)
             json = JSON.parse(response.body)
             expect(json['homerooms']).to contain_exactly(*Homeroom.all.as_json(only: [:name, :slug]))
           end
@@ -233,7 +238,7 @@ describe HomeroomsController, :type => :controller do
       context 'homeroom params' do
         let!(:homeroom) { FactoryBot.create(:homeroom) }
         it 'guards access' do
-          make_request(homeroom.slug)
+          make_request(homeroom.id)
           expect(response.status).to eq(403)
         end
       end
@@ -244,7 +249,7 @@ describe HomeroomsController, :type => :controller do
       let!(:homeroom) { FactoryBot.create(:homeroom, educator: educator, grade: "5", school: school) }
 
       it 'redirects to sign in page' do
-        make_request(educator.homeroom.slug)
+        make_request(educator.homeroom.id)
         expect(response.status).to eq(401)
       end
     end
@@ -312,7 +317,7 @@ describe HomeroomsController, :type => :controller do
         request.env['HTTPS'] = 'on'
         sign_in(educator)
         request.env['HTTP_ACCEPT'] = 'application/json'
-        get :homeroom_json, params: { id: homeroom.slug }
+        get :homeroom_json, params: { id: homeroom.id }
         r = response
         sign_out(educator)
         r
@@ -377,17 +382,28 @@ describe HomeroomsController, :type => :controller do
     end
   end
 
-  describe '#find_homeroom_by_id_or_slug' do
-    it 'works with different input types' do
+  describe '#find_homeroom_by_id' do
+    it 'only works with explicit id' do
       homeroom_one = FactoryBot.create(:homeroom, id: 1, name: '7-263')
       homeroom_two = FactoryBot.create(:homeroom, id: 7, name: '1')
+      homeroom_three = FactoryBot.create(:homeroom, id: 14, name: '7')
+      homeroom_four = FactoryBot.create(:homeroom, id: 77, name: '99')
 
-      expect(controller.send(:find_homeroom_by_id_or_slug, '7-263')).to eq homeroom_one
-      expect(controller.send(:find_homeroom_by_id_or_slug, '1')).to eq homeroom_one
-      expect(controller.send(:find_homeroom_by_id_or_slug, 1)).to eq homeroom_one
-      expect(controller.send(:find_homeroom_by_id_or_slug, '7')).to eq homeroom_two
-      expect(controller.send(:find_homeroom_by_id_or_slug, 7)).to eq homeroom_two
-      expect { controller.send(:find_homeroom_by_id_or_slug, 'xyz') }.to raise_error(ActiveRecord::RecordNotFound)
+      # matching
+      expect(controller.send(:find_homeroom_by_id, '1')).to eq homeroom_one
+      expect(controller.send(:find_homeroom_by_id, 1)).to eq homeroom_one
+      expect(controller.send(:find_homeroom_by_id, '7')).to eq homeroom_two
+      expect(controller.send(:find_homeroom_by_id, 7)).to eq homeroom_two
+      expect(controller.send(:find_homeroom_by_id, '14')).to eq homeroom_three
+      expect(controller.send(:find_homeroom_by_id, 14)).to eq homeroom_three
+      expect(controller.send(:find_homeroom_by_id, '77')).to eq homeroom_four
+      expect(controller.send(:find_homeroom_by_id, 77)).to eq homeroom_four
+
+      # no overmatching
+      expect { controller.send(:find_homeroom_by_id, '99') }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { controller.send(:find_homeroom_by_id, 99) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { controller.send(:find_homeroom_by_id, '7-263') }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { controller.send(:find_homeroom_by_id, 'xyz') }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

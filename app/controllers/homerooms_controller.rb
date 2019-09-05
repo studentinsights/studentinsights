@@ -1,7 +1,7 @@
 class HomeroomsController < ApplicationController
   def homeroom_json
-    homeroom_id_or_slug = params.permit(:id)[:id]
-    homeroom = authorize_and_assign_homeroom!(homeroom_id_or_slug)
+    homeroom_id = params.permit(:id)[:id]
+    homeroom = authorize_and_assign_homeroom!(homeroom_id)
 
     rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
 
@@ -26,8 +26,8 @@ class HomeroomsController < ApplicationController
   end
 
   private
-  def authorize_and_assign_homeroom!(homeroom_id_or_slug)
-    homeroom = find_homeroom_by_id_or_slug(homeroom_id_or_slug)
+  def authorize_and_assign_homeroom!(homeroom_id)
+    homeroom = find_homeroom_by_id(homeroom_id)
     raise Exceptions::EducatorNotAuthorized unless authorized_homerooms().include? homeroom
     homeroom
   end
@@ -71,26 +71,22 @@ class HomeroomsController < ApplicationController
     }))
   end
 
-  # Calling `Homeroom.friendly.find` with a string version of an id will first
-  # not match on id, and will match on the name for another homeroom with that
-  # same value.  Be explicit here that we match first on id and
-  # then if not we look to match on the slug.
+  # This only matches on homeroom_id, not `slug`, since this has led to bugs from
+  # type coercion and from collisions on ids and slugs.  Works around FriendlyId,
+  # which we should move away from.
   #
-  # But type coercion can lead to bugs here too, like:
+  # Type coercion can lead to bugs like:
   # > Homeroom.find_by_id('7-263') => #<Homeroom id: 7, name: "H-001", ... >
   # So ensure that this any id lookup is really an integer and manually convert these
   # types.
-  def find_homeroom_by_id_or_slug(homeroom_id_or_slug)
-    if homeroom_id_or_slug.to_i.to_s == homeroom_id_or_slug.to_s
-      homeroom_id = homeroom_id_or_slug.to_i
-      homeroom_by_id = Homeroom.find_by_id(homeroom_id)
-      return homeroom_by_id unless homeroom_by_id.nil?
+  #
+  # See https://github.com/studentinsights/studentinsights/pull/2588 for more.
+  def find_homeroom_by_id(homeroom_id)
+    strict_homeroom_id = homeroom_id.to_i.to_s.to_i
+    if homeroom_id.to_s == strict_homeroom_id.to_s
+      homeroom = Homeroom.find_by_id(strict_homeroom_id) # FriendlyId patches #find, so this is more explicit
+      return homeroom if homeroom.present? && homeroom.id == strict_homeroom_id
     end
-
-    homeroom_slug = homeroom_id_or_slug.to_s
-    homeroom_by_slug = Homeroom.find_by_slug(homeroom_slug)
-    return homeroom_by_slug unless homeroom_by_slug.nil?
-
     raise ActiveRecord::RecordNotFound
   end
 
