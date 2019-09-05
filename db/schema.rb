@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_214324) do
+ActiveRecord::Schema.define(version: 2019_09_05_165958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -313,7 +313,6 @@ ActiveRecord::Schema.define(version: 2019_08_27_214324) do
     t.string "name", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "students_count", default: 0, null: false
     t.integer "educator_id"
     t.string "slug", null: false
     t.string "grade"

@@ -10,7 +10,7 @@ class Homeroom < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validates :school, presence: true
 
-  has_many :students, after_add: :update_grade
+  has_many :students, after_add: :update_grade # deprecated
 
   validate :validate_school_matches_educator_school
 
@@ -25,6 +25,8 @@ class Homeroom < ApplicationRecord
   end
 
   private
+  # deprecated, use `#grades` instead.
+  #
   # This doesn't work for mixed-grade homerooms (eg, special education).
   # We should migrate to `Homeroom#grades` or querying students on-demand
   # instead.

@@ -33,10 +33,9 @@ class Educator < ApplicationRecord
   # `missing_from_last_export` will always reflect the SIS, while `active` is an
   # Insights concept.
   def self.active
-    (
-      where(missing_from_last_export: false) +
-      where(login_name: PerDistrict.new.educator_login_names_whitelisted_as_active())
-    )
+    missing_arel = Educator.where(missing_from_last_export: false)
+    login_name_arel = Educator.where(login_name: PerDistrict.new.educator_login_names_whitelisted_as_active())
+    missing_arel.or(login_name_arel)
   end
 
   def active?

@@ -26,6 +26,12 @@ class PerfTest
     end
   end
 
+  def self.navbar_links(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      PathsForEducator.new(educator).navbar_links
+    end
+  end
+
   def self.authorized_homerooms(percentage, options = {})
     PerfTest.new.simple(percentage, options) do |educator|
       Authorizer.new(educator).homerooms
