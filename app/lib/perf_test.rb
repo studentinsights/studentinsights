@@ -83,7 +83,10 @@ class PerfTest
     timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|
       time_now = options[:time_now] || Time.at(1521552855)
       limit = options[:limit] || 10
-      feed = Feed.new(educator)
+      students = t.measure('students') do
+        Feed.students_for_feed(educator)
+      end
+      feed = Feed.new(students)
       event_note_cards = t.measure('event_note_cards') do
         feed.event_note_cards(time_now, limit)
       end
@@ -97,11 +100,15 @@ class PerfTest
           days_ahead: 0
         })
       end
+      student_voice_cards = t.measure('student_voice_cards') do
+        feed.student_voice_cards(time_now)
+      end
       t.measure('feed_cards') do
         feed.merge_sort_and_limit_cards([
           event_note_cards,
           birthday_cards,
-          incident_cards
+          incident_cards,
+          student_voice_cards
         ], limit)
       end
     end
