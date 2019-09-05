@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_29_165000) do
+ActiveRecord::Schema.define(version: 2019_09_05_165958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -187,8 +187,6 @@ ActiveRecord::Schema.define(version: 2019_08_29_165000) do
   create_table "educator_searchbars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "educator_id", null: false
     t.json "student_searchbar_json", default: "[]", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["educator_id"], name: "index_educator_searchbars_on_educator_id", unique: true
   end
 
@@ -319,7 +317,6 @@ ActiveRecord::Schema.define(version: 2019_08_29_165000) do
     t.string "slug", null: false
     t.string "grade"
     t.integer "school_id", null: false
-    t.integer "students_count", default: 0, null: false
     t.index ["educator_id"], name: "index_homerooms_on_educator_id"
     t.index ["school_id", "name"], name: "index_homerooms_on_school_id_and_name", unique: true
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true

@@ -45,7 +45,7 @@ RSpec.describe StudentVoiceSurveyImporter do
 
   it 'raises on call to dry_run' do
     importer, _ = create_importer_with_fetcher_mocked(sheet_id: 'mock_sheet_id_A')
-    expect { importer.import }.to raise_error RuntimeError
+    expect { importer.dry_run }.to raise_error(RuntimeError, 'Not implemented; refactor StudentVoiceSurveyUploader to enable this.')
   end
 
   it 'aborts if env not setup' do
@@ -53,7 +53,6 @@ RSpec.describe StudentVoiceSurveyImporter do
     allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
     importer, log = create_importer_with_fetcher_mocked(sheet_id: 'mock_sheet_id_A')
     importer.import
-    puts log.output
 
     expect(log.output).to include('Aborting')
     expect(StudentVoiceSurveyUpload.all.size).to eq 0
