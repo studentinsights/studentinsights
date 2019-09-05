@@ -14,10 +14,14 @@ class Homeroom < ApplicationRecord
 
   validate :validate_school_matches_educator_school
 
-  # Query students on-demand rather than using deprecated `grade`.
+  # Query students on-demand rather than using deprecated `grade`,
+  # and filters by `active` unless told not to.
+  #
   # Returns sorted and compacted list.
-  def grades
-    GradeLevels.sort students.flat_map(&:grade).compact.uniq
+  def grades(options = {})
+    should_include_inactive = options.fetch(:include_inactive_students, false)
+    relevant_students = should_include_inactive ? self.students : self.students.active
+    GradeLevels.sort relevant_students.flat_map(&:grade).compact.uniq
   end
 
   private

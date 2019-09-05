@@ -38,6 +38,22 @@ RSpec.describe Homeroom do
         expect(homeroom.grades).to eq ['TK', 'PK', '1', '9', '11']
       end
     end
+
+    it 'includes only active students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        h.students << FactoryBot.create(:student, missing_from_last_export: true, grade: 'PK')
+        h.students << FactoryBot.create(:student, grade: '1')
+      end
+      expect(homeroom.grades).to eq ['1']
+    end
+
+    it 'includes all students when include_inactive_students:true' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        h.students << FactoryBot.create(:student, missing_from_last_export: true, grade: 'PK')
+        h.students << FactoryBot.create(:student, grade: '1')
+      end
+      expect(homeroom.grades(include_inactive_students: true)).to eq ['PK', '1']
+    end
   end
 
   describe '#grade' do
