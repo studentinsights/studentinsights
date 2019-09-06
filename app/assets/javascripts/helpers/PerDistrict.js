@@ -236,7 +236,7 @@ export function recordServiceChoices(districtKey) {
   if (districtKey === BEDFORD) {
     return {
       leftServiceTypeIds: [701, 708, 706, 707],
-      rightServiceTypeIds: [703, 704, 702, 704, 709]
+      rightServiceTypeIds: [703, 702, 705, 704, 709]
     };
   }
 
@@ -255,10 +255,10 @@ export function recordServiceChoices(districtKey) {
 // information (eg, attendance, behavior, social or emotional?)
 export function nonAcademicServiceTypeIdsForPhaselines(districtKey) {
   if (districtKey === BEDFORD) {
-    return [703, 704, 702, 704, 709];
+    return [702, 703, 704, 705, 709];
   }
   if ([SOMERVILLE, DEMO, NEW_BEDFORD].indexOf(districtKey) !== -1) {
-    return [703, 704, 702, 704, 709];
+    return [502, 503, 504, 505, 506];
   }
   throw new Error(`unsupported districtKey: ${districtKey}`);
 }
