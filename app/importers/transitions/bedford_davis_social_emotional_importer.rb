@@ -1,10 +1,8 @@
-# DEPRECATED, migrate to `services_checklist` or `bulk_services`')
+# DEPRECATED, DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`
 #
-# Import services from different format transition sheets.
-# The transition sheets are split by instructional and social-emotional,
-# since that's how entry happened for educators, but this reads
-# them both and assumes they all only have partial data.
-class BedfordDavisServicesImporter
+# Process sheets about social emotional services and sensitive notes from counselors,
+# mapping to restricted notes.
+class BedfordDavisSocialEmotionalImporter
   def self.data_flow
     DataFlow.new({
       importer: self.name,
@@ -13,15 +11,15 @@ class BedfordDavisServicesImporter
       options: [],
       merge: DataFlow::MERGE_CREATE_NAIVELY,
       touches: [
-        Service.name
+        EventNote.name
       ],
-      description: 'Services from social emotional and transition note sheets at Davis'
+      description: 'Process checklists and notes from social emotional and transition note sheets at Davis and create restricted notes'
     })
   end
 
   def initialize(options:)
-    Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
-    @folder_ids = options.fetch(:folder_ids, read_folder_ids_from_env())
+    Rollbar.warn('deprecation-warning, DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`')
+    @folder_id = options.fetch(:folder_id, read_folder_id_from_env())
 
     @log = options.fetch(:log, STDOUT)
     @time_now = options.fetch(:time_now, Time.now)
@@ -48,8 +46,8 @@ class BedfordDavisServicesImporter
   end
 
   private
-  def read_folder_ids_from_env
-    PerDistrict.new.imported_google_folder_ids('bedford_davis_services_importer_folder_ids')
+  def read_folder_id_from_env
+    PerDistrict.new.imported_google_folder_ids('bedford_davis_social_emotional_folder_id')
   end
 
   def fetch_tabs
@@ -62,36 +60,23 @@ class BedfordDavisServicesImporter
     # skip info tab
     return [] if tab.tab_name == 'INFO'
 
+    # url to specific tab
+    # form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
+
     # find educator and homeroom by tab.tab_name
-    educator = match_educator(tab.tab_name)
+    educator = @matcher.find_educator_by_name_flexible(tab.tab_name)
     return [] if educator.nil?
 
     # process
-    processor = BedfordDavisServicesProcessor.new(educator, {
+    processor = BedfordDavisSocialEmotionalProcessor.new(educator, {
       log: @log,
       time_now: @time_now
     })
     processor.dry_run(tab.tab_csv)
   end
 
-  def match_educator(tab_name)
-    educator_from_login_name = @matcher.find_educator_by_login(tab_name, disable_metrics: true)
-    if educator_from_login_name.present?
-      @matcher.count_valid_row
-      return educator_from_login_name
-    end
-
-    educator_from_last_name = @matcher.find_educator_by_last_name(tab_name)
-    if educator_from_last_name.present?
-      @matcher.count_valid_row
-      return educator_from_last_name
-    end
-
-    nil
-  end
-
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "BedfordDavisServicesImporter: #{text}"
+    @log.puts "BedfordDavisSocialEmotionalImporter: #{text}"
   end
 end

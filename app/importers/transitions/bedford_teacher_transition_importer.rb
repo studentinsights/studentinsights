@@ -1,5 +1,6 @@
-# Import transition notes, just notes and not services (even though
-# they are in the same sheets).
+# DEPRECATED, move to `teacher_forms` template.
+#
+# Import teacher transition notes, as plain "Something else" notes.
 class BedfordTeacherTransitionImporter
   def self.data_flow
     DataFlow.new({
@@ -16,6 +17,7 @@ class BedfordTeacherTransitionImporter
   end
 
   def initialize(options:)
+    Rollbar.warn('deprecation-warning: move to `teacher_forms` template')
     @folder_id = options.fetch(:folder_id, read_folder_id_from_env())
 
     @log = options.fetch(:log, STDOUT)

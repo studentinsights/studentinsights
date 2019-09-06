@@ -1,14 +1,16 @@
-# Takes a generic form and processes it to create plain objects
-# that can be created as EventNote records.
-# 
+# Takes the generic `teacher_forms` format and processes it to create plain
+# objects that can be created as EventNote records (or further transformed).
+#
 # Looks for columns starting with "Q: " to process as prompts,
 # and flattens those into plain text.
 #
 # usage:
 # processor = FormToNotesProcessor.new
 # rows = processor.dry_run(file_text)
+#
+# template: `teacher_forms`
+# https://docs.google.com/spreadsheets/d/1XdKDcAbs6DQ4jowAgDfeqDEhwrVLgmd8cMMO3oJAMGg/edit#gid=1494038769
 class FormToNotesProcessor
-
   def initialize(options = {})
     @log = options.fetch(:log, STDOUT)
     @time_now = options.fetch(:time_now, Time.now)
@@ -44,7 +46,7 @@ class FormToNotesProcessor
     event_note_type_id = row.fetch('event_note_type_id', '304').to_i
 
     # timestamp from form, or import time
-    timestamp_text = row['Timestamp']
+    timestamp_text = row['Timestamp'] || row['recorded_at timestamp']
     form_timestamp = (timestamp_text.nil?) ? @time_now : @matcher.parse_sheets_est_timestamp(timestamp_text)
     return nil if form_timestamp.nil?
 

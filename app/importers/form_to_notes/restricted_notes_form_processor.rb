@@ -1,6 +1,12 @@
+# Takes `restricted_notes` format and processes it to create plain
+# objects that can be created as restricted EventNote records.
+#
 # usage:
 # processor = RestrictedNotesFormProcessor.new
 # rows = processor.dry_run(file_text)
+#
+# template: `restricted_notes`
+# https://docs.google.com/spreadsheets/d/1XdKDcAbs6DQ4jowAgDfeqDEhwrVLgmd8cMMO3oJAMGg/edit#gid=390525148
 class RestrictedNotesFormProcessor
 
   def initialize(options = {})
@@ -38,7 +44,7 @@ class RestrictedNotesFormProcessor
     event_note_type_id = row.fetch('event_note_type_id', '304').to_i
 
     # timestamp from form, or import time
-    timestamp_text = row['Timestamp']
+    timestamp_text = row['Timestamp'] || row['recorded_at timestamp']
     form_timestamp = (timestamp_text.nil?) ? @time_now : @matcher.parse_sheets_est_timestamp(timestamp_text)
     return nil if form_timestamp.nil?
 

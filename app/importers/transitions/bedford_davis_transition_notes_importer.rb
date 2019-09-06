@@ -1,3 +1,5 @@
+# DEPRECATED, migrate to `services_checklist` and `teacher_forms` templates'
+#
 # Import transition notes, just notes and not services (even though
 # they are in the same sheets).
 class BedfordDavisTransitionNotesImporter
@@ -11,11 +13,12 @@ class BedfordDavisTransitionNotesImporter
       touches: [
         ImportedForm.name
       ],
-      description: 'Transition notes and services for elementary school students at Davis'
+      description: 'Transition notes for elementary school students at Davis (services only as text)'
     })
   end
 
   def initialize(options:)
+    Rollbar.warn('deprecation-warning: migrate to `services_checklist` and `teacher_forms` templates')
     @folder_id = options.fetch(:folder_id, read_folder_id_from_env())
 
     @log = options.fetch(:log, STDOUT)
@@ -74,7 +77,6 @@ class BedfordDavisTransitionNotesImporter
     processor = BedfordDavisTransitionNotesProcessor.new(educator, form_url, log: @log)
     processor.dry_run(tab.tab_csv)
   end
-
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end

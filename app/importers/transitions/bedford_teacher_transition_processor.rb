@@ -1,5 +1,7 @@
+# DEPRECATED, see `FormToNotesProcessor` and `teacher_forms` format.
 class BedfordTeacherTransitionProcessor
   def initialize(educator, options = {})
+    Rollbar.warn('deprecation-warning')
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
     @educator = educator
