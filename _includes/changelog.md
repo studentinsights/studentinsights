@@ -36,6 +36,7 @@ Friday 8/16 updates:
 - **Service**: Add Bedford service types, part2 [#2537](https://github.com/studentinsights/studentinsights/pull/2537)
 
 Friday 8/9 updates:
+- none to share
 
 Friday 8/2 updates:
 - **Transition**: Bedford social emotional transition notes processor [#2534](https://github.com/studentinsights/studentinsights/pull/2534)
