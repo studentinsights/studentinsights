@@ -1,3 +1,5 @@
+# DEPRECATED, migrate to `services_checklist` and `teacher_forms` templates'
+#
 # Import transition notes, just notes and not services (even though
 # they are in the same sheets).
 class BedfordDavisTransitionNotesImporter
@@ -11,11 +13,12 @@ class BedfordDavisTransitionNotesImporter
       touches: [
         ImportedForm.name
       ],
-      description: 'Transition notes and services for elementary school students at Davis'
+      description: 'Transition notes for elementary school students at Davis (services only as text)'
     })
   end
 
   def initialize(options:)
+    Rollbar.warn('deprecation-warning: migrate to `services_checklist` and `teacher_forms` templates')
     @folder_id = options.fetch(:folder_id, read_folder_id_from_env())
 
     @log = options.fetch(:log, STDOUT)
@@ -66,29 +69,14 @@ class BedfordDavisTransitionNotesImporter
     # url to specific tab
     form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
 
-    # find educator and homeroom by tab.tab_name
-    educator = match_educator(tab.tab_name)
+    # find educator by tab.tab_name
+    educator = @matcher.find_educator_by_name_flexible(tab.tab_name)
     return [] if educator.nil?
+    @matcher.count_valid_row
 
     # process and create
     processor = BedfordDavisTransitionNotesProcessor.new(educator, form_url, log: @log)
     processor.dry_run(tab.tab_csv)
-  end
-
-  def match_educator(tab_name)
-    educator_from_login_name = @matcher.find_educator_by_login(tab_name, disable_metrics: true)
-    if educator_from_login_name.present?
-      @matcher.count_valid_row
-      return educator_from_login_name
-    end
-
-    educator_from_last_name = @matcher.find_educator_by_last_name(tab_name)
-    if educator_from_last_name.present?
-      @matcher.count_valid_row
-      return educator_from_last_name
-    end
-
-    nil
   end
 
   def log(msg)

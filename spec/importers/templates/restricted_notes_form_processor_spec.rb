@@ -1,12 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe RestrictedNotesFormProcessor do
-  def wide_fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/form_to_notes/form_to_notes_fixture_wide.csv")
-  end
-
   def narrow_fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/form_to_notes/restricted_notes_form_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/templates/restricted_notes_form_fixture.csv")
   end
 
   def create_processor(options = {})

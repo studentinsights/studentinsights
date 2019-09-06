@@ -1,12 +1,18 @@
+# DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`
+#
+# Process "social emotional notes" from Bedford, part of
+# bootstrapping start-of-school usage within support meetings.
+#
 # Usage:
 # file_text = <<EOD
 # ...
 # EOD
 # default_educator = Educator.find_by_login_name('...')
-# importer = BedfordDavisSocialEmotionalProcessor.new(default_educator)
-# records = importer.create!(file_text);nil
+# processor = BedfordDavisSocialEmotionalProcessor.new(default_educator)
+# rows = processor.dry_run(file_text);nil
 class BedfordDavisSocialEmotionalProcessor
   def initialize(default_educator, options = {})
+    Rollbar.warn('deprecation-warning, see RestrictedNotesProcessor and migrate to `restricted_notes`')
     @default_educator = default_educator
 
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)

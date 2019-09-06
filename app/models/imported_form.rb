@@ -93,6 +93,8 @@ class ImportedForm < ApplicationRecord
       else 'Student voice survey'
     end
 
+    # Don't include `form_url` as a defense against overly permissive permissions on
+    # the form itself (outside Student Insights).
     {
       id: id,
       form_key: form_key,

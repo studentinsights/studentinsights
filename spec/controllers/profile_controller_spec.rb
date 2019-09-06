@@ -687,7 +687,7 @@ describe ProfileController, :type => :controller do
       ])
     end
 
-    it 'returns bedford_end_of_year_transitions with expected shape' do
+    it 'returns bedford_end_of_year_transitions with expected shape, and no URLs' do
       pals = TestPals.create!
 
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
@@ -703,11 +703,13 @@ describe ProfileController, :type => :controller do
         'form_json',
         'form_key',
         'form_timestamp',
-        'form_url',
         'student_id',
         'created_at',
         'updated_at'
       ])
+      expect(bedford_end_of_year_transitions.to_json).not_to include('form_url')
+      expect(bedford_end_of_year_transitions.to_json).not_to include('http://')
+      expect(bedford_end_of_year_transitions.to_json).not_to include('https://')
     end
   end
 
