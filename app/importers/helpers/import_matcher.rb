@@ -28,6 +28,8 @@ class ImportMatcher
     fuzzy_match = FuzzyStudentMatcher.new.match_from_full_name(full_name_text)
     return fuzzy_match[:student_id] if fuzzy_match.present?
 
+    @invalid_rows_count += 1
+    @invalid_student_local_ids = (@invalid_student_local_ids + [full_name_text]).uniq
     nil
   end
 
@@ -46,11 +48,12 @@ class ImportMatcher
 
   # This will usually be imprecise, use with care or check the
   # error rates.
-  def find_educator_by_last_name(educator_last_name)
+  def find_educator_by_last_name(educator_last_name, options = {})
+    disable_metrics = options.fetch(:disable_metrics, false)
     matches = Educator.where('full_name LIKE ?', "#{educator_last_name}, %")
     if matches.size != 1
-      @invalid_rows_count += 1
-      @invalid_educator_last_names = (@invalid_educator_last_names + [educator_last_name]).uniq
+      @invalid_rows_count += 1 unless disable_metrics
+      @invalid_educator_last_names = (@invalid_educator_last_names + [educator_last_name]).uniq unless disable_metrics
       return nil
     end
     matches.first

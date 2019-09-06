@@ -20,7 +20,8 @@ class BedfordDavisServicesImporter
   end
 
   def initialize(options:)
-    unless options.fetch(:acknowledge_deprectation, false)
+    @acknowledge_deprecation = options.fetch(:acknowledge_deprecation, false)
+    unless @acknowledge_deprecation
       Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
     end
     @folder_ids = options.fetch(:folder_ids, read_folder_ids_from_env())
@@ -46,7 +47,8 @@ class BedfordDavisServicesImporter
   def stats
     {
       matcher: @matcher.stats,
-      syncer: @syncer.stats
+      syncer: @syncer.stats,
+      reduced_processor_stats: reduced_processor_stats(@processors_used)
     }
   end
 
@@ -65,33 +67,35 @@ class BedfordDavisServicesImporter
     # skip info tab
     return [] if tab.tab_name == 'INFO'
 
-    # find educator and homeroom by tab.tab_name
-    educator = match_educator(tab.tab_name)
+    # find educator by tab.tab_name
+    educator = @matcher.find_educator_by_name_flexible(tab.tab_name)
     return [] if educator.nil?
+    @matcher.count_valid_row
 
     # process
     processor = BedfordDavisServicesProcessor.new(educator, {
       log: @log,
-      time_now: @time_now
+      time_now: @time_now,
+      acknowledge_deprecation: @acknowledge_deprecation
     })
     @processors_used << processor
     processor.dry_run(tab.tab_csv)
   end
 
-  def match_educator(tab_name)
-    educator_from_login_name = @matcher.find_educator_by_login(tab_name, disable_metrics: true)
-    if educator_from_login_name.present?
-      @matcher.count_valid_row
-      return educator_from_login_name
+  def reduced_processor_stats(processors)
+    summary = {}
+    processors.each do |processor|
+      stats = processor.stats
+      summary[:matcher_valid_rows_count] = summary.fetch(:matcher_valid_rows_count, 0) + stats[:matcher][:valid_rows_count]
+      summary[:matcher_invalid_rows_count] = summary.fetch(:matcher_invalid_rows_count, 0) + stats[:matcher][:invalid_rows_count]
+      summary[:matcher_invalid_student_local_ids] = summary.fetch(:matcher_invalid_student_local_ids, []) + stats[:matcher][:invalid_student_local_ids]
+      summary[:matcher_invalid_educator_emails_size] = summary.fetch(:matcher_invalid_educator_emails_size, 0) +    stats[:matcher][:invalid_educator_emails_size]
+      summary[:matcher_invalid_educator_last_names_size] = summary.fetch(:matcher_invalid_educator_last_names_size, 0) +    stats[:matcher][:invalid_educator_last_names_size]
+      summary[:matcher_invalid_educator_logins_size] = summary.fetch(:matcher_invalid_educator_logins_size, 0) +    stats[:matcher][:invalid_educator_logins_size]
+      summary[:matcher_invalid_course_numbers] = summary.fetch(:matcher_invalid_course_numbers, []) + stats[:matcher][:invalid_course_numbers]
+      summary[:matcher_invalid_sep_oids] = summary.fetch(:matcher_invalid_sep_oids, []) + stats[:matcher][:invalid_sep_oids]
     end
-
-    educator_from_last_name = @matcher.find_educator_by_last_name(tab_name)
-    if educator_from_last_name.present?
-      @matcher.count_valid_row
-      return educator_from_last_name
-    end
-
-    nil
+    summary
   end
 
   def log(msg)
