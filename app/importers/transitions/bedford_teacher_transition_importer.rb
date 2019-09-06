@@ -23,7 +23,6 @@ class BedfordTeacherTransitionImporter
     @log = options.fetch(:log, STDOUT)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
-    @note_prefix = options.fetch(:note_prefix, note_prefix())
   end
 
   def import

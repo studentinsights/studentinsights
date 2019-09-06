@@ -33,9 +33,11 @@ class BedfordDavisSocialEmotionalImporter
   end
 
   def dry_run
-    fetch_tabs().flat_map do |tab|
-      process_tab(tab)
+    rows = []
+    fetch_tabs().each do |tab|
+      rows += process_tab(tab)
     end
+    rows
   end
 
   def stats
@@ -51,13 +53,10 @@ class BedfordDavisSocialEmotionalImporter
   end
 
   def fetch_tabs
-    @folder_ids.flat_map do |folder_id|
-      @fetcher.get_tabs_from_folder(folder_id)
-    end
+    @fetcher.get_tabs_from_folder(@folder_id)
   end
 
   def process_tab(tab)
-    # skip info tab
     return [] if tab.tab_name == 'INFO'
 
     # find educator by tab.tab_name
