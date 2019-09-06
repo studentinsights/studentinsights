@@ -87,14 +87,5 @@ exports[`snapshots view 1`] = `
       </div>
     </div>
   </div>
-  <div>
-    <a
-      href="https://example.com/form_url"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Source
-    </a>
-  </div>
 </div>
 `;
