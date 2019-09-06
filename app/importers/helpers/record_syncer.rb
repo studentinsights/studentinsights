@@ -7,6 +7,7 @@
 class RecordSyncer
   def initialize(options = {})
     @log = options.fetch(:log)
+    @notification_tag = options.fetch(:notification_tag, 'default')
     @alert_tuning = options.fetch(:alert_tuning, AlertTuning.new(10, 0.10))
     @alert_on_stats = options.fetch(:alert_on_stats, [
       :passed_nil_record_count,
@@ -125,7 +126,6 @@ class RecordSyncer
     log('  checking if stats seem outside expected bounds...')
     alerts = determine_alerts_after_processing
     if alerts.size > 0
-      log("  notifying about #{alerts.size} alerts.")
       notify!(alerts)
     end
 
@@ -195,7 +195,17 @@ class RecordSyncer
   end
 
   def notify!(alerts)
-    Rollbar.error('RecordSyncer#notify!', nil, {alerts: alerts, caller: caller})
+    # log
+    district_key = PerDistrict.new.district_key
+    log("  notifying about alerts=#{alerts.size} in district_key=#{district_key} for notification_tag=#{@notification_tag}")
+
+    # report, splitting message name so that district_key and notification_tag
+    # create distinct Rollbar issues
+    msg = "RecordSyncer#notify! in #{district_key} for #{@notification_tag}"
+    Rollbar.error(msg, nil, {
+      alerts: alerts,
+      caller: caller
+    })
   end
 
   # Mark which Insights records match a row in the CSV.

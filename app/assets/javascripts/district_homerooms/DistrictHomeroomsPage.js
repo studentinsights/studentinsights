@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import {shortSchoolName} from '../helpers/PerDistrict';
+import {tryShortSchoolName} from '../helpers/PerDistrict';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
@@ -51,8 +51,9 @@ export class DistrictHomeroomsView extends React.Component {
             <tr>
               <th style={styles.cell}>&nbsp;</th>
               {sortedSchools.map(school => {
+                const schoolName = tryShortSchoolName(districtKey, school.local_id) || school.slug;
                 return <th key={school.id} style={styles.cell}>
-                  <School id={school.id} name={shortSchoolName(districtKey, school.local_id)} />
+                  <School id={school.id} name={schoolName} />
                 </th>;
               })}
             </tr>

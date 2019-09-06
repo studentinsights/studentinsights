@@ -29,15 +29,17 @@ class EducatorSearchbar < ApplicationRecord
   # Do the actual computation
   def self.names_for_json(educator)
     authorized_students = Authorizer.new(educator).authorized { Student.active.to_a }
-    authorized_students.map do |student|
+    json_records = authorized_students.map do |student|
       {
-        label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}",
-        id: student.id
+        id: student.id,
+        label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}"
       }.as_json
     end
+    json_records.sort_by {|j| j[:label]}.reverse!
   end
 
   private
+
   def validate_student_searchbar_json
     errors.add(:student_searchbar_json, 'nil') if self.student_searchbar_json.nil?
   end

@@ -21,8 +21,8 @@ export default class HomeroomPage extends React.Component {
   }
 
   fetchJson() {
-    const {homeroomIdOrSlug} = this.props;
-    const url = `/api/homerooms/${homeroomIdOrSlug}/homeroom_json`;
+    const {homeroomId} = this.props;
+    const url = `/api/homerooms/${homeroomId}/homeroom_json`;
     return apiFetchJson(url);
   }
 
@@ -49,7 +49,7 @@ export default class HomeroomPage extends React.Component {
   }
 }
 HomeroomPage.propTypes = {
-  homeroomIdOrSlug: PropTypes.string.isRequired
+  homeroomId: PropTypes.number.isRequired
 };
 
 class HomeroomPageView extends React.Component {
@@ -91,7 +91,6 @@ HomeroomPageView.propTypes = {
   homeroom: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
     school: PropTypes.object.isRequired,
     educator: PropTypes.object,
   }),

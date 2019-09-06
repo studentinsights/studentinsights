@@ -17,19 +17,87 @@ RSpec.describe Homeroom do
     end
   end
 
-  describe '#grade' do
-    context 'with PK student' do
-      let(:homeroom) { FactoryBot.create(:homeroom_with_pre_k_student) }
-      it 'is "PK"' do
-        expect(homeroom.grade).to eq "PK"
+  describe '#grades' do
+    it 'returns single value when single grade' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        3.times { h.students << FactoryBot.create(:student, grade: 'PK') }
+      end
+      expect(homeroom.grades).to eq ['PK']
+    end
+
+    it 'returns sorted list when mixed grades' do
+      grades = ['9', '1', '11', 'PK', 'TK']
+      3.times do
+        shuffled = grades.shuffle
+        homeroom = FactoryBot.create(:homeroom).tap do |h|
+          shuffled.each do |grade|
+            h.students << FactoryBot.create(:student, grade: grade)
+          end
+        end
+        expect(homeroom.reload.students.size).to eq 5
+        expect(homeroom.grades).to eq ['TK', 'PK', '1', '9', '11']
       end
     end
-    context 'with 2nd grade student' do
-      let(:homeroom) { FactoryBot.create(:homeroom_with_second_grader) }
-      it 'is "2"' do
-        expect(homeroom.grade).to eq "2"
+
+    it 'includes only active students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        h.students << FactoryBot.create(:student, missing_from_last_export: true, grade: 'PK')
+        h.students << FactoryBot.create(:student, grade: '1')
       end
+      expect(homeroom.grades).to eq ['1']
+    end
+
+    it 'includes all students when include_inactive_students:true' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        h.students << FactoryBot.create(:student, missing_from_last_export: true, grade: 'PK')
+        h.students << FactoryBot.create(:student, grade: '1')
+      end
+      expect(homeroom.grades(include_inactive_students: true)).to eq ['PK', '1']
     end
   end
 
+  describe '#grade' do
+    it 'works for all PK students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        3.times { h.students << FactoryBot.create(:student, grade: 'PK') }
+      end
+      expect(homeroom.grade).to eq "PK"
+    end
+
+    it 'works for all 2nd grade students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        3.times { h.students << FactoryBot.create(:student, grade: '2') }
+      end
+      expect(homeroom.grade).to eq "2"
+    end
+  end
+
+  # These describe existing quirks and why migrating from eager `homeroom#grade` to
+  # lazy `homeroom#grades` is better longer term.
+  context '#update_grade' do
+    it 'returns value for first student added in mixed-grade homerooms (eg, special education)' do
+      grades = ['PK', '1', '2']
+      5.times do
+        shuffled = grades.shuffle
+        homeroom = FactoryBot.create(:homeroom).tap do |h|
+          shuffled.each do |grade|
+            h.students << FactoryBot.create(:student, grade: grade)
+          end
+        end
+        expect(homeroom.grade).to eq shuffled.first
+      end
+    end
+
+    it 'has the value for first student added, even if they are later removed and no students left in that grade (eg, special education)' do
+      homeroom = FactoryBot.create(:homeroom)
+      prek_student = FactoryBot.create(:student, grade: 'PK')
+      second_grade_student = FactoryBot.create(:student, grade: '2')
+      homeroom.students << prek_student
+      homeroom.students << second_grade_student
+      expect(homeroom.grade).to eq 'PK'
+
+      prek_student.destroy!
+      expect(homeroom.grade).to eq 'PK' # not really what we want, but current behavior
+    end
+  end
 end

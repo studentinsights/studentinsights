@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_151440) do
+ActiveRecord::Schema.define(version: 2019_09_05_201813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -224,6 +224,7 @@ ActiveRecord::Schema.define(version: 2019_07_30_151440) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "login_name", null: false
+    t.boolean "missing_from_last_export", default: false, null: false
     t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
     t.index ["login_name"], name: "index_educators_on_login_name", unique: true
@@ -312,7 +313,6 @@ ActiveRecord::Schema.define(version: 2019_07_30_151440) do
     t.string "name", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "students_count", default: 0, null: false
     t.integer "educator_id"
     t.string "slug", null: false
     t.string "grade"
@@ -497,6 +497,8 @@ ActiveRecord::Schema.define(version: 2019_07_30_151440) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "course_id", null: false
+    t.integer "district_school_year"
+    t.index ["course_id", "district_school_year", "term_local_id", "section_number"], name: "sections_uniqueness_constraint", unique: true
   end
 
   create_table "service_types", id: :serial, force: :cascade do |t|
@@ -603,6 +605,8 @@ ActiveRecord::Schema.define(version: 2019_07_30_151440) do
     t.text "learn_best", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["form_timestamp"], name: "index_student_voice_completed_surveys_on_form_timestamp"
+    t.index ["student_id"], name: "index_student_voice_completed_surveys_on_student_id"
   end
 
   create_table "student_voice_survey_uploads", force: :cascade do |t|
@@ -657,8 +661,10 @@ ActiveRecord::Schema.define(version: 2019_07_30_151440) do
     t.boolean "missing_from_last_export", default: false, null: false
     t.date "ell_entry_date"
     t.date "ell_transition_date"
+    t.index ["enrollment_status"], name: "index_students_on_enrollment_status"
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
     t.index ["local_id"], name: "index_students_on_local_id", unique: true
+    t.index ["missing_from_last_export"], name: "index_students_on_missing_from_last_export"
     t.index ["school_id"], name: "index_students_on_school_id"
     t.index ["state_id"], name: "index_students_on_state_id"
   end

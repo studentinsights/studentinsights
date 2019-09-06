@@ -1,8 +1,12 @@
-class StudentVoiceSurveyImporter
+# This class was designed for use with a UI that uploads
+# CSV files.  So it is slightly different than the `Processor` classes
+# and how they handle merges and updates, but similar.
+class StudentVoiceSurveyUploader
   def initialize(file_text, upload_attrs, options = {})
     @file_text = file_text
     @upload_attrs = upload_attrs
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @matcher = ImportMatcher.new
     reset_counters!
   end
 
@@ -36,6 +40,16 @@ class StudentVoiceSurveyImporter
     student_voice_survey_upload
   end
 
+  def stats
+    {
+      created_records_count: @created_records_count,
+      empty_survey_count: @empty_survey_count,
+      invalid_row_columns_count: @invalid_row_columns_count,
+      invalid_student_local_id_count: @invalid_student_local_id_count,
+      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
+    }
+  end
+
   private
   def create_streaming_csv
     csv_transformer = StreamingCsvTransformer.new(@log, {
@@ -52,9 +66,10 @@ class StudentVoiceSurveyImporter
     end
 
     # whitelist attributes for the row, translate to short symbol keys
+    # no nils here, empty strings are ok
     row_attrs = {}
     columns_map.each do |record_field_name, csv_column_text|
-      row_attrs[record_field_name] = raw_row[csv_column_text]
+      row_attrs[record_field_name] = raw_row[csv_column_text] || ''
     end
 
     # filter out if all responses are empty
@@ -63,25 +78,36 @@ class StudentVoiceSurveyImporter
       return nil
     end
 
-    # match student
-    student_id = Student.find_by_local_id(row_attrs[:student_lasid]).try(:id)
+    # match student (look at email, outside of whitelist)
+    student_lasid = read_student_lasid_from_row(raw_row, row_attrs)
+    student_id = Student.find_by_local_id(student_lasid).try(:id)
     if student_id.nil?
       @invalid_student_local_id_count += 1
-      @invalid_student_lodal_ids_list << row_attrs[:student_lasid]
+      @invalid_student_lodal_ids_list << student_lasid
       return nil
     end
 
-    row_attrs.merge(student_id: student_id)
+    # parse timestamp
+    form_timestamp = @matcher.parse_sheets_est_timestamp(row_attrs[:form_timestamp])
+    row_attrs.merge({
+      student_id: student_id,
+      form_timestamp: form_timestamp
+    })
   end
 
-  def stats
-    {
-      created_records_count: @created_records_count,
-      empty_survey_count: @empty_survey_count,
-      invalid_row_columns_count: @invalid_row_columns_count,
-      invalid_student_local_id_count: @invalid_student_local_id_count,
-      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
-    }
+  # Read the value from `Email address` if it was collected,
+  # and if the username is numeric (ie, a LASID).
+  # This avoids errors when there are typos in the field asking
+  # for the LASID, but fall back to that if need be.
+  def read_student_lasid_from_row(raw_row, row_attrs)
+    student_email_address = raw_row['Email Address']
+    if student_email_address.present?
+      email_prefix = student_email_address.split('@').try(:first).try(:strip)
+      return email_prefix if /^[0-9]+$/.match?(email_prefix)
+    end
+
+    # fall back
+    row_attrs[:student_lasid]
   end
 
   def reset_counters!

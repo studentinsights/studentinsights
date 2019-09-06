@@ -99,36 +99,42 @@ const styles = {
 };
 
 
-function FrameHeader(props) {
-  const {student, byEl, whereEl, whenEl, hidePhoto} = props;
-  const {homeroom, school} = student;
-  const shouldShowHomeroom = homeroom && school && isHomeroomMeaningful(school.school_type);
-  const shouldShowPhoto = (student.has_photo && !hidePhoto);
-  return (
-    <div style={styles.header} className="FeedCardFrame-FrameHeader">
-      <div style={{display: 'flex'}}>
-        {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
-        <div style={styles.studentHeader}>
-          <div>
-            <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
-          </div>
-          <div>{gradeText(student.grade)}</div>
-          <div>
-            {shouldShowHomeroom && <Homeroom
-              id={homeroom.id}
-              name={homeroom.name}
-              educator={homeroom.educator} />}
+class FrameHeader extends React.Component {
+  render() {
+    const {districtKey} = this.context;
+    const {student, byEl, whereEl, whenEl, hidePhoto} = this.props;
+    const {homeroom, school} = student;
+    const shouldShowHomeroom = homeroom && school && isHomeroomMeaningful(districtKey, school.local_id);
+    const shouldShowPhoto = (student.has_photo && !hidePhoto);
+    return (
+      <div style={styles.header} className="FeedCardFrame-FrameHeader">
+        <div style={{display: 'flex'}}>
+          {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
+          <div style={styles.studentHeader}>
+            <div>
+              <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+            </div>
+            <div>{gradeText(student.grade)}</div>
+            <div>
+              {shouldShowHomeroom && <Homeroom
+                id={homeroom.id}
+                name={homeroom.name}
+                educator={homeroom.educator} />}
+            </div>
           </div>
         </div>
+        <div style={styles.by}>
+          <div>{byEl}</div>
+          <div>{whereEl}</div>
+          <div>{whenEl}</div>
+        </div>
       </div>
-      <div style={styles.by}>
-        <div>{byEl}</div>
-        <div>{whereEl}</div>
-        <div>{whenEl}</div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
+FrameHeader.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 FrameHeader.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,

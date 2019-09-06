@@ -60,7 +60,7 @@ export default class SecondTransitionNoteInline extends React.Component {
   }
 
   renderRestrictedInline() {
-    const {student, currentEducator, json} = this.props;
+    const {canUserAccessRestrictedNotes, student, currentEducator, json} = this.props;
     if (!json.has_restricted_text) return null;
     
     const educatorName = formatEducatorName(currentEducator);
@@ -75,7 +75,7 @@ export default class SecondTransitionNoteInline extends React.Component {
         <RestrictedNotePresence
           studentFirstName={student.first_name}
           educatorName={educatorFirstNameOrEmail}
-          fetchRestrictedText={fetchRestrictedText}
+          fetchRestrictedText={canUserAccessRestrictedNotes && fetchRestrictedText}
         />
       </div>
     );
@@ -132,6 +132,7 @@ SecondTransitionNoteInline.propTypes = {
     first_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired
   }).isRequired,
+  canUserAccessRestrictedNotes: PropTypes.bool,
   allowEditing: PropTypes.bool
 };
 

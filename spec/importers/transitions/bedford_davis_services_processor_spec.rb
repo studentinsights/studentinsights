@@ -51,7 +51,7 @@ RSpec.describe BedfordDavisServicesProcessor do
       except: [:id, :created_at, :updated_at]
     })).to eq([{
       "student_id"=>pals.shs_senior_kylo.id,
-      "service_type_id"=>702,
+      "service_type_id"=>703,
       'recorded_by_educator_id' => pals.rich_districtwide.id,
       "recorded_at"=>'2018-03-13 11:03:00.000000000 +0000',
       "date_started"=>'2017-08-15 00:00:00.000000000 +0000',
@@ -62,7 +62,7 @@ RSpec.describe BedfordDavisServicesProcessor do
       "service_upload_id"=>nil
     },{
       "student_id"=>pals.shs_freshman_amir.id,
-      "service_type_id"=>704,
+      "service_type_id"=>705,
       'recorded_by_educator_id' => pals.rich_districtwide.id,
       "recorded_at"=>'2018-03-13 11:03:00.000000000 +0000',
       "date_started"=>'2017-08-15 00:00:00.000000000 +0000',
@@ -85,7 +85,7 @@ RSpec.describe BedfordDavisServicesProcessor do
       except: [:id, :created_at, :updated_at]
     })).to eq([{
       'student_id' => pals.healey_kindergarten_student.id,
-      'service_type_id'=>706,
+      'service_type_id'=>707,
       'recorded_by_educator_id' => pals.rich_districtwide.id,
       "recorded_at"=>'2018-03-13 11:03:00.000000000 +0000',
       "date_started"=>'2017-08-15 00:00:00.000000000 +0000',
@@ -96,7 +96,7 @@ RSpec.describe BedfordDavisServicesProcessor do
       "service_upload_id"=>nil
     },{
       'student_id' => pals.healey_kindergarten_student.id,
-      'service_type_id'=>707,
+      'service_type_id'=>708,
       'recorded_by_educator_id' => pals.rich_districtwide.id,
       "recorded_at"=>'2018-03-13 11:03:00.000000000 +0000',
       "date_started"=>'2017-08-15 00:00:00.000000000 +0000',

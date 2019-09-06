@@ -14,8 +14,10 @@ class StudentSectionGradeRow < Struct.new(:row, :student_id, :section_id, :schoo
 
   def build
     if student_id && section_id
-      student_section_assignment = StudentSectionAssignment.find_by(student_id: student_id,
-                                                                    section_id: section_id)
+      student_section_assignment = StudentSectionAssignment.find_or_initialize_by({
+        student_id: student_id,
+        section_id: section_id
+      })
       student_section_assignment.assign_attributes(
         grade_numeric: grade_numeric,
         grade_letter: grade_letter
