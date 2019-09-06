@@ -1,74 +1,138 @@
+Friday 9/6 updates:
+- **Import**: Set up service accounts for Somerville for automated imports from Google Drive
+- **Student Voice importer**: Automate import each night [#2579](https://github.com/studentinsights/studentinsights/pull/2579) [#2580](https://github.com/studentinsights/studentinsights/pull/2580) [#2582](https://github.com/studentinsights/studentinsights/pull/2582)
+- **Student voice**: Add cards into home feed for fall surveys [#2581](https://github.com/studentinsights/studentinsights/pull/2581)
+- **Authorizer**: Update homeroom method to be built from student methods [#2584](https://github.com/studentinsights/studentinsights/pull/2584) [#2585](https://github.com/studentinsights/studentinsights/pull/2585) [#2586](https://github.com/studentinsights/studentinsights/pull/2586) [#2587](https://github.com/studentinsights/studentinsights/pull/2587)
+- **Homeroom**: Update URLs and navigation to use id only, not slugs [#2588](https://github.com/studentinsights/studentinsights/pull/2588) [#2589](https://github.com/studentinsights/studentinsights/pull/2589) [#2590](https://github.com/studentinsights/studentinsights/pull/2590) [#2591](https://github.com/studentinsights/studentinsights/pull/2591) [#2592](https://github.com/studentinsights/studentinsights/pull/2592)
+- **Transitions**: Add importers for Bedford school transition notes and services [#2543](https://github.com/studentinsights/studentinsights/pull/2543) [#2596](https://github.com/studentinsights/studentinsights/pull/2596)
+
+Friday 8/30 updates:
+- **Counselor meetings**: Update inline profile to have clearer links to full profile [#2552](https://github.com/studentinsights/studentinsights/pull/2552)
+- **Section exports**: Update Somerville section exports to query for school year [#2550](https://github.com/studentinsights/studentinsights/pull/2550)
+- **Section importers**: Update to explicitly scope by district_school_year [#2551](https://github.com/studentinsights/studentinsights/pull/2551)
+- **Permissions tools**: Show educator labels [#2553](https://github.com/studentinsights/studentinsights/pull/2553)
+- **Permissions tools**: Add all educators with restricted notes access to sensitive users [#2557](https://github.com/studentinsights/studentinsights/pull/2557)
+- **Educator home page view**: Show missing_from_last_export [#2548](https://github.com/studentinsights/studentinsights/pull/2548)
+- **Educators**: Allow whitelisting as active even when not in latest export [#2549](https://github.com/studentinsights/studentinsights/pull/2549)
+- **Precompute**: Limit to active educators [#2573](https://github.com/studentinsights/studentinsights/pull/2573)
+- **Monitoring**: Add debugKey to RollbarErrorBoundary [#2560](https://github.com/studentinsights/studentinsights/pull/2560)
+- **Monitoring**: Include displayName in production build [#2561](https://github.com/studentinsights/studentinsights/pull/2561)
+- **Monitoring**: Send error objects to Rollbar separately so it can serialize [#2569](https://github.com/studentinsights/studentinsights/pull/2569)
+- **Monitoring**: Adjust how RecordSyncer reports alerts [#2570](https://github.com/studentinsights/studentinsights/pull/2570)
+- **Transition notes**: Add more specs for reading restricted notes, update… [#2565](https://github.com/studentinsights/studentinsights/pull/2565)
+- **Transition notes**: Update branching in UI for show restricted note [#2566](https://github.com/studentinsights/studentinsights/pull/2566)
+- **Maintenance**: Update static error pages, email links [#2567](https://github.com/studentinsights/studentinsights/pull/2567)
+- **Performance**: Optimize authorized students query for lower-access users [#2574](https://github.com/studentinsights/studentinsights/pull/2574)
+- **Home page feed**: Show homerooms for all schools but SHS [#2568](https://github.com/studentinsights/studentinsights/pull/2568)
+- **Sign in**: Add another layer of defense on our side, whether educator is active [#2572](https://github.com/studentinsights/studentinsights/pull/2572)
+- **Profile insights**: Update SHS prioritization to include fall and spring [#2575](https://github.com/studentinsights/studentinsights/pull/2575)
+
+Friday 8/23 updates:
+- **Project lead tools**: Optimize district homerooms, improve layout on permissions pages [#2545](https://github.com/studentinsights/studentinsights/pull/2545)
+- **Educators import**: Mark `missing_from_last_export` and show project leads in permissions tools [#2546](https://github.com/studentinsights/studentinsights/pull/2546)
+- **Transition**: Printable transition notes for 8th to 9th grade transition in Somerville
+
+Friday 8/16 updates:
+- **Service**: Add Bedford service types, part2 [#2537](https://github.com/studentinsights/studentinsights/pull/2537)
+
+Friday 8/9 updates:
+
+Friday 8/2 updates:
+- **Transition**: Bedford social emotional transition notes processor [#2534](https://github.com/studentinsights/studentinsights/pull/2534)
+- **Service**: Add Bedford service types, part1 [#2535](https://github.com/studentinsights/studentinsights/pull/2535)
+
+Friday 7/26 updates:
+- **Services**: Update sort for timeline column [#2527](https://github.com/studentinsights/studentinsights/pull/2527)
+- **Notes**: Processors for self-serve note imports [#2528](https://github.com/studentinsights/studentinsights/pull/2528)
+- **Bedford**: Clarify naming for transition processor and importer [#2533](https://github.com/studentinsights/studentinsights/pull/2533)
+
+Friday 7/19 updates:
+- **Search**: Allow web search syntax when searching notes [#2521](https://github.com/studentinsights/studentinsights/pull/2521)
+- **New Bedford Assessments**: Updates for MCAS and ACCESS [#2522](https://github.com/studentinsights/studentinsights/pull/2522)
+- **Monitoring**: Rollbar functions can't be called without explicitly setting 'this' [#2524](https://github.com/studentinsights/studentinsights/pull/2524)
+- **Somerville**: Disable STAR importer [#2526](https://github.com/studentinsights/studentinsights/pull/2526)
+
+Friday 7/12 updates:
+- **District**: Add links to debug reading pages [#2518](https://github.com/studentinsights/studentinsights/pull/2518)
+- **Docs**: Update README [#2520](https://github.com/studentinsights/studentinsights/pull/2520)
+
+Friday 7/5 updates:
+- **District**: Add discipline exporter for further analysis [#2514](https://github.com/studentinsights/studentinsights/pull/2514)
+- **Import**: GoogleSheetsFetcher for importing batches of sheets and folders [#2515](https://github.com/studentinsights/studentinsights/pull/2515)
+- **Bedford transition**: Import Davis transition notes [#2516](https://github.com/studentinsights/studentinsights/pull/2516)
+- **Services**: Show searchable, filterable list of all services for authorized students [#2517](https://github.com/studentinsights/studentinsights/pull/2517)
+
 Friday 6/28 updates:
-- District admin: Export 'wide' students spreadsheet [#2507](https://github.com/studentinsights/studentinsights/pull/2507)
-- Security: Add SECURITY.md with note about responsible disclosure [#2509](https://github.com/studentinsights/studentinsights/pull/2509)
-- Security: Send security alert email to educator on potentially suspicious login [#2508](https://github.com/studentinsights/studentinsights/pull/2508)
-- Security: Update robots.txt to show icon, logo and description [#2510](https://github.com/studentinsights/studentinsights/pull/2510)
-- Import: Add DataFlow descriptions to importer classes, with tests, for making visible in UI [#2511](https://github.com/studentinsights/studentinsights/pull/2511)
-- Student voice: Import and show student voice prompts for Bedford middle schoolers [#2512](https://github.com/studentinsights/studentinsights/pull/2512)
+- **District admin**: Export 'wide' students spreadsheet [#2507](https://github.com/studentinsights/studentinsights/pull/2507)
+- **Security**: Add SECURITY.md with note about responsible disclosure [#2509](https://github.com/studentinsights/studentinsights/pull/2509)
+- **Security**: Send security alert email to educator on potentially suspicious login [#2508](https://github.com/studentinsights/studentinsights/pull/2508)
+- **Security**: Update robots.txt to show icon, logo and description [#2510](https://github.com/studentinsights/studentinsights/pull/2510)
+- **Import**: Add DataFlow descriptions to importer classes, with tests, for making visible in UI [#2511](https://github.com/studentinsights/studentinsights/pull/2511)
+- **Student voice**: Import and show student voice prompts for Bedford middle schoolers [#2512](https://github.com/studentinsights/studentinsights/pull/2512)
 
 Friday 6/21 updates:
 - none to share
 
 Friday 6/14 updates:
-- Reader profile: months ago, multiple chips for services [#2500](https://github.com/studentinsights/studentinsights/pull/2500)
-- Reader Profile: Moving parsing and segmenting IEP text to server [#2501](https://github.com/studentinsights/studentinsights/pull/2501)
-- Transitions: Add label to allow editing; fix bug with starred in edit dialog [#2502](https://github.com/studentinsights/studentinsights/pull/2502)
-- District: List of homerooms by grade [#2503 [#2504](https://github.com/studentinsights/studentinsights/pull/2504)
-- Transitions: Fix IE11 layout bug on dialog [#2505](https://github.com/studentinsights/studentinsights/pull/2505)
-- Reading: Add Heggerty intervention processor, show in profile [#2506](https://github.com/studentinsights/studentinsights/pull/2506)
+- **Reader profile**: months ago, multiple chips for services [#2500](https://github.com/studentinsights/studentinsights/pull/2500)
+- **Reader Profile**: Moving parsing and segmenting IEP text to server [#2501](https://github.com/studentinsights/studentinsights/pull/2501)
+- **Transitions**: Add label to allow editing; fix bug with starred in edit dialog [#2502](https://github.com/studentinsights/studentinsights/pull/2502)
+- **District**: List of homerooms by grade [#2503 [#2504](https://github.com/studentinsights/studentinsights/pull/2504)
+- **Transitions**: Fix IE11 layout bug on dialog [#2505](https://github.com/studentinsights/studentinsights/pull/2505)
+- **Reading**: Add Heggerty intervention processor, show in profile [#2506](https://github.com/studentinsights/studentinsights/pull/2506)
 
 Friday 6/7 updates:
-- Reader profile: Initial prototype for design work [#2493](https://github.com/studentinsights/studentinsights/pull/2493) [#2494](https://github.com/studentinsights/studentinsights/pull/2494) [#2496](https://github.com/studentinsights/studentinsights/pull/2496)
-- Transition notes: Support limited transition from 5th > 6th in Somerville [#2495](https://github.com/studentinsights/studentinsights/pull/2495) [#2497](https://github.com/studentinsights/studentinsights/pull/2497) [#2498](https://github.com/studentinsights/studentinsights/pull/2498) 
-- My Students: Fix sort order for program [#2499](https://github.com/studentinsights/studentinsights/pull/2499)
+- **Reader profile**: Initial prototype for design work [#2493](https://github.com/studentinsights/studentinsights/pull/2493) [#2494](https://github.com/studentinsights/studentinsights/pull/2494) [#2496](https://github.com/studentinsights/studentinsights/pull/2496)
+- **Transition notes**: Support limited transition from 5th > 6th in Somerville [#2495](https://github.com/studentinsights/studentinsights/pull/2495) [#2497](https://github.com/studentinsights/studentinsights/pull/2497) [#2498](https://github.com/studentinsights/studentinsights/pull/2498) 
+- **My Students**: Fix sort order for program [#2499](https://github.com/studentinsights/studentinsights/pull/2499)
 
 Friday 5/31 updates:
-- Transition notes: Add link on home page, and page to review all notes [#2481](https://github.com/studentinsights/studentinsights/pull/2481)
-- Transition notes: Simplified inline read path, refactoring RestrictedNotePresence [#2482](https://github.com/studentinsights/studentinsights/pull/2482)
-- Transition notes: Show new transition inline in profile list after saving [#2483](https://github.com/studentinsights/studentinsights/pull/2483)
-- Searchbar: Mitigations for searching through many students [#2484](https://github.com/studentinsights/studentinsights/pull/2484)
-- Student searchbar: Migrate to React component and optimize for larger lists [#2485](https://github.com/studentinsights/studentinsights/pull/2485) [#2487](https://github.com/studentinsights/studentinsights/pull/2487)
-- Counselor Meetings: Add link to navbar, fix sort by with 'seen by' [#2489](https://github.com/studentinsights/studentinsights/pull/2489)
-- Bedford transition: Initial processor code, prototype read path for notes and insight box [#2488](https://github.com/studentinsights/studentinsights/pull/2488)
-- New Bedford photos: Set up and run import for Normandin students, improve zoom photo cropping [#2490](https://github.com/studentinsights/studentinsights/pull/2490)
-- Transitions: Update filters for transitions page [#2491](https://github.com/studentinsights/studentinsights/pull/2491)
+- **Transition notes**: Add link on home page, and page to review all notes [#2481](https://github.com/studentinsights/studentinsights/pull/2481)
+- **Transition notes**: Simplified inline read path, refactoring RestrictedNotePresence [#2482](https://github.com/studentinsights/studentinsights/pull/2482)
+- **Transition notes**: Show new transition inline in profile list after saving [#2483](https://github.com/studentinsights/studentinsights/pull/2483)
+- **Searchbar**: Mitigations for searching through many students [#2484](https://github.com/studentinsights/studentinsights/pull/2484)
+- **Student searchbar**: Migrate to React component and optimize for larger lists [#2485](https://github.com/studentinsights/studentinsights/pull/2485) [#2487](https://github.com/studentinsights/studentinsights/pull/2487)
+- **Counselor Meetings**: Add link to navbar, fix sort by with 'seen by' [#2489](https://github.com/studentinsights/studentinsights/pull/2489)
+- **Bedford transition**: Initial processor code, prototype read path for notes and insight box [#2488](https://github.com/studentinsights/studentinsights/pull/2488)
+- **New Bedford photos**: Set up and run import for Normandin students, improve zoom photo cropping [#2490](https://github.com/studentinsights/studentinsights/pull/2490)
+- **Transitions**: Update filters for transitions page [#2491](https://github.com/studentinsights/studentinsights/pull/2491)
 
 Friday 5/24 updates:
-- Counselor Meetings: Add initial version for feedback and testing [#2477](https://github.com/studentinsights/studentinsights/pull/2477)
-- Transition Notes: Add dialog for transition notes, refactoring for my notes, migrations for previous [#2480](https://github.com/studentinsights/studentinsights/pull/2480)
+- **Counselor Meetings**: Add initial version for feedback and testing [#2477](https://github.com/studentinsights/studentinsights/pull/2477)
+- **Transition Notes**: Add dialog for transition notes, refactoring for my notes, migrations for previous [#2480](https://github.com/studentinsights/studentinsights/pull/2480)
 
 Friday 5/17 updates:
-- Reading: Debug page for STAR coverage and distributions [#2470](https://github.com/studentinsights/studentinsights/pull/2470)
-- Maintenance:  Update brakeman, force SSL in two places [#2471](https://github.com/studentinsights/studentinsights/pull/2471)
-- Reading: Allow reviewing more assessments in /reading/debug [#2472](https://github.com/studentinsights/studentinsights/pull/2472)
-- Reading: Enable exporting reading debug data [#2475](https://github.com/studentinsights/studentinsights/pull/2475)
+- **Reading**: Debug page for STAR coverage and distributions [#2470](https://github.com/studentinsights/studentinsights/pull/2470)
+- **Maintenance**:  Update brakeman, force SSL in two places [#2471](https://github.com/studentinsights/studentinsights/pull/2471)
+- **Reading**: Allow reviewing more assessments in /reading/debug [#2472](https://github.com/studentinsights/studentinsights/pull/2472)
+- **Reading**: Enable exporting reading debug data [#2475](https://github.com/studentinsights/studentinsights/pull/2475)
 
 Friday 5/10 updates:
-- Class lists: Update link to video and PDF [#2452](https://github.com/studentinsights/studentinsights/pull/2452)
-- Class lists: Use CleanSlateMessage and apply policy to notes within dialog [#2453](https://github.com/studentinsights/studentinsights/pull/2453)
-- Class list: Fix bug with branching on STAR/DIBELS in profile [#2454](https://github.com/studentinsights/studentinsights/pull/2454)
-- Class lists: Revise MegaReadingImporter for use with aggregate K and 1 reading data [#2455](https://github.com/studentinsights/studentinsights/pull/2455)
-- Class lists: Differences in Somerville Reading Data doc / mega
-- Class lists: Add F&P English winter benchmarks for K and 1st grade teams [#2456](https://github.com/studentinsights/studentinsights/pull/2456)
-- Class lists: Alphabetical sort for educators list [#2457](https://github.com/studentinsights/studentinsights/pull/2457)
-- Class lists: Remove link to school page on list page [#2458](https://github.com/studentinsights/studentinsights/pull/2458)
-- Class lists: Improve matching fading out 'homeroom' as default list [#2461](https://github.com/studentinsights/studentinsights/pull/2461)
-- Class lists: Update list to be narrower with short school names and shorter dates [#2462](https://github.com/studentinsights/studentinsights/pull/2462)
-- Class lists: Photos authorization [#2465](https://github.com/studentinsights/studentinsights/pull/2465)
-- Equity experiments: Add more durable links to experiments [#2464](https://github.com/studentinsights/studentinsights/pull/2464)
-- Memory: Start migrating searchbar JSON out of Educator model [#2459](https://github.com/studentinsights/studentinsights/pull/2459)
-- Memory: Finish migration for student searchbar off Educator model [#2460](https://github.com/studentinsights/studentinsights/pull/2460)
-- Maintenance: Destroy older database instances after Postgres upgrade
-- Reading: Refactor to clarify importers, placeholder reading importer for Somerville [#2468](https://github.com/studentinsights/studentinsights/pull/2468)
-- Reading: Add debug view for seeing progress and global distributions [#2467](https://github.com/studentinsights/studentinsights/pull/2467)
+- **Class lists**: Update link to video and PDF [#2452](https://github.com/studentinsights/studentinsights/pull/2452)
+- **Class lists**: Use CleanSlateMessage and apply policy to notes within dialog [#2453](https://github.com/studentinsights/studentinsights/pull/2453)
+- **Class list**: Fix bug with branching on STAR/DIBELS in profile [#2454](https://github.com/studentinsights/studentinsights/pull/2454)
+- **Class lists**: Revise MegaReadingImporter for use with aggregate K and 1 reading data [#2455](https://github.com/studentinsights/studentinsights/pull/2455)
+- **Class lists**: Differences in Somerville Reading Data doc / mega
+- **Class lists**: Add F&P English winter benchmarks for K and 1st grade teams [#2456](https://github.com/studentinsights/studentinsights/pull/2456)
+- **Class lists**: Alphabetical sort for educators list [#2457](https://github.com/studentinsights/studentinsights/pull/2457)
+- **Class lists**: Remove link to school page on list page [#2458](https://github.com/studentinsights/studentinsights/pull/2458)
+- **Class lists**: Improve matching fading out 'homeroom' as default list [#2461](https://github.com/studentinsights/studentinsights/pull/2461)
+- **Class lists**: Update list to be narrower with short school names and shorter dates [#2462](https://github.com/studentinsights/studentinsights/pull/2462)
+- **Class lists**: Photos authorization [#2465](https://github.com/studentinsights/studentinsights/pull/2465)
+- **Equity experiments**: Add more durable links to experiments [#2464](https://github.com/studentinsights/studentinsights/pull/2464)
+- **Memory**: Start migrating searchbar JSON out of Educator model [#2459](https://github.com/studentinsights/studentinsights/pull/2459)
+- **Memory**: Finish migration for student searchbar off Educator model [#2460](https://github.com/studentinsights/studentinsights/pull/2460)
+- **Maintenance**: Destroy older database instances after Postgres upgrade
+- **Reading**: Refactor to clarify importers, placeholder reading importer for Somerville [#2468](https://github.com/studentinsights/studentinsights/pull/2468)
+- **Reading**: Add debug view for seeing progress and global distributions [#2467](https://github.com/studentinsights/studentinsights/pull/2467)
 
 Friday 5/3 updates:
-- Class lists: Open for making lists KF-8 and include early childhood schools [#2443](https://github.com/studentinsights/studentinsights/pull/2443)
-- Class lists: Enable naming lists for other purposes (eg, science classes) [#2444](https://github.com/studentinsights/studentinsights/pull/2444)
-- Class lists: Add student photo to class list creator [#2448](https://github.com/studentinsights/studentinsights/pull/2448)
-- Class list: Expand fix, sort columns, and revised inline profile design [#2449](https://github.com/studentinsights/studentinsights/pull/2449)
-- Class list: Add equity check for diversity groups [#2451](https://github.com/studentinsights/studentinsights/pull/2451)
-- Equity: Add quilts experiment visualization [#2450](https://github.com/studentinsights/studentinsights/pull/2450)
+- **Class lists**: Open for making lists KF-8 and include early childhood schools [#2443](https://github.com/studentinsights/studentinsights/pull/2443)
+- **Class lists**: Enable naming lists for other purposes (eg, science classes) [#2444](https://github.com/studentinsights/studentinsights/pull/2444)
+- **Class lists**: Add student photo to class list creator [#2448](https://github.com/studentinsights/studentinsights/pull/2448)
+- **Class list**: Expand fix, sort columns, and revised inline profile design [#2449](https://github.com/studentinsights/studentinsights/pull/2449)
+- **Class list**: Add equity check for diversity groups [#2451](https://github.com/studentinsights/studentinsights/pull/2451)
+- **Equity**: Add quilts experiment visualization [#2450](https://github.com/studentinsights/studentinsights/pull/2450)
 
 Friday 4/26 updates:
 - none to share
@@ -83,10 +147,10 @@ Friday 4/5 updates:
 - none to share
 
 Friday 3/29 updates:
-- Photos: Update to use cropped on homeroom page, release on home page [#2435](https://github.com/studentinsights/studentinsights/pull/2435)
-- Section, My Students: Add student photo, cropped small [#2436](https://github.com/studentinsights/studentinsights/pull/2436)
-- Profile: Update UX for creating and editing notes [#2437](https://github.com/studentinsights/studentinsights/pull/2437)
-- Layout: Update min-width on body, navbar sizing [#2440](https://github.com/studentinsights/studentinsights/pull/2440)
+- **Photos**: Update to use cropped on homeroom page, release on home page [#2435](https://github.com/studentinsights/studentinsights/pull/2435)
+- **Section, My Students**: Add student photo, cropped small [#2436](https://github.com/studentinsights/studentinsights/pull/2436)
+- **Profile**: Update UX for creating and editing notes [#2437](https://github.com/studentinsights/studentinsights/pull/2437)
+- **Layout**: Update min-width on body, navbar sizing [#2440](https://github.com/studentinsights/studentinsights/pull/2440)
 
 Friday 3/22 updates:
 - **Notes**: Remove older props no longer used for restricted note [#2431](https://github.com/studentinsights/studentinsights/pull/2431)
