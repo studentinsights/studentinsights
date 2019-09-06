@@ -164,6 +164,7 @@ class ProfileController < ApplicationController
     imported_form = ImportedForm.latest_for_student_id(student_id, form_key)
     return [] if imported_form.nil?
     json = imported_form.as_json({
+      except: [:form_url], # defensive against overly permissions on the form itself
       include: {
         educator: {
           only: [:id, :email, :full_name]

@@ -1,3 +1,8 @@
+# DEPRECATED, migrate to `services_checklist` or `bulk_services`')
+#
+# Processes two kinds of forms from Bedford, ignoring
+# the notes data and reading only the services.
+
 # Usage:
 # file_text = <<EOD
 # ...
@@ -7,6 +12,7 @@
 # rows = importer.dry_run(file_text);nil
 class BedfordDavisServicesProcessor
   def initialize(recorded_by_educator, options = {})
+    Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
     @recorded_by_educator = recorded_by_educator
 
     @time_now = options.fetch(:time_now, Time.now)
@@ -15,13 +21,17 @@ class BedfordDavisServicesProcessor
     @matcher = ImportMatcher.new
   end
 
+  def create!(file_text)
+    raise 'Not implemented, use #dry_run manually instead.'
+  end
+
   def dry_run(file_text)
     rows = []
     StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
       flattened_rows = flat_map_rows(row)
       next if flattened_rows.nil?
       rows += flattened_rows
-      # flattened_rows.size.times { @matcher.count_valid_row }
+      flattened_rows.size.times { @matcher.count_valid_row }
     end
     rows
   end

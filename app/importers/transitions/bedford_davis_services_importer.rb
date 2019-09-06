@@ -1,3 +1,5 @@
+# DEPRECATED, migrate to `services_checklist` or `bulk_services`')
+#
 # Import services from different format transition sheets.
 # The transition sheets are split by instructional and social-emotional,
 # since that's how entry happened for educators, but this reads
@@ -18,6 +20,7 @@ class BedfordDavisServicesImporter
   end
 
   def initialize(options:)
+    Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
     @folder_ids = options.fetch(:folder_ids, read_folder_ids_from_env())
 
     @log = options.fetch(:log, STDOUT)
@@ -32,10 +35,9 @@ class BedfordDavisServicesImporter
   end
 
   def dry_run
-    rows = fetch_tabs().flat_map do |tab|
+    fetch_tabs().flat_map do |tab|
       process_tab(tab)
     end
-    rows
   end
 
   def stats
