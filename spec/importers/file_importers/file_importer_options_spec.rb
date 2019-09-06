@@ -22,7 +22,7 @@ RSpec.describe FileImporterOptions do
       data_flows = FileImporterOptions.new.all_data_flows
       expect(data_flows.size).to eq(14)
       sorted_json = data_flows.as_json.sort_by {|j| j['importer'] }
-      fixture_json = JSON.parse(IO.read("#{Rails.root}/spec/importers/helpers/data_flows_fixture.json"))
+      fixture_json = JSON.parse(IO.read("#{Rails.root}/spec/importers/file_importers/data_flows_fixture.json"))
       expect(sorted_json).to eq(fixture_json)
     end
   end
