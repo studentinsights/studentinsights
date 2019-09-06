@@ -152,7 +152,7 @@ export default class NotesList extends React.Component {
   }
 
   renderSecondTransitionNote(secondTransitionNote) {
-    const {educatorsIndex, currentEducator, student} = this.props;
+    const {canUserAccessRestrictedNotes, educatorsIndex, currentEducator, student} = this.props;
     const educator = educatorsIndex[secondTransitionNote.educator_id];
     const allowEditing = enableTransitionNoteDialog(currentEducator, student) && (
       (currentEducator.labels.indexOf('enable_transition_note_editing') !== -1) ||
@@ -167,6 +167,7 @@ export default class NotesList extends React.Component {
         educatorEl={<Educator educator={educator} />}
         substanceEl={
           <SecondTransitionNoteInline
+            canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
             allowEditing={allowEditing}
             currentEducator={currentEducator}
             student={student}

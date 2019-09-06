@@ -1,3 +1,7 @@
+# Holds all-time list of sections, scoped by `district_school_year`
+#
+# Record identity should be immutable, while values like `schedule` are mutable and
+# reflect the value from the last export.
 class Section < ApplicationRecord
   # Exclude term values that are empty strings
   VALID_TERM_VALUES = [
@@ -13,7 +17,7 @@ class Section < ApplicationRecord
   has_many :educators, through: :educator_section_assignments
 
   validates :section_number, presence: true, uniqueness: {
-    scope: [:section_number, :course_id, :term_local_id]
+    scope: [:course_id, :district_school_year, :term_local_id, :section_number]
   }
   validates :course, presence: true
   validates :section_number, presence: true
@@ -25,5 +29,14 @@ class Section < ApplicationRecord
 
   def course_description
     course.course_description
+  end
+
+  # In Somerville's SIS, the `district_school_year` or `CTX_SCHOOL_YEAR`
+  # field uses the end of the school year (eg, 2019-2020 is "2020").
+  # Within Student Insights, we use the first part of the school year (eg, 2019-2020
+  # is "2019").
+  def to_insights_school_year
+    return nil if district_school_year.nil?
+    district_school_year - 1
   end
 end

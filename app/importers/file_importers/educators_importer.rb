@@ -20,8 +20,8 @@ class EducatorsImporter
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
-    @educator_syncer = ::RecordSyncer.new(log: @log)
-    @homeroom_syncer = ::RecordSyncer.new(log: @log)
+    @educator_syncer = ::RecordSyncer.new(log: @log, notification_tag: 'EducatorsImporter.educator')
+    @homeroom_syncer = ::RecordSyncer.new(log: @log, notification_tag: 'EducatorsImporter.homeroom')
     reset_counters!
   end
 
@@ -47,12 +47,24 @@ class EducatorsImporter
 
     # We don't want to remove old Educator records, since notes and other records
     # refence them, and this is important information we want to preserve even if
-    # an Educator is no longer an active employee.
-    log('For Educator, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Educator records.')
+    # an Educator is no longer an active employee.  We'll remove those records in
+    # a separate retention policy sweep.
+    #
+    # District authentication systems ultimately control access, and districts managed
+    # these two separate systems independently in ways we do not control.  But an additional
+    # sanity check on our end is to disallow access if the educator wasn't in the latest
+    # export (and alert).
+    #
+    log('For Educator, RecordSyncer#process_unmarked_records! to set missing_from_last_export...')
+    @educator_syncer.process_unmarked_records!(educator_records_within_scope) do |educator, index|
+      educator.update!(missing_from_last_export: true)
+      @missing_from_last_export_count += 1
+    end
     log("Educator RecordSyncer#stats: #{@educator_syncer.stats}")
+    log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
 
-    # Similar for Homeroom, for now.  We can tighten this but would need to do a pass
-    # on making sure there are key constraints before deleting these.
+    # Preserve Homeroom records that aren't exported any more as well.
+    # This doesn't mark them though and leaves them untouched.
     log('For Homeroom, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Homeroom records.')
     log("Homeroom RecordSyncer#stats: #{@homeroom_syncer.stats}")
   end
@@ -64,6 +76,14 @@ class EducatorsImporter
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
     @ignored_homeroom_because_no_school_count = 0
+    @missing_from_last_export_count = 0
+  end
+
+  def educator_records_within_scope
+    # match semantics of SchoolFilter, which treats `nil` as "process everything."
+    return Educator.all if @school_scope.nil?
+
+    Educator.joins(:school).where(schools: {local_id: @school_scope})
   end
 
   def download_csv
@@ -134,7 +154,7 @@ class EducatorsImporter
       return nil
     end
 
-    # Match Homeroom (guaranteed to be uniqe on {name, school} by database index)
+    # Match Homeroom (guaranteed to be unique on {name, school} by database index)
     homeroom = Homeroom.find_or_initialize_by({
       name: row[:homeroom],
       school_id: school_id

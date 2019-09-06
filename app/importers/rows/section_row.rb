@@ -13,9 +13,12 @@ class SectionRow < Struct.new(:row, :school_ids_dictionary, :course_id)
   end
 
   def build
-    section = Section.find_or_initialize_by(section_number: row[:section_number],
-                                            course_id: course_id,
-                                            term_local_id: row[:term_local_id])
+    section = Section.find_or_initialize_by({
+      section_number: row[:section_number],
+      course_id: course_id,
+      term_local_id: row[:term_local_id],
+      district_school_year: row[:district_school_year]
+    })
     section.schedule = row[:section_schedule]
     section.room_number = row[:section_room_number]
     return section

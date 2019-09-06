@@ -9,7 +9,7 @@ import homeroomJson from './homeroomJson.fixture';
 
 function testProps(props = {}) {
   return {
-    homeroomIdOrSlug: 'hea-500',
+    homeroomId: 2,
     ...props
   };
 }
@@ -27,7 +27,7 @@ function testRender(props = {}, context = {}) {
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/api/homerooms/hea-500/homeroom_json', homeroomJson);
+  fetchMock.get('/api/homerooms/2/homeroom_json', homeroomJson);
 });
 
 it('renders without crashing', () => {

@@ -21,13 +21,23 @@ export default class RollbarErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    this.rollbarErrorFn('RollbarErrorBoundary#componentDidCatch', {error, info});
+    const debugKey = this.props.debugKey || '(default)';
+    const errorMessage = (error && error.message) ? error.message : '(missing)';
+    const msg = `RollbarErrorBoundary#componentDidCatch for debugKey=${debugKey}, error.message=${errorMessage}`;
+
+    // Pass `error` as its own value, because of quirks in JS `Error` types
+    // (see below).
+    this.rollbarErrorFn(msg, error, {info, debugKey});
   }
 
-  rollbarErrorFn(msg, obj = {}) {
-    if (this.props.rollbarErrorFn) return this.props.rollbarErrorFn(msg, obj);
-    if (window.Rollbar.error) return window.Rollbar.error(msg, obj);
-    console.error('RollbarErrorBoundary#rollbarErrorFn could not find function for reporting error:', msg, obj);
+  // It's important that `Error` objects are passed as their own argument to Rollbar,
+  // and not as part of another object, since their properties aren't enumerable, and
+  // they therefore won't be serialized.  See 
+  // Read more at https://stackoverflow.com/questions/18391212/is-it-not-possible-to-stringify-an-error-using-json-stringify
+  rollbarErrorFn(msg, ...params) {
+    if (this.props.rollbarErrorFn) return this.props.rollbarErrorFn(msg, ...params);
+    if (window.Rollbar.error) return window.Rollbar.error(msg, ...params);
+    console.error('RollbarErrorBoundary#rollbarErrorFn could not find function for reporting error:', msg, ...params);
   }
 
   render() {
@@ -46,5 +56,6 @@ export default class RollbarErrorBoundary extends React.Component {
 }
 RollbarErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
-  rollbarErrorFn: PropTypes.func
+  rollbarErrorFn: PropTypes.func,
+  debugKey: PropTypes.string
 };

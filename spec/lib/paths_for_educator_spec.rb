@@ -41,17 +41,17 @@ RSpec.describe PathsForEducator do
         expect(navbar_links(pals.healey_sped_teacher)).to eq({})
         expect(navbar_links(pals.healey_vivian_teacher)).to eq({
           classlists: '/classlists',
-          homeroom: '/homerooms/hea-003'
+          homeroom: "/homerooms/#{pals.healey_kindergarten_homeroom.id}"
         })
         expect(navbar_links(pals.healey_sarah_teacher)).to eq({
-          classlists: '/classlists',
-          homeroom: '/homerooms/hea-500'
+          classlists: '/classlists'
+          # no homeroom, because no active students
         })
 
         # west
         expect(navbar_links(pals.west_marcus_teacher)).to eq({
           classlists: '/classlists',
-          homeroom: '/homerooms/wsns-501'
+          # no homeroom, because no active students
         })
 
         # high school (TestPals doesn't match actual production HS roles and permisssions)

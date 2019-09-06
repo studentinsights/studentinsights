@@ -14,7 +14,10 @@ class CourseRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def build
-    course = Course.find_or_initialize_by(course_number: row[:course_number], school_id: school_rails_id)
+    course = Course.find_or_initialize_by({
+      course_number: row[:course_number],
+      school_id: school_rails_id
+    })
     course.course_description = row[:course_description]
     return course
   end

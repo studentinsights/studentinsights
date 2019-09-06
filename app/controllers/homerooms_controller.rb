@@ -1,16 +1,16 @@
 class HomeroomsController < ApplicationController
   def homeroom_json
-    homeroom_id_or_slug = params.permit(:id)[:id]
-    homeroom = authorize_and_assign_homeroom!(homeroom_id_or_slug)
+    homeroom_id = params.permit(:id)[:id]
+    homeroom = authorize_and_assign_homeroom!(homeroom_id)
 
-    rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
+    rows = authorized_students(homeroom).map {|student| fat_student_hash(student) }
 
     # For navigation
-    allowed_homerooms = current_educator.allowed_homerooms.order(:name)
+    allowed_homerooms = authorized_homerooms().sort_by(&:name)
 
     render json: {
       homeroom: homeroom.as_json({
-        only: [:id, :slug, :name],
+        only: [:id, :name],
         include: {
           educator: {
             only: [:id, :email, :full_name]
@@ -21,17 +21,40 @@ class HomeroomsController < ApplicationController
         }
       }),
       rows: rows,
-      homerooms: allowed_homerooms.as_json(only: [:slug, :name])
+      homerooms: allowed_homerooms.as_json({
+        only: [:id, :name],
+        methods: [:grades]
+      })
     }
   end
 
   private
-  def eager_students(homeroom, *additional_includes)
-    homeroom.students.active.includes([
-      :event_notes,
-      :interventions,
-      :homeroom,
-    ] + additional_includes)
+  def authorize_and_assign_homeroom!(homeroom_id)
+    homeroom = find_homeroom_by_id(homeroom_id)
+    raise Exceptions::EducatorNotAuthorized unless authorized_homerooms().include? homeroom
+    homeroom
+  end
+
+  # Migrating this to `authorizer#homerooms`
+  def authorized_homerooms
+    if EnvironmentVariable.is_true('ENABLE_HOMEROOM_AUTHORIZATION_V2')
+      authorizer.homerooms
+    else
+      authorizer.allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
+    end
+  end
+
+  # Query for students through homeroom, but scoped within student-level authorization check.
+  # This is essentially double-wrapping the authorizaiton checks; the homeroom authorization
+  # check should separately only allow access when the educator can access all students in the
+  # homeroom.
+  def authorized_students(homeroom)
+    authorized do
+      homeroom.students
+        .active
+        .includes(:event_notes, :interventions, :homeroom)
+        .to_a
+    end
   end
 
   # Serializes a Student into a hash with other fields joined in (that are used to perform
@@ -56,32 +79,22 @@ class HomeroomsController < ApplicationController
     }))
   end
 
-  def authorize_and_assign_homeroom!(homeroom_id_or_slug)
-    homeroom = find_homeroom_by_id_or_slug(homeroom_id_or_slug)
-    raise Exceptions::EducatorNotAuthorized unless current_educator.allowed_homerooms.include? homeroom
-    homeroom
-  end
-
-  # Calling `Homeroom.friendly.find` with a string version of an id will first
-  # not match on id, and will match on the name for another homeroom with that
-  # same value.  Be explicit here that we match first on id and
-  # then if not we look to match on the slug.
+  # This only matches on homeroom_id, not `slug`, since this has led to bugs from
+  # type coercion and from collisions on ids and slugs.  Works around FriendlyId,
+  # which we should move away from.
   #
-  # But type coercion can lead to bugs here too, like:
+  # Type coercion can lead to bugs like:
   # > Homeroom.find_by_id('7-263') => #<Homeroom id: 7, name: "H-001", ... >
   # So ensure that this any id lookup is really an integer and manually convert these
   # types.
-  def find_homeroom_by_id_or_slug(homeroom_id_or_slug)
-    if homeroom_id_or_slug.to_i.to_s == homeroom_id_or_slug.to_s
-      homeroom_id = homeroom_id_or_slug.to_i
-      homeroom_by_id = Homeroom.find_by_id(homeroom_id)
-      return homeroom_by_id unless homeroom_by_id.nil?
+  #
+  # See https://github.com/studentinsights/studentinsights/pull/2588 for more.
+  def find_homeroom_by_id(homeroom_id)
+    strict_homeroom_id = homeroom_id.to_i.to_s.to_i
+    if homeroom_id.to_s == strict_homeroom_id.to_s
+      homeroom = Homeroom.find_by_id(strict_homeroom_id) # FriendlyId patches #find, so this is more explicit
+      return homeroom if homeroom.present? && homeroom.id == strict_homeroom_id
     end
-
-    homeroom_slug = homeroom_id_or_slug.to_s
-    homeroom_by_slug = Homeroom.find_by_slug(homeroom_slug)
-    return homeroom_by_slug unless homeroom_by_slug.nil?
-
     raise ActiveRecord::RecordNotFound
   end
 

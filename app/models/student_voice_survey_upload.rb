@@ -8,4 +8,5 @@ class StudentVoiceSurveyUpload < ApplicationRecord
   validates :file_name, presence: true
   validates :file_size, presence: true
   validates :file_digest, presence: true
+  validates :stats, presence: true
 end

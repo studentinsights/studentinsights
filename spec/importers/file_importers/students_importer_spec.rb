@@ -172,6 +172,23 @@ RSpec.describe StudentsImporter do
         expect(pals.healey.students.active.size).to eq 1
         expect(pals.west.students.active.size).to eq 1
       end
+
+      it 'processes and marks all records when explicitly called with `school_scope: nil`, matching SchoolFilter behavior' do
+        TestPals.create!
+
+        log = LogHelper::FakeLog.new
+        importer = make_students_importer(log: log, school_scope: nil)
+        mock_importer_with_csv(importer, fixture_filename)
+        importer.import
+
+        # turns whole db over from TestPals to fixture
+        expect(log.output).to include('records_within_import_scope.size: 9 in Insights')
+        expect(log.output).to include(':created_rows_count=>4')
+        expect(log.output).to include('@missing_from_last_export_count: 5')
+        expect(Student.active.size).to eq 4
+        expect(Student.where(missing_from_last_export: true).size).to eq 5
+        expect(Student.all.size).to eq 9
+      end
     end
   end
 
