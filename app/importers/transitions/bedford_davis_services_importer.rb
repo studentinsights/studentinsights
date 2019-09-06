@@ -20,7 +20,9 @@ class BedfordDavisServicesImporter
   end
 
   def initialize(options:)
-    Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
+    unless options.fetch(:acknowledge_deprectation, false)
+      Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
+    end
     @folder_ids = options.fetch(:folder_ids, read_folder_ids_from_env())
 
     @log = options.fetch(:log, STDOUT)
@@ -28,6 +30,7 @@ class BedfordDavisServicesImporter
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @syncer = options.fetch(:syncer, SimpleSyncer.new(log: @log))
+    @processors_used = []
   end
 
   def import
@@ -71,6 +74,7 @@ class BedfordDavisServicesImporter
       log: @log,
       time_now: @time_now
     })
+    @processors_used << processor
     processor.dry_run(tab.tab_csv)
   end
 

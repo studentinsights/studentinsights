@@ -1,4 +1,4 @@
-# DEPRECATED, DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`
+# DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`
 #
 # Process sheets about social emotional services and sensitive notes from counselors,
 # mapping to restricted notes.
@@ -18,7 +18,9 @@ class BedfordDavisSocialEmotionalImporter
   end
 
   def initialize(options:)
-    Rollbar.warn('deprecation-warning, DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`')
+    unless options.fetch(:acknowledge_deprectation, false)
+      Rollbar.warn('deprecation-warning, DEPRECATED, see RestrictedNotesProcessor and migrate to `restricted_notes`')
+    end
     @folder_id = options.fetch(:folder_id, read_folder_id_from_env())
 
     @log = options.fetch(:log, STDOUT)
@@ -26,6 +28,7 @@ class BedfordDavisSocialEmotionalImporter
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @syncer = options.fetch(:syncer, SimpleSyncer.new(log: @log))
+    @processors_used = []
   end
 
   def import
@@ -69,6 +72,7 @@ class BedfordDavisSocialEmotionalImporter
       log: @log,
       time_now: @time_now
     })
+    @processors_used << processor
     processor.dry_run(tab.tab_csv)
   end
 

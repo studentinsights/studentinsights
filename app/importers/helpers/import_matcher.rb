@@ -8,12 +8,13 @@ class ImportMatcher
   end
 
   # student?
-  def find_student_id(value)
+  def find_student_id(value, options = {})
+    disable_metrics = options.fetch(:disable_metrics, false)
     student_local_id = value.try(:strip)
     student_id = Student.find_by_local_id(student_local_id).try(:id) unless student_local_id.nil?
     if student_id.nil?
-      @invalid_rows_count += 1
-      @invalid_student_local_ids = (@invalid_student_local_ids + [student_local_id]).uniq
+      @invalid_rows_count += 1 unless disable_metrics
+      @invalid_student_local_ids = (@invalid_student_local_ids + [student_local_id]).uniq unless disable_metrics
       return nil
     end
     student_id
@@ -21,7 +22,7 @@ class ImportMatcher
 
   # full_name_text is natural order (eg "Edgar Alan Poe")
   def find_student_id_with_exact_or_fuzzy_match(local_id_text, full_name_text)
-    student_id = self.find_student_id(local_id_text)
+    student_id = self.find_student_id(local_id_text, disable_metrics: true)
     return student_id if student_id.present?
 
     fuzzy_match = FuzzyStudentMatcher.new.match_from_full_name(full_name_text)

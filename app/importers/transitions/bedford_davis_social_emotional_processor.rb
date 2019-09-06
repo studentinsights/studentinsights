@@ -12,8 +12,10 @@
 # rows = processor.dry_run(file_text);nil
 class BedfordDavisSocialEmotionalProcessor
   def initialize(default_educator, options = {})
-    Rollbar.warn('deprecation-warning, see RestrictedNotesProcessor and migrate to `restricted_notes`')
     @default_educator = default_educator
+    unless options.fetch(:acknowledge_deprectation, false)
+      Rollbar.warn('deprecation-warning, see RestrictedNotesProcessor and migrate to `restricted_notes`')
+    end
 
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = ImportMatcher.new
@@ -29,7 +31,7 @@ class BedfordDavisSocialEmotionalProcessor
 
   def stats
     {
-      importer: @matcher.stats,
+      matcher: @matcher.stats,
       processor: @processor.stats
     }
   end

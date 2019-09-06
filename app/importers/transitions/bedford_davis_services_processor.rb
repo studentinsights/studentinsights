@@ -38,7 +38,7 @@ class BedfordDavisServicesProcessor
 
   def stats
     {
-      importer: @matcher.stats
+      matcher: @matcher.stats
     }
   end
 

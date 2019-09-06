@@ -24,7 +24,7 @@ class RestrictedNotesFormProcessor
 
   def stats
     {
-      importer: @matcher.stats,
+      matcher: @matcher.stats,
       processor: @processor.stats
     }
   end
