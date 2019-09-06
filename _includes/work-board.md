@@ -53,8 +53,8 @@
 <div class="Board">
   <div class="Board-category">
     <div class="Board-title">Priorities now</div>
-    <div class="Card"><b>Transitions</b>: End-of-year and school-to-school transitions</div>
-    <div class="Card"><b>Reading</b>: Entering K benchmark data, reader profiles</div>
+    <div class="Card"><b>Reading</b>: Automate import from new templates</div>
+    <div class="Card"><b>Reading</b>: Reader profiles</div>
   </div>
 
   <div class="Board-category">
