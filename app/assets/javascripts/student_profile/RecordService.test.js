@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
+import {mount} from 'enzyme';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import {
   studentProfile,
   nowMoment,
@@ -24,12 +26,22 @@ export function testProps(props) {
   };
 }
 
-const helpers = {
-  renderInto(el, props) {
-    const mergedProps = testProps(props);
-    return ReactDOM.render(<RecordService {...mergedProps} />, el); // eslint-disable-line
-  },
+function forDistrict(el, districtKey) {
+  return <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>;
+}
 
+function mountWithContext(props, context = {districtKey: 'demo'}) {
+  return mount(<RecordService {...props} />, {context});
+}
+
+function testRender(props, options = {}) {
+  const el = document.createElement('div');
+  const districtKey = options.districtKey || 'somerville';
+  ReactDOM.render(forDistrict(<RecordService {...props} />, districtKey), el);
+  return {el};
+}
+
+const helpers = {
   serviceTypes(el) {
     return $(el).find('.btn.service-type').toArray().map(el => {
       return el.innerHTML.trim();
@@ -86,8 +98,7 @@ const helpers = {
 
 describe('integration tests', () => {
   it('renders dialog for recording services', () => {
-    const el = document.createElement('div');
-    helpers.renderInto(el);
+    const {el} = testRender(testProps());
 
     expect($(el).text()).toContain('Which service?');
     expect(helpers.serviceTypes(el)).toEqual([
@@ -116,44 +127,38 @@ describe('integration tests', () => {
 
   describe('validation', () => {
     it('shows warning on invalid start date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateStartDateChange(el, 'fds 1/2/2/22 not a valid date');
       expect(helpers.isWarningMessageShown(el)).toEqual(true);
     });
 
     it('shows warning on invalid end date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateEndDateChange(el, 'fds 1/2/2/22 not a valid date');
       expect(helpers.isWarningMessageShown(el)).toEqual(true);
     });
 
     it('does not allow save on invalid start date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateStartDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow save on invalid end date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateEndDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow save on end date before start date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateStartDateChange(el, '1/20/18');
       helpers.simulateEndDateChange(el, '1/2/18');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow save without educator', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateClickOnService(el, 507);
       helpers.simulateEducatorChange(el, '');
       helpers.simulateStartDateChange(el, '12/19/2018');
@@ -161,8 +166,7 @@ describe('integration tests', () => {
     });
 
     it('requires service, educator and valid start date set in order to save and allows blank end date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateClickOnService(el, 507);
       helpers.simulateEducatorChange(el, 'kevin');
       helpers.simulateStartDateChange(el, '12/19/2018');
@@ -172,9 +176,8 @@ describe('integration tests', () => {
   });
 
   it('#onSave called as expected', () => {
-    const el = document.createElement('div');
     const props = testProps();
-    ReactDOM.render(<RecordService {...props} />, el);
+    const {el} = testRender(props);
     helpers.submitForm(el, { endDateText: '06/30/2019' });
 
     expect(props.onSave).toBeCalledWith({
@@ -187,9 +190,8 @@ describe('integration tests', () => {
   });
 
   it('#onSave called as expected when blank end date', () => {
-    const el = document.createElement('div');
     const props = testProps();
-    ReactDOM.render(<RecordService {...props} />, el);
+    const {el} = testRender(props);
     helpers.submitForm(el, { endDateText: '' });
 
     expect(props.onSave).toBeCalledWith({
@@ -202,13 +204,11 @@ describe('integration tests', () => {
   });
 
   it('#formatDateTextForRails', () => {
-    const el = document.createElement('div');
-    const props = testProps();
-    const instance = ReactDOM.render(<RecordService {...props} />, el); // eslint-disable-line react/no-render-return-value
-    expect(instance.formatDateTextForRails('12/19/2018')).toEqual('2018-12-19');
-    expect(instance.formatDateTextForRails('3/5/2018')).toEqual('2018-03-05');
-    expect(instance.formatDateTextForRails('1/15/18')).toEqual('2018-01-15');
-    expect(instance.formatDateTextForRails('01/5/18')).toEqual('2018-01-05');
-    expect(instance.formatDateTextForRails('01-5-18')).toEqual('2018-01-05');
+    const wrapper = mountWithContext(testProps());
+    expect(wrapper.instance().formatDateTextForRails('12/19/2018')).toEqual('2018-12-19');
+    expect(wrapper.instance().formatDateTextForRails('3/5/2018')).toEqual('2018-03-05');
+    expect(wrapper.instance().formatDateTextForRails('1/15/18')).toEqual('2018-01-15');
+    expect(wrapper.instance().formatDateTextForRails('01/5/18')).toEqual('2018-01-05');
+    expect(wrapper.instance().formatDateTextForRails('01-5-18')).toEqual('2018-01-05');
   });
 });
