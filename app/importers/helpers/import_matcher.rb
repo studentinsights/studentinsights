@@ -68,10 +68,10 @@ class ImportMatcher
 
   # Try a few methods
   def find_educator_by_name_flexible(text)
-    educator_from_login_name = self.find_educator_by_login(tab_name, disable_metrics: true)
+    educator_from_login_name = self.find_educator_by_login(text, disable_metrics: true)
     return educator_from_login_name if educator_from_login_name.present?
 
-    educator_from_last_name = self.find_educator_by_last_name(tab_name)
+    educator_from_last_name = self.find_educator_by_last_name(text)
     return educator_from_last_name if educator_from_last_name.present?
 
     nil

@@ -69,9 +69,10 @@ class BedfordDavisTransitionNotesImporter
     # url to specific tab
     form_url = "#{tab.spreadsheet_url}#gid=#{tab.tab_id}"
 
-    # find educator and homeroom by tab.tab_name
+    # find educator by tab.tab_name
     educator = @matcher.find_educator_by_name_flexible(tab.tab_name)
     return [] if educator.nil?
+    @matcher.count_valid_row
 
     # process and create
     processor = BedfordDavisTransitionNotesProcessor.new(educator, form_url, log: @log)
