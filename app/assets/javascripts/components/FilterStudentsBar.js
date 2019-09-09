@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import {isHomeroomMeaningful} from '../helpers/PerDistrict';
 import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
 import SelectHouse from '../components/SelectHouse';
+import SelectHomeroomByEducator from '../components/SelectHomeroomByEducator';
 import SelectGrade from '../components/SelectGrade';
 import SelectTimeRange from '../components/SelectTimeRange';
 import SelectCounselor from '../components/SelectCounselor';
@@ -30,19 +32,22 @@ export default class FilterStudentsBar extends React.Component {
     this.onEscape = this.onEscape.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
+    this.onHomeroomChanged = this.onHomeroomChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onCounselorChanged = this.onCounselorChanged.bind(this);
   }
 
   filteredStudents() {
+    const {districtKey} = this.context;
     const {students, timeFilterFn} = this.props;
-    const {searchText, grade, house, counselor, timeRangeKey} = this.state;
+    const {searchText, grade, house, counselor, homeroomId, timeRangeKey} = this.state;
 
     return students.filter(student => {
       if (shouldFilterOut(grade, student.grade)) return false;
       if (shouldFilterOut(house, student.house)) return false;
       if (shouldFilterOut(counselor, student.counselor)) return false;
-      if (!searchTextMatches(searchText, student)) return false;
+      if (shouldFilterOut(homeroomId, student.homeroom && student.homeroom.id.toString())) return false;
+      if (!searchTextMatches(districtKey, searchText, student)) return false;
       if (timeFilterFn && !timeFilterFn(student, timeRangeKey)) return false; // eg, interpret what time range means
       return true;
     });
@@ -58,6 +63,10 @@ export default class FilterStudentsBar extends React.Component {
 
   onGradeChanged(grade) {
     this.setState({grade});
+  }
+
+  onHomeroomChanged(homeroomId) {
+    this.setState({homeroomId});
   }
 
   onHouseChanged(house) {
@@ -81,6 +90,7 @@ export default class FilterStudentsBar extends React.Component {
         <FilterBar style={barStyle}>
           {this.renderSearch(filteredStudents)}
           {this.renderGradeSelect()}
+          {this.renderHomeroomSelect()}
           {this.renderHouseSelect()}
           {this.renderCounselorSelect()}
           {this.renderTimeRangeSelect()}
@@ -108,9 +118,27 @@ export default class FilterStudentsBar extends React.Component {
     const sortedGrades = _.sortBy(_.uniq(students.map(student => student.grade)), rankedByGradeLevel);
     return (
       <SelectGrade
+        style={styles.select}
         grade={grade}
         grades={sortedGrades}
         onChange={this.onGradeChanged} />
+    );
+  }
+
+  renderHomeroomSelect() {
+    const {students, includeHomeroom} = this.props;
+    if (!includeHomeroom) return;
+
+    const {homeroomId} = this.state;
+    const homeroomsWithEducators = students.map(s => s.homeroom).filter(h => h && h.educator);
+    const homerooms = _.uniqBy(homeroomsWithEducators, 'id');
+    return (
+      <SelectHomeroomByEducator
+        style={styles.select}
+        placeholder={`Homeroom...`}
+        homerooms={homerooms}
+        homeroomId={homeroomId}
+        onChange={this.onHomeroomChanged} />
     );
   }
 
@@ -122,6 +150,7 @@ export default class FilterStudentsBar extends React.Component {
     const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
     return (
       <SelectHouse
+        style={styles.select}
         house={house}
         houses={sortedHouses}
         onChange={this.onHouseChanged} />
@@ -158,6 +187,7 @@ export default class FilterStudentsBar extends React.Component {
     const sortedCounselors = _.sortBy(_.uniq(_.compact(students.map(student => student.counselor))));
     return (
       <SelectCounselor
+        style={styles.select}
         counselor={counselor}
         counselors={sortedCounselors}
         onChange={this.onCounselorChanged} />
@@ -165,6 +195,7 @@ export default class FilterStudentsBar extends React.Component {
   }
 }
 FilterStudentsBar.propTypes = {
+  includeHomeroom: PropTypes.bool.isRequired,
   includeCounselor: PropTypes.bool.isRequired,
   includeHouse: PropTypes.bool.isRequired,
   includeTimeRange: PropTypes.bool,
@@ -186,7 +217,7 @@ FilterStudentsBar.propTypes = {
 
 const styles = {
   select: {
-    width: '10em',
+    width: '9em',
     marginRight: 10
   },
 
@@ -210,6 +241,7 @@ function initialState() {
     grade: ALL,
     house: ALL,
     counselor: ALL,
+    homeroomId: ALL,
     timeRangeKey: TIME_RANGE_ALL
   };
 }
@@ -219,8 +251,18 @@ function shouldFilterOut(selectedValue, studentValue) {
   return (studentValue !== selectedValue);
 }
 
-export function searchTextMatches(searchText, student) {
+export function searchTextMatches(districtKey, searchText, student) {
   if (searchText === '') return true;
+
+  // Possible include homeroom elements, if they were shown
+  const {homeroom, school} = student;
+  const includeHomeroom = homeroom && school && isHomeroomMeaningful(districtKey, school.local_id);
+  const homeroomTexts = (!includeHomeroom) ? [] : _.compact([
+    homeroom.name,
+    homeroom.educator && homeroom.educator.full_name
+  ]);
+
+  // match
   const tokens = searchText.toLowerCase().split(' ');
   const studentText = _.compact([
     student.first_name,
@@ -229,9 +271,10 @@ export function searchTextMatches(searchText, student) {
     student.house,
     student.counselor,
     student.sped_liaison,
-    student.school.name,
     student.program_assigned,
-    student.sped_placement
+    student.sped_placement,
+    student.school && student.school.name,
+    ...homeroomTexts
   ]).join(' ').toLowerCase();
   return _.every(tokens, token => studentText.indexOf(token) !== -1);
 }

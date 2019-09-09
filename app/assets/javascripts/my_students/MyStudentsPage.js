@@ -11,11 +11,11 @@ import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import FilterStudentsBar from '../components/FilterStudentsBar';
 import HouseBadge from '../components/HouseBadge';
 import Homeroom from '../components/Homeroom';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import FilterStudentsBar from './FilterStudentsBar';
 
 
 // Shows a list of students for the educator.  Intended as a directory
@@ -65,10 +65,12 @@ export class MyStudentsPageView extends React.Component {
     };
     this.onTableSort = this.onTableSort.bind(this);
     this.renderName = this.renderName.bind(this);
+    this.renderHomeroom = this.renderHomeroom.bind(this);
     this.renderSchool = this.renderSchool.bind(this);
   }
 
   orderedStudents(students) {
+    const {districtKey} = this.context;
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
@@ -76,6 +78,11 @@ export class MyStudentsPageView extends React.Component {
       fallback(student) { return student[sortBy]; },
       name(student) { return `${student.last_name}, ${student.first_name}`; },
       school(student) { return student.school.name; },
+      homeroom(student) {
+        const {homeroom, school} = student;
+        const isMeaningful = homeroom && school && isHomeroomMeaningful(districtKey, school.local_id);
+        return (isMeaningful) ? homeroom.name : null;
+      },
       grade(student) { return rankedByGradeLevel(student.grade); },
       program(student) { return prettyProgramOrPlacementText(student); }
     };
@@ -102,6 +109,7 @@ export class MyStudentsPageView extends React.Component {
   render() {
     const {districtKey} = this.context;
     const {students} = this.props;
+    const showHomeroomColumn = _.some(students, student => isHomeroomMeaningful(districtKey, student.school && student.school.local_id));
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
@@ -109,19 +117,19 @@ export class MyStudentsPageView extends React.Component {
         <FilterStudentsBar
           students={students}
           style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
+          includeHomeroom={showHomeroomColumn}
           includeHouse={supportsHouse(districtKey)}
           includeCounselor={supportsCounselor(districtKey)}>
-          {filteredStudents => this.renderTable(filteredStudents)}
+          {filteredStudents => this.renderTable(filteredStudents, {showHomeroomColumn})}
         </FilterStudentsBar>
       </div>
     );
   }
 
-  renderTable(filteredStudents) {
+  renderTable(filteredStudents, options = {}) {
     const {districtKey} = this.context;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
-    const showHomeroomColumn = _.any(sortedStudents, student => isHomeroomMeaningful(districtKey, student.school && student.school.local_id));
     const rowHeight = 60; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
@@ -166,7 +174,7 @@ export class MyStudentsPageView extends React.Component {
               cellRenderer={this.renderProgram}
               width={150}
             />
-            {showHomeroomColumn && 
+            {options.showHomeroomColumn && 
               <Column
                 label='Homeroom'
                 dataKey='homeroom'
@@ -236,6 +244,7 @@ export class MyStudentsPageView extends React.Component {
     if (!isMeaningful) return null;
     return (
       <Homeroom
+        style={{marginRight: 10}}
         id={homeroom.id}
         name={homeroom.name}
         educator={homeroom.educator}

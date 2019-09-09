@@ -10,11 +10,11 @@ import SectionHeading from '../components/SectionHeading';
 import Educator from '../components/Educator';
 import {selection} from '../helpers/colors';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import FilterStudentsBar from '../my_students/FilterStudentsBar';
 import {TIME_RANGE_ALL} from '../components/SelectTimeRange';
 import Datepicker from '../components/Datepicker';
 import StudentPhoto from '../components/StudentPhoto';
 import {momentRange} from '../components/SelectTimeRange';
+import FilterStudentsBar from '../components/FilterStudentsBar';
 import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 
 
@@ -155,9 +155,10 @@ export default class CounselorMeetingsView extends React.Component {
         <FilterStudentsBar
           students={students}
           style={{...flexVerticalStyle, marginLeft: 10, marginTop: 20}}
+          includeHomeroom={false}
           includeHouse={supportsHouse(districtKey)}
-          includeTimeRange={true}
           includeCounselor={supportsCounselor(districtKey)}
+          includeTimeRange={true}
           timeFilterFn={this.timeFilterFn}>
           {filteredStudents => this.renderContents(filteredStudents)}
         </FilterStudentsBar>
