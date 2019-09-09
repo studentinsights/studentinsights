@@ -144,7 +144,8 @@ export default class LightBehaviorDetails extends React.Component {
   }
 }
 LightBehaviorDetails.contextTypes = {
-  districtKey: PropTypes.string.isRequired
+  districtKey: PropTypes.string.isRequired,
+  nowFn: PropTypes.func.isRequired
 };
 LightBehaviorDetails.propTypes = {
   disciplineIncidents: PropTypes.array.isRequired,
@@ -154,7 +155,4 @@ LightBehaviorDetails.propTypes = {
   })).isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
   canViewFullHistory: PropTypes.bool.isRequired
-};
-LightBehaviorDetails.contextTypes = {
-  nowFn: PropTypes.func.isRequired
 };
