@@ -28,7 +28,8 @@ class ProfileController < ApplicationController
         discipline_incidents: discipline_incidents_as_json(student),
         tardies: filtered_events(student.tardies),
         absences: filtered_events(student.absences)
-      }
+      },
+      service_info_doc_url: PerDistrict.new.service_info_doc_url
     }
   end
 

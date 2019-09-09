@@ -1,12 +1,6 @@
 class ServicesController < ApplicationController
   before_action :authorize!
 
-  def authorize!
-    student = Service.find(params[:id]).student
-    educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
-  end
-
   def destroy
     service_id = params[:id]
     service = Service.find(service_id)
@@ -17,5 +11,12 @@ class ServicesController < ApplicationController
     else
       render json: { errors: service.errors.full_messages }, status: 422
     end
+  end
+
+  private
+  def authorize!
+    student = Service.find(params[:id]).student
+    educator = current_educator
+    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
   end
 end

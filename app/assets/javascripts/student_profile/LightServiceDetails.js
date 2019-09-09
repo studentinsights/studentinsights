@@ -73,6 +73,7 @@ export default class ServiceDetails extends React.Component {
   }
 
   renderServicesHelpContent(){
+    const {serviceTypesIndex} = this.props;
     return (
       <div>
         <p>
@@ -83,45 +84,21 @@ export default class ServiceDetails extends React.Component {
           The types of Services are:
         </p>
         <ul>
-          <li>
-            <b>
-              {'Attendance Officer: '}
-            </b>
-            This usually includes home visit(s), regular follow-up,           and could later on lead to a formal attendance contract.
-          </li>
-          <li>
-            <b>
-              {'Attendance Contract: '}
-            </b>
-            This is usually done in cooperation with the attendance officer,           school adjustment counselor, and/or principal. This is a more formal document that requires a parent and           student signature, along with regular checkpoints.
-          </li>
-          <li>
-            <b>
-              {'Behavior Contract: '}
-            </b>
-            This is usually done in cooperation with the attendance officer,           school adjustment counselor, and/or principal. This is a more formal document that requires a parent and           student signature, along with regular checkpoints.
-          </li>
-          <li>
-            <b>
-              {'Counseling, in-house: '}
-            </b>
-            Student receives regular weekly or bi-weekly counseling from an SPS counselor.           One time or infrequent check-ins by a counselor should just be recorded in Notes.
-          </li>
-          <li>
-            <b>
-              {'Counseling, outside: '}
-            </b>
-            Student receives regular weekly or bi-weekly counseling from an outside           counselor, ex. Riverside, Home for Little Wanderers. One time or infrequent check-ins by a counselor should           just be recorded in Notes.
-          </li>
-          <li>
-            <b>
-              {'Reading Intervention: '}
-            </b>
-            Student works with a reading specialist at least 4x/week for 30-40 minutes.
-          </li>
+          {Object.keys(serviceTypesIndex).map(serviceTypeId => {
+            // TODO(kr) need to scope PerDistrict
+            // TODO(kr) see more link
+            const service = serviceTypesIndex[serviceTypeId];
+            return (
+              <li key={serviceTypeId}>
+                <b>{service.name}</b>
+                {service.description && <div>{service.description}</div>}
+                {service.data_owner && <div>Owner: {service.data_owner}</div>}
+                {service.intensity && <div>Delivery: {service.intensity}</div>}
+              </li>
+            );
+          })}
         </ul>
-        <br />
-        <p>
+        <p style={{marginTop: 20}}>
           If your data fits into one of these categories, it’s a Service. Otherwise, it’s a Note.
         </p>
       </div>
@@ -140,6 +117,7 @@ export default class ServiceDetails extends React.Component {
         nowMoment={moment.utc()}
         currentEducator={this.props.currentEducator}
         serviceTypesIndex={this.props.serviceTypesIndex}
+        servicesInfoDocUrl={this.props.servicesInfoDocUrl}
         educatorsIndex={this.props.educatorsIndex} />
     );
   }
@@ -155,6 +133,7 @@ export default class ServiceDetails extends React.Component {
 ServiceDetails.propTypes = {
   student: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
+  servicesInfoDocUrl: PropTypes.string,
   educatorsIndex: PropTypes.object.isRequired,
   currentEducator: PropTypes.object.isRequired,
   actions: InsightsPropTypes.actions.isRequired,

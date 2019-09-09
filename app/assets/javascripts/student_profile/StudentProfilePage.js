@@ -72,6 +72,7 @@ export function parseProfileJson(json) {
     dibels: json.dibels,
     fAndPs: json.f_and_p_assessments,
     serviceTypesIndex: json.service_types_index,
+    servicesInfoDocUrl: json.services_info_doc_url,
     educatorsIndex: json.educators_index,
     access: json.access,
     transitionNotes: json.transition_notes,

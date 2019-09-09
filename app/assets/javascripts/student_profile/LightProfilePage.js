@@ -393,7 +393,13 @@ export default class LightProfilePage extends React.Component {
 
   renderNotes() {
     const {feed, actions, requests} = this.props;
-    const {student, educatorsIndex, serviceTypesIndex, currentEducator} = this.props.profileJson;
+    const {
+      student,
+      educatorsIndex,
+      serviceTypesIndex,
+      servicesInfoDocUrl,
+      currentEducator
+    } = this.props.profileJson;
     const {isTakingNotes, isWritingTransitionNote} = this.state;
 
     return (
@@ -416,6 +422,7 @@ export default class LightProfilePage extends React.Component {
         <LightServiceDetails
           student={student}
           serviceTypesIndex={serviceTypesIndex}
+          servicesInfoDocUrl={servicesInfoDocUrl}
           educatorsIndex={educatorsIndex}
           currentEducator={currentEducator}
           feed={feed}
@@ -556,6 +563,7 @@ LightProfilePage.propTypes = {
   profileJson: PropTypes.shape({
     educatorsIndex: PropTypes.object.isRequired,
     serviceTypesIndex: PropTypes.object.isRequired,
+    servicesInfoDocUrl: PropTypes.string,
     currentEducator: PropTypes.shape({
       labels: PropTypes.arrayOf(PropTypes.string).isRequired,
       can_view_restricted_notes: PropTypes.bool.isRequired

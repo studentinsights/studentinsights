@@ -124,13 +124,8 @@ export default class RecordService extends React.Component {
         <div style={{ marginBottom: 5, display: 'inline' }}>
           Which service?
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <div style={styles.buttonWidth}>
-            {leftServiceTypeIds.map(this.renderServiceButton, this)}
-          </div>
-          <div style={styles.buttonWidth}>
-            {rightServiceTypeIds.map(this.renderServiceButton, this)}
-          </div>
+        <div>
+          {leftServiceTypeIds.concat(rightServiceTypeIds).map(this.renderServiceButton, this)}
         </div>
         {serviceTypeId && this.renderServiceInfo(serviceTypeId)}
       </div>
@@ -138,15 +133,22 @@ export default class RecordService extends React.Component {
   }
 
   renderServiceInfo(serviceTypeId) {
-    const {serviceTypesIndex} = this.props;
+    const {serviceTypesIndex, servicesInfoDocUrl} = this.props;
     const service = serviceTypesIndex[serviceTypeId];
     if (!service) return null;
+    if (!service.description && !service.data_owner) return null;
+
 
     return (
-      <div>
-        <div><b>name</b></div>
-        {service.description && <div>{service.description}{service.intensity ? `, ${service.intensity}` : null}</div>}
-        {service.data_owner && <div>{service.data_owner}</div>}
+      <div style={styles.infoBox}>
+        {service.description && <div>{service.description}</div>}
+        {service.intensity && <div>{service.intensity}</div>}
+        {service.data_owner && <div>Data owner: {service.data_owner}</div>}
+        {servicesInfoDocUrl && (
+          <div style={{marginTop: 15}}>
+            See <a href={servicesInfoDocUrl} style={{fontSize: 12}} target="_blank" rel="noopener noreferrer">more</a>.
+          </div>
+        )}
       </div>
     );
   }
@@ -273,6 +275,7 @@ RecordService.propTypes = {
   nowMoment: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
+  servicesInfoDocUrl: PropTypes.string,
   currentEducator: PropTypes.object.isRequired
 };
 
@@ -307,5 +310,11 @@ const styles = {
     width: '12em',
     fontSize: 12,
     padding: 8
+  },
+  infoBox: {
+    fontSize: 12,
+    padding: 15,
+    background: 'rgba(3, 102, 214, 0.1)',
+    border: '1px solid rgba(3, 102, 214, 0.1)'
   }
 };
