@@ -5,12 +5,14 @@ import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {maybeCapitalize} from '../helpers/pretty';
+import {isHomeroomMeaningful} from '../helpers/PerDistrict';
 import {supportsHouse, supportsCounselor, supportsSpedLiaison} from '../helpers/PerDistrict';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import HouseBadge from '../components/HouseBadge';
+import Homeroom from '../components/Homeroom';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from './FilterStudentsBar';
@@ -119,6 +121,7 @@ export class MyStudentsPageView extends React.Component {
     const {districtKey} = this.context;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
+    const showHomeroomColumn = _.any(sortedStudents, student => isHomeroomMeaningful(districtKey, student.school && student.school.local_id));
     const rowHeight = 60; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
@@ -163,6 +166,13 @@ export class MyStudentsPageView extends React.Component {
               cellRenderer={this.renderProgram}
               width={150}
             />
+            {showHomeroomColumn && 
+              <Column
+                label='Homeroom'
+                dataKey='homeroom'
+                cellRenderer={this.renderHomeroom}
+                width={120} />
+            }
             {supportsHouse(districtKey) &&
               <Column
                 label='House'
@@ -215,6 +225,23 @@ export class MyStudentsPageView extends React.Component {
     return (shouldShowSchoolLink)
       ? <School {...student.school}  />
       : <span style={{marginRight: 10}}>{name}</span>;
+  }
+
+  renderHomeroom(cellProps) {
+    const {districtKey} = this.context;
+    const student = cellProps.rowData;
+    const {homeroom, school} = student;
+    
+    const isMeaningful = homeroom && school && isHomeroomMeaningful(districtKey, school.local_id);
+    if (!isMeaningful) return null;
+    return (
+      <Homeroom
+        id={homeroom.id}
+        name={homeroom.name}
+        educator={homeroom.educator}
+        disableLink={true} // conservative, without checking authorization
+      />
+    );
   }
 
   renderHouse(cellProps) {
