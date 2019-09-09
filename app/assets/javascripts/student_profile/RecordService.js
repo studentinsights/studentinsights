@@ -117,6 +117,7 @@ export default class RecordService extends React.Component {
 
   renderWhichService() {
     const {districtKey} = this.context;
+    const {serviceTypeId} = this.state;
     const {leftServiceTypeIds, rightServiceTypeIds} = recordServiceChoices(districtKey);
     return (
       <div>
@@ -131,6 +132,21 @@ export default class RecordService extends React.Component {
             {rightServiceTypeIds.map(this.renderServiceButton, this)}
           </div>
         </div>
+        {serviceTypeId && this.renderServiceInfo(serviceTypeId)}
+      </div>
+    );
+  }
+
+  renderServiceInfo(serviceTypeId) {
+    const {serviceTypesIndex} = this.props;
+    const service = serviceTypesIndex[serviceTypeId];
+    if (!service) return null;
+
+    return (
+      <div>
+        <div><b>name</b></div>
+        {service.description && <div>{service.description}{service.intensity ? `, ${service.intensity}` : null}</div>}
+        {service.data_owner && <div>{service.data_owner}</div>}
       </div>
     );
   }
