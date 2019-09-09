@@ -68,6 +68,24 @@ describe('DistrictOverviewPageView', () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('pure snapshot when `enable_reading_debug` label set', () => {
+    const json = districtOverviewJson;
+    const tree = renderer
+      .create(
+        <DistrictOverviewPageView
+          enableStudentVoiceUploads={json.enable_student_voice_uploads}
+          showWorkBoard={false}
+          schools={json.schools}
+          currentEducator={{
+            ...json.current_educator,
+            labels: json.current_educator.labels.concat('enable_reading_debug')
+          }}
+        />
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
 
 
