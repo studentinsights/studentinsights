@@ -53,7 +53,7 @@ class SomervilleMegaReadingImporter
       Dir.glob(@files_path + "*.csv") do |file|
         streaming_csvs << IO.read(file)
       end
-    #if configured to fetch sheets from Google, get sheets there
+    #if configured to fetch sheets from Google, get sheets
     elsif ENV["SHEET_URL"]
       fetcher = GoogleSheetsFetcher.new
       streaming_csvs = fetcher.get_spreadsheet(ENV["SHEET_URL"])
@@ -66,12 +66,6 @@ class SomervilleMegaReadingImporter
   end
 
   def import_row(row, index)
-
-    if !school_filter.include?(row[:school_local_id])
-      @skipped_from_school_filter += 1
-      return
-    end
-    
     benchmark_data_point = matching_student_insights_record_for_row(row)
 
     benchmark_data_point.save!
@@ -102,9 +96,9 @@ class SomervilleMegaReadingImporter
     benchmark_data_point
   end
 
-  def school_filter
-    SchoolFilter.new(@school_local_ids)
-  end
+  # def school_filter
+  #   SchoolFilter.new(@school_local_ids)
+  # end
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
