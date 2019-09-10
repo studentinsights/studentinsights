@@ -212,6 +212,7 @@ Rails.application.routes.draw do
 
   resource :reading, only: [] do
     member do
+      get '/thresholds' => 'ui#ui'
       get '/debug' => 'ui#ui'
       get '/debug_star' => 'ui#ui'
       get '/debug_csv' => 'reading_debug#reading_debug_csv'
