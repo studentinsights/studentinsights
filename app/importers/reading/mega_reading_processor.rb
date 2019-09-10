@@ -11,7 +11,7 @@
 # output = processor.process(file_text);nil
 class MegaReadingProcessor
   def initialize(educator_id, options = {})
-    @educator_id = educator_id
+    @educator = read_uploaded_by_educator_from_env()
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @should_use_heuristic_about_moving = options.fetch(:should_use_heuristic_about_moving, false)
@@ -62,6 +62,13 @@ class MegaReadingProcessor
     @valid_student_name = 0
   end
 
+  def read_uploaded_by_educator_from_env
+    educator_login_name = ENV.fetch('READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME', '')
+    uploaded_by_educator = Educator.find_by_login_name(educator_login_name)
+    raise '#read_uploaded_by_educator_id_from_env found nil' if uploaded_by_educator.nil?
+    uploaded_by_educator
+  end
+
   def stats
     {
       invalid_student_name_count: @invalid_student_name_count,
@@ -93,7 +100,8 @@ class MegaReadingProcessor
 
     shared = {
       student_id: student_id,
-      imported_by_educator_id: @educator_id
+      educator: @educator,
+      benchmark_school_year: get_current_school_year
     }
 
     # data points for each grade
@@ -124,6 +132,11 @@ class MegaReadingProcessor
     else
       [nil, "row index: #{index}"]
     end
+  end
+
+  #Template sheets do not speciify year, so assume all data is for current school year
+  def get_current_school_year
+    SchoolYear.to_school_year(Time.now)
   end
 
   def data_points_for_kindergarten(shared, row)
