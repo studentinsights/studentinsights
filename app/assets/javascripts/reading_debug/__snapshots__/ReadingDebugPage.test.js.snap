@@ -700,7 +700,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "background": "#ccc",
+                            "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
@@ -713,7 +713,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "color": "#ccc",
+                            "color": "rgba(0,128,0,0.5)",
                             "left": "0%",
                             "paddingRight": 1,
                             "position": "absolute",
@@ -1789,11 +1789,11 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "background": "#ccc",
+                            "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "67%",
                           }
                         }
                       >
@@ -1802,17 +1802,47 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "color": "#ccc",
+                            "color": "rgba(0,128,0,0.5)",
                             "left": "0%",
                             "paddingRight": 1,
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "67%",
                           }
                         }
                       >
-                        6
+                        4
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "67%",
+                            "position": "absolute",
+                            "width": "34%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "67%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "34%",
+                          }
+                        }
+                      >
+                        2
                       </div>
                     </div>
                   </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import Nbsp from '../components/Nbsp';
 import SectionHeading from '../components/SectionHeading';
-import {high, medium, low} from '../helpers/colors';
 import {orderedFAndPLevels} from '../reading/readingData';
 import {
   DIBELS_DORF_WPM,
@@ -55,8 +54,8 @@ export default class ReadingThresholdsPage extends React.Component {
               <th><Nbsp /></th>
               {cells.map(cell => (
                 <th style={{textAlign: 'center', width: 40}} key={cell.join('-')}>
-                  <div>{cell[0]}</div>
-                  <div>{cell[1]}</div>
+                  <div style={{width: 40}}>{cell[0]}</div>
+                  <div style={{width: 40}}>{cell[1]}</div>
                 </th>
               ))}
             </tr>
@@ -65,7 +64,9 @@ export default class ReadingThresholdsPage extends React.Component {
             {benchmarkAssessmentKeys.map(benchmarkAssessmentKey => {          
               return (
                 <tr key={benchmarkAssessmentKey}>
-                  <td style={{width: 80, paddingRight: 10, paddingBottom: 20, verticalAlign: 'top', marginwhiteSpace: 'normal'}}>{prettyText(benchmarkAssessmentKey)}</td>
+                  <td style={{width: 80, paddingRight: 10, paddingBottom: 20, verticalAlign: 'top', marginwhiteSpace: 'normal'}}>
+                    {prettyText(benchmarkAssessmentKey)}
+                  </td>
                   {cells.map(cell => (
                     <td key={cell.join('-')}>
                       {this.renderCell(cell, benchmarkAssessmentKey)}
@@ -83,14 +84,14 @@ export default class ReadingThresholdsPage extends React.Component {
   renderCell(cell, benchmarkAssessmentKey) {
     const [grade, benchmarkPeriodKey] = cell;
     const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
-    const mids = computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodKey);
-
+    const [midLow, midHigh] = computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+    const [high, medium, low] = ['#F4C7C3','#FCE8B2','#B7E1CD']; // google sheets
     const missingEl = <div><Nbsp /></div>;
     return (
-      <div key={cell.join('-')} style={{color: 'white', textAlign: 'center', height: 80}}>
+      <div key={cell.join('-')} style={{color: '#666', textAlign: 'center', height: 80}}>
         {thresholds && thresholds.benchmark !== undefined ? <div style={{backgroundColor: high}}>{thresholds.benchmark}</div> : missingEl}
-        {thresholds && thresholds.benchmark !== undefined && thresholds.risk !== undefined ? <div style={{backgroundColor: medium}}>{thresholds.benchmark - 1}</div> : missingEl}
-        {thresholds && thresholds.benchmark !== undefined && thresholds.risk !== undefined ? <div style={{backgroundColor: medium}}>{thresholds.risk + 1}</div> : missingEl}
+        {midHigh ? <div style={{backgroundColor: medium}}>{midHigh}</div> : missingEl}
+        {midLow ? <div style={{backgroundColor: medium}}>{midLow}</div> : missingEl}
         {thresholds && thresholds.risk !== undefined ? <div style={{backgroundColor: low}}>{thresholds.risk}</div> : missingEl}
       </div>
     );
@@ -110,8 +111,8 @@ function computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodK
   }
 
   return [
-    thresholds.benchmark - 1,
-    thresholds.risk + 1
+    thresholds.risk + 1,
+    thresholds.benchmark - 1
   ];
 }
 
