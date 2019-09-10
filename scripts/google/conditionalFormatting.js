@@ -1,15 +1,14 @@
-// benchmarkAssessmentKey values
-export const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
-export const DIBELS_DORF_ACC = 'dibels_dorf_acc';
-export const DIBELS_DORF_ERRORS = 'dibels_dorf_errors';
-export const DIBELS_FSF = 'dibels_fsf';
-export const DIBELS_LNF = 'dibels_lnf';
-export const DIBELS_PSF = 'dibels_psf';
-export const DIBELS_NWF_CLS = 'dibels_nwf_cls';
-export const DIBELS_NWF_WWR = 'dibels_nwf_wwr';
-export const F_AND_P_ENGLISH = 'f_and_p_english';
-export const F_AND_P_SPANISH = 'f_and_p_spanish';
-export const INSTRUCTIONAL_NEEDS = 'instructional_needs';
+// copy these bits from thresholds.js
+const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
+const DIBELS_DORF_ACC = 'dibels_dorf_acc';
+const DIBELS_DORF_ERRORS = 'dibels_dorf_errors';
+const DIBELS_FSF = 'dibels_fsf';
+const DIBELS_LNF = 'dibels_lnf';
+const DIBELS_PSF = 'dibels_psf';
+const DIBELS_NWF_CLS = 'dibels_nwf_cls';
+const DIBELS_NWF_WWR = 'dibels_nwf_wwr';
+const F_AND_P_ENGLISH = 'f_and_p_english';
+const F_AND_P_SPANISH = 'f_and_p_spanish';
 
 
 // all thresholds are "greater than or equal to" / "less than or equal to"
@@ -222,9 +221,91 @@ const somervilleThresholds = {
 };
 
 
-export function somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
-  const thresholds = somervilleThresholds[benchmarkAssessmentKey];
-  if (!thresholds) return null;
-  const periodKey = [grade, benchmarkPeriodKey].join(':');
-  return thresholds[periodKey] || null;
+
+
+/* -------------------------------------------- */
+
+
+// // google sheets colors
+// const LOW = '#F4C7C3';
+// const MID = '#FCE8B2';
+// const HIGH = '#B7E1CD';
+
+
+// map insights keys to sheets keys
+const sheetsAssessmentKeys = {
+  [DIBELS_DORF_ACC]: 'DORF ACC',
+  [F_AND_P_ENGLISH]: 'F&P Level English',
+  [F_AND_P_SPANISH]: 'F&P Level Spanish',
+  [DIBELS_FSF]: 'FSF',
+  [DIBELS_LNF]: 'LNF',
+  [DIBELS_PSF]: 'PSF',
+  [DIBELS_NWF_CLS]: 'NWF CLS',
+  [DIBELS_NWF_WWR]: 'NWF WWR',
+  [DIBELS_DORF_WPM]: 'DORF WPM',
+  [DIBELS_DORF_ERRORS]: 'DORF Errors'
+};
+
+
+// Convert thresholds.js format to spec for sheets
+// boolean conditional formatting.
+function thresholdsToBooleanFormatting(rules) {
+  if (rules.risk) {
+    return [
+      { color: LOW, lte: rules.risk },
+      { color: MID, between: [rules.risk, rules.benchmark] },
+      { color: HIGH, gte: rules.benchmark },
+    ];
+  }
+  if (rules.risk) {
+    return [
+      { color: LOW, lte: rules.risk }
+    ];
+  }
+  if (rules.benchmark) {
+    return [
+      { color: HIGH, gte: rules.benchmark }
+    ];
+  }
+  return [];
 }
+
+
+// outputs:
+// [{
+//   columnKey: '1 / WINTER / DORF ACC',
+//   booleanFormatting: [
+//     { color: LOW, values: [36] },
+//     { color: MID, values: [36,50] },
+//     { color: HIGH, values: [50] }
+//   ]
+// }]
+function main() {
+  let allThresholds = [];
+  let noRules = [];
+
+  Object.keys(somervilleThresholds).forEach(insightsAssessmentKey => {
+    const assessmentKeyInSheets = sheetsAssessmentKeys[insightsAssessmentKey];
+    Object.keys(somervilleThresholds[insightsAssessmentKey]).forEach(pairKey => {
+      const [grade, period] = pairKey.toUpperCase().split(':');
+      const thresholds = somervilleThresholds[insightsAssessmentKey][pairKey];
+
+      const columnKey = [
+        (grade === 'KF' ? 'K' : grade), // K in sheets
+        period,
+        assessmentKeyInSheets
+      ].join(' / ');
+      allThresholds.push({
+        columnKey,
+        thresholds,
+        insightsAssessmentKey,
+        grade,
+        period
+      });
+    });
+  });
+  console.log(JSON.stringify(noRules, null, 2));
+  console.log("\n\n\n");
+  console.log(JSON.stringify(allThresholds));
+}
+main();
