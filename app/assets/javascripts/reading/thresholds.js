@@ -12,55 +12,41 @@ export const F_AND_P_SPANISH = 'f_and_p_spanish';
 export const INSTRUCTIONAL_NEEDS = 'instructional_needs';
 
 
+// shared across english and spanish
+const F_AND_P_THRESHOLDS_SHARED = {
+  'KF:fall': {
+    benchmark: 'A'
+  },
+  'KF:winter': {
+    benchmark: 'C',
+    risk: 'A'
+  },
+  'KF:spring': {
+    benchmark: 'C'
+  },
+  '1:winter': {
+    benchmark: 'G',
+    risk: 'D'
+  },
+  '1:spring': {
+    benchmark: 'J'
+  },
+  '2:spring': {
+    benchmark: 'M'
+  },
+  '3:winter': {
+    benchmark: 'O',
+    risk: 'M'
+  },
+  '3:spring': {
+    benchmark: 'P'
+  }
+};
+
+
 // all thresholds are "greater than or equal to" / "less than or equal to"
 // see also "DIBELS cut points" sheet at https://docs.google.com/spreadsheets/d/1Z8t1wmaE2mX6kkNGw_ZtPr2ZDVfXkEaTmRbVUofEo08
 const somervilleThresholds = {
-  [F_AND_P_ENGLISH]: { // based on colors from mega sheet
-    'KF:fall': {
-      benchmark: 'A'
-    },
-    'KF:winter': {
-      benchmark: 'C',
-      risk: 'A'
-    },
-    '1:winter': {
-      benchmark: 'G',
-      risk: 'D'
-    },
-    '2:spring': { // check these
-      benchmark: 'J'
-    },
-    '3:winter': { // check these
-      benchmark: 'O',
-      risk: 'M'
-    },
-    '3:spring': { // check these
-      benchmark: 'P'
-    }
-  },
-  [F_AND_P_SPANISH]: { // should be same as english
-    'KF:fall': {
-      benchmark: 'A'
-    },
-    'KF:winter': {
-      benchmark: 'C',
-      risk: 'A'
-    },
-    '1:winter': {
-      benchmark: 'G',
-      risk: 'D'
-    },
-    '2:spring': { // check these
-      benchmark: 'J'
-    },
-    '3:winter': { // check these
-      benchmark: 'O',
-      risk: 'M'
-    },
-    '3:spring': { // check these
-      benchmark: 'P'
-    }
-  },
   [DIBELS_FSF]: {
     'KF:fall': {
       benchmark: 18,
@@ -218,9 +204,10 @@ const somervilleThresholds = {
       benchmark: 98,
       risk: 95
     }
-  }
+  },
+  [F_AND_P_ENGLISH]: F_AND_P_THRESHOLDS_SHARED,
+  [F_AND_P_SPANISH]: F_AND_P_THRESHOLDS_SHARED
 };
-
 
 export function somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   const thresholds = somervilleThresholds[benchmarkAssessmentKey];

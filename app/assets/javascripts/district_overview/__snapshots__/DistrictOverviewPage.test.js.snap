@@ -1537,6 +1537,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
                 Benchmark reading data (eg, F&P)
               </a>
             </li>
+            <li>
+              <a
+                href="/reading/thresholds"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Thresholds for reading benchmarks
+              </a>
+            </li>
           </ul>
         </div>
         <div>
