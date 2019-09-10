@@ -2031,7 +2031,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "backgroundColor": "#ccc",
+                            "backgroundColor": "rgba(0,128,0,0.5)",
                             "display": "flex",
                             "flex": 1,
                             "height": "100%",
