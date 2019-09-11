@@ -190,23 +190,23 @@ class MegaReadingProcessor
       ['2', :fall, :dibels_nwf_cls, '2 / FALL / NWF-CLS'],
       ['2', :fall, :dibels_nwf_wwr, '2 / FALL / NWF-WWR'],
       ['2', :fall, :dibels_dorf_wpm, '2 / FALL / DORF WPM'],
-      ['2', :fall, :dibels_dorf_acc, '2 / FALL / Accuracy'],
-      ['2', :fall, :dibels_dorf_errors, '2 / FALL / DORF median errors'],
+      ['2', :fall, :dibels_dorf_acc, '2 / FALL / DORF ACC'],
+      ['2', :fall, :dibels_dorf_errors, '2 / FALL / DORF Errors'],
       ['2', :fall, :instructional_needs, '2 / FALL / Instructional needs'],
       ['2', :fall, :f_and_p_english, '2 / FALL / F&P Level English'],
       ['2', :fall, :f_and_p_spanish, '2 / FALL / F&P Level Spanish'],
       ['2', :winter, :dibels_dorf_wpm, '2 / WINTER / DORF WPM'],
-      ['2', :winter, :dibels_dorf_acc, '2 / WINTER / Accuracy'],
-      ['2', :winter, :dibels_dorf_errors, '2 / WINTER / DORF median errors'],
+      ['2', :winter, :dibels_dorf_acc, '2 / WINTER / DORF ACC'],
+      ['2', :winter, :dibels_dorf_errors, '2 / WINTER / DORF Errors'],
       ['2', :winter, :instructional_needs, '2 / WINTER / Instructional needs'],
       ['2', :winter, :f_and_p_english, '2 / WINTER / F&P Level English'],
       ['2', :winter, :f_and_p_spanish, '2 / WINTER / F&P Level Spanish'],
-      ['2', :spring, :dibels_dorf_wpm, '2 / WINTER / DORF WPM'],
-      ['2', :spring, :dibels_dorf_acc, '2 / WINTER / Accuracy'],
-      ['2', :spring, :dibels_dorf_errors, '2 / WINTER / DORF median errors'],
-      ['2', :spring, :instructional_needs, '2 / WINTER / Instructional needs'],
-      ['2', :spring, :f_and_p_english, '2 / WINTER / F&P Level English'],
-      ['2', :spring, :f_and_p_spanish, '2 / WINTER / F&P Level Spanish'],
+      ['2', :spring, :dibels_dorf_wpm, '2 / SPRING / DORF WPM'],
+      ['2', :spring, :dibels_dorf_acc, '2 / SPRING / DORF ACC'],
+      ['2', :spring, :dibels_dorf_errors, '2 / SPRING / DORF Errors'],
+      ['2', :spring, :instructional_needs, '2 / SPRING / Instructional needs'],
+      ['2', :spring, :f_and_p_english, '2 / SPRING / F&P Level English'],
+      ['2', :spring, :f_and_p_spanish, '2 / SPRING / F&P Level Spanish'],
       ['2', :spring, :las_links_speaking, '2 / SPRING / LAS Links Speaking'],
       ['2', :spring, :las_links_listening, '2 / SPRING / LAS Links Listening'],
       ['2', :spring, :las_links_reading, '2 / SPRING / LAS Links Reading'],
@@ -218,23 +218,23 @@ class MegaReadingProcessor
   def data_points_for_third(shared, row)
     import_data_points(shared, row, [
       ['3', :fall, :dibels_dorf_wpm, '3 / FALL / DORF WPM'],
-      ['3', :fall, :dibels_dorf_acc, '3 / FALL / Accuracy'],
-      ['3', :fall, :dibels_dorf_errors, '3 / FALL / DORF median errors'],
+      ['3', :fall, :dibels_dorf_acc, '3 / FALL / DORF ACC'],
+      ['3', :fall, :dibels_dorf_errors, '3 / FALL / DORF Errors'],
       ['3', :fall, :instructional_needs, '3 / FALL / Instructional needs'],
       ['3', :fall, :f_and_p_english, '3 / FALL / F&P Level English'],
       ['3', :fall, :f_and_p_spanish, '3 / FALL / F&P Level Spanish'],
       ['3', :winter, :dibels_dorf_wpm, '3 / WINTER / DORF WPM'],
-      ['3', :winter, :dibels_dorf_acc, '3 / WINTER / Accuracy'],
-      ['3', :winter, :dibels_dorf_errors, '3 / WINTER / DORF median errors'],
+      ['3', :winter, :dibels_dorf_acc, '3 / WINTER / DORF ACC'],
+      ['3', :winter, :dibels_dorf_errors, '3 / WINTER / DORF Errors'],
       ['3', :winter, :instructional_needs, '3 / WINTER / Instructional needs'],
       ['3', :winter, :f_and_p_english, '3 / WINTER / F&P Level English'],
       ['3', :winter, :f_and_p_spanish, '3 / WINTER / F&P Level Spanish'],
-      ['3', :spring, :dibels_dorf_wpm, '3 / WINTER / DORF WPM'],
-      ['3', :spring, :dibels_dorf_acc, '3 / WINTER / Accuracy'],
-      ['3', :spring, :dibels_dorf_errors, '3 / WINTER / DORF median errors'],
-      ['3', :spring, :instructional_needs, '3 / WINTER / Instructional needs'],
-      ['3', :spring, :f_and_p_english, '3 / WINTER / F&P Level English'],
-      ['3', :spring, :f_and_p_spanish, '3 / WINTER / F&P Level Spanish'],
+      ['3', :spring, :dibels_dorf_wpm, '3 / SPRING / DORF WPM'],
+      ['3', :spring, :dibels_dorf_acc, '3 / SPRING / DORF ACC'],
+      ['3', :spring, :dibels_dorf_errors, '3 / SPRING / DORF Errors'],
+      ['3', :spring, :instructional_needs, '3 / SPRING / Instructional needs'],
+      ['3', :spring, :f_and_p_english, '3 / SPRING / F&P Level English'],
+      ['3', :spring, :f_and_p_spanish, '3 / SPRING / F&P Level Spanish'],
       ['3', :spring, :las_links_speaking, '3 / SPRING / LAS Links Speaking'],
       ['3', :spring, :las_links_listening, '3 / SPRING / LAS Links Listening'],
       ['3', :spring, :las_links_reading, '3 / SPRING / LAS Links Reading'],
@@ -251,9 +251,9 @@ class MegaReadingProcessor
       ['4', :winter, :instructional_needs, '4 / WINTER / Instructional needs'],
       ['4', :winter, :f_and_p_english, '4 / WINTER / F&P Level English'],
       ['4', :winter, :f_and_p_spanish, '4 / WINTER / F&P Level Spanish'],
-      ['4', :spring, :instructional_needs, '4 / WINTER / Instructional needs'],
-      ['4', :spring, :f_and_p_english, '4 / WINTER / F&P Level English'],
-      ['4', :spring, :f_and_p_spanish, '4 / WINTER / F&P Level Spanish']
+      ['4', :spring, :instructional_needs, '4 / SPRING / Instructional needs'],
+      ['4', :spring, :f_and_p_english, '4 / SPRING / F&P Level English'],
+      ['4', :spring, :f_and_p_spanish, '4 / SPRING / F&P Level Spanish']
     ])
   end
 
@@ -265,9 +265,9 @@ class MegaReadingProcessor
       ['5', :winter, :instructional_needs, '5 / WINTER / Instructional needs'],
       ['5', :winter, :f_and_p_english, '5 / WINTER / F&P Level English'],
       ['5', :winter, :f_and_p_spanish, '5 / WINTER / F&P Level Spanish'],
-      ['5', :spring, :instructional_needs, '5 / WINTER / Instructional needs'],
-      ['5', :spring, :f_and_p_english, '5 / WINTER / F&P Level English'],
-      ['5', :spring, :f_and_p_spanish, '5 / WINTER / F&P Level Spanish']
+      ['5', :spring, :instructional_needs, '5 / SPRING} / Instructional needs'],
+      ['5', :spring, :f_and_p_english, '5 / SPRING} / F&P Level English'],
+      ['5', :spring, :f_and_p_spanish, '5 / SPRING} / F&P Level Spanish']
     ])
   end
 
@@ -287,7 +287,7 @@ class MegaReadingProcessor
       # that are filled out as the year progresses.
       data_point = row[row_key]
       if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
-        @blank_data_points_count +=1
+        @blank_data_points_count += 1
         next
       end
 
