@@ -34,7 +34,6 @@ RSpec.describe MegaReadingProcessor do
       rows, stats = processor.process(fixture_file_text)
       expect(rows.size).to eq 28
 
-
       expect(rows.as_json).to contain_exactly(*[
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"fall", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "1" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_fsf", "json"=>{"value" => "25" }},
@@ -50,7 +49,7 @@ RSpec.describe MegaReadingProcessor do
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"f_and_p_spanish", "json"=>{"value" => "AA" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_speaking", "json"=>{"value" => "1" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_listening", "json"=>{"value" => "1" }},
-        
+
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"fall", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "5" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_fsf", "json"=>{"value" => "26" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "19" }},
