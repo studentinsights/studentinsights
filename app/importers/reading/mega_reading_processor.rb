@@ -53,6 +53,18 @@ class MegaReadingProcessor
     [rows, stats]
   end
 
+  def stats
+    {
+      valid_student_names_count: @valid_student_names_count,
+      valid_data_points_count: @valid_data_points_count,
+      invalid_student_name_count: @invalid_student_name_count,
+      invalid_student_names_list_size: @invalid_student_names_list.size,
+      blank_data_points_count: @blank_data_points_count,
+      missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
+      matcher: @matcher.stats
+    }
+  end
+
   private
   def reset_counters!
     @blank_data_points_count = 0
@@ -61,17 +73,6 @@ class MegaReadingProcessor
     @invalid_student_names_list = []
     @valid_data_points_count = 0
     @valid_student_names_count = 0
-  end
-
-  def stats
-    {
-      invalid_student_name_count: @invalid_student_name_count,
-      invalid_student_names_list_size: @invalid_student_names_list.size,
-      valid_student_names_count: @valid_student_names_count,
-      blank_data_points_count: @blank_data_points_count,
-      missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
-      valid_data_points_count: @valid_data_points_count
-    }
   end
 
   # Map a row of the sheet to attributes that could make ReadingBenchmarkDataPoint
@@ -272,7 +273,7 @@ class MegaReadingProcessor
 
   # just sugar for unrolling these
   def import_data_points(shared, row, tuples)
-    rows = []
+    data_point_rows = []
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, row_key = tuple
 
@@ -309,7 +310,7 @@ class MegaReadingProcessor
       else
         {}
       end
-      row = shared.merge(optional_grade_attrs).merge({
+      data_point_row = shared.merge(optional_grade_attrs).merge({
         benchmark_period_key: assessment_period,
         benchmark_assessment_key: assessment_key,
         json: {
@@ -318,8 +319,9 @@ class MegaReadingProcessor
       })
 
       @valid_data_points_count += 1
+      data_point_rows << data_point_row
     end
-    rows
+    data_point_rows
   end
 
   def log(msg)
