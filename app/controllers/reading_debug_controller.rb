@@ -4,24 +4,19 @@ class ReadingDebugController < ApplicationController
   before_action :ensure_authorized_for_feature!
 
   def reading_debug_json
-      json = JSON.parse(IO.read('/Users/krobinson/Desktop/0. DANGER/2019-09-11-reading/reading_debug.json'))   
-      render json: json
-      return
-
-      
-    # students, groups = reading_debug()
-    # students_json = students.as_json(only: [
-    #   :id,
-    #   :first_name,
-    #   :last_name,
-    #   :grade,
-    #   :has_photo
-    # ])
-    # render json: {
-    #   students: students_json,
-    #   groups: groups,
-    #   student_counts_by_grade: student_counts_by_grade(students)
-    # }
+    students, groups = reading_debug()
+    students_json = students.as_json(only: [
+      :id,
+      :first_name,
+      :last_name,
+      :grade,
+      :has_photo
+    ])
+    render json: {
+      students: students_json,
+      groups: groups,
+      student_counts_by_grade: student_counts_by_grade(students)
+    }
   end
 
   def reading_debug_csv
