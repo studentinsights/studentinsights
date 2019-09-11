@@ -49,7 +49,7 @@ exports[`snapshots view 1`] = `
         >
           <div
             className="Select-multi-value-wrapper"
-            id="react-select-4--value"
+            id="react-select-2--value"
           >
             <div
               className="Select-value"
@@ -57,7 +57,7 @@ exports[`snapshots view 1`] = `
               <span
                 aria-selected="true"
                 className="Select-value-label"
-                id="react-select-4--value-item"
+                id="react-select-2--value-item"
                 role="option"
               >
                 F&P English
@@ -72,7 +72,7 @@ exports[`snapshots view 1`] = `
               }
             >
               <input
-                aria-activedescendant="react-select-4--value"
+                aria-activedescendant="react-select-2--value"
                 aria-expanded="false"
                 aria-haspopup="false"
                 aria-owns=""
@@ -136,7 +136,7 @@ exports[`snapshots view 1`] = `
         >
           <div
             className="Select-multi-value-wrapper"
-            id="react-select-5--value"
+            id="react-select-3--value"
           >
             <div
               className="Select-placeholder"
@@ -152,7 +152,7 @@ exports[`snapshots view 1`] = `
               }
             >
               <input
-                aria-activedescendant="react-select-5--value"
+                aria-activedescendant="react-select-3--value"
                 aria-expanded="false"
                 aria-haspopup="false"
                 aria-owns=""
@@ -240,38 +240,128 @@ exports[`snapshots view 1`] = `
           <th
             style={Object {}}
           >
-            Kindergarten
-             now
+            <div>
+              <div>
+                Kindergarten
+                 now
+              </div>
+              <div
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 10,
+                  }
+                }
+              >
+                8
+                 students
+              </div>
+            </div>
           </th>
           <th
             style={Object {}}
           >
-            1st grade
-             now
+            <div>
+              <div>
+                1st grade
+                 now
+              </div>
+              <div
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 10,
+                  }
+                }
+              >
+                0
+                 students
+              </div>
+            </div>
           </th>
           <th
             style={Object {}}
           >
-            2nd grade
-             now
+            <div>
+              <div>
+                2nd grade
+                 now
+              </div>
+              <div
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 10,
+                  }
+                }
+              >
+                0
+                 students
+              </div>
+            </div>
           </th>
           <th
             style={Object {}}
           >
-            3rd grade
-             now
+            <div>
+              <div>
+                3rd grade
+                 now
+              </div>
+              <div
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 10,
+                  }
+                }
+              >
+                8
+                 students
+              </div>
+            </div>
           </th>
           <th
             style={Object {}}
           >
-            4th grade
-             now
+            <div>
+              <div>
+                4th grade
+                 now
+              </div>
+              <div
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 10,
+                  }
+                }
+              >
+                0
+                 students
+              </div>
+            </div>
           </th>
           <th
             style={Object {}}
           >
-            5th grade
-             now
+            <div>
+              <div>
+                5th grade
+                 now
+              </div>
+              <div
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 10,
+                  }
+                }
+              >
+                16
+                 students
+              </div>
+            </div>
           </th>
         </tr>
       </thead>
