@@ -1,7 +1,6 @@
 # For importing reading data from Google Sheets or a local folder of csvs.
 class SomervilleMegaReadingImporter
-  def initialize(educator_id, options = {})
-    @educator_id = educator_id
+  def initialize(options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @school_local_ids = options.fetch(:school_scope, [])
     @files_path = options.fetch(:files_path, nil)
@@ -21,7 +20,7 @@ class SomervilleMegaReadingImporter
     # TODO do any initialization before the core loop
     log('Starting loop...')
     reset_counters!
-    processor = MegaReadingProcessor.new(@educator_id, {header_rows_count: 2})
+    processor = MegaReadingProcessor.new({header_rows_count: 2})
     streaming_csvs.each_with_index do |csv, index|
       rows, meta = processor.process(csv)
       log("processed #{index} sheets.")
@@ -47,6 +46,7 @@ class SomervilleMegaReadingImporter
   end
 
   def read_or_fetch_sheet
+    puts ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME']
     #If a folder is provided, get csvs from that folder
     if @files_path then
       streaming_csvs = []

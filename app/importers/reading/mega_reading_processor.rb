@@ -10,8 +10,8 @@
 # processor = MegaReadingProcessor.new(educator.id)
 # output = processor.process(file_text);nil
 class MegaReadingProcessor
-  def initialize(educator_id, options = {})
-    @educator = read_uploaded_by_educator_from_env()
+  def initialize(options = {})
+    @educator_id = options.fetch(:educator_id, nil)
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @should_use_heuristic_about_moving = options.fetch(:should_use_heuristic_about_moving, false)
@@ -62,10 +62,14 @@ class MegaReadingProcessor
     @valid_student_name = 0
   end
 
-  def read_uploaded_by_educator_from_env
-    educator_login_name = ENV.fetch('READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME', '')
-    uploaded_by_educator = Educator.find_by_login_name(educator_login_name)
-    raise '#read_uploaded_by_educator_id_from_env found nil' if uploaded_by_educator.nil?
+  def educator_from_environment_or_id
+    if @educator_id
+      uploaded_by_educator = Educator.find(@educator_id)
+    else
+      educator_login_name = ENV.fetch('READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME', '')
+      uploaded_by_educator = Educator.find_by_login_name(educator_login_name)
+    end
+    raise '#read_uploaded_by_educator_from_env found nil' if uploaded_by_educator.nil?
     uploaded_by_educator
   end
 
@@ -100,7 +104,7 @@ class MegaReadingProcessor
 
     shared = {
       student_id: student_id,
-      educator: @educator,
+      educator: educator_from_environment_or_id,
       benchmark_school_year: get_current_school_year
     }
 

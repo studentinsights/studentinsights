@@ -30,7 +30,8 @@ RSpec.describe MegaReadingProcessor do
   describe 'integration test' do
     it 'works on happy path' do
       pluto, donald = create_students!
-      processor = MegaReadingProcessor.new(pals.uri.id)
+      processor = MegaReadingProcessor.new
+      ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME'] = pals.uri.login_name
       rows, stats = processor.process(fixture_file_text)
       expect(rows.size).to eq 28
       expect(rows.as_json).to contain_exactly(*[
