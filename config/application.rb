@@ -50,6 +50,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/student_meeting",
         "#{config.root}/app/importers/student_voice_surveys",
         "#{config.root}/app/importers/team_membership_import",
+        "#{config.root}/app/importers/templates",
         "#{config.root}/app/importers/tools",
         "#{config.root}/app/importers/transitions"
       ]

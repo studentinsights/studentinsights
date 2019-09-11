@@ -824,7 +824,8 @@ export const studentProfile = {
       "schoolwide_access": true,
       "grade_level_access": [],
       "restricted_to_sped_students": false,
-      "restricted_to_english_language_learners": false
+      "restricted_to_english_language_learners": false,
+      "labels": []
     },
     "2": {
       "id": 2,
@@ -841,7 +842,8 @@ export const studentProfile = {
       "schoolwide_access": false,
       "grade_level_access": [],
       "restricted_to_sped_students": false,
-      "restricted_to_english_language_learners": false
+      "restricted_to_english_language_learners": false,
+      "labels": []
     }
   },
   "currentEducator": currentEducator,

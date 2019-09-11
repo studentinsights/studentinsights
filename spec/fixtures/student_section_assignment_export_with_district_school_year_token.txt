@@ -1,0 +1,8 @@
+"local_id","course_number","school_local_id","section_number","term_local_id","district_school_year"
+"333","SOC6","SHS","SOC6-001","FY","<district_school_year>"
+"111","SOC6","ESCS","SOC6-001","FY","<district_school_year>"
+"222","SOC6","ESCS","SOC6-001","FY","<district_school_year>"
+"333","ELA6","SHS","ELA6-002","FY","<district_school_year>"
+"","SOC6","ESCS","SOC6-001","FY","<district_school_year>"
+"333","","SHS","SOC6-001","FY","<district_school_year>"
+"333","SOC6","SHS","","FY","<district_school_year>"

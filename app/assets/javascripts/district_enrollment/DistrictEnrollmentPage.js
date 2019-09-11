@@ -24,7 +24,8 @@ const styles = {
   },
   cell: {
     padding: 5,
-    textAlign: 'left'
+    textAlign: 'left',
+    overflow: 'hidden'
   },
   bar: {
     borderLeft: '1px solid #aaa',

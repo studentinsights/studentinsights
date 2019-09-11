@@ -1,3 +1,8 @@
+# DEPRECATED, migrate to `services_checklist` or `bulk_services`')
+#
+# Processes two kinds of forms from Bedford, ignoring
+# the notes data and reading only the services.
+
 # Usage:
 # file_text = <<EOD
 # ...
@@ -8,11 +13,19 @@
 class BedfordDavisServicesProcessor
   def initialize(recorded_by_educator, options = {})
     @recorded_by_educator = recorded_by_educator
+    @acknowledge_deprecation = options.fetch(:acknowledge_deprecation, false)
+    unless @acknowledge_deprecation
+      Rollbar.warn('deprecation-warning, migrate to `services_checklist` or `bulk_services`')
+    end
 
     @time_now = options.fetch(:time_now, Time.now)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(@time_now))
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = ImportMatcher.new
+  end
+
+  def create!(file_text)
+    raise 'Not implemented, use #dry_run manually instead.'
   end
 
   def dry_run(file_text)
@@ -21,22 +34,25 @@ class BedfordDavisServicesProcessor
       flattened_rows = flat_map_rows(row)
       next if flattened_rows.nil?
       rows += flattened_rows
-      # flattened_rows.size.times { @matcher.count_valid_row }
+      flattened_rows.size.times { @matcher.count_valid_row }
     end
     rows
   end
 
   def stats
     {
-      importer: @matcher.stats
+      matcher: @matcher.stats
     }
   end
 
   private
   # Map `row` into list of `Service` attributes
   def flat_map_rows(row)
-    # match student by id
-    student_id = @matcher.find_student_id(row['LASID'])
+    # match student by id first, fall back to name
+    local_id_text = row['LASID']
+    fullname_text = row['Student Name']
+    return nil if local_id_text == '' && fullname_text == '' # blank row
+    student_id = @matcher.find_student_id_with_exact_or_fuzzy_match(local_id_text, fullname_text)
     return nil if student_id.nil?
 
     # timestamp, just used import time since it's not in the sheet

@@ -5,6 +5,7 @@ import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
+import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import ServicesPage from '../app/assets/javascripts/services/ServicesPage';
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
@@ -12,6 +13,7 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
 import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
+import ReadingThresholdsPage from '../app/assets/javascripts/reading_debug/ReadingThresholdsPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -27,6 +29,7 @@ import {MemoryRouter} from 'react-router-dom';
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/search_notes/SearchNotesPage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
+jest.mock('../app/assets/javascripts/homeroom/HomeroomPage');
 jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/services/ServicesPage');
 jest.mock('../app/assets/javascripts/my_notes/MyNotesPage');
@@ -34,6 +37,7 @@ jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_absences/SchoolAbsencesPage');
 jest.mock('../app/assets/javascripts/reading/ReadingEntryPage');
 jest.mock('../app/assets/javascripts/reading/ReadingGroupingPage');
+jest.mock('../app/assets/javascripts/reading_debug/ReadingThresholdsPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
@@ -110,6 +114,11 @@ it('renders EducatorPage without crashing', () => {
   )).toEqual(true);
 });
 
+it('renders HomeroomPage without crashing', () => {
+  const wrapper = mount(renderPath('/homerooms/12'));
+  expect(wrapper.contains(<HomeroomPage homeroomId={12} />)).toEqual(true);
+});
+
 it('render SchoolCoursesPage without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/courses'));
   expect(wrapper.contains(
@@ -155,6 +164,11 @@ it('render ReadingGroupingPage without crashing', () => {
       schoolSlug="hea"
       grade="3" />
   )).toEqual(true);
+});
+
+it('renders ReadingThresholdsPage without crashing', () => {
+  const wrapper = mount(renderPath('/reading/thresholds'));
+  expect(wrapper.contains(<ReadingThresholdsPage />)).toEqual(true);
 });
 
 it('renders district enrollment', () => {

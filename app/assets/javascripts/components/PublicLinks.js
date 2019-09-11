@@ -8,7 +8,7 @@ export function Website(props) {
 
 
 export function HelpEmail(props) {
-  return <a {...props} href="mailto://help@studentinsights.org">{props.children || 'help@studentinsights.org'}</a>;
+  return <a {...props} href="mailto:help@studentinsights.org">{props.children || 'help@studentinsights.org'}</a>;
 }
 HelpEmail.propTypes = {
   children: PropTypes.node
@@ -16,7 +16,7 @@ HelpEmail.propTypes = {
 
 
 export function Email(props) {
-  return <a {...props} href="mailto://ideas@studentinsights.org">{props.children || 'ideas@studentinsights.org'}</a>;
+  return <a {...props} href="mailto:ideas@studentinsights.org">{props.children || 'ideas@studentinsights.org'}</a>;
 }
 Email.propTypes = {
   children: PropTypes.node

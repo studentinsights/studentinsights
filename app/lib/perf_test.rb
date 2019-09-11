@@ -26,6 +26,24 @@ class PerfTest
     end
   end
 
+  def self.navbar_links(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      PathsForEducator.new(educator).navbar_links
+    end
+  end
+
+  def self.authorized_homerooms(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      Authorizer.new(educator).homerooms
+    end
+  end
+
+  def self.authorized_homerooms_DEPRECATED(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
+    end
+  end
+
   # See educators_controller#my_students_json
   def self.my_students(percentage, options = {})
     PerfTest.new.simple(percentage, options) do |educator|
@@ -65,7 +83,10 @@ class PerfTest
     timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|
       time_now = options[:time_now] || Time.at(1521552855)
       limit = options[:limit] || 10
-      feed = Feed.new(educator)
+      students = t.measure('students') do
+        Feed.students_for_feed(educator)
+      end
+      feed = Feed.new(students)
       event_note_cards = t.measure('event_note_cards') do
         feed.event_note_cards(time_now, limit)
       end
@@ -79,11 +100,15 @@ class PerfTest
           days_ahead: 0
         })
       end
+      student_voice_cards = t.measure('student_voice_cards') do
+        feed.student_voice_cards(time_now)
+      end
       t.measure('feed_cards') do
         feed.merge_sort_and_limit_cards([
           event_note_cards,
           birthday_cards,
-          incident_cards
+          incident_cards,
+          student_voice_cards
         ], limit)
       end
     end
@@ -201,8 +226,11 @@ class PerfTest
 
   private
   def debug!
-    Rails.configuration.log_level = :debug
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    # This is dangerous, as it can result in logging sensitive information.
+    # Use with caution, and verify the impact locally first.
+    #
+    # Rails.configuration.log_level = :debug
+    # ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
 
   def reset!

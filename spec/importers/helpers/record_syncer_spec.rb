@@ -308,9 +308,9 @@ RSpec.describe RecordSyncer do
       absence
     end
 
-    def test_alerting_for(test_absences)
+    def test_alerting_for(test_absences, options = {})
       log = make_log
-      syncer = make_syncer(log: log)
+      syncer = make_syncer({log: log}.merge(options))
 
       # Sync records
       test_absences.each {|absence| syncer.validate_mark_and_sync!(absence) }
@@ -322,8 +322,20 @@ RSpec.describe RecordSyncer do
       [syncer, log, unmarked_records]
     end
 
+    it 'includes district_key and notification_tag when logging and reporting to Rollbar' do
+      expect(Rollbar).to receive(:error).with('RecordSyncer#notify! in somerville for AttendanceImporter', nil, {
+        alerts: [{key: :invalid_rows_count, count: 30, percentage: 0.30}],
+        caller: a_kind_of(Array)
+      })
+      _, log, _ = test_alerting_for([
+        70.times.map { create_test_absence! },
+        30.times.map { new_invalid_absence }
+      ].flatten, notification_tag: 'AttendanceImporter')
+      expect(log.output).to include('notifying about alerts=1 in district_key=somerville for notification_tag=AttendanceImporter')
+    end
+
     it 'calls Rollbar when alerting exceeds thresholds' do
-      expect(Rollbar).to receive(:error).with('RecordSyncer#notify!', nil, {
+      expect(Rollbar).to receive(:error).with('RecordSyncer#notify! in somerville for default', nil, {
         alerts: [
           {key: :invalid_rows_count, count: 17, percentage: 0.17},
           {key: :created_rows_count, count: 13, percentage: 0.13}
@@ -339,7 +351,7 @@ RSpec.describe RecordSyncer do
       ].flatten)
 
       expect(unmarked_records.size).to eq 0
-      expect(log.output).to include('notifying about 2 alerts')
+      expect(log.output).to include('notifying about alerts=2 in district_key=somerville for notification_tag=default')
       expect(syncer.stats).to eq({
         total_sync_calls_count: 100,
         passed_nil_record_count: 0,

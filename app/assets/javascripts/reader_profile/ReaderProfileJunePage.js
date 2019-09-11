@@ -14,7 +14,7 @@ export default class ReaderProfileJunePage extends React.Component {
     const url = `/api/students/${student.id}/reader_profile_json`;
 
     return (
-      <RollbarErrorBoundary>
+      <RollbarErrorBoundary debugKey="ReaderProfileJunePage">
         <div className="ReaderProfileJunePage">
           <SectionHeading>Reader Profile (June v2)</SectionHeading>
           <GenericLoader

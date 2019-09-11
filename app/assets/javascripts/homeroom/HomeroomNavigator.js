@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Select from 'react-select';
 import * as Routes from '../helpers/Routes';
+import {ORDERED_GRADES} from '../helpers/gradeText';
 import Button from '../components/Button';
 
 
@@ -24,13 +25,26 @@ export default class HomeroomNavigator extends React.Component {
 
   onNavigate() {
     const {homeroomOption} = this.state;
-    const slug = homeroomOption.value;
-    window.location = Routes.homeroom(slug);
+    const id = homeroomOption.value;
+    window.location = Routes.homeroom(id);
   }
 
   render() {
     const {homerooms, style} = this.props;
     const {homeroomOption} = this.state;
+
+    const sortedHomerooms = _.sortBy(homerooms, homeroom => {
+      const gradesSortKey = (homeroom.grades.length === 1)
+        ? ORDERED_GRADES[homeroom.grades[0]]
+        : ORDERED_GRADES.length + 1;
+      return [gradesSortKey, homeroom.name];
+    });
+    const options = sortedHomerooms.map(homeroom => {
+      return {
+        value: homeroom.id,
+        label: `${homeroom.name} (${homeroomGradesText(homeroom)})`
+      };
+    });
 
     return (
       <div className="HomeroomNavigator" style={{...styles.root, ...style}}>
@@ -39,12 +53,7 @@ export default class HomeroomNavigator extends React.Component {
           value={homeroomOption}
           style={styles.select}
           onChange={this.onHomeroomItemChanged}
-          options={_.sortBy(homerooms, 'name').map(homeroom => {
-            return {
-              value: homeroom.slug,
-              label: homeroom.name
-            };
-          })}
+          options={options}
         />
         <Button
           isDisabled={homeroomOption === null}
@@ -56,8 +65,9 @@ export default class HomeroomNavigator extends React.Component {
 }
 HomeroomNavigator.propTypes = {
   homerooms: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired
+    grades: PropTypes.arrayOf(PropTypes.string).isRequired
   })).isRequired,
   style: PropTypes.object
 };
@@ -73,3 +83,8 @@ const styles = {
     marginRight: 10
   }
 };
+
+
+function homeroomGradesText(homeroom) {
+  return (homeroom.grades.length === 1) ? homeroom.grades[0] : 'mixed';
+}

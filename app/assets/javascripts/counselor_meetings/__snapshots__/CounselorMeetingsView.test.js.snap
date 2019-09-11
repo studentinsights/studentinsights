@@ -98,7 +98,8 @@ exports[`snapshots view 1`] = `
             style={
               Object {
                 "marginLeft": 10,
-                "width": "10em",
+                "marginRight": 10,
+                "width": "9em",
               }
             }
           >
@@ -178,7 +179,8 @@ exports[`snapshots view 1`] = `
             style={
               Object {
                 "marginLeft": 10,
-                "width": "10em",
+                "marginRight": 10,
+                "width": "9em",
               }
             }
           >
@@ -258,7 +260,8 @@ exports[`snapshots view 1`] = `
             style={
               Object {
                 "marginLeft": 10,
-                "width": "10em",
+                "marginRight": 10,
+                "width": "9em",
               }
             }
           >

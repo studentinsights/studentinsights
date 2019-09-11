@@ -32,6 +32,7 @@ import SampleStudentsPage from '../app/assets/javascripts/sample_students/Sample
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
 import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
+import ReadingThresholdsPage from '../app/assets/javascripts/reading_debug/ReadingThresholdsPage';
 import ReadingDebugPage from '../app/assets/javascripts/reading_debug/ReadingDebugPage';
 import ReadingDebugStarPage from '../app/assets/javascripts/reading_debug/ReadingDebugStarPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
@@ -52,8 +53,8 @@ import ClassListsEquityIndexPage from '../app/assets/javascripts/equity/ClassLis
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 export default class App extends React.Component {
-  rollbarErrorFn(msg, obj = {}) {
-    this.props.rollbarErrorFn(msg, obj);
+  rollbarErrorFn(msg, ...params) {
+    this.props.rollbarErrorFn(msg, ...params);
   }
 
   // `NowContainer` provides a fn to read the time
@@ -62,7 +63,7 @@ export default class App extends React.Component {
   render() {
     const {districtKey, rollbarErrorFn, sessionTimeoutInSeconds} = this.props;
     return (
-      <RollbarErrorBoundary rollbarErrorFn={rollbarErrorFn}>
+      <RollbarErrorBoundary debugKey="App" rollbarErrorFn={rollbarErrorFn}>
         <NowContainer nowFn={() => moment.utc()}>
           <PerDistrictContainer districtKey={districtKey}>
             <div className="App-content" style={styles.flexVertical}>
@@ -108,9 +109,10 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/groups" render={this.renderReadingGroupingPage.bind(this)}/>
+        <Route exact path="/reading/thresholds" render={this.renderReadingThresholdsPage.bind(this)}/>
         <Route exact path="/reading/debug" render={this.renderReadingDebugPage.bind(this)}/>
         <Route exact path="/reading/debug_star" render={this.renderReadingDebugStarPage.bind(this)}/>
-        <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
+        <Route exact path="/homerooms/:id" render={this.renderHomeroomPage.bind(this)}/>
         <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
         <Route exact path="/students/:id" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/students/:id/v3" render={this.renderStudentProfilePage.bind(this)}/>
@@ -189,6 +191,10 @@ export default class App extends React.Component {
     );
   }
 
+  renderReadingThresholdsPage(routeProps) {
+    return <ReadingThresholdsPage />;
+  }
+
   renderReadingDebugPage(routeProps) {
     return <ReadingDebugPage />;
   }
@@ -257,8 +263,8 @@ export default class App extends React.Component {
   }
 
   renderHomeroomPage(routeProps) {
-    const homeroomIdOrSlug = routeProps.match.params.id_or_slug;
-    return <HomeroomPage homeroomIdOrSlug={homeroomIdOrSlug} />;
+    const homeroomId = parseInt(routeProps.match.params.id, 10);
+    return <HomeroomPage homeroomId={homeroomId} />;
   }
 
   renderSectionPage(routeProps) {

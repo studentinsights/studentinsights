@@ -75,6 +75,9 @@ class StudentsImporter
   end
 
   def records_within_scope
+    # match semantics of SchoolFilter, which treats `nil` as "process everything."
+    return Student.all if @school_scope.nil?
+
     Student.joins(:school).where(schools: {local_id: @school_scope})
   end
 

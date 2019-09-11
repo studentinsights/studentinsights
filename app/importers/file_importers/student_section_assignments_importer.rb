@@ -18,7 +18,10 @@ class StudentSectionAssignmentsImporter
   def initialize(options:)
     @school_local_ids = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
+    @time_now = options.fetch(:time_now, Time.now)
+
     @student_ids_map = ::StudentIdsMap.new
+    @course_section_matcher = ::CourseSectionMatcher.new(log: @log)
     @syncer = ::RecordSyncer.new(log: @log)
     reset_counters!
   end
@@ -47,6 +50,7 @@ class StudentSectionAssignmentsImporter
     log("@invalid_student_count: #{@invalid_student_count}")
     log("@invalid_course_count: #{@invalid_course_count}")
     log("@invalid_section_count: #{@invalid_section_count}")
+    log("@warning_unexpected_district_school_year_count: #{@warning_unexpected_district_school_year_count}")
     log('')
 
     log('Calling RecordSyncer#delete_unmarked_records...')
@@ -60,6 +64,7 @@ class StudentSectionAssignmentsImporter
     @invalid_student_count = 0
     @invalid_course_count = 0
     @invalid_section_count = 0
+    @warning_unexpected_district_school_year_count = 0
   end
 
   # What existing Insights records should be updated or deleted from running this import?
@@ -113,16 +118,15 @@ class StudentSectionAssignmentsImporter
       return nil
     end
 
-    course = find_course(row)
+    course, section, warning = @course_section_matcher.find_course_and_section(@school_ids_dictionary, row)
     if course.nil?
-      @invalid_course_count +=1
+      @invalid_course_count += 1
       return nil
-    end
-
-    section = find_section(row, course)
-    if section.nil?
-      @invalid_section_count +=1
+    elsif section.nil?
+      @invalid_section_count += 1
       return nil
+    elsif warning == :school_year_warning
+      @warning_unexpected_district_school_year_count += 1
     end
 
     StudentSectionAssignment.find_or_initialize_by({
@@ -134,25 +138,6 @@ class StudentSectionAssignmentsImporter
   def find_student_id(row)
     return nil unless row[:local_id]
     @student_ids_map.lookup_student_id(row[:local_id])
-  end
-
-  def find_course(row)
-    return nil unless row[:course_number]
-
-    school_local_id = row[:school_local_id]
-    school_id = @school_ids_dictionary[school_local_id]
-
-    Course.find_by(course_number: row[:course_number], school_id: school_id)
-  end
-
-  def find_section(row, course)
-    return nil unless row[:section_number]
-
-    Section.find_by(
-      section_number: row[:section_number],
-      course: course,
-      term_local_id: row[:term_local_id]
-    )
   end
 
   def log(msg)

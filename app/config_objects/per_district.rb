@@ -207,6 +207,14 @@ class PerDistrict
     ENV.fetch('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', '').split(',')
   end
 
+  # Allow specific educator records to always be considered
+  # 'active' regardless of whether they were in the latest SIS
+  # export.  This should only apply to developer accounts, which
+  # districts sometimes handle differently.
+  def educator_login_names_whitelisted_as_active
+    ENV.fetch('EDUCATOR_LOGIN_NAMES_WHITELISTED_AS_ACTIVE', '').split(',')
+  end
+
   # Allows username or full email address, depending on district.
   # Transitioning to username only.
   def find_educator_by_login_text(login_text)
@@ -352,6 +360,11 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
+  # Specifically whether this importer class runs as part of import jobs
+  def student_voice_survey_importer_enabled?
+    @district_key == SOMERVILLE
+  end
+
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
       try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
@@ -413,7 +426,7 @@ class PerDistrict
   # educators mistakenly set any folders or documents to have
   # public permissions.
   def imported_google_folder_ids(key)
-    if @district_key == BEDFORD
+    if @district_key == BEDFORD || @district_key == SOMERVILLE
       json = JSON.parse(ENV.fetch('IMPORTED_GOOGLE_FOLDER_IDS_JSON', '{}'))
       json.fetch(key, nil)
     else

@@ -28,9 +28,13 @@ class EducatorsController < ApplicationController
         :schoolwide_access,
         :districtwide_access,
         :grade_level_access,
+        :missing_from_last_export,
         :admin
       ],
-      :methods => [:labels],
+      :methods => [
+        :active?,
+        :labels
+      ],
       :include => {
         :school => { :only => [:id, :name] },
         :sections => {
@@ -43,7 +47,9 @@ class EducatorsController < ApplicationController
   end
 
   def my_students_json
-    students = authorized { Student.active.includes(:school, :student_photos).to_a }
+    students = authorized do
+      Student.active.includes(:school, :student_photos, :homeroom => [:educator]).to_a
+    end
     students_json = students.as_json({
       only: [
         :id,
@@ -60,6 +66,12 @@ class EducatorsController < ApplicationController
         :has_photo
       ],
       include: {
+        homeroom: {
+          only: [:id, :name],
+          include: {
+            educator: {only: [:id, :full_name, :email]}
+          }
+        },
         school: {
           only: [:id, :name]
         }

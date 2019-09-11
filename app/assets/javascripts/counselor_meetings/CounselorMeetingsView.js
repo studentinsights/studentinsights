@@ -10,11 +10,11 @@ import SectionHeading from '../components/SectionHeading';
 import Educator from '../components/Educator';
 import {selection} from '../helpers/colors';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import FilterStudentsBar from '../my_students/FilterStudentsBar';
 import {TIME_RANGE_ALL} from '../components/SelectTimeRange';
 import Datepicker from '../components/Datepicker';
 import StudentPhoto from '../components/StudentPhoto';
 import {momentRange} from '../components/SelectTimeRange';
+import FilterStudentsBar from '../components/FilterStudentsBar';
 import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 
 
@@ -155,9 +155,10 @@ export default class CounselorMeetingsView extends React.Component {
         <FilterStudentsBar
           students={students}
           style={{...flexVerticalStyle, marginLeft: 10, marginTop: 20}}
+          includeHomeroom={false}
           includeHouse={supportsHouse(districtKey)}
-          includeTimeRange={true}
           includeCounselor={supportsCounselor(districtKey)}
+          includeTimeRange={true}
           timeFilterFn={this.timeFilterFn}>
           {filteredStudents => this.renderContents(filteredStudents)}
         </FilterStudentsBar>
@@ -286,11 +287,17 @@ export default class CounselorMeetingsView extends React.Component {
     const feedCards = json.feed_cards;
     return (
       <div style={{background: 'white', fontSize: 14}}>
-        <StudentPhoto
-          style={{height: 200, border: '2px solid #1b82ea'}}
-          student={student}
-          fallbackEl={<span>😃</span>}
-        />
+        <a
+          href={`/students/${student.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <StudentPhoto
+            style={{height: 200, border: '2px solid #1b82ea'}}
+            student={student}
+            fallbackEl={<span>😃</span>}
+          />
+        </a>
         <div style={{
           display: 'flex',
           flexDirection: 'row'
@@ -302,15 +309,30 @@ export default class CounselorMeetingsView extends React.Component {
           }}>
             {this.renderBubble(student.meetingMoment)}
           </div>
-          <div style={{
-            marginLeft: 10,
-            fontSize: 24,
-            marginTop: 5
-          }}> {student.first_name} {student.last_name}</div>
+          <a
+            href={`/students/${student.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              marginLeft: 10,
+              fontSize: 24,
+              marginTop: 5
+            }}> {student.first_name} {student.last_name}</a>
         </div>
 
-        <SectionHeading style={{marginTop: 15}}>
-          Notes for {student.first_name}
+        <SectionHeading
+          style={{marginTop: 15}}
+          titleStyle={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <div>Notes for {student.first_name}</div>
+          <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">
+            Open profile
+          </a>
         </SectionHeading>
         <CleanSlateFeedView feedCards={feedCards} />
       </div>
@@ -377,11 +399,12 @@ export default class CounselorMeetingsView extends React.Component {
     );
   }
 
+  // No link, since row is clickable; folks can navigate to profile after viewing inline
   renderName(cellProps) {
     const student = cellProps.rowData;
     return (
       <div style={styles.nameBlock}>
-        <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+        <span style={{fontSize: 14}}>{student.first_name} {student.last_name}</span>
         {student.has_photo && (
           <StudentPhotoCropped
             studentId={student.id}

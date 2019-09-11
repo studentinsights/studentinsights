@@ -20,6 +20,8 @@ describe EducatorsController, :type => :controller do
         "email"=>"uri@demo.studentinsights.org",
         "admin"=>true,
         "full_name"=>"Disney, Uri",
+        "active?"=>true,
+        "missing_from_last_export"=>false,
         "staff_type"=>"Administrator",
         "schoolwide_access"=>true,
         "grade_level_access"=>[],
@@ -69,12 +71,14 @@ describe EducatorsController, :type => :controller do
       response = get_my_students(pals.uri)
       expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*Student.all.map(&:id))
-      expect(JSON.parse!(response.body)['students'].first.keys).to contain_exactly(*[
+      json = JSON.parse!(response.body)
+      expect(json['students'].flat_map(&:keys).uniq).to contain_exactly(*[
         'id',
         'first_name',
         'last_name',
         'has_photo',
         'grade',
+        'homeroom',
         'house',
         'counselor',
         'program_assigned',
