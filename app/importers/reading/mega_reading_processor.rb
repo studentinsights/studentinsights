@@ -64,10 +64,10 @@ class MegaReadingProcessor
 
   def educator_from_environment_or_id
     if @educator_id
-      uploaded_by_educator = Educator.find(@educator_id)
+      uploaded_by_educator = educator_id
     else
       educator_login_name = ENV.fetch('READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME', '')
-      uploaded_by_educator = Educator.find_by_login_name(educator_login_name)
+      uploaded_by_educator = Educator.find_by_login_name(educator_login_name).id
     end
     raise '#read_uploaded_by_educator_from_env found nil' if uploaded_by_educator.nil?
     uploaded_by_educator
@@ -104,8 +104,7 @@ class MegaReadingProcessor
 
     shared = {
       student_id: student_id,
-      educator: educator_from_environment_or_id,
-      benchmark_school_year: get_current_school_year
+      imported_by_educator_id: educator_from_environment_or_id
     }
 
     # data points for each grade
@@ -136,11 +135,6 @@ class MegaReadingProcessor
     else
       [nil, "row index: #{index}"]
     end
-  end
-
-  #Template sheets do not speciify year, so assume all data is for current school year
-  def get_current_school_year
-    SchoolYear.to_school_year(Time.now)
   end
 
   def data_points_for_kindergarten(shared, row)

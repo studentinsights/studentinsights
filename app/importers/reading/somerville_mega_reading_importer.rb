@@ -46,7 +46,6 @@ class SomervilleMegaReadingImporter
   end
 
   def read_or_fetch_sheet
-    puts ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME']
     #If a folder is provided, get csvs from that folder
     if @files_path then
       streaming_csvs = []
@@ -63,6 +62,11 @@ class SomervilleMegaReadingImporter
     end
 
     streaming_csvs
+  end
+
+  #Template sheets do not speciify year, so assume all data is for current school year
+  def get_current_school_year
+    SchoolYear.to_school_year(Time.now)
   end
 
   def import_row(row, index)
@@ -83,8 +87,8 @@ class SomervilleMegaReadingImporter
 
     benchmark_data_point = ReadingBenchmarkDataPoint.find_or_initialize_by(
       student_id: row[:student_id],
-      educator: row[:educator],
-      benchmark_school_year: row[:benchmark_school_year],
+      educator: Educator.find(row[:imported_by_educator_id]), #because sheets don't explicitly link an educator to a record
+      benchmark_school_year: get_current_school_year,
       benchmark_period_key: row[:assessment_period],
       benchmark_assessment_key: row[:assessment_key]
     )
