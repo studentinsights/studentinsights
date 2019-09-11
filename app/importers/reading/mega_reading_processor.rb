@@ -23,7 +23,7 @@ class MegaReadingProcessor
     @skip_explanation_rows_count = options.fetch(:skip_explanation_rows_count, 2)
     @use_heuristic_about_moving = options.fetch(:use_heuristic_about_moving, false)
     @include_benchmark_grade = options.fetch(:include_benchmark_grade, false)
-
+    @import_tuples = options.fetch(:import_tuples, all_import_tuples())
     reset_counters!
   end
 
@@ -99,15 +99,8 @@ class MegaReadingProcessor
       benchmark_school_year: @benchmark_school_year
     }
 
-    # data points for each grade
-    (
-      data_points_for_kindergarten(shared, row) +
-      data_points_for_first(shared, row) +
-      data_points_for_second(shared, row) +
-      data_points_for_third(shared, row) +
-      data_points_for_fourth(shared, row) +
-      data_points_for_fifth(shared, row)
-    )
+    # data points across all grades and assessments
+    import_data_points(shared, row, @import_tuples)
   end
 
   # returns [student_id, debug_match_failure_text]
@@ -129,163 +122,21 @@ class MegaReadingProcessor
     end
   end
 
-  def data_points_for_kindergarten(shared, row)
-    import_data_points(shared, row, [
-      ['KF', :fall, :dibels_fsf, 'K / FALL / FSF'],
-      ['KF', :fall, :dibels_lnf, 'K / FALL / LNF'],
-      ['KF', :fall, :instructional_needs, 'K / FALL / Instructional needs'],
-      ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
-      ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
-      ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
-      ['KF', :winter, :instructional_needs, 'K / WINTER / Instructional needs'],
-      ['KF', :winter, :f_and_p_english, 'K / WINTER / F&P Level English'],
-      ['KF', :winter, :f_and_p_spanish, 'K / WINTER / F&P Level Spanish'],
-      ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
-      ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
-      ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
-      ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR'],
-      ['KF', :spring, :instructional_needs, 'K / SPRING / Instructional needs'],
-      ['KF', :spring, :f_and_p_english, 'K / SPRING / F&P Level English'],
-      ['KF', :spring, :f_and_p_spanish, 'K / SPRING / F&P Level Spanish'],
-      ['KF', :spring, :las_links_speaking, 'K / SPRING / LAS Links Speaking'],
-      ['KF', :spring, :las_links_listening, 'K / SPRING / LAS Links Listening']
-    ])
-  end
-
-  def data_points_for_first(shared, row)
-    import_data_points(shared, row, [
-      ['1', :fall, :dibels_lnf, '1 / FALL / LNF'],
-      ['1', :fall, :dibels_psf, '1 / FALL / PSF'],
-      ['1', :fall, :dibels_nwf_cls, '1 / FALL / NWF CLS'],
-      ['1', :fall, :dibels_nwf_wwr, '1 / FALL / NWF WWR'],
-      ['1', :fall, :instructional_needs, '1 / FALL / Instructional needs'],
-      ['1', :fall, :f_and_p_english, '1 / FALL / F&P Level English'],
-      ['1', :fall, :f_and_p_spanish, '1 / FALL / F&P Level Spanish'],
-      ['1', :winter, :dibels_nwf_cls, '1 / WINTER / NWF CLS'],
-      ['1', :winter, :dibels_nwf_wwr, '1 / WINTER / NWF WWR'],
-      ['1', :winter, :dibels_dorf_wpm, '1 / WINTER / DORF WPM'],
-      ['1', :winter, :dibels_dorf_acc, '1 / WINTER / DORF ACC'],
-      ['1', :winter, :dibels_dorf_errors, '1 / WINTER / DORF Errors'],
-      ['1', :winter, :instructional_needs, '1 / WINTER / Instructional needs'],
-      ['1', :winter, :f_and_p_english, '1 / WINTER / F&P Level English'],
-      ['1', :winter, :f_and_p_spanish, '1 / WINTER / F&P Level Spanish'],
-      ['1', :spring, :dibels_nwf_cls, '1 / SPRING / NWF CLS'],
-      ['1', :spring, :dibels_nwf_wwr, '1 / SPRING / NWF WWR'],
-      ['1', :spring, :dibels_dorf_wpm, '1 / SPRING / DORF WPM'],
-      ['1', :spring, :dibels_dorf_acc, '1 / SPRING / DORF ACC'],
-      ['1', :spring, :dibels_dorf_errors, '1 / SPRING / DORF Errors'],
-      ['1', :spring, :instructional_needs, '1 / SPRING / Instructional needs'],
-      ['1', :spring, :f_and_p_english, '1 / SPRING / F&P Level English'],
-      ['1', :spring, :f_and_p_spanish, '1 / SPRING / F&P Level Spanish'],
-      ['1', :spring, :las_links_speaking, '1 / SPRING / LAS Links Speaking'],
-      ['1', :spring, :las_links_listening, '1 / SPRING / LAS Links Listening'],
-      ['1', :spring, :las_links_reading, '1 / SPRING / LAS Links Reading'],
-      ['1', :spring, :las_links_writing, '1 / SPRING / LAS Links Writing'],
-      ['1', :spring, :las_links_overall, '1 / SPRING / LAS Links Overall']
-    ])
-  end
-
-  def data_points_for_second(shared, row)
-    import_data_points(shared, row, [
-      ['2', :fall, :dibels_nwf_cls, '2 / FALL / NWF-CLS'],
-      ['2', :fall, :dibels_nwf_wwr, '2 / FALL / NWF-WWR'],
-      ['2', :fall, :dibels_dorf_wpm, '2 / FALL / DORF WPM'],
-      ['2', :fall, :dibels_dorf_acc, '2 / FALL / DORF ACC'],
-      ['2', :fall, :dibels_dorf_errors, '2 / FALL / DORF Errors'],
-      ['2', :fall, :instructional_needs, '2 / FALL / Instructional needs'],
-      ['2', :fall, :f_and_p_english, '2 / FALL / F&P Level English'],
-      ['2', :fall, :f_and_p_spanish, '2 / FALL / F&P Level Spanish'],
-      ['2', :winter, :dibels_dorf_wpm, '2 / WINTER / DORF WPM'],
-      ['2', :winter, :dibels_dorf_acc, '2 / WINTER / DORF ACC'],
-      ['2', :winter, :dibels_dorf_errors, '2 / WINTER / DORF Errors'],
-      ['2', :winter, :instructional_needs, '2 / WINTER / Instructional needs'],
-      ['2', :winter, :f_and_p_english, '2 / WINTER / F&P Level English'],
-      ['2', :winter, :f_and_p_spanish, '2 / WINTER / F&P Level Spanish'],
-      ['2', :spring, :dibels_dorf_wpm, '2 / SPRING / DORF WPM'],
-      ['2', :spring, :dibels_dorf_acc, '2 / SPRING / DORF ACC'],
-      ['2', :spring, :dibels_dorf_errors, '2 / SPRING / DORF Errors'],
-      ['2', :spring, :instructional_needs, '2 / SPRING / Instructional needs'],
-      ['2', :spring, :f_and_p_english, '2 / SPRING / F&P Level English'],
-      ['2', :spring, :f_and_p_spanish, '2 / SPRING / F&P Level Spanish'],
-      ['2', :spring, :las_links_speaking, '2 / SPRING / LAS Links Speaking'],
-      ['2', :spring, :las_links_listening, '2 / SPRING / LAS Links Listening'],
-      ['2', :spring, :las_links_reading, '2 / SPRING / LAS Links Reading'],
-      ['2', :spring, :las_links_writing, '2 / SPRING / LAS Links Writing'],
-      ['2', :spring, :las_links_overall, '2 / SPRING / LAS Links Overall']
-    ])
-  end
-
-  def data_points_for_third(shared, row)
-    import_data_points(shared, row, [
-      ['3', :fall, :dibels_dorf_wpm, '3 / FALL / DORF WPM'],
-      ['3', :fall, :dibels_dorf_acc, '3 / FALL / DORF ACC'],
-      ['3', :fall, :dibels_dorf_errors, '3 / FALL / DORF Errors'],
-      ['3', :fall, :instructional_needs, '3 / FALL / Instructional needs'],
-      ['3', :fall, :f_and_p_english, '3 / FALL / F&P Level English'],
-      ['3', :fall, :f_and_p_spanish, '3 / FALL / F&P Level Spanish'],
-      ['3', :winter, :dibels_dorf_wpm, '3 / WINTER / DORF WPM'],
-      ['3', :winter, :dibels_dorf_acc, '3 / WINTER / DORF ACC'],
-      ['3', :winter, :dibels_dorf_errors, '3 / WINTER / DORF Errors'],
-      ['3', :winter, :instructional_needs, '3 / WINTER / Instructional needs'],
-      ['3', :winter, :f_and_p_english, '3 / WINTER / F&P Level English'],
-      ['3', :winter, :f_and_p_spanish, '3 / WINTER / F&P Level Spanish'],
-      ['3', :spring, :dibels_dorf_wpm, '3 / SPRING / DORF WPM'],
-      ['3', :spring, :dibels_dorf_acc, '3 / SPRING / DORF ACC'],
-      ['3', :spring, :dibels_dorf_errors, '3 / SPRING / DORF Errors'],
-      ['3', :spring, :instructional_needs, '3 / SPRING / Instructional needs'],
-      ['3', :spring, :f_and_p_english, '3 / SPRING / F&P Level English'],
-      ['3', :spring, :f_and_p_spanish, '3 / SPRING / F&P Level Spanish'],
-      ['3', :spring, :las_links_speaking, '3 / SPRING / LAS Links Speaking'],
-      ['3', :spring, :las_links_listening, '3 / SPRING / LAS Links Listening'],
-      ['3', :spring, :las_links_reading, '3 / SPRING / LAS Links Reading'],
-      ['3', :spring, :las_links_writing, '3 / SPRING / LAS Links Writing'],
-      ['3', :spring, :las_links_overall, '3 / SPRING / LAS Links Overall']
-    ])
-  end
-
-  def data_points_for_fourth(shared, row)
-    import_data_points(shared, row, [
-      ['4', :fall, :instructional_needs, '4 / FALL / Instructional needs'],
-      ['4', :fall, :f_and_p_english, '4 / FALL / F&P Level English'],
-      ['4', :fall, :f_and_p_spanish, '4 / FALL / F&P Level Spanish'],
-      ['4', :winter, :instructional_needs, '4 / WINTER / Instructional needs'],
-      ['4', :winter, :f_and_p_english, '4 / WINTER / F&P Level English'],
-      ['4', :winter, :f_and_p_spanish, '4 / WINTER / F&P Level Spanish'],
-      ['4', :spring, :instructional_needs, '4 / SPRING / Instructional needs'],
-      ['4', :spring, :f_and_p_english, '4 / SPRING / F&P Level English'],
-      ['4', :spring, :f_and_p_spanish, '4 / SPRING / F&P Level Spanish']
-    ])
-  end
-
-  def data_points_for_fifth(shared, row)
-    import_data_points(shared, row, [
-      ['5', :fall, :instructional_needs, '5 / FALL / Instructional needs'],
-      ['5', :fall, :f_and_p_english, '5 / FALL / F&P Level English'],
-      ['5', :fall, :f_and_p_spanish, '5 / FALL / F&P Level Spanish'],
-      ['5', :winter, :instructional_needs, '5 / WINTER / Instructional needs'],
-      ['5', :winter, :f_and_p_english, '5 / WINTER / F&P Level English'],
-      ['5', :winter, :f_and_p_spanish, '5 / WINTER / F&P Level Spanish'],
-      ['5', :spring, :instructional_needs, '5 / SPRING} / Instructional needs'],
-      ['5', :spring, :f_and_p_english, '5 / SPRING} / F&P Level English'],
-      ['5', :spring, :f_and_p_spanish, '5 / SPRING} / F&P Level Spanish']
-    ])
-  end
-
   # just sugar for unrolling these
   def import_data_points(shared, row, tuples)
     data_point_rows = []
     tuples.each do |tuple|
-      grade, assessment_period, assessment_key, row_key = tuple
+      grade, assessment_period, assessment_key, import_column_key = tuple
 
       # If the key isn't there, skip it silently.  This treats
       # each row as if it were really wide with only some columns present.
-      if !row.has_key?(row_key)
+      if !row.has_key?(import_column_key)
         next
       end
 
       # This isn't necessarily a problem, for many templates there are fields
       # that are filled out as the year progresses.
-      data_point = row[row_key]
+      data_point = row[import_column_key]
       if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
         @blank_data_points_count += 1
         next
@@ -322,6 +173,193 @@ class MegaReadingProcessor
       data_point_rows << data_point_row
     end
     data_point_rows
+  end
+
+  def all_import_tuples
+    (
+      tuples_for_kindergarten() +
+      tuples_for_first() +
+      tuples_for_second() +
+      tuples_for_third() +
+      tuples_for_fourth() +
+      tuples_for_fifth()
+    )
+  end
+
+  def tuples_for_kindergarten()
+    [
+      default_tuple('KF', :fall, :dibels_fsf),
+      default_tuple('KF', :fall, :dibels_lnf),
+      default_tuple('KF', :fall, :instructional_needs),
+      default_tuple('KF', :winter, :dibels_fsf),
+      default_tuple('KF', :winter, :dibels_lnf),
+      default_tuple('KF', :winter, :dibels_psf),
+      default_tuple('KF', :winter, :instructional_needs),
+      default_tuple('KF', :winter, :f_and_p_english),
+      default_tuple('KF', :winter, :f_and_p_spanish),
+      default_tuple('KF', :spring, :dibels_lnf),
+      default_tuple('KF', :spring, :dibels_psf),
+      default_tuple('KF', :spring, :dibels_nwf_cls),
+      default_tuple('KF', :spring, :dibels_nwf_wwr),
+      default_tuple('KF', :spring, :instructional_needs),
+      default_tuple('KF', :spring, :f_and_p_english),
+      default_tuple('KF', :spring, :f_and_p_spanish),
+      default_tuple('KF', :spring, :las_links_speaking),
+      default_tuple('KF', :spring, :las_links_listening),
+    ]
+  end
+
+  def tuples_for_first()
+    [
+      default_tuple('1', :fall, :dibels_lnf),
+      default_tuple('1', :fall, :dibels_psf),
+      default_tuple('1', :fall, :dibels_nwf_cls),
+      default_tuple('1', :fall, :dibels_nwf_wwr),
+      default_tuple('1', :fall, :instructional_needs),
+      default_tuple('1', :fall, :f_and_p_english),
+      default_tuple('1', :fall, :f_and_p_spanish),
+      default_tuple('1', :winter, :dibels_nwf_cls),
+      default_tuple('1', :winter, :dibels_nwf_wwr),
+      default_tuple('1', :winter, :dibels_dorf_wpm),
+      default_tuple('1', :winter, :dibels_dorf_acc),
+      default_tuple('1', :winter, :dibels_dorf_errors),
+      default_tuple('1', :winter, :instructional_needs),
+      default_tuple('1', :winter, :f_and_p_english),
+      default_tuple('1', :winter, :f_and_p_spanish),
+      default_tuple('1', :spring, :dibels_nwf_cls),
+      default_tuple('1', :spring, :dibels_nwf_wwr),
+      default_tuple('1', :spring, :dibels_dorf_wpm),
+      default_tuple('1', :spring, :dibels_dorf_acc),
+      default_tuple('1', :spring, :dibels_dorf_errors),
+      default_tuple('1', :spring, :instructional_needs),
+      default_tuple('1', :spring, :f_and_p_english),
+      default_tuple('1', :spring, :f_and_p_spanish),
+      default_tuple('1', :spring, :las_links_speaking),
+      default_tuple('1', :spring, :las_links_listening),
+      default_tuple('1', :spring, :las_links_reading),
+      default_tuple('1', :spring, :las_links_writing),
+      default_tuple('1', :spring, :las_links_overall)
+    ]
+  end
+
+  def tuples_for_second()
+    [
+      default_tuple('2', :fall, :dibels_nwf_cls),
+      default_tuple('2', :fall, :dibels_nwf_wwr),
+      default_tuple('2', :fall, :dibels_dorf_wpm),
+      default_tuple('2', :fall, :dibels_dorf_acc),
+      default_tuple('2', :fall, :dibels_dorf_errors),
+      default_tuple('2', :fall, :instructional_needs),
+      default_tuple('2', :fall, :f_and_p_english),
+      default_tuple('2', :fall, :f_and_p_spanish),
+      default_tuple('2', :winter, :dibels_dorf_wpm),
+      default_tuple('2', :winter, :dibels_dorf_acc),
+      default_tuple('2', :winter, :dibels_dorf_errors),
+      default_tuple('2', :winter, :instructional_needs),
+      default_tuple('2', :winter, :f_and_p_english),
+      default_tuple('2', :winter, :f_and_p_spanish),
+      default_tuple('2', :spring, :dibels_dorf_wpm),
+      default_tuple('2', :spring, :dibels_dorf_acc),
+      default_tuple('2', :spring, :dibels_dorf_errors),
+      default_tuple('2', :spring, :instructional_needs),
+      default_tuple('2', :spring, :f_and_p_english),
+      default_tuple('2', :spring, :f_and_p_spanish),
+      default_tuple('2', :spring, :las_links_speaking),
+      default_tuple('2', :spring, :las_links_listening),
+      default_tuple('2', :spring, :las_links_reading),
+      default_tuple('2', :spring, :las_links_writing),
+      default_tuple('2', :spring, :las_links_overall)
+    ]
+  end
+
+  def tuples_for_third()
+    [
+      default_tuple('3', :fall, :dibels_dorf_wpm),
+      default_tuple('3', :fall, :dibels_dorf_acc),
+      default_tuple('3', :fall, :dibels_dorf_errors),
+      default_tuple('3', :fall, :instructional_needs),
+      default_tuple('3', :fall, :f_and_p_english),
+      default_tuple('3', :fall, :f_and_p_spanish),
+      default_tuple('3', :winter, :dibels_dorf_wpm),
+      default_tuple('3', :winter, :dibels_dorf_acc),
+      default_tuple('3', :winter, :dibels_dorf_errors),
+      default_tuple('3', :winter, :instructional_needs),
+      default_tuple('3', :winter, :f_and_p_english),
+      default_tuple('3', :winter, :f_and_p_spanish),
+      default_tuple('3', :spring, :dibels_dorf_wpm),
+      default_tuple('3', :spring, :dibels_dorf_acc),
+      default_tuple('3', :spring, :dibels_dorf_errors),
+      default_tuple('3', :spring, :instructional_needs),
+      default_tuple('3', :spring, :f_and_p_english),
+      default_tuple('3', :spring, :f_and_p_spanish),
+      default_tuple('3', :spring, :las_links_speaking),
+      default_tuple('3', :spring, :las_links_listening),
+      default_tuple('3', :spring, :las_links_reading),
+      default_tuple('3', :spring, :las_links_writing),
+      default_tuple('3', :spring, :las_links_overall)
+    ]
+  end
+
+  def tuples_for_fourth()
+    [
+      default_tuple('4', :fall, :instructional_needs),
+      default_tuple('4', :fall, :f_and_p_english),
+      default_tuple('4', :fall, :f_and_p_spanish),
+      default_tuple('4', :winter, :instructional_needs),
+      default_tuple('4', :winter, :f_and_p_english),
+      default_tuple('4', :winter, :f_and_p_spanish),
+      default_tuple('4', :spring, :instructional_needs),
+      default_tuple('4', :spring, :f_and_p_english),
+      default_tuple('4', :spring, :f_and_p_spanish)
+    ]
+  end
+
+  def tuples_for_fifth()
+    [
+      default_tuple('5', :fall, :instructional_needs),
+      default_tuple('5', :fall, :f_and_p_english),
+      default_tuple('5', :fall, :f_and_p_spanish),
+      default_tuple('5', :winter, :instructional_needs),
+      default_tuple('5', :winter, :f_and_p_english),
+      default_tuple('5', :winter, :f_and_p_spanish),
+      default_tuple('5', :spring, :instructional_needs),
+      default_tuple('5', :spring, :f_and_p_english),
+      default_tuple('5', :spring, :f_and_p_spanish)
+    ]
+  end
+
+  def default_tuple(grade, benchmark_period_key, benchmark_assessment_key)
+    import_assessment_key = lookup_import_assessment_key(benchmark_assessment_key)
+    import_column_key = [
+      grade == 'KF' ? 'K' : grade, # translate b/c of decision in original template, designed for educator readability
+      benchmark_period_key.upcase,
+      import_assessment_key
+    ].join(' / ')
+    [grade, benchmark_period_key, benchmark_assessment_key, import_column_key]
+  end
+
+  # These should all be the same across periods, unless explicitly defined otherwise.
+  def lookup_import_assessment_key(benchmark_assessment_key)
+    import_key = {
+      dibels_fsf: 'FSF',
+      dibels_lnf: 'LNF',
+      dibels_psf: 'PSF',
+      instructional_needs: 'Instructional needs',
+      f_and_p_english: 'F&P Level English',
+      f_and_p_spanish: 'F&P Level Spanish',
+      dibels_dorf_wpm: 'ORF WPM',
+      dibels_dorf_acc: 'ORF ACC',
+      dibels_dorf_errors: 'ORF Errors',
+      dibels_nwf_cls: 'NWF CLS',
+      dibels_nwf_wwr: 'NWF WWR',
+      las_links_speaking: 'LAS Links Speaking',
+      las_links_listening: 'LAS Links Listening',
+      las_links_reading: 'LAS Links Reading',
+      las_links_writing: 'LAS Links Writing',
+      las_links_overall: 'LAS Links Overall'
+    }.fetch(benchmark_assessment_key, nil)
+    raise "could not find import_key for benchmark_assessment_key:#{benchmark_assessment_key}" if import_key.nil?
+    import_key
   end
 
   def log(msg)
