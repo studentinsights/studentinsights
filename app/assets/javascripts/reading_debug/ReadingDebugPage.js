@@ -164,9 +164,7 @@ export class ReadingDebugView extends React.Component {
               onClick={this.onFlippedClicked}>Flip table</div>
           </div>
           <div>
-            <a
-              target="_blank" rel="noopener noreferrer"
-              href="https://github.com/studentinsights/studentinsights/blob/master/app/assets/javascripts/reading/thresholds.js">thresholds</a>
+            <a target="_blank" rel="noopener noreferrer" href="/reading/thresholds">thresholds</a>
           </div>
         </div>
         {this.renderGrid()}
@@ -328,6 +326,7 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderTable() {
+    const {nowFn} = this.context;
     const {students} = this.props;
     const {benchmarkAssessmentKey, selection} = this.state;
     if (selection === null) {
@@ -372,18 +371,19 @@ export class ReadingDebugView extends React.Component {
                 label='Name'
                 dataKey='name'
                 cellRenderer={this.renderName}
-                width={260}
+                width={240}
               />
               <Column
                 label='Grade'
                 dataKey='grade'
-                width={100}
+                width={80}
               />
               <Column
                 label='Value'
                 dataKey='value'
                 cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
-                width={100}
+                width={240}
+                flexGrow={1}
               />
             </Table>
           )}
@@ -421,26 +421,38 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderDibelsValue(student, dataPoints, benchmarkPeriodKey) {
-    const {benchmarkAssessmentKey} = this.state;
+    const {nowFn} = this.context;
+    const {selection, benchmarkAssessmentKey} = this.state;
+    const {year} = selection;
     return (
-      <div>
-        {dataPoints.map(d => (
-          <div key={d.id}>
-            {renderDibels(d.json.value, benchmarkAssessmentKey, student.grade, benchmarkPeriodKey)}
-          </div>
-        ))}
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        {dataPoints.map(d => {
+          const gradeThen = adjustedGrade(year, student.grade, nowFn());
+          return (
+            <div key={d.id}>
+              {renderDibels(d.json.value, benchmarkAssessmentKey, gradeThen, benchmarkPeriodKey)}
+            </div>
+          );
+        })}
       </div>
     );
   }
 
   renderFAndPValue(student, dataPoints, benchmarkPeriodKey) {
+    const {nowFn} = this.context;
+    const {year} = this.state.selection;
     return (
-      <div>
-        {dataPoints.map(d => (
-          <div key={d.id} style={{display: 'flex', flexDirection: 'row'}}>
-            {renderFAndPLevel(d.json.value, student.grade, benchmarkPeriodKey)}
-          </div>
-        ))}
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        {_.sortBy(dataPoints, d => d.updated_at).map(d => {
+          const gradeThen = adjustedGrade(year, student.grade, nowFn());
+          return (
+            <div key={d.id}
+              title={JSON.stringify({gradeThen, benchmarkPeriodKey, d}, null, 2)}
+              style={{display: 'flex', flexDirection: 'row'}}>
+              {renderFAndPLevel(d.json.value, gradeThen, benchmarkPeriodKey, year)}
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -492,10 +504,10 @@ const styles = {
 };
 
 
-function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
-  if (!text) return none();
+function renderFAndPLevel(text, grade, benchmarkPeriodKey, year) {
+  if (!text) return null;
   const level = interpretFAndPEnglish(text);
-  if (!level) return none();
+  if (!level) return null;
 
   const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
   const color = {
@@ -503,7 +515,12 @@ function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
     medium,
     low
   }[category] || missing;
-  return badgeWithPadding(level, color);
+  return (
+    <div style={{display: 'flex', alignItems: 'center'}}>
+      {badgeWithPadding(level, color)}
+      <div style={{marginLeft: 10, fontSize: 10}}>{gradeText(grade)}, {benchmarkPeriodKey} {year}-{year+1}</div> 
+    </div>
+  );
 }
 
 function renderDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
