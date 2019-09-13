@@ -1,0 +1,351 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots across test cases 1`] = `
+<div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello 
+    </span>
+    <a
+      href="https://example.com/page?query=yes"
+      rel="noopener noreferrer"
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+      target="_blank"
+    >
+      https://example.com/page?query=yes
+    </a>
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+       goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello 
+    </span>
+    <a
+      href="https://example.com/page?query=yes+please#also-this"
+      rel="noopener noreferrer"
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+      target="_blank"
+    >
+      https://example.com/page?query=yes+please#also-this
+    </a>
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+       goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello 
+    </span>
+    <a
+      href="https://example.com/"
+      rel="noopener noreferrer"
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+      target="_blank"
+    >
+      https://example.com/
+    </a>
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+       goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello 
+    </span>
+    <a
+      href="https://example.com"
+      rel="noopener noreferrer"
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+      target="_blank"
+    >
+      https://example.com
+    </a>
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+       goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello https://sub.example.com goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello http://example.com goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello example.com goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello 
+    </span>
+    <a
+      href="https://sub.test.com/"
+      rel="noopener noreferrer"
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+      target="_blank"
+    >
+      https://sub.test.com/
+    </a>
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+       goodbye
+    </span>
+  </div>
+  <div
+    className="LinkifyNoteText"
+    style={Object {}}
+  >
+    <span
+      style={
+        Object {
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      hello https://test.com/ goodbye
+    </span>
+  </div>
+</div>
+`;

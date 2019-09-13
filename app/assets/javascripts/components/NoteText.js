@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import LinkifyNoteText from './LinkifyNoteText';
 
 
 // The sizing for long text with no space (eg, URLs) is different
@@ -23,17 +24,23 @@ export const exportedNoteText = {
 
 // A visual component for rendering just the text content of an EventNote.
 function NoteText(props) {
-  const {text, style} = props;
-  return (
-    <div className="NoteText" style={{...exportedNoteText, ...style}}>
-      {text}
-    </div>
-  );
+  const {text, disableLinks, style} = props;
+  
+  if (disableLinks) {
+    return (
+      <div className="NoteText" style={{...exportedNoteText, ...style}}>
+        {text}
+      </div>
+    );
+  }
+
+  return <LinkifyNoteText style={{...exportedNoteText, ...style}} text={text} />;
 }
 
 NoteText.propTypes = {
   text: PropTypes.string.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  disableLinks: PropTypes.bool
 };
 
 export default NoteText;
