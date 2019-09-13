@@ -33,7 +33,6 @@ RSpec.describe SomervilleMegaReadingImporter do
       ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME'] = "uri"
       importer = SomervilleMegaReadingImporter.new(files_path: fixture_file_location)
       importer.import
-      puts ReadingBenchmarkDataPoint.all.to_json
       expect(ReadingBenchmarkDataPoint.where(
         student_id: pluto.id
       ).size).to eq(14)
@@ -51,7 +50,19 @@ RSpec.describe SomervilleMegaReadingImporter do
           student_id: pluto.id,
           benchmark_period_key: "winter",
           benchmark_assessment_key: "dibels_fsf"
-        ).first.json["value"]).to eq(25)
+        ).first.json["value"]).to eq("25")
+
+      expect(ReadingBenchmarkDataPoint.where(
+          student_id: donald.id,
+          benchmark_period_key: "spring",
+          benchmark_assessment_key: "f_and_p_spanish"
+        ).size).to eq(1)
+
+      expect(ReadingBenchmarkDataPoint.where(
+          student_id: pluto.id,
+          benchmark_period_key: "spring",
+          benchmark_assessment_key: "f_and_p_spanish"
+        ).first.json["value"]).to eq("AA")
 
 
     end

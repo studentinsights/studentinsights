@@ -20,7 +20,7 @@ class SomervilleMegaReadingImporter
     # TODO do any initialization before the core loop
     log('Starting loop...')
     reset_counters!
-    processor = MegaReadingProcessor.new({header_rows_count: 2})
+    processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, 2018)
     streaming_csvs.each_with_index do |csv, index|
       rows, meta = processor.process(csv)
       log("processed #{index} sheets.")
@@ -69,6 +69,13 @@ class SomervilleMegaReadingImporter
     SchoolYear.to_school_year(Time.now)
   end
 
+  def read_uploaded_by_educator_from_env
+    educator_login_name = ENV.fetch('READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME', '')
+    uploaded_by_educator = Educator.find_by_login_name(educator_login_name).id
+    raise '#read_uploaded_by_educator_from_env found nil' if uploaded_by_educator.nil?
+    uploaded_by_educator
+  end
+
   def import_row(row, index)
     benchmark_data_point = matching_student_insights_record_for_row(row)
 
@@ -87,14 +94,14 @@ class SomervilleMegaReadingImporter
 
     benchmark_data_point = ReadingBenchmarkDataPoint.find_or_initialize_by(
       student_id: row[:student_id],
-      educator: Educator.find(row[:imported_by_educator_id]), #because sheets don't explicitly link an educator to a record
+      educator: Educator.find(row[:educator_id]), #because sheets don't explicitly link an educator to a record
       benchmark_school_year: get_current_school_year,
-      benchmark_period_key: row[:assessment_period],
-      benchmark_assessment_key: row[:assessment_key]
+      benchmark_period_key: row[:benchmark_period_key],
+      benchmark_assessment_key: row[:benchmark_assessment_key]
     )
 
     benchmark_data_point.assign_attributes(
-      json: {value: row[:data_point]}
+      json: row[:json]
     )
 
     benchmark_data_point

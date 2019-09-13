@@ -32,8 +32,6 @@ class MegaReadingProcessor
 
     # parse
     rows = []
-    #last row before data is the header
-    # string = (@header_rows_count > 1) ? file_text.lines[@header_rows_count-1..-1].join : file_text
     StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
       flattened_rows = flat_map_rows(row, index)
       next if flattened_rows.nil?
