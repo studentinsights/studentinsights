@@ -19,7 +19,8 @@ class SomervilleMegaReadingImporter
 
     # TODO do any initialization before the core loop
     log('Starting loop...')
-    reset_counters!
+    @skipped_from_school_filter = 0
+
     processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, 2018)
     streaming_csvs.each_with_index do |csv, index|
       rows, meta = processor.process(csv)
@@ -77,11 +78,20 @@ class SomervilleMegaReadingImporter
   end
 
   def import_row(row, index)
-    benchmark_data_point = matching_student_insights_record_for_row(row)
+    # Skip based on school filter
+    # if !school_filter.include?(row[:school_local_id])
+    #   @skipped_from_school_filter += 1
+    #   return
+    # end
 
+    benchmark_data_point = matching_student_insights_record_for_row(row)
     benchmark_data_point.save!
     # TODO the main loop!  has to respect options passed to the
     # importer (eg, school_ids_ids filter)
+  end
+
+  def school_filter
+    SchoolFilter.new(@school_local_ids)
   end
 
   def records_within_scope

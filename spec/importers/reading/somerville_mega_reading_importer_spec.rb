@@ -63,10 +63,6 @@ RSpec.describe SomervilleMegaReadingImporter do
           benchmark_period_key: "spring",
           benchmark_assessment_key: "f_and_p_spanish"
         ).first.json["value"]).to eq("AA")
-
-
     end
   end
-
-
 end
