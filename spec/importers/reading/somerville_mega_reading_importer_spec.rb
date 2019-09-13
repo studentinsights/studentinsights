@@ -28,41 +28,32 @@ RSpec.describe SomervilleMegaReadingImporter do
   end
 
   describe 'import events' do
-    it 'imports all records in csv' do
+    it 'imports a csv' do
       pluto, donald = create_students!
       ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME'] = "uri"
       importer = SomervilleMegaReadingImporter.new(files_path: fixture_file_location)
       importer.import
-      reading_data = ReadingBenchmarkDataPoint.all
-      expect(reading_data.as_json(except: [:id, :created_at, :updated_at])).to contain_exactly(*[
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "fall","benchmark_assessment_key" => "dibels_lnf","json" => "1","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "dibels_fsf","json" => "25","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "dibels_lnf","json" => "18","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "dibels_psf","json" => "9","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "f_and_p_english","json" => "AA","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "f_and_p_spanish","json" => "AA","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_lnf","json" => "35","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_psf","json" => "28","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_nwf_cls","json" => "25","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_nwf_wwr","json" => "0","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "f_and_p_english","json" => "AA","educator_id" => pals.uri.id,},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "f_and_p_spanish","json" => "AA","educator_id" => pals.uri.id,},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "las_links_speaking","json" => "1","educator_id" => pals.uri.id},
-        {"student_id" => pluto.id,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "las_links_listening","json" => "1","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "fall","benchmark_assessment_key" => "dibels_lnf","json" => "5","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "dibels_fsf","json" => "26","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "dibels_lnf","json" => "19","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "dibels_psf","json" => "10","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "f_and_p_english","json" => "A","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "winter","benchmark_assessment_key" => "f_and_p_spanish","json" => "A","educator_id" => pals.uri.id,},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_lnf","json" => "36","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_psf","json" => "29","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_nwf_cls","json" => "26","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "dibels_nwf_wwr","json" => "1","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "f_and_p_english","json" => "A","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "f_and_p_spanish","json" => "A","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "las_links_speaking","json" => "2","educator_id" => pals.uri.id},
-        {"student_id" => 7,"benchmark_school_year" => 2019,"benchmark_period_key" => "spring","benchmark_assessment_key" => "las_links_listening","json" => "2","educator_id" => pals.uri.id}])
+      puts ReadingBenchmarkDataPoint.all.to_json
+      expect(ReadingBenchmarkDataPoint.where(
+        student_id: pluto.id
+      ).size).to eq(14)
+      expect(ReadingBenchmarkDataPoint.where(
+        student_id: donald.id
+      ).size).to eq(14)
+
+      expect(ReadingBenchmarkDataPoint.where(
+          student_id: pluto.id,
+          benchmark_period_key: "winter",
+          benchmark_assessment_key: "dibels_fsf"
+        ).size).to eq(1)
+
+      expect(ReadingBenchmarkDataPoint.where(
+          student_id: pluto.id,
+          benchmark_period_key: "winter",
+          benchmark_assessment_key: "dibels_fsf"
+        ).first.json["value"]).to eq(25)
+
+
     end
   end
 

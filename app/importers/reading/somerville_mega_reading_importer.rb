@@ -94,7 +94,7 @@ class SomervilleMegaReadingImporter
     )
 
     benchmark_data_point.assign_attributes(
-      json: row[:data_point]
+      json: {value: row[:data_point]}
     )
 
     benchmark_data_point
