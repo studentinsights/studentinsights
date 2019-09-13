@@ -12,7 +12,6 @@ export function testProps(props = {}) {
       "student_id": 1,
       "form_timestamp": "2018-03-13T11:03:00.000Z",
       "form_key": "bedford_end_of_year_transition_one",
-      "form_url": "https://example.com/form_url",
       "form_json": {
         "LLI": "yes",
         "Reading Intervention (w/ specialist)": null,

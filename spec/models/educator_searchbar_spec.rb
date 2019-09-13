@@ -22,18 +22,18 @@ RSpec.describe EducatorSearchbar do
     context 'educator has permissions for a few students' do
       let(:school) { FactoryBot.create(:school, local_id: 'Big River High') }
       let!(:betsy) { FactoryBot.create(:student, first_name: 'Betsy', last_name: 'Ramirez', school: school, grade: '3') }
-      let!(:bettina) { FactoryBot.create(:student, first_name: 'Bettina', last_name: 'Abbas', school: school, grade: '3') }
+      let!(:carlos) { FactoryBot.create(:student, first_name: 'Carlos', last_name: 'Abbas', school: school, grade: '3') }
       let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
       it 'saves the correct JSON' do
         json = EducatorSearchbar.update_student_searchbar_json!(educator)
         expect(json).to contain_exactly(*[
           { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" },
-          { "id" => bettina.id, "label" => "Bettina Abbas - Big River High - 3" }
+          { "id" => carlos.id, "label" => "Carlos Abbas - Big River High - 3" }
         ])
         expect(EducatorSearchbar.student_searchbar_json_for(educator)).to eq([
           { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" },
-          { "id" => bettina.id, "label" => "Bettina Abbas - Big River High - 3" }
+          { "id" => carlos.id, "label" => "Carlos Abbas - Big River High - 3" }
         ])
       end
     end

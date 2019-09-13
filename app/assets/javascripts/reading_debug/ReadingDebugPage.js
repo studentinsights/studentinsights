@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import ReactModal from 'react-modal';
+import {adjustedGrade, gradeText} from '../helpers/gradeText';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {
@@ -85,6 +86,7 @@ export default class ReadingDebugPage extends React.Component {
       <ReadingDebugView
         students={json.students}
         groups={json.groups}
+        studentCountsByGrade={json.student_counts_by_grade}
       />
     );
   }
@@ -100,6 +102,7 @@ export class ReadingDebugView extends React.Component {
       visualization: ALL
     };
 
+    this.renderGradeForGrid = this.renderGradeForGrid.bind(this);
     this.renderName = this.renderName.bind(this);
     this.onCellClicked = this.onCellClicked.bind(this);
     this.onBenchmarkAssessmentKeyChanged = this.onBenchmarkAssessmentKeyChanged.bind(this);
@@ -161,9 +164,7 @@ export class ReadingDebugView extends React.Component {
               onClick={this.onFlippedClicked}>Flip table</div>
           </div>
           <div>
-            <a
-              target="_blank" rel="noopener noreferrer"
-              href="https://github.com/studentinsights/studentinsights/blob/master/app/assets/javascripts/reading/thresholds.js">thresholds</a>
+            <a target="_blank" rel="noopener noreferrer" href="/reading/thresholds">thresholds</a>
           </div>
         </div>
         {this.renderGrid()}
@@ -219,6 +220,7 @@ export class ReadingDebugView extends React.Component {
     return (
       <GradeTimeGrid
         intervals={intervals}
+        renderGradeFn={this.renderGradeForGrid}
         grades={grades}
         renderCellFn={cellParams => (
           <div style={{minWidth: 80, minHeight: 40, overflow: 'hidden'}}>
@@ -232,20 +234,36 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
+  renderGradeForGrid(grade) {
+    const {studentCountsByGrade} = this.props;
+    const studentCount = studentCountsByGrade[grade] || 0;
+    return (
+      <div>
+        <div>{gradeText(grade)} now</div>
+        <div style={{color: '#aaa', fontSize: 10}}>{studentCount} students</div>
+      </div>
+    );
+  }
+
   renderCell(groups, {grade, year, period}) {
+    const {nowFn} = this.context;
     const {benchmarkAssessmentKey} = this.state;
     const dataPoints = this.dataPointsForGroup({year, period, grade});
     if (dataPoints.length === 0) return null;
 
-    if (isDibels(benchmarkAssessmentKey)) return this.renderDibelsCell(dataPoints, {grade, year, period});
-    if (benchmarkAssessmentKey === F_AND_P_ENGLISH) return this.renderFAndPCell(dataPoints, {grade, year, period});
-    if (benchmarkAssessmentKey === F_AND_P_SPANISH) return this.renderFAndPCell(dataPoints, {grade, year, period});
+    // guess as grade at time of assessment
+    const gradeThen = adjustedGrade(year, grade, nowFn());
+
+    if (isDibels(benchmarkAssessmentKey)) return this.renderDibelsCell(dataPoints, gradeThen, {grade, year, period});
+    if (benchmarkAssessmentKey === F_AND_P_ENGLISH) return this.renderFAndPCell(dataPoints, gradeThen, {grade, year, period});
+    if (benchmarkAssessmentKey === F_AND_P_SPANISH) return this.renderFAndPCell(dataPoints, gradeThen, {grade, year, period});
 
     // else
-    return <div style={{textAlign: 'center'}} title={JSON.stringify(dataPoints)}>{dataPoints.length}</div>;
+    return <div style={{textAlign: 'center'}} title={JSON.stringify({gradeThen, dataPoints})}>{dataPoints.length}</div>;
   }
 
-  renderDibelsCell(dataPoints, {grade, year, period}) {
+  renderDibelsCell(dataPoints, gradeThen, {grade, year, period}) {
+    const {studentCountsByGrade} = this.props;
     const {benchmarkAssessmentKey, visualization} = this.state;
     if (dataPoints.length === 0) return null;
 
@@ -267,29 +285,37 @@ export class ReadingDebugView extends React.Component {
       [DIBELS_STRATEGIC]: 0,
       [DIBELS_INTENSIVE]: 0
     };
+    const studentIds = {};
     dataPoints.forEach(d => {
-      if (!d.json.value) return;
-      const category = classifyDibels(d.json.value, benchmarkAssessmentKey, grade, period);
-      if (!category) return;
-      dibelsCounts[category] = dibelsCounts[category] + 1;
+      if (d.json.value) {
+        const category = classifyDibels(d.json.value, benchmarkAssessmentKey, gradeThen, period);
+        if (category) {
+          dibelsCounts[category] = dibelsCounts[category] + 1;
+          studentIds[d.student_id] = (studentIds[d.student_id] || 0) + 1;
+          return;
+        }
+      }
     });
+
+    // 'students' - 'students with valid data points'
+    const missingCount = studentCountsByGrade[grade] - Object.keys(studentIds).length;
     return (
       <DibelsBreakdownBar
         coreCount={dibelsCounts[DIBELS_CORE]}
         intensiveCount={dibelsCounts[DIBELS_STRATEGIC]}
         strategicCount={dibelsCounts[DIBELS_INTENSIVE]}
-        missingCount={dibelsCounts[DIBELS_UNKNOWN]}
+        missingCount={missingCount}
         height={5}
         labelTop={5}
       />
     );
   }
 
-  renderFAndPCell(dataPoints, {grade, year, period}) {
+  renderFAndPCell(dataPoints, gradeThen, {year, period}) {
     const fAndPValuesWithNulls = dataPoints.map(dataPoint => dataPoint.json.value);
     return (
       <FountasAndPinellBreakdown
-        grade={grade}
+        grade={gradeThen}
         benchmarkPeriodKey={period}
         fAndPValuesWithNulls={fAndPValuesWithNulls}
         includeMissing={true}
@@ -300,6 +326,7 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderTable() {
+    const {nowFn} = this.context;
     const {students} = this.props;
     const {benchmarkAssessmentKey, selection} = this.state;
     if (selection === null) {
@@ -344,18 +371,19 @@ export class ReadingDebugView extends React.Component {
                 label='Name'
                 dataKey='name'
                 cellRenderer={this.renderName}
-                width={260}
+                width={240}
               />
               <Column
                 label='Grade'
                 dataKey='grade'
-                width={100}
+                width={80}
               />
               <Column
                 label='Value'
                 dataKey='value'
                 cellRenderer={this.renderValue.bind(this, dataPointsByStudentId, period)}
-                width={100}
+                width={240}
+                flexGrow={1}
               />
             </Table>
           )}
@@ -393,32 +421,48 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderDibelsValue(student, dataPoints, benchmarkPeriodKey) {
-    const {benchmarkAssessmentKey} = this.state;
+    const {nowFn} = this.context;
+    const {selection, benchmarkAssessmentKey} = this.state;
+    const {year} = selection;
     return (
-      <div>
-        {dataPoints.map(d => (
-          <div key={d.id}>
-            {renderDibels(d.json.value, benchmarkAssessmentKey, student.grade, benchmarkPeriodKey)}
-          </div>
-        ))}
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        {dataPoints.map(d => {
+          const gradeThen = adjustedGrade(year, student.grade, nowFn());
+          return (
+            <div key={d.id}>
+              {renderDibels(d.json.value, benchmarkAssessmentKey, gradeThen, benchmarkPeriodKey)}
+            </div>
+          );
+        })}
       </div>
     );
   }
 
   renderFAndPValue(student, dataPoints, benchmarkPeriodKey) {
+    const {nowFn} = this.context;
+    const {year} = this.state.selection;
     return (
-      <div>
-        {dataPoints.map(d => (
-          <div key={d.id} style={{display: 'flex', flexDirection: 'row'}}>
-            {renderFAndPLevel(d.json.value, student.grade, benchmarkPeriodKey)}
-          </div>
-        ))}
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        {_.sortBy(dataPoints, d => d.updated_at).map(d => {
+          const gradeThen = adjustedGrade(year, student.grade, nowFn());
+          return (
+            <div key={d.id}
+              title={JSON.stringify({gradeThen, benchmarkPeriodKey, d}, null, 2)}
+              style={{display: 'flex', flexDirection: 'row'}}>
+              {renderFAndPLevel(d.json.value, gradeThen, benchmarkPeriodKey, year)}
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
+ReadingDebugView.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 ReadingDebugView.propTypes = {
   groups: PropTypes.object.isRequired,
+  studentCountsByGrade: PropTypes.object.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -460,10 +504,10 @@ const styles = {
 };
 
 
-function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
-  if (!text) return none();
+function renderFAndPLevel(text, grade, benchmarkPeriodKey, year) {
+  if (!text) return null;
   const level = interpretFAndPEnglish(text);
-  if (!level) return none();
+  if (!level) return null;
 
   const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
   const color = {
@@ -471,7 +515,12 @@ function renderFAndPLevel(text, grade, benchmarkPeriodKey) {
     medium,
     low
   }[category] || missing;
-  return badgeWithPadding(level, color);
+  return (
+    <div style={{display: 'flex', alignItems: 'center'}}>
+      {badgeWithPadding(level, color)}
+      <div style={{marginLeft: 10, fontSize: 10}}>{gradeText(grade)}, {benchmarkPeriodKey} {year}-{year+1}</div> 
+    </div>
+  );
 }
 
 function renderDibels(text, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {

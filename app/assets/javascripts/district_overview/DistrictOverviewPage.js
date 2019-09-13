@@ -90,6 +90,7 @@ export class DistrictOverviewPageView extends React.Component {
     const {currentEducator, enableStudentVoiceUploads} = this.props;
     if (!currentEducator.can_set_districtwide_access) return null;
 
+    const showReadingDebugLinks = (currentEducator.labels.indexOf('enable_reading_debug') !== -1);
     return (    
       <div>
         <div style={styles.iconAndTitle}>
@@ -141,11 +142,16 @@ export class DistrictOverviewPageView extends React.Component {
                STAR reading data
               </a>
             </li>
-            <li>
+            {showReadingDebugLinks && <li>
               <a href="/reading/debug" style={styles.link}>
                Benchmark reading data (eg, F&P)
               </a>
-            </li>
+            </li>}
+            {showReadingDebugLinks && <li>
+              <a href="/reading/thresholds" style={styles.link}>
+               Thresholds for reading benchmarks
+              </a>
+            </li>}
           </ul>
         </div>
 
@@ -185,11 +191,11 @@ export class DistrictOverviewPageView extends React.Component {
                Export discipline incidents CSV
               </a>
             </li>
-            <li>
+            {showReadingDebugLinks && <li>
               <a href="/reading/debug_csv" style={styles.link}>
                Export reading benchmark data CSV
               </a>
-            </li>
+            </li>}
             <li>
               Contact <HelpEmail /> for other exports
             </li>

@@ -6,7 +6,7 @@ import NoteText from '../components/NoteText';
 
 // Render part of the transition note inline
 export default function BedfordTransitionSubstanceForProfile(props) {
-  const {importedForm, studentFirstName} = props;
+  const {importedForm, studentFirstName, showSource} = props;
   const formJson = importedForm.form_json;
 
   const itemEls = _.compact([
@@ -20,14 +20,15 @@ export default function BedfordTransitionSubstanceForProfile(props) {
       {itemEls.map((itemEl, index) => (
         <div style={{marginBottom: 15}} key={index}>{itemEl}</div>
       ))}
-      <div><a href={importedForm.form_url} target="_blank" rel="noopener noreferrer">Source</a></div>
+      {showSource && importedForm.form_url && <div><a href={importedForm.form_url} target="_blank" rel="noopener noreferrer">Source</a></div>}
     </div>
   );
 }
 
 BedfordTransitionSubstanceForProfile.propTypes = {
   importedForm: PropTypes.object.isRequired,
-  studentFirstName: PropTypes.string.isRequired
+  studentFirstName: PropTypes.string.isRequired,
+  showSource: PropTypes.bool
 };
 
 function maybeRender(prompt, formValue) {

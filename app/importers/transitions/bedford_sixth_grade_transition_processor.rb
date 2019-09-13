@@ -1,3 +1,10 @@
+# DEPRECATED, see `FormToNotesProcessor` and `student_voice_forms` template
+# for new imports.
+#
+# Student voice survey for Bedford students transitioning
+# schools from 5th grade to 6th grade.
+# See `bedford_sixth_grade_transition_notes_importer_sheet_id` in env.
+#
 # Usage:
 # file_text = <<EOD
 # ...
@@ -8,6 +15,7 @@
 # hashes = importer.dry_run(file_text);nil
 class BedfordSixthGradeTransitionProcessor
   def initialize(educator_id, form_url, options = {})
+    Rollbar.warn('deprecation-warning')
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
     @educator_id = educator_id

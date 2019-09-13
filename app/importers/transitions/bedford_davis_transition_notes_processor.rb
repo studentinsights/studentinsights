@@ -1,3 +1,8 @@
+# DEPRECATED, migrate to `services_checklist` and `teacher_forms` templates'
+#
+# Process "transition notes" from Bedford, part of
+# bootstrapping start-of-school usage within support meetings.
+#
 # Usage:
 # file_text = <<EOD
 # ...
@@ -8,6 +13,7 @@
 # records = importer.create!(file_text);nil
 class BedfordDavisTransitionNotesProcessor
   def initialize(educator, form_url, options = {})
+    Rollbar.warn('deprecation-warning: migrate to `services_checklist` and `teacher_forms` templates')
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
 
     @educator = educator
@@ -30,7 +36,7 @@ class BedfordDavisTransitionNotesProcessor
 
   def stats
     {
-      importer: @matcher.stats,
+      matcher: @matcher.stats,
       processor: @processor.stats
     }
   end

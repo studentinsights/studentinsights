@@ -17,6 +17,45 @@ RSpec.describe Homeroom do
     end
   end
 
+  describe '#grades' do
+    it 'returns single value when single grade' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        3.times { h.students << FactoryBot.create(:student, grade: 'PK') }
+      end
+      expect(homeroom.grades).to eq ['PK']
+    end
+
+    it 'returns sorted list when mixed grades' do
+      grades = ['9', '1', '11', 'PK', 'TK']
+      3.times do
+        shuffled = grades.shuffle
+        homeroom = FactoryBot.create(:homeroom).tap do |h|
+          shuffled.each do |grade|
+            h.students << FactoryBot.create(:student, grade: grade)
+          end
+        end
+        expect(homeroom.reload.students.size).to eq 5
+        expect(homeroom.grades).to eq ['TK', 'PK', '1', '9', '11']
+      end
+    end
+
+    it 'includes only active students' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        h.students << FactoryBot.create(:student, missing_from_last_export: true, grade: 'PK')
+        h.students << FactoryBot.create(:student, grade: '1')
+      end
+      expect(homeroom.grades).to eq ['1']
+    end
+
+    it 'includes all students when include_inactive_students:true' do
+      homeroom = FactoryBot.create(:homeroom).tap do |h|
+        h.students << FactoryBot.create(:student, missing_from_last_export: true, grade: 'PK')
+        h.students << FactoryBot.create(:student, grade: '1')
+      end
+      expect(homeroom.grades(include_inactive_students: true)).to eq ['PK', '1']
+    end
+  end
+
   describe '#grade' do
     it 'works for all PK students' do
       homeroom = FactoryBot.create(:homeroom).tap do |h|

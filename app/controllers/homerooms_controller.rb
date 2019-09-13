@@ -3,14 +3,14 @@ class HomeroomsController < ApplicationController
     homeroom_id = params.permit(:id)[:id]
     homeroom = authorize_and_assign_homeroom!(homeroom_id)
 
-    rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
+    rows = authorized_students(homeroom).map {|student| fat_student_hash(student) }
 
     # For navigation
     allowed_homerooms = authorized_homerooms().sort_by(&:name)
 
     render json: {
       homeroom: homeroom.as_json({
-        only: [:id, :slug, :name],
+        only: [:id, :name],
         include: {
           educator: {
             only: [:id, :email, :full_name]
@@ -21,7 +21,10 @@ class HomeroomsController < ApplicationController
         }
       }),
       rows: rows,
-      homerooms: allowed_homerooms.as_json(only: [:slug, :name])
+      homerooms: allowed_homerooms.as_json({
+        only: [:id, :name],
+        methods: [:grades]
+      })
     }
   end
 
@@ -41,12 +44,17 @@ class HomeroomsController < ApplicationController
     end
   end
 
-  def eager_students(homeroom, *additional_includes)
-    homeroom.students.active.includes([
-      :event_notes,
-      :interventions,
-      :homeroom,
-    ] + additional_includes)
+  # Query for students through homeroom, but scoped within student-level authorization check.
+  # This is essentially double-wrapping the authorizaiton checks; the homeroom authorization
+  # check should separately only allow access when the educator can access all students in the
+  # homeroom.
+  def authorized_students(homeroom)
+    authorized do
+      homeroom.students
+        .active
+        .includes(:event_notes, :interventions, :homeroom)
+        .to_a
+    end
   end
 
   # Serializes a Student into a hash with other fields joined in (that are used to perform

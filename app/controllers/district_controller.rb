@@ -45,7 +45,7 @@ class DistrictController < ApplicationController
 
   def homerooms_json
     students = authorizer.authorized do
-      Student.active.includes(:school, :student_photos, :homeroom => [:educator]).to_a
+      Student.active.where.not(homeroom: nil).includes(:school, :student_photos, :homeroom => [:educator]).to_a
     end
     students_json = students.as_json({
       only: [

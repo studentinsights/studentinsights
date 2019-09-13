@@ -13,6 +13,7 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
 import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
+import ReadingThresholdsPage from '../app/assets/javascripts/reading_debug/ReadingThresholdsPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -36,6 +37,7 @@ jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_absences/SchoolAbsencesPage');
 jest.mock('../app/assets/javascripts/reading/ReadingEntryPage');
 jest.mock('../app/assets/javascripts/reading/ReadingGroupingPage');
+jest.mock('../app/assets/javascripts/reading_debug/ReadingThresholdsPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
@@ -162,6 +164,11 @@ it('render ReadingGroupingPage without crashing', () => {
       schoolSlug="hea"
       grade="3" />
   )).toEqual(true);
+});
+
+it('renders ReadingThresholdsPage without crashing', () => {
+  const wrapper = mount(renderPath('/reading/thresholds'));
+  expect(wrapper.contains(<ReadingThresholdsPage />)).toEqual(true);
 });
 
 it('renders district enrollment', () => {

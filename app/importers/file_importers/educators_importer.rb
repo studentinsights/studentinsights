@@ -154,7 +154,7 @@ class EducatorsImporter
       return nil
     end
 
-    # Match Homeroom (guaranteed to be uniqe on {name, school} by database index)
+    # Match Homeroom (guaranteed to be unique on {name, school} by database index)
     homeroom = Homeroom.find_or_initialize_by({
       name: row[:homeroom],
       school_id: school_id

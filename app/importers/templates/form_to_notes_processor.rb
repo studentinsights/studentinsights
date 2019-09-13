@@ -1,8 +1,16 @@
+# Takes the generic `teacher_forms` format and processes it to create plain
+# objects that can be created as EventNote records (or further transformed).
+#
+# Looks for columns starting with "Q: " to process as prompts,
+# and flattens those into plain text.
+#
 # usage:
-# processor = RestrictedNotesFormProcessor.new
+# processor = FormToNotesProcessor.new
 # rows = processor.dry_run(file_text)
-class RestrictedNotesFormProcessor
-
+#
+# template: `teacher_forms`
+# https://docs.google.com/spreadsheets/d/1XdKDcAbs6DQ4jowAgDfeqDEhwrVLgmd8cMMO3oJAMGg/edit#gid=1494038769
+class FormToNotesProcessor
   def initialize(options = {})
     @log = options.fetch(:log, STDOUT)
     @time_now = options.fetch(:time_now, Time.now)
@@ -18,7 +26,7 @@ class RestrictedNotesFormProcessor
 
   def stats
     {
-      importer: @matcher.stats,
+      matcher: @matcher.stats,
       processor: @processor.stats
     }
   end
@@ -38,19 +46,21 @@ class RestrictedNotesFormProcessor
     event_note_type_id = row.fetch('event_note_type_id', '304').to_i
 
     # timestamp from form, or import time
-    timestamp_text = row['Timestamp']
+    timestamp_text = row['Timestamp'] || row['recorded_at timestamp']
     form_timestamp = (timestamp_text.nil?) ? @time_now : @matcher.parse_sheets_est_timestamp(timestamp_text)
     return nil if form_timestamp.nil?
 
     # text, from whitelist prompts and responses
-    restricted_note_text = row['RESTRICTED_NOTE_TEXT']
-    return nil if restricted_note_text.nil?
+    prompt_keys = row.to_h.keys.select do |column_text|
+      column_text.starts_with?('Q: ') && !column_text.downcase.include?('restricted')
+    end
+    text = prompt_keys.map {|key| [key, row[key]].join("\n") }.join("\n\n")
 
     {
-      is_restricted: true,
-      text: restricted_note_text,
       student_id: student_id,
       educator_id: educator.id,
+      is_restricted: false,
+      text: text,
       event_note_type_id: event_note_type_id,
       recorded_at: form_timestamp
     }

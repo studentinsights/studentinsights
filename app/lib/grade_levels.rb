@@ -22,6 +22,15 @@ class GradeLevels
     'SP'
   ]
 
+  def self.sort(grades)
+    grades.sort_by do |grade|
+      [
+        GradeLevels::ORDERED_GRADE_LEVELS.index(grade) || (ORDERED_GRADE_LEVELS.size + 1),
+        grade
+      ]
+    end
+  end
+
   def next(grade_level)
     index = ORDERED_GRADE_LEVELS.find_index(grade_level)
     if index < ORDERED_GRADE_LEVELS.size

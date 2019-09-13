@@ -1,0 +1,46 @@
+[
+  {
+    "importer": "BedfordDavisServicesImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_one_time_batch",
+    "merge": "merge_create_naively",
+    "touches": [
+      "Service"
+    ],
+    "options": [],
+    "description": "Services from social emotional and transition note sheets at Davis"
+  },
+  {
+    "importer": "BedfordDavisSocialEmotionalImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_one_time_batch",
+    "merge": "merge_create_naively",
+    "touches": [
+      "EventNote"
+    ],
+    "options": [],
+    "description": "Process checklists and notes from social emotional and transition note sheets at Davis and create restricted notes"
+  },
+  {
+    "importer": "BedfordDavisTransitionNotesImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_one_time_batch",
+    "merge": "merge_replace_all_within_scope",
+    "touches": [
+      "ImportedForm"
+    ],
+    "options": [],
+    "description": "Transition notes for elementary school students at Davis (services only as text)"
+  },
+  {
+    "importer": "BedfordTeacherTransitionImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_one_time_batch",
+    "merge": "merge_create_naively",
+    "touches": [
+      "EventNote"
+    ],
+    "options": [],
+    "description": "Transition notes from teachers at Lane in Bedford, imported from sheets into notes"
+  }
+]
