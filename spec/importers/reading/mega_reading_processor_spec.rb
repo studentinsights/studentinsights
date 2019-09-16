@@ -4,7 +4,7 @@ RSpec.describe MegaReadingProcessor do
   let!(:pals) { TestPals.create! }
 
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/reading/reading_fixture_csvs/mega_reading_processor_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/reading/mega_reading_processor_fixture.csv")
   end
 
   def create_students!

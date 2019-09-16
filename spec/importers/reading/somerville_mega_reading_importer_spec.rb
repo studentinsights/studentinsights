@@ -3,8 +3,26 @@ require 'rails_helper'
 RSpec.describe SomervilleMegaReadingImporter do
   let!(:pals) { TestPals.create! }
 
-  def fixture_file_location
-    "#{Rails.root}/spec/importers/reading/reading_fixture_csvs/"
+  def create_mock_fetcher_from_map(sheet_id_to_tab_map)
+    mock_fetcher = GoogleSheetsFetcher.new
+    allow(GoogleSheetsFetcher).to receive(:new).and_return(mock_fetcher)
+    sheet_id_to_tab_map.each do |sheet_id, tabs|
+      allow(mock_fetcher).to receive(:get_tabs_from_sheet).with(sheet_id).and_return(tabs)
+    end
+    mock_fetcher
+  end
+
+  def create_mock_fetcher
+    create_mock_fetcher_from_map({
+      'mock_sheet_id_A' => [GoogleSheetsFetcher::Tab.new({
+        spreadsheet_id: '9999999999',
+        spreadsheet_name: 'dev SPS Reading Benchmarks',
+        spreadsheet_url: 'https://example.com/reading-benchmarks',
+        tab_id: 'K',
+        tab_name: 'Kindergarten',
+        tab_csv: IO.read("#{Rails.root}/spec/importers/reading/mega_reading_processor_fixture.csv")
+      })]
+    })
   end
 
   def create_students!
@@ -31,8 +49,10 @@ RSpec.describe SomervilleMegaReadingImporter do
     it 'imports a csv' do
       pluto, donald = create_students!
       ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME'] = "uri"
-      importer = SomervilleMegaReadingImporter.new(files_path: fixture_file_location)
+      ENV['IMPORTED_GOOGLE_FOLDER_IDS_JSON'] = '{"reading_benchmarks_sheet_id":"mock_sheet_id_A"}'
+      importer = SomervilleMegaReadingImporter.new("2019", options: {fetcher: create_mock_fetcher})
       importer.import
+
       expect(ReadingBenchmarkDataPoint.where(
         student_id: pluto.id
       ).size).to eq(14)
