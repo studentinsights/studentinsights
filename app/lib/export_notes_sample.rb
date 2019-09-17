@@ -55,11 +55,13 @@ class ExportNotesSample
     end_date = options[:end_date]
     n = options[:n]
     seed = options[:seed]
+    is_restricted = options.fetch(:is_restricted, false)
 
     # Query in time range
     event_notes = EventNote.all
       .where('recorded_at > ?', start_date)
       .where('recorded_at < ?', end_date.advance(days: 1))
+      .where(is_restricted: is_restricted)
       .includes(:educator)
     total_count = event_notes.size
 
