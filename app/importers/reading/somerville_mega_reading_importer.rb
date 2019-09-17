@@ -16,16 +16,26 @@ class SomervilleMegaReadingImporter
     end
 
     log('Starting loop...')
-    @skipped_from_school_filter = 0
+    @valid_student_names_count = 0
+    @invalid_student_name_count = 0
+    @valid_data_points_count = 0
 
     processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, @school_year)
     streaming_csvs.each_with_index do |tab, index|
       rows, meta = processor.process(tab.tab_csv)
       log("processed #{index} sheets.")
       rows.each_with_index {|row, index| import_row(row, index)}
+      valid_student_names_count, valid_data_points_count, invalid_student_name_count = meta.values_at(
+        :valid_student_names_count, :valid_data_points_count, :invalid_student_name_count)
+      @valid_student_names_count += valid_student_names_count
+      @invalid_student_name_count += invalid_student_name_count
+      @valid_data_points_count += valid_data_points_count
+
     end
     log('Done loop.')
-    # TODO log counts on stats
+    log("@valid_student_names_count: #{@valid_student_names_count}")
+    log("@invalid_student_names_count: #{@invalid_student_names_count}")
+    log("@valid_data_points_count: #{@valid_data_points_count}")
 
     # log('Calling #delete_unmarked_records...')
     # @syncer.delete_unmarked_records!(records_within_scope)
