@@ -326,7 +326,6 @@ export class ReadingDebugView extends React.Component {
   }
 
   renderTable() {
-    const {nowFn} = this.context;
     const {students} = this.props;
     const {benchmarkAssessmentKey, selection} = this.state;
     if (selection === null) {
