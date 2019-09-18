@@ -130,6 +130,26 @@ class PerDistrict
     EnvironmentVariable.is_true('PROFILE_INCLUDE_Q2_SELF_REFLECTION_INSIGHTS') || false
   end
 
+  def enabled_sections?
+    return EnvironmentVariable.is_true('ENABLED_SECTIONS') if ENV.has_key?('ENABLED_SECTIONS')
+    @district_key == SOMERVILLE || @district_key == SOMERVILLE
+  end
+
+  # Note that this may be called in performance-sensitive loops.
+  def enable_sections_link?(educator)
+    return false unless self.enabled_sections?
+    return false if educator.school.nil?
+    return false if educator.sections.size == 0
+
+    if @district_key == SOMERVILLE
+      @educator.school.is_high_school? # sections aren't used for rostering in MS, but data is imported and they could be
+    elsif @district_key == NEW_BEDFORD
+      true
+    else
+      false
+    end
+  end
+
   def high_school_enabled?
     @district_key == SOMERVILLE
   end

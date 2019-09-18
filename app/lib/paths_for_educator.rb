@@ -34,7 +34,7 @@ class PathsForEducator
       links[:discipline] = url_helpers.discipline_school_path(@educator.school)
     end
 
-    if @educator.school.present? && @educator.school.is_high_school? && @educator.sections.size > 0
+    if PerDistrict.new.enable_sections_link?(educator)
       links[:section] = url_helpers.educators_my_sections_path
     end
 

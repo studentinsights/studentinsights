@@ -36,7 +36,7 @@ class SectionsController < ApplicationController
 
   private
   def ensure_feature_enabled!
-    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.high_school_enabled?
+    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_sections?
   end
 
   def authorized_sections(&block)
