@@ -25,7 +25,7 @@ export default class CounselorMeetingsView extends React.Component {
     this.state = {
       selectedStudent: null,
       updatedMeetings: [], // layered on top of server data
-      sortBy: 'name',
+      sortBy: 'last_seen',
       sortDirection: SortDirection.ASC,
     };
 
