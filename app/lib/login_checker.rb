@@ -28,7 +28,7 @@ class LoginChecker
 
     # alert developer
     with_isolation do
-      Rollbar.error('LoginChecker#warn_if_suspicious', {
+      Rollbar.warn('LoginChecker#warn_if_suspicious', {
         flags: flags,
         warning_id: warning_id,
         time_now: @time_now.to_i

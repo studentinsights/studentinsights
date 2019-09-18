@@ -16,8 +16,8 @@ RSpec.describe LoginChecker do
       created_at: pals.time_now - 2.years
     })
 
-    allow(Rollbar).to receive(:error)
-    expect(Rollbar).to receive(:error).once.with('LoginChecker#warn_if_suspicious', {
+    allow(Rollbar).to receive(:warn)
+    expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', {
       flags: [:first_login_after_six_months],
       warning_id: anything(),
       time_now: pals.time_now.to_i
@@ -29,8 +29,8 @@ RSpec.describe LoginChecker do
   it '#warn_if_suspicious reports to Rollbar on :first_login_month_after_creation' do
     pals.healey_vivian_teacher.update!(created_at: pals.time_now - 32.days)
 
-    allow(Rollbar).to receive(:error)
-    expect(Rollbar).to receive(:error).once.with('LoginChecker#warn_if_suspicious', {
+    allow(Rollbar).to receive(:warn)
+    expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', {
       flags: [:first_login_month_after_creation],
       warning_id: anything(),
       time_now: pals.time_now.to_i
