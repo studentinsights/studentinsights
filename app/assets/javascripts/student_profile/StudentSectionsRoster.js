@@ -50,12 +50,12 @@ export default class StudentSectionsRoster extends React.Component {
       {label: 'Room', key: 'room_number'},
       {label: 'Term', key: 'term_local_id', sortFunc: this.sortTerm}
     ]);
-    
+    const initialSortIndex = _.findIndex(columns, {key: 'term_local_id'});
     return (
       <FlexibleRoster className="StudentSectionsRoster"
         rows={sections}
         columns={columns}
-        initialSortIndex={6}/>
+        initialSortIndex={initialSortIndex} />
     );
   }
 
