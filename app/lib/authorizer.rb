@@ -102,7 +102,7 @@ class Authorizer
   # access.
   def why_authorized_for_student?(student, options = {})
     begin
-      should_consider_sections = options.fetch(:consider_sections, PerDistrict.new.enabled_sections?)
+      should_consider_sections = options.fetch(:should_consider_sections, PerDistrict.new.enabled_sections?)
       return :districtwide if @educator.districtwide_access?
       return :housemaster if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
