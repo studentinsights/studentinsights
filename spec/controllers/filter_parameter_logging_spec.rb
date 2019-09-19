@@ -13,9 +13,13 @@ RSpec.describe 'filter_parameter_loggin', :type => :controller do
     log
   end
 
+  def random_hex
+    32.times.map { rand(16).to_s(16) }.join()
+  end
+
   def generated_params(n)
     params = {}
-    n.times { params[SecureRandom.hex] = "SENSITIVE-#{SecureRandom.hex}" }
+    n.times { params[random_hex()] = "SENSITIVE-#{random_hex()}" }
     params
   end
 
