@@ -1,6 +1,6 @@
-# For manual or semi-automated migrations related to changing school scope 
+# For manual or semi-automated migrations related to changing school scope
 # in definition files or in import jobs.
-# 
+#
 # For example, if removing a school, you might update the definition file,
 # then use this class to run a migration that marks all Student and Educator
 # records that used to be in scope as inactive.
