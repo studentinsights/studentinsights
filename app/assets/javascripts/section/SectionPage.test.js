@@ -43,6 +43,7 @@ it('renders everything after fetch', done => {
   const {el} = testRender(props);
   
   setTimeout(() => {
+    console.log('text', $(el).text());
     expect($(el).text()).toContain('SCI-201B');
     expect($(el).text()).toContain('PHYSICS 1 (SCI-201)');
     expect($(el).text()).toContain('Room 306W');

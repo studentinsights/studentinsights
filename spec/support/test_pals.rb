@@ -374,11 +374,15 @@ class TestPals
         course: @shs_biology_course,
         section_number: 'SHS-BIO-TUES',
         term_local_id: 'Q3',
+        schedule: '1(M-R)',
+        room_number: 'M14'
       ),
       @shs_thursday_biology_section = Section.create!(
         course: @shs_biology_course,
         section_number: 'SHS-BIO-THUR',
         term_local_id: 'Q4',
+        schedule: '2(T-F)',
+        room_number: 'M17'
       )
     ])
     EducatorLabel.create!({
