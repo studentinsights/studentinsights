@@ -72,8 +72,7 @@ export default class LightProfilePage extends React.Component {
   render() {
     const {districtKey} = this.context;
     const {student} = this.props.profileJson;
-    const isHighSchool = (student.school_type === 'HS');
-    const tabs = decideStudentProfileTabs(districtKey, isHighSchool);
+    const tabs = decideStudentProfileTabs(districtKey, student.school_type);
     return (
       <div className="LightProfilePage" style={styles.root}>
         {this.renderInactiveOverlay()}
