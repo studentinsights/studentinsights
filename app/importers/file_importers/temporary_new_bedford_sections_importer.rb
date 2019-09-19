@@ -22,6 +22,12 @@ class TemporaryNewBedfordSectionsImporter
     })
   end
 
+  def initialize(options:)
+    @options = options
+    @merged_remote_file_name = @options.fetch(:merged_remote_file_name, nil)
+    raise 'missing merged_remote_file_name' if @merged_remote_file_name.nil?
+  end
+
   # This subclasses private methods, and is generally not a stable solution; this is a transition
   # approach for the next week or two while district folks update export formats.
   def import
@@ -35,21 +41,19 @@ class TemporaryNewBedfordSectionsImporter
 
   private
   def download_file_text
-    remote_file_name = PerDistrict.new.try_sftp_filename('FILENAME_FOR_WIDE_SECTIONS_IMPORT')
-    file = SftpClient.for_x2.download_file(remote_file_name)
-    File.read(file)
+    File.read(SftpClient.for_x2.download_file(@merged_remote_file_name))
   end
 
   def courses_and_sections_importer(file_text)
-    PatchedCoursesSectionsImporter.new(options: options.merge(file_text: file_text))
+    PatchedCoursesSectionsImporter.new(options: @options.merge(file_text: file_text))
   end
 
   def student_section_assignments_importer(file_text)
-    PatchedStudentSectionAssignmentsImporter.new(options: options.merge(file_text: file_text))
+    PatchedStudentSectionAssignmentsImporter.new(options: @options.merge(file_text: file_text))
   end
 
   def educator_section_assignments_importer(file_text)
-    PatchedEducatorSectionAssignmentsImporter.new(options: options.merge(file_text: file_text))
+    PatchedEducatorSectionAssignmentsImporter.new(options: @options.merge(file_text: file_text))
   end
 
   class PatchedCoursesSectionsImporter < CoursesSectionsImporter
