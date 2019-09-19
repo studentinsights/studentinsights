@@ -23,20 +23,23 @@ class CoursesSectionsImporter
   end
 
   def import
-    return unless remote_file_name
-
-    log('Starting loop...')
     reset_counters!
 
-    streaming_csv = CsvDownloader.new(
-      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
-    ).get_data
+    if remote_file_name.nil?
+      log('Aborting, no remote_file_name.')
+      return
+    end
 
+    log('Downloading...')
+    streaming_csv = download_csv()
+
+    log('Starting loop...')
     streaming_csv.each_with_index do |row, index|
-      import_row(row) if filter.include?(row[:school_local_id])
+      import_row(row)
     end
 
     log('Done loop.')
+    log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@invalid_course_school_count: #{@invalid_course_school_count}")
     log("@invalid_course_count: #{@invalid_course_count}")
     log("@invalid_section_count: #{@invalid_section_count}")
@@ -46,26 +49,39 @@ class CoursesSectionsImporter
     # for looking at historical data or changes over time.
   end
 
+  def stats
+    {
+      skipped_from_school_filter: @skipped_from_school_filter,
+      invalid_course_school_count: @invalid_course_school_count,
+      invalid_course_count: @invalid_course_count,
+      invalid_section_count: @invalid_section_count
+    }
+  end
+
   private
   def reset_counters!
+    @skipped_from_school_filter = 0
     @invalid_course_school_count = 0
     @invalid_course_count = 0
     @invalid_section_count = 0
-  end
-
-  def client
-    SftpClient.for_x2
   end
 
   def remote_file_name
     PerDistrict.new.try_sftp_filename('FILENAME_FOR_COURSE_SECTION_IMPORT')
   end
 
-  def data_transformer
-    StreamingCsvTransformer.new(@log)
+  def download_csv
+    client = SftpClient.for_x2
+    data_transformer = StreamingCsvTransformer.new(@log)
+    CsvDownloader.new(
+      log: @log,
+      remote_file_name: remote_file_name,
+      client: client,
+      transformer: data_transformer
+    ).get_data
   end
 
-  def filter
+  def school_filter
     SchoolFilter.new(@school_scope)
   end
 
@@ -74,6 +90,12 @@ class CoursesSectionsImporter
   end
 
   def import_row(row)
+    # Skip based on school filter
+    if !school_filter.include?(row[:school_local_id])
+      @skipped_from_school_filter += 1
+      return
+    end
+
     course = CourseRow.new(row, school_ids_dictionary).build
     if course.school.nil?
       @invalid_course_school_count += 1
