@@ -18,7 +18,7 @@ class SomervilleMegaReadingImporter
     @invalid_student_name_count = 0
     @valid_data_points_count = 0
 
-    processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, @school_year)
+    processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, @school_year, options = {log: @log})
 
     streaming_csvs.each_with_index do |tab, index|
       next if tab.tab_name == "Help"
