@@ -242,7 +242,7 @@ export default class LightProfilePage extends React.Component {
         fadedColor="hsl(24, 100%, 92%)"
         text="Sections">
         <LightShoutNumber number={sections.length}>
-          <div>courses</div>
+          <div>sections</div>
           <div>right now</div>
         </LightShoutNumber>
       </LightProfileTab>

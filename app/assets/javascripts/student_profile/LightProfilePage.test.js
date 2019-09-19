@@ -103,7 +103,7 @@ describe('HS testing tab', () => {
   });
 });
 
-describe('reading and math can show MCAS if STAR not enabled', () => {
+describe('tabs', () => {
   it('for Bedford, shows MCAS in place of STAR', () => {
     const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
       "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
@@ -123,6 +123,28 @@ describe('reading and math can show MCAS if STAR not enabled', () => {
       'M',
       'MCAS Math',
       '2 years ago'
+    ]);
+  });
+
+  it('for New Bedford, shows sections and testing', () => {
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
+      "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
+      "next_gen_mcas_ela_scaled": [[2017,5,15,536]],
+      "mcas_series_math_scaled": [],
+      "mcas_series_ela_scaled": []
+    });
+    const el = testRender(props, {districtKey: 'new_bedford'});
+    expect(testingTabTextLines(1, el)).toEqual([
+      'Sections',
+      '0',
+      'sections',
+      'right now'
+    ]);
+    expect(testingTabTextLines(2, el)).toEqual([
+      'Testing',
+      'M',
+      'ELA and Math MCAS',
+      '10 months / 2 years ago'
     ]);
   });
 });
