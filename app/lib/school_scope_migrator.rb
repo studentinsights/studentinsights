@@ -12,6 +12,7 @@
 class SchoolScopeMigrator
   def initialize(options = {})
     @explicit_school_scope = options.fetch(:schools, nil)
+    @log = options.fetch(:log, STDOUT)
   end
 
   def stats
@@ -33,57 +34,57 @@ class SchoolScopeMigrator
   end
 
   def migrate_all!
-    puts "Finding schools..."
+    log "Finding schools..."
     schools = self.schools_within_scope()
-    puts "There are #{schools.size} School records within scope."
-    puts
-    puts
-    puts "stats, before:"
-    puts stats()
-    puts
-    puts
+    log "There are #{schools.size} School records within scope."
+    log
+    log
+    log "stats, before:"
+    log stats()
+    log
+    log
     migrate_educators!
-    puts
-    puts
+    log
+    log
     migrate_students!
-    puts
-    puts
-    puts "stats, after:"
-    puts stats()
-    puts
-    puts
-    puts "All done."
+    log
+    log
+    log "stats, after:"
+    log stats()
+    log
+    log
+    log "All done."
   end
 
   def migrate_educators!
-    puts "Starting Educators..."
+    log "Starting Educators..."
     Educator.transaction do
-      puts "  Found #{Educator.active.size} active and #{Educator.all.size} total Educator records."
+      log "  Found #{Educator.active.size} active and #{Educator.all.size} total Educator records."
       educator_ids_within_scope = self.educators_within_scope().map(&:id)
-      puts "  Found #{educator_ids_within_scope.size} Educator records within scope..."
+      log "  Found #{educator_ids_within_scope.size} Educator records within scope..."
       stale_educators = self.stale_educators()
-      puts "  Ensuring missing_from_last_export:true for #{stale_educators.size} stale Educator records..."
-      puts "  Actually setting missing_from_last_export:true for #{stale_educators.active.size} currently active stale Educator records..."
+      log "  Ensuring missing_from_last_export:true for #{stale_educators.size} stale Educator records..."
+      log "  Actually setting missing_from_last_export:true for #{stale_educators.active.size} currently active stale Educator records..."
       stale_educators.active.each do |educator|
         educator.update!(missing_from_last_export: true)
       end
-      puts "  Done updating Educators."
+      log "  Done updating Educators."
     end
   end
 
   def migrate_students!
-    puts "Starting Students..."
+    log "Starting Students..."
     Student.transaction do
-      puts "  Found #{Student.active.size} active and #{Student.all.size} total Student records."
+      log "  Found #{Student.active.size} active and #{Student.all.size} total Student records."
       student_ids_within_scope = self.students_within_scope().map(&:id)
-      puts "  Found #{student_ids_within_scope.size} Student records within scope..."
+      log "  Found #{student_ids_within_scope.size} Student records within scope..."
       stale_students = self.stale_students()
-      puts "  Ensuring missing_from_last_export:true for #{stale_students.size} stale Student records..."
-      puts "  Actually setting missing_from_last_export:true for #{stale_students.active.size} currently active stale Student records..."
+      log "  Ensuring missing_from_last_export:true for #{stale_students.size} stale Student records..."
+      log "  Actually setting missing_from_last_export:true for #{stale_students.active.size} currently active stale Student records..."
       stale_students.active.each do |student|
         student.update!(missing_from_last_export: true)
       end
-      puts "  Done updating Students."
+      log "  Done updating Students."
     end
   end
 
@@ -113,5 +114,9 @@ class SchoolScopeMigrator
 
   def stale_students
     Student.all.where.not(id: students_within_scope().map(&:id))
+  end
+
+  def log(msg = '')
+    @log.puts msg
   end
 end
