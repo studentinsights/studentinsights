@@ -54,8 +54,8 @@ class ImportTask
     school_ids.each { |id| School.find_by!(local_id: id) }
   end
 
-  # Verify that the schools in the database match what the school
-  # definition files say, otherwise raise.
+  # Verify that the schools in the school definition files are present
+  # in the database, otherwise raise.
   def verify_school_definitions!
     school_definitions = PerDistrict.new.school_definitions_for_import
     school_definitions.each do |school_definition|
