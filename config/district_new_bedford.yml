@@ -15,18 +15,33 @@ star_filenames:
 
 
 school_definitions_for_import:
-  # First pilot schools
   - name: John A. Parker
     slug: parker
     local_id: '115'
     school_type: ES
 
+  - name: Keith Middle
+    slug: keith
+    local_id: '405'
+    school_type: MS
+
+  - name: Normandin Middle
+    slug: normandin
+    local_id: '410'
+    school_type: MS
+
+  - name: Roosevelt Middle
+    slug: roosevelt
+    local_id: '415'
+    school_type: MS
+
+
+school_definitions_not_yet_used:
   - name: Casimir Pulaski
     slug: pulaski
     local_id: '123'
     school_type: ES
 
-  # Second wave, start of 2018
   - name: James B. Congdon
     slug: congdon
     local_id: '040'
@@ -52,22 +67,6 @@ school_definitions_for_import:
     local_id: '078'
     school_type: ES
 
-  - name: Keith Middle
-    slug: keith
-    local_id: '405'
-    school_type: MS
-
-  - name: Normandin Middle
-    slug: normandin
-    local_id: '410'
-    school_type: MS
-
-  - name: Roosevelt Middle
-    slug: roosevelt
-    local_id: '415'
-    school_type: MS
-
-  # Third wave, start of 2018
   - name: Charles S. Ashley
     slug: ashley
     local_id: '010'
@@ -88,8 +87,6 @@ school_definitions_for_import:
     local_id: '105'
     school_type: ES
 
-
-school_definitions_not_yet_used:
   - name: Irwin M. Jacobs
     slug: jacobs
     local_id: '070'
