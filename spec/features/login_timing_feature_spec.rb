@@ -100,7 +100,7 @@ describe 'login timing', type: :feature do
       attempts.shuffle(random: Random.new(seed)).first(limit)
     end
 
-    let!(:expected_timing_in_milliseconds) { 500 } # for faster tests
+    let!(:expected_timing_in_milliseconds) { 1000 } # for faster tests
     before(:each) { LoginTests.before_set_login_timing!(expected_timing_in_milliseconds) }
     after(:each) { LoginTests.after_reset_login_timing! }
 
@@ -109,7 +109,7 @@ describe 'login timing', type: :feature do
 
       # Test many attempts across all educators in random order; none should leak what's
       # happening on the server-side through response timing.
-      attempts = create_attempts_across_educators(limit: 50, seed: RSpec.configuration.seed)
+      attempts = create_attempts_across_educators(limit: 20, seed: RSpec.configuration.seed)
       attempts.each do |attempt|
         login, password, options = attempt
         _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
@@ -117,12 +117,12 @@ describe 'login timing', type: :feature do
         end
         feature_reset_login_attempt!
 
-        tolerance_ms = 200
+        tolerance_ms = 400 # wide range, since this is noisy
         failure_message = "unexpected timing for login='#{login}', password='#{password}', options='#{options}'  timing: #{elapsed_milliseconds}"
         expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), failure_message
         print('✓') # a nice progress indicator since these are slower tests
       end
-      expect(attempts.size).to eq(50)
+      expect(attempts.size).to eq(20)
     end
   end
 end

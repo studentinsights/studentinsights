@@ -35,7 +35,7 @@ class EducatorSearchbar < ApplicationRecord
         label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}"
       }.as_json
     end
-    json_records.sort_by {|j| j[:label]}.reverse!
+    json_records.sort_by {|j| j['label']}
   end
 
   private

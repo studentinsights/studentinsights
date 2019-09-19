@@ -438,7 +438,6 @@ exports[`snapshots view 1`] = `
             >
               <div
                 aria-label="Name"
-                aria-sort="ascending"
                 className="ReactVirtualized__Table__headerColumn ReactVirtualized__Table__sortableHeaderColumn"
                 onClick={[Function]}
                 onKeyDown={[Function]}
@@ -461,23 +460,10 @@ exports[`snapshots view 1`] = `
                 >
                   Name
                 </span>
-                <svg
-                  className="ReactVirtualized__Table__sortableHeaderIcon ReactVirtualized__Table__sortableHeaderIcon--ASC"
-                  height={18}
-                  viewBox="0 0 24 24"
-                  width={18}
-                >
-                  <path
-                    d="M7 14l5-5 5 5z"
-                  />
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                </svg>
               </div>
               <div
                 aria-label="Last Seen"
+                aria-sort="ascending"
                 className="ReactVirtualized__Table__headerColumn ReactVirtualized__Table__sortableHeaderColumn"
                 onClick={[Function]}
                 onKeyDown={[Function]}
@@ -500,6 +486,20 @@ exports[`snapshots view 1`] = `
                 >
                   Last Seen
                 </span>
+                <svg
+                  className="ReactVirtualized__Table__sortableHeaderIcon ReactVirtualized__Table__sortableHeaderIcon--ASC"
+                  height={18}
+                  viewBox="0 0 24 24"
+                  width={18}
+                >
+                  <path
+                    d="M7 14l5-5 5 5z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
               </div>
               <div
                 aria-label="Seen by"

@@ -18,6 +18,11 @@ function loadRollbar() {
     captureUncaught: true,
     captureUnhandledRejections: true,
     transform: transform,
+
+    // throttle, mostly for bugs in browser extensions
+    itemsPerMinute: 10,
+    maxItems: 100,
+    
     autoInstrument: {
       // Limit data we send to Rollbar
       log: false,
