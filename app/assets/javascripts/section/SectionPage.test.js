@@ -43,11 +43,12 @@ it('renders everything after fetch', done => {
   const {el} = testRender(props);
   
   setTimeout(() => {
-    console.log('text', $(el).text());
-    expect($(el).text()).toContain('SCI-201B');
-    expect($(el).text()).toContain('PHYSICS 1 (SCI-201)');
-    expect($(el).text()).toContain('Room 306W');
+    expect($(el).text()).toContain('ART MAJOR FOUNDATIONS (ART-302A)');
+    expect($(el).text()).toContain('In 201');
+    expect($(el).text()).toContain('2(M,R)');
+    expect($(el).text()).toContain('Term FY');
     expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(sectionJson.students.length);
+    expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(9);
     done();
   }, 0);
 });

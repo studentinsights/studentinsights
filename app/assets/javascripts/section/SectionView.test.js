@@ -14,9 +14,9 @@ function testProps(props = {}) {
       { }
     ],
     sections: [
-      { id: 1, section_number: 'Art-1'},
-      { id: 2, section_number: 'Art-2'},
-      { id: 3, section_number: 'Art-3'}
+      { id: 1, section_number: 'Art-1', course_description: 'DRAWING WITH CHARCOAL', term_local_id: '9'},
+      { id: 2, section_number: 'Art-2', course_description: 'DRAWING WITH CHARCOAL', term_local_id: 'FY'},
+      { id: 3, section_number: 'Art-3', course_description: 'DRAWING WITH CHARCOAL', term_local_id: 'Q1'}
     ],
     section: { id: 1, section_number: 'Art-1', course_number: 'Art', course_description: 'Awesome Art Class', term_local_id: '9', schedule: '3(M-R)', room_number: '304' },
     currentEducator: { districtwide_access: false },
@@ -24,8 +24,8 @@ function testProps(props = {}) {
   };
 }
 
-function testRender(props) {
-  const districtKey = 'somerville';
+function testRender(props, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
   const el = document.createElement('div');
   ReactDOM.render(
     <PerDistrictContainer districtKey={districtKey}>
@@ -36,69 +36,78 @@ function testRender(props) {
 }
 
 
-it('renders the correct section select', () => {
-  const {el} = testRender(testProps());
-
-  const sectionSelect = $(el).find('.SectionView-section-select option');
-
-  expect(sectionSelect[0].innerHTML).toEqual('Art-1');
-  expect(sectionSelect[0].selected).toEqual(true);
-  expect(sectionSelect[0].value).toEqual('1');
-
-  expect(sectionSelect[1].innerHTML).toEqual('Art-2');
-  expect(sectionSelect[1].selected).toEqual(false);
-  expect(sectionSelect[1].value).toEqual('2');
-});
 
 it('renders the correct section header', () => {
   const {el} = testRender(testProps());
 
-  const headerInfo = $(el).find('.SectionView-header-info');
-  const sectionName = headerInfo.find('h1').text();
-  const courseInfo = headerInfo.find('.SectionView-course-info').text();
-  const sectionDetail = headerInfo.find('.SectionView-section-detail').text();
-
-  expect(sectionName).toEqual('Art-1');
-  expect(courseInfo).toEqual('Awesome Art Class (Art)');
-  expect(sectionDetail).toEqual('Room 304 • Schedule: 3(M-R) • Term: 9');
+  expect($(el).text()).toContain('Awesome Art Class (Art-1)');
+  expect($(el).text()).toContain('In 304');
+  expect($(el).text()).toContain('3(M-R)');
+  expect($(el).text()).toContain('Term 9');
 });
 
-it('renders the correct roster headers', () => {
-  const {el} = testRender(testProps());
+describe('table headers', () => {
+  it('includes grades and note types for Somerville', () => {
+    const {el} = testRender(testProps(), {districtKey: 'somerville'});
+    const headers = $(el).find('.SectionView #roster-header th').toArray().map(el => $(el).text());
+    expect(headers.length).toEqual(22);
+    expect(headers).toEqual([
+      'Name',
+      '', // photo
+      'Last SST',
+      'Last NGE',
+      'Last 10GE',
+      'Last NEST',
+      'Last Counselor',
+      'Program Assigned',
+      'Disability',
+      '504 Plan',
+      'Fluency',
+      'Home Language',
+      'Grade',
+      'Absences',
+      'Tardies',
+      'Discipline Incidents',
+      'Percentile',
+      'Percentile',
+      'Performance',
+      'Score',
+      'Performance',
+      'Score'
+    ]);
+  });
 
-  const headers = $(el).find('.SectionView-roster-header th').toArray().map(el => $(el).text());
-
-  expect(headers.length).toEqual(22);
-  expect(headers).toEqual([
-    'Name',
-    '', // photo
-    'Last SST',
-    'Last NGE',
-    'Last 10GE',
-    'Last NEST',
-    'Last Counselor',
-    'Program Assigned',
-    'Disability',
-    '504 Plan',
-    'Fluency',
-    'Home Language',
-    'Grade',
-    'Absences',
-    'Tardies',
-    'Discipline Incidents',
-    'Percentile',
-    'Percentile',
-    'Performance',
-    'Score',
-    'Performance',
-    'Score'
-  ]);
+  it('no grades and note types in New Bedford', () => {
+    const {el} = testRender(testProps(), {districtKey: 'new_bedford'});
+    const headers = $(el).find('.SectionView #roster-header th').toArray().map(el => $(el).text());
+    expect(headers.length).toEqual(17);
+    expect(headers.indexOf('Grade')).toEqual(-1);
+    expect(headers).toEqual([
+      'Name',
+      '', // photo
+      'Last BBST',
+      'Program Assigned',
+      'Disability',
+      '504 Plan',
+      'Fluency',
+      'Home Language',
+      'Absences',
+      'Tardies',
+      'Discipline Incidents',
+      'Percentile',
+      'Percentile',
+      'Performance',
+      'Score',
+      'Performance',
+      'Score'
+    ]);
+  });
 });
 
 it('renders the correct roster data', () => {
   const {el} = testRender(testProps());
 
-  const $rowEls = $(el).find('.SectionView-roster-data tr');
+  const $rowEls = $(el).find('.SectionView #roster-data tr');
   expect($rowEls.length).toEqual(2);
   const firstRowCells = $($rowEls.get(0)).find('td').toArray().map(el => $(el).html());
   expect(firstRowCells[0]).toEqual('<a href="/students/2">Duck, Donald</a>');
@@ -110,37 +119,7 @@ it('renders photos and respects has_photo', () => {
 });
 
 
-
-   
-
-   // describe('header', () => {
-//   it('renders without crashing', () => {
-//     const div = document.createElement('div');
-
-//     ReactDOM.render(
-//       <SectionHeader
-//         section={{
-//           section_number: 8,
-//           course_description: 'Art',
-//           course_number: 3,
-//           room_number: '101',
-//           schedule: 'MF',
-//         }}
-//         sections={[
-//           {id: 1, section_number: 1}
-//         ]}
-//       />, div);
-//   });
-// });
-
-// describe('empty data', () => {
-//   it('renders without crashing', () => {
-//     const div = document.createElement('div');
-
-//     ReactDOM.render(
-//       <SectionHeader
-//         section={{}}
-//         sections={[]}
-//       />, div);
-//   });
-// });
+it('renders the correct section select', () => {
+  const {el} = testRender(testProps());
+  expect($(el).find('.SectionNavigator').length).toEqual(1);
+});
