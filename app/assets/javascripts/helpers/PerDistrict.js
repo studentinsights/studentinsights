@@ -314,3 +314,10 @@ export function tryShortSchoolName(districtKey, schoolLocalId) {
 
   return null;
 }
+
+// Decide which tabs to show in the student profile page.
+export function decideStudentProfileTabs(districtKey, isHighSchool) {
+  if (districtKey === NEW_BEDFORD) return {sections: true, testing: true};
+  if (districtKey === SOMERVILLE && isHighSchool) return {grades: true, testing: true};
+  return {reading: true, math: true};
+}

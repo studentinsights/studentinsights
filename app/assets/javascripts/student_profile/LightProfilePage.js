@@ -6,7 +6,7 @@ import {alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds'
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
-import {isStudentActive, shouldUseStarData} from '../helpers/PerDistrict';
+import {isStudentActive, shouldUseStarData, decideStudentProfileTabs} from '../helpers/PerDistrict';
 import ReaderProfileJunePage from '../reader_profile/ReaderProfileJunePage';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
@@ -70,19 +70,21 @@ export default class LightProfilePage extends React.Component {
   }
 
   render() {
+    const {districtKey} = this.context;
     const {student} = this.props.profileJson;
     const isHighSchool = (student.school_type === 'HS');
-    
+    const tabs = decideStudentProfileTabs(districtKey, isHighSchool);
     return (
       <div className="LightProfilePage" style={styles.root}>
         {this.renderInactiveOverlay()}
         {this.renderHeader()}
         <div style={styles.tabsContainer}>
           <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
-          {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
-          {isHighSchool && <div style={styles.tabLayout}>{this.renderTestingColumn()}</div>}
-          {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
-          {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
+          {tabs.grades && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
+          {tabs.sections && <div style={styles.tabLayout}>{this.renderSectionsColumn()}</div>}
+          {tabs.testing && <div style={styles.tabLayout}>{this.renderTestingColumn()}</div>}
+          {tabs.reading &&<div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
+          {tabs.math && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
           <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
           <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
         </div>
@@ -136,7 +138,8 @@ export default class LightProfilePage extends React.Component {
 
   renderSectionDetails() {
     const {selectedColumnKey} = this.props;
-    if (selectedColumnKey === 'grades') return this.renderGrades();
+    if (selectedColumnKey === 'grades') return this.renderSections({includeGrade: true, includeReflections: true});
+    if (selectedColumnKey === 'sections') return this.renderSections();
     if (selectedColumnKey === 'testing') return this.renderTesting();
     if (selectedColumnKey === 'reading') return this.renderReading();
     if (selectedColumnKey === 'math') return this.renderMath();
@@ -199,6 +202,7 @@ export default class LightProfilePage extends React.Component {
     );
   }
 
+  // For when sections have grades
   renderGradesColumn() {
     const {selectedColumnKey} = this.props;
     const {sections} = this.props.profileJson;
@@ -218,6 +222,28 @@ export default class LightProfilePage extends React.Component {
         text="Grades">
         <LightShoutNumber number={strugglingSectionsCount}>
           <div>courses with a D or F</div>
+          <div>right now</div>
+        </LightShoutNumber>
+      </LightProfileTab>
+    );
+  }
+
+  // For when no grades
+  renderSectionsColumn() {
+    const {selectedColumnKey} = this.props;
+    const {sections} = this.props.profileJson;
+    const columnKey = 'sections';
+    
+    return (
+      <LightProfileTab
+        style={styles.tab}
+        isSelected={selectedColumnKey === columnKey}
+        onClick={this.onColumnClicked.bind(this, columnKey)}
+        intenseColor="#ff7f00"
+        fadedColor="hsl(24, 100%, 92%)"
+        text="Sections">
+        <LightShoutNumber number={sections.length}>
+          <div>courses</div>
           <div>right now</div>
         </LightShoutNumber>
       </LightProfileTab>
@@ -425,7 +451,9 @@ export default class LightProfilePage extends React.Component {
     );
   }
 
-  renderGrades() {
+  // Used for both "sections" and "grades"
+  renderSections(options = {}) {
+    const {includeReflections, includeGrade} = options;
     const {sections, currentEducatorAllowedSections, gradesReflectionInsights} = this.props.profileJson;
     const hasSections = (sections && sections.length > 0);
 
@@ -434,12 +462,13 @@ export default class LightProfilePage extends React.Component {
         <DetailsSection anchorId="sections-roster" className="roster" title="Sections">
           {hasSections
             ? <StudentSectionsRoster
+              includeGrade={includeGrade}
               sections={sections}
               linkableSections={currentEducatorAllowedSections} />
             : <div>Not enrolled in any sections</div>}
 
         </DetailsSection>
-        <ReflectionsAboutGrades gradesReflectionInsights={gradesReflectionInsights} />
+        {includeReflections && <ReflectionsAboutGrades gradesReflectionInsights={gradesReflectionInsights} />}
       </div>
     );
   }
