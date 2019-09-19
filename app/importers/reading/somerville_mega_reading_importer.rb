@@ -21,7 +21,7 @@ class SomervilleMegaReadingImporter
     processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, @school_year)
 
     streaming_csvs.each_with_index do |tab, index|
-      return [] if tab.tab_name == "Help"
+      next if tab.tab_name == "Help"
       rows, meta = processor.process(tab.tab_csv)
       log("processed #{index} sheets.")
       rows.each_with_index {|row, index| import_row(row, index)}
