@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SectionTable from './SectionTable';
+import SectionView from './SectionView';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 
 
@@ -29,7 +29,7 @@ function testRender(props) {
   const el = document.createElement('div');
   ReactDOM.render(
     <PerDistrictContainer districtKey={districtKey}>
-      <SectionTable {...props} />
+      <SectionView {...props} />
     </PerDistrictContainer>
     , el);
   return {el};
@@ -39,7 +39,7 @@ function testRender(props) {
 it('renders the correct section select', () => {
   const {el} = testRender(testProps());
 
-  const sectionSelect = $(el).find('#section-select option');
+  const sectionSelect = $(el).find('.SectionView-section-select option');
 
   expect(sectionSelect[0].innerHTML).toEqual('Art-1');
   expect(sectionSelect[0].selected).toEqual(true);
@@ -53,10 +53,10 @@ it('renders the correct section select', () => {
 it('renders the correct section header', () => {
   const {el} = testRender(testProps());
 
-  const headerInfo = $(el).find('#section-header-info');
+  const headerInfo = $(el).find('.SectionView-header-info');
   const sectionName = headerInfo.find('h1').text();
-  const courseInfo = headerInfo.find('#course-info').text();
-  const sectionDetail = headerInfo.find('#section-detail').text();
+  const courseInfo = headerInfo.find('.SectionView-course-info').text();
+  const sectionDetail = headerInfo.find('.SectionView-section-detail').text();
 
   expect(sectionName).toEqual('Art-1');
   expect(courseInfo).toEqual('Awesome Art Class (Art)');
@@ -66,7 +66,7 @@ it('renders the correct section header', () => {
 it('renders the correct roster headers', () => {
   const {el} = testRender(testProps());
 
-  const headers = $(el).find('#roster-header th').toArray().map(el => $(el).text());
+  const headers = $(el).find('.SectionView-roster-header th').toArray().map(el => $(el).text());
 
   expect(headers.length).toEqual(22);
   expect(headers).toEqual([
@@ -98,7 +98,7 @@ it('renders the correct roster headers', () => {
 it('renders the correct roster data', () => {
   const {el} = testRender(testProps());
 
-  const $rowEls = $(el).find('#roster-data tr');
+  const $rowEls = $(el).find('.SectionView-roster-data tr');
   expect($rowEls.length).toEqual(2);
   const firstRowCells = $($rowEls.get(0)).find('td').toArray().map(el => $(el).html());
   expect(firstRowCells[0]).toEqual('<a href="/students/2">Duck, Donald</a>');

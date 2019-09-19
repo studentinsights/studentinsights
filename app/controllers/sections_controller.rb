@@ -25,12 +25,15 @@ class SectionsController < ApplicationController
 
     students_json = serialize_students(students.map(&:id), current_section)
     section = serialize_section(current_section)
-    sections = current_educator.allowed_sections
+    sections_json = current_educator.allowed_sections.as_json({
+      only: [:id, :section_number, :term_local_id],
+      methods: [:course_description]
+    })
 
     render json: {
       students: students_json,
       section: section,
-      sections: sections
+      sections: sections_json
     }
   end
 
