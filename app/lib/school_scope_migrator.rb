@@ -14,6 +14,17 @@ class SchoolScopeMigrator
     @explicit_school_scope = options.fetch(:schools, nil)
   end
 
+  def stats
+    {
+      active_students: count_by_school(Student.active.includes(:school)),
+      active_educators: count_by_school(Educator.active.includes(:school))
+    }
+  end
+
+  def count_by_school(records)
+    records.group_by(&:school).map {|k, vs| [k.try(:name), vs.size] }.sort_by {|t| -1 * t[1] }.map {|t| t.join(' -> ') }
+  end
+
   # As defined in definition file, or passed explicitly.
   def schools_within_scope
     return @explicit_school_scope if @explicit_school_scope.present?
@@ -27,10 +38,18 @@ class SchoolScopeMigrator
     puts "There are #{schools.size} School records within scope."
     puts
     puts
+    puts "stats, before:"
+    puts stats()
+    puts
+    puts
     migrate_educators!
     puts
     puts
     migrate_students!
+    puts
+    puts
+    puts "stats, after:"
+    puts stats()
     puts
     puts
     puts "All done."
