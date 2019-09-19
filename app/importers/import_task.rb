@@ -163,7 +163,7 @@ class ImportTask
     begin
       log('Calling SchoolScopeMigrator#migrate_all!')
       SchoolScopeMigrator.new.migrate_all!
-      
+
       log('Calling Student.update_recent_student_assessments...')
       Student.update_recent_student_assessments
 
