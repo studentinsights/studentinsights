@@ -108,3 +108,39 @@ it('renders photos and respects has_photo', () => {
   const {el} = testRender(testProps());
   expect($(el).find('.StudentPhotoCropped').length).toEqual(1);
 });
+
+
+
+   
+
+   // describe('header', () => {
+//   it('renders without crashing', () => {
+//     const div = document.createElement('div');
+
+//     ReactDOM.render(
+//       <SectionHeader
+//         section={{
+//           section_number: 8,
+//           course_description: 'Art',
+//           course_number: 3,
+//           room_number: '101',
+//           schedule: 'MF',
+//         }}
+//         sections={[
+//           {id: 1, section_number: 1}
+//         ]}
+//       />, div);
+//   });
+// });
+
+// describe('empty data', () => {
+//   it('renders without crashing', () => {
+//     const div = document.createElement('div');
+
+//     ReactDOM.render(
+//       <SectionHeader
+//         section={{}}
+//         sections={[]}
+//       />, div);
+//   });
+// });
