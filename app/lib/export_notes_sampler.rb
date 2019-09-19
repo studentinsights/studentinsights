@@ -1,7 +1,12 @@
 # This is intended for use in a one-off analysis task.
 # See NotesReview for group reflection.
 #
-class ExportNotesSample
+# sampler = ExportNotesSampler.new
+# csv = sampler.grab_csv(student_ids, {
+#   start_date: Date.time(2019, 08, 15),
+#   n: 200
+# })
+class ExportNotesSampler
   def grab_csv(student_ids, options = {})
     event_notes = unsafe_query(student_ids, options)
     sampled_event_notes, total_count = sampled(event_notes, options)
@@ -9,8 +14,8 @@ class ExportNotesSample
   end
 
   def unsafe_query(student_ids, options = {})
-    start_date = options[:start_date]
-    end_date = options[:end_date]
+    start_date = options(:start_date, nil)
+    end_date = options(:end_date, Time.now.end_of_day)
     is_restricted = options.fetch(:is_restricted, false)
 
     # Query in time range
@@ -24,8 +29,8 @@ class ExportNotesSample
 
   # Sample within that, deterministically
   def sampled(event_notes, options = {})
-    n = options[:n]
-    seed = options[:seed]
+    n = options.fetch(:n, 100)
+    seed = options.fetch(:seed, 42)
 
     sampled_event_notes = event_notes.sample(n, random: Random.new(seed))
     [sampled_event_notes, event_notes.size]
