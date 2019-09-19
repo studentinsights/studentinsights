@@ -332,7 +332,7 @@ RSpec.describe PerDistrict do
     end
 
     context 'when ENABLED_SECTIONS=false' do
-      before do 
+      before do
         @ENABLED_SECTIONS = ENV['ENABLED_SECTIONS']
         ENV['ENABLED_SECTIONS'] = 'false'
       end

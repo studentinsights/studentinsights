@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 RSpec.describe Authorizer do
   let!(:pals) { TestPals.create! }
 
