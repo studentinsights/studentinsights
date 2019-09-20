@@ -23,7 +23,7 @@ class SomervilleMegaReadingImporter
     end
     log("Found #{tabs.size} tabs.")
 
-    # reset metrics    
+    # reset metrics
     @valid_student_names_count = 0
     @valid_data_points_count = 0
     @blank_student_name_count = 0
@@ -33,13 +33,13 @@ class SomervilleMegaReadingImporter
     log('Starting loop...')
     tabs.each_with_index do |tab, tab_index|
       # process sheet into rows
-      log("\n\n\\ntab.name: #{tab.tab_name}")   
+      log("\n\n\\ntab.name: #{tab.tab_name}")
       log("processing sheet:#{tab_index}...")
       processor = MegaReadingProcessor.new(uploaded_by_educator, @school_year, options: {
         log: @log
       })
       rows, processor_stats = processor.process(tab.tab_csv)
-      
+
       # aggregate stats across processors
       @processors_used << processor
       @all_rows += rows
