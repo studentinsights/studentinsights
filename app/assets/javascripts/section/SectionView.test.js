@@ -41,8 +41,8 @@ it('renders the correct section header', () => {
   const {el} = testRender(testProps());
 
   expect($(el).text()).toContain('Awesome Art Class (Art-1)');
-  expect($(el).text()).toContain('In 304');
-  expect($(el).text()).toContain('3(M-R)');
+  expect($(el).text()).toContain('Room 304');
+  expect($(el).text()).toContain('Schedule 3(M-R)');
   expect($(el).text()).toContain('Term 9');
 });
 
