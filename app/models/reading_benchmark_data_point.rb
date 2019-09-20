@@ -11,7 +11,12 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     'dibels_dorf_acc',
     'f_and_p_english',
     'f_and_p_spanish',
-    'instructional_needs'
+    'instructional_needs',
+    "las_links_speaking",
+    "las_links_listening",
+    "las_links_reading",
+    "las_links_writing",
+    "las_links_overall"
   ]
 
   belongs_to :student

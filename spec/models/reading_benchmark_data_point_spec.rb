@@ -40,6 +40,46 @@ RSpec.describe ReadingBenchmarkDataPoint do
         student: student,
         educator: pals.uri,
         benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :las_links_speaking,
+        json: { value: 1 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :las_links_listening,
+        json: { value: 2 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :las_links_reading,
+        json: { value: 3 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :las_links_writing,
+        json: { value: 4 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
+        benchmark_period_key: :winter,
+        benchmark_assessment_key: :las_links_overall,
+        json: { value: 5 }
+      })
+      ReadingBenchmarkDataPoint.create!({
+        student: student,
+        educator: pals.uri,
+        benchmark_school_year: school_year,
         benchmark_period_key: :spring,
         benchmark_assessment_key: :f_and_p_english,
         json: { value: 'B' }
@@ -51,6 +91,11 @@ RSpec.describe ReadingBenchmarkDataPoint do
       expect(ReadingBenchmarkDataPoint.doc_for(student.id, school_year, :winter)).to eq({
         'dibels_dorf_acc' => 96,
         'dibels_dorf_wpm' => 101,
+        'las_links_speaking' => 1,
+        'las_links_listening' => 2,
+        'las_links_reading' => 3,
+        'las_links_writing' => 4,
+        'las_links_overall' => 5
       })
       expect(ReadingBenchmarkDataPoint.doc_for(student.id, school_year, :spring)).to eq({
         'f_and_p_english' => 'B'
