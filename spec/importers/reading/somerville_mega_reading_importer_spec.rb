@@ -50,7 +50,10 @@ RSpec.describe SomervilleMegaReadingImporter do
       pluto, donald = create_students!
       ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME'] = "uri"
       ENV['IMPORTED_GOOGLE_FOLDER_IDS_JSON'] = '{"reading_benchmarks_folder_id":"mock_folder_id_A"}'
-      importer = SomervilleMegaReadingImporter.new("2019", options: {fetcher: create_mock_fetcher})
+      importer = SomervilleMegaReadingImporter.new(options: {
+        fetcher: create_mock_fetcher,
+        school_year: 2019,
+      })
       importer.import
 
       expect(ReadingBenchmarkDataPoint.where(

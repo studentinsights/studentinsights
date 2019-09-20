@@ -200,7 +200,7 @@ export function benchmarkPeriodKeyFor(timeMoment) {
 }
 
 export function benchmarkPeriodToMoment(benchmarkPeriodKey, schoolYear) {
-  if (benchmarkPeriodKey === 'fall') return firstDayOfSchool(schoolYear);
+  if (benchmarkPeriodKey === 'fall') return toMoment([schoolYear, 9, 1]);
   if (benchmarkPeriodKey === 'winter') return toMoment([schoolYear+1, 1, 1]);
   if (benchmarkPeriodKey === 'spring') return toMoment([schoolYear+1, 5, 1]);
   if (benchmarkPeriodKey === 'summer') return lastDayOfSchool(schoolYear);
