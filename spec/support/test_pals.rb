@@ -77,6 +77,7 @@ class TestPals
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
     skip_team_memberships = options.fetch(:skip_team_memberships, false)
     skip_imported_forms = options.fetch(:skip_imported_forms, false)
+    district_school_year = options.fetch(:district_school_year, Section.to_district_school_year(SchoolYear.to_school_year(time_now)))
 
     # Uri works in the central office, and is the admin for the
     # project at the district.
@@ -374,11 +375,13 @@ class TestPals
         course: @shs_biology_course,
         section_number: 'SHS-BIO-TUES',
         term_local_id: 'Q3',
+        district_school_year: district_school_year,
       ),
       @shs_thursday_biology_section = Section.create!(
         course: @shs_biology_course,
         section_number: 'SHS-BIO-THUR',
         term_local_id: 'Q4',
+        district_school_year: district_school_year,
       )
     ])
     EducatorLabel.create!({
@@ -403,6 +406,7 @@ class TestPals
       @shs_second_period_ceramics = Section.create!(
         section_number: "ART-302A",
         term_local_id: "FY",
+        district_school_year: district_school_year,
         schedule: "2(M,R)",
         room_number: "201",
         course: @shs_ceramics_course
@@ -410,6 +414,7 @@ class TestPals
       @shs_fourth_period_ceramics = Section.create!(
         section_number: "ART-302B",
         term_local_id: "FY",
+        district_school_year: district_school_year,
         schedule: "4(M,R)",
         room_number: "234",
         course: @shs_ceramics_course
@@ -441,6 +446,7 @@ class TestPals
       @shs_third_period_physics = Section.create!(
         section_number: "SCI-201A",
         term_local_id: "S1",
+        district_school_year: district_school_year,
         schedule: "3(M,W,F)",
         room_number: "306W",
         course: @shs_physics_course
@@ -448,6 +454,7 @@ class TestPals
       @shs_fifth_period_physics = Section.create!(
         section_number: "SCI-201B",
         term_local_id: "S1",
+        district_school_year: district_school_year,
         schedule: "5(M,W,F)",
         room_number: "306W",
         course: @shs_physics_course
