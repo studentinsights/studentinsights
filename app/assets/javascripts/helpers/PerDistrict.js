@@ -314,3 +314,11 @@ export function tryShortSchoolName(districtKey, schoolLocalId) {
 
   return null;
 }
+
+// Only supported in Somerville (it's a separate data flow).
+export function includeSectionGrade(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  if (districtKey === NEW_BEDFORD) return false;
+  return false;
+}

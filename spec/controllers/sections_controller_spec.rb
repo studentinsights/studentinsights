@@ -100,7 +100,6 @@ describe SectionsController, :type => :controller do
         it 'returns the right shape of data' do
           make_request(section.id)
           json = JSON.parse(response.body)
-          expect(json['sections'].size).to eq 2
           expect(json['students'].size).to eq 1
           expect(json['students'].first.keys).to include(
             'event_notes_without_restricted',
@@ -108,6 +107,13 @@ describe SectionsController, :type => :controller do
             'most_recent_school_year_tardies_count',
             'most_recent_school_year_discipline_incidents_count'
           )
+          expect(json['sections'].size).to eq 2
+          expect(json['sections'].flat_map(&:keys).uniq).to contain_exactly(*[
+            'id',
+            'section_number',
+            'term_local_id',
+            'course_description'
+          ])
         end
 
         it 'does not include restricted notes' do
