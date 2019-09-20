@@ -98,22 +98,32 @@ describe SectionsController, :type => :controller do
         before { sign_in(educator) }
 
         it 'returns the right shape of data' do
-          make_request(section.id)
-          json = JSON.parse(response.body)
-          expect(json['students'].size).to eq 1
-          expect(json['students'].first.keys).to include(
-            'event_notes_without_restricted',
-            'most_recent_school_year_absences_count',
-            'most_recent_school_year_tardies_count',
-            'most_recent_school_year_discipline_incidents_count'
-          )
-          expect(json['sections'].size).to eq 2
-          expect(json['sections'].flat_map(&:keys).uniq).to contain_exactly(*[
-            'id',
-            'section_number',
-            'term_local_id',
-            'course_description'
-          ])
+          Timecop.freeze(pals.time_now) do
+            make_request(section.id)
+            json = JSON.parse(response.body)
+            expect(json['students'].size).to eq 1
+            expect(json['students'].first.keys).to include(
+              'event_notes_without_restricted',
+              'most_recent_school_year_absences_count',
+              'most_recent_school_year_tardies_count',
+              'most_recent_school_year_discipline_incidents_count'
+            )
+            expect(json['sections'].size).to eq 2
+            expect(json['sections'].flat_map(&:keys).uniq).to contain_exactly(*[
+              'id',
+              'section_number',
+              'term_local_id',
+              'course_description'
+            ])
+          end
+        end
+
+        it 'only includes sections with current district_school_year' do
+          Timecop.freeze(pals.time_now + 1.year) do
+            make_request(section.id)
+            json = JSON.parse(response.body)
+            expect(json['sections'].size).to eq 0
+          end
         end
 
         it 'does not include restricted notes' do
