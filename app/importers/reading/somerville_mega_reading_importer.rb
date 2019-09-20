@@ -1,49 +1,73 @@
 # For importing reading data from Google Sheets.
 class SomervilleMegaReadingImporter
-  def initialize(school_year, options = {})
-    @school_year = school_year
+  def initialize(options:)
+    @explicit_folder_id = options.fetch(:folder_id, nil)
+    @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @dry_run = options.fetch(:dry_run, false)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
+
+    @processors_used = []
+    @all_rows = []
   end
 
   def import
-    streaming_csvs = read_or_fetch_sheet
-    if streaming_csvs.nil?
+    log('Reading env...')
+    uploaded_by_educator = read_uploaded_by_educator_from_env()
+
+    log('Fetching tabs...')
+    tabs = fetch_tabs()
+    if tabs.nil?
       log('Aborting since no CSV found...')
       return
     end
+    log("Found #{tabs.size} tabs.")
+
+    # reset metrics    
+    @valid_student_names_count = 0
+    @valid_data_points_count = 0
+    @blank_student_name_count = 0
+    @invalid_student_name_count = 0
+    @all_rows = []
 
     log('Starting loop...')
-    @valid_student_names_count = 0
-    @invalid_student_name_count = 0
-    @valid_data_points_count = 0
+    tabs.each_with_index do |tab, tab_index|
+      # process sheet into rows
+      log("\n\n\\ntab.name: #{tab.tab_name}")   
+      log("processing sheet:#{tab_index}...")
+      processor = MegaReadingProcessor.new(uploaded_by_educator, @school_year, options: {
+        log: @log
+      })
+      rows, processor_stats = processor.process(tab.tab_csv)
+      
+      # aggregate stats across processors
+      @processors_used << processor
+      @all_rows += rows
+      @valid_student_names_count += processor_stats[:valid_student_names_count]
+      @valid_data_points_count += processor_stats[:valid_data_points_count]
+      @blank_student_name_count += processor_stats[:blank_student_name_count]
+      @invalid_student_name_count += processor_stats[:invalid_student_name_count]
 
-    processor = MegaReadingProcessor.new(read_uploaded_by_educator_from_env, @school_year, options = {log: @log})
-
-    streaming_csvs.each_with_index do |tab, index|
-      next if tab.tab_name == "Help"
-      rows, meta = processor.process(tab.tab_csv)
-      log("processed #{index} sheets.")
-      rows.each_with_index {|row, index| import_row(row, index)}
-      valid_student_names_count, valid_data_points_count, invalid_student_name_count = meta.values_at(
-        :valid_student_names_count, :valid_data_points_count, :invalid_student_name_count)
-      @valid_student_names_count += valid_student_names_count
-      @invalid_student_name_count += invalid_student_name_count
-      @valid_data_points_count += valid_data_points_count
-
+      # do something with rows, or not if dry run
+      if @dry_run
+        log('  skipping, dry_run: true...')
+      else
+        rows.each_with_index {|row, index| import_row(row, index)}
+      end
     end
+
     log('Done loop.')
     log("@valid_student_names_count: #{@valid_student_names_count}")
-    log("@invalid_student_names_count: #{@invalid_student_names_count}")
     log("@valid_data_points_count: #{@valid_data_points_count}")
+    log("@blank_student_name_count: #{@blank_student_name_count}")
+    log("@invalid_student_name_count: #{@invalid_student_name_count}")
     nil
   end
 
   private
-
-  def read_or_fetch_sheet
-    folder_id = read_folder_id_from_env
-    streaming_csvs = @fetcher.get_tabs_from_folder(folder_id)
+  def fetch_tabs
+    folder_id = @explicit_folder_id.present? ? @explicit_folder_id : read_folder_id_from_env()
+    @fetcher.get_tabs_from_folder(folder_id)
   end
 
   def read_uploaded_by_educator_from_env
