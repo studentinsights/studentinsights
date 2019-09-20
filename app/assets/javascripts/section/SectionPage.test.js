@@ -44,8 +44,8 @@ it('renders everything after fetch', done => {
   
   setTimeout(() => {
     expect($(el).text()).toContain('ART MAJOR FOUNDATIONS (ART-302A)');
-    expect($(el).text()).toContain('In 201');
-    expect($(el).text()).toContain('2(M,R)');
+    expect($(el).text()).toContain('Room 201');
+    expect($(el).text()).toContain('Schedule 2(M,R)');
     expect($(el).text()).toContain('Term FY');
     expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(sectionJson.students.length);
     expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(9);

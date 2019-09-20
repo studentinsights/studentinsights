@@ -34,7 +34,9 @@ export default class SectionView extends React.Component {
           <span style={styles.nameAndInfo}>
             <span>{section.course_description} {'(' + section.section_number + ')'}</span>
             <span style={styles.sectionInfo}>
-              In {section.room_number} {spacerEl} {section.schedule} {spacerEl} Term {section.term_local_id}
+              <span>Room {section.room_number || '(not set)'} {spacerEl}</span>
+              <span>Schedule {section.schedule || '(not set)'} {spacerEl}</span>
+              <span>Term {section.term_local_id || '(not set)'}</span>
             </span>
           </span>
           <SectionNavigator
