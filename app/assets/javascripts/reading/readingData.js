@@ -12,9 +12,12 @@ import {
   lastDayOfSchool
 } from '../helpers/schoolYear';
 import {
+  INSTRUCTIONAL_NEEDS,
   F_AND_P_ENGLISH,
+  F_AND_P_SPANISH,
   DIBELS_DORF_WPM,
   DIBELS_DORF_ACC,
+  DIBELS_DORF_ERRORS,
   DIBELS_FSF,
   DIBELS_LNF,
   DIBELS_PSF,
@@ -80,7 +83,11 @@ export function shortDibelsText(benchmarkAssessmentKey) {
     [DIBELS_NWF_CLS]: 'NWF cls',
     [DIBELS_NWF_WWR]: 'NWF wwr',
     [DIBELS_DORF_WPM]: 'ORF wpm',
-    [DIBELS_DORF_ACC]: 'ORF acc'
+    [DIBELS_DORF_ACC]: 'ORF acc',
+    [DIBELS_DORF_ERRORS]: 'ORF errors',
+    [F_AND_P_ENGLISH]: 'F&P English',
+    [F_AND_P_SPANISH]: 'F&P Spanish',
+    [INSTRUCTIONAL_NEEDS]: 'Instructional needs',
   }[benchmarkAssessmentKey];
 }
 

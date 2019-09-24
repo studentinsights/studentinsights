@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 // Render a horizontal Bar that is filled with `color` and is a
-// `percentage` of the width of the container.
+// `percent` of the width of the container.
 export default class Bar extends React.Component {
 
   render() {
