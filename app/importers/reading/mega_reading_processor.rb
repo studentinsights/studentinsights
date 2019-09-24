@@ -39,7 +39,6 @@ class MegaReadingProcessor
       rows += flattened_rows
       flattened_rows.size.times { @matcher.count_valid_row }
     end
-    log "matcher#stats: #{@matcher.stats}"
     log "MegaReadingProcessor#stats: #{stats}"
 
     # deprecated, use ReadingBenchmarkData model for F&P instead
@@ -161,7 +160,7 @@ class MegaReadingProcessor
       #
       # Since some fields are text, heuristics to infer the codes that educators are
       # going to be noisy, so disabled is a good default.
-      if @use_heuristic_about_moving && data_point.starts_with?('@') || data_point.downcase.include?('move')
+      if @use_heuristic_about_moving && (data_point.starts_with?('@') || data_point.downcase.include?('move'))
         @missing_data_point_because_student_moved_school +=1
         next
       end
