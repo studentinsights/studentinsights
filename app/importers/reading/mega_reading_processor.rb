@@ -173,11 +173,16 @@ class MegaReadingProcessor
       else
         {}
       end
+
+      # transform data point to conform to schema.  this should be minimal,
+      # if there is complexity in the input, push that to the interpretation
+      # side.
+      transformed_data_point = transform_data_point(data_point, grade, assessment_period, assessment_key)
       data_point_row = shared.merge(optional_grade_attrs).merge({
         benchmark_period_key: assessment_period,
         benchmark_assessment_key: assessment_key,
         json: {
-          value: data_point
+          value: transformed_data_point
         }
       })
 
@@ -185,6 +190,17 @@ class MegaReadingProcessor
       data_point_rows << data_point_row
     end
     data_point_rows
+  end
+
+  def transform_data_point(data_point, grade, assessment_period, assessment_key)
+    # Because percentages computed in the sheet are formulas, they are exported
+    # like 79% and we cut that off here.  Validations ensure these are integer
+    # numbers.
+    if assessment_key == :dibels_dorf_acc
+      return data_point.chomp('%') if data_point.ends_with?('%')
+    end
+
+    data_point
   end
 
   def all_import_tuples
