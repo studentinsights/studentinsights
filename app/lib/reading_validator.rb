@@ -83,7 +83,7 @@ class ReadingValidator
     if integer_percentage < 0 || integer_percentage > 100
       return "required percentage_as_integer for benchmark_assessment_key=#{benchmark_assessment_key}, but found value=#{value} out of range"
     end
-    
+
     nil
   end
 
@@ -96,7 +96,7 @@ class ReadingValidator
     if !ORDERED_F_AND_P_LEVELS.include?(value)
       return "required f_and_p_level_strict for benchmark_assessment_key=#{benchmark_assessment_key}, but found: #{value}"
     end
-    
+
     nil
   end
 end
