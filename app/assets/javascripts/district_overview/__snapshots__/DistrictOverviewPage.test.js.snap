@@ -1539,6 +1539,18 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
             </li>
             <li>
               <a
+                href="/reading/debug"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Reading benchmark counts by homeroom
+              </a>
+            </li>
+            <li>
+              <a
                 href="/reading/thresholds"
                 style={
                   Object {

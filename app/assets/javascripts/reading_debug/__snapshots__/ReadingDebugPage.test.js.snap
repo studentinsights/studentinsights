@@ -212,6 +212,13 @@ exports[`snapshots view 1`] = `
     </div>
     <div>
       <a
+        href="/reading/homerooms"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        homerooms
+      </a>
+      <a
         href="/reading/thresholds"
         rel="noopener noreferrer"
         target="_blank"
