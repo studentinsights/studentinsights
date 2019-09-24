@@ -1,6 +1,7 @@
 class ReadingValidator
   def self.debug_error_messages
     checks = {}
+    validator = ReadingValidator.new
     keys.each do |key|
       ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
       ds.each do |d|
