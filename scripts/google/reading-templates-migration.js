@@ -1,8 +1,5 @@
 /* --- TARGET PATHS ------------------------------------------------------------------------ */
-var PATHS = {}; 
-
-
-
+var PATHS = {};
 
 
 /* --- DEFINITIONS --------------------------------------------------------------- */
@@ -68,7 +65,7 @@ function scope() {
 /* --- MIGRATIONS, active --------------------------------------------------------------- */
 function applyConditionalFormattingToAll() {
   throw new Error('careful! review the code first in case things have changed');
-  //var files = [DriveApp.getFileById(PATHS.PRODUCTION_TEMPLATE_SEPT_9_2019)];
+  // var files = [DriveApp.getFileById(PATHS.PRODUCTION_TEMPLATE_SEPT_9_2019)];
   //var files = getFilesInAllFolders(PATHS.PRODUCTION_READING_FOLDER_2018_2019);
  
   Logger.log('  files.length=' + files.length);
@@ -101,6 +98,11 @@ function applyConditionalFormattingToSheet(sheet, options) {
   Logger.log('applyConditionalFormattingToSheet, sheet.getName=' + sheet.getName());
   
   var newRules = [];
+  
+  // names, removed since the rule doesn't work
+  // newRules = newRules.concat(createConditionalFormattingForNameColumns(sheet, options));
+
+  // thresholds
   var sortedThresholdDefs = thresholdDefs.sort(function(a, b) { return a.columnKey.localeCompare(b.columnKey); });
   Logger.log('  processsing ' + sortedThresholdDefs.length + ' threshold defs...');
   sortedThresholdDefs.forEach(function(thresholdDef) {
@@ -108,6 +110,7 @@ function applyConditionalFormattingToSheet(sheet, options) {
     newRules = newRules.concat(rules);
   });
 
+  // debug
   if (options && options.debug) {
     Logger.log('  translated to ' + newRules.length + ' rules');
   
@@ -125,6 +128,23 @@ function applyConditionalFormattingToSheet(sheet, options) {
   sheet.setConditionalFormatRules(newRules);
   Logger.log('applied.');
 }
+
+// This doesn't work, since it applies to all cells in the column, even those
+// without data.
+/*
+function createConditionalFormattingForNameColumns(sheet, options) {
+  Logger.log('createConditionalFormattingForNameColumns, sheet.getName=' + sheet.getName());
+  var lasidColumnIndex = getColumnIndexesFor(sheet, ['student_local_id'])[0];
+  var lasidRange = sheet.getRange(3, 1+lasidColumnIndex, 1000);
+  var lasidRule = SpreadsheetApp.newConditionalFormatRule()
+    .whenCellEmpty()
+    .setBackground("#ffff00")
+    .setRanges([lasidRange])
+    .build();
+  
+  return [lasidRule];
+}
+*/
 
 function rulesFromThresholdDef(sheet, thresholdDef) {
   Logger.log('Starting for ' + thresholdDef.columnKey + '...');
@@ -312,6 +332,8 @@ function forEachSheet(files, fn) {
 /* --- MIGRATIONS, deprecated or no longer needed ------------------------------------------------------------ */
 function DEPRECATED_patchFSF() {
   throw new Error('deprecated, careful!');
+  
+  // This is brittle if folks have inserted new columns on the left side
   Logger.log('Starting patchFSF...');
   var files = getFilesInAllFolders(PATHS.PRODUCTION_READING_FOLDER_2018_2019);
   Logger.log('  files.length=' + files.length);
