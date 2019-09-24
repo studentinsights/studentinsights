@@ -12,11 +12,11 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     'f_and_p_english',
     'f_and_p_spanish',
     'instructional_needs',
-    "las_links_speaking",
-    "las_links_listening",
-    "las_links_reading",
-    "las_links_writing",
-    "las_links_overall"
+    'las_links_speaking',
+    'las_links_listening',
+    'las_links_reading',
+    'las_links_writing',
+    'las_links_overall',
   ]
 
   belongs_to :student
@@ -76,5 +76,16 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
       self.benchmark_period_key,
       student.grade, # migrate this to be on this model instead
     ].join('-')
+  end
+
+  private
+  # Not yet enabled
+  def validate_json_meaning
+    validator = ReadingValidator.new
+    error_msg = validator.validate_json_meaning(self.benchmark_assessment_key, self.json['value'])
+    if error_msg.present?
+      errors.add(:json, error_msg)
+    end
+    nil
   end
 end

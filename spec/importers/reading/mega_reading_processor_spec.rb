@@ -131,4 +131,31 @@ RSpec.describe MegaReadingProcessor do
       ])
     end
   end
+
+  describe '#transform_data_point' do
+    it 'works for dibels_dorf_acc to chomp percent suffix' do
+      student = Student.create!(
+        school: pals.healey,
+        first_name: 'Pluto',
+        last_name: 'Skywalker',
+        grade: '1',
+        local_id: '1111119992',
+        enrollment_status: 'Active'
+      )
+      processor = MegaReadingProcessor.new(pals.uri.id, 2018, skip_explanation_rows_count: 0)
+      rows, _ = processor.process([
+        'student_local_id,student_last_names_first_names,1 / WINTER / DORF ACC',
+        '1111119992,"Skywalker, Pluto",79%'
+      ].join("\n"))
+      expect(rows.size).to eq 1
+      expect(rows.as_json).to contain_exactly(*[{
+        "educator_id" => pals.uri.id,
+        "benchmark_school_year" => 2018,
+        "student_id" => student.id,
+        "benchmark_period_key"=>"winter",
+        "benchmark_assessment_key"=>"dibels_dorf_acc",
+        "json"=>{"value" => "79" }
+      }])
+    end
+  end
 end
