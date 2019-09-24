@@ -21,14 +21,14 @@ class ReadingQueries
 
     eager_students = reading_benchmark_data_points.map(&:student)
     homerooms = eager_students.map {|s| s.try(:homeroom) }.compact.uniq
-    
+
     # with data
     counts_by_homeroom_id = {}
     reading_benchmark_data_points.each do |d|
       homeroom_id = d.student.homeroom.try(:id)
       if !counts_by_homeroom_id.has_key?(homeroom_id)
         counts_by_homeroom_id[homeroom_id] = {}
-      end  
+      end
       counts_by_homeroom_id[homeroom_id][d.benchmark_assessment_key] = (counts_by_homeroom_id[homeroom_id].fetch(d.benchmark_assessment_key, []) + [d.student.id]).uniq
     end
     counts = {}
