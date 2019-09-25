@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
@@ -53,14 +54,22 @@ export class ReadingHomeroomsView extends React.Component {
     // show instructional needs last
     const benchmarkAssessmentKeys = _.uniq(_.flatMap(homerooms, homeroom => Object.keys(homeroom.counts))).filter(key => key !== INSTRUCTIONAL_NEEDS).concat([INSTRUCTIONAL_NEEDS]);
 
+    const sortedHomerooms = _.orderBy(homerooms, homeroom => {
+      return [
+        rankedByGradeLevel(_.sortBy(homeroom.grades, rankedByGradeLevel)[0]),
+        homeroom.school.local_id,
+        homeroom.grades.length,
+        homeroom.educator ? homeroom.educator.full_name : null
+      ];
+    });
     return (
       <div className="ReadingHomeroomsView">
         <div style={{margin: 20, fontSize: 14}}>This shows the number of students that {`don't`} yet have benchmark assessment data in the current period.  This is broken down by grade level and homeroom to make it easier to debug issues with the import process.  {`"Instructional needs"`} is shown differently, and instead shows the number of students with specific needs noted.</div>
         <table style={tableStyles.table}>
           <thead>
             <tr>
-              <th style={tableStyles.headerCell}>School</th>
               <th style={tableStyles.headerCell}>Grades</th>
+              <th style={tableStyles.headerCell}>School</th>
               <th style={tableStyles.headerCell}>Educator</th>
               <th style={tableStyles.headerCell}>Students</th>
               {benchmarkAssessmentKeys.map(benchmarkAssessmentKey => (
@@ -71,11 +80,11 @@ export class ReadingHomeroomsView extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {homerooms.map(homeroom => {
+            {sortedHomerooms.map(homeroom => {
               return (
                 <tr key={homeroom.id}>
-                  <td style={tableStyles.cell}>{homeroom.school.local_id}</td>
                   <td style={tableStyles.cell}>{homeroom.grades.join(' ')}</td>
+                  <td style={tableStyles.cell}>{homeroom.school.local_id}</td>
                   <td style={tableStyles.cell}>{homeroom.educator ? <Educator educator={homeroom.educator} /> : 'unknown'}</td>
                   <td style={tableStyles.cell}>{homeroom.total} students</td>
                   {benchmarkAssessmentKeys.map(benchmarkAssessmentKey => (
@@ -114,7 +123,7 @@ ReadingHomeroomsView.propTypes = {
   homerooms: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     grades: PropTypes.array.isRequired,
-    educator: PropTypes.object.isRequired,
+    educator: PropTypes.object,
     school: PropTypes.object.isRequired,
     total: PropTypes.number.isRequired,
     counts: PropTypes.object.isRequired

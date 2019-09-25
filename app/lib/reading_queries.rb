@@ -12,15 +12,12 @@ class ReadingQueries
     end
   end
 
-  def by_homerooms_for_period(students, benchmark_period_key, benchmark_school_year)
+  def by_homerooms_for_period(students, homerooms, benchmark_period_key, benchmark_school_year)
     reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
       .where(student_id: students.pluck(:id))
       .where(benchmark_period_key: benchmark_period_key)
       .where(benchmark_school_year: benchmark_school_year)
       .includes(student: {homeroom: :educator})
-
-    eager_students = reading_benchmark_data_points.map(&:student)
-    homerooms = eager_students.map {|s| s.try(:homeroom) }.compact.uniq
 
     # with data
     counts_by_homeroom_id = {}
@@ -65,8 +62,8 @@ class ReadingQueries
           :name,
           :school_type
         ]),
-        total: total_by_homeroom_id[homeroom.id].size,
-        counts: counts[homeroom.id]
+        total: total_by_homeroom_id.fetch(homeroom.id, []).size,
+        counts: counts.fetch(homeroom.id, {})
       }
     end
 
