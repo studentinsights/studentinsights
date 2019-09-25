@@ -141,13 +141,15 @@ export default class ReaderProfileJune extends React.Component {
                 />
               }
               intervention={this.renderPhonologicalIntervention()}
-              screener={this.renderChipForDibels('blending', DIBELS_PSF)}
+
+              screener={
+                <MultipleChips chips={[
+                  this.renderChipForDibels('blending', DIBELS_PSF),
+                  this.renderChipForDibels('blending', DIBELS_FSF)
+                ]} />
+              }
             />,
-            <Sub
-              key="deleting"
-              name="deleting"
-              screener={this.renderChipForDibels('deleting', DIBELS_FSF)}
-            />,
+            <Sub key="deleting" name="deleting" />,
             <Sub key="substituting" name="substituting" />
           ]}
         />

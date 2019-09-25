@@ -1049,29 +1049,93 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
-                className="ModalSmall"
+                className="MultipleChips"
                 style={
                   Object {
                     "display": "flex",
                     "flex": 1,
-                    "fontSize": 12,
-                    "marginLeft": 0,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "width": "100%",
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
+                <div
                   style={
                     Object {
-                      "color": "black",
+                      "alignItems": "flex-start",
                       "display": "flex",
                       "flex": 1,
-                      "fontSize": 12,
-                      "outline": "none",
+                      "height": "100%",
+                      "justifyContent": "flex-start",
+                      "position": "relative",
                     }
                   }
-                />
+                >
+                  <div
+                    className="ModalSmall"
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "marginLeft": 0,
+                      }
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "color": "black",
+                          "display": "flex",
+                          "flex": 1,
+                          "fontSize": 12,
+                          "outline": "none",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": "100%",
+                      "justifyContent": "flex-start",
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    className="ModalSmall"
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flex": 1,
+                        "fontSize": 12,
+                        "marginLeft": 0,
+                      }
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "color": "black",
+                          "display": "flex",
+                          "flex": 1,
+                          "fontSize": 12,
+                          "outline": "none",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1236,29 +1300,15 @@ exports[`snapshots view 1`] = `
               }
             >
               <div
-                className="ModalSmall"
                 style={
                   Object {
-                    "display": "flex",
-                    "flex": 1,
+                    "color": "#eee",
                     "fontSize": 12,
-                    "marginLeft": 0,
+                    "padding": 5,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "black",
-                      "display": "flex",
-                      "flex": 1,
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                />
+                screener
               </div>
             </div>
             <div
