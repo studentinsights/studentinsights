@@ -1539,7 +1539,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
             </li>
             <li>
               <a
-                href="/reading/debug"
+                href="/reading/homerooms"
                 style={
                   Object {
                     "fontSize": 14,

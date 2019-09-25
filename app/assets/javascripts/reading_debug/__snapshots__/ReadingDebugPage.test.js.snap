@@ -221,6 +221,11 @@ exports[`snapshots view 1`] = `
       <a
         href="/reading/thresholds"
         rel="noopener noreferrer"
+        style={
+          Object {
+            "marginLeft": 10,
+          }
+        }
         target="_blank"
       >
         thresholds

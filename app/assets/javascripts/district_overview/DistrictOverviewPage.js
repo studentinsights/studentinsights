@@ -148,7 +148,7 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>}
             {showReadingDebugLinks && <li>
-              <a href="/reading/debug" style={styles.link}>
+              <a href="/reading/homerooms" style={styles.link}>
                Reading benchmark counts by homeroom
               </a>
             </li>}

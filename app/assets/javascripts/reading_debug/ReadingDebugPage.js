@@ -165,7 +165,7 @@ export class ReadingDebugView extends React.Component {
           </div>
           <div>
             <a target="_blank" rel="noopener noreferrer" href="/reading/homerooms">homerooms</a>
-            <a target="_blank" rel="noopener noreferrer" href="/reading/thresholds">thresholds</a>
+            <a style={{marginLeft: 10}} target="_blank" rel="noopener noreferrer" href="/reading/thresholds">thresholds</a>
           </div>
         </div>
         {this.renderGrid()}
