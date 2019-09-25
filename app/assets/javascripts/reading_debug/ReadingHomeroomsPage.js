@@ -8,6 +8,7 @@ import ExperimentalBanner from '../components/ExperimentalBanner';
 import Educator from '../components/Educator';
 import {shortDibelsText} from '../reading/readingData';
 import tableStyles from '../components/tableStyles';
+import {INSTRUCTIONAL_NEEDS} from '../reading/thresholds';
 
 
 // For reviewing, debugging and developing new ways to make use of
@@ -48,10 +49,13 @@ export default class ReadingHomeroomsPage extends React.Component {
 export class ReadingHomeroomsView extends React.Component {
   render() {
     const {homerooms} = this.props;
-    const benchmarkAssessmentKeys = _.uniq(_.flatMap(homerooms, homeroom => Object.keys(homeroom.counts)));
+
+    // show instructional needs last
+    const benchmarkAssessmentKeys = _.uniq(_.flatMap(homerooms, homeroom => Object.keys(homeroom.counts))).filter(key => key !== INSTRUCTIONAL_NEEDS).concat([INSTRUCTIONAL_NEEDS]);
 
     return (
       <div className="ReadingHomeroomsView">
+        <div style={{margin: 20, fontSize: 14}}>This shows the number of students that {`don't`} yet have benchmark assessment data in the current period.  This is broken down by grade level and homeroom to make it easier to debug issues with the import process.  {`"Instructional needs"`} is shown differently, and instead shows the number of students with specific needs noted.</div>
         <table style={tableStyles.table}>
           <thead>
             <tr>
@@ -73,12 +77,10 @@ export class ReadingHomeroomsView extends React.Component {
                   <td style={tableStyles.cell}>{homeroom.school.local_id}</td>
                   <td style={tableStyles.cell}>{homeroom.grades.join(' ')}</td>
                   <td style={tableStyles.cell}>{homeroom.educator ? <Educator educator={homeroom.educator} /> : 'unknown'}</td>
-                  <td style={tableStyles.cell}>{homeroom.total}</td>
+                  <td style={tableStyles.cell}>{homeroom.total} students</td>
                   {benchmarkAssessmentKeys.map(benchmarkAssessmentKey => (
                     <td style={tableStyles.cell} key={benchmarkAssessmentKey}>
-                      {homeroom.counts[benchmarkAssessmentKey] > 0 && (
-                        `${Math.round(homeroom.counts[benchmarkAssessmentKey] / homeroom.total * 100)}%`
-                      )}
+                      {this.renderCell(benchmarkAssessmentKey, homeroom)}
                     </td>
                   ))}
                 </tr>
@@ -88,6 +90,21 @@ export class ReadingHomeroomsView extends React.Component {
         </table>
       </div>
     );
+  }
+
+  renderCell(benchmarkAssessmentKey, homeroom) {
+    if (homeroom.total === 0) return null;
+    const count = homeroom.counts[benchmarkAssessmentKey];
+    if (count === undefined) return null;
+
+    if (benchmarkAssessmentKey === INSTRUCTIONAL_NEEDS) {
+      if (count === 0) return null;
+      return <span style={{color: 'green', fontWeight: 'bold'}}>+{count}</span>;
+    }
+
+    const notYet = (homeroom.total - count);
+    const color = (notYet === 0) ? '#ccc': 'black';
+    return <span style={{color}}>{notYet}</span>;
   }
 }
 ReadingHomeroomsView.contextTypes = {
