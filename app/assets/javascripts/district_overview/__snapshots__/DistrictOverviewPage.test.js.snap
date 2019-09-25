@@ -1534,7 +1534,19 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
                   }
                 }
               >
-                Benchmark reading data (eg, F&P)
+                Reading: Benchmark assessment breakdowns
+              </a>
+            </li>
+            <li>
+              <a
+                href="/reading/homerooms"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Reading: Current period by homeroom
               </a>
             </li>
             <li>
@@ -1546,7 +1558,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
                   }
                 }
               >
-                Thresholds for reading benchmarks
+                Reading: Thresholds and benchmarks
               </a>
             </li>
           </ul>

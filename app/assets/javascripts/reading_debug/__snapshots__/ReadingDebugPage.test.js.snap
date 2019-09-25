@@ -212,8 +212,20 @@ exports[`snapshots view 1`] = `
     </div>
     <div>
       <a
+        href="/reading/homerooms"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        homerooms
+      </a>
+      <a
         href="/reading/thresholds"
         rel="noopener noreferrer"
+        style={
+          Object {
+            "marginLeft": 10,
+          }
+        }
         target="_blank"
       >
         thresholds

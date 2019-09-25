@@ -19,6 +19,22 @@ class ReadingDebugController < ApplicationController
     }
   end
 
+  def reading_by_homerooms_json
+    safe_params = params.permit(:time_now, :benchmark_period_key, :benchmark_school_year)
+    time_now = time_now_or_param(safe_params[:time_now])
+    benchmark_period_key = safe_params.fetch(:benchmark_period_key, ReadingBenchmarkDataPoint.benchmark_period_key_at(time_now))
+    benchmark_school_year = safe_params.fetch(:benchmark_school_year, SchoolYear.to_school_year(time_now))
+
+    relevant_grades = ['KF','1','2','3','4','5']
+    homerooms = authorizer.homerooms.select {|h| (h.grades & relevant_grades).size > 0 }
+    students = authorized { Student.active.includes(:homeroom).where(homeroom_id: homerooms.map(&:id)).to_a }
+    homerooms_json = ReadingQueries.new.by_homerooms_for_period(students, homerooms, benchmark_period_key, benchmark_school_year)
+    render json: {
+      relevant_grades: relevant_grades,
+      homerooms_json: homerooms_json
+    }
+  end
+
   def reading_debug_csv
     students, groups = reading_debug()
     students_by_id = students.reduce({}) {|map, s| map.merge(s.id => s)}
@@ -92,5 +108,14 @@ class ReadingDebugController < ApplicationController
       counts_by_grade[student.grade] = counts_by_grade.fetch(student.grade, 0) + 1
     end
     counts_by_grade
+  end
+
+  # Use time from value or fall back to Time.now
+  def time_now_or_param(params_time_now)
+    if params_time_now.present?
+      Time.at(params_time_now.to_i)
+    else
+      Time.now
+    end
   end
 end

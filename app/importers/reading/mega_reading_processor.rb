@@ -39,7 +39,6 @@ class MegaReadingProcessor
       rows += flattened_rows
       flattened_rows.size.times { @matcher.count_valid_row }
     end
-    log "matcher#stats: #{@matcher.stats}"
     log "MegaReadingProcessor#stats: #{stats}"
 
     # deprecated, use ReadingBenchmarkData model for F&P instead
@@ -57,6 +56,7 @@ class MegaReadingProcessor
     {
       valid_student_names_count: @valid_student_names_count,
       valid_data_points_count: @valid_data_points_count,
+      blank_student_name_count: @blank_student_name_count,
       invalid_student_name_count: @invalid_student_name_count,
       invalid_student_names_list_size: @invalid_student_names_list.size,
       blank_data_points_count: @blank_data_points_count,
@@ -73,6 +73,7 @@ class MegaReadingProcessor
     @invalid_student_names_list = []
     @valid_data_points_count = 0
     @valid_student_names_count = 0
+    @blank_student_name_count = 0
   end
 
   # Map a row of the sheet to attributes that could make ReadingBenchmarkDataPoint
@@ -85,10 +86,13 @@ class MegaReadingProcessor
     end
 
     # match student
-    student_id, student_match_failure = match_student(row, index)
-    if student_id.nil?
+    student_id, student_match_failure, student_match_failure_debug = match_student(row, index)
+    if student_id.nil? && student_match_failure == :blank
+      @blank_student_name_count += 1
+      return nil
+    elsif student_id.nil? && student_match_failure == :not_found
       @invalid_student_name_count += 1
-      @invalid_student_names_list << student_match_failure
+      @invalid_student_names_list << student_match_failure_debug
       return nil
     end
     @valid_student_names_count += 1
@@ -103,23 +107,30 @@ class MegaReadingProcessor
     import_data_points(shared, row, @import_tuples)
   end
 
-  # returns [student_id, debug_match_failure_text]
+  # returns [student_id, reason, debug_match_failure_text]
   # exact primary key
   def match_student(row, index)
     # use canonical key, but support fallback
-    student = if row.has_key?('student_local_id')
-      Student.find_by_local_id(row['student_local_id'])
+    local_id = if row.has_key?('student_local_id')
+      row['student_local_id']
     elsif row.has_key?('LASID')
-      Student.find_by_local_id(row['LASID'])
+      row['LASID']
     else
       nil
     end
 
-    if student.present?
-      [student.id, nil]
-    else
-      [nil, "row index: #{index}"]
+    # blank is different than not_found
+    if local_id.nil? || local_id == ''
+      return [nil, :blank]
     end
+
+    # look it up
+    student = Student.find_by_local_id(local_id)
+    if student.nil?
+      [nil, :not_found, "row index: #{index}"]
+    end
+
+    [student.id, nil, nil]
   end
 
   # just sugar for unrolling these
@@ -137,7 +148,7 @@ class MegaReadingProcessor
       # This isn't necessarily a problem, for many templates there are fields
       # that are filled out as the year progresses.
       data_point = row[import_column_key]
-      if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
+      if data_point.nil? || ['?', 'n/a', 'absent', ''].include?(data_point.downcase)
         @blank_data_points_count += 1
         next
       end
@@ -149,7 +160,7 @@ class MegaReadingProcessor
       #
       # Since some fields are text, heuristics to infer the codes that educators are
       # going to be noisy, so disabled is a good default.
-      if @use_heuristic_about_moving && data_point.starts_with?('@') || data_point.downcase.include?('move')
+      if @use_heuristic_about_moving && (data_point.starts_with?('@') || data_point.downcase.include?('move'))
         @missing_data_point_because_student_moved_school +=1
         next
       end
@@ -161,11 +172,16 @@ class MegaReadingProcessor
       else
         {}
       end
+
+      # transform data point to conform to schema.  this should be minimal,
+      # if there is complexity in the input, push that to the interpretation
+      # side.
+      transformed_data_point = transform_data_point(data_point, grade, assessment_period, assessment_key)
       data_point_row = shared.merge(optional_grade_attrs).merge({
         benchmark_period_key: assessment_period,
         benchmark_assessment_key: assessment_key,
         json: {
-          value: data_point
+          value: transformed_data_point
         }
       })
 
@@ -173,6 +189,17 @@ class MegaReadingProcessor
       data_point_rows << data_point_row
     end
     data_point_rows
+  end
+
+  def transform_data_point(data_point, grade, assessment_period, assessment_key)
+    # Because percentages computed in the sheet are formulas, they are exported
+    # like 79% and we cut that off here.  Validations ensure these are integer
+    # numbers.
+    if assessment_key == :dibels_dorf_acc
+      return data_point.chomp('%') if data_point.ends_with?('%')
+    end
+
+    data_point
   end
 
   def all_import_tuples
@@ -347,9 +374,9 @@ class MegaReadingProcessor
       instructional_needs: 'Instructional needs',
       f_and_p_english: 'F&P Level English',
       f_and_p_spanish: 'F&P Level Spanish',
-      dibels_dorf_wpm: 'ORF WPM',
-      dibels_dorf_acc: 'ORF ACC',
-      dibels_dorf_errors: 'ORF Errors',
+      dibels_dorf_wpm: 'DORF WPM',
+      dibels_dorf_acc: 'DORF ACC',
+      dibels_dorf_errors: 'DORF Errors',
       dibels_nwf_cls: 'NWF CLS',
       dibels_nwf_wwr: 'NWF WWR',
       las_links_speaking: 'LAS Links Speaking',

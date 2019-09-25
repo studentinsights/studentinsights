@@ -33,6 +33,7 @@ import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
 import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
 import ReadingThresholdsPage from '../app/assets/javascripts/reading_debug/ReadingThresholdsPage';
+import ReadingHomeroomsPage from '../app/assets/javascripts/reading_debug/ReadingHomeroomsPage';
 import ReadingDebugPage from '../app/assets/javascripts/reading_debug/ReadingDebugPage';
 import ReadingDebugStarPage from '../app/assets/javascripts/reading_debug/ReadingDebugStarPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
@@ -110,6 +111,7 @@ export default class App extends React.Component {
         <Route exact path="/schools/:slug/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/groups" render={this.renderReadingGroupingPage.bind(this)}/>
         <Route exact path="/reading/thresholds" render={this.renderReadingThresholdsPage.bind(this)}/>
+        <Route exact path="/reading/homerooms" render={this.renderReadingHomeroomsPage.bind(this)}/>
         <Route exact path="/reading/debug" render={this.renderReadingDebugPage.bind(this)}/>
         <Route exact path="/reading/debug_star" render={this.renderReadingDebugStarPage.bind(this)}/>
         <Route exact path="/homerooms/:id" render={this.renderHomeroomPage.bind(this)}/>
@@ -197,6 +199,10 @@ export default class App extends React.Component {
 
   renderReadingDebugPage(routeProps) {
     return <ReadingDebugPage />;
+  }
+
+  renderReadingHomeroomsPage(routeProps) {
+    return <ReadingHomeroomsPage />;
   }
 
   renderReadingDebugStarPage(routeProps) {

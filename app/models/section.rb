@@ -39,4 +39,8 @@ class Section < ApplicationRecord
     return nil if district_school_year.nil?
     district_school_year - 1
   end
+
+  def self.to_district_school_year(insights_school_year)
+    insights_school_year + 1
+  end
 end

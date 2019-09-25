@@ -68,6 +68,7 @@ RSpec.describe MegaReadingProcessor do
       expect(stats).to eq({
         :valid_data_points_count => 28,
         :valid_student_names_count => 2,
+        :blank_student_name_count => 0,
         :invalid_student_name_count => 0,
         :invalid_student_names_list_size => 0,
         :missing_data_point_because_student_moved_school => 0,
@@ -119,15 +120,42 @@ RSpec.describe MegaReadingProcessor do
         "F&P Level Spanish",
         "NWF CLS",
         "NWF WWR",
-        "ORF ACC",
-        "ORF Errors",
-        "ORF WPM",
+        "DORF ACC",
+        "DORF Errors",
+        "DORF WPM",
         "LAS Links Listening",
         "LAS Links Writing",
         "LAS Links Overall",
         "LAS Links Reading",
         "LAS Links Speaking"
       ])
+    end
+  end
+
+  describe '#transform_data_point' do
+    it 'works for dibels_dorf_acc to chomp percent suffix' do
+      student = Student.create!(
+        school: pals.healey,
+        first_name: 'Pluto',
+        last_name: 'Skywalker',
+        grade: '1',
+        local_id: '1111119992',
+        enrollment_status: 'Active'
+      )
+      processor = MegaReadingProcessor.new(pals.uri.id, 2018, skip_explanation_rows_count: 0)
+      rows, _ = processor.process([
+        'student_local_id,student_last_names_first_names,1 / WINTER / DORF ACC',
+        '1111119992,"Skywalker, Pluto",79%'
+      ].join("\n"))
+      expect(rows.size).to eq 1
+      expect(rows.as_json).to contain_exactly(*[{
+        "educator_id" => pals.uri.id,
+        "benchmark_school_year" => 2018,
+        "student_id" => student.id,
+        "benchmark_period_key"=>"winter",
+        "benchmark_assessment_key"=>"dibels_dorf_acc",
+        "json"=>{"value" => "79" }
+      }])
     end
   end
 end

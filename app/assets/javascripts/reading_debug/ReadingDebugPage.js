@@ -70,7 +70,7 @@ export default class ReadingDebugPage extends React.Component {
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
         <SectionHeading titleStyle={styles.title}>
-          <div>Benchmark Reading Data (DEBUG)</div>
+          <div>Reading: Benchmark assessment breakdowns</div>
           <a href="/reading/debug_csv"><DownloadIcon /></a>
         </SectionHeading>
         <GenericLoader
@@ -164,7 +164,8 @@ export class ReadingDebugView extends React.Component {
               onClick={this.onFlippedClicked}>Flip table</div>
           </div>
           <div>
-            <a target="_blank" rel="noopener noreferrer" href="/reading/thresholds">thresholds</a>
+            <a target="_blank" rel="noopener noreferrer" href="/reading/homerooms">homerooms</a>
+            <a style={{marginLeft: 10}} target="_blank" rel="noopener noreferrer" href="/reading/thresholds">thresholds</a>
           </div>
         </div>
         {this.renderGrid()}

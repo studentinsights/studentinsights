@@ -25,12 +25,20 @@ class SectionsController < ApplicationController
 
     students_json = serialize_students(students.map(&:id), current_section)
     section = serialize_section(current_section)
-    sections = current_educator.allowed_sections
+
+    # limit navigator to current school year
+    district_school_year = Section.to_district_school_year(SchoolYear.to_school_year(Time.now))
+
+    sections_for_navigator = current_educator.allowed_sections.includes(:course).where(district_school_year: district_school_year)
+    sections_json = sections_for_navigator.as_json({
+      only: [:id, :section_number, :term_local_id],
+      methods: [:course_description]
+    })
 
     render json: {
       students: students_json,
       section: section,
-      sections: sections
+      sections: sections_json
     }
   end
 

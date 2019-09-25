@@ -12,9 +12,12 @@ import {
   lastDayOfSchool
 } from '../helpers/schoolYear';
 import {
+  INSTRUCTIONAL_NEEDS,
   F_AND_P_ENGLISH,
+  F_AND_P_SPANISH,
   DIBELS_DORF_WPM,
   DIBELS_DORF_ACC,
+  DIBELS_DORF_ERRORS,
   DIBELS_FSF,
   DIBELS_LNF,
   DIBELS_PSF,
@@ -80,7 +83,11 @@ export function shortDibelsText(benchmarkAssessmentKey) {
     [DIBELS_NWF_CLS]: 'NWF cls',
     [DIBELS_NWF_WWR]: 'NWF wwr',
     [DIBELS_DORF_WPM]: 'ORF wpm',
-    [DIBELS_DORF_ACC]: 'ORF acc'
+    [DIBELS_DORF_ACC]: 'ORF acc',
+    [DIBELS_DORF_ERRORS]: 'ORF errors',
+    [F_AND_P_ENGLISH]: 'F&P English',
+    [F_AND_P_SPANISH]: 'F&P Spanish',
+    [INSTRUCTIONAL_NEEDS]: 'Instructional needs',
   }[benchmarkAssessmentKey];
 }
 
@@ -200,7 +207,7 @@ export function benchmarkPeriodKeyFor(timeMoment) {
 }
 
 export function benchmarkPeriodToMoment(benchmarkPeriodKey, schoolYear) {
-  if (benchmarkPeriodKey === 'fall') return firstDayOfSchool(schoolYear);
+  if (benchmarkPeriodKey === 'fall') return toMoment([schoolYear, 9, 1]);
   if (benchmarkPeriodKey === 'winter') return toMoment([schoolYear+1, 1, 1]);
   if (benchmarkPeriodKey === 'spring') return toMoment([schoolYear+1, 5, 1]);
   if (benchmarkPeriodKey === 'summer') return lastDayOfSchool(schoolYear);

@@ -27,18 +27,42 @@ require 'fileutils'
 require 'csv'
 
 class GoogleSheetsFetcher
-  # returns [Tab]
-  def get_tabs_from_folder(folder_id)
-    sheet_ids = get_sheet_ids(folder_id)
+  def initialize(options = {})
+    @log = options.fetch(:log, nil)
+  end
 
-    sheet_ids.files.flat_map do |file|
-      get_tabs_from_sheet(file.id)
+  # returns [Tab]
+  # optionally recur into folders with recursive: true
+  # Note that this may hit API quotas, and this class
+  # isn't optimized to batch http requests.
+  def get_tabs_from_folder(folder_id, options = {})
+    log "get_tabs_from_folder(#{obscure(folder_id)})"
+    sheets = list_sheets(folder_id)
+
+    tabs = []
+    sheets.files.each do |file|
+      tabs += get_tabs_from_sheet(file.id)
     end
+
+    # Google Drive isn't actually a folder system, so this
+    # recurs manually since the number of files is small.
+    # See https://stackoverflow.com/questions/41741520/how-do-i-search-sub-folders-and-sub-sub-folders-in-google-drive
+    # for more on how Drive works, or the `batch` method in
+    # the Ruby API for alternatives.
+    if options.fetch(:recursive, false)
+      sub_folders = list_folders(folder_id)
+      sub_folders.files.each do |sub_folder|
+        tabs += get_tabs_from_folder(sub_folder.id, options)
+      end
+    end
+
+    tabs
   end
 
   # returns [Tab]
   def get_tabs_from_sheet(sheet_id)
-    download_tab_csvs(sheet_id)
+    log "get_tabs_from_sheet(#{obscure(sheet_id)})"
+    download_tab_csvs_batched(sheet_id)
   end
 
   private
@@ -67,34 +91,47 @@ class GoogleSheetsFetcher
     'Student Insights, GoogleSheetsFetcher'
   end
 
-  # No real escaping for building this query
-  def get_sheet_ids(unsafe_folder_id)
-    # initialize drive API
-    drive_service = Google::Apis::DriveV3::DriveService.new
-    drive_service.client_options.application_name = @application_name
-    drive_service.authorization = check_authorization()
-
-    # minimal check for query injection
-    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-_]/.match(unsafe_folder_id).present?
-    q = "'#{unsafe_folder_id}' in parents"
+  # See https://developers.google.com/drive/api/v3/search-files
+  # for info on how queries work.
+  def list_sheets(unsafe_folder_id)
+    log "  list_sheets(#{obscure(unsafe_folder_id)})"
+    folder_id = verify_safe_folder_id!(unsafe_folder_id)
+    q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet'"
     drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
-  def download_tab_csvs(sheet_id)
-    #Initialize sheets API
-    sheet_service = Google::Apis::SheetsV4::SheetsService.new
-    sheet_service.client_options.application_name = @application_name
-    sheet_service.authorization = check_authorization()
+  def list_folders(unsafe_folder_id)
+    log "  list_folders(#{obscure(unsafe_folder_id)})"
+    folder_id = verify_safe_folder_id!(unsafe_folder_id)
+    q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder'"
+    drive_service.list_files(q: q, fields: 'files(id, name)')
+  end
 
-    # Get values from sheets indexed by sheet name
+  # minimal check for query injection
+  def verify_safe_folder_id!(unsafe_folder_id)
+    raise "invalid unsafe_folder_id: #{unsafe_folder_id}" if /[^a-zA-Z0-9\-_]/.match(unsafe_folder_id).present?
+    unsafe_folder_id
+  end
+
+  # Returns [Tab] with CSV data for all sheets
+  def download_tab_csvs_batched(sheet_id)
+    # To manage quotas, do this in two API calls, one for the Spreadsheet to get all metadata,
+    # then a second batch request to get the contents of each tab.
+    # See https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/batchGet
+    # and https://github.com/googleapis/google-api-ruby-client/blob/cb0b81f79451b8dee9df07eb248110b3e6045916/generated/google/apis/sheets_v4/service.rb
+    spreadsheet = sheets_service.get_spreadsheet(sheet_id)
+    sheet_titles = spreadsheet.sheets.map(&:properties).map(&:title)
+    batch_responses = sheets_service.batch_get_spreadsheet_values(sheet_id, ranges: sheet_titles)
+    log "  download_tab_csvs_batched(#{obscure(sheet_id)}), found #{sheet_titles.size} sheets"
+
+    # iterate through to zip them together
     tabs = []
-    spreadsheet = sheet_service.get_spreadsheet(sheet_id)
-    spreadsheet.sheets.each_with_object({}) do |sheet, hash| # each tab in the spreadsheet
+    spreadsheet.sheets.each_with_index do |sheet, sheet_index|
+      # If it's a new empty sheet, `#values` will return nil instead of [[]], so
+      # handle that as a special case.
+      sheet_values = batch_responses.value_ranges[sheet_index].values || [[]]
       tab_csv = CSV.generate do |csv|
-        sheet_values = sheet_service.get_spreadsheet_values(sheet_id, sheet.properties.title).values
-        sheet_values.each do |row|
-          csv << row
-        end
+        sheet_values.each {|row| csv << row }
       end
       tabs << Tab.new({
         spreadsheet_id: spreadsheet.spreadsheet_id,
@@ -106,6 +143,38 @@ class GoogleSheetsFetcher
       })
     end
     tabs
+  end
+
+  def drive_service
+    if @drive_service.nil?
+      drive_service = Google::Apis::DriveV3::DriveService.new
+      drive_service.client_options.application_name = @application_name
+      drive_service.authorization = check_authorization()
+      @drive_service = drive_service
+    end
+    @drive_service
+  end
+
+  def sheets_service
+    if @sheets_service.nil?
+      sheets_service = Google::Apis::SheetsV4::SheetsService.new
+      sheets_service.client_options.application_name = @application_name
+      sheets_service.authorization = check_authorization()
+      @sheets_service = sheets_service
+    end
+    @sheets_service
+  end
+
+  # defensively avoid logging full ids, in case doc permissions are public when they
+  # shouldn't be
+  def obscure(id)
+    id.to_s.first(6)
+  end
+
+  def log(msg)
+    return if @log.nil?
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "GoogleSheetsFetcher: #{text}"
   end
 
   # A tab of a spreadsheet
