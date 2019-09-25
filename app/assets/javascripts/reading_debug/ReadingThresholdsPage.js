@@ -43,7 +43,7 @@ export default class ReadingThresholdsPage extends React.Component {
     return (
       <div className="ReadingThresholdsPage">
         <SectionHeading titleStyle={styles.title}>
-          <div>Reading thresholds</div>
+          <div>Reading: Thresholds and benchmarks</div>
           <div style={styles.headerLinkContainer}>
             <a style={styles.headerLink} href={SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer">Source code</a>
           </div>

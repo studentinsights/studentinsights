@@ -144,17 +144,17 @@ export class DistrictOverviewPageView extends React.Component {
             </li>
             {showReadingDebugLinks && <li>
               <a href="/reading/debug" style={styles.link}>
-               Benchmark reading data (eg, F&P)
+               Reading: Benchmark assessment breakdowns
               </a>
             </li>}
             {showReadingDebugLinks && <li>
               <a href="/reading/homerooms" style={styles.link}>
-               Reading benchmark counts by homeroom
+               Reading: Current period by homeroom
               </a>
             </li>}
             {showReadingDebugLinks && <li>
               <a href="/reading/thresholds" style={styles.link}>
-               Thresholds for reading benchmarks
+               Reading: Thresholds and benchmarks
               </a>
             </li>}
           </ul>
