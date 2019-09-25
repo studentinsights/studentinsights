@@ -44,10 +44,10 @@ class GoogleSheetsFetcher
       tabs += get_tabs_from_sheet(file.id)
     end
 
-    # Google Drive isn't actually a folder system, so this 
+    # Google Drive isn't actually a folder system, so this
     # recurs manually since the number of files is small.
     # See https://stackoverflow.com/questions/41741520/how-do-i-search-sub-folders-and-sub-sub-folders-in-google-drive
-    # for more on how Drive works, or the `batch` method in 
+    # for more on how Drive works, or the `batch` method in
     # the Ruby API for alternatives.
     if options.fetch(:recursive, false)
       sub_folders = list_folders(folder_id)
@@ -132,7 +132,7 @@ class GoogleSheetsFetcher
       sheet_values = batch_responses.value_ranges[sheet_index].values || [[]]
       tab_csv = CSV.generate do |csv|
         sheet_values.each {|row| csv << row }
-      end 
+      end
       tabs << Tab.new({
         spreadsheet_id: spreadsheet.spreadsheet_id,
         spreadsheet_name: spreadsheet.properties.title,
