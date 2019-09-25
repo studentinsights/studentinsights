@@ -25,9 +25,12 @@ class ReadingDebugController < ApplicationController
     benchmark_period_key = safe_params.fetch(:benchmark_period_key, ReadingBenchmarkDataPoint.benchmark_period_key_at(time_now))
     benchmark_school_year = safe_params.fetch(:benchmark_school_year, SchoolYear.to_school_year(time_now))
 
-    students = authorized { Student.active.includes(:homeroom).to_a }
-    homerooms_json = ReadingQueries.new.by_homerooms_for_period(students, benchmark_period_key, benchmark_school_year)
+    relevant_grades = ['KF','1','2','3','4','5']
+    homerooms = authorizer.homerooms.select {|h| (h.grades & relevant_grades).size > 0 }
+    students = authorized { Student.active.includes(:homeroom).where(homeroom_id: homerooms.map(&:id)).to_a }
+    homerooms_json = ReadingQueries.new.by_homerooms_for_period(students, homerooms, benchmark_period_key, benchmark_school_year)
     render json: {
+      relevant_grades: relevant_grades,
       homerooms_json: homerooms_json
     }
   end

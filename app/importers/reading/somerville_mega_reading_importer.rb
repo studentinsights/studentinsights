@@ -3,9 +3,13 @@ class SomervilleMegaReadingImporter
   def initialize(options:)
     @explicit_folder_id = options.fetch(:folder_id, nil)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
+    if @school_year != 2019
+      raise "aborting because of unexpected school_year; review the syncer scoping closely before running on another year"
+    end
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @dry_run = options.fetch(:dry_run, false)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))
+    @syncer = ::RecordSyncer.new(log: @log)
 
     @processors_used = []
     @all_rows = []
@@ -61,6 +65,10 @@ class SomervilleMegaReadingImporter
     log("@valid_data_points_count: #{@valid_data_points_count}")
     log("@blank_student_name_count: #{@blank_student_name_count}")
     log("@invalid_student_name_count: #{@invalid_student_name_count}")
+
+    log('Calling #delete_unmarked_records...')
+    @syncer.delete_unmarked_records!(records_within_scope)
+    log("Sync stats: #{@syncer.stats}")
     nil
   end
 
@@ -83,9 +91,20 @@ class SomervilleMegaReadingImporter
     folder_id
   end
 
+  # Explicitly scope to specific school year.  Dates are specific and intentional, and
+  # slightly different than the actual school year calendar because of timing differences.
+  def records_within_scope
+    if @school_year != 2019
+      raise "aborting because of unexpected school_year; review the syncer scoping closely before running on another year"
+    end
+    ReadingBenchmarkDataPoint.all
+      .where('created_at > ?', DateTime.new(@school_year, 9, 15))
+      .where('created_at < ?', DateTime.new(@school_year+1, 8, 15))
+  end
+
   def import_row(row, index)
-    benchmark_data_point = matching_student_insights_record_for_row(row)
-    benchmark_data_point.save!
+    maybe_benchmark_data_point = matching_student_insights_record_for_row(row)
+    @syncer.validate_mark_and_sync!(maybe_benchmark_data_point)
   end
 
   def matching_student_insights_record_for_row(row)
