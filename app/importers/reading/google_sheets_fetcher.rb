@@ -97,14 +97,14 @@ class GoogleSheetsFetcher
     log "  list_sheets(#{unsafe_folder_id})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet'"
-    drive_service.list_files(q: q, fields: 'files(id, name, mimeType)')
+    drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
   def list_folders(unsafe_folder_id)
     log "  list_folders(#{unsafe_folder_id})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder'"
-    drive_service.list_files(q: q, fields: 'files(id, name, mimeType)')
+    drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
   # minimal check for query injection
