@@ -35,6 +35,7 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     message: "%{value} is not one of: #{VALID_BENCHMARK_ASSESSMENT_KEYS.join(', ')}"
   }
   validates :json, presence: true
+  validate :validate_json_meaning
 
   def self.doc_for(student_id, benchmark_school_year, benchmark_period_key)
     data_points = ReadingBenchmarkDataPoint.where({
@@ -79,9 +80,8 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
   end
 
   private
-  # Not yet enabled
   def validate_json_meaning
-    validator = ReadingValidator.new
+    validator = ReadingValidator.new(enforce_f_and_p_validations: false)
     error_msg = validator.validate_json_meaning(self.benchmark_assessment_key, self.json['value'])
     if error_msg.present?
       errors.add(:json, error_msg)

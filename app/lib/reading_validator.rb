@@ -24,6 +24,10 @@ class ReadingValidator
     keys
   end
 
+  def initialize(options = {})
+    @enforce_f_and_p_validations = options.fetch(:enforce_f_and_p_validations, false)
+  end
+
   # Sanity-checking `value` for meaning.
   def validate_json_meaning(benchmark_assessment_key, value)
     key = benchmark_assessment_key.to_sym
@@ -90,6 +94,8 @@ class ReadingValidator
 
   ORDERED_F_AND_P_LEVELS = ['NR','AA','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Z+']
   def f_and_p_level_strict(benchmark_assessment_key, value)
+    return unless @enforce_f_and_p_validations
+    
     if value.nil?
       return "nil value for benchmark_assessment_key=#{benchmark_assessment_key}"
     end
