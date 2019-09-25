@@ -5,7 +5,7 @@ class SomervilleMegaReadingImporter
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @dry_run = options.fetch(:dry_run, false)
-    @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new)
+    @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))
 
     @processors_used = []
     @all_rows = []
@@ -33,7 +33,7 @@ class SomervilleMegaReadingImporter
     log('Starting loop...')
     tabs.each_with_index do |tab, tab_index|
       # process sheet into rows
-      log("\n\n\\ntab.name: #{tab.tab_name}")
+      log("\n\ntab.name: #{tab.tab_name}")
       log("processing sheet:#{tab_index}...")
       processor = MegaReadingProcessor.new(uploaded_by_educator, @school_year, options: {
         log: @log
@@ -67,7 +67,7 @@ class SomervilleMegaReadingImporter
   private
   def fetch_tabs
     folder_id = @explicit_folder_id.present? ? @explicit_folder_id : read_folder_id_from_env()
-    @fetcher.get_tabs_from_folder(folder_id)
+    @fetcher.get_tabs_from_folder(folder_id, recursive: true)
   end
 
   def read_uploaded_by_educator_from_env

@@ -36,7 +36,7 @@ class GoogleSheetsFetcher
   # Note that this may hit API quotas, and this class
   # isn't optimized to batch http requests.
   def get_tabs_from_folder(folder_id, options = {})
-    log "get_tabs_from_folder(#{folder_id})"
+    log "get_tabs_from_folder(#{obscure(folder_id)})"
     sheets = list_sheets(folder_id)
 
     tabs = []
@@ -61,7 +61,7 @@ class GoogleSheetsFetcher
 
   # returns [Tab]
   def get_tabs_from_sheet(sheet_id)
-    log "get_tabs_from_sheet(#{sheet_id})"
+    log "get_tabs_from_sheet(#{obscure(sheet_id)})"
     download_tab_csvs_batched(sheet_id)
   end
 
@@ -94,14 +94,14 @@ class GoogleSheetsFetcher
   # See https://developers.google.com/drive/api/v3/search-files
   # for info on how queries work.
   def list_sheets(unsafe_folder_id)
-    log "  list_sheets(#{unsafe_folder_id})"
+    log "  list_sheets(#{obscure(unsafe_folder_id)})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet'"
     drive_service.list_files(q: q, fields: 'files(id, name)')
   end
 
   def list_folders(unsafe_folder_id)
-    log "  list_folders(#{unsafe_folder_id})"
+    log "  list_folders(#{obscure(unsafe_folder_id)})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder'"
     drive_service.list_files(q: q, fields: 'files(id, name)')
@@ -122,7 +122,7 @@ class GoogleSheetsFetcher
     spreadsheet = sheets_service.get_spreadsheet(sheet_id)
     sheet_titles = spreadsheet.sheets.map(&:properties).map(&:title)
     batch_responses = sheets_service.batch_get_spreadsheet_values(sheet_id, ranges: sheet_titles)
-    log "  download_tab_csvs_batched(#{sheet_id}), found #{sheet_titles.size} sheets"
+    log "  download_tab_csvs_batched(#{obscure(sheet_id)}), found #{sheet_titles.size} sheets"
 
     # iterate through to zip them together
     tabs = []
@@ -163,6 +163,12 @@ class GoogleSheetsFetcher
       @sheets_service = sheets_service
     end
     @sheets_service
+  end
+
+  # defensively avoid logging full ids, in case doc permissions are public when they
+  # shouldn't be
+  def obscure(id)
+    id.to_s.first(6)
   end
 
   def log(msg)
