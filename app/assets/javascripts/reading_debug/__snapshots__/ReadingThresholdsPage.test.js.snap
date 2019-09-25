@@ -25,7 +25,7 @@ exports[`snapshots 1`] = `
       }
     >
       <div>
-        Reading thresholds
+        Reading: Thresholds and benchmarks
       </div>
       <div
         style={

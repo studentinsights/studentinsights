@@ -70,7 +70,7 @@ export default class ReadingDebugPage extends React.Component {
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
         <SectionHeading titleStyle={styles.title}>
-          <div>Benchmark Reading Data (DEBUG)</div>
+          <div>Reading: Benchmark assessment breakdowns</div>
           <a href="/reading/debug_csv"><DownloadIcon /></a>
         </SectionHeading>
         <GenericLoader

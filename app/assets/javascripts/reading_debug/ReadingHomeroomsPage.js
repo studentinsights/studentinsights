@@ -29,7 +29,7 @@ export default class ReadingHomeroomsPage extends React.Component {
       <div className="ReadingHomeroomsPage" style={styles.flexVertical}>
         <ExperimentalBanner />
         <SectionHeading titleStyle={styles.title}>
-          Benchmark Reading Data by Homeroom (DEBUG)
+          Reading: Current period by homeroom
         </SectionHeading>
         <GenericLoader
           promiseFn={this.fetchJson}
