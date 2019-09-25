@@ -7,7 +7,7 @@ RSpec.describe SomervilleMegaReadingImporter do
     mock_fetcher = GoogleSheetsFetcher.new
     allow(GoogleSheetsFetcher).to receive(:new).and_return(mock_fetcher)
     folder_id_to_tab_map.each do |folder_id, tabs|
-      allow(mock_fetcher).to receive(:get_tabs_from_folder).with(folder_id).and_return(tabs)
+      allow(mock_fetcher).to receive(:get_tabs_from_folder).with(folder_id, recursive: true).and_return(tabs)
     end
     mock_fetcher
   end
