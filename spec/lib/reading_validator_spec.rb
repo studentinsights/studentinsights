@@ -1,7 +1,7 @@
 RSpec.describe ReadingValidator do
   describe '#validate_json_meaning' do
-    def validate_json_meaning(key, value)
-      validator = ReadingValidator.new
+    def validate_json_meaning(key, value, options = {})
+      validator = ReadingValidator.new(options)
       validator.validate_json_meaning(key, value)
     end
 
@@ -44,11 +44,16 @@ RSpec.describe ReadingValidator do
       expect(validate_json_meaning(:dibels_dorf_acc, '0.97')).to eq 'required percentage_as_integer for benchmark_assessment_key=dibels_dorf_acc, but found value=0.97 that was not an integer'
     end
 
-    it 'works for F&P' do
+    it 'only enforces F&P when enforce_f_and_p_validations: true' do
       expect(validate_json_meaning(:f_and_p_english, 'A')).to eq nil
       expect(validate_json_meaning(:f_and_p_spanish, 'F')).to eq nil
+      expect(validate_json_meaning(:f_and_p_english, 'A/B')).to eq nil
+      expect(validate_json_meaning(:f_and_p_english, 'wat')).to eq nil
 
-      expect(validate_json_meaning(:f_and_p_english, 'A/B')).to eq 'required f_and_p_level_strict for benchmark_assessment_key=f_and_p_english, but found: A/B'
+      expect(validate_json_meaning(:f_and_p_english, 'A', enforce_f_and_p_validations: true)).to eq nil
+      expect(validate_json_meaning(:f_and_p_english, 'F', enforce_f_and_p_validations: true)).to eq nil
+      expect(validate_json_meaning(:f_and_p_english, 'A/B', enforce_f_and_p_validations: true)).to eq 'required f_and_p_level_strict for benchmark_assessment_key=f_and_p_english, but found: A/B'
+      expect(validate_json_meaning(:f_and_p_english, 'wat', enforce_f_and_p_validations: true)).to eq 'required f_and_p_level_strict for benchmark_assessment_key=f_and_p_english, but found: wat'
     end
 
     it 'allows text' do

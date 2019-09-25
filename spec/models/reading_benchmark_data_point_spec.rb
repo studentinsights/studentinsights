@@ -26,7 +26,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :dibels_dorf_wpm,
-        json: { value: 101 }
+        json: { value: '101' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -34,7 +34,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :dibels_dorf_acc,
-        json: { value: 96 }
+        json: { value: '96' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -42,7 +42,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :las_links_speaking,
-        json: { value: 1 }
+        json: { value: '1' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -50,7 +50,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :las_links_listening,
-        json: { value: 2 }
+        json: { value: '2' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -58,7 +58,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :las_links_reading,
-        json: { value: 3 }
+        json: { value: '3' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -66,7 +66,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :las_links_writing,
-        json: { value: 4 }
+        json: { value: '4' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -74,7 +74,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :las_links_overall,
-        json: { value: 5 }
+        json: { value: '5' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -89,13 +89,13 @@ RSpec.describe ReadingBenchmarkDataPoint do
     it 'queries correctly, only for period' do
       expect(ReadingBenchmarkDataPoint.doc_for(student.id, school_year, :fall)).to eq({})
       expect(ReadingBenchmarkDataPoint.doc_for(student.id, school_year, :winter)).to eq({
-        'dibels_dorf_acc' => 96,
-        'dibels_dorf_wpm' => 101,
-        'las_links_speaking' => 1,
-        'las_links_listening' => 2,
-        'las_links_reading' => 3,
-        'las_links_writing' => 4,
-        'las_links_overall' => 5
+        'dibels_dorf_acc' => '96',
+        'dibels_dorf_wpm' => '101',
+        'las_links_speaking' => '1',
+        'las_links_listening' => '2',
+        'las_links_reading' => '3',
+        'las_links_writing' => '4',
+        'las_links_overall' => '5'
       })
       expect(ReadingBenchmarkDataPoint.doc_for(student.id, school_year, :spring)).to eq({
         'f_and_p_english' => 'B'
