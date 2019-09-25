@@ -1,27 +1,6 @@
 class ReadingValidator
-  def self.debug_error_messages
-    checks = {}
-    validator = ReadingValidator.new
-    ReadingBenchmarkDataPoint::VALID_BENCHMARK_ASSESSMENT_KEYS.each do |key|
-      ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
-      ds.each do |d|
-        msg = validator.validate_json_meaning(key, d.json['value'])
-        if msg.present?
-          checks[key] = (checks.fetch(key, []) + [msg]).uniq.sort
-        end
-      end
-    end
-    checks
-  end
-
-  def self.debug_float_range
-    ranges = {}
-    ReadingBenchmarkDataPoint::VALID_BENCHMARK_ASSESSMENT_KEYS.map do |key|
-      ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
-      values = ds.map {|d| d.json['value'].try(:to_f) || nil }.compact
-      ranges[key] = { min: values.min, max: values.max }
-    end
-    keys
+  def initialize(options = {})
+    @enforce_f_and_p_validations = options.fetch(:enforce_f_and_p_validations, false)
   end
 
   # Sanity-checking `value` for meaning.
@@ -46,6 +25,32 @@ class ReadingValidator
       when :las_links_overall then positive_integer_within(key, value, 1, 6)
       else "unexpected benchmark_assessment_key=#{key}"
     end
+  end
+
+  # debug tool only
+  def debug_error_messages
+    checks = {}
+    ReadingBenchmarkDataPoint::VALID_BENCHMARK_ASSESSMENT_KEYS.each do |key|
+      ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
+      ds.each do |d|
+        msg = self.validate_json_meaning(key, d.json['value'])
+        if msg.present?
+          checks[key] = (checks.fetch(key, []) + [msg]).uniq.sort
+        end
+      end
+    end
+    checks
+  end
+
+  # debug tool only
+  def debug_float_range
+    ranges = {}
+    ReadingBenchmarkDataPoint::VALID_BENCHMARK_ASSESSMENT_KEYS.map do |key|
+      ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
+      values = ds.map {|d| d.json['value'].try(:to_f) || nil }.compact
+      ranges[key] = { min: values.min, max: values.max }
+    end
+    keys
   end
 
   private
@@ -90,6 +95,8 @@ class ReadingValidator
 
   ORDERED_F_AND_P_LEVELS = ['NR','AA','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Z+']
   def f_and_p_level_strict(benchmark_assessment_key, value)
+    return unless @enforce_f_and_p_validations
+
     if value.nil?
       return "nil value for benchmark_assessment_key=#{benchmark_assessment_key}"
     end
