@@ -71,8 +71,8 @@ describe('#decideStudentProfileTabs', () => {
     expect(decideStudentProfileTabs('somerville', 'MS')).toEqual(defaultTabs);
     expect(decideStudentProfileTabs('somerville', 'HS')).toEqual({grades: true, testing: true});
     expect(decideStudentProfileTabs('somerville', 'OTHER')).toEqual(defaultTabs);
-    expect(decideStudentProfileTabs('new_bedford', 'ES')).toEqual({sections: true, testing: true});
-    expect(decideStudentProfileTabs('new_bedford', 'MS')).toEqual({sections: true, testing: true});
+    expect(decideStudentProfileTabs('new_bedford', 'ES')).toEqual({math: true, reading: true});
+    expect(decideStudentProfileTabs('new_bedford', 'MS')).toEqual({math: true, reading: true});
     expect(decideStudentProfileTabs('bedford', 'ES')).toEqual(defaultTabs);
     expect(decideStudentProfileTabs('demo', 'ES')).toEqual(defaultTabs);
     expect(decideStudentProfileTabs('demo', 'HS')).toEqual({grades: true, testing: true});
