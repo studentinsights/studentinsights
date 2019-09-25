@@ -27,12 +27,16 @@ require 'fileutils'
 require 'csv'
 
 class GoogleSheetsFetcher
+  def initialize(options = {})
+    @log = options.fetch(:log, nil)
+  end
+
   # returns [Tab]
   # optionally recur into folders with recursive: true
   # Note that this may hit API quotas, and this class
-  # doesn't batch http requests.
+  # isn't optimized to batch http requests.
   def get_tabs_from_folder(folder_id, options = {})
-    puts "get_tabs_from_folder(#{folder_id})"
+    log "get_tabs_from_folder(#{folder_id})"
     sheets = list_sheets(folder_id)
 
     tabs = []
@@ -40,8 +44,8 @@ class GoogleSheetsFetcher
       tabs += get_tabs_from_sheet(file.id)
     end
 
-    # Google Drive isn't actually a folder system,
-    # so this recurs manually since the number of files is small.
+    # Google Drive isn't actually a folder system, so this 
+    # recurs manually since the number of files is small.
     # See https://stackoverflow.com/questions/41741520/how-do-i-search-sub-folders-and-sub-sub-folders-in-google-drive
     # for more on how Drive works, or the `batch` method in 
     # the Ruby API for alternatives.
@@ -57,6 +61,7 @@ class GoogleSheetsFetcher
 
   # returns [Tab]
   def get_tabs_from_sheet(sheet_id)
+    log "get_tabs_from_sheet(#{sheet_id})"
     download_tab_csvs_batched(sheet_id)
   end
 
@@ -89,14 +94,14 @@ class GoogleSheetsFetcher
   # See https://developers.google.com/drive/api/v3/search-files
   # for info on how queries work.
   def list_sheets(unsafe_folder_id)
-    puts "  list_sheets(#{unsafe_folder_id})"
+    log "  list_sheets(#{unsafe_folder_id})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet'"
     drive_service.list_files(q: q, fields: 'files(id, name, mimeType)')
   end
 
   def list_folders(unsafe_folder_id)
-    puts "  list_folders(#{unsafe_folder_id})"
+    log "  list_folders(#{unsafe_folder_id})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder'"
     drive_service.list_files(q: q, fields: 'files(id, name, mimeType)')
@@ -110,17 +115,22 @@ class GoogleSheetsFetcher
 
   # Returns [Tab] with CSV data for all sheets
   def download_tab_csvs_batched(sheet_id)
-    # Batch this into two API calls, one for the Spreadsheet to get all metadata,
+    # To manage quotas, do this in two API calls, one for the Spreadsheet to get all metadata,
     # then a second batch request to get the contents of each tab.
+    # See https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/batchGet
+    # and https://github.com/googleapis/google-api-ruby-client/blob/cb0b81f79451b8dee9df07eb248110b3e6045916/generated/google/apis/sheets_v4/service.rb
     spreadsheet = sheets_service.get_spreadsheet(sheet_id)
     sheet_titles = spreadsheet.sheets.map(&:properties).map(&:title)
     batch_responses = sheets_service.batch_get_spreadsheet_values(sheet_id, ranges: sheet_titles)
+    log "  download_tab_csvs_batched(#{sheet_id}), found #{sheet_titles.size} sheets"
 
     # iterate through to zip them together
     tabs = []
     spreadsheet.sheets.each_with_index do |sheet, sheet_index|
+      # If it's a new empty sheet, `#values` will return nil instead of [[]], so
+      # handle that as a special case.
+      sheet_values = batch_responses.value_ranges[sheet_index].values || [[]]
       tab_csv = CSV.generate do |csv|
-        sheet_values = batch_responses.value_ranges[sheet_index].values
         sheet_values.each {|row| csv << row }
       end 
       tabs << Tab.new({
@@ -145,8 +155,6 @@ class GoogleSheetsFetcher
     @drive_service
   end
 
-  # See https://github.com/googleapis/google-api-ruby-client/blob/cb0b81f79451b8dee9df07eb248110b3e6045916/generated/google/apis/sheets_v4/service.rb
-  # and https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/batchGet
   def sheets_service
     if @sheets_service.nil?
       sheets_service = Google::Apis::SheetsV4::SheetsService.new
@@ -155,6 +163,12 @@ class GoogleSheetsFetcher
       @sheets_service = sheets_service
     end
     @sheets_service
+  end
+
+  def log(msg)
+    return if @log.nil?
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "GoogleSheetsFetcher: #{text}"
   end
 
   # A tab of a spreadsheet
