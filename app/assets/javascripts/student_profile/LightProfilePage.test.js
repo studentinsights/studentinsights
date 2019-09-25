@@ -126,7 +126,7 @@ describe('tabs', () => {
     ]);
   });
 
-  it('for New Bedford, shows sections and testing', () => {
+  it('for New Bedford, does not yet show sections and testing (still reading and math)', () => {
     const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
       "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
       "next_gen_mcas_ela_scaled": [[2017,5,15,536]],
@@ -135,16 +135,16 @@ describe('tabs', () => {
     });
     const el = testRender(props, {districtKey: 'new_bedford'});
     expect(testingTabTextLines(1, el)).toEqual([
-      'Sections',
-      '0',
-      'sections',
-      'right now'
+      'Reading',
+      '10th',
+      'STAR percentile',
+      'a month ago'
     ]);
     expect(testingTabTextLines(2, el)).toEqual([
-      'Testing',
-      'M',
-      'ELA and Math MCAS',
-      '10 months / 2 years ago'
+      'Math',
+      '10th',
+      'STAR percentile',
+      'a month ago'
     ]);
   });
 });
