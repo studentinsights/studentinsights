@@ -24,7 +24,7 @@ class ReadingDebugController < ApplicationController
     time_now = time_now_or_param(safe_params[:time_now])
     benchmark_period_key = safe_params.fetch(:benchmark_period_key, ReadingBenchmarkDataPoint.benchmark_period_key_at(time_now))
     benchmark_school_year = safe_params.fetch(:benchmark_school_year, SchoolYear.to_school_year(time_now))
-   
+
     relevant_grades = ['KF','1','2','3','4','5']
     homerooms = authorizer.homerooms.select {|h| (h.grades & relevant_grades).size > 0 }
     students = authorized { Student.active.includes(:homeroom).where(homeroom_id: homerooms.map(&:id)).to_a }

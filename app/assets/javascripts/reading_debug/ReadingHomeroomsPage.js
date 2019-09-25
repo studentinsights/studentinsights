@@ -7,6 +7,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import Educator from '../components/Educator';
+import Homeroom from '../components/Homeroom';
 import {shortDibelsText} from '../reading/readingData';
 import tableStyles from '../components/tableStyles';
 import {INSTRUCTIONAL_NEEDS} from '../reading/thresholds';
@@ -85,7 +86,9 @@ export class ReadingHomeroomsView extends React.Component {
                 <tr key={homeroom.id}>
                   <td style={tableStyles.cell}>{homeroom.grades.join(' ')}</td>
                   <td style={tableStyles.cell}>{homeroom.school.local_id}</td>
-                  <td style={tableStyles.cell}>{homeroom.educator ? <Educator educator={homeroom.educator} /> : 'unknown'}</td>
+                  <td style={tableStyles.cell}>
+                    {homeroom.educator ? <Educator educator={homeroom.educator} /> : 'unknown'} in <Homeroom id={homeroom.id} name={homeroom.name} />
+                  </td>
                   <td style={tableStyles.cell}>{homeroom.total} students</td>
                   {benchmarkAssessmentKeys.map(benchmarkAssessmentKey => (
                     <td style={tableStyles.cell} key={benchmarkAssessmentKey}>
@@ -122,6 +125,7 @@ ReadingHomeroomsView.contextTypes = {
 ReadingHomeroomsView.propTypes = {
   homerooms: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
     grades: PropTypes.array.isRequired,
     educator: PropTypes.object,
     school: PropTypes.object.isRequired,

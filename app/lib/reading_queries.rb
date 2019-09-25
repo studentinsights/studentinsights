@@ -49,6 +49,7 @@ class ReadingQueries
     homerooms.map do |homeroom|
       {
         id: homeroom.id,
+        name: homeroom.name,
         grades: homeroom.grades,
         educator: homeroom.try(:educator).as_json(only: [
           :id,
