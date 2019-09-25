@@ -2,7 +2,7 @@ class ReadingValidator
   def self.debug_error_messages
     checks = {}
     validator = ReadingValidator.new
-    keys.each do |key|
+    ReadingBenchmarkDataPoint::VALID_BENCHMARK_ASSESSMENT_KEYS.each do |key|
       ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
       ds.each do |d|
         msg = validator.validate_json_meaning(key, d.json['value'])
@@ -16,7 +16,7 @@ class ReadingValidator
 
   def self.debug_float_range
     ranges = {}
-    keys.map do |key|
+    ReadingBenchmarkDataPoint::VALID_BENCHMARK_ASSESSMENT_KEYS.map do |key|
       ds = ReadingBenchmarkDataPoint.where(benchmark_assessment_key: key)
       values = ds.map {|d| d.json['value'].try(:to_f) || nil }.compact
       ranges[key] = { min: values.min, max: values.max }
