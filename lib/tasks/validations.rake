@@ -29,7 +29,6 @@ namespace :validations do
       out
     end
 
-
     def invalid_ids_for_class(model_class)
       invalid_ids = []
       counter = 0

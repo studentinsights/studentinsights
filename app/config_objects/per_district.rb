@@ -69,7 +69,7 @@ class PerDistrict
       # not eagerly loaded.
       #
       #  eg: student.ed_plans.select(&:active?).size > 0 ? '504' : nil
-      # 
+      #
       # Because this method is called from a validation, it's hard for callers
       # to control this, and changing may require a new PerfTest.
       student.ed_plans.active.size > 0 ? '504' : nil
