@@ -24,8 +24,10 @@ class TemporaryNewBedfordSectionsImporter
 
   def initialize(options:)
     @options = options
+    @explicit_file_text = options.fetch(:explicit_file_text, nil)
     @merged_remote_file_name = @options.fetch(:merged_remote_file_name, nil)
-    raise 'missing merged_remote_file_name' if @merged_remote_file_name.nil?
+    raise 'need either merged_remote_file_name or explicit_file_text' if @merged_remote_file_name.nil? && @explicit_file_text.nil?
+    @importers = []
   end
 
   # This subclasses private methods, and is generally not a stable solution; this is a transition
@@ -33,14 +35,18 @@ class TemporaryNewBedfordSectionsImporter
   def import
     file_text = download_file_text()
 
-    courses_and_sections_importer(file_text).import
-    student_section_assignments_importer(file_text).import
-    educator_section_assignments_importer(file_text).import
+    @importers = [
+      courses_and_sections_importer(file_text),
+      student_section_assignments_importer(file_text),
+      educator_section_assignments_importer(file_text)
+    ]
+    @importers.each(&:import)
     nil
   end
 
   private
   def download_file_text
+    return @explicit_file_text if @explicit_file_text.present?
     File.read(SftpClient.for_x2.download_file(@merged_remote_file_name))
   end
 

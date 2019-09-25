@@ -1,7 +1,7 @@
 class Educator < ApplicationRecord
   devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text, :login_code]
 
-  belongs_to  :school, optional: true # districtwide admin often don't have schools assigned
+  belongs_to  :school, optional: true # eg, districtwide admin often don't have schools assigned
   has_one     :homeroom
   has_many    :students, through: :homeroom
   has_many    :educator_section_assignments
@@ -45,26 +45,26 @@ class Educator < ApplicationRecord
     )
   end
 
+  # deprecated
   def is_principal?
     staff_type.try(:downcase) == 'principal'
   end
 
+  # deprecated
   def is_authorized_for_student(student)
     Authorizer.new(self).is_authorized_for_student?(student)
   end
 
+  # deprecated
   def is_authorized_for_school(current_school)
     Authorizer.new(self).is_authorized_for_school?(current_school)
-  end
-
-  def is_authorized_for_section(section)
-    Authorizer.new(self).is_authorized_for_section?(section)
   end
 
   def labels
     EducatorLabel.labels(self)
   end
 
+  # deprecated
   def default_section
     return sections[0] if sections.present?
     raise Exceptions::NoAssignedSections
@@ -74,14 +74,17 @@ class Educator < ApplicationRecord
     grade_level_access.present? && grade_level_access.size > 0
   end
 
+  # deprecated
   def allowed_sections
     Authorizer.new(self).sections
   end
 
+  # deprecated
   def self.to_index
     all.map { |e| [e.id, e.for_index] }.to_h
   end
 
+  # deprecated
   def for_index
     as_json.symbolize_keys.slice(:id, :email, :full_name)
   end

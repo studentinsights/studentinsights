@@ -55,11 +55,8 @@ class SectionsController < ApplicationController
   end
 
   def authorized_section(section_id)
-    # Extra layer since we don't yet allow K8 teachers to view sections
-    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access || current_educator.school.is_high_school?
-
     section = Section.find(params[:id])
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_section(section)
+    raise Exceptions::EducatorNotAuthorized unless authorizer.is_authorized_for_section?(section)
     section
   end
 
