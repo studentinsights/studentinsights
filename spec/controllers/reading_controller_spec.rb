@@ -211,7 +211,7 @@ describe ReadingController, :type => :controller do
 
       put_update_data_point_json({
         benchmark_assessment_key: 'dibels_dorf_acc',
-        value: 'multisyllabic decoding'
+        value: '97'
       })
       expect(response.status).to eq 201
       expect(response.body).to eq '{}'
@@ -233,7 +233,7 @@ describe ReadingController, :type => :controller do
         "benchmark_period_key"=>"winter",
         "benchmark_assessment_key"=>"dibels_dorf_acc",
         "json"=>{
-          "value"=>"multisyllabic decoding"
+          "value"=>"97"
         },
         "educator_id"=>pals.uri.id
       }])
@@ -247,7 +247,7 @@ describe ReadingController, :type => :controller do
       expect(JSON.parse(response.body)['entry_doc']).to eq({
         pals.healey_kindergarten_student.id.to_s => {
           "instructional_needs"=>"phonological awareness, segmenting",
-          "dibels_dorf_acc"=>"multisyllabic decoding"
+          "dibels_dorf_acc"=>"97"
         }
       })
     end

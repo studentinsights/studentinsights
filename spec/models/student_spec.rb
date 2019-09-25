@@ -129,7 +129,7 @@ RSpec.describe Student do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :dibels_dorf_wpm,
-        json: { value: 101 }
+        json: { value: '101' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -137,7 +137,7 @@ RSpec.describe Student do
         benchmark_school_year: school_year,
         benchmark_period_key: :winter,
         benchmark_assessment_key: :dibels_dorf_acc,
-        json: { value: 96 }
+        json: { value: '96' }
       })
       ReadingBenchmarkDataPoint.create!({
         student: student,
@@ -151,8 +151,8 @@ RSpec.describe Student do
 
     it 'queries correctly, only for period' do
       expect(student.winter_reading_doc(time_now: time_now)).to eq({
-        'dibels_dorf_acc' => 96,
-        'dibels_dorf_wpm' => 101,
+        'dibels_dorf_acc' => '96',
+        'dibels_dorf_wpm' => '101',
       })
     end
   end
