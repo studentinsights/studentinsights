@@ -46,7 +46,7 @@ class ReadingQueries
     end
 
     # output format
-    outs = homerooms.map do |homeroom|
+    homerooms.map do |homeroom|
       {
         id: homeroom.id,
         grades: homeroom.grades,
@@ -65,13 +65,6 @@ class ReadingQueries
         total: total_by_homeroom_id.fetch(homeroom.id, []).size,
         counts: counts.fetch(homeroom.id, {})
       }
-    end
-
-    outs.sort_by do |o|
-      [
-        o[:school][:name],
-        o[:grades].map {|grade| GradeLevels::ORDERED_GRADE_LEVELS.index(grade) }.sort
-      ]
     end
   end
 end
