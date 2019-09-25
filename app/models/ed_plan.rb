@@ -11,6 +11,10 @@ class EdPlan < ApplicationRecord
     where(sep_status: SEP_STATUS_MAP[:active])
   end
 
+  def active?
+    sep_status == SEP_STATUS_MAP[:active]
+  end
+
   def specific_disability
     sep_fieldd_006
   end

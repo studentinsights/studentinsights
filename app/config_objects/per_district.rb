@@ -62,6 +62,16 @@ class PerDistrict
   # the ed plan).
   def patched_plan_504(student)
     if @district_key == SOMERVILLE
+      # When run across a `Student` collection, this approach trigers n+1 queries
+      # even if `ed_plans` was eagerly loaded and there are no records.
+      #
+      # To avoid this, we could filter in memory, but that would trigger n+1 when
+      # not eagerly loaded.
+      #
+      #  eg: student.ed_plans.select(&:active?).size > 0 ? '504' : nil
+      # 
+      # Because this method is called from a validation, it's hard for callers
+      # to control this, and changing may require a new PerfTest.
       student.ed_plans.active.size > 0 ? '504' : nil
     else
       student.plan_504(force: true)
