@@ -130,6 +130,27 @@ class PerDistrict
     EnvironmentVariable.is_true('PROFILE_INCLUDE_Q2_SELF_REFLECTION_INSIGHTS') || false
   end
 
+  # Allow env to override
+  def enabled_sections?
+    return EnvironmentVariable.is_true('ENABLED_SECTIONS') if ENV.has_key?('ENABLED_SECTIONS')
+    return true if [SOMERVILLE, DEMO].include?(@district_key)
+    false
+  end
+
+  # Note that this may be called in performance-sensitive loops.
+  def allow_sections_link?(educator)
+    return false unless self.enabled_sections? # respect global switch
+
+    # sections aren't used for rostering in MSin Somerville, but data is imported and they could be
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      educator.school.try(:is_high_school?) || false
+    elsif @district_key == NEW_BEDFORD
+      true
+    else
+      false
+    end
+  end
+
   def high_school_enabled?
     @district_key == SOMERVILLE
   end

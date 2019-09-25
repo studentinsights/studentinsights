@@ -1,12 +1,18 @@
 require 'spec_helper'
 
-# This is just sugar, mirroring how this is used in controller code
-def authorized(educator, &block)
-  Authorizer.new(educator).authorized(&block)
-end
-
 RSpec.describe Authorizer do
   let!(:pals) { TestPals.create! }
+
+  # This is just sugar, mirroring how this is used in controller code
+  def authorized(educator, &block)
+    Authorizer.new(educator).authorized(&block)
+  end
+
+  def mock_per_district_enabled_sections!(value)
+    mock_per_district = PerDistrict.new
+    allow(mock_per_district).to receive(:enabled_sections?).and_return(value)
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+  end
 
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
@@ -201,6 +207,28 @@ RSpec.describe Authorizer do
           ]
         end
       end
+
+      context 'when enabled_sections? is false' do
+        it 'only allows schoolwide, not section-based access' do
+          mock_per_district_enabled_sections!(false)
+          expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array []
+          expect(authorized(pals.shs_hugo_art_teacher) { Student.all }).to match_array []
+          expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir
+          ]
+          expect(authorized(pals.shs_fatima_science_teacher) { Student.all }).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ]
+          expect(authorized(pals.shs_harry_housemaster) { Student.all }).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ]
+        end
+      end
     end
 
     describe 'EventNote' do
@@ -337,6 +365,7 @@ RSpec.describe Authorizer do
   describe '#is_authorized_for_student?' do
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       end
 
@@ -347,6 +376,7 @@ RSpec.describe Authorizer do
 
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 off' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return(nil)
       end
 
@@ -357,6 +387,7 @@ RSpec.describe Authorizer do
 
     context 'HS house master, K student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       end
 
@@ -417,6 +448,13 @@ RSpec.describe Authorizer do
   describe '#is_authorized_for_section?' do
     let!(:test_section) { pals.shs_tuesday_biology_section }
 
+    it 'respects enabled_sections?' do
+      mock_per_district_enabled_sections!(false)
+      Educator.all.each do |educator|
+        expect(Authorizer.new(educator).is_authorized_for_section?(test_section)).to eq false
+      end
+    end
+
     it 'allows access to own sections' do
       expect(Authorizer.new(pals.shs_bill_nye).is_authorized_for_section?(test_section)).to eq true
     end
@@ -466,16 +504,19 @@ RSpec.describe Authorizer do
       end
     end
 
-    it 'works as expected across all educators and students' do
+    def outcomes_for(educators, students, options = {})
       outcomes = []
-      Educator.all.each do |educator|
-        Student.all.each do |student|
-          reason = Authorizer.new(educator).why_authorized_for_student?(student)
+      educators.each do |educator|
+        students.each do |student|
+          reason = Authorizer.new(educator).why_authorized_for_student?(student, options)
           outcomes << [educator.login_name, student.id, reason] if reason.present?
         end
       end
+      outcomes
+    end
 
-      expect(outcomes).to match_array [
+    it 'works as expected across all educators and students' do
+      expect(outcomes_for(Educator.all, Student.all)).to match_array [
         ['uri', pals.healey_kindergarten_student.id, :districtwide],
         ['uri', pals.west_eighth_ryan.id, :districtwide],
         ['uri', pals.shs_freshman_mari.id, :districtwide],
@@ -503,6 +544,18 @@ RSpec.describe Authorizer do
         ['fatima', pals.shs_freshman_amir.id, :schoolwide],
         ['fatima', pals.shs_senior_kylo.id, :schoolwide]
       ]
+    end
+
+    it 'respects should_consider_sections:true' do
+      mock_per_district_enabled_sections!(false)
+      outcomes = outcomes_for(Educator.all, Student.all, should_consider_sections: true)
+      expect(outcomes.map {|outcome| outcome[2]}.uniq).to include(:section)
+    end
+
+    it 'respects should_consider_sections:false' do
+      mock_per_district_enabled_sections!(true)
+      outcomes = outcomes_for(Educator.all, Student.all, should_consider_sections: false)
+      expect(outcomes.map {|outcome| outcome[2]}.uniq).not_to include(:section)
     end
   end
 
@@ -792,6 +845,15 @@ RSpec.describe Authorizer do
         "+ wsns-501",
         "- shs-942" # bug fix
       ])
+    end
+  end
+
+  describe '#sections' do
+    it 'respects enabled_sections?' do
+      mock_per_district_enabled_sections!(false)
+      Educator.all.each do |educator|
+        expect(Authorizer.new(educator).sections).to eq []
+      end
     end
   end
 end

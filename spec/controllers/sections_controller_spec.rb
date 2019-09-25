@@ -80,7 +80,7 @@ describe SectionsController, :type => :controller do
       before { sign_in(educator) }
       before do
         mock_per_district = PerDistrict.new
-        allow(mock_per_district).to receive(:high_school_enabled?).and_return(false)
+        allow(mock_per_district).to receive(:enabled_sections?).and_return(false)
         allow(PerDistrict).to receive(:new).and_return(mock_per_district)
       end
 

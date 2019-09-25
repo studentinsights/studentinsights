@@ -3,7 +3,8 @@ import {
   sortSchoolSlugsByGrade,
   studentTableEventNoteTypeIds,
   eventNoteTypeIdsForSearch,
-  hasActive504Plan
+  hasActive504Plan,
+  decideStudentProfileTabs
 } from './PerDistrict';
 
 it('#shouldShowLowGradesBox', () => {
@@ -58,5 +59,22 @@ describe('#hasActive504Plan', () => {
     expect(hasActive504Plan('NotIn504')).toEqual(false);
     expect(hasActive504Plan('Exited')).toEqual(false);
     expect(hasActive504Plan('unknown')).toEqual(false);
+  });
+});
+
+describe('#decideStudentProfileTabs', () => {
+  it('works across test cases', () => {
+    const defaultTabs = {reading: true, math: true};
+    expect(decideStudentProfileTabs('somerville', 'ECS')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('somerville', 'ES')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('somerville', 'ESMS')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('somerville', 'MS')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('somerville', 'HS')).toEqual({grades: true, testing: true});
+    expect(decideStudentProfileTabs('somerville', 'OTHER')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('new_bedford', 'ES')).toEqual({math: true, reading: true});
+    expect(decideStudentProfileTabs('new_bedford', 'MS')).toEqual({math: true, reading: true});
+    expect(decideStudentProfileTabs('bedford', 'ES')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('demo', 'ES')).toEqual(defaultTabs);
+    expect(decideStudentProfileTabs('demo', 'HS')).toEqual({grades: true, testing: true});
   });
 });

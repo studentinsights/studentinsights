@@ -315,6 +315,13 @@ export function tryShortSchoolName(districtKey, schoolLocalId) {
   return null;
 }
 
+// Decide which tabs to show in the student profile page.
+export function decideStudentProfileTabs(districtKey, schoolType) {
+  const isHighSchool = (schoolType === 'HS');
+  if (([SOMERVILLE, DEMO].indexOf(districtKey) !== -1) && isHighSchool) return {grades: true, testing: true};
+  return {reading: true, math: true};
+}
+
 // Only supported in Somerville (it's a separate data flow).
 export function includeSectionGrade(districtKey) {
   if (districtKey === SOMERVILLE) return true;

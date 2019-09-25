@@ -102,6 +102,7 @@ class Authorizer
   # access.
   def why_authorized_for_student?(student, options = {})
     begin
+      should_consider_sections = options.fetch(:should_consider_sections, PerDistrict.new.enabled_sections?)
       return :districtwide if @educator.districtwide_access?
       return :housemaster if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
@@ -121,7 +122,7 @@ class Authorizer
       # are calling this in a loop get the optimization without having to
       # optimize themselves.
       return :homeroom if student.in?(@educator.students.to_a) # Homeroom level access
-      return :section if student.in?(@educator.section_students.to_a) # Section level access
+      return :section if should_consider_sections && student.in?(@educator.section_students.to_a) # Section level access
     rescue ActiveModel::MissingAttributeError => err
       # We can't do authorization checks on models with `#select` that are missing
       # fields.  If this happens, it's probably because the developer is trying to
@@ -143,6 +144,7 @@ class Authorizer
   end
 
   def is_authorized_for_section?(section)
+    return false unless PerDistrict.new.enabled_sections?
     return true if @educator.districtwide_access?
 
     return false if @educator.school.present? && @educator.school != section.course.school
@@ -223,6 +225,7 @@ class Authorizer
 
   # TODO(kr) remove implementation
   def sections
+    return [] unless PerDistrict.new.enabled_sections?
     if @educator.districtwide_access?
       Section.all
     elsif @educator.schoolwide_access?
