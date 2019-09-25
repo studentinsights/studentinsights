@@ -34,7 +34,7 @@ describe('integration tests', () => {
     expect(wrapper.text()).toContain('Loading...');
 
     setTimeout(() => {
-      expect(wrapper.html()).toContain('My sections');
+      expect(wrapper.html()).toContain('Sections');
       done();
     }, 0);
   });
