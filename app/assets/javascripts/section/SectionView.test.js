@@ -18,7 +18,23 @@ function testProps(props = {}) {
       { id: 2, section_number: 'Art-2', course_description: 'DRAWING WITH CHARCOAL', term_local_id: 'FY'},
       { id: 3, section_number: 'Art-3', course_description: 'DRAWING WITH CHARCOAL', term_local_id: 'Q1'}
     ],
-    section: { id: 1, section_number: 'Art-1', course_number: 'Art', course_description: 'Awesome Art Class', term_local_id: '9', schedule: '3(M-R)', room_number: '304' },
+    section: {
+      id: 1,
+      section_number: 'Art-1',
+      course_number: 'Art',
+      course_description: 'Awesome Art Class',
+      term_local_id: '9',
+      schedule: '3(M-R)',
+      room_number: '304',
+      course: {
+        school: {
+          id: 412,
+          name: "Somerville High",
+          local_id: "SHS",
+          slug: "shs"
+        }
+      },
+    },
     currentEducator: { districtwide_access: false },
     ...props
   };
