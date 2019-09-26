@@ -24,6 +24,9 @@ class EducatorLabel < ApplicationRecord
         'enable_reading_benchmark_data_entry', # deprecated
         'enable_reading_debug',
 
+        # profile
+        'enable_viewing_educators_with_access_to_student',
+
         # transition notes
         'k8_counselor',
         'high_school_house_master',
