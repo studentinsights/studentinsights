@@ -203,3 +203,20 @@ describe('inactive overlay', () => {
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 });
+
+describe('buttons', () => {
+  it('shows print PDF and full case history', () => {
+    const props = testPropsForAladdinMouse();
+    const el = testRender(props);
+    expect($(el).html()).toContain('Print PDF');
+    expect($(el).html()).toContain('List all data points');
+  });
+
+  it('can show button for permissions', () => {
+    const props = mergeAtPath(testPropsForAladdinMouse(), ['profileJson', 'currentEducator'], {
+      labels: ['enable_viewing_educators_with_access_to_student']
+    });
+    const el = testRender(props);
+    expect($(el).html()).toContain('Educators with access');
+  });
+});
