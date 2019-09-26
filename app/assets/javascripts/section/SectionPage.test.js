@@ -38,7 +38,7 @@ it('renders without crashing', () => {
   testRender(props);
 });
 
-it.only('renders everything after fetch', done => {
+it('renders everything after fetch', done => {
   const props = testProps();
   const {el} = testRender(props);
   
