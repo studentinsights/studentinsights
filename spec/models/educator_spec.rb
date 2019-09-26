@@ -219,7 +219,8 @@ RSpec.describe Educator do
         'enable_reading_benchmark_data_entry',
         'enable_equity_experiments',
         'enable_reading_debug',
-        'profile_enable_minimal_reading_data'
+        'profile_enable_minimal_reading_data',
+        'enable_viewing_educators_with_access_to_student'
       ])
     end
   end

@@ -30,7 +30,8 @@ describe DistrictController, :type => :controller do
             'enable_reading_benchmark_data_entry',
             'profile_enable_minimal_reading_data',
             'enable_equity_experiments',
-            'enable_reading_debug'
+            'enable_reading_debug',
+            'enable_viewing_educators_with_access_to_student'
           ]
         },
        "schools" => [
