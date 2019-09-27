@@ -121,6 +121,10 @@ class TestPals
       educator: @uri,
       label_key: 'enable_reading_debug'
     })
+    EducatorLabel.create!({
+      educator: @uri,
+      label_key: 'enable_viewing_educators_with_access_to_student'
+    })
     EducatorMultifactorConfig.create!({
       educator: @uri,
       rotp_secret: '4444rrr2vwjqgua2umohlpuzobar4444' # so development and demo have a stable TOTP setup over deploys

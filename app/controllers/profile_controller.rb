@@ -38,6 +38,28 @@ class ProfileController < ApplicationController
     render json: json
   end
 
+  def educators_with_access_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_viewing_educators_with_access_to_student')
+
+    student = Student.find(params[:id])
+    active_educators = Educator.active.includes(:educator_labels, :school, {sections: :course}, {homeroom: [:school, :students]})
+
+    with_access = []
+    active_educators.each do |educator|
+      authorizer = Authorizer.new(educator)
+      reason = authorizer.why_authorized_for_student?(student)
+      if reason.present?
+        with_access << {
+          educator: educator.as_json(only: [:id, :email, :full_name]),
+          reason: reason
+        }
+      end
+    end
+    render json: {
+      with_access_json: with_access
+    }
+  end
+
   private
   def authorize!
     student = Student.find(params[:id])

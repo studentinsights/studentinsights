@@ -764,4 +764,93 @@ describe ProfileController, :type => :controller do
       end
     end
   end
+
+  describe '#educators_with_access_json' do
+    let!(:pals) { TestPals.create! }
+
+    def get_educators_with_access_json(educator, student_id)
+      request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      get :educators_with_access_json, params: {
+        id: student_id,
+        format: :json
+      }
+    end
+
+    it 'guards authorization based on label' do
+      (Educator.all - [pals.uri]).each do |educator|
+        get_educators_with_access_json(educator, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'returns correct shape on happy path' do
+      get_educators_with_access_json(pals.uri, pals.healey_kindergarten_student.id)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        "with_access_json" => [
+          {"educator"=>{"id"=>pals.uri.id, "email"=>"uri@demo.studentinsights.org", "full_name"=>"Disney, Uri"}, "reason"=>"districtwide"},
+          {"educator"=>{"id"=>pals.rich_districtwide.id, "email"=>"rich@demo.studentinsights.org", "full_name"=>"Districtwide, Rich"}, "reason"=>"districtwide"},
+          {"educator"=>{"id"=>pals.healey_vivian_teacher.id, "email"=>"vivian@demo.studentinsights.org", "full_name"=>"Teacher, Vivian"}, "reason"=>"homeroom"},
+          {"educator"=>{"id"=>pals.healey_laura_principal.id, "email"=>"laura@demo.studentinsights.org", "full_name"=>"Principal, Laura"}, "reason"=>"schoolwide"}
+        ]
+      })
+    end
+
+    it 'returns expected values across active students' do
+      email_and_reason_by_student_id = {}
+      Student.active.each do |student|
+        get_educators_with_access_json(pals.uri, student)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        pairs = json['with_access_json'].map do |d|
+          [d['educator']['email'], d['reason']]
+        end
+        # sort just for consistent test comparison
+        email_and_reason_by_student_id[student.id] = pairs.sort_by do |pair|
+          [['districtwide', 'schoolwide', 'section', 'homeroom'].index(pair[1]), pair[0]]
+        end
+      end
+      expect(email_and_reason_by_student_id).to eq({
+        pals.shs_senior_kylo.id => [
+          ['rich@demo.studentinsights.org', 'districtwide'],
+          ['uri@demo.studentinsights.org', 'districtwide'],
+          ['fatima@demo.studentinsights.org', 'schoolwide'],
+          ['harry@demo.studentinsights.org', 'schoolwide'],
+          ['sofia@demo.studentinsights.org', 'schoolwide'],
+          ['hugo@demo.studentinsights.org', 'section']
+        ],
+        pals.shs_freshman_amir.id => [
+          ['rich@demo.studentinsights.org', 'districtwide'],
+          ['uri@demo.studentinsights.org', 'districtwide'],
+          ['fatima@demo.studentinsights.org', 'schoolwide'],
+          ['harry@demo.studentinsights.org', 'schoolwide'],
+          ['sofia@demo.studentinsights.org', 'schoolwide'],
+          ['jodi@demo.studentinsights.org', 'homeroom']
+        ],
+        pals.shs_freshman_mari.id => [
+          ['rich@demo.studentinsights.org', 'districtwide'],
+          ['uri@demo.studentinsights.org', 'districtwide'],
+          ['fatima@demo.studentinsights.org', 'schoolwide'],
+          ['harry@demo.studentinsights.org', 'schoolwide'],
+          ['sofia@demo.studentinsights.org', 'schoolwide'],
+          ['bill@demo.studentinsights.org', 'section'],
+          ['jodi@demo.studentinsights.org', 'homeroom']
+        ],
+        pals.west_eighth_ryan.id => [
+          ['rich@demo.studentinsights.org', 'districtwide'],
+          ['uri@demo.studentinsights.org', 'districtwide'],
+          ['les@demo.studentinsights.org', 'schoolwide']
+        ],
+        pals.healey_kindergarten_student.id => [
+          ['rich@demo.studentinsights.org', 'districtwide'],
+          ['uri@demo.studentinsights.org', 'districtwide'],
+          ['laura@demo.studentinsights.org', 'schoolwide'],
+          ['vivian@demo.studentinsights.org', 'homeroom']
+        ]
+      })
+    end
+  end
 end
