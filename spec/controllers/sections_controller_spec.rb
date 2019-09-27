@@ -27,7 +27,8 @@ describe SectionsController, :type => :controller do
           "course"=>{
             "id"=>pals.shs_physics_course.id,
             "course_number"=>"SCI-201",
-            "course_description"=>"PHYSICS 1"
+            "course_description"=>"PHYSICS 1",
+            "school"=>{"id"=>pals.shs.id, "name"=>"Somerville High", "local_id"=>"SHS", "slug"=>"shs"}
           },
           "educators"=>[{
             "id"=>pals.shs_fatima_science_teacher.id,
@@ -43,7 +44,8 @@ describe SectionsController, :type => :controller do
           "course"=>{
             "id"=>pals.shs_physics_course.id,
             "course_number"=>"SCI-201",
-            "course_description"=>"PHYSICS 1"
+            "course_description"=>"PHYSICS 1",
+            "school"=>{"id"=>pals.shs.id, "name"=>"Somerville High", "local_id"=>"SHS", "slug"=>"shs"}
           },
           "educators"=>[{
             "id"=>pals.shs_fatima_science_teacher.id,
@@ -101,6 +103,25 @@ describe SectionsController, :type => :controller do
           Timecop.freeze(pals.time_now) do
             make_request(section.id)
             json = JSON.parse(response.body)
+            expect(json['section'].except('created_at', 'updated_at')).to eq({
+              "id" => section.id,
+              "section_number" => "SHS-BIO-TUES",
+              "term_local_id" => "Q3",
+              "schedule" => nil,
+              "room_number" => nil,
+              "course_id" => section.course.id,
+              "district_school_year" => 2018,
+              "course_number" => "BIO-700",
+              "course_description" => "BIOLOGY 1 HONORS",
+              "course" => {
+                "school" => {
+                  "id" => pals.shs.id,
+                  "name" => "Somerville High",
+                  "local_id" => "SHS",
+                  "slug" => "shs"
+                }
+              }
+            })
             expect(json['students'].size).to eq 1
             expect(json['students'].first.keys).to include(
               'event_notes_without_restricted',

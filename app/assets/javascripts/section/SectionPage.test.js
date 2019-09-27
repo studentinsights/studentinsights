@@ -47,6 +47,7 @@ it('renders everything after fetch', done => {
     expect($(el).text()).toContain('Room 201');
     expect($(el).text()).toContain('Schedule 2(M,R)');
     expect($(el).text()).toContain('Term FY');
+    expect($(el).text()).toContain('Somerville High');
     expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(sectionJson.students.length);
     expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(9);
     done();

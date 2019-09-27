@@ -27,16 +27,17 @@ export default class SectionView extends React.Component {
 
   render() {
     const {section, sections} = this.props;
-    const spacerEl = <span>•</span>;
+    const spacerEl = <span style={styles.spacer}>•</span>;
     return (
       <div className="SectionView" style={styles.flexVertical}>
         <SectionHeading titleStyle={styles.sectionTitleStyle}>
           <span style={styles.nameAndInfo}>
             <span>{section.course_description} {'(' + section.section_number + ')'}</span>
             <span style={styles.sectionInfo}>
-              <span>Room {section.room_number || '(not set)'} {spacerEl}</span>
-              <span>Schedule {section.schedule || '(not set)'} {spacerEl}</span>
-              <span>Term {section.term_local_id || '(not set)'}</span>
+              <span>Room {section.room_number || '(not set)'}{spacerEl}</span>
+              <span>Schedule {section.schedule || '(not set)'}{spacerEl}</span>
+              <span>Term {section.term_local_id || '(not set)'}{spacerEl}</span>
+              <span>{section.course.school.name}</span>
             </span>
           </span>
           <SectionNavigator
@@ -140,6 +141,12 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
+  },
+  spacer: {
+    display: 'inline-block',
+    width: '1em',
+    textAlign: 'center',
+    color: '#666'
   },
   nameAndInfo: {
     flex: 1,

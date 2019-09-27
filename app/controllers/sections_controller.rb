@@ -7,7 +7,12 @@ class SectionsController < ApplicationController
       only: [:id, :room_number, :schedule, :section_number, :term_local_id],
       include: {
         course: {
-          only: [:id, :course_number, :course_description]
+          only: [:id, :course_number, :course_description],
+          include: {
+            school: {
+              only: [:id, :local_id, :slug, :name]
+            }
+          }
         },
         educators: {
           only: [:id, :full_name, :email]
@@ -22,17 +27,27 @@ class SectionsController < ApplicationController
   def section_json
     current_section = authorized_section(params[:id])
     students = authorized { current_section.students.active } # extra layer while transitioning K8 to use sections
-
     students_json = serialize_students(students.map(&:id), current_section)
-    section = serialize_section(current_section)
+    section = current_section.as_json({
+      methods: [:course_number, :course_description],
+      include: {
+        course: {
+          only: [],
+          include: {
+            school: {
+              only: [:id, :local_id, :slug, :name]
+            }
+          }
+        }
+      }
+    })
 
     # limit navigator to current school year
     district_school_year = Section.to_district_school_year(SchoolYear.to_school_year(Time.now))
-
     sections_for_navigator = current_educator.allowed_sections.includes(:course).where(district_school_year: district_school_year)
     sections_json = sections_for_navigator.as_json({
       only: [:id, :section_number, :term_local_id],
-      methods: [:course_description]
+      methods: [:course_description],
     })
 
     render json: {
@@ -82,9 +97,5 @@ class SectionsController < ApplicationController
         grade_numeric: grade_numeric
       })
     end
-  end
-
-  def serialize_section(section)
-    section.as_json(methods: [:course_number, :course_description])
   end
 end
