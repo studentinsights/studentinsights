@@ -24,6 +24,9 @@ class ReadingBenchmarkSheetsImporter
     @dry_run = options.fetch(:dry_run, false)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))
     @syncer = ::RecordSyncer.new(log: @log)
+    if @explicit_folder_id.present?
+      log("\n\nwarning, if @explicit_folder_id is set, sync will not be called to prevent destroying other data\n\n")
+    end
 
     @processors_used = []
     @all_rows = []
@@ -58,7 +61,7 @@ class ReadingBenchmarkSheetsImporter
       log('Starting loop...')
       tabs.each_with_index do |tab, tab_index|
         # process sheet into rows
-        log("\n\ntab.name: #{tab.tab_name}")
+        log("\n\ntab_id: #{tab.tab_id}, tab.name.first(1): #{tab.tab_name.first(1)}") # avoid logging educator names
         log("processing sheet:#{tab_index}...")
         processor = MegaReadingProcessor.new(uploaded_by_educator, @school_year, options: {
           log: @log
@@ -87,8 +90,12 @@ class ReadingBenchmarkSheetsImporter
       log("@blank_student_name_count: #{@blank_student_name_count}")
       log("@invalid_student_name_count: #{@invalid_student_name_count}")
 
-      log('Calling #delete_unmarked_records...')
-      @syncer.delete_unmarked_records!(records_within_scope)
+      if @explicit_folder_id.present?
+        log('Since @explicit_folder_id is present, skipping call to syncer.')
+      else
+        log('Calling #delete_unmarked_records...')
+        @syncer.delete_unmarked_records!(records_within_scope)
+      end
       log("Sync stats.to_json: #{@syncer.stats.to_json}")
     end
     log("Done transaction.")
