@@ -288,26 +288,25 @@ export class ReadingDebugView extends React.Component {
       [DIBELS_STRATEGIC]: 0,
       [DIBELS_INTENSIVE]: 0
     };
-    const studentIds = {};
-    dataPoints.forEach(d => {
-      if (d.json.value) {
-        const category = classifyDibels(d.json.value, benchmarkAssessmentKey, gradeThen, period);
-        if (category) {
-          dibelsCounts[category] = dibelsCounts[category] + 1;
-          studentIds[d.student_id] = (studentIds[d.student_id] || 0) + 1;
-          return;
-        }
+    const valuesByStudentId = {};
+    _.sortBy(dataPoints, d => d.updated_at).forEach(d => {
+      const category = classifyDibels(d.json.value, benchmarkAssessmentKey, gradeThen, period);
+      if (category) {
+        valuesByStudentId[d.student_id] = category;
       }
+    });
+    Object.values(valuesByStudentId).forEach(category => {
+      dibelsCounts[category] = dibelsCounts[category] + 1;
     });
 
     // 'students' - 'students with valid data points'
-    const missingCount = studentCountsByGrade[grade] - Object.keys(studentIds).length;
+    const missingCount = studentCountsByGrade[grade] - Object.keys(valuesByStudentId).length;
     return (
       <DibelsBreakdownBar
         coreCount={dibelsCounts[DIBELS_CORE]}
         intensiveCount={dibelsCounts[DIBELS_INTENSIVE]}
         strategicCount={dibelsCounts[DIBELS_STRATEGIC]}
-        missingCount={missingCount}
+        missingCount={dibelsCounts[DIBELS_UNKNOWN] + missingCount}
         height={5}
         labelTop={5}
       />
