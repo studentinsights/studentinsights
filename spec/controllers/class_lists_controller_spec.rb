@@ -667,12 +667,16 @@ describe ClassListsController, :type => :controller do
       }.merge(params))
     end
 
+    def random_hex
+      32.times.map { rand(16).to_s(16) }.join()
+    end
+    
     def create_student_photo(student_id, params = {})
       StudentPhoto.create({
         student_id: student_id,
-        file_digest: SecureRandom.hex,
-        file_size: 1000 + SecureRandom.random_number(100000),
-        s3_filename: SecureRandom.hex
+        file_digest: random_hex(),
+        file_size: 1000 + rand(100000),
+        s3_filename: random_hex()
       }.merge(params))
     end
 

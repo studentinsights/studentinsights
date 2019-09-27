@@ -10,6 +10,7 @@ RSpec.describe IepStorer, type: :model do
   end
 
   def create_mocked_iep_storer(attrs = {})
+    random_hex = 32.times.map { rand(16).to_s(16) }.join()
     path_to_file = '/tmp/path/124046632_IEPAtAGlance_Alexander_Hamilton.pdf'
     storer = IepStorer.new({
       path_to_file: path_to_file,
@@ -18,8 +19,8 @@ RSpec.describe IepStorer, type: :model do
     }.merge(attrs))
     allow(File).to receive(:open).and_call_original # ActiveSupport calls this for i8n translations
     allow(File).to receive(:open).with(path_to_file).and_return '<pdfbytes>'
-    allow(File).to receive(:size).with(path_to_file).and_return 1000 + SecureRandom.random_number(100000)
-    allow(storer).to receive(:file_digest).and_return SecureRandom.hex
+    allow(File).to receive(:size).with(path_to_file).and_return 1000 + rand(100000)
+    allow(storer).to receive(:file_digest).and_return random_hex
     storer
   end
 

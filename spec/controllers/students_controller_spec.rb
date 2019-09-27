@@ -108,13 +108,17 @@ describe StudentsController, :type => :controller do
       })
     end
 
+    def random_hex
+      32.times.map { rand(16).to_s(16) }.join()
+    end
+
     def create_iep_document(params = {})
       IepDocument.create!({
         student_id: nil,
         file_name: nil,
-        file_digest: SecureRandom.hex,
-        file_size: 1000 + SecureRandom.random_number(100000),
-        s3_filename: SecureRandom.hex
+        file_digest: random_hex(),
+        file_size: 1000 + rand(100000),
+        s3_filename: random_hex()
       }.merge(params))
     end
 

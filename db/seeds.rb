@@ -2,8 +2,6 @@ require "#{Rails.root}/db/seeds/database_constants"
 require "#{Rails.root}/spec/support/test_pals"
 require "#{Rails.root}/app/lib/environment_variable"
 
-start_time = Time.now
-
 def sample_numeric_grade_from_letter(grade_letter)
   case grade_letter
     when "A" then rand(90..100)
@@ -15,6 +13,21 @@ def sample_numeric_grade_from_letter(grade_letter)
 end
 
 puts 'Starting seeds.rb...'
+start_time = Time.now
+
+# Allow deterministic dev setup, which is also useful for regenerating fixture
+# values for tests after migrations or other changes.
+# 
+# We don't want this in test though; there we want to keep this random to
+# flush out any coupling (seeds can be fixed for specific test runs separately in
+# rspec as needed).
+if Rails.env.development? && ENV.has_key?('DETERMINISTIC_SEED_FOR_SEED_TASK')
+  srand_seed = ENV['DETERMINISTIC_SEED_FOR_SEED_TASK'].to_i
+  puts "Using DETERMINISTIC_SEED_FOR_SEED_TASK=#{srand_seed} for srand."
+  srand srand_seed
+else
+  puts "Allowing default seed for srand."
+end
 
 more_demo_students = EnvironmentVariable.is_true('MORE_DEMO_STUDENTS')
 

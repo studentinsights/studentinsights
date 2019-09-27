@@ -369,16 +369,20 @@ class FakeStudent
   def add_ieps
     15.in(100) do
       file_name = "#{@student.local_id}_IEPAtAGlance_#{@student.first_name}_#{@student.last_name}.pdf"
-      file_digest = SecureRandom.hex
+      file_digest = random_hex()
       IepDocument.create!(
         student: @student,
         file_name: file_name,
         file_digest: file_digest,
-        file_size: 1000 + SecureRandom.random_number(100000),
-        s3_filename: "#{SecureRandom.hex}/#{Time.now.strftime('%Y-%m-%d')}/#{file_digest}"
+        file_size: 1000 + rand(100000),
+        s3_filename: "#{random_hex()}/#{Time.now.strftime('%Y-%m-%d')}/#{file_digest}"
       )
     end
     nil
+  end
+
+  def random_hex()
+    32.times.map { rand(16).to_s(16) }.join()
   end
 
 end

@@ -5,6 +5,7 @@ Rails.application.configure do
     ENV[key.to_s] = value
   end if File.exists?(env_file)
   Env.set_for_development_and_test!
+  ENV['DETERMINISTIC_SEED_FOR_SEED_TASK'] = '42' # for deterministic dev setup
   ENV['ENABLE_CLASS_LISTS'] = 'true'
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
   ENV['USE_PLACEHOLDER_IEP_DOCUMENT'] = 'true'
