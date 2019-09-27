@@ -4,10 +4,6 @@ class ReadingDebugController < ApplicationController
   before_action :ensure_authorized_for_feature!
 
   def reading_debug_json
-    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/0. DANGER/2019-09-27-reading-debug/reading_debug.json'))
-    return   
-
-
     students, groups = reading_debug()
     students_json = students.as_json(only: [
       :id,
