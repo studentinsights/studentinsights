@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SomervilleMegaReadingImporter do
+RSpec.describe ReadingBenchmarkSheetsImporter do
   let!(:pals) { TestPals.create! }
 
   def create_mock_fetcher_from_map(folder_id_to_tab_map)
@@ -50,7 +50,7 @@ RSpec.describe SomervilleMegaReadingImporter do
       pluto, donald = create_students!
       ENV['READING_IMPORTER_UPLOADED_BY_EDUCATOR_LOGIN_NAME'] = "uri"
       ENV['IMPORTED_GOOGLE_FOLDER_IDS_JSON'] = '{"reading_benchmarks_folder_id":"mock_folder_id_A"}'
-      importer = SomervilleMegaReadingImporter.new(options: {
+      importer = ReadingBenchmarkSheetsImporter.new(options: {
         fetcher: create_mock_fetcher,
         school_year: 2019,
       })

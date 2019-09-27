@@ -1,5 +1,19 @@
 # For importing reading data from Google Sheets.
-class SomervilleMegaReadingImporter
+class ReadingBenchmarkSheetsImporter
+  def self.data_flow
+    DataFlow.new({
+      importer: self.name,
+      source: DataFlow::SOURCE_GOOGLE_DRIVE_FOLDER,
+      frequency: DataFlow::FREQUENCY_DAILY,
+      options: [],
+      merge: DataFlow::MERGE_UPDATE_DELETE_UNMARKED,
+      touches: [
+        ReadingBenchmarkDataPoint.name
+      ],
+      description: 'Import reading benchmark data for the specific school year 2019-2020, by reading all sheets within a Google Drive folder'
+    })
+  end
+
   def initialize(options:)
     @explicit_folder_id = options.fetch(:folder_id, nil)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
@@ -16,6 +30,11 @@ class SomervilleMegaReadingImporter
   end
 
   def import
+    if !PerDistrict.new.reading_benchmark_sheets_importer_enabled?
+      log('Aborting since not enabled...')
+      return
+    end
+
     log('Reading env...')
     uploaded_by_educator = read_uploaded_by_educator_from_env()
 
@@ -34,41 +53,45 @@ class SomervilleMegaReadingImporter
     @invalid_student_name_count = 0
     @all_rows = []
 
-    log('Starting loop...')
-    tabs.each_with_index do |tab, tab_index|
-      # process sheet into rows
-      log("\n\ntab.name: #{tab.tab_name}")
-      log("processing sheet:#{tab_index}...")
-      processor = MegaReadingProcessor.new(uploaded_by_educator, @school_year, options: {
-        log: @log
-      })
-      rows, processor_stats = processor.process(tab.tab_csv)
+    log('Starting transaction on ReadingBenchmarkDataPoint...')
+    ReadingBenchmarkDataPoint.transaction do
+      log('Starting loop...')
+      tabs.each_with_index do |tab, tab_index|
+        # process sheet into rows
+        log("\n\ntab.name: #{tab.tab_name}")
+        log("processing sheet:#{tab_index}...")
+        processor = MegaReadingProcessor.new(uploaded_by_educator, @school_year, options: {
+          log: @log
+        })
+        rows, processor_stats = processor.process(tab.tab_csv)
 
-      # aggregate stats across processors
-      @processors_used << processor
-      @all_rows += rows
-      @valid_student_names_count += processor_stats[:valid_student_names_count]
-      @valid_data_points_count += processor_stats[:valid_data_points_count]
-      @blank_student_name_count += processor_stats[:blank_student_name_count]
-      @invalid_student_name_count += processor_stats[:invalid_student_name_count]
+        # aggregate stats across processors
+        @processors_used << processor
+        @all_rows += rows
+        @valid_student_names_count += processor_stats[:valid_student_names_count]
+        @valid_data_points_count += processor_stats[:valid_data_points_count]
+        @blank_student_name_count += processor_stats[:blank_student_name_count]
+        @invalid_student_name_count += processor_stats[:invalid_student_name_count]
 
-      # do something with rows, or not if dry run
-      if @dry_run
-        log('  skipping, dry_run: true...')
-      else
-        rows.each_with_index {|row, index| import_row(row, index)}
+        # do something with rows, or not if dry run
+        if @dry_run
+          log('  skipping, dry_run: true...')
+        else
+          rows.each_with_index {|row, index| import_row(row, index)}
+        end
       end
+
+      log('Done loop.')
+      log("@valid_student_names_count: #{@valid_student_names_count}")
+      log("@valid_data_points_count: #{@valid_data_points_count}")
+      log("@blank_student_name_count: #{@blank_student_name_count}")
+      log("@invalid_student_name_count: #{@invalid_student_name_count}")
+
+      log('Calling #delete_unmarked_records...')
+      @syncer.delete_unmarked_records!(records_within_scope)
+      log("Sync stats.to_json: #{@syncer.stats.to_json}")
     end
-
-    log('Done loop.')
-    log("@valid_student_names_count: #{@valid_student_names_count}")
-    log("@valid_data_points_count: #{@valid_data_points_count}")
-    log("@blank_student_name_count: #{@blank_student_name_count}")
-    log("@invalid_student_name_count: #{@invalid_student_name_count}")
-
-    log('Calling #delete_unmarked_records...')
-    @syncer.delete_unmarked_records!(records_within_scope)
-    log("Sync stats: #{@syncer.stats}")
+    log("Done transaction.")
     nil
   end
 
@@ -92,7 +115,9 @@ class SomervilleMegaReadingImporter
   end
 
   # Explicitly scope to specific school year.  Dates are specific and intentional, and
-  # slightly different than the actual school year calendar because of timing differences.
+  # slightly different than the actual school year calendar because of timing differences,
+  # and the dates when this import process first started up, and other older ones were
+  # stopped.
   def records_within_scope
     if @school_year != 2019
       raise "aborting because of unexpected school_year; review the syncer scoping closely before running on another year"
@@ -124,6 +149,6 @@ class SomervilleMegaReadingImporter
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "SomervilleMegaReadingImporter: #{text}"
+    @log.puts "ReadingBenchmarkSheetsImporter: #{text}"
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe FileImporterOptions do
 
     it 'can describe data flows for all importer classes' do
       data_flows = FileImporterOptions.new.all_data_flows
-      expect(data_flows.size).to eq(14)
+      expect(data_flows.size).to eq(15)
       sorted_json = data_flows.as_json.sort_by {|j| j['importer'] }
       fixture_json = JSON.parse(IO.read("#{Rails.root}/spec/importers/file_importers/data_flows_fixture.json"))
       expect(sorted_json).to eq(fixture_json)
@@ -47,7 +47,8 @@ RSpec.describe FileImporterOptions do
         'star_reading',
         'ed_plans',
         'ed_plan_accommodations',
-        'student_voice_surveys'
+        'student_voice_surveys',
+        'reading_benchmark_sheets'
       ])
     end
   end
