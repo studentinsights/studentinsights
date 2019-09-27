@@ -396,6 +396,11 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
+  # Should this run as part of import jobs?
+  def reading_benchmark_sheets_importer_enabled?
+    @district_key == SOMERVILLE
+  end
+
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
       try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])

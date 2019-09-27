@@ -99,6 +99,17 @@
     "description": "SIS educator rosters, which also includes homeroom assignments and impacts permissions."
   },
   {
+    "importer": "ReadingBenchmarkSheetsImporter",
+    "source": "source_google_drive_folder",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": [
+      "ReadingBenchmarkDataPoint"
+    ],
+    "options": [],
+    "description": "Import reading benchmark data for the specific school year 2019-2020, by reading all sheets within a Google Drive folder"
+  },
+  {
     "importer": "StarMathImporter",
     "source": "source_star_vendor_sftp_csv",
     "frequency": "frequency_daily",
@@ -161,7 +172,8 @@
       "StudentVoiceCompletedSurvey"
     ],
     "options": [],
-    "description": "Import student voice surveys, append-only style, by reading sheet generated from Google Form"},
+    "description": "Import student voice surveys, append-only style, by reading sheet generated from Google Form"
+  },
   {
     "importer": "StudentsImporter",
     "source": "source_sis_sftp_csv",

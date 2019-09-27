@@ -4,6 +4,7 @@ class DataFlow
 
   SOURCE_SIS_SFTP_CSV = 'source_sis_sftp_csv'
   SOURCE_STAR_VENDOR_SFTP_CSV = 'source_star_vendor_sftp_csv'
+  SOURCE_GOOGLE_DRIVE_FOLDER = 'source_google_drive_folder'
   SOURCE_GOOGLE_DRIVE_SHEET = 'source_google_drive_sheet'
 
   MERGE_UPDATE_DELETE_UNMARKED = 'merge_update_delete_unmarked'
