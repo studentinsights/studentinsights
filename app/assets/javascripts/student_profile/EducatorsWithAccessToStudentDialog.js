@@ -53,11 +53,17 @@ export default class EducatorsWithAccessToStudentDialog extends React.Component 
     const sortedWithAccess = _.orderBy(withAccess, ({educator, reason}) => {
       return [sortedReasons.indexOf(reason), educator.full_name];
     });
+    const boxes = sortedReasons.map(reason => {
+      return {
+        reason,
+        count: countsByReason[reason] || 0
+      };
+    }).concat([{reason: 'total', count: withAccess.length}]);
     return (
       <div style={{fontSize: 14}}>
         <div>
-          {sortedReasons.map(reason => {
-            const count = countsByReason[reason] || 0;
+          {boxes.map(box => {
+            const {count, reason} = box;
             if (count === 0) return null;
             return (
               <div
@@ -68,17 +74,17 @@ export default class EducatorsWithAccessToStudentDialog extends React.Component 
                   marginRight: 5,
                   marginBottom: 5,
                   padding: 10,
-                  border: '1px solid #eee',
-                  background: '#f8f8f8'
+                  border: (reason === 'total') ? null : '1px solid #eee',
+                  background: (reason === 'total') ? null : '#f8f8f8'
                 }}
               >
                 <div style={{fontWeight: 'bold', marginBottom: 5}}>{reason}</div>
-                <div>{countsByReason[reason]}</div>
+                <div>{count}</div>
               </div>
             );
           })}
         </div>
-        <div style={{marginTop: 20}}>
+        <div style={{marginTop: 20, maxHeight: 300, overflowY: 'scroll'}}>
           {this.renderList(sortedWithAccess)}
         </div>
       </div>

@@ -38,6 +38,7 @@ describe('integration tests', () => {
       expect(wrapper.text()).toContain('districtwide2');
       expect(wrapper.text()).toContain('schoolwide1');
       expect(wrapper.text()).toContain('homeroom1');
+      expect(wrapper.text()).toContain('total4');
       done();
     }, 0);
   });
