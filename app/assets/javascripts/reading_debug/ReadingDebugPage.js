@@ -327,15 +327,13 @@ export class ReadingDebugView extends React.Component {
 
     // Count is of how many students in cohort now are missing values (maybe they weren't in
     // the district back then).
-    // const missingNowCount = studentCountsByGrade[grade] - Object.keys(valuesByStudentId).length;
-    // For now, exclude this to keep it the same as how DIBELS is shown - "missing" means not
-    // interpretable.
+    const missingNowCount = studentCountsByGrade[grade] - Object.keys(valuesByStudentId).length;
     return (
       <FountasAndPinellBreakdown
         grade={gradeThen}
         benchmarkPeriodKey={period}
         fAndPValuesWithNulls={compactedFAndPValues}
-        additionalMissingCount={0}
+        additionalMissingCount={missingNowCount}
         includeMissing={true}
         height={5}
         labelTop={5}
