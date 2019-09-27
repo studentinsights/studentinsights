@@ -55,8 +55,7 @@ const ORDERED_F_AND_P_ENGLISH_LEVELS = {
   'W': 340,
   'X': 350,
   'Y': 360,
-  'Z': 370,
-  'Z+': 380
+  'Z': 370 // Z+ is also a special case per F&P docs, but ignore it for now since folks use + a lot of different places
 };
 
 // benchmark_assessment_key values:
@@ -179,13 +178,41 @@ export function classifyFAndPEnglish(level, grade, benchmarkPeriodKey) {
 // for each, round down (latest independent 'mastery' level)
 // if not found in list of levels and can't understand, return null
 export function interpretFAndPEnglish(text) {
-  if (text.indexOf('/') !== -1) return text.split('/')[0].toUpperCase();
-  if ((text.indexOf('-') !== -1)) return text.split('-')[0].toUpperCase();
-  if ((text.indexOf('+') !== -1) && (text !== 'Z+')) return text.replace('+', '').toUpperCase();
-  if ((text.indexOf('(') !== -1)) return text.replace(/\(.+\)/,'').trim().toUpperCase();
-  if (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, text.toUpperCase())) return text.toUpperCase();
+  // always trim whitespace
+  if (text.length !== text.trim().length) return interpretFAndPEnglish(text.trim());
+
+  // F, NR, AA (exact match)
+  const exactMatch = strictMatchForFAndPLevel(text);
+  if (exactMatch) return exactMatch;
+
+  // F+
+  if (_.endsWith(text, '+')) {
+    return strictMatchForFAndPLevel(text.slice(0, -1));
+  }
+
+  // F?
+  if (_.endsWith(text, '?')) {
+    return strictMatchForFAndPLevel(text.slice(0, -1));
+  }
+
+  // F-G or F/G
+  if (text.indexOf('/') !== -1) return strictMatchForFAndPLevel(text.split('/')[0]);
+  if ((text.indexOf('-') !== -1)) return strictMatchForFAndPLevel(text.split('-')[0]);
+
+  // F (indep) or F (instructional)
+  if ((text.indexOf('(') !== -1)) {
+    return strictMatchForFAndPLevel(text.replace(/\([^)]+\)/g, ''));
+  }
 
   return null;
+}
+
+// Only letters and whitespace, no other characters
+function strictMatchForFAndPLevel(text) {
+  const trimmed = text.trim();
+  return (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, trimmed.toUpperCase()))
+    ? trimmed.toUpperCase()
+    : null;
 }
 
 export function orderedFAndPLevels() {
@@ -216,4 +243,24 @@ export function benchmarkPeriodToMoment(benchmarkPeriodKey, schoolYear) {
 
 function toMoment(triple) {
   return moment.utc([triple[0], triple[1], triple[2]].join('-'), 'YYYY-M-D');
+}
+
+
+// For `_.orderBy` sorting
+export function rankBenchmarkDataPoint(d) {
+  const benchmarkAssessmentKey = d.benchmark_assessment_key;
+  const text = d.json ? d.json.value : null;
+  if (benchmarkAssessmentKey === INSTRUCTIONAL_NEEDS) {
+    return text || -1;
+  }
+
+  if (benchmarkAssessmentKey === F_AND_P_ENGLISH || benchmarkAssessmentKey === F_AND_P_SPANISH) {
+    const level = interpretFAndPEnglish(text);
+    if (!level) return -1;
+    return ORDERED_F_AND_P_ENGLISH_LEVELS[level] || -1;
+  }
+
+  // dibels
+  const value = interpretDibels(text);
+  return (value === null || value === undefined) ? -1 : value;
 }
