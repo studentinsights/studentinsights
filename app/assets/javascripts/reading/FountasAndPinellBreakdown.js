@@ -17,12 +17,12 @@ import {
 // showing percent of students at different F&P levels.
 export default class FountasAndPinnellBreakdown extends React.Component {
   items() {
-    const {grade, benchmarkPeriodKey, fAndPValuesWithNulls, includeMissing} = this.props;
+    const {grade, benchmarkPeriodKey, fAndPValuesWithNulls, includeMissing, additionalMissingCount} = this.props;
     const fAndPCounts = {
       low: 0,
       medium: 0,
       high: 0,
-      missing: 0
+      missing: additionalMissingCount
     };
     function tickMissing() {
       fAndPCounts.missing = fAndPCounts.missing + 1;
@@ -65,5 +65,9 @@ FountasAndPinnellBreakdown.propTypes = {
   labelTop: PropTypes.number.isRequired,
   style: PropTypes.object,
   innerStyle: PropTypes.object,
-  includeMissing: PropTypes.bool
+  includeMissing: PropTypes.bool,
+  additionalMissingCount: PropTypes.number
+};
+FountasAndPinnellBreakdown.defaultProps = {
+  additionalMissingCount: 0
 };

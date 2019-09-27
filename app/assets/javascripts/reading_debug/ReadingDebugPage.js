@@ -44,7 +44,8 @@ import {
   DIBELS_UNKNOWN,
   classifyDibels,
   colorForDibelsCategory,
-  interpretDibels
+  interpretDibels,
+  rankBenchmarkDataPoint
 } from '../reading/readingData';
 
 
@@ -207,6 +208,7 @@ export class ReadingDebugView extends React.Component {
   renderGrid() {
     const {groups} = this.props;
     const {selection, isFlipped} = this.state;
+    // set manually for now
     const intervals = [
       [2017, 'winter'],
       [2017, 'spring'],
@@ -303,8 +305,8 @@ export class ReadingDebugView extends React.Component {
     return (
       <DibelsBreakdownBar
         coreCount={dibelsCounts[DIBELS_CORE]}
-        intensiveCount={dibelsCounts[DIBELS_STRATEGIC]}
-        strategicCount={dibelsCounts[DIBELS_INTENSIVE]}
+        intensiveCount={dibelsCounts[DIBELS_INTENSIVE]}
+        strategicCount={dibelsCounts[DIBELS_STRATEGIC]}
         missingCount={missingCount}
         height={5}
         labelTop={5}
@@ -312,13 +314,28 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
-  renderFAndPCell(dataPoints, gradeThen, {year, period}) {
-    const fAndPValuesWithNulls = dataPoints.map(dataPoint => dataPoint.json.value);
+  renderFAndPCell(dataPoints, gradeThen, {grade, year, period}) {
+    const {studentCountsByGrade} = this.props;
+
+    // Count values by student, removing nulls and counting students without
+    // data separately below.
+    const valuesByStudentId = {};
+    _.sortBy(dataPoints, d => d.updated_at).forEach(d => {
+      valuesByStudentId[d.student_id] = d.json.value;
+    });
+    const compactedFAndPValues = _.compact(Object.values(valuesByStudentId));
+
+    // Count is of how many students in cohort now are missing values (maybe they weren't in
+    // the district back then).
+    // const missingNowCount = studentCountsByGrade[grade] - Object.keys(valuesByStudentId).length;
+    // For now, exclude this to keep it the same as how DIBELS is shown - "missing" means not
+    // interpretable.
     return (
       <FountasAndPinellBreakdown
         grade={gradeThen}
         benchmarkPeriodKey={period}
-        fAndPValuesWithNulls={fAndPValuesWithNulls}
+        fAndPValuesWithNulls={compactedFAndPValues}
+        additionalMissingCount={0}
         includeMissing={true}
         height={5}
         labelTop={5}
@@ -333,9 +350,8 @@ export class ReadingDebugView extends React.Component {
       return <div style={{fontSize: 14}}>Click a cell to see the list of students.</div>;
     }
 
-    const dataPoints = this.dataPointsForGroup(selection);
-
-    // filter students list
+    // index by student
+    const dataPoints = this.dataPointsForGroup(selection);    
     const {year, period, grade} = selection;
     const dataPointsByStudentId = {};
     dataPoints.forEach(d => {
@@ -344,12 +360,23 @@ export class ReadingDebugView extends React.Component {
       if (d.benchmark_period_key !== period) return;
       dataPointsByStudentId[d.student_id] = (dataPointsByStudentId[d.student_id] || []).concat(d);
     });
+
+    // filter students list to grade
     const filteredStudents = students.filter(student => {
-      if (!dataPointsByStudentId[student.id]) return false;
-      if (dataPointsByStudentId.length === 0) return false;
       if (student.grade !== grade) return false;
       return true;
     });
+
+    // sort by multiple values, but first by the highest level
+    const sortedStudents = _.sortBy(filteredStudents, [
+      student => {
+        const dataPoints = dataPointsByStudentId[student.id] || [];
+        const rankedDataPoints = dataPoints.map(rankBenchmarkDataPoint);
+        return _.max(rankedDataPoints) || -1;
+      },
+      'last_name',
+      'first_name'
+    ]);
 
     const rowHeight = 40; // for two lines of student names
     return (
@@ -364,8 +391,8 @@ export class ReadingDebugView extends React.Component {
               rowStyle={{display: 'flex'}}
               style={{fontSize: 14}}
               rowHeight={rowHeight}
-              rowCount={filteredStudents.length}
-              rowGetter={({index}) => filteredStudents[index]}
+              rowCount={sortedStudents.length}
+              rowGetter={({index}) => sortedStudents[index]}
             >
               <Column
                 label='Name'
