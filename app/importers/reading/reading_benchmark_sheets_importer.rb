@@ -13,6 +13,7 @@ class ReadingBenchmarkSheetsImporter
       description: 'Import reading benchmark data for the specific school year 2019-2020, by reading all sheets within a Google Drive folder'
     })
   end
+
   def initialize(options:)
     @explicit_folder_id = options.fetch(:folder_id, nil)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
