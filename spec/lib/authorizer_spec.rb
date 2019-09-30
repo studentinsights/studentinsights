@@ -940,13 +940,4 @@ RSpec.describe Authorizer do
       ])
     end
   end
-
-  describe '#sections' do
-    it 'respects enabled_sections?' do
-      mock_per_district_enabled_sections!(false)
-      Educator.all.each do |educator|
-        expect(Authorizer.new(educator).sections).to eq []
-      end
-    end
-  end
 end
