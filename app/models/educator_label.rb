@@ -61,7 +61,8 @@ class EducatorLabel < ApplicationRecord
     dynamic_labels = []
 
     # Low grades box: Anyone in SHS with assigned sections
-    assigned_sections = authorized { educator.sections }
+    authorizer = Authorizer.new(educator)
+    assigned_sections = authorizer.authorized { educator.sections }
     if assigned_sections.size > 0 && educator.school.is_high_school?
       dynamic_labels << 'should_show_low_grades_box'
     end
