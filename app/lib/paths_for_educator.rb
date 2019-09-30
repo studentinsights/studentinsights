@@ -48,7 +48,8 @@ class PathsForEducator
   private
   def include_sections_link?(educator)
     return false unless PerDistrict.new.allow_sections_link?(educator)
-    educator.sections.size > 0
+    assigned_sections = Authorizer.new(educator).authorized { educator.sections }
+    assigned_sections.size > 0
   end
 
   def url_helpers

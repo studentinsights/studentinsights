@@ -222,16 +222,4 @@ class Authorizer
       []
     end
   end
-
-  # TODO(kr) remove implementation
-  def sections
-    return [] unless PerDistrict.new.enabled_sections?
-    if @educator.districtwide_access?
-      Section.all
-    elsif @educator.schoolwide_access?
-      Section.joins(:course).where('courses.school_id = ?', @educator.school.id)
-    else
-      @educator.sections
-    end
-  end
 end

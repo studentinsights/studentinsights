@@ -51,6 +51,8 @@ class AuthorizedDispatcher
       check_value(model, @authorizer.is_authorized_for_note?(model))
     elsif model.class == TransitionNote
       check_value(model, @authorizer.is_authorized_for_note?(model))
+    elsif model.class == Section
+      check_value(model, @authorizer.is_authorized_for_section?(model))
     else
       unchecked_value(model)
     end

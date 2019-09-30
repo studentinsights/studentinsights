@@ -2,8 +2,8 @@ class SectionsController < ApplicationController
   before_action :ensure_feature_enabled!
 
   def my_sections_json
-    sections = authorized_sections { current_educator.sections }
-    sections_json = sections.as_json({
+    my_sections = authorized { current_educator.sections }
+    sections_json = my_sections.as_json({
       only: [:id, :room_number, :schedule, :section_number, :term_local_id],
       include: {
         course: {
@@ -25,10 +25,12 @@ class SectionsController < ApplicationController
   end
 
   def section_json
-    current_section = authorized_section(params[:id])
-    students = authorized { current_section.students.active } # extra layer while transitioning K8 to use sections
-    students_json = serialize_students(students.map(&:id), current_section)
-    section = current_section.as_json({
+    section = authorized { Section.find(params[:id]) }
+    section_students = authorized { section.students.active }
+    authorized_sections = authorized { Section.all }
+    
+    students_json = serialize_students(section_students.map(&:id), section)
+    section_json = section.as_json({
       methods: [:course_number, :course_description],
       include: {
         course: {
@@ -44,38 +46,22 @@ class SectionsController < ApplicationController
 
     # limit navigator to current school year
     district_school_year = Section.to_district_school_year(SchoolYear.to_school_year(Time.now))
-    sections_for_navigator = current_educator.allowed_sections.includes(:course).where(district_school_year: district_school_year)
-    sections_json = sections_for_navigator.as_json({
+    allowed_sections_for_navigator = authorized_sections.includes(:course).where(district_school_year: district_school_year)
+    allowed_sections_json = allowed_sections_for_navigator.as_json({
       only: [:id, :section_number, :term_local_id],
       methods: [:course_description],
     })
 
     render json: {
       students: students_json,
-      section: section,
-      sections: sections_json
+      section: section_json,
+      sections: allowed_sections_json
     }
   end
 
   private
   def ensure_feature_enabled!
     raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_sections?
-  end
-
-  def authorized_sections(&block)
-    return_value = block.call
-    return_value.select do |section|
-      authorizer.is_authorized_for_section?(section)
-    end
-  end
-
-  def authorized_section(section_id)
-    # Extra layer since we don't yet allow K8 teachers to view sections
-    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access || current_educator.school.is_high_school?
-
-    section = Section.find(params[:id])
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_section(section)
-    section
   end
 
   # Include grade for section as well

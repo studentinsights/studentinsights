@@ -49,10 +49,10 @@ class InsightStudentsWithLowGrades
   # Section assignments where a student is struggling.
   # Does not respect authorization.
   def assignments_below_threshold(student_ids, grade_threshold)
-    educator_section_ids = @educator.sections.map(&:id)
+    educator_sections = @authorizer.authorized { @educator.sections }
     StudentSectionAssignment
       .includes(:student)
-      .where(section: educator_section_ids)
+      .where(section: educator_sections.map(&:id))
       .where(student_id: student_ids)
       .where('grade_numeric < ?', grade_threshold)
       .order(grade_numeric: :desc)
