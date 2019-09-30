@@ -16,7 +16,7 @@ RSpec.describe Authorizer do
 
   # Some specs are migrated over from a different file that didn't
   # use TestPals; so this allows unwinding the TestPals db setup for particular
-  # block of these tests, while migrating test cases into here to verify 
+  # block of these tests, while migrating test cases into here to verify
   # no regressions occurred.
   def destroy_test_pals!
     TeamMembership.all.destroy_all
@@ -34,7 +34,6 @@ RSpec.describe Authorizer do
     Course.all.destroy_all
     School.all.destroy_all
   end
-
 
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
@@ -467,7 +466,7 @@ RSpec.describe Authorizer do
     end
   end
 
-  describe '#is_authorized_for_section? (migrated from educator)' do
+  describe '#is_authorized_for_section? (migrated from Educator#allowed_sections)' do
     # These specs are migrated over from a different file that didn't
     # use TestPals; so unwind the TestPals db setup for this block of tests.
     before { destroy_test_pals! }

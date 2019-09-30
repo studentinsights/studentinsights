@@ -125,45 +125,6 @@ RSpec.describe Educator do
     end
   end
 
-  describe '#allowed_sections' do
-    let!(:school) { FactoryBot.create(:healey) }
-    let!(:other_school) { FactoryBot.create(:brown) }
-    let!(:in_school_course) { FactoryBot.create(:course, school: school) }
-    let!(:in_school_section) { FactoryBot.create(:section, course: in_school_course) }
-    let!(:out_of_school_course) { FactoryBot.create(:course, school: other_school)}
-    let!(:out_of_school_section) { FactoryBot.create(:section, course: out_of_school_course) }
-
-    context 'schoolwide_access' do
-      let(:schoolwide_educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true)}
-      it 'returns all sections in the school' do
-        expect(schoolwide_educator.allowed_sections.sort).to eq [
-          in_school_section
-        ].sort
-      end
-    end
-
-    context 'districtwide_access' do
-      let(:districtwide_educator) { FactoryBot.create(:educator, school: school, districtwide_access: true)}
-      it 'returns all sections in the district' do
-        expect(districtwide_educator.allowed_sections.sort).to eq [
-          in_school_section, out_of_school_section
-        ].sort
-      end
-    end
-
-    context 'regular teacher' do
-      let(:educator) { FactoryBot.create(:educator, school: school) }
-      let!(:other_in_school_section) { FactoryBot.create(:section, course: in_school_course) }
-      let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: in_school_section) }
-      let!(:other_esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: other_in_school_section) }
-      it 'returns all sections assigned to the educator' do
-        expect(educator.allowed_sections.sort).to eq [
-          in_school_section, other_in_school_section
-        ].sort
-      end
-    end
-  end
-
   describe '#labels' do
     let!(:pals) { TestPals.create! }
     it 'works' do

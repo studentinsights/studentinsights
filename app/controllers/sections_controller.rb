@@ -44,7 +44,7 @@ class SectionsController < ApplicationController
 
     # limit navigator to current school year
     district_school_year = Section.to_district_school_year(SchoolYear.to_school_year(Time.now))
-    sections_for_navigator = current_educator.allowed_sections.includes(:course).where(district_school_year: district_school_year)
+    sections_for_navigator = authorizer.sections.includes(:course).where(district_school_year: district_school_year)
     sections_json = sections_for_navigator.as_json({
       only: [:id, :section_number, :term_local_id],
       methods: [:course_description],
