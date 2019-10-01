@@ -71,7 +71,7 @@ group :development do
   gem 'better_errors'
   gem 'pivotal_git_scripts'
   gem 'rails-erd', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.75.0', require: false
   gem 'spring'
 end
 
