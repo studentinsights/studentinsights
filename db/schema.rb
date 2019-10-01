@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_05_201813) do
+ActiveRecord::Schema.define(version: 2019_10_01_161158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -263,6 +263,9 @@ ActiveRecord::Schema.define(version: 2019_09_05_201813) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_restricted", default: false, null: false
+    t.index ["is_restricted"], name: "index_event_notes_on_is_restricted"
+    t.index ["recorded_at"], name: "index_event_notes_on_recorded_at"
+    t.index ["student_id"], name: "index_event_notes_on_student_id"
   end
 
   create_table "f_and_p_assessments", force: :cascade do |t|
@@ -368,6 +371,8 @@ ActiveRecord::Schema.define(version: 2019_09_05_201813) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["form_key"], name: "index_imported_forms_on_form_key"
+    t.index ["student_id"], name: "index_imported_forms_on_student_id"
   end
 
   create_table "intervention_types", id: :serial, force: :cascade do |t|
