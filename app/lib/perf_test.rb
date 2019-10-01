@@ -85,6 +85,16 @@ class PerfTest
     end
   end
 
+  def self.low_grades(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      time_now = options[:time_now] || Time.at(1522779136)
+      time_threshold = time_now - 45.days
+      grade_threshold = 69
+      insight = InsightStudentsWithLowGrades.new(educator)
+      insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
+    end
+  end
+
   # Usage for testing the feed (may call #authorized)
   def self.feed(percentage, options = {})
     timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|

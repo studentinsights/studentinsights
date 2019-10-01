@@ -25,9 +25,9 @@ class SectionsController < ApplicationController
   end
 
   def section_json
-    section = authorized { Section.find(params[:id]) }
+    section = authorized_or_raise! { Section.find(params[:id]) }
     section_students = authorized { section.students.active }
-    authorized_sections = authorized { Section.all }
+    authorized_sections = authorized { Section.includes(:course).all }
 
     students_json = serialize_students(section_students.map(&:id), section)
     section_json = section.as_json({
@@ -46,7 +46,9 @@ class SectionsController < ApplicationController
 
     # limit navigator to current school year
     district_school_year = Section.to_district_school_year(SchoolYear.to_school_year(Time.now))
-    allowed_sections_for_navigator = authorized_sections.includes(:course).where(district_school_year: district_school_year)
+    allowed_sections_for_navigator = authorized_sections.select do |section_for_navigator|
+      section_for_navigator.district_school_year == district_school_year
+    end
     allowed_sections_json = allowed_sections_for_navigator.as_json({
       only: [:id, :section_number, :term_local_id],
       methods: [:course_description],
