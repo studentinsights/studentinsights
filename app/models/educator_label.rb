@@ -50,8 +50,10 @@ class EducatorLabel < ApplicationRecord
 
   # Static labels are set by records in the database.  Dynamic labels are
   # computed at read time here based on some other property of the educator.
-  def self.labels(educator)
+  def self.labels(educator, options = {})
     static_labels = educator.educator_labels.map(&:label_key)
+    return static_labels if options.fetch(:exclude_dynamic_labels, false)
+
     dynamic_labels = self.dynamic_labels_for_educator(educator)
 
     static_labels + dynamic_labels

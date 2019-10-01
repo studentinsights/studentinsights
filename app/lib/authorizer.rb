@@ -104,7 +104,10 @@ class Authorizer
     begin
       should_consider_sections = options.fetch(:should_consider_sections, PerDistrict.new.enabled_sections?)
       return :districtwide if @educator.districtwide_access?
-      return :housemaster if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
+      # As a performance optimization, this check excludes `dynamic_labels`, since they're a bit more
+      # expensive to compute, and here we only need to check one specific label that we know
+      # is static.
+      return :housemaster if @educator.labels(exclude_dynamic_labels: true).include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
       return nil if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
       return nil if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
@@ -122,6 +125,7 @@ class Authorizer
       # are calling this in a loop get the optimization without having to
       # optimize themselves.
       return :homeroom if student.in?(@educator.students.to_a) # Homeroom level access
+
       return :section if should_consider_sections && student.in?(@educator.section_students.to_a) # Section level access
     rescue ActiveModel::MissingAttributeError => err
       # We can't do authorization checks on models with `#select` that are missing
