@@ -161,7 +161,7 @@ class PerfTest
   def test_educator_ids(percent, options = {})
     seed = options[:seed] || 42
     fixed_educator_ids = options[:fixed_educator_ids] || []
-    all_educator_ids = Educator.all.select(:id).map(&:id)
+    all_educator_ids = Educator.active.select(:id).map(&:id)
     sample_size = percent * all_educator_ids.size
     sample_educator_ids = all_educator_ids.sample(sample_size, random: Random.new(seed))
     (sample_educator_ids + fixed_educator_ids).uniq

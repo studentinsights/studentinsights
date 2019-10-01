@@ -106,7 +106,9 @@ class Authorizer
       return :districtwide if @educator.districtwide_access?
       # As a performance optimization, this check excludes `dynamic_labels`, since they're a bit more
       # expensive to compute, and here we only need to check one specific label that we know
-      # is static.
+      # is static.  Also, PerfTest shows that although it might seem like moving the env check first would
+      # speed this up by avoiding the labels query, this order is consistently faster when the ENV value
+      # is not set.
       return :housemaster if @educator.labels(exclude_dynamic_labels: true).include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
       return nil if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
