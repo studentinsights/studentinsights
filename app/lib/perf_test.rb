@@ -19,7 +19,14 @@ class PerfTest
     end
   end
 
-  # Critical path authorization code
+  # May be used in critical path authorization code (see #authorized).
+  def self.labels(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      educator.labels
+    end
+  end
+
+  # Critical path authorization code (may call #labels).
   def self.authorized(percentage, options = {})
     PerfTest.new.simple(percentage, options) do |educator|
       Authorizer.new(educator).authorized { Student.active }
@@ -78,7 +85,7 @@ class PerfTest
     end
   end
 
-  # Usage for testing the feed
+  # Usage for testing the feed (may call #authorized)
   def self.feed(percentage, options = {})
     timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|
       time_now = options[:time_now] || Time.at(1521552855)
@@ -154,7 +161,7 @@ class PerfTest
   def test_educator_ids(percent, options = {})
     seed = options[:seed] || 42
     fixed_educator_ids = options[:fixed_educator_ids] || []
-    all_educator_ids = Educator.all.select(:id).map(&:id)
+    all_educator_ids = Educator.active.select(:id).map(&:id)
     sample_size = percent * all_educator_ids.size
     sample_educator_ids = all_educator_ids.sample(sample_size, random: Random.new(seed))
     (sample_educator_ids + fixed_educator_ids).uniq
