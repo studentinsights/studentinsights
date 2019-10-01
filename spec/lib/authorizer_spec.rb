@@ -14,6 +14,27 @@ RSpec.describe Authorizer do
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
   end
 
+  # Some specs are migrated over from a different file that didn't
+  # use TestPals; so this allows unwinding the TestPals db setup for particular
+  # block of these tests, while migrating test cases into here to verify
+  # no regressions occurred.
+  def destroy_test_pals!
+    TeamMembership.all.destroy_all
+    ImportedForm.all.destroy_all
+    StudentSectionAssignment.all.destroy_all
+    Student.all.destroy_all
+    Homeroom.all.destroy_all
+    CounselorNameMapping.all.destroy_all
+    HouseEducatorMapping.all.destroy_all
+    EducatorSectionAssignment.all.destroy_all
+    EducatorMultifactorConfig.all.destroy_all
+    EducatorLabel.all.destroy_all
+    Educator.all.destroy_all
+    Section.all.destroy_all
+    Course.all.destroy_all
+    School.all.destroy_all
+  end
+
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
@@ -538,6 +559,54 @@ RSpec.describe Authorizer do
     end
   end
 
+  describe '#is_authorized_for_section? (migrated from Educator#allowed_sections)' do
+    # These specs are migrated over from a different file that didn't
+    # use TestPals; so unwind the TestPals db setup for this block of tests.
+    before { destroy_test_pals! }
+
+    let!(:school) { FactoryBot.create(:healey) }
+    let!(:other_school) { FactoryBot.create(:brown) }
+    let!(:in_school_course) { FactoryBot.create(:course, school: school) }
+    let!(:in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+    let!(:out_of_school_course) { FactoryBot.create(:course, school: other_school)}
+    let!(:out_of_school_section) { FactoryBot.create(:section, course: out_of_school_course) }
+
+    context 'schoolwide_access' do
+      let(:schoolwide_educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true)}
+
+      it 'has access to a section in their school' do
+        expect(Authorizer.new(schoolwide_educator).is_authorized_for_section?(in_school_section)).to be true
+      end
+
+      it 'does not have access to a section outside their school' do
+        expect(Authorizer.new(schoolwide_educator).is_authorized_for_section?(out_of_school_section)).to be false
+      end
+    end
+
+    context 'districtwide_access' do
+      let(:districtwide_educator) { FactoryBot.create(:educator, school: school, districtwide_access: true)}
+
+      it 'has access to a section outside their school' do
+        expect(Authorizer.new(districtwide_educator).is_authorized_for_section?(out_of_school_section)).to be true
+      end
+    end
+
+    context 'regular teacher' do
+      let(:educator) { FactoryBot.create(:educator, school: school) }
+      let!(:other_in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+      let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: in_school_section) }
+
+      it 'has access to a section assigned to that educator' do
+        expect(Authorizer.new(educator).is_authorized_for_section?(in_school_section)).to be true
+      end
+
+      it 'does not have access to a section not assigned to that educator' do
+        expect(Authorizer.new(educator).is_authorized_for_section?(other_in_school_section)).to be false
+      end
+
+    end
+  end
+
   describe '#is_authorized_for_section?' do
     let!(:test_section) { pals.shs_tuesday_biology_section }
 
@@ -653,24 +722,9 @@ RSpec.describe Authorizer do
   end
 
   context '#allowed_homerooms_DEPRECATED' do
-    # These specs are migrated over from a differnet file that didn't
+    # These specs are migrated over from a different file that didn't
     # use TestPals; so unwind the TestPals db setup for this block of tests.
-    before do
-      TeamMembership.all.destroy_all
-      ImportedForm.all.destroy_all
-      StudentSectionAssignment.all.destroy_all
-      Student.all.destroy_all
-      Homeroom.all.destroy_all
-      CounselorNameMapping.all.destroy_all
-      HouseEducatorMapping.all.destroy_all
-      EducatorSectionAssignment.all.destroy_all
-      EducatorMultifactorConfig.all.destroy_all
-      EducatorLabel.all.destroy_all
-      Educator.all.destroy_all
-      Section.all.destroy_all
-      Course.all.destroy_all
-      School.all.destroy_all
-    end
+    before { destroy_test_pals! }
 
     def deprecated_method(educator)
       Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
