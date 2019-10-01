@@ -28,7 +28,7 @@ class SectionsController < ApplicationController
     section = authorized { Section.find(params[:id]) }
     section_students = authorized { section.students.active }
     authorized_sections = authorized { Section.all }
-    
+
     students_json = serialize_students(section_students.map(&:id), section)
     section_json = section.as_json({
       methods: [:course_number, :course_description],

@@ -457,11 +457,11 @@ RSpec.describe Authorizer do
       expect(is_authorized(pals.uri, pals.shs_tuesday_biology_section)).to eq true
       expect(is_authorized(pals.uri, pals.shs_fourth_period_ceramics)).to eq true
       expect(is_authorized(pals.uri, pals.shs_fifth_period_physics)).to eq true
-      
+
       expect(is_authorized(pals.healey_vivian_teacher, pals.shs_tuesday_biology_section)).to eq false
       expect(is_authorized(pals.healey_vivian_teacher, pals.shs_fourth_period_ceramics)).to eq false
       expect(is_authorized(pals.healey_vivian_teacher, pals.shs_fifth_period_physics)).to eq false
-      
+
       expect(is_authorized(pals.shs_bill_nye, pals.shs_tuesday_biology_section)).to eq true
       expect(is_authorized(pals.shs_bill_nye, pals.shs_fourth_period_ceramics)).to eq false
       expect(is_authorized(pals.shs_bill_nye, pals.shs_fifth_period_physics)).to eq false
