@@ -44,13 +44,16 @@ RSpec.describe CoursesSectionsImporter do
     end
 
     context 'missing school_local_id' do
-      let(:row) { { course_number:'ART-205',
-                  course_description:'Handmade Ceramics I',
-                  section_number:'ART-205B',
-                  term_local_id:'FY',
-                  section_schedule:'3(M-R)',
-                  section_room_number:'232B'
-              } }
+      let(:row) do
+        {
+          course_number:'ART-205',
+          course_description:'Handmade Ceramics I',
+          section_number:'ART-205B',
+          term_local_id:'FY',
+          section_schedule:'3(M-R)',
+          section_room_number:'232B'
+        }
+      end
 
       before do
         courses_sections_importer.send(:import_row, row)
