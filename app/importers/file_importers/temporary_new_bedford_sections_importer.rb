@@ -99,10 +99,11 @@ class TemporaryNewBedfordSectionsImporter
 
     def download_csv
       rows = []
+      nil_educator_login_name_count = 0
       StreamingCsvTransformer.from_text(@log, @file_text, csv_options: {}).each_with_index do |row, index|
         educator_login_name = Educator.find_by_local_id(row[:staff_local_id]).try(:login_name)
         if educator_login_name.nil?
-          @log.puts(' educator_login_name.nil? ')
+          nil_educator_login_name_count += 1
           next
         end
         rows << row.to_h.merge({
@@ -112,6 +113,7 @@ class TemporaryNewBedfordSectionsImporter
           district_school_year: 2020
         })
       end
+      @log.puts ">> PatchedEducatorSectionAssignmentsImporter: nil_educator_login_name_count: #{nil_educator_login_name_count}"
       rows
     end
   end
