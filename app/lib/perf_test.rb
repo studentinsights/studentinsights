@@ -95,6 +95,22 @@ class PerfTest
     end
   end
 
+  # Part of Section controller, influenced heavily by Authorizer.
+  def self.section_authorization_pattern(percentage, options = {})
+    PerfTest.new.simple(percentage, options) do |educator|
+      authorizer = Authorizer.new(educator)
+      section = educator.sections.sample
+      if section.nil?
+        [[], []]
+      else
+        section_students = authorizer.authorized { section.students.active }
+        authorized_sections = authorized { Section.includes(:course).all }
+        [section_students, authorized_sections]
+      end
+    end
+  end
+
+
   # Usage for testing the feed (may call #authorized)
   def self.feed(percentage, options = {})
     timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|
