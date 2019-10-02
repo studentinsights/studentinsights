@@ -141,10 +141,26 @@ class PerDistrict
   end
 
   # Allow env to override
+  # This is a global kill-switch for the server, as other callers check it (eg, when
+  # using sections for authorization, for showing navbar links, for allowing controller
+  # endpoints).
   def enabled_sections?
     return EnvironmentVariable.is_true('ENABLED_SECTIONS') if ENV.has_key?('ENABLED_SECTIONS')
     return true if [SOMERVILLE, DEMO].include?(@district_key)
     false
+  end
+
+  # Note that this may be called in performance-sensitive loops.
+  def should_consider_sections_for_student_level_authorization?
+    return false unless self.enabled_sections? # respect global switch
+
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      true
+    elsif @district_key == NEW_BEDFORD
+      false
+    else
+      false
+    end
   end
 
   # Note that this may be called in performance-sensitive loops.

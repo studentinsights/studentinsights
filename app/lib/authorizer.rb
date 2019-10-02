@@ -102,7 +102,7 @@ class Authorizer
   # access.
   def why_authorized_for_student?(student, options = {})
     begin
-      should_consider_sections = options.fetch(:should_consider_sections, PerDistrict.new.enabled_sections?)
+      should_consider_sections = options.fetch(:should_consider_sections, PerDistrict.new.should_consider_sections_for_student_level_authorization?)
       return :districtwide if @educator.districtwide_access?
       # As a performance optimization, this check excludes `dynamic_labels`, since they're a bit more
       # expensive to compute, and here we only need to check one specific label that we know
