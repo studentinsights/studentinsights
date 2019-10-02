@@ -153,7 +153,7 @@ class PerDistrict
   # Note that this may be called in performance-sensitive loops.
   def should_consider_sections_for_authorization?
     return false unless self.enabled_sections? # respect global switch
-    
+
     if @district_key == SOMERVILLE || @district_key == DEMO
       true
     elsif @district_key == NEW_BEDFORD
