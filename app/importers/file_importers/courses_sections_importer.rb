@@ -36,7 +36,7 @@ class CoursesSectionsImporter
     log('Starting loop...')
     streaming_csv.each_with_index do |row, index|
       import_row(row)
-      if index > 0 && index % 1000 == 0
+      if index > 0 && index % 10 == 0
         log("processed #{index} rows.") 
         log("in-progress stats: #{stats.to_json}")
       end
