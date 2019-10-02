@@ -153,10 +153,14 @@ class Authorizer
     return false unless PerDistrict.new.enabled_sections?
     return true if @educator.districtwide_access?
 
-    return false if @educator.school.present? && @educator.school != section.course.school
+    return false if @educator.school_id.present? && @educator.school_id != section.course.school_id
 
     return true if @educator.schoolwide_access? || @educator.admin?
-    return true if section.in?(@educator.sections)
+    # The `#to_a` is a performance optimization to reduce queries, in loops
+    # with `authorized { Section.all }`.  It results in Rails caching the values
+    # of this query in memory across the repeated calls in the loop.  Taken from
+    # similar optimization in `why_authorized_for_student?`
+    return true if section.in?(@educator.sections.to_a)
     false
   end
 
