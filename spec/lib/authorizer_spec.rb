@@ -14,6 +14,12 @@ RSpec.describe Authorizer do
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
   end
 
+  def mock_per_district_should_consider_sections_for_student_level_authorization!(value)
+    mock_per_district = PerDistrict.new
+    allow(mock_per_district).to receive(:should_consider_sections_for_student_level_authorization?).and_return(value)
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+  end
+
   # Some specs are migrated over from a different file that didn't
   # use TestPals; so this allows unwinding the TestPals db setup for particular
   # block of these tests, while migrating test cases into here to verify
@@ -229,9 +235,9 @@ RSpec.describe Authorizer do
         end
       end
 
-      context 'when enabled_sections? is false' do
+      context 'when should_consider_sections_for_student_level_authorization? is false' do
         it 'only allows schoolwide, not section-based access' do
-          mock_per_district_enabled_sections!(false)
+          mock_per_district_should_consider_sections_for_student_level_authorization!(false)
           expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array []
           expect(authorized(pals.shs_hugo_art_teacher) { Student.all }).to match_array []
           expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
@@ -709,7 +715,7 @@ RSpec.describe Authorizer do
     end
 
     it 'respects should_consider_sections:true' do
-      mock_per_district_enabled_sections!(false)
+      mock_per_district_should_consider_sections_for_student_level_authorization!(false)
       outcomes = outcomes_for(Educator.all, Student.all, should_consider_sections: true)
       expect(outcomes.map {|outcome| outcome[2]}.uniq).to include(:section)
     end
