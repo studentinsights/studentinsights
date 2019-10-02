@@ -154,7 +154,7 @@ class AttendanceImporter
     end
 
     # Record both events if present in the row
-    if record_class === "both"
+    if record_class == "both"
       match_record(row, Absence)
       match_record(row, Tardy)
     else
