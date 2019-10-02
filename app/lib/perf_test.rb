@@ -62,7 +62,7 @@ class PerfTest
     sample_educator_ids = all_educator_ids.sample(sample_size, random: Random.new(seed))
     (sample_educator_ids + fixed_educator_ids).uniq
   end
-  
+
   def reset!
     ActiveRecord::Base.connection.query_cache.clear
   end
@@ -90,7 +90,6 @@ class PerfTest
     # Rails.configuration.log_level = :debug
     # ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
-
 
   # Helper class to print summary stats like p50, p95
   #
@@ -136,7 +135,6 @@ class PerfTest
       @log.puts msg
     end
   end
-
 
   # Helper class to hold timing data
   class Timer

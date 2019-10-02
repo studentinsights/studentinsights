@@ -114,7 +114,6 @@ class PerfTester
     end
   end
 
-
   # Usage for testing the feed (may call #authorized)
   def feed(percentage, options = {})
     perf_test = new_perf_test()
