@@ -4,7 +4,8 @@ class ProfileController < ApplicationController
   before_action :authorize!
 
   def json
-    student = Student.find(params[:id])
+    student = authorized { Student.find(params[:id]) }
+    authorized_sections = authorized { Section.all }
     chart_data = StudentProfileChart.new(student).chart_data
 
     render json: {
@@ -23,7 +24,7 @@ class ProfileController < ApplicationController
       grades_reflection_insights: ProfileInsights.new(student).from_q2_self_reflection.as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
-      current_educator_allowed_sections: authorizer.sections.map(&:id),
+      current_educator_allowed_sections: authorized_sections.map(&:id),
       attendance_data: {
         discipline_incidents: discipline_incidents_as_json(student),
         tardies: filtered_events(student.tardies),
@@ -104,6 +105,9 @@ class ProfileController < ApplicationController
   end
 
   # Include all courses, not just in the current term.
+  # Allow access to this data based on student-level authorization,
+  # not on whether the educator can access information about the Section
+  # itself.
   def serialize_student_sections_for_profile(student)
     student.sections.select('sections.*, student_section_assignments.grade_numeric').as_json({
       include: {

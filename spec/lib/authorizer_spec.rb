@@ -383,6 +383,99 @@ RSpec.describe Authorizer do
     end
   end
 
+  describe 'Section' do
+    it 'limits access for relation' do
+      all_high_school_sections = [
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section,
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics,
+        pals.shs_third_period_physics,
+        pals.shs_fifth_period_physics,
+      ]
+      expect(authorized(pals.uri) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.rich_districtwide) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.healey_vivian_teacher) { Section.all }).to eq []
+      expect(authorized(pals.healey_ell_teacher) { Section.all }).to eq []
+      expect(authorized(pals.healey_sped_teacher) { Section.all }).to eq []
+      expect(authorized(pals.healey_laura_principal) { Section.all }).to eq []
+      expect(authorized(pals.healey_sarah_teacher) { Section.all }).to eq []
+      expect(authorized(pals.west_marcus_teacher) { Section.all }).to eq []
+      expect(authorized(pals.west_counselor) { Section.all }).to eq []
+      expect(authorized(pals.shs_jodi) { Section.all }).to eq []
+      expect(authorized(pals.shs_bill_nye) { Section.all }).to contain_exactly(*[
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section
+      ])
+      expect(authorized(pals.shs_hugo_art_teacher) { Section.all }).to contain_exactly(*[
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics
+      ])
+      expect(authorized(pals.shs_fatima_science_teacher) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_sofia_counselor) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_harry_housemaster) { Section.all }).to contain_exactly(*all_high_school_sections)
+    end
+
+    it 'limits access for array' do
+      sections_array = Section.all.to_a
+      all_high_school_sections = [
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section,
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics,
+        pals.shs_third_period_physics,
+        pals.shs_fifth_period_physics,
+      ]
+      expect(authorized(pals.uri) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.rich_districtwide) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.healey_vivian_teacher) { sections_array }).to eq []
+      expect(authorized(pals.healey_ell_teacher) { sections_array }).to eq []
+      expect(authorized(pals.healey_sped_teacher) { sections_array }).to eq []
+      expect(authorized(pals.healey_laura_principal) { sections_array }).to eq []
+      expect(authorized(pals.healey_sarah_teacher) { sections_array }).to eq []
+      expect(authorized(pals.west_marcus_teacher) { sections_array }).to eq []
+      expect(authorized(pals.west_counselor) { sections_array }).to eq []
+      expect(authorized(pals.shs_jodi) { sections_array }).to eq []
+      expect(authorized(pals.shs_bill_nye) { sections_array }).to contain_exactly(*[
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section
+      ])
+      expect(authorized(pals.shs_hugo_art_teacher) { sections_array }).to contain_exactly(*[
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics
+      ])
+      expect(authorized(pals.shs_fatima_science_teacher) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_sofia_counselor) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_harry_housemaster) { sections_array }).to contain_exactly(*all_high_school_sections)
+    end
+
+    it 'limits access for model, across a sample of Educators' do
+      def is_authorized(educator, section)
+        authorized(educator) { section } == section # check that they can access it
+      end
+
+      expect(is_authorized(pals.uri, pals.shs_tuesday_biology_section)).to eq true
+      expect(is_authorized(pals.uri, pals.shs_fourth_period_ceramics)).to eq true
+      expect(is_authorized(pals.uri, pals.shs_fifth_period_physics)).to eq true
+
+      expect(is_authorized(pals.healey_vivian_teacher, pals.shs_tuesday_biology_section)).to eq false
+      expect(is_authorized(pals.healey_vivian_teacher, pals.shs_fourth_period_ceramics)).to eq false
+      expect(is_authorized(pals.healey_vivian_teacher, pals.shs_fifth_period_physics)).to eq false
+
+      expect(is_authorized(pals.shs_bill_nye, pals.shs_tuesday_biology_section)).to eq true
+      expect(is_authorized(pals.shs_bill_nye, pals.shs_fourth_period_ceramics)).to eq false
+      expect(is_authorized(pals.shs_bill_nye, pals.shs_fifth_period_physics)).to eq false
+
+      expect(is_authorized(pals.shs_hugo_art_teacher, pals.shs_tuesday_biology_section)).to eq false
+      expect(is_authorized(pals.shs_hugo_art_teacher, pals.shs_fourth_period_ceramics)).to eq true
+      expect(is_authorized(pals.shs_hugo_art_teacher, pals.shs_fifth_period_physics)).to eq false
+
+      expect(is_authorized(pals.shs_harry_housemaster, pals.shs_tuesday_biology_section)).to eq true
+      expect(is_authorized(pals.shs_harry_housemaster, pals.shs_fourth_period_ceramics)).to eq true
+      expect(is_authorized(pals.shs_harry_housemaster, pals.shs_fifth_period_physics)).to eq true
+    end
+  end
+
   describe '#is_authorized_for_student?' do
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
@@ -899,15 +992,6 @@ RSpec.describe Authorizer do
         "+ wsns-501",
         "- shs-942" # bug fix
       ])
-    end
-  end
-
-  describe '#sections' do
-    it 'respects enabled_sections?' do
-      mock_per_district_enabled_sections!(false)
-      Educator.all.each do |educator|
-        expect(Authorizer.new(educator).sections).to eq []
-      end
     end
   end
 end

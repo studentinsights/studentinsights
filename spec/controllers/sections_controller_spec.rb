@@ -16,6 +16,18 @@ describe SectionsController, :type => :controller do
       JSON.parse(response.body)
     end
 
+    context 'when PerDistrict#enabled_sections? false'  do
+      before do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:enabled_sections?).and_return(false)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      end
+      it 'guards access' do
+        get_my_sections_json(pals.shs_fatima_science_teacher)
+        expect(response.status).to eq 403
+      end
+    end
+
     it 'works for Fatima as a happy path test case' do
       expect(response_json_for_get_my_sections_json(pals.shs_fatima_science_teacher)).to eq({
         "sections"=>[{
@@ -59,6 +71,40 @@ describe SectionsController, :type => :controller do
     it 'returns nothing for districtwide admin' do
       expect(response_json_for_get_my_sections_json(pals.uri)).to eq({
         "sections"=>[]
+      })
+    end
+
+    it 'works as expected across all TestPals' do
+      sections_by_educator_login_name = Educator.all.reduce({}) do |map, educator|
+        json = response_json_for_get_my_sections_json(educator)
+        sign_out(educator)
+        map.merge(educator.login_name => json['sections'].map {|s| s['id'].to_i }.sort)
+      end
+      expect(sections_by_educator_login_name).to eq({
+        "alonso" => [],
+        "bill" => [
+          pals.shs_tuesday_biology_section.id,
+          pals.shs_thursday_biology_section.id
+        ],
+        "fatima" => [
+          pals.shs_third_period_physics.id,
+          pals.shs_fifth_period_physics.id
+        ],
+        "harry" => [],
+        "hugo" => [
+          pals.shs_second_period_ceramics.id,
+          pals.shs_fourth_period_ceramics.id
+        ],
+        "jodi" => [],
+        "laura" => [],
+        "les" => [],
+        "marcus" => [],
+        "rich" => [],
+        "sarah" => [],
+        "silva" => [],
+        "sofia" => [],
+        "uri" => [],
+        "vivian" => [],
       })
     end
   end
@@ -161,6 +207,105 @@ describe SectionsController, :type => :controller do
           expect(json['students'].first['event_notes_without_restricted']).to eq []
         end
       end
+
+      it 'enforces authorization as expected across all TestPals' do
+        all_section_ids = Section.all.map(&:id).sort
+        assigned_section_ids_by_name = Educator.all.reduce({}) do |map, educator|
+          sign_in(educator)
+          section_ids = all_section_ids.select do |section_id|
+            make_request(section_id)
+            response.status == 200
+          end
+          sign_out(educator)
+          map.merge(educator.login_name => section_ids.sort)
+        end
+        expect(assigned_section_ids_by_name).to eq({
+          "alonso" => [],
+          "bill" => [
+            pals.shs_tuesday_biology_section.id,
+            pals.shs_thursday_biology_section.id
+          ],
+          "fatima" => all_section_ids,
+          "harry" => all_section_ids,
+          "hugo" => [
+            pals.shs_second_period_ceramics.id,
+            pals.shs_fourth_period_ceramics.id
+          ],
+          "jodi" => [],
+          "laura" => [],
+          "les" => [],
+          "marcus" => [],
+          "rich" => all_section_ids,
+          "sarah" => [],
+          "silva" => [],
+          "sofia" => all_section_ids,
+          "uri" => all_section_ids,
+          "vivian" => [],
+        })
+      end
+
+      it 'returns expected sections for navigator across all requests for each TestPal' do
+        Timecop.freeze(pals.time_now) do
+          all_section_ids = Section.all.map(&:id).sort
+
+          # collect all section_ids
+          section_ids_by_login_name = {}
+          Educator.all.each do |educator|
+            sign_in(educator)
+            section_ids_by_login_name[educator.login_name] = []
+            all_section_ids.each do |section_id|
+              make_request(section_id)
+              if response.status == 200
+                json = JSON.parse(response.body)
+                section_ids_from_request = json['sections'].map {|s| s['id'].to_i }
+                section_ids_by_login_name[educator.login_name] = (section_ids_by_login_name[educator.login_name] + section_ids_from_request).uniq.sort
+              end
+            end
+            sign_out(educator)
+          end
+
+          expect(section_ids_by_login_name).to eq({
+            "alonso" => [],
+            "bill" => [
+              pals.shs_tuesday_biology_section.id,
+              pals.shs_thursday_biology_section.id
+            ],
+            "fatima" => all_section_ids,
+            "harry" => all_section_ids,
+            "hugo" => [
+              pals.shs_second_period_ceramics.id,
+              pals.shs_fourth_period_ceramics.id
+            ],
+            "jodi" => [],
+            "laura" => [],
+            "les" => [],
+            "marcus" => [],
+            "rich" => all_section_ids,
+            "sarah" => [],
+            "silva" => [],
+            "sofia" => all_section_ids,
+            "uri" => all_section_ids,
+            "vivian" => []
+          })
+        end
+      end
+    end
+
+    context 'with MS sections' do
+      let!(:pals) { TestPals.create! }
+      let!(:young_mozart) { FactoryBot.create(:student, :registered_last_year, grade: '3', school: pals.healey) }
+      let!(:music_course) { FactoryBot.create(:course, school: pals.healey, course_number: 'MUSIC101') }
+      let!(:music_section) { FactoryBot.create(:section, course: music_course) }
+      let!(:student_assignment) { FactoryBot.create(:student_section_assignment, student: young_mozart, section: music_section)}
+      let!(:educator_assignment) { FactoryBot.create(:educator_section_assignment, educator: pals.healey_vivian_teacher, section: music_section)}
+
+      it 'allows access to student because of Section assignment, even if K8' do
+        sign_in(pals.healey_vivian_teacher)
+        make_request(music_section.id)
+        expect(response.status).to eq 200
+        expect(extract_serialized_ids(response, :students)).to eq [young_mozart.id]
+        expect(extract_serialized_ids(response, :sections)).to eq [music_section.id]
+      end
     end
 
     context 'with misassigned sections' do
@@ -175,18 +320,30 @@ describe SectionsController, :type => :controller do
       let!(:first_esa) { FactoryBot.create(:educator_section_assignment, educator: high_school_educator, section: first_section)}
 
       describe '#section_json' do
-        it 'does student-level authorization, beyond just section relation' do
+        it 'enforces section-level authorization' do
+          educators_without_section_access = Educator.all - [
+            high_school_educator,
+            pals.uri,
+            pals.rich_districtwide,
+            pals.shs_fatima_science_teacher,
+            pals.shs_harry_housemaster,
+            pals.shs_sofia_counselor
+          ]
+          educators_without_section_access.each do |educator|
+            sign_in(educator)
+            make_request(first_section.id)
+            expect(response.status).to eq 403
+            sign_out(educator)
+          end
+          expect(educators_without_section_access.size).to eq 10
+        end
+
+        it 'enforces student-level authorization, beyond just section-level authorization' do
           sign_in(high_school_educator)
           make_request(first_section.id)
           expect(response.status).to eq 200
           expect(extract_serialized_ids(response, :students)).to eq []
           expect(extract_serialized_ids(response, :sections)).to eq [first_section.id]
-        end
-
-        it 'does not allow educators not at a HS' do
-          sign_in(pals.healey_laura_principal)
-          make_request(first_section.id)
-          expect(response.status).to eq 403
         end
       end
     end

@@ -3,6 +3,26 @@
     {
       "warning_type": "Unscoped Find",
       "warning_code": 82,
+      "fingerprint": "03e5a0e7421f6ec55f664067961db40933f5b2a83f57ddbf90a22bb8b6be71f2",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to `Section#find`",
+      "file": "app/controllers/sections_controller.rb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Section.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SectionsController",
+        "method": "section_json"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
       "fingerprint": "2a7d1569af69bcadc77dc0ca4d01dfcfcd50c232b047d957ba480f0375389027",
       "check_name": "UnscopedFind",
       "message": "Unscoped call to `ServiceUpload#find_by_id`",
@@ -18,27 +38,7 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
-      "note": "false positive, controller-level authorization guard"
-    },
-    {
-      "warning_type": "Unscoped Find",
-      "warning_code": 82,
-      "fingerprint": "4b9a0f3d087768a475cb605e69deb575dfe5310cea1ea921b9195f4b9baa9623",
-      "check_name": "UnscopedFind",
-      "message": "Unscoped call to `Section#find`",
-      "file": "app/controllers/sections_controller.rb",
-      "line": 53,
-      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
-      "code": "Section.find(params[:id])",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "SectionsController",
-        "method": "authorized_section"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": "false positive, this is the authorization check"
+      "note": ""
     },
     {
       "warning_type": "Unscoped Find",
@@ -58,7 +58,7 @@
       },
       "user_input": "params.permit(:id, :student_id, :event_note => ([:text]))[:id]",
       "confidence": "Weak",
-      "note": "false positive, this is wrapped in authorized_or_raise!"
+      "note": ""
     },
     {
       "warning_type": "Unscoped Find",
@@ -78,7 +78,7 @@
       },
       "user_input": "params.permit(:id)[:id]",
       "confidence": "Weak",
-      "note": "false positive, this is wrapped in authorized_or_raise!"
+      "note": ""
     },
     {
       "warning_type": "Unscoped Find",
@@ -98,9 +98,9 @@
       },
       "user_input": "params.permit(:id)[:id]",
       "confidence": "Weak",
-      "note": "false positive, this is wrapped in authorized_or_raise!"
+      "note": ""
     }
   ],
-  "updated": "2019-03-14 14:36:39 -0400",
-  "brakeman_version": "4.4.0"
+  "updated": "2019-10-01 15:47:46 -0400",
+  "brakeman_version": "4.6.1"
 }
