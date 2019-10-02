@@ -153,8 +153,18 @@ class AttendanceImporter
       return
     end
 
-    # Match with existing record or initialize new one (not saved)
-    # Then mark the record and sync the record from CSV to Insights
+    # Record both events if present in the row
+    if record_class === "both"
+      match_record(row, Absence)
+      match_record(row, Tardy)
+    else
+      match_record(row, record_class)
+    end
+  end
+
+  # Match with existing record or initialize new one (not saved)
+  # Then mark the record and sync the record from CSV to Insights
+  def match_record(row, record_class)
     maybe_matching_record = matching_insights_record_for_row(row, record_class)
     syncer = get_syncer!(record_class)
     syncer.validate_mark_and_sync!(maybe_matching_record)
@@ -189,7 +199,7 @@ class AttendanceImporter
     is_absence = per_district.is_attendance_import_value_truthy?(row[:absence])
     is_tardy = per_district.is_attendance_import_value_truthy?(row[:tardy])
 
-    if is_absence && is_tardy then nil
+    if is_absence && is_tardy then "both"
     elsif is_absence then Absence
     elsif is_tardy then Tardy
     else nil
