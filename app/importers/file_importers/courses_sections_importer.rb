@@ -17,7 +17,7 @@ class CoursesSectionsImporter
   end
 
   def initialize(options:)
-    @school_scope = options.fetch(:school_scope)
+    @school_scope = options.fetch(:school_scope, [])
     @log = options.fetch(:log)
     @courses_syncer = ::RecordSyncer.new(log: @log, notification_tag: 'CoursesSectionsImporter.courses')
     @sections_syncer = ::RecordSyncer.new(log: @log, notification_tag: 'CoursesSectionsImporter.sections')
@@ -50,6 +50,8 @@ class CoursesSectionsImporter
     # Records should be scoped by `district_school_year`, so old records stay
     # as they are. They'll be orphaned over time but remain valid stable references
     # for looking at historical data or changes over time.
+    #
+    # For now, we just leave old records.
     log("courses_syncer#stats: #{@courses_syncer.stats}")
     log('  skipped the call to  RecordSyncer#delete_unmarked_records, to preserve references to older records.')
     log("sections_syncer#stats: #{@sections_syncer.stats}")
@@ -106,7 +108,7 @@ class CoursesSectionsImporter
     maybe_course = match_course(row)
     @courses_syncer.validate_mark_and_sync!(maybe_course)
 
-    # can only sync section if there wa a valid course
+    # can only sync section if there was a valid course
     if maybe_course.nil?
       @ignored_section_row_because_course_was_nil += 1
       return
