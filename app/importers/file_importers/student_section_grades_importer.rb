@@ -60,10 +60,12 @@ class StudentSectionGradesImporter
 
     log('Starting loop...')
     streaming_csv.each_with_index do |row, index|
-      import_row(row) if filter.include?(row[:school_local_id])
+      import_row(row)
+      log("processed #{index} rows.") if index % 1000 == 0
     end
     log('Done loop.')
 
+    log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@invalid_student_count: #{@invalid_student_count}")
     log("@invalid_rows_count: #{@invalid_rows_count}")
     log("@section_not_found_in_index_count: #{@section_not_found_in_index_count}")
@@ -71,6 +73,7 @@ class StudentSectionGradesImporter
 
   private
   def reset_counters!
+    @skipped_from_school_filter = 0
     @invalid_student_count = 0
     @section_not_found_in_index_count = 0
     @invalid_rows_count = 0
@@ -117,11 +120,17 @@ class StudentSectionGradesImporter
     }).get_data
   end
 
-  def filter
+  def school_filter
     SchoolFilter.new(@school_scope)
   end
 
   def import_row(row)
+    # Skip based on school filter
+    if !school_filter.include?(row[:school_local_id])
+      @skipped_from_school_filter += 1
+      return
+    end
+
     # find student
     student_id = row[:student_local_id].nil? ? nil : @student_ids_map.lookup_student_id(row[:student_local_id])
     if student_id.nil?
