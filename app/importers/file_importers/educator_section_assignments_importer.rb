@@ -37,13 +37,12 @@ class EducatorSectionAssignmentsImporter
     log("@school_ids_dictionary built with #{@school_ids_dictionary.size} local_id keys")
 
     log('Starting loop...')
-    reset_counters!
     streaming_csv.each_with_index do |row, index|
       import_row(row)
-      log("processed #{index} rows.") if index % 1000 == 0
+      log("processed #{index} rows.") if index > 0 && index % 1000 == 0
     end
-
     log('Done loop.')
+
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@invalid_educator_count: #{@invalid_educator_count}")
     log("@invalid_course_count: #{@invalid_course_count}")

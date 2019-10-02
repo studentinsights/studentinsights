@@ -36,9 +36,13 @@ class CoursesSectionsImporter
     log('Starting loop...')
     streaming_csv.each_with_index do |row, index|
       import_row(row)
+      if index > 0 && index % 1000 == 0
+        log("processed #{index} rows.") 
+        log("in-progress stats: #{stats.to_json}")
+      end
     end
-
     log('Done loop.')
+
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@invalid_course_school_count: #{@invalid_course_school_count}")
     log("@invalid_course_count: #{@invalid_course_count}")

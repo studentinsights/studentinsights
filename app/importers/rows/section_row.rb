@@ -19,8 +19,10 @@ class SectionRow < Struct.new(:row, :school_ids_dictionary, :course_id)
       term_local_id: row[:term_local_id],
       district_school_year: row[:district_school_year]
     })
-    section.schedule = row[:section_schedule]
-    section.room_number = row[:section_room_number]
-    return section
+    section.assign_attributes({
+      schedule: row[:section_schedule],
+      room_number:row[:section_room_number]
+    })
+    section
   end
 end

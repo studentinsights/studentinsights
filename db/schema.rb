@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_161158) do
+ActiveRecord::Schema.define(version: 2019_10_02_170704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_10_01_161158) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "school_id", null: false
+    t.index ["course_number", "school_id"], name: "course_number_unique_within_school", unique: true
   end
 
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
