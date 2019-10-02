@@ -104,7 +104,7 @@ class PerfTest
         [[], []]
       else
         section_students = authorizer.authorized { section.students.active }
-        authorized_sections = authorized { Section.includes(:course).all }
+        authorized_sections = authorizer.authorized { Section.includes(:course).all }
         [section_students, authorized_sections]
       end
     end
