@@ -21,7 +21,7 @@ function loadRollbar() {
 
     // throttle, mostly for bugs in browser extensions
     itemsPerMinute: 10,
-    maxItems: 100,
+    maxItems: 25,
     
     autoInstrument: {
       // Limit data we send to Rollbar
