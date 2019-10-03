@@ -81,6 +81,62 @@ RSpec.describe AttendanceImporter do
             }.by 0
           end
         end
+
+        context "row with both absence and tardy (Somerville)" do
+          let(:row) {
+            { event_date: date, local_id: '1', absence: '1', tardy: '1',
+              dismissed: '0', reason: 'Medical', excused: '0', comment: 'Received doctor note.' }
+          }
+
+          it 'creates an absence' do
+              expect {
+                attendance_importer.send(:import_row, row)
+              }.to change {
+                Absence.count
+              }.by 1
+            end
+
+          it 'creates a tardy' do
+              expect {
+                attendance_importer.send(:import_row, row)
+              }.to change {
+                Tardy.count
+              }.by 1
+            end
+
+          it 'sets the right attributes for the absence' do
+            attendance_importer.send(:import_row, row)
+            absence = Absence.first
+
+            expect(absence.dismissed).to eq false
+            expect(absence.reason).to eq 'Medical'
+            expect(absence.excused).to eq false
+            expect(absence.comment).to eq 'Received doctor note.'
+          end
+
+          it 'creates only 1 absence if run twice' do
+            expect {
+              attendance_importer.send(:import_row, row)
+              attendance_importer.send(:import_row, row)
+            }.to change { Absence.count }.by 1
+          end
+
+          it 'increments student absences by 1' do
+            expect {
+              attendance_importer.send(:import_row, row)
+            }.to change {
+              student.reload.absences.size
+            }.by 1
+          end
+
+          it 'increments student tadies by 1' do
+            expect {
+              attendance_importer.send(:import_row, row)
+            }.to change {
+              student.reload.tardies.size
+            }.by 1
+          end
+        end
       end
 
       context 'row with absence (New Bedford)' do
@@ -250,24 +306,24 @@ RSpec.describe AttendanceImporter do
   end
 
   describe '#attendance_event_class' do
-    def attendance_event_class(row)
-      make_attendance_importer.send(:attendance_event_class, row)
+    def valid_attendance_event_classes(row)
+      make_attendance_importer.send(:valid_attendance_event_classes, row)
     end
 
     it 'works for absence' do
-      expect(attendance_event_class(make_row(absence: 1))).to eq Absence
+      expect(valid_attendance_event_classes(make_row(absence: 1))).to eq [Absence]
     end
 
     it 'works for tardy' do
-      expect(attendance_event_class(make_row(tardy: 1))).to eq Tardy
+      expect(valid_attendance_event_classes(make_row(tardy: 1))).to eq [Tardy]
     end
 
     it 'returns nil if not absence or tardy' do
-      expect(attendance_event_class(make_row)).to eq nil
+      expect(valid_attendance_event_classes(make_row)).to eq []
     end
 
-    it 'returns nil if BOTH absence and tardy' do
-      expect(attendance_event_class(make_row(absence: 1, tardy: 1))).to eq nil
+    it 'returns both if BOTH absence and tardy' do
+      expect(valid_attendance_event_classes(make_row(absence: 1, tardy: 1))).to eq [Absence, Tardy]
     end
   end
 end
