@@ -66,31 +66,29 @@ describe('#hasActive504Plan', () => {
 
 describe('#recordServiceChoices', () => {
   it('works across districts', () => {
+    const defaultServiceChoices = {
+      leftServiceTypeIds: [503, 502, 504],
+      rightServiceTypeIds: [505, 506, 507]
+    };
+    expect(recordServiceChoices('somerville')).toEqual(defaultServiceChoices);
+    expect(recordServiceChoices('new_bedford')).toEqual(defaultServiceChoices);
+    expect(recordServiceChoices('demo')).toEqual(defaultServiceChoices);
+    
     expect(recordServiceChoices('bedford')).toEqual({
       leftServiceTypeIds: [701, 708, 706, 707],
       rightServiceTypeIds: [703, 702, 705, 704, 709]
-    });
-    expect(recordServiceChoices('somerville')).toEqual({
-      leftServiceTypeIds: [503, 502, 504],
-      rightServiceTypeIds: [505, 506, 507]
-    });
-    expect(recordServiceChoices('new_bedford')).toEqual({
-      leftServiceTypeIds: [503, 502, 504],
-      rightServiceTypeIds: [505, 506, 507]
-    });
-    expect(recordServiceChoices('demo')).toEqual({
-      leftServiceTypeIds: [503, 502, 504],
-      rightServiceTypeIds: [505, 506, 507]
     });
   });
 });
 
 describe('#nonAcademicServiceTypeIdsForPhaselines', () => {
   it('works across districts', () => {
+    const defaultServiceTypeIds = [502, 503, 504, 505, 506];
+    expect(nonAcademicServiceTypeIdsForPhaselines('somerville')).toEqual(defaultServiceTypeIds);
+    expect(nonAcademicServiceTypeIdsForPhaselines('new_bedford')).toEqual(defaultServiceTypeIds);
+    expect(nonAcademicServiceTypeIdsForPhaselines('demo')).toEqual(defaultServiceTypeIds);
+
     expect(nonAcademicServiceTypeIdsForPhaselines('bedford')).toEqual([702, 703, 704, 705, 709]);
-    expect(nonAcademicServiceTypeIdsForPhaselines('somerville')).toEqual([502, 503, 504, 505, 506]);
-    expect(nonAcademicServiceTypeIdsForPhaselines('new_bedford')).toEqual([502, 503, 504, 505, 506]);
-    expect(nonAcademicServiceTypeIdsForPhaselines('demo')).toEqual([502, 503, 504, 505, 506]);
   });
 });
 
