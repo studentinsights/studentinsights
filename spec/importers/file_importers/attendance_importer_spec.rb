@@ -306,24 +306,24 @@ RSpec.describe AttendanceImporter do
   end
 
   describe '#attendance_event_class' do
-    def attendance_event_class(row)
-      make_attendance_importer.send(:attendance_event_class, row)
+    def valid_attendance_event_classes(row)
+      make_attendance_importer.send(:valid_attendance_event_classes, row)
     end
 
     it 'works for absence' do
-      expect(attendance_event_class(make_row(absence: 1))).to eq Absence
+      expect(valid_attendance_event_classes(make_row(absence: 1))).to eq [Absence]
     end
 
     it 'works for tardy' do
-      expect(attendance_event_class(make_row(tardy: 1))).to eq Tardy
+      expect(valid_attendance_event_classes(make_row(tardy: 1))).to eq [Tardy]
     end
 
     it 'returns nil if not absence or tardy' do
-      expect(attendance_event_class(make_row)).to eq nil
+      expect(valid_attendance_event_classes(make_row)).to eq []
     end
 
     it 'returns both if BOTH absence and tardy' do
-      expect(attendance_event_class(make_row(absence: 1, tardy: 1))).to eq "both"
+      expect(valid_attendance_event_classes(make_row(absence: 1, tardy: 1))).to eq [Absence, Tardy]
     end
   end
 end

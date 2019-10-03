@@ -141,8 +141,8 @@ class AttendanceImporter
     end
 
     # Skip if not absence or tardy
-    record_class = attendance_event_class(row)
-    if record_class.nil?
+    record_classes = valid_attendance_event_classes(row)
+    if record_classes.empty?
       @skipped_other_rows_count += 1
       return
     end
@@ -153,13 +153,8 @@ class AttendanceImporter
       return
     end
 
-    # Record both events if present in the row
-    if record_class == "both"
-      match_record(row, Absence)
-      match_record(row, Tardy)
-    else
-      match_record(row, record_class)
-    end
+    # Record all events
+      record_classes.each { |record_class| match_record(row, record_class)}
   end
 
   # Match with existing record or initialize new one (not saved)
@@ -194,16 +189,17 @@ class AttendanceImporter
     attendance_event
   end
 
-  def attendance_event_class(row)
+  # Returns array of valid classes for the event
+  def valid_attendance_event_classes(row)
     per_district = PerDistrict.new
     is_absence = per_district.is_attendance_import_value_truthy?(row[:absence])
     is_tardy = per_district.is_attendance_import_value_truthy?(row[:tardy])
 
-    if is_absence && is_tardy then "both"
-    elsif is_absence then Absence
-    elsif is_tardy then Tardy
-    else nil
-    end
+    valid_classes = []
+
+    valid_classes << Absence if is_absence
+    valid_classes << Tardy if is_tardy
+    valid_classes
   end
 
   def get_syncer!(record_class)
