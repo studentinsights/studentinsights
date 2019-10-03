@@ -1,7 +1,7 @@
 class Educator < ApplicationRecord
   devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text, :login_code]
 
-  belongs_to  :school, optional: true # districtwide admin often don't have schools assigned
+  belongs_to  :school, optional: true # eg, districtwide admin often don't have schools assigned
   has_one     :homeroom
   has_many    :students, through: :homeroom
   has_many    :educator_section_assignments
@@ -45,45 +45,26 @@ class Educator < ApplicationRecord
     )
   end
 
-  def is_principal?
-    staff_type.try(:downcase) == 'principal'
+  def labels(options = {})
+    EducatorLabel.labels(self, options)
   end
 
-  def is_authorized_for_student(student)
-    Authorizer.new(self).is_authorized_for_student?(student)
-  end
-
-  def is_authorized_for_school(current_school)
-    Authorizer.new(self).is_authorized_for_school?(current_school)
-  end
-
-  def is_authorized_for_section(section)
-    Authorizer.new(self).is_authorized_for_section?(section)
-  end
-
-  def labels
-    EducatorLabel.labels(self)
-  end
-
-  def default_section
-    return sections[0] if sections.present?
-    raise Exceptions::NoAssignedSections
-  end
-
+  # deprecated, migrate to Authorizer
   def has_access_to_grade_levels?
     grade_level_access.present? && grade_level_access.size > 0
   end
 
-  def allowed_sections
-    Authorizer.new(self).sections
+  # deprecated, migrate callers to use the Authorizer class directly
+  def is_authorized_for_student(student)
+    Authorizer.new(self).is_authorized_for_student?(student)
   end
 
+  # deprecated, move to controller or standalone class
   def self.to_index
-    all.map { |e| [e.id, e.for_index] }.to_h
-  end
-
-  def for_index
-    as_json.symbolize_keys.slice(:id, :email, :full_name)
+    all.map do |e|
+      json = e.as_json.symbolize_keys.slice(:id, :email, :full_name)
+      [e.id, json]
+    end.to_h
   end
 
   private

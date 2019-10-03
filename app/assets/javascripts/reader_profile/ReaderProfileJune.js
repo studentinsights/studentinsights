@@ -7,6 +7,7 @@ import NoteText from '../components/NoteText';
 import CleanSlateFeedView from '../feed/CleanSlateFeedView';
 import {
   DIBELS_LNF,
+  DIBELS_FSF,
   DIBELS_PSF,
   DIBELS_NWF_CLS,
   DIBELS_NWF_WWR,
@@ -140,7 +141,13 @@ export default class ReaderProfileJune extends React.Component {
                 />
               }
               intervention={this.renderPhonologicalIntervention()}
-              screener={this.renderChipForDibels('blending', DIBELS_PSF)}
+
+              screener={
+                <MultipleChips chips={[
+                  this.renderChipForDibels('blending', DIBELS_PSF),
+                  this.renderChipForDibels('blending', DIBELS_FSF)
+                ]} />
+              }
             />,
             <Sub key="deleting" name="deleting" />,
             <Sub key="substituting" name="substituting" />

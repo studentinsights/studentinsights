@@ -1,11 +1,42 @@
 # This is intended for use in a one-off analysis task.
-#
 # See NotesReview for group reflection.
-class ExportNotesSample
-  # This doesn't do any authorization checks.
-  def unsafe_csv_without_authorization_checks(options = {})
-    sampled_event_notes, total_count = query(options)
+#
+# sampler = ExportNotesSampler.new
+# csv = sampler.grab_csv(student_ids, {
+#   start_date: Date.time(2019, 08, 15),
+#   n: 200
+# })
+class ExportNotesSampler
+  def grab_csv(student_ids, options = {})
+    event_notes = unsafe_query(student_ids, options)
+    sampled_event_notes, total_count = sampled(event_notes, options)
+    render(sampled_event_notes, total_count, options)
+  end
 
+  def unsafe_query(student_ids, options = {})
+    start_date = options(:start_date, nil)
+    end_date = options(:end_date, Time.now.end_of_day)
+    is_restricted = options.fetch(:is_restricted, false)
+
+    # Query in time range
+    EventNote.all
+      .where(student_id: student_ids)
+      .where('recorded_at > ?', start_date)
+      .where('recorded_at < ?', end_date.advance(days: 1))
+      .where(is_restricted: is_restricted)
+      .includes(:educator)
+  end
+
+  # Sample within that, deterministically
+  def sampled(event_notes, options = {})
+    n = options.fetch(:n, 100)
+    seed = options.fetch(:seed, 42)
+
+    sampled_event_notes = event_notes.sample(n, random: Random.new(seed))
+    [sampled_event_notes, event_notes.size]
+  end
+
+  def render(sampled_event_notes, total_count, options)
     CSV.generate do |csv|
       csv << [
         'options:',
@@ -48,24 +79,5 @@ class ExportNotesSample
   private
   def hash(value)
     Digest::SHA256.hexdigest(value.to_s)
-  end
-
-  def query(options = {})
-    start_date = options[:start_date]
-    end_date = options[:end_date]
-    n = options[:n]
-    seed = options[:seed]
-
-    # Query in time range
-    event_notes = EventNote.all
-      .where('recorded_at > ?', start_date)
-      .where('recorded_at < ?', end_date.advance(days: 1))
-      .includes(:educator)
-    total_count = event_notes.size
-
-    # Sample within that, deterministically
-    sampled_event_notes = event_notes.sample(n, random: Random.new(seed))
-
-    [sampled_event_notes, total_count]
   end
 end

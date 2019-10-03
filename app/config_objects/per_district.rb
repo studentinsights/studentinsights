@@ -62,6 +62,16 @@ class PerDistrict
   # the ed plan).
   def patched_plan_504(student)
     if @district_key == SOMERVILLE
+      # When run across a `Student` collection, this approach trigers n+1 queries
+      # even if `ed_plans` was eagerly loaded and there are no records.
+      #
+      # To avoid this, we could filter in memory, but that would trigger n+1 when
+      # not eagerly loaded.
+      #
+      #  eg: student.ed_plans.select(&:active?).size > 0 ? '504' : nil
+      #
+      # Because this method is called from a validation, it's hard for callers
+      # to control this, and changing may require a new PerfTest.
       student.ed_plans.active.size > 0 ? '504' : nil
     else
       student.plan_504(force: true)
@@ -128,6 +138,43 @@ class PerDistrict
 
   def include_q2_self_reflection_insights?
     EnvironmentVariable.is_true('PROFILE_INCLUDE_Q2_SELF_REFLECTION_INSIGHTS') || false
+  end
+
+  # Allow env to override
+  # This is a global kill-switch for the server, as other callers check it (eg, when
+  # using sections for authorization, for showing navbar links, for allowing controller
+  # endpoints).
+  def enabled_sections?
+    return EnvironmentVariable.is_true('ENABLED_SECTIONS') if ENV.has_key?('ENABLED_SECTIONS')
+    return true if [SOMERVILLE, DEMO].include?(@district_key)
+    false
+  end
+
+  # Note that this may be called in performance-sensitive loops.
+  def should_consider_sections_for_student_level_authorization?
+    return false unless self.enabled_sections? # respect global switch
+
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      true
+    elsif @district_key == NEW_BEDFORD
+      false
+    else
+      false
+    end
+  end
+
+  # Note that this may be called in performance-sensitive loops.
+  def allow_sections_link?(educator)
+    return false unless self.enabled_sections? # respect global switch
+
+    # sections aren't used for rostering in MSin Somerville, but data is imported and they could be
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      educator.school.try(:is_high_school?) || false
+    elsif @district_key == NEW_BEDFORD
+      true
+    else
+      false
+    end
   end
 
   def high_school_enabled?
@@ -362,6 +409,11 @@ class PerDistrict
 
   # Specifically whether this importer class runs as part of import jobs
   def student_voice_survey_importer_enabled?
+    @district_key == SOMERVILLE
+  end
+
+  # Should this run as part of import jobs?
+  def reading_benchmark_sheets_importer_enabled?
     @district_key == SOMERVILLE
   end
 

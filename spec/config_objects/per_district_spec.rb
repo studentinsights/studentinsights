@@ -3,6 +3,15 @@ RSpec.describe PerDistrict do
   before { @district_key = ENV['DISTRICT_KEY'] }
   after { ENV['DISTRICT_KEY'] = @district_key }
 
+  def random_district_key
+    [
+      PerDistrict::SOMERVILLE,
+      PerDistrict::NEW_BEDFORD,
+      PerDistrict::BEDFORD,
+      PerDistrict::DEMO
+    ].sample
+  end
+
   def for_somerville
     PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
   end
@@ -259,6 +268,88 @@ RSpec.describe PerDistrict do
 
     it 'returns nil for Bedford' do
       expect(for_bedford.sports_season_key(Time.parse('2017-10-01'))).to eq nil
+    end
+  end
+
+  describe '#enabled_sections?' do
+    def test_with_env(per_district, env_text)
+      before_value = ENV['ENABLED_SECTIONS']
+      ENV['ENABLED_SECTIONS'] = env_text
+      value = per_district.enabled_sections?
+      if before_value.present?
+        ENV['ENABLED_SECTIONS'] = before_value
+      else
+        ENV.delete('ENABLED_SECTIONS')
+      end
+      value
+    end
+
+    it 'works across districts' do
+      expect(for_somerville.enabled_sections?).to eq true
+      expect(for_demo.enabled_sections?).to eq true
+      expect(for_bedford.enabled_sections?).to eq false
+      expect(for_new_bedford.enabled_sections?).to eq false
+    end
+
+    it 'can be overridden by env' do
+      expect(test_with_env(for_somerville, 'true')).to eq true
+      expect(test_with_env(for_somerville, 'false')).to eq false
+      expect(test_with_env(for_demo, 'true')).to eq true
+      expect(test_with_env(for_demo, 'false')).to eq false
+      expect(test_with_env(for_bedford, 'true')).to eq true
+      expect(test_with_env(for_bedford, 'false')).to eq false
+      expect(test_with_env(for_new_bedford, 'true')).to eq true
+      expect(test_with_env(for_new_bedford, 'false')).to eq false
+    end
+  end
+
+  describe '#allow_sections_link?' do
+    let!(:pals) { TestPals.create! }
+
+    def test_all(per_district, educators)
+      educators.map {|educator| per_district.allow_sections_link?(educator) }.uniq
+    end
+
+    it 'works as expected' do
+      high_school_educators = [
+        pals.shs_jodi,
+        pals.shs_sofia_counselor,
+        pals.shs_harry_housemaster,
+        pals.shs_bill_nye,
+        pals.shs_hugo_art_teacher,
+        pals.shs_fatima_science_teacher
+      ]
+      expect(test_all(for_somerville, high_school_educators)).to eq [true]
+      expect(test_all(for_demo, high_school_educators)).to eq [true]
+      expect(test_all(for_new_bedford, high_school_educators)).to eq [false]
+      expect(test_all(for_bedford, high_school_educators)).to eq [false]
+
+      other_educators = (Educator.all - high_school_educators)
+      expect(test_all(for_somerville, other_educators)).to eq [false]
+      expect(test_all(for_new_bedford, other_educators)).to eq [false]
+      expect(test_all(for_demo, other_educators)).to eq [false]
+      expect(test_all(for_bedford, other_educators)).to eq [false]
+    end
+
+    context 'when ENABLED_SECTIONS=false' do
+      before do
+        @ENABLED_SECTIONS = ENV['ENABLED_SECTIONS']
+        ENV['ENABLED_SECTIONS'] = 'false'
+      end
+      after do
+        if @ENABLED_SECTIONS.present?
+          ENV['ENABLED_SECTIONS'] = @ENABLED_SECTIONS
+        else
+          ENV.delete('ENABLED_SECTIONS')
+        end
+      end
+
+      it 'always returns false' do
+        expect(test_all(for_somerville, Educator.all)).to eq [false]
+        expect(test_all(for_new_bedford, Educator.all)).to eq [false]
+        expect(test_all(for_demo, Educator.all)).to eq [false]
+        expect(test_all(for_bedford, Educator.all)).to eq [false]
+      end
     end
   end
 end

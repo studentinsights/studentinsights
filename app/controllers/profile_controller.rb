@@ -4,7 +4,8 @@ class ProfileController < ApplicationController
   before_action :authorize!
 
   def json
-    student = Student.find(params[:id])
+    student = authorized { Student.find(params[:id]) }
+    authorized_sections = authorized { Section.all }
     chart_data = StudentProfileChart.new(student).chart_data
 
     render json: {
@@ -23,7 +24,7 @@ class ProfileController < ApplicationController
       grades_reflection_insights: ProfileInsights.new(student).from_q2_self_reflection.as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
-      current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
+      current_educator_allowed_sections: authorized_sections.map(&:id),
       attendance_data: {
         discipline_incidents: discipline_incidents_as_json(student),
         tardies: filtered_events(student.tardies),
@@ -37,6 +38,28 @@ class ProfileController < ApplicationController
     student = Student.find(params[:id])
     json = ReaderProfile.new(student, s3: s3).reader_profile_json
     render json: json
+  end
+
+  def educators_with_access_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_viewing_educators_with_access_to_student')
+
+    student = Student.find(params[:id])
+    active_educators = Educator.active.includes(:educator_labels, :school, {sections: :course}, {homeroom: [:school, :students]})
+
+    with_access = []
+    active_educators.each do |educator|
+      authorizer = Authorizer.new(educator)
+      reason = authorizer.why_authorized_for_student?(student)
+      if reason.present?
+        with_access << {
+          educator: educator.as_json(only: [:id, :email, :full_name]),
+          reason: reason
+        }
+      end
+    end
+    render json: {
+      with_access_json: with_access
+    }
   end
 
   private
@@ -83,6 +106,9 @@ class ProfileController < ApplicationController
   end
 
   # Include all courses, not just in the current term.
+  # Allow access to this data based on student-level authorization,
+  # not on whether the educator can access information about the Section
+  # itself.
   def serialize_student_sections_for_profile(student)
     student.sections.select('sections.*, student_section_assignments.grade_numeric').as_json({
       include: {

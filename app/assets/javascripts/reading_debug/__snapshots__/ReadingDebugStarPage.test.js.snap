@@ -146,38 +146,32 @@ exports[`snapshots view 1`] = `
             <th
               style={Object {}}
             >
-              3rd grade
-               now
+              3rd grade now
             </th>
             <th
               style={Object {}}
             >
-              4th grade
-               now
+              4th grade now
             </th>
             <th
               style={Object {}}
             >
-              5th grade
-               now
+              5th grade now
             </th>
             <th
               style={Object {}}
             >
-              6th grade
-               now
+              6th grade now
             </th>
             <th
               style={Object {}}
             >
-              7th grade
-               now
+              7th grade now
             </th>
             <th
               style={Object {}}
             >
-              8th grade
-               now
+              8th grade now
             </th>
           </tr>
         </thead>

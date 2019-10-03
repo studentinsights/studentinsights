@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
   # reading_debug
   get '/api/reading_debug/reading_debug_json' => 'reading_debug#reading_debug_json'
+  get '/api/reading_debug/reading_by_homerooms_json' => 'reading_debug#reading_by_homerooms_json'
   get '/api/reading_debug/star_reading_debug_json' => 'reading_debug#star_reading_debug_json'
 
   # classroom list creator
@@ -92,6 +93,7 @@ Rails.application.routes.draw do
   # student profile
   get '/api/students/:id/profile_json' => 'profile#json'
   get '/api/students/:id/reader_profile_json' => 'profile#reader_profile_json'
+  get '/api/students/:id/educators_with_access_json' => 'profile#educators_with_access_json'
 
   # transition notes: reading restricted notes (create was deprecated and removed, see `second_transition_note`)
   get '/api/students/:student_id/restricted_transition_note_json' => 'transition_notes#restricted_transition_note_json'
@@ -212,6 +214,8 @@ Rails.application.routes.draw do
 
   resource :reading, only: [] do
     member do
+      get '/thresholds' => 'ui#ui'
+      get '/homerooms' => 'ui#ui'
       get '/debug' => 'ui#ui'
       get '/debug_star' => 'ui#ui'
       get '/debug_csv' => 'reading_debug#reading_debug_csv'

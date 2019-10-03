@@ -21,7 +21,8 @@ describe ReadingDebugController, :type => :controller do
       json = JSON.parse(response.body)
       expect(json.keys).to contain_exactly(*[
         'students',
-        'groups'
+        'groups',
+        'student_counts_by_grade'
       ])
       expect(json['students'].size).to eq 5
       expect(json['students'].first.keys).to contain_exactly(*[
@@ -30,6 +31,12 @@ describe ReadingDebugController, :type => :controller do
         'last_name',
         'grade'
       ])
+      expect(json['student_counts_by_grade']).to eq({
+        'KF' => 1,
+        '8' => 1,
+        '9' => 2,
+        '12' => 1
+      })
     end
   end
 end

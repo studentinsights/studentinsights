@@ -34,7 +34,7 @@ class PathsForEducator
       links[:discipline] = url_helpers.discipline_school_path(@educator.school)
     end
 
-    if @educator.school.present? && @educator.school.is_high_school? && @educator.sections.size > 0
+    if include_sections_link?(@educator)
       links[:section] = url_helpers.educators_my_sections_path
     end
 
@@ -46,6 +46,12 @@ class PathsForEducator
   end
 
   private
+  def include_sections_link?(educator)
+    return false unless PerDistrict.new.allow_sections_link?(educator)
+    assigned_sections = Authorizer.new(educator).authorized { educator.sections }
+    assigned_sections.size > 0
+  end
+
   def url_helpers
     Rails.application.routes.url_helpers
   end

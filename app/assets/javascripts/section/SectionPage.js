@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
-import SectionTable from './SectionTable';
+import SectionView from './SectionView';
 
 
 /*
@@ -36,7 +36,7 @@ export default class SectionPage extends React.Component {
     const {students, section, sections} = json;    
     return (
       <div style={styles.flexVertical}>
-        <SectionTable
+        <SectionView
           students={students}
           section={section}
           sections={sections} />

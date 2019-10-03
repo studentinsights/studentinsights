@@ -1,0 +1,1057 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots default 1`] = `
+<div>
+  <table
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        />
+        <th
+          style={Object {}}
+        >
+          <div>
+            2018
+          </div>
+          <div>
+            fall
+          </div>
+        </th>
+        <th
+          style={Object {}}
+        >
+          <div>
+            2018
+          </div>
+          <div>
+            winter
+          </div>
+        </th>
+        <th
+          style={Object {}}
+        >
+          <div>
+            2019
+          </div>
+          <div>
+            spring
+          </div>
+        </th>
+        <th
+          style={Object {}}
+        >
+          <div>
+            2019
+          </div>
+          <div>
+            fall
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["KF"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["1"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["2"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["3"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["4"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["5"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`snapshots isFlipped: true 1`] = `
+<div>
+  <table
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        />
+        <th
+          style={Object {}}
+        >
+          <div>
+            2018
+          </div>
+          <div>
+            fall
+          </div>
+        </th>
+        <th
+          style={Object {}}
+        >
+          <div>
+            2018
+          </div>
+          <div>
+            winter
+          </div>
+        </th>
+        <th
+          style={Object {}}
+        >
+          <div>
+            2019
+          </div>
+          <div>
+            spring
+          </div>
+        </th>
+        <th
+          style={Object {}}
+        >
+          <div>
+            2019
+          </div>
+          <div>
+            fall
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["KF"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"KF"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["1"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"1"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["2"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"2"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["3"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"3"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["4"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"4"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <pre>
+            ["5"]
+          </pre>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"fall","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2018,"period":"winter","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"spring","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+        <td>
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "border": "2px solid white",
+                "cursor": "pointer",
+                "padding": 10,
+              }
+            }
+          >
+            <pre>
+              [{"year":2019,"period":"fall","grade":"5"}]
+            </pre>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

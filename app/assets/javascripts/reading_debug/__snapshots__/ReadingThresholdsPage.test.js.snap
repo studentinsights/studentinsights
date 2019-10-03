@@ -1,0 +1,7526 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="ReadingThresholdsPage"
+>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "alignItems": "center",
+          "color": "black",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div>
+        Reading: Thresholds and benchmarks
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+          }
+        }
+      >
+        <a
+          href="https://github.com/studentinsights/studentinsights/blob/master/app/assets/javascripts/reading/thresholds.js"
+          rel="noopener noreferrer"
+          style={
+            Object {
+              "fontSize": 12,
+            }
+          }
+          target="_blank"
+        >
+          Source code
+        </a>
+      </div>
+    </h4>
+  </div>
+  <table
+    style={
+      Object {
+        "fontSize": 12,
+        "margin": 10,
+      }
+    }
+  >
+    <thead>
+      <tr>
+        <th>
+          <span
+            style={Object {}}
+          >
+             
+          </span>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            KF
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            fall
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            KF
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            winter
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            KF
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            spring
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            1
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            fall
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            1
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            winter
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            1
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            spring
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            2
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            fall
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            2
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            winter
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            2
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            spring
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            3
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            fall
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            3
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            winter
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            3
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            spring
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            4
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            fall
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            4
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            winter
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            4
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            spring
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            5
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            fall
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            5
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            winter
+          </div>
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+              "width": 40,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            5
+          </div>
+          <div
+            style={
+              Object {
+                "width": 40,
+              }
+            }
+          >
+            spring
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          FSF, First sound fluency
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              18
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              17
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              8
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              7
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              44
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              43
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              32
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              31
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          LNF, Letter naming fluency
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              22
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              21
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              11
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              10
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              42
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              41
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              20
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              19
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              52
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              51
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              39
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              38
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              50
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              49
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              37
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              36
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          PSF, Phonemic segmentation fluency
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              27
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              26
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              12
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              11
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              45
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              44
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              31
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              30
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              45
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              44
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              31
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              30
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          NWF-CLS, Nonsense word fluency
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              27
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              26
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              13
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              12
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              37
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              36
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              28
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              27
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              33
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              32
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              20
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              19
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              50
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              49
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              31
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              30
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              78
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              77
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              43
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              42
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              62
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              61
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              46
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              45
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          NWF-WWR, Nonsense word fluency
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              4
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              3
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              2
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              1
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              12
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              11
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              6
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              5
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              18
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              17
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              10
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              9
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              18
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              17
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              10
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              9
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          ORF words/minute
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              30
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              29
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              19
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              18
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              63
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              62
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              37
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              36
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              68
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              67
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              47
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              46
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              84
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              83
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              68
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              67
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              100
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              99
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              83
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              82
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              93
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              92
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              73
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              72
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              108
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              107
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              89
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              88
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              123
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              122
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              101
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              100
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          ORF accuracy
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              85
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              84
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              74
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              73
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              92
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              91
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              85
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              84
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              93
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              92
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              85
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              84
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              95
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              94
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              92
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              91
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              97
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              96
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              94
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              93
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              96
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              95
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              92
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              91
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              97
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              96
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              94
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              93
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              98
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              97
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              96
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              95
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          F&P English
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              A
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              C
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              B
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              B
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              A
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              C
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              G
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              F
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              E
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              D
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              J
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              M
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              O
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              N
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              N
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              M
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              P
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "marginwhiteSpace": "normal",
+              "paddingBottom": 20,
+              "paddingRight": 10,
+              "verticalAlign": "top",
+              "width": 80,
+            }
+          }
+        >
+          F&P Spanish
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              A
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              C
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              B
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              B
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              A
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              C
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              G
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              F
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              E
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              D
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              J
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              M
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              O
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              N
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#FCE8B2",
+                }
+              }
+            >
+              N
+            </div>
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#B7E1CD",
+                }
+              }
+            >
+              M
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "backgroundColor": "#F4C7C3",
+                }
+              }
+            >
+              P
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div
+            style={
+              Object {
+                "color": "#666",
+                "height": 80,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+            <div>
+              <span
+                style={Object {}}
+              >
+                 
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

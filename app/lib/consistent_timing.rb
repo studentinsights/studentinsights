@@ -1,7 +1,7 @@
 class ConsistentTiming
   # Allow running a block of some execution time, and
   # clamping it to take at least N milliseconds regardless of how
-  # fast it exits.
+  # fast it exits.  Noisy, see specs.
   def enforce_timing(desired_milliseconds, &block)
     return block.call if disabled_for_test?
 

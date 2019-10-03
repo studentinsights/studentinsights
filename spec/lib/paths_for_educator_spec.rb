@@ -7,6 +7,12 @@ RSpec.describe PathsForEducator do
     PathsForEducator.new(educator).navbar_links
   end
 
+  def mock_allow_sections_link!(value)
+    mock_per_district = PerDistrict.new
+    allow(mock_per_district).to receive(:allow_sections_link?).and_return(value)
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+  end
+
   describe '#navbar_links' do
     context 'when ENABLE_CLASS_LISTS disabled' do
       before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
@@ -16,6 +22,23 @@ RSpec.describe PathsForEducator do
       it 'respects PerDistrict for /classlists' do
         expect(navbar_links(pals.uri)).to eq({
           district: '/district',
+          levels_shs: '/levels/shs'
+        })
+      end
+    end
+
+    context 'when #allow_sections_link? mocked' do
+      it 'includes sections link for Bill' do
+        mock_allow_sections_link!(true)
+        expect(navbar_links(pals.shs_bill_nye)).to eq({
+          levels_shs: '/levels/shs',
+          section: '/educators/my_sections'
+        })
+      end
+
+      it 'does NOT include sections link for Bill' do
+        mock_allow_sections_link!(false)
+        expect(navbar_links(pals.shs_bill_nye)).to eq({
           levels_shs: '/levels/shs'
         })
       end

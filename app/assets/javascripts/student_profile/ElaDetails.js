@@ -57,7 +57,7 @@ export default class ElaDetails extends React.Component {
     if (dibels.length === 0) return null;
     const latestDibels = _.last(_.sortBy(dibels, 'date_taken'));
     return (
-      <DetailsSection key="dibels" title="DIBELS, latest score">
+      <DetailsSection key="dibels" title="DIBELS, older data">
         <div>{this.renderDibelsScore(latestDibels.benchmark)} on {toMomentFromRailsDate(latestDibels.date_taken).format('M/D/YY')}</div>
       </DetailsSection>
     );
@@ -79,7 +79,7 @@ export default class ElaDetails extends React.Component {
     const maybeCode = (fAndP.f_and_p_code) ? ` with ${fAndP.f_and_p_code} code` : null;
     
     return (
-      <DetailsSection key="f_and_ps" title="Fountas and Pinnell (F&P), latest score">
+      <DetailsSection key="f_and_ps" title="Fountas and Pinnell (F&P), older data">
         <div>
           <span style={{padding: 5, backgroundColor: '#ccc', fontWeight: 'bold'}}>Level {fAndP.instructional_level}{maybeCode}</span>
           <span> on {toMomentFromRailsDate(fAndP.benchmark_date).format('M/D/YY')}</span>

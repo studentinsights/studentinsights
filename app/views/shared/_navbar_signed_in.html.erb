@@ -38,12 +38,11 @@
       <span class="NavbarSignedIn-spacer"></span>
     <% end %>
 
-    <% if links.has_key?(:section) %>
-      <%= link_to 'My sections', links[:section] %>
-    <% end %>
-
     <% if links.has_key?(:homeroom) %>
     <%= link_to 'Homeroom', links[:homeroom] %>
+    <% end %>
+    <% if links.has_key?(:section) %>
+      <%= link_to 'Sections', links[:section] %>
     <% end %>
 
     <% # Everyone has these %>

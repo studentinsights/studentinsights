@@ -3,7 +3,7 @@ import React from 'react';
 
 // A visual UI element with canonical display of a section,
 // showing the section number and course section, with link to roster.
-function Section({id, sectionNumber, courseDescription, style}) {
+export default function Section({id, sectionNumber, courseDescription, style}) {
   return (
     <a
       className="Section"
@@ -19,5 +19,3 @@ Section.propTypes = {
   courseDescription: PropTypes.string.isRequired,
   style: PropTypes.object
 };
-
-export default Section;

@@ -8,9 +8,10 @@ en:
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
     failure:
       already_authenticated: "You are already signed in."
-      inactive: "Your account is not activated yet."
+      inactive: "Invalid login, password, or code."
       invalid: "Invalid login, password, or code."
       not_found_in_database: "Invalid login, password, or code."
+      not_active: "Invalid login, password, or code."
       invalid_multifactor: "Invalid login, password, or code."
       unexpected_multifactor: "Invalid login, password, or code."
       error: "Sorry, there was an error with signing you in."

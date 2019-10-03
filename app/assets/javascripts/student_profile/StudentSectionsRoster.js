@@ -39,23 +39,23 @@ export default class StudentSectionsRoster extends React.Component {
   }
 
   render() {
-    const sections = this.props.sections;
+    const {sections, includeGrade} = this.props;
     
-    const columns = [
+    const columns = _.compact([
       {label: 'Section Number', key: 'section_number', cell:this.renderSectionNumber},
       {label: 'Course Description', key: 'course_description'},
-      {label: 'Grade', key: 'grade_numeric', sortFunc: sortByNumber},
+      (includeGrade ? {label: 'Grade', key: 'grade_numeric', sortFunc: sortByNumber} : null),
       {label: 'Schedule', key: 'schedule'},
       {label: 'Educators', key: 'educators', cell: this.renderEducators, sortFunc: this.sortEducatorNames},
       {label: 'Room', key: 'room_number'},
       {label: 'Term', key: 'term_local_id', sortFunc: this.sortTerm}
-    ];
-    
+    ]);
+    const initialSortIndex = _.findIndex(columns, {key: 'term_local_id'});
     return (
       <FlexibleRoster className="StudentSectionsRoster"
         rows={sections}
         columns={columns}
-        initialSortIndex={6}/>
+        initialSortIndex={initialSortIndex} />
     );
   }
 
@@ -89,5 +89,6 @@ export default class StudentSectionsRoster extends React.Component {
 }
 StudentSectionsRoster.propTypes = {
   sections: PropTypes.array,            // Array of sections to display
-  linkableSections: PropTypes.array     // Array of section ids to render as links
+  linkableSections: PropTypes.array,     // Array of section ids to render as links
+  includeGrade: PropTypes.bool
 };

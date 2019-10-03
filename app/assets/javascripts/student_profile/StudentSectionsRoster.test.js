@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import renderer from 'react-test-renderer';
 import StudentSectionsRoster from './StudentSectionsRoster';
 
 
 export function testProps(props) {
   return {
+    includeGrade: true,
     linkableSections: [1,2,3,4,5,6],
     sections: [{
       "id":6,
@@ -32,7 +34,6 @@ export function testProps(props) {
       "course_description":"BIOLOGY 1",
       "educators":[{"full_name":"Teacher, Bill"}],
     }],
-    text: "hello",
     ...props
   };
 }
@@ -42,9 +43,24 @@ it('renders without crashing', () => {
   ReactDOM.render(<StudentSectionsRoster {...testProps()} />, el);
 });
 
-it('snapshots view', () => {
-  const tree = renderer
-    .create(<StudentSectionsRoster {...testProps()} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+describe('snapshots', () => {
+  it('matches defaults', () => {
+    const props = testProps();
+    expect(renderer.create(<StudentSectionsRoster {...props} />).toJSON()).toMatchSnapshot();
+  });
+
+  it('matches includeGrade: false', () => {
+    const defaultProps = testProps();
+    const props = {
+      ...defaultProps,
+      sections: defaultProps.sections.map(section => _.omit(section, 'grade_numeric')),
+      includeGrade: false
+    };
+    expect(renderer.create(<StudentSectionsRoster {...props} />).toJSON()).toMatchSnapshot();
+  });
+
+  it('matches when no linkableSections', () => {
+    const props = testProps({linkableSections: []});
+    expect(renderer.create(<StudentSectionsRoster {...props} />).toJSON()).toMatchSnapshot();
+  });
 });

@@ -55,9 +55,7 @@ class Student < ApplicationRecord
   validates :sped_placement, exclusion: { in: ['']}
   validates :disability, exclusion: { in: ['']}
   validates :sped_level_of_need, exclusion: { in: ['']}
-  validates :plan_504, exclusion: { in: ['']}
   validates :student_address, exclusion: { in: ['']}
-  validates :free_reduced_lunch, exclusion: { in: ['']}
   validates :race, exclusion: { in: ['']}
   validates :hispanic_latino, exclusion: { in: ['']}
   validates :gender, exclusion: { in: ['']}

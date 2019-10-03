@@ -102,8 +102,14 @@ class Authorizer
   # access.
   def why_authorized_for_student?(student, options = {})
     begin
+      should_consider_sections = options.fetch(:should_consider_sections, PerDistrict.new.should_consider_sections_for_student_level_authorization?)
       return :districtwide if @educator.districtwide_access?
-      return :housemaster if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
+      # As a performance optimization, this check excludes `dynamic_labels`, since they're a bit more
+      # expensive to compute, and here we only need to check one specific label that we know
+      # is static.  Also, PerfTest shows that although it might seem like moving the env check first would
+      # speed this up by avoiding the labels query, this order is consistently faster when the ENV value
+      # is not set.
+      return :housemaster if @educator.labels(exclude_dynamic_labels: true).include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
       return nil if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
       return nil if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
@@ -121,7 +127,8 @@ class Authorizer
       # are calling this in a loop get the optimization without having to
       # optimize themselves.
       return :homeroom if student.in?(@educator.students.to_a) # Homeroom level access
-      return :section if student.in?(@educator.section_students.to_a) # Section level access
+
+      return :section if should_consider_sections && student.in?(@educator.section_students.to_a) # Section level access
     rescue ActiveModel::MissingAttributeError => err
       # We can't do authorization checks on models with `#select` that are missing
       # fields.  If this happens, it's probably because the developer is trying to
@@ -143,12 +150,17 @@ class Authorizer
   end
 
   def is_authorized_for_section?(section)
+    return false unless PerDistrict.new.enabled_sections?
     return true if @educator.districtwide_access?
 
-    return false if @educator.school.present? && @educator.school != section.course.school
+    return false if @educator.school_id.present? && @educator.school_id != section.course.school_id
 
     return true if @educator.schoolwide_access? || @educator.admin?
-    return true if section.in?(@educator.sections)
+    # The `#to_a` is a performance optimization to reduce queries, in loops
+    # with `authorized { Section.all }`.  It results in Rails caching the values
+    # of this query in memory across the repeated calls in the loop.  Taken from
+    # similar optimization in `why_authorized_for_student?`
+    return true if section.in?(@educator.sections.to_a)
     false
   end
 
@@ -218,17 +230,6 @@ class Authorizer
       @educator.school.homerooms.where(grade: @educator.grade_level_access)
     else
       []
-    end
-  end
-
-  # TODO(kr) remove implementation
-  def sections
-    if @educator.districtwide_access?
-      Section.all
-    elsif @educator.schoolwide_access?
-      Section.joins(:course).where('courses.school_id = ?', @educator.school.id)
-    else
-      @educator.sections
     end
   end
 end

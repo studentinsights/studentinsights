@@ -16,7 +16,7 @@ export default class ReaderProfileJunePage extends React.Component {
     return (
       <RollbarErrorBoundary debugKey="ReaderProfileJunePage">
         <div className="ReaderProfileJunePage">
-          <SectionHeading>Reader Profile (June v2)</SectionHeading>
+          <SectionHeading>Reader Profile, v3</SectionHeading>
           <GenericLoader
             promiseFn={() => apiFetchJson(url)}
             render={json => this.renderJson(json)} />

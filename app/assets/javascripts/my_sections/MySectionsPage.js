@@ -101,7 +101,7 @@ export class MySectionsPageView extends React.Component {
     const {sections} = this.props;
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>My sections</SectionHeading>
+        <SectionHeading>Sections</SectionHeading>
         {this.renderTable(sections)}
       </div>
     );

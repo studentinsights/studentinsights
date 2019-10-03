@@ -103,7 +103,7 @@ describe('HS testing tab', () => {
   });
 });
 
-describe('reading and math can show MCAS if STAR not enabled', () => {
+describe('tabs', () => {
   it('for Bedford, shows MCAS in place of STAR', () => {
     const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
       "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
@@ -123,6 +123,28 @@ describe('reading and math can show MCAS if STAR not enabled', () => {
       'M',
       'MCAS Math',
       '2 years ago'
+    ]);
+  });
+
+  it('for New Bedford, does not yet show sections and testing (still reading and math)', () => {
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
+      "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
+      "next_gen_mcas_ela_scaled": [[2017,5,15,536]],
+      "mcas_series_math_scaled": [],
+      "mcas_series_ela_scaled": []
+    });
+    const el = testRender(props, {districtKey: 'new_bedford'});
+    expect(testingTabTextLines(1, el)).toEqual([
+      'Reading',
+      '10th',
+      'STAR percentile',
+      'a month ago'
+    ]);
+    expect(testingTabTextLines(2, el)).toEqual([
+      'Math',
+      '10th',
+      'STAR percentile',
+      'a month ago'
     ]);
   });
 });
@@ -179,5 +201,22 @@ describe('inactive overlay', () => {
     const el = testRender(props, {districtKey: 'bedford'});
     expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
     expect($(el).text()).toContain('no longer actively enrolled');
+  });
+});
+
+describe('buttons', () => {
+  it('shows print PDF and full case history', () => {
+    const props = testPropsForAladdinMouse();
+    const el = testRender(props);
+    expect($(el).html()).toContain('Print PDF');
+    expect($(el).html()).toContain('List all data points');
+  });
+
+  it('can show button for permissions', () => {
+    const props = mergeAtPath(testPropsForAladdinMouse(), ['profileJson', 'currentEducator'], {
+      labels: ['enable_viewing_educators_with_access_to_student']
+    });
+    const el = testRender(props);
+    expect($(el).html()).toContain('Educators with access');
   });
 });

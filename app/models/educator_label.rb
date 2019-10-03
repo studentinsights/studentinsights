@@ -20,9 +20,12 @@ class EducatorLabel < ApplicationRecord
         'use_community_school_based_feed',
 
         # reading
-        'profile_enable_minimal_reading_data', # deprecated
+        'profile_enable_minimal_reading_data',
         'enable_reading_benchmark_data_entry', # deprecated
         'enable_reading_debug',
+
+        # profile
+        'enable_viewing_educators_with_access_to_student',
 
         # transition notes
         'k8_counselor',
@@ -47,8 +50,10 @@ class EducatorLabel < ApplicationRecord
 
   # Static labels are set by records in the database.  Dynamic labels are
   # computed at read time here based on some other property of the educator.
-  def self.labels(educator)
+  def self.labels(educator, options = {})
     static_labels = educator.educator_labels.map(&:label_key)
+    return static_labels if options.fetch(:exclude_dynamic_labels, false)
+
     dynamic_labels = self.dynamic_labels_for_educator(educator)
 
     static_labels + dynamic_labels
@@ -57,12 +62,10 @@ class EducatorLabel < ApplicationRecord
   def self.dynamic_labels_for_educator(educator)
     dynamic_labels = []
 
-    # Low grades box: Anyone in SHS with sections
+    # Low grades box: Anyone in SHS with assigned sections
     authorizer = Authorizer.new(educator)
-    authorized_sections = educator.sections.select do |section|
-      authorizer.is_authorized_for_section?(section)
-    end
-    if authorized_sections.size > 0 && educator.school.is_high_school?
+    assigned_sections = authorizer.authorized { educator.sections }
+    if assigned_sections.size > 0 && educator.school.is_high_school?
       dynamic_labels << 'should_show_low_grades_box'
     end
 

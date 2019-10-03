@@ -20,7 +20,7 @@ export default class GradeTimeGrid extends React.Component {
   }
   
   renderNormal() {
-    const {selection, grades, intervals, onSelectionChanged, renderCellFn} = this.props;
+    const {selection, grades, intervals, onSelectionChanged, renderCellFn, renderGradeFn} = this.props;
 
     return (
       <div>
@@ -42,7 +42,9 @@ export default class GradeTimeGrid extends React.Component {
           <tbody>
             {grades.map(grade => (  
               <tr key={grade}>
-                <td style={styles.firstColumnCell}>{gradeText(grade)} now</td>
+                <td style={styles.firstColumnCell}>
+                  {renderGradeFn ? renderGradeFn(grade) : `${gradeText(grade)} now`}
+                </td>
                 {intervals.map(interval => {
                   const [year, period] = interval;
                   return (
@@ -68,7 +70,7 @@ export default class GradeTimeGrid extends React.Component {
   }
 
   renderFlipped() {
-    const {selection, grades, intervals, onSelectionChanged, renderCellFn} = this.props;
+    const {selection, grades, intervals, onSelectionChanged, renderCellFn, renderGradeFn} = this.props;
     
     return (
       <div>
@@ -78,7 +80,7 @@ export default class GradeTimeGrid extends React.Component {
               <th style={styles.firstColumnCell}></th>
               {grades.map(grade => (
                 <th style={styles.headCell} key={grade}>
-                  {gradeText(grade)} now
+                  {renderGradeFn ? renderGradeFn(grade) : `${gradeText(grade)} now`}
                 </th>
               ))}
             </tr>
@@ -118,6 +120,7 @@ GradeTimeGrid.propTypes = {
   grades: PropTypes.arrayOf(PropTypes.string).isRequired,
   intervals: PropTypes.array.isRequired,
   renderCellFn: PropTypes.func.isRequired,
+  renderGradeFn: PropTypes.func,
   selection: PropTypes.object,
   onSelectionChanged: PropTypes.func.isRequired,
   isFlipped: PropTypes.bool

@@ -26,7 +26,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).not_to include('Tardies')
     expect(rendered).not_to include('Discipline')
     expect(rendered).not_to include('Overview')
-    expect(rendered).not_to include('My sections')
+    expect(rendered).not_to include('Sections')
     expect(rendered).not_to include('Homeroom')
     expect_common_links(rendered)
   end
@@ -39,7 +39,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).not_to include('Tardies')
     expect(rendered).not_to include('Discipline')
     expect(rendered).not_to include('Overview')
-    expect(rendered).not_to include('My sections')
+    expect(rendered).not_to include('Sections')
     expect(rendered).to include('Homeroom')
     expect_common_links(rendered)
   end
@@ -52,7 +52,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).to include('Tardies')
     expect(rendered).to include('Discipline')
     expect(rendered).to include('Overview')
-    expect(rendered).not_to include('My sections')
+    expect(rendered).not_to include('Sections')
     expect(rendered).not_to include('Homeroom')
     expect_common_links(rendered)
   end
@@ -65,7 +65,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).not_to include('Tardies')
     expect(rendered).not_to include('Discipline')
     expect(rendered).not_to include('Overview')
-    expect(rendered).to include('My sections')
+    expect(rendered).to include('Sections')
     expect(rendered).not_to include('Homeroom')
     expect_common_links(rendered)
   end

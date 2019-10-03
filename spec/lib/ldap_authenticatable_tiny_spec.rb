@@ -407,8 +407,8 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     it 'warns about first_login_month_after_creation' do
       allow(Net::HTTP).to receive(:post_form)
       pals.healey_laura_principal.update!(created_at: pals.time_now - 32.days)
-      allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('LoginChecker#warn_if_suspicious', {
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', {
         flags: [:first_login_month_after_creation],
         warning_id: anything(),
         time_now: anything()
@@ -424,8 +424,8 @@ RSpec.describe 'LdapAuthenticatableTiny' do
         user_id: pals.healey_laura_principal.id,
         created_at: pals.time_now - 2.years
       })
-      allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with("LoginChecker#warn_if_suspicious", {
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with("LoginChecker#warn_if_suspicious", {
         flags: [:first_login_after_six_months],
         warning_id: anything(),
         time_now: anything()

@@ -1,6 +1,34 @@
 namespace :validations do
   desc 'Check all validations manually across all models and records in the database'
   task run_all_manually: :environment do
+    # This still has lots of unnecessary queries, but could be optimized
+    # further to run more frequently.  FOr the `Educator` model the `plan_504`
+    # path is complicated and triggers queries, and for others uniqueness
+    # validations trigger a query for every validation check, even if the
+    # whole table is eagerly loaded.  Those could be removed and moved into
+    # db uniqueness constraints (which are stricter anyway).
+    def optimized_check_for_sections!
+      model_classes = {
+        Educator => [],
+        Student => [:school, :ed_plans],
+        Course => [],
+        Section => [],
+        EducatorSectionAssignment => [],
+        StudentSectionAssignment => []
+      }
+
+      out = {}
+      model_classes.each do |model_class, includes|
+        puts "Checking #{model_class.name}..."
+        relation = includes.size == 0 ? model_class.all : model_class.includes(*includes).all
+        records = relation.to_a # forces eager loading
+        invalids = records.select {|record, index| !record.valid? }
+        puts "  invalids.size: #{invalids.size} / #{records.size}"
+        out[model_class.name] = invalids
+      end
+      out
+    end
+
     def invalid_ids_for_class(model_class)
       invalid_ids = []
       counter = 0

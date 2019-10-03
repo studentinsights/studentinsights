@@ -1,12 +1,45 @@
 require 'spec_helper'
 
-# This is just sugar, mirroring how this is used in controller code
-def authorized(educator, &block)
-  Authorizer.new(educator).authorized(&block)
-end
-
 RSpec.describe Authorizer do
   let!(:pals) { TestPals.create! }
+
+  # This is just sugar, mirroring how this is used in controller code
+  def authorized(educator, &block)
+    Authorizer.new(educator).authorized(&block)
+  end
+
+  def mock_per_district_enabled_sections!(value)
+    mock_per_district = PerDistrict.new
+    allow(mock_per_district).to receive(:enabled_sections?).and_return(value)
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+  end
+
+  def mock_per_district_should_consider_sections_for_student_level_authorization!(value)
+    mock_per_district = PerDistrict.new
+    allow(mock_per_district).to receive(:should_consider_sections_for_student_level_authorization?).and_return(value)
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+  end
+
+  # Some specs are migrated over from a different file that didn't
+  # use TestPals; so this allows unwinding the TestPals db setup for particular
+  # block of these tests, while migrating test cases into here to verify
+  # no regressions occurred.
+  def destroy_test_pals!
+    TeamMembership.all.destroy_all
+    ImportedForm.all.destroy_all
+    StudentSectionAssignment.all.destroy_all
+    Student.all.destroy_all
+    Homeroom.all.destroy_all
+    CounselorNameMapping.all.destroy_all
+    HouseEducatorMapping.all.destroy_all
+    EducatorSectionAssignment.all.destroy_all
+    EducatorMultifactorConfig.all.destroy_all
+    EducatorLabel.all.destroy_all
+    Educator.all.destroy_all
+    Section.all.destroy_all
+    Course.all.destroy_all
+    School.all.destroy_all
+  end
 
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
@@ -201,6 +234,28 @@ RSpec.describe Authorizer do
           ]
         end
       end
+
+      context 'when should_consider_sections_for_student_level_authorization? is false' do
+        it 'only allows schoolwide, not section-based access' do
+          mock_per_district_should_consider_sections_for_student_level_authorization!(false)
+          expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array []
+          expect(authorized(pals.shs_hugo_art_teacher) { Student.all }).to match_array []
+          expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir
+          ]
+          expect(authorized(pals.shs_fatima_science_teacher) { Student.all }).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ]
+          expect(authorized(pals.shs_harry_housemaster) { Student.all }).to match_array [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ]
+        end
+      end
     end
 
     describe 'EventNote' do
@@ -334,9 +389,103 @@ RSpec.describe Authorizer do
     end
   end
 
+  describe 'Section' do
+    it 'limits access for relation' do
+      all_high_school_sections = [
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section,
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics,
+        pals.shs_third_period_physics,
+        pals.shs_fifth_period_physics,
+      ]
+      expect(authorized(pals.uri) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.rich_districtwide) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.healey_vivian_teacher) { Section.all }).to eq []
+      expect(authorized(pals.healey_ell_teacher) { Section.all }).to eq []
+      expect(authorized(pals.healey_sped_teacher) { Section.all }).to eq []
+      expect(authorized(pals.healey_laura_principal) { Section.all }).to eq []
+      expect(authorized(pals.healey_sarah_teacher) { Section.all }).to eq []
+      expect(authorized(pals.west_marcus_teacher) { Section.all }).to eq []
+      expect(authorized(pals.west_counselor) { Section.all }).to eq []
+      expect(authorized(pals.shs_jodi) { Section.all }).to eq []
+      expect(authorized(pals.shs_bill_nye) { Section.all }).to contain_exactly(*[
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section
+      ])
+      expect(authorized(pals.shs_hugo_art_teacher) { Section.all }).to contain_exactly(*[
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics
+      ])
+      expect(authorized(pals.shs_fatima_science_teacher) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_sofia_counselor) { Section.all }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_harry_housemaster) { Section.all }).to contain_exactly(*all_high_school_sections)
+    end
+
+    it 'limits access for array' do
+      sections_array = Section.all.to_a
+      all_high_school_sections = [
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section,
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics,
+        pals.shs_third_period_physics,
+        pals.shs_fifth_period_physics,
+      ]
+      expect(authorized(pals.uri) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.rich_districtwide) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.healey_vivian_teacher) { sections_array }).to eq []
+      expect(authorized(pals.healey_ell_teacher) { sections_array }).to eq []
+      expect(authorized(pals.healey_sped_teacher) { sections_array }).to eq []
+      expect(authorized(pals.healey_laura_principal) { sections_array }).to eq []
+      expect(authorized(pals.healey_sarah_teacher) { sections_array }).to eq []
+      expect(authorized(pals.west_marcus_teacher) { sections_array }).to eq []
+      expect(authorized(pals.west_counselor) { sections_array }).to eq []
+      expect(authorized(pals.shs_jodi) { sections_array }).to eq []
+      expect(authorized(pals.shs_bill_nye) { sections_array }).to contain_exactly(*[
+        pals.shs_tuesday_biology_section,
+        pals.shs_thursday_biology_section
+      ])
+      expect(authorized(pals.shs_hugo_art_teacher) { sections_array }).to contain_exactly(*[
+        pals.shs_second_period_ceramics,
+        pals.shs_fourth_period_ceramics
+      ])
+      expect(authorized(pals.shs_fatima_science_teacher) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_sofia_counselor) { sections_array }).to contain_exactly(*all_high_school_sections)
+      expect(authorized(pals.shs_harry_housemaster) { sections_array }).to contain_exactly(*all_high_school_sections)
+    end
+
+    it 'limits access for model, across a sample of Educators' do
+      def is_authorized(educator, section)
+        authorized(educator) { section } == section # check that they can access it
+      end
+
+      expect(is_authorized(pals.uri, pals.shs_tuesday_biology_section)).to eq true
+      expect(is_authorized(pals.uri, pals.shs_fourth_period_ceramics)).to eq true
+      expect(is_authorized(pals.uri, pals.shs_fifth_period_physics)).to eq true
+
+      expect(is_authorized(pals.healey_vivian_teacher, pals.shs_tuesday_biology_section)).to eq false
+      expect(is_authorized(pals.healey_vivian_teacher, pals.shs_fourth_period_ceramics)).to eq false
+      expect(is_authorized(pals.healey_vivian_teacher, pals.shs_fifth_period_physics)).to eq false
+
+      expect(is_authorized(pals.shs_bill_nye, pals.shs_tuesday_biology_section)).to eq true
+      expect(is_authorized(pals.shs_bill_nye, pals.shs_fourth_period_ceramics)).to eq false
+      expect(is_authorized(pals.shs_bill_nye, pals.shs_fifth_period_physics)).to eq false
+
+      expect(is_authorized(pals.shs_hugo_art_teacher, pals.shs_tuesday_biology_section)).to eq false
+      expect(is_authorized(pals.shs_hugo_art_teacher, pals.shs_fourth_period_ceramics)).to eq true
+      expect(is_authorized(pals.shs_hugo_art_teacher, pals.shs_fifth_period_physics)).to eq false
+
+      expect(is_authorized(pals.shs_harry_housemaster, pals.shs_tuesday_biology_section)).to eq true
+      expect(is_authorized(pals.shs_harry_housemaster, pals.shs_fourth_period_ceramics)).to eq true
+      expect(is_authorized(pals.shs_harry_housemaster, pals.shs_fifth_period_physics)).to eq true
+    end
+  end
+
   describe '#is_authorized_for_student?' do
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       end
 
@@ -347,6 +496,7 @@ RSpec.describe Authorizer do
 
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 off' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return(nil)
       end
 
@@ -357,6 +507,7 @@ RSpec.describe Authorizer do
 
     context 'HS house master, K student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       end
 
@@ -414,8 +565,63 @@ RSpec.describe Authorizer do
     end
   end
 
+  describe '#is_authorized_for_section? (migrated from Educator#allowed_sections)' do
+    # These specs are migrated over from a different file that didn't
+    # use TestPals; so unwind the TestPals db setup for this block of tests.
+    before { destroy_test_pals! }
+
+    let!(:school) { FactoryBot.create(:healey) }
+    let!(:other_school) { FactoryBot.create(:brown) }
+    let!(:in_school_course) { FactoryBot.create(:course, school: school) }
+    let!(:in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+    let!(:out_of_school_course) { FactoryBot.create(:course, school: other_school)}
+    let!(:out_of_school_section) { FactoryBot.create(:section, course: out_of_school_course) }
+
+    context 'schoolwide_access' do
+      let(:schoolwide_educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true)}
+
+      it 'has access to a section in their school' do
+        expect(Authorizer.new(schoolwide_educator).is_authorized_for_section?(in_school_section)).to be true
+      end
+
+      it 'does not have access to a section outside their school' do
+        expect(Authorizer.new(schoolwide_educator).is_authorized_for_section?(out_of_school_section)).to be false
+      end
+    end
+
+    context 'districtwide_access' do
+      let(:districtwide_educator) { FactoryBot.create(:educator, school: school, districtwide_access: true)}
+
+      it 'has access to a section outside their school' do
+        expect(Authorizer.new(districtwide_educator).is_authorized_for_section?(out_of_school_section)).to be true
+      end
+    end
+
+    context 'regular teacher' do
+      let(:educator) { FactoryBot.create(:educator, school: school) }
+      let!(:other_in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+      let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: in_school_section) }
+
+      it 'has access to a section assigned to that educator' do
+        expect(Authorizer.new(educator).is_authorized_for_section?(in_school_section)).to be true
+      end
+
+      it 'does not have access to a section not assigned to that educator' do
+        expect(Authorizer.new(educator).is_authorized_for_section?(other_in_school_section)).to be false
+      end
+
+    end
+  end
+
   describe '#is_authorized_for_section?' do
     let!(:test_section) { pals.shs_tuesday_biology_section }
+
+    it 'respects enabled_sections?' do
+      mock_per_district_enabled_sections!(false)
+      Educator.all.each do |educator|
+        expect(Authorizer.new(educator).is_authorized_for_section?(test_section)).to eq false
+      end
+    end
 
     it 'allows access to own sections' do
       expect(Authorizer.new(pals.shs_bill_nye).is_authorized_for_section?(test_section)).to eq true
@@ -466,16 +672,19 @@ RSpec.describe Authorizer do
       end
     end
 
-    it 'works as expected across all educators and students' do
+    def outcomes_for(educators, students, options = {})
       outcomes = []
-      Educator.all.each do |educator|
-        Student.all.each do |student|
-          reason = Authorizer.new(educator).why_authorized_for_student?(student)
+      educators.each do |educator|
+        students.each do |student|
+          reason = Authorizer.new(educator).why_authorized_for_student?(student, options)
           outcomes << [educator.login_name, student.id, reason] if reason.present?
         end
       end
+      outcomes
+    end
 
-      expect(outcomes).to match_array [
+    it 'works as expected across all educators and students' do
+      expect(outcomes_for(Educator.all, Student.all)).to match_array [
         ['uri', pals.healey_kindergarten_student.id, :districtwide],
         ['uri', pals.west_eighth_ryan.id, :districtwide],
         ['uri', pals.shs_freshman_mari.id, :districtwide],
@@ -504,27 +713,24 @@ RSpec.describe Authorizer do
         ['fatima', pals.shs_senior_kylo.id, :schoolwide]
       ]
     end
+
+    it 'respects should_consider_sections:true' do
+      mock_per_district_should_consider_sections_for_student_level_authorization!(false)
+      outcomes = outcomes_for(Educator.all, Student.all, should_consider_sections: true)
+      expect(outcomes.map {|outcome| outcome[2]}.uniq).to include(:section)
+    end
+
+    it 'respects should_consider_sections:false' do
+      mock_per_district_enabled_sections!(true)
+      outcomes = outcomes_for(Educator.all, Student.all, should_consider_sections: false)
+      expect(outcomes.map {|outcome| outcome[2]}.uniq).not_to include(:section)
+    end
   end
 
   context '#allowed_homerooms_DEPRECATED' do
-    # These specs are migrated over from a differnet file that didn't
+    # These specs are migrated over from a different file that didn't
     # use TestPals; so unwind the TestPals db setup for this block of tests.
-    before do
-      TeamMembership.all.destroy_all
-      ImportedForm.all.destroy_all
-      StudentSectionAssignment.all.destroy_all
-      Student.all.destroy_all
-      Homeroom.all.destroy_all
-      CounselorNameMapping.all.destroy_all
-      HouseEducatorMapping.all.destroy_all
-      EducatorSectionAssignment.all.destroy_all
-      EducatorMultifactorConfig.all.destroy_all
-      EducatorLabel.all.destroy_all
-      Educator.all.destroy_all
-      Section.all.destroy_all
-      Course.all.destroy_all
-      School.all.destroy_all
-    end
+    before { destroy_test_pals! }
 
     def deprecated_method(educator)
       Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)

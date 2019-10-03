@@ -58,7 +58,8 @@ class FileImporterOptions
         StarMathImporter
       ],
       'google' => [
-        StudentVoiceSurveyImporter
+        StudentVoiceSurveyImporter,
+        ReadingBenchmarkSheetsImporter
       ],
       'students' => StudentsImporter,
       'assessments' => X2AssessmentImporter,
@@ -73,7 +74,8 @@ class FileImporterOptions
       'ed_plan_accommodations' => EdPlanAccommodationsImporter,
       'star_math' => StarMathImporter,
       'star_reading' => StarReadingImporter,
-      'student_voice_surveys' => StudentVoiceSurveyImporter
+      'student_voice_surveys' => StudentVoiceSurveyImporter,
+      'reading_benchmark_sheets' => ReadingBenchmarkSheetsImporter
     }
   end
 
@@ -98,7 +100,8 @@ class FileImporterOptions
       StarReadingImporter => 6,
       EdPlansImporter => 7,
       EdPlanAccommodationsImporter => 8,
-      StudentVoiceSurveyImporter => 9
+      StudentVoiceSurveyImporter => 9,
+      ReadingBenchmarkSheetsImporter => 10
     }
   end
 end
