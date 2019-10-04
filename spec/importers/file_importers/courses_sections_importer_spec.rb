@@ -93,9 +93,6 @@ RSpec.describe CoursesSectionsImporter do
       end
 
       before do
-        puts 'before'
-        puts row.class
-        puts row.to_json
         courses_sections_importer.send(:import_row, row)
       end
 
