@@ -22,6 +22,8 @@ class ImportTask
     begin
       @record = create_import_record
       @report = create_report
+      log("Initialized from options = #{@options.to_json}...")
+
       log('Starting validation...')
       validate_school_options
       verify_school_definitions!

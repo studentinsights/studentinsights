@@ -28,9 +28,9 @@ class AttendanceImporter
     @inclusive_date_range = create_inclusive_date_range(options)
 
     @student_ids_map = ::StudentIdsMap.new
-
     @tardy_record_syncer = ::RecordSyncer.new(log: @log)
     @absence_record_syncer = ::RecordSyncer.new(log: @log)
+    reset_counters!
   end
 
   def import
@@ -44,21 +44,14 @@ class AttendanceImporter
     log("@student_ids_map built with #{@student_ids_map.size} local_id keys")
 
     log('Starting loop...')
-    @skipped_from_student_local_id_filter = 0
-    @skipped_from_school_filter = 0
-    @skipped_old_rows_count = 0
-    @skipped_other_rows_count = 0
-
+    reset_counters!
     streaming_csv.each_with_index do |row, index|
       import_row(row)
       log("processed #{index} rows.") if index % 10000 == 0
     end
 
     log('Done loop.')
-    log("@skipped_from_student_local_id_filter: #{@skipped_from_student_local_id_filter}")
-    log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
-    log("@skipped_other_rows_count: #{@skipped_other_rows_count}")
+    log("stats.to_json: #{stats.to_json}")
     log('')
 
     log('Calling #delete_unmarked_records for Absence...')
@@ -69,7 +62,27 @@ class AttendanceImporter
     log("Tardy stats: #{@tardy_record_syncer.stats}")
   end
 
+  def stats
+    {
+      skipped_from_student_local_id_filter: @skipped_from_student_local_id_filter,
+      skipped_from_school_filter: @skipped_from_school_filter,
+      skipped_old_rows_count: @skipped_old_rows_count,
+      skipped_other_rows_count: @skipped_other_rows_count,
+      student_local_id_not_found_count: @student_local_id_not_found_count,
+      absence_record_syncer: @absence_record_syncer.stats,
+      tardy_record_syncer: @tardy_record_syncer.stats
+    }
+  end
+
   private
+  def reset_counters!
+    @skipped_from_student_local_id_filter = 0
+    @skipped_from_school_filter = 0
+    @skipped_old_rows_count = 0
+    @skipped_other_rows_count = 0
+    @student_local_id_not_found_count = 0
+  end
+
   def create_inclusive_date_range(options)
     time_window = options.fetch(:time_window, 90.days)
     time_now = options.fetch(:time_now, Time.now)
@@ -140,37 +153,41 @@ class AttendanceImporter
       return
     end
 
-    # Skip if not absence or tardy
-    record_classes = valid_attendance_event_classes(row)
-    if record_classes.empty?
-      @skipped_other_rows_count += 1
-      return
-    end
-
     # Skip based on student filter
     if @student_local_ids.present? && !@student_local_ids.include?(row[:local_id])
       @skipped_from_student_local_id_filter += 1
       return
     end
 
-    # Record all events
-      record_classes.each { |record_class| match_record(row, record_class)}
-  end
+    # Since attendance exports may contain much older historical records, they can include
+    # a lot of data about students who have since moved on.  In that case, those students
+    # may have never been included in any student export, even going back years.  So large
+    # numbers here may reflect that.
+    student_id = @student_ids_map.lookup_student_id(row[:local_id])
+    if student_id.nil?
+      @student_local_id_not_found_count += 1
+      return
+    end
 
-  # Match with existing record or initialize new one (not saved)
-  # Then mark the record and sync the record from CSV to Insights
-  def match_record(row, record_class)
-    maybe_matching_record = matching_insights_record_for_row(row, record_class)
-    syncer = get_syncer!(record_class)
-    syncer.validate_mark_and_sync!(maybe_matching_record)
+    # Process as an absence, tardy or both.  Skip if neither.
+    record_classes = valid_attendance_event_classes(row)
+    if record_classes.empty?
+      @skipped_other_rows_count += 1
+      return
+    end
+
+    # Match with existing record or initialize new one (not saved)
+    # Then mark the record and sync the record from CSV to Insights
+    record_classes.each do |record_class|
+      maybe_matching_record = matching_insights_record_for_row(student_id, row, record_class)
+      syncer = get_syncer!(record_class)
+      syncer.validate_mark_and_sync!(maybe_matching_record)
+    end
   end
 
   # Matches a row from a CSV export with an existing or new (unsaved) Insights record
   # Returns nil if something about the CSV row is invalid and it can't process the row.
-  def matching_insights_record_for_row(row, record_class)
-    student_id = @student_ids_map.lookup_student_id(row[:local_id])
-    return nil if student_id.nil?
-
+  def matching_insights_record_for_row(student_id, row, record_class)
     attendance_event = record_class.find_or_initialize_by(
       occurred_at: row[:event_date],
       student_id: student_id,
