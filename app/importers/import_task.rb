@@ -20,10 +20,10 @@ class ImportTask
 
   def connect_transform_import
     begin
-      log("Initializing from options = #{@options.to_json}...")
-
       @record = create_import_record
       @report = create_report
+      log("Initialized from options = #{@options.to_json}...")
+
       log('Starting validation...')
       validate_school_options
       verify_school_definitions!
