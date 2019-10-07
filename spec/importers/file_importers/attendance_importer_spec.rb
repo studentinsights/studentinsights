@@ -8,9 +8,6 @@ RSpec.describe AttendanceImporter do
       log: nil,
       skip_old_records: false
     }.merge(options))
-    importer.instance_variable_set(:@skipped_from_school_filter, 0)
-    importer.instance_variable_set(:@skipped_old_rows_count, 0)
-    importer.instance_variable_set(:@skipped_other_rows_count, 0)
     importer
   end
 
@@ -19,6 +16,69 @@ RSpec.describe AttendanceImporter do
       local_id: FactoryBot.create(:student).local_id,
       event_date: Date.parse('1981-12-30'),
     }.merge(hash)
+  end
+
+  describe '#import, end-to-end' do
+    let!(:pals) { TestPals.create! }
+
+    it 'works on happy path to import an Absence record' do
+      log = LogHelper::FakeLog.new
+      file_text = [
+        '"event_date","local_id","absence","tardy","dismissed","reason","excused","comment"',
+        '"2005-09-16","111222222",1,0,0,"Medical",0,"Received doctor note."'
+      ].join("\n")
+      csv = StreamingCsvTransformer.from_text(log, file_text, {
+        csv_options: { header_converters: :symbol }
+      })
+
+      importer = make_attendance_importer({
+        time_now: pals.time_now,
+        log: log
+      })
+      allow(importer).to receive(:download_csv).and_return(csv)
+      importer.import
+      expect(importer.stats).to eq({
+        :skipped_from_school_filter => 0,
+        :skipped_from_student_local_id_filter => 0,
+        :skipped_old_rows_count => 0,
+        :skipped_other_rows_count => 0,
+        :student_local_id_not_found_count => 0,
+        :absence_record_syncer => {
+          :total_sync_calls_count=>1,
+          :passed_nil_record_count=>0,
+          :invalid_rows_count=>0,
+          :validation_failure_counts_by_field=>{},
+          :updated_rows_count=>0,
+          :created_rows_count=>1,
+          :destroyed_records_count=>0,
+          :unchanged_rows_count=>0,
+          :has_processed_unmarked_records=>true,
+          :marked_ids_count=>1
+        },
+        :tardy_record_syncer => {
+          :total_sync_calls_count=>0,
+          :passed_nil_record_count=>0,
+          :invalid_rows_count=>0,
+          :validation_failure_counts_by_field=>{},
+          :updated_rows_count=>0,
+          :created_rows_count=>0,
+          :destroyed_records_count=>0,
+          :unchanged_rows_count=>0,
+          :has_processed_unmarked_records=>true,
+          :marked_ids_count=>0
+        }
+      })
+      expect(Tardy.all.size).to eq 0
+      expect(Absence.all.size).to eq 1
+      expect(Absence.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        'student_id' => pals.shs_freshman_mari.id,
+        'occurred_at' => Date.parse('Fri, 16 Sep 2005'),
+        'dismissed' => false,
+        'excused' => false,
+        'reason' => 'Medical',
+        'comment' => 'Received doctor note.'
+      }])
+    end
   end
 
   describe '#import_row' do
@@ -284,24 +344,42 @@ RSpec.describe AttendanceImporter do
     end
   end
 
+  context 'when given unexpected students (eg, from older records)' do
+    let(:time_now) { TestPals.new.time_now }
+
+    it 'counts stats on students not matched' do
+      log = LogHelper::FakeLog.new
+      importer = make_attendance_importer({
+        time_now: time_now,
+        log: log
+      })
+      importer.send(:import_row, {
+        event_date: Date.parse('2005-09-16'),
+        local_id: '999111777333', # not in db
+        absence: 'true',
+        tardy: 'false',
+        dismissed: 'false',
+        reason: 'Medical',
+        excused: '0',
+        comment: 'Received doctor note.'
+      })
+      expect(importer.stats[:student_local_id_not_found_count]).to eq(1)
+      expect(Absence.all.size).to eq 0
+    end
+  end
+
   describe '#matching_insights_record_for_row' do
     def matching_insights_record_for_row(row, record_class)
-      make_attendance_importer.send(:matching_insights_record_for_row, row, record_class)
+      student_id = Student.find_by_local_id(row[:lodal_id])
+      make_attendance_importer.send(:matching_insights_record_for_row, student_id, row, record_class)
     end
 
-    context 'row has student ID' do
-      it 'can match on Absence' do
-        expect(matching_insights_record_for_row(make_row, Absence)).to be_a Absence
-      end
+    it 'can match on Absence' do
+      expect(matching_insights_record_for_row(make_row, Absence)).to be_a Absence
+    end
 
-      it 'can match on Tardy' do
-        expect(matching_insights_record_for_row(make_row, Tardy)).to be_a Tardy
-      end
-
-      it 'returns nil, when the student local_id cannot be matched' do
-        row = make_row(local_id: 'cannot-be-found')
-        expect(matching_insights_record_for_row(row, Absence)).to eq nil
-      end
+    it 'can match on Tardy' do
+      expect(matching_insights_record_for_row(make_row, Tardy)).to be_a Tardy
     end
   end
 

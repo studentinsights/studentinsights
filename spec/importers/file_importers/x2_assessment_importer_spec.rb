@@ -150,7 +150,7 @@ RSpec.describe X2AssessmentImporter do
       expect(StudentAssessment.count).to eq(8)
 
       # Mari as an example of properly parsed Old MCAS
-      expect(pals.shs_freshman_mari.student_assessments.as_json(except: [:id, :created_at, :updated_at]).first).to include({
+      expect(pals.shs_freshman_mari.student_assessments.as_json(except: [:id, :created_at, :updated_at])).to include({
         "student_id"=>pals.shs_freshman_mari.id,
         "assessment_id"=> Assessment.find_by(family: 'MCAS', subject: 'ELA').id,
         "date_taken"=> Time.parse('2018-05-15 00:00:00 +0000'),
@@ -163,7 +163,7 @@ RSpec.describe X2AssessmentImporter do
       })
 
       # Ryan is example of properly parsed Next Generation MCAS
-      expect(pals.west_eighth_ryan.student_assessments.as_json(except: [:id, :created_at, :updated_at]).first).to include({
+      expect(pals.west_eighth_ryan.student_assessments.as_json(except: [:id, :created_at, :updated_at])).to include({
         "student_id"=>pals.west_eighth_ryan.id,
         "assessment_id"=> Assessment.find_by(family: 'Next Gen MCAS', subject: 'Mathematics').id,
         "date_taken"=> Time.parse('2018-05-15 00:00:00 +0000'),
@@ -204,7 +204,7 @@ RSpec.describe X2AssessmentImporter do
       expect(StudentAssessment.count).to eq(16)
 
       # Mari as an example of properly parsed Old MCAS
-      expect(pals.shs_freshman_mari.student_assessments.as_json(except: [:id, :created_at, :updated_at]).first).to include({
+      expect(pals.shs_freshman_mari.student_assessments.as_json(except: [:id, :created_at, :updated_at])).to include({
         "student_id"=>pals.shs_freshman_mari.id,
         "assessment_id"=> Assessment.find_by(family: 'MCAS', subject: 'ELA').id,
         "date_taken"=> Time.parse('2018-05-15 00:00:00 +0000'),
@@ -217,7 +217,7 @@ RSpec.describe X2AssessmentImporter do
       })
 
       # Ryan is example of properly parsed Next Generation MCAS
-      expect(pals.west_eighth_ryan.student_assessments.as_json(except: [:id, :created_at, :updated_at]).first).to include({
+      expect(pals.west_eighth_ryan.student_assessments.as_json(except: [:id, :created_at, :updated_at])).to include({
         "student_id"=>pals.west_eighth_ryan.id,
         "assessment_id"=> Assessment.find_by(family: 'Next Gen MCAS', subject: 'Mathematics').id,
         "date_taken"=> Time.parse('2018-06-30 00:00:00 +0000'),
