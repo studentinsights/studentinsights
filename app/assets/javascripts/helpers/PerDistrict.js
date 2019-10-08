@@ -232,19 +232,14 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
 
 
 // What choices do educators have for recording services in the product?
+// Order matters.
 export function recordServiceChoices(districtKey) {
   if (districtKey === BEDFORD) {
-    return {
-      leftServiceTypeIds: [701, 708, 706, 707],
-      rightServiceTypeIds: [703, 702, 705, 704, 709]
-    };
+    return [703, 707, 701, 702, 706, 708, 705, 704, 709];
   }
 
   if ([SOMERVILLE, DEMO, NEW_BEDFORD].indexOf(districtKey) !== -1) {
-    return {
-      leftServiceTypeIds: [503, 502, 504],
-      rightServiceTypeIds: [505, 506, 507]
-    };
+    return [503, 505, 502, 506, 504, 507];
   }
 
   throw new Error(`unsupported districtKey: ${districtKey}`);

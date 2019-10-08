@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Datepicker from '../components/Datepicker';
+import Nbsp from '../components/Nbsp';
 import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
@@ -118,35 +119,62 @@ export default class RecordService extends React.Component {
   renderWhichService() {
     const {districtKey} = this.context;
     const {serviceTypeId} = this.state;
-    const {leftServiceTypeIds, rightServiceTypeIds} = recordServiceChoices(districtKey);
+    const recordableServiceTypeIds = recordServiceChoices(districtKey);
     return (
       <div>
-        <div style={{ marginBottom: 5, display: 'inline' }}>
+        <div style={{ marginBottom: 5, display: 'inline-block' }}>
           Which service?
         </div>
         <div>
-          {leftServiceTypeIds.concat(rightServiceTypeIds).map(this.renderServiceButton, this)}
+          {recordableServiceTypeIds.map(serviceTypeId => (
+            <div key={serviceTypeId} style={{display: 'inline-block', verticalAlign: 'top'}}>
+              {this.renderServiceButton(serviceTypeId)}
+            </div>
+          ))}
         </div>
-        {serviceTypeId && this.renderServiceInfo(serviceTypeId)}
+        {this.renderServiceInfoBox(serviceTypeId)}
       </div>
     );
   }
 
-  renderServiceInfo(serviceTypeId) {
-    const {serviceTypesIndex, servicesInfoDocUrl} = this.props;
+  renderServiceInfoBox(serviceTypeId) {
+    const {currentEducator, serviceTypesIndex, servicesInfoDocUrl} = this.props;
+    if (currentEducator.labels.indexOf('show_services_info') === -1) return null;
+
+    // nothing selected
+    if (serviceTypeId === null) {
+      return (
+        <div style={{...styles.infoBox, opacity: 0.25}}>
+          <div>Select a service for more description.</div>
+          <div><Nbsp /></div>
+          <div><Nbsp /></div>
+          <div style={{marginTop: 5}}><Nbsp /></div>
+        </div>
+      );
+    }
+
+    // no service info
     const service = serviceTypesIndex[serviceTypeId];
-    if (!service) return null;
-    if (!service.description && !service.data_owner) return null;
+    if (!service || (!service.description && !service.data_owner)) {
+      return (
+        <div style={{...styles.infoBox, opacity: 0.5}}>
+          <div>No service info found.</div>
+          <div><Nbsp /></div>
+          <div><Nbsp /></div>
+          <div style={{marginTop: 5}}><Nbsp /></div>
+        </div>
+      );
+    }
 
-
+    // show info
     return (
       <div style={styles.infoBox}>
         {service.description && <div>{service.description}</div>}
         {service.intensity && <div>{service.intensity}</div>}
         {service.data_owner && <div>Data owner: {service.data_owner}</div>}
         {servicesInfoDocUrl && (
-          <div style={{marginTop: 15}}>
-            See <a href={servicesInfoDocUrl} style={{fontSize: 12}} target="_blank" rel="noopener noreferrer">more</a>.
+          <div style={{marginTop: 5}}>
+            <a href={servicesInfoDocUrl} style={{fontSize: 12}} target="_blank" rel="noopener noreferrer">Learn more</a>
           </div>
         )}
       </div>
@@ -163,7 +191,7 @@ export default class RecordService extends React.Component {
         className={`btn service-type service-type-${serviceTypeId}`}
         onClick={this.onServiceClicked.bind(this, serviceTypeId)}
         tabIndex={-1}
-        style={merge(styles.serviceButton, styles.buttonWidth, {
+        style={merge(styles.serviceButton, {
           background: color,
           outline: 0,
           border: (this.state.serviceTypeId === serviceTypeId)
@@ -237,12 +265,9 @@ export default class RecordService extends React.Component {
     const isFormComplete = this.isFormComplete();
 
     return (
-      <div style={{ marginTop: 15 }}>
+      <div style={{ marginTop: 20 }}>
         <button
-          style={{
-            marginTop: 20,
-            background: (isFormComplete) ? undefined : '#ccc'
-          }}
+          style={{background: (isFormComplete) ? undefined : '#ccc'}}
           disabled={!isFormComplete}
           className="btn save"
           onClick={this.onClickSave}>
@@ -276,7 +301,10 @@ RecordService.propTypes = {
   serviceTypesIndex: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   servicesInfoDocUrl: PropTypes.string,
-  currentEducator: PropTypes.object.isRequired
+  currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired
 };
 
 const styles = {
@@ -303,17 +331,20 @@ const styles = {
     padding: 5
   },
   serviceButton: {
-    background: '#eee', // override CSS
-    color: 'black'
-  },
-  buttonWidth: {
-    width: '12em',
     fontSize: 12,
+    background: '#eee', // override CSS
+    color: 'black',
+    width: 135, // tuned for three columns at min screen width
+    height: 60,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 8
   },
   infoBox: {
+    margin: 10,
     fontSize: 12,
-    padding: 15,
+    padding: 10,
     background: 'rgba(3, 102, 214, 0.1)',
     border: '1px solid rgba(3, 102, 214, 0.1)'
   }

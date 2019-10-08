@@ -27,7 +27,7 @@ LightHelpBubble.defaultProps = {
 
 
 // Render an SVG question mark
-function questionMarkEl(pixelSize, style) {
+export function questionMarkEl(pixelSize, style = {}) {
   const mergedStyle = {
     fill: '#ddd',
     ...style

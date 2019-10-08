@@ -65,6 +65,7 @@ export default class ServiceDetails extends React.Component {
             servicesFeed={this.props.feed.services}
             educatorsIndex={this.props.educatorsIndex}
             serviceTypesIndex={this.props.serviceTypesIndex}
+            servicesInfoDocUrl={this.props.servicesInfoDocUrl}
             onClickDiscontinueService={this.onClickDiscontinueService}
             discontinueServiceRequests={this.props.requests.discontinueService} />
         </div>
@@ -73,34 +74,15 @@ export default class ServiceDetails extends React.Component {
   }
 
   renderServicesHelpContent(){
-    const {serviceTypesIndex} = this.props;
+    const {servicesInfoDocUrl} = this.props;
     return (
       <div>
         <p>
-          While Notes are a catch-all for student information, Services are a place to keep track of more formal         extensive interventions for a student. It includes a specific person responsible and dates.
+          Services are a place to keep track of more formal interventions for a student. It includes a specific person responsible and dates.  If {`you're`} not sure whether to use a Service or a Note, write a Note.  You can always search back through notes later.
         </p>
-        <br />
-        <p>
-          The types of Services are:
-        </p>
-        <ul>
-          {Object.keys(serviceTypesIndex).map(serviceTypeId => {
-            // TODO(kr) need to scope PerDistrict
-            // TODO(kr) see more link
-            const service = serviceTypesIndex[serviceTypeId];
-            return (
-              <li key={serviceTypeId}>
-                <b>{service.name}</b>
-                {service.description && <div>{service.description}</div>}
-                {service.data_owner && <div>Owner: {service.data_owner}</div>}
-                {service.intensity && <div>Delivery: {service.intensity}</div>}
-              </li>
-            );
-          })}
-        </ul>
-        <p style={{marginTop: 20}}>
-          If your data fits into one of these categories, it’s a Service. Otherwise, it’s a Note.
-        </p>
+        {servicesInfoDocUrl && <p style={{marginTop: 20}}>
+          <a style={{fontWeight: 'bold'}} href={servicesInfoDocUrl} target="_blank" rel="noopener noreferrer">Learn more</a> about specific services within your district.
+        </p>}
       </div>
     );
   }
