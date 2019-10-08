@@ -119,18 +119,19 @@ export default class RecordService extends React.Component {
   renderWhichService() {
     const {districtKey} = this.context;
     const {serviceTypeId} = this.state;
-    const recordableServiceTypeIds = recordServiceChoices(districtKey);
+    const {leftServiceTypeIds, rightServiceTypeIds} = recordServiceChoices(districtKey);
     return (
       <div>
         <div style={{ marginBottom: 5, display: 'inline-block' }}>
           Which service?
         </div>
-        <div>
-          {recordableServiceTypeIds.map(serviceTypeId => (
-            <div key={serviceTypeId} style={{display: 'inline-block', verticalAlign: 'top'}}>
-              {this.renderServiceButton(serviceTypeId)}
-            </div>
-          ))}
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div>
+            {leftServiceTypeIds.map(this.renderServiceButton, this)}
+          </div>
+          <div>
+            {rightServiceTypeIds.map(this.renderServiceButton, this)}
+          </div>
         </div>
         {this.renderServiceInfoBox(serviceTypeId)}
       </div>
@@ -191,6 +192,7 @@ export default class RecordService extends React.Component {
         className={`btn service-type service-type-${serviceTypeId}`}
         onClick={this.onServiceClicked.bind(this, serviceTypeId)}
         tabIndex={-1}
+        title={serviceText}
         style={merge(styles.serviceButton, {
           background: color,
           outline: 0,
@@ -198,7 +200,7 @@ export default class RecordService extends React.Component {
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         })}>
-        {serviceText}
+        <span style={styles.serviceButtonText}>{serviceText}</span>
       </button>
     );
   }
@@ -334,12 +336,16 @@ const styles = {
     fontSize: 12,
     background: '#eee', // override CSS
     color: 'black',
-    width: 135, // tuned for three columns at min screen width
-    height: 60,
+    width: '14em', // tuned for two columns, when page at max screen width
+    height: 45,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 8
+  },
+  serviceButtonText: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden', // in case overflow
   },
   infoBox: {
     margin: 10,

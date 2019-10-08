@@ -235,26 +235,17 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
 // Order matters.
 export function recordServiceChoices(districtKey) {
   if (districtKey === BEDFORD) {
-    return [703, 707, 701, 702, 706, 708, 705, 704, 709];
+    return {
+      leftServiceTypeIds: [703, 702, 705, 704, 709],
+      rightServiceTypeIds: [707, 706, 701, 708]
+    };
   }
-      // 'Attendance Contract',
-      // 'Attendance Officer',
-      // 'Behavior Contract',
-      // 'Counseling, in-house',
-      // 'Counseling, outside',
-      // 'Reading intervention'
-
-      // 'Attendance Contract',  'Counseling, in-house',  'Behavior Contract',
-      // 'Attendance Officer',   'Counseling, outside',   'Reading intervention'
-      
-      
-      
-      
-
-      // [503, 505, 504, 502, 506, 507] 
 
   if ([SOMERVILLE, DEMO, NEW_BEDFORD].indexOf(districtKey) !== -1) {
-    return [503, 505, 504, 502, 506, 507];
+    return {
+      leftServiceTypeIds: [503, 502, 504],
+      rightServiceTypeIds: [505, 506, 507]
+    };
   }
 
   throw new Error(`unsupported districtKey: ${districtKey}`);
