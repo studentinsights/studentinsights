@@ -237,9 +237,24 @@ export function recordServiceChoices(districtKey) {
   if (districtKey === BEDFORD) {
     return [703, 707, 701, 702, 706, 708, 705, 704, 709];
   }
+      // 'Attendance Contract',
+      // 'Attendance Officer',
+      // 'Behavior Contract',
+      // 'Counseling, in-house',
+      // 'Counseling, outside',
+      // 'Reading intervention'
+
+      // 'Attendance Contract',  'Counseling, in-house',  'Behavior Contract',
+      // 'Attendance Officer',   'Counseling, outside',   'Reading intervention'
+      
+      
+      
+      
+
+      // [503, 505, 504, 502, 506, 507] 
 
   if ([SOMERVILLE, DEMO, NEW_BEDFORD].indexOf(districtKey) !== -1) {
-    return [503, 505, 502, 506, 504, 507];
+    return [503, 505, 504, 502, 506, 507];
   }
 
   throw new Error(`unsupported districtKey: ${districtKey}`);
