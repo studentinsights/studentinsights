@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import Datepicker from '../components/Datepicker';
 import Nbsp from '../components/Nbsp';
 import {toMoment} from '../helpers/toMoment';
@@ -137,7 +138,7 @@ export default class RecordService extends React.Component {
       </div>
     );
   }
-
+  
   renderServiceInfoBox(serviceTypeId) {
     const {currentEducator, serviceTypesIndex, servicesInfoDocUrl} = this.props;
     if (currentEducator.labels.indexOf('show_services_info') === -1) return null;
@@ -182,6 +183,17 @@ export default class RecordService extends React.Component {
     );
   }
 
+  renderServiceInfoText(serviceTypeId) {
+    const {serviceTypesIndex} = this.props;
+    const service = serviceTypesIndex[serviceTypeId];
+    return _.compact([
+      service.name,
+      service.description ? service.description : null,
+      service.intensity ? service.intensity : null,
+      service.data_owner ? `Data owner: ${service.data_owner}` : null
+    ]).join("\n");
+  }
+
   renderServiceButton(serviceTypeId) {
     const serviceText = this.props.serviceTypesIndex[serviceTypeId].name;
     const color = serviceColor(serviceTypeId);
@@ -192,7 +204,7 @@ export default class RecordService extends React.Component {
         className={`btn service-type service-type-${serviceTypeId}`}
         onClick={this.onServiceClicked.bind(this, serviceTypeId)}
         tabIndex={-1}
-        title={serviceText}
+        title={this.renderServiceInfoText(serviceTypeId)}
         style={merge(styles.serviceButton, {
           background: color,
           outline: 0,

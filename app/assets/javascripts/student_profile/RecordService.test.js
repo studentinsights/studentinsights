@@ -26,6 +26,17 @@ export function testProps(props) {
   };
 }
 
+function propsWithServiceInfoLabel(props = {}) {
+  return {
+    ...props,
+    servicesInfoDocUrl: 'https://example.com/',
+    currentEducator: {
+      ...props.currentEducator,
+      labels: ['show_services_info']
+    }
+  };
+}
+
 function forDistrict(el, districtKey) {
   return <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>;
 }
@@ -44,7 +55,7 @@ function testRender(props, options = {}) {
 const helpers = {
   serviceTypes(el) {
     return $(el).find('.btn.service-type').toArray().map(el => {
-      return el.innerHTML.trim();
+      return $(el).text().trim();
     });
   },
 
@@ -99,17 +110,7 @@ const helpers = {
 describe('integration tests', () => {
   it('renders dialog for recording services', () => {
     const {el} = testRender(testProps());
-
     expect($(el).text()).toContain('Which service?');
-    expect(helpers.serviceTypes(el)).toEqual([
-      'Attendance Contract',
-      'Attendance Officer',
-      'Behavior Contract',
-      'Counseling, in-house',
-      'Counseling, outside',
-      'Reading intervention'
-    ]);
-
 
     expect($(el).text()).toContain('Who is working with Tamyra?');
     // TODO (as): test staff dropdown autocomplete async
@@ -123,6 +124,63 @@ describe('integration tests', () => {
 
     expect(helpers.isWarningMessageShown(el)).toEqual(false);
     expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
+  });
+
+  describe('shows different service types across districts', () => {
+    it('works for bedford', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Soc.emo check in',
+        'Lunch bunch',
+        'Social Group',
+        'Individual Counseling',
+        'Formal Behavior Plan',
+        'LLI Reading Instruction',
+        'Reading intervention, with specialist',
+        'Title 1 Math intervention',
+        'Math Intervention, small group',
+      ]);
+    });
+
+    it('works for somerville', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Attendance Contract',
+        'Attendance Officer',
+        'Behavior Contract',
+        'Counseling, in-house',
+        'Counseling, outside',
+        'Reading intervention'
+      ]);
+    });
+
+    it('works for new_bedford', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'new_bedford'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Attendance Contract',
+        'Attendance Officer',
+        'Behavior Contract',
+        'Counseling, in-house',
+        'Counseling, outside',
+        'Reading intervention'
+      ]);
+    });
+
+    it('works for demo', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'demo'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Attendance Contract',
+        'Attendance Officer',
+        'Behavior Contract',
+        'Counseling, in-house',
+        'Counseling, outside',
+        'Reading intervention'
+      ]);
+    });
   });
 
   describe('validation', () => {

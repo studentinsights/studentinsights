@@ -27,7 +27,7 @@ class EducatorLabel < ApplicationRecord
         # profile
         'enable_viewing_educators_with_access_to_student',
         'show_services_info',
-        
+
         # transition notes
         'k8_counselor',
         'high_school_house_master',
