@@ -68,26 +68,16 @@ export default class SliceButtons extends React.Component {
           }}>
           Link to save these filters
         </a>
-        {this.renderDownloadLink()}
+        {this.renderLocalDownloadLink()}
       </div>
     );
-  }
-
-  renderDownloadLink() {
-    const {schoolId} = this.props;
-    const forceLocalCsvDownload = (window.location.search.indexOf('force_local_csv') !== -1);
-    if (forceLocalCsvDownload) {
-      return this.renderLocalDownloadLink();
-    }
-
-    return <a href={`/schools/${schoolId}/csv`} style={{fontSize: styles.fontSize}}>Download CSV</a>;
   }
 
   // This tracks the modal state on its own rather than using <HelpBubble /> so that it
   // can be lazy about rendering the actual download link (which is expensive) and defer that
   // until the user expresses intent to download.
   // This adds an extra UX step to the download to do that.
-  renderDownloadLink() {
+  renderLocalDownloadLink() {
     const {isDownloadOpen} = this.state;
 
     return (

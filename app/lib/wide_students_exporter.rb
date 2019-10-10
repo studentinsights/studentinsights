@@ -32,12 +32,12 @@ class WideStudentsExporter
     # Remove some fields by default, these are likely to be misleading.
     # Allow callers to remove other fields (eg, address) for other uses,
     # to safelist with `only` instead.
-    as_json_options = @options.fetch(:as_json_options, {
+    as_json_options = @options.fetch(:as_json, {
       except: [:created_at, :updated_at]
     })
     student_fields = student.as_json(as_json_options)
 
-    # optionalin include other fields
+    # optionally include other fields
     student_fields
       .merge(additional_student_fields(student))
       .merge(service_fields(student))
