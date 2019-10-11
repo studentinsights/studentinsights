@@ -118,7 +118,9 @@ export default class LightProfilePage extends React.Component {
       profileInsights,
       iepDocument,
       currentEducator,
-      edPlans
+      edPlans,
+      sections,
+      currentEducatorAllowedSections
     } = this.props.profileJson;
     return (
       <LightProfileHeader
@@ -126,6 +128,8 @@ export default class LightProfilePage extends React.Component {
         student={student}
         access={access}
         teams={teams}
+        sections={sections}
+        currentEducatorAllowedSections={currentEducatorAllowedSections}
         iepDocument={iepDocument}
         profileInsights={profileInsights}
         activeServices={feed.services.active}
