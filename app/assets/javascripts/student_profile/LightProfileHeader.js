@@ -6,6 +6,7 @@ import * as Routes from '../helpers/Routes';
 import {
   hasStudentPhotos,
   supportsHouse,
+  showProfileSectionsDialog,
   isHomeroomMeaningful
 } from '../helpers/PerDistrict';
 import HelpBubble, {
@@ -20,6 +21,8 @@ import InsightsCarousel from './InsightsCarousel';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import LightHeaderSupportBits from './LightHeaderSupportBits';
 import EducatorsWithAccessToStudentDialog from './EducatorsWithAccessToStudentDialog';
+import StudentSectionsRoster from './StudentSectionsRoster';
+
 
 /*
 UI component for top-line information like the student's name, school,
@@ -114,7 +117,7 @@ export default class LightProfileHeader extends React.Component {
 
   renderHouseAndGrade() {
     const {districtKey} = this.context;
-    const {student} = this.props;
+    const {student, sections} = this.props;
     const showHouse = (
       supportsHouse(districtKey) &&
       student.house
@@ -124,7 +127,31 @@ export default class LightProfileHeader extends React.Component {
       <div style={styles.subtitleItem}>
         {'Grade ' + student.grade}
         {showHouse && `, ${student.house} house`}
+        {showProfileSectionsDialog(districtKey) && this.renderSectionsDialogLink()}
       </div>
+    );
+  }
+
+  renderSectionsDialogLink() {
+    const {sections, currentEducatorAllowedSections} = this.props;
+    if (sections.length === 0) return;
+
+    return (
+      <span>
+        ,
+        <HelpBubble
+          style={{marginLeft: 5, display: 'inline-block'}}
+          linkStyle={styles.subtitleItem}
+          teaser={sections.length === 1 ? '1 section' : `${sections.length} sections`}
+          modalStyle={modalFromLeft}
+          title="Sections"
+          content={<StudentSectionsRoster
+            includeGrade={false}
+            sections={sections}
+            linkableSections={currentEducatorAllowedSections}
+          />}
+        />
+      </span>
     );
   }
 
@@ -366,6 +393,7 @@ LightProfileHeader.propTypes = {
   activeServices: PropTypes.array.isRequired,
   access: PropTypes.object,
   teams: PropTypes.array.isRequired,
+  sections: PropTypes.array.isRequired,
   profileInsights: PropTypes.array.isRequired,
   edPlans: PropTypes.arrayOf(PropTypes.object).isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,

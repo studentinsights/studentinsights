@@ -149,6 +149,26 @@ describe('tabs', () => {
   });
 });
 
+describe('sections link in header', () => {
+  it('is shown for New Bedford', () => {
+    const props = testPropsForAladdinMouse();
+    const el = testRender(props, {districtKey: 'new_bedford'});
+    expect($(el).find('.LightProfileHeader').text()).toContain('1 section');
+  });
+
+  it('is not present for Somerville', () => {
+    const props = testPropsForAladdinMouse();
+    const el = testRender(props, {districtKey: 'somerville'});
+    expect($(el).find('.LightProfileHeader').text()).not.toContain('1 section');
+  });
+
+  it('is not present for Bedford', () => {
+    const props = testPropsForAladdinMouse();
+    const el = testRender(props, {districtKey: 'bedford'});
+    expect($(el).find('.LightProfileHeader').text()).not.toContain('1 section');
+  });
+});
+
 
 it('#latestStar works regardless of initial sort order', () => {
   const nowMoment = toMomentFromTimestamp('2018-08-13T11:03:06.123Z');
