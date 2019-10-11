@@ -414,6 +414,11 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
+  # Should we run this import job about student meetings.
+  def student_meeting_importer_enabled?
+    @district_key == SOMERVILLE
+  end
+
   # Should this run as part of import jobs?
   def reading_benchmark_sheets_importer_enabled?
     @district_key == SOMERVILLE
