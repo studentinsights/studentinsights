@@ -117,7 +117,7 @@ export default class LightProfileHeader extends React.Component {
 
   renderHouseAndGrade() {
     const {districtKey} = this.context;
-    const {student, sections} = this.props;
+    const {student} = this.props;
     const showHouse = (
       supportsHouse(districtKey) &&
       student.house
@@ -394,6 +394,7 @@ LightProfileHeader.propTypes = {
   access: PropTypes.object,
   teams: PropTypes.array.isRequired,
   sections: PropTypes.array.isRequired,
+  currentEducatorAllowedSections: PropTypes.array.isRequired,
   profileInsights: PropTypes.array.isRequired,
   edPlans: PropTypes.arrayOf(PropTypes.object).isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
