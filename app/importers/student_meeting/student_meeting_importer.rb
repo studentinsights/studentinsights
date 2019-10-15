@@ -17,6 +17,7 @@ class StudentMeetingImporter
   def initialize(options:)
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
+    @explicit_sheet_id = options.fetch(:explicit_sheet_id, nil)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))
   end
 
@@ -38,20 +39,22 @@ class StudentMeetingImporter
     importer = FlatNoteImporter.new(log: @log)
     hashes_for_notes = importer.generic_hashes_for_notes(note_title, survey[:parsed_rows])
     syncer = importer.exact_sync_using_note_title(note_title, hashes_for_notes)
-    log("Sync stats.to_json: #{@syncer.stats.to_json}")
+    log("Sync stats.to_json: #{syncer.stats.to_json}")
 
     log("Done.")
   end
 
   private
-  # Scope to school year as conservative strategy for isolation (eg, in case
-  # educator clears out previous year's in sheet).
+  # An improvement here would be to scope to the school year, as a conservative strategy
+  # for isolation (eg, in case educator clears out previous year's in sheet).
+  # That would also require filtering the parsed_rows first to match that more limited
+  # scope as well.
   def note_title
-    "NGE/10GE/NEST Student Meeting (#{@school_year}-#{@school_year+1})"
+    "NGE/10GE/NEST Student Meeting"
   end
 
-  def get_csv_from_sheet
-    sheet_id = read_sheet_id_from_env()
+  def get_csv_text_from_sheet
+    sheet_id = @explicit_sheet_id.present? ? @explicit_sheet_id : read_sheet_id_from_env()
     tabs = @fetcher.get_tabs_from_sheet(sheet_id)
     raise "unexpected number of tabs found: #{tabs.size}" if tabs.size != 1
     tabs.first.tab_csv
