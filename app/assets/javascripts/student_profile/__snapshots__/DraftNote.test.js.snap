@@ -200,6 +200,34 @@ Array [
                   </button>
                   <button
                     className="btn note-type"
+                    name={300}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    SST Meeting
+                  </button>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
                     name={302}
                     onClick={[Function]}
                     style={
@@ -239,13 +267,6 @@ Array [
                     Something else
                   </button>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                />
               </div>
             </div>
             <div

@@ -88,6 +88,7 @@ describe('high-level integration test', () => {
       'Name',
       'Photo',
       'Last BBST',
+      'Last SST',
       'Program Assigned',
       'Disability',
       'Level of Need',
