@@ -329,3 +329,10 @@ export function includeSectionGrade(districtKey) {
   if (districtKey === NEW_BEDFORD) return false;
   return false;
 }
+
+// On the profile, add a link that opens a dialog for sections (vs seeing it as
+// a full tab).
+export function showProfileSectionsDialog(districtKey) {
+  if (districtKey === NEW_BEDFORD) return true;
+  return false;
+}
