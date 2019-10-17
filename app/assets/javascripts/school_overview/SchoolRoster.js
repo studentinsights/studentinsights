@@ -184,7 +184,6 @@ export default class SchoolRoster extends React.Component {
         </div>
         <div className="summary" style={styles.summary}>
           <SliceButtons
-            schoolId={this.props.school.id}
             students={this.getFilteredStudents()}
             filters={this.state.filters}
             filtersHash={this.filtersHash()}

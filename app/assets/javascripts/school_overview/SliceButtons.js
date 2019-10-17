@@ -113,7 +113,7 @@ export default class SliceButtons extends React.Component {
     const {nowFn} = this.context;
     const {students, filters} = this.props;
     const isFiltered = (filters.length > 0);
-    const {filename, csvText} = filenameAndCsvText(nowFn, students, isFiltered)
+    const {filename, csvText} = filenameAndCsvText(nowFn, students, isFiltered);
 
     return (
       <div style={{fontSize: 14}}>
@@ -156,7 +156,6 @@ export default class SliceButtons extends React.Component {
   }
 }
 SliceButtons.propTypes = {
-  schoolId: PropTypes.number.isRequired,
   students: PropTypes.arrayOf(PropTypes.object).isRequired,
   filters: PropTypes.arrayOf(PropTypes.object).isRequired,
   filtersHash: PropTypes.string.isRequired,
