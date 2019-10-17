@@ -34,7 +34,6 @@ RSpec.describe StudentMeetingImporter do
     [importer, log]
   end
 
-
   describe 'integration test' do
     let!(:pals) { TestPals.create! }
 
