@@ -134,8 +134,15 @@
       "option_school_scope"
     ],
     "description": "STAR Reading scores, imported from vendor"
-  },
-  {
+  }, {
+    "importer": "StudentMeetingImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": ["EventNote"],
+    "options": [],
+    "description": "Import forms from student meetings, from a Google Sheet produced by a particular form"
+  }, {
     "importer": "StudentSectionAssignmentsImporter",
     "source": "source_sis_sftp_csv",
     "frequency": "frequency_daily",

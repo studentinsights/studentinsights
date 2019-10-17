@@ -59,7 +59,7 @@ class FileImporterOptions
       ],
       'google' => [
         StudentVoiceSurveyImporter,
-        StudentMeetingImporter
+        StudentMeetingImporter,
         ReadingBenchmarkSheetsImporter
       ],
       'students' => StudentsImporter,

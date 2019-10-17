@@ -27,21 +27,32 @@ class StudentMeetingImporter
       return
     end
 
+    log("Clearing state...")
+    @survey = nil
+    @syncer = nil
+
     log('Fetching tabs...')
     csv_text = get_csv_text_from_sheet()
     log("Found CSV text with #{csv_text.size} bytes.")
 
     # Read the CSV
-    survey = parse_rows(csv_text)
-    log "reader#stats.to_json: #{survey[:stats].to_json}"
+    @survey = parse_rows(csv_text)
+    log "reader#stats.to_json: #{@survey[:stats].to_json}"
 
     # Translate survey to generic EventNote hashes, and then do an exact sync
     importer = FlatNoteImporter.new(log: @log)
-    hashes_for_notes = importer.generic_hashes_for_notes(note_title, survey[:parsed_rows])
-    syncer = importer.exact_sync_using_note_title(note_title, hashes_for_notes)
-    log("Sync stats.to_json: #{syncer.stats.to_json}")
+    hashes_for_notes = importer.generic_hashes_for_notes(note_title, @survey[:parsed_rows])
+    @syncer = importer.exact_sync_using_note_title(note_title, hashes_for_notes)
+    log("Sync stats.to_json: #{@syncer.stats.to_json}")
 
     log("Done.")
+  end
+
+  def stats
+    {
+      survey: @survey.try(:[], :stats),
+      syncer: @syncer.try(:stats)
+    }
   end
 
   private
