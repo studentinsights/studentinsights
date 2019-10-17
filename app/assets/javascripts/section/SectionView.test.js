@@ -96,12 +96,13 @@ describe('table headers', () => {
   it('no grades and note types in New Bedford', () => {
     const {el} = testRender(testProps(), {districtKey: 'new_bedford'});
     const headers = $(el).find('.SectionView #roster-header th').toArray().map(el => $(el).text());
-    expect(headers.length).toEqual(17);
+    expect(headers.length).toEqual(18);
     expect(headers.indexOf('Grade')).toEqual(-1);
     expect(headers).toEqual([
       'Name',
       '', // photo
       'Last BBST',
+      'Last SST',
       'Program Assigned',
       'Disability',
       '504 Plan',

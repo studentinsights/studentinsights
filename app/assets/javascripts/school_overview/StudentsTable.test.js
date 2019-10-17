@@ -16,10 +16,11 @@ function testProps(props = {}) {
   };
 }
 
-function testRender(props) {
+function testRender(props, context = {}) {
+  const districtKey = context.districtKey || SOMERVILLE;
   const el = document.createElement('div');
   ReactDOM.render(
-    <PerDistrictContainer districtKey={SOMERVILLE}>
+    <PerDistrictContainer districtKey={districtKey}>
       <StudentsTable {...props} />
     </PerDistrictContainer>
     , el);
@@ -31,7 +32,7 @@ function tableHeaderTexts(el) {
 }
 
 describe('high-level integration test', () => {
-  it('happy path for K8', () => { 
+  it('happy path for Somerville K8', () => { 
     const props = testProps();
     const {el} = testRender(props);
 
@@ -57,7 +58,7 @@ describe('high-level integration test', () => {
     ]);
   });
 
-  it('happy path for HS', () => {
+  it('happy path for Somerville HS', () => {
     const props = testProps({
       school: {
         local_id: 'SHS',
@@ -84,6 +85,57 @@ describe('high-level integration test', () => {
       "STARReading",
       "MCASELA",
       "STARMath",
+      "MCASMath",
+      "DisciplineIncidents",
+      "Absences",
+      "Tardies",
+      "Services",
+      "Program"
+    ]);
+  });
+
+  it('happy path for New Bedford', () => {
+    const props = testProps();
+    const {el} = testRender(props, {districtKey: 'new_bedford'});
+    expect($(el).find('.StudentsTable tbody tr').length).toEqual(25);
+    expect(tableHeaderTexts(el)).toEqual([
+      "Name",
+      "LastBBST",
+      "LastSST",
+      "Grade",
+      "Homeroom",
+      "504plan",
+      "SPEDlevel",
+      "EnglishLearner",
+      "STARReading",
+      "MCASELA",
+      "STARMath",
+      "MCASMath",
+      "DisciplineIncidents",
+      "Absences",
+      "Tardies",
+      "Services",
+      "Program"
+    ]);
+  });
+
+  it('happy path for Bedford', () => {
+    const props = testProps();
+    const {el} = testRender(props, {districtKey: 'bedford'});
+    expect($(el).find('.StudentsTable tbody tr').length).toEqual(25);
+    expect(tableHeaderTexts(el)).toEqual([
+      "Name",
+      "LastSST",
+      "LastParent",
+      "LastOther",
+      "Grade",
+      "Homeroom",
+      "504plan",
+      "SPEDlevel",
+      "EnglishLearner",
+      "STARReading", // should remove, but haven't yet
+      "MCASELA",
+      "STARMath", // should remove, but haven't yet
       "MCASMath",
       "DisciplineIncidents",
       "Absences",
