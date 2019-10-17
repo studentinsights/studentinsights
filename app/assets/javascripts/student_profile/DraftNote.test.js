@@ -115,6 +115,7 @@ describe('buttons for taking notes', () => {
     const {el} = renderTestEl(testProps(), { districtKey: NEW_BEDFORD });
     expect(buttonTexts(el)).toEqual([
       'BBST Meeting',
+      'SST Meeting',
       'Parent conversation',
       'Something else'
     ]);

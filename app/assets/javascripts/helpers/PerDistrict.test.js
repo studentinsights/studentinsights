@@ -42,7 +42,7 @@ describe('#eventNoteTypeIdsForSearch', () => {
   });
 
   it('handles new_bedford', () => {
-    expect(eventNoteTypeIdsForSearch('new_bedford')).toEqual([400, 302, 304]);
+    expect(eventNoteTypeIdsForSearch('new_bedford')).toEqual([400, 300, 302, 304]);
   });
 
   it('handles beford', () => {
