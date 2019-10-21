@@ -77,7 +77,7 @@ function parseHighchartPlotLineLabelsForDisciplineChart(el) {
 // in dev, story and production, so punting for now by mocking the module
 // and serializing some props for simpler assertions.
 jest.mock('../components/HighchartsWrapper', () =>
-  props => <pre className="Mocked-HighchartsWrapper">{JSON.stringify(props)}</pre>
+  props => <pre className="Mocked-HighchartsWrapper">{JSON.stringify(props)}</pre> // eslint-disable-line react/display-name
 );
 
 

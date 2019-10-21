@@ -21,6 +21,7 @@ exports[`snapshots view 1`] = `
     }
   >
     <svg
+      className="LightHelpBubble-question-mark"
       height={20}
       style={
         Object {

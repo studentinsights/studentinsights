@@ -73,12 +73,18 @@ describe('#hasActive504Plan', () => {
 
 describe('#recordServiceChoices', () => {
   it('works across districts', () => {
-    const defaultServiceChoices = [503, 505, 502, 506, 504, 507];
+    const defaultServiceChoices = {
+      leftServiceTypeIds: [503, 502, 504],
+      rightServiceTypeIds: [505, 506, 507]
+    };
     expect(recordServiceChoices('somerville')).toEqual(defaultServiceChoices);
     expect(recordServiceChoices('new_bedford')).toEqual(defaultServiceChoices);
     expect(recordServiceChoices('demo')).toEqual(defaultServiceChoices);
     
-    expect(recordServiceChoices('bedford')).toEqual([703, 707, 701, 702, 706, 708, 705, 704, 709]);
+    expect(recordServiceChoices('bedford')).toEqual(
+      leftServiceTypeIds: [703, 707, 701, 702, 706],
+      rightServiceTypeIds: [708, 705, 704, 709]
+    });
   });
 });
 
