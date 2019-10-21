@@ -71,6 +71,10 @@ const helpers = {
     return $(el).find('.datepicker').get(1);
   },
 
+  findServiceInfoText(el) {
+    return $(el).find('.RecordService-service-info-box').text();
+  },
+
   isSaveButtonEnabled(el) {
     return helpers.findSaveButton(el).attr('disabled') !== 'disabled';
   },
@@ -180,6 +184,28 @@ describe('integration tests', () => {
         'Counseling, outside',
         'Reading intervention'
       ]);
+    });
+  });
+
+  describe('service info', () => {
+    it('shows no info at first, then shows details on click', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      expect(helpers.findServiceInfoText(el)).toEqual('');
+      helpers.simulateClickOnService(el, 703);
+      expect(helpers.findServiceInfoText(el)).toEqual([
+        'Short regular check ins',
+        '1-3x 10min',
+        'Data owner: counselor',
+        'Learn more'
+      ].join(''));
+    });
+
+    it('shows nothing unless URL and label are set', () => {
+      const props = testProps();
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      helpers.simulateClickOnService(el, 703);
+      expect(helpers.findServiceInfoText(el)).toEqual('');
     });
   });
 

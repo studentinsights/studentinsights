@@ -170,7 +170,7 @@ export default class RecordService extends React.Component {
 
     // show info
     return (
-      <div style={styles.infoBox}>
+      <div className="RecordService-service-info-box" style={styles.infoBox}>
         {service.description && <div>{service.description}</div>}
         {service.intensity && <div>{service.intensity}</div>}
         {service.data_owner && <div>Data owner: {service.data_owner}</div>}
