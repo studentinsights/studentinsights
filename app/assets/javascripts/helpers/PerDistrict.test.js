@@ -81,9 +81,9 @@ describe('#recordServiceChoices', () => {
     expect(recordServiceChoices('new_bedford')).toEqual(defaultServiceChoices);
     expect(recordServiceChoices('demo')).toEqual(defaultServiceChoices);
     
-    expect(recordServiceChoices('bedford')).toEqual(
-      leftServiceTypeIds: [703, 707, 701, 702, 706],
-      rightServiceTypeIds: [708, 705, 704, 709]
+    expect(recordServiceChoices('bedford')).toEqual({
+      leftServiceTypeIds: [703, 702, 705, 704, 709],
+      rightServiceTypeIds: [707, 706, 701, 708]
     });
   });
 });
