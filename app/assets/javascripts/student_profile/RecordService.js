@@ -134,7 +134,9 @@ export default class RecordService extends React.Component {
             {rightServiceTypeIds.map(this.renderServiceButton, this)}
           </div>
         </div>
-        {this.renderServiceInfoBox(serviceTypeId)}
+        <div className="RecordService-service-info-box">
+          {this.renderServiceInfoBox(serviceTypeId)}
+        </div>
       </div>
     );
   }
@@ -170,7 +172,7 @@ export default class RecordService extends React.Component {
 
     // show info
     return (
-      <div className="RecordService-service-info-box" style={styles.infoBox}>
+      <div style={styles.infoBox}>
         {service.description && <div>{service.description}</div>}
         {service.intensity && <div>{service.intensity}</div>}
         {service.data_owner && <div>Data owner: {service.data_owner}</div>}

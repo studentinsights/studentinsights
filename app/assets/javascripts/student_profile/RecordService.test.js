@@ -59,6 +59,10 @@ const helpers = {
     });
   },
 
+  findServiceButton(el, serviceTypeId) {
+    return $(el).find(`.btn.service-type-${serviceTypeId}`).get(0);
+  },
+
   findSaveButton(el) {
     return $(el).find('.btn.save');
   },
@@ -72,7 +76,7 @@ const helpers = {
   },
 
   findServiceInfoText(el) {
-    return $(el).find('.RecordService-service-info-box').text();
+    return $(el).find('.RecordService-service-info-box').text().trim();
   },
 
   isSaveButtonEnabled(el) {
@@ -84,7 +88,8 @@ const helpers = {
   },
 
   simulateClickOnService(el, serviceTypeId) {
-    ReactTestUtils.Simulate.click($(el).find(`.btn.service-type-${serviceTypeId}`).get(0));
+    const buttonEl = helpers.findServiceButton(el, serviceTypeId);
+    ReactTestUtils.Simulate.click(buttonEl);
   },
 
   simulateStartDateChange(el, text) {
@@ -188,10 +193,29 @@ describe('integration tests', () => {
   });
 
   describe('service info', () => {
+    it('shows nothing unless URL and label are set', () => {
+      const props = testProps();
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      helpers.simulateClickOnService(el, 703);
+      expect(helpers.findServiceInfoText(el)).toEqual('');
+    });
+
+    it('shows service info as tooltip', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      const buttonEl = helpers.findServiceButton(el, 703);
+      expect(buttonEl.getAttribute('title')).toEqual([
+        'Soc.emo check in',
+        'Short regular check ins',
+        '1-3x 10min',
+        'Data owner: counselor'
+      ].join('\n'));
+    });
+
     it('shows no info at first, then shows details on click', () => {
       const props = propsWithServiceInfoLabel(testProps());
       const {el} = testRender(props, {districtKey: 'bedford'});
-      expect(helpers.findServiceInfoText(el)).toEqual('');
+      expect(helpers.findServiceInfoText(el)).toEqual('Select a service for more description.');
       helpers.simulateClickOnService(el, 703);
       expect(helpers.findServiceInfoText(el)).toEqual([
         'Short regular check ins',
@@ -201,12 +225,12 @@ describe('integration tests', () => {
       ].join(''));
     });
 
-    it('shows nothing unless URL and label are set', () => {
-      const props = testProps();
-      const {el} = testRender(props, {districtKey: 'bedford'});
-      helpers.simulateClickOnService(el, 703);
-      expect(helpers.findServiceInfoText(el)).toEqual('');
-    });
+    it('says no info explicitly if enabled but no info present', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      helpers.simulateClickOnService(el, 502);
+      expect(helpers.findServiceInfoText(el)).toEqual('No service info found.');
+    });    
   });
 
   describe('validation', () => {
