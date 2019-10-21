@@ -97,7 +97,6 @@ export default class LightBehaviorDetails extends React.Component {
 
   renderDisciplineIncidents(filteredDisciplineIncidents) {
     const phaselines = this.servicePhaselines().concat(this.filteredDataPhaselines());
-
     return (
       <ProfileBarChart
         events={filteredDisciplineIncidents}

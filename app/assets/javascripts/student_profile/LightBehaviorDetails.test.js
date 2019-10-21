@@ -58,11 +58,28 @@ function testIncidents() {
   }];
 }
 
-function testRender(props) {
+function testRender(props, context = {}) {
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultTestContext(<LightBehaviorDetails {...props} />), el);
+  ReactDOM.render(withDefaultTestContext(<LightBehaviorDetails {...props} />, context), el);
   return el;
 }
+
+// Read them from the mocked component
+function parseHighchartPlotLineLabelsForDisciplineChart(el) {
+  const json = $(el).find('#disciplineChart .Mocked-HighchartsWrapper').text();
+  const highchartOptions = JSON.parse(json);
+  return highchartOptions.xAxis[0].plotLines.map(plotLine => plotLine.label.text);
+}
+
+// KR: I couldn't get assertions working to verify that HighCharts
+// draws this on the page, even with delay or trying to explicitly
+// set sizing on DOM element containers; this clearly works as expected
+// in dev, story and production, so punting for now by mocking the module
+// and serializing some props for simpler assertions.
+jest.mock('../components/HighchartsWrapper', () =>
+  props => <pre className="Mocked-HighchartsWrapper">{JSON.stringify(props)}</pre>
+);
+
 
 it('renders empty data without crashing', () => {
   testRender(testProps());
@@ -83,8 +100,8 @@ it('always hides older data by default', () => {
   expect($(el).text()).toContain('A note about student privacy');
   expect($(el).html()).toContain('Something happened recently');
   expect($(el).html()).not.toContain('Something else happened a long time ago...');
-  expect($(el).find('svg').length).toEqual(2); //now also renders a heatmap element
-  // test setup isn't working for highcharts contents
+  expect($(el).find('.Mocked-HighchartsWrapper').length).toEqual(2); // test setup isn't working for full highcharts content
+  expect($(el).find('.DisciplineScatterPlot').length).toEqual(1);
 });
 
 it('allows showing older data when access', () => {
@@ -93,4 +110,31 @@ it('allows showing older data when access', () => {
   ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage a').get(0));
   expect($(el).text()).toContain('hide full case history');
   expect($(el).html()).toContain('Something else happened a long time ago...');
+});
+
+it('can pass props propertly to draw phaselines for relevant services', () => {
+  const activeServices = [{
+    service_type_id: 502,
+    date_started: '2018-02-18T07:22:11.123Z'
+  }];
+  const el = testRender(testProps({activeServices}));
+  expect(parseHighchartPlotLineLabelsForDisciplineChart(el)).toEqual([
+    'Started Attendance Officer',
+    'Only one year of data is shown to respect privacy'
+  ]);
+});
+
+it('ignores services if not included in nonAcademicServiceTypeIdsForPhaselines', () => {
+  const activeServices = [{
+    service_type_id: 707, // not relevant
+    date_started: '2018-02-18T07:22:11.123Z'
+  }, {
+    service_type_id: 709, // include
+    date_started: '2018-01-11T07:22:11.123Z'
+  }];
+  const el = testRender(testProps({activeServices}), {districtKey: 'bedford'});
+  expect(parseHighchartPlotLineLabelsForDisciplineChart(el)).toEqual([
+    'Started Formal Behavior Plan',
+    'Only one year of data is shown to respect privacy'
+  ]);
 });
