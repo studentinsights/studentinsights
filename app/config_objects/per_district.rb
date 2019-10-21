@@ -616,7 +616,7 @@ class PerDistrict
     end
   end
 
-  def service_info_doc_url
+  def services_info_doc_url
     ENV.fetch('SERVICES_INFO_DOC_URL', nil)
   end
 

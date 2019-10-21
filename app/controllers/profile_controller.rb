@@ -30,7 +30,7 @@ class ProfileController < ApplicationController
         tardies: filtered_events(student.tardies),
         absences: filtered_events(student.absences)
       },
-      service_info_doc_url: PerDistrict.new.service_info_doc_url
+      services_info_doc_url: PerDistrict.new.services_info_doc_url
     }
   end
 
