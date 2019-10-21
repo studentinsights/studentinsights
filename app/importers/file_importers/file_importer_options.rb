@@ -59,6 +59,7 @@ class FileImporterOptions
       ],
       'google' => [
         StudentVoiceSurveyImporter,
+        StudentMeetingImporter,
         ReadingBenchmarkSheetsImporter
       ],
       'students' => StudentsImporter,
@@ -75,6 +76,7 @@ class FileImporterOptions
       'star_math' => StarMathImporter,
       'star_reading' => StarReadingImporter,
       'student_voice_surveys' => StudentVoiceSurveyImporter,
+      'student_meetings' => StudentMeetingImporter,
       'reading_benchmark_sheets' => ReadingBenchmarkSheetsImporter
     }
   end

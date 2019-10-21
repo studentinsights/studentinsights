@@ -154,9 +154,10 @@ class PerDistrict
   def should_consider_sections_for_student_level_authorization?
     return false unless self.enabled_sections? # respect global switch
 
-    if @district_key == SOMERVILLE || @district_key == DEMO
+    return EnvironmentVariable.is_true('SHOULD_CONSIDER_SECTIONS_FOR_STUDENT_LEVEL_AUTHORIZATION') if ENV.has_key?('SHOULD_CONSIDER_SECTIONS_FOR_STUDENT_LEVEL_AUTHORIZATION')
+    if [SOMERVILLE, NEW_BEDFORD, DEMO].include?(@district_key)
       true
-    elsif @district_key == NEW_BEDFORD
+    elsif @district_key == BEDFORD
       false
     else
       false
@@ -168,10 +169,11 @@ class PerDistrict
     return false unless self.enabled_sections? # respect global switch
 
     # sections aren't used for rostering in MSin Somerville, but data is imported and they could be
+    return EnvironmentVariable.is_true('ALLOW_SECTIONS_LINK') if ENV.has_key?('ALLOW_SECTIONS_LINK')
     if @district_key == SOMERVILLE || @district_key == DEMO
       educator.school.try(:is_high_school?) || false
     elsif @district_key == NEW_BEDFORD
-      true
+      false
     else
       false
     end
@@ -409,6 +411,11 @@ class PerDistrict
 
   # Specifically whether this importer class runs as part of import jobs
   def student_voice_survey_importer_enabled?
+    @district_key == SOMERVILLE
+  end
+
+  # Should we run this import job about student meetings.
+  def student_meeting_importer_enabled?
     @district_key == SOMERVILLE
   end
 

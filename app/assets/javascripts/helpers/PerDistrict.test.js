@@ -23,18 +23,25 @@ it('#sortSchoolSlugsByGrade', () => {
 describe('#studentTableEventNoteTypeIds', () => {
   it('handles somerville HS correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', 'HS');
-
     expect(eventNoteTypeIds).toEqual([300, 305, 306, 307, 308]);
   });
   it('handles somerville elementary school correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', 'ESMS');
-
     expect(eventNoteTypeIds).toEqual([300, 301]);
   });
   it('handles somerville Capuano early childhood center correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', null);
-
     expect(eventNoteTypeIds).toEqual([300, 301]);
+  });
+
+  it('handles new_bedford correctly', () => {
+    const eventNoteTypeIds = studentTableEventNoteTypeIds('new_bedford', null);
+    expect(eventNoteTypeIds).toEqual([400, 300]);
+  });
+
+  it('handles bedford correctly', () => {
+    const eventNoteTypeIds = studentTableEventNoteTypeIds('bedford', null);
+    expect(eventNoteTypeIds).toEqual([300, 302, 304]);
   });
 });
 
@@ -44,7 +51,7 @@ describe('#eventNoteTypeIdsForSearch', () => {
   });
 
   it('handles new_bedford', () => {
-    expect(eventNoteTypeIdsForSearch('new_bedford')).toEqual([400, 302, 304]);
+    expect(eventNoteTypeIdsForSearch('new_bedford')).toEqual([400, 300, 302, 304]);
   });
 
   it('handles beford', () => {

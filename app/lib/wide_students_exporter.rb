@@ -30,14 +30,14 @@ class WideStudentsExporter
   # the same shape for all students it is provided.
   def flat_row_hash(student)
     # Remove some fields by default, these are likely to be misleading.
-    # Allow removing other fields (eg, address) for other uses.
-    except_fields = @options.fetch(:except_fields, [
-      'created_at',
-      'updated_at'
-    ])
-    student_fields = student.as_json.except(*except_fields)
+    # Allow callers to remove other fields (eg, address) for other uses,
+    # to safelist with `only` instead.
+    as_json_options = @options.fetch(:as_json, {
+      except: [:created_at, :updated_at]
+    })
+    student_fields = student.as_json(as_json_options)
 
-    # optionalin include other fields
+    # optionally include other fields
     student_fields
       .merge(additional_student_fields(student))
       .merge(service_fields(student))
