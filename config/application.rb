@@ -18,9 +18,6 @@ Bundler.require(*Rails.groups)
 
 module SomervilleTeacherTool
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
-
     # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
     Rails.application.config.active_record.belongs_to_required_by_default = false
 
@@ -54,6 +51,10 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/tools",
         "#{config.root}/app/importers/transitions"
       ]
+      config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
+      class_paths.each do |class_path|
+        config.autoload_paths << class_path
+      end
 
       # The intention here is that we compress server responses
       # (eg, HTML and JSON) but not doubly-gzip static assets which
@@ -66,11 +67,6 @@ module SomervilleTeacherTool
       config.middleware.use Rack::Deflater, include: [
         'application/json'
       ]
-
-      config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
-      class_paths.each do |class_path|
-        config.autoload_paths << class_path
-      end
 
       config.generators do |g|
         g.stylesheets false
