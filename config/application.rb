@@ -18,24 +18,17 @@ Bundler.require(*Rails.groups)
 
 module SomervilleTeacherTool
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
-
-    # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
-    Rails.application.config.active_record.belongs_to_required_by_default = false
-
-    # see rack_attack.md and https://github.com/kickstarter/rack-attack and 
-    config.middleware.use Rack::Attack
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
-    # --- Student Insights additions below ---
-    # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoload-paths-and-eager-load-paths
-    # This needs all sub-folders in app that are referenced without
-    # a containing module.
     Rails.application.config.tap do |config|
+      # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
+      config.active_record.belongs_to_required_by_default = false
+
+      # class paths
+      # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoload-paths-and-eager-load-paths
+      # This needs all sub-folders in app that are referenced without
+      # a containing module.
       class_paths = [
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
@@ -54,6 +47,14 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/tools",
         "#{config.root}/app/importers/transitions"
       ]
+      config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
+      class_paths.each do |class_path|
+        config.autoload_paths << class_path
+      end
+
+      # see rack_attack.md and https://github.com/kickstarter/rack-attack and 
+      config.middleware.use Rack::Attack
+
 
       # The intention here is that we compress server responses
       # (eg, HTML and JSON) but not doubly-gzip static assets which
@@ -67,11 +68,6 @@ module SomervilleTeacherTool
         'application/json'
       ]
 
-      config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
-      class_paths.each do |class_path|
-        config.autoload_paths << class_path
-      end
-
       config.generators do |g|
         g.stylesheets false
         g.javascripts false
@@ -84,7 +80,7 @@ module SomervilleTeacherTool
       end
 
       # Prepend all log lines with tags for the request, session and educator
-      Rails.application.config.log_tags = [
+      config.log_tags = [
         ->(req) { LogTags.new.request_identifier(req) },
         ->(req) { LogTags.new.session_identifier(req) },
         ->(req) { LogTags.new.educator_identifier(req) }
