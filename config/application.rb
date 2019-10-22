@@ -18,19 +18,10 @@ Bundler.require(*Rails.groups)
 
 module SomervilleTeacherTool
   class Application < Rails::Application
-    # Make Ruby 2.4 preserve the timezone of the receiver when calling `to_time`.
-    # Previous versions had false.  From Rails 5.0 upgrade.
-    ActiveSupport.to_time_preserves_timezone = true
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     Rails.application.config.tap do |config|
-      # Enable per-form CSRF tokens (from Rails 5.0 upgrade)
-      config.action_controller.per_form_csrf_tokens = true
-      config.action_controller.forgery_protection_origin_check = true
-      config.action_view.form_with_generates_remote_forms = false
-
       # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
       config.active_record.belongs_to_required_by_default = false
 
