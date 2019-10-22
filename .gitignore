@@ -17,7 +17,9 @@ yarn-error.log*
 # source control.
 config/local_env.yml
 
-# Use env initializers and read ENV variables instead, no good comes from storing secrets on disk
+# Use env initializers and read ENV variables instead, no good
+# comes from storing secrets on disk (this was deprecated
+# in Rails 5.2, but keep in here preventatively anyway).
 config/secrets.yml
 
 ## Environment normalisation:
