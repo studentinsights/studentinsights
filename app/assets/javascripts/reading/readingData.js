@@ -241,6 +241,22 @@ export function benchmarkPeriodToMoment(benchmarkPeriodKey, schoolYear) {
   return null;
 }
 
+export function previousTimePeriod(benchmarkPeriodKey, schoolYear) {
+  if (benchmarkPeriodKey === 'fall') return ['summer', schoolYear - 1];
+  if (benchmarkPeriodKey === 'winter') return ['fall', schoolYear];
+  if (benchmarkPeriodKey === 'spring') return ['winter', schoolYear];
+  if (benchmarkPeriodKey === 'summer') return ['spring', schoolYear];
+  return null;
+}
+
+export function nextTimePeriod(benchmarkPeriodKey, schoolYear) {
+  if (benchmarkPeriodKey === 'fall') return ['winter', schoolYear];
+  if (benchmarkPeriodKey === 'winter') return ['spring', schoolYear];
+  if (benchmarkPeriodKey === 'spring') return ['summer', schoolYear];
+  if (benchmarkPeriodKey === 'summer') return ['fall', schoolYear + 1];
+  return null;
+}
+
 function toMoment(triple) {
   return moment.utc([triple[0], triple[1], triple[2]].join('-'), 'YYYY-M-D');
 }

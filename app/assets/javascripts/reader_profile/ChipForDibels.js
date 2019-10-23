@@ -122,6 +122,8 @@ export function statsForDataPoint(dataPoint, gradeNow, nowMoment) {
 
   return {
     id: dataPoint.id,
+    benchmarkPeriodKey: dataPoint.benchmark_period_key,
+    schoolYear: dataPoint.benchmark_school_year,
     prettyAssessmentText,
     score,
     atMoment,

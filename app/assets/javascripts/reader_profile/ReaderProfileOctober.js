@@ -16,7 +16,7 @@ import {
   F_AND_P_ENGLISH,
   somervilleReadingThresholdsFor
 } from '../reading/thresholds';
-import {benchmarkPeriodKeyFor} from '../reading/readingData';
+import {benchmarkPeriodKeyFor, previousTimePeriod} from '../reading/readingData';
 import {
   SEE_AS_READER_SEARCH,
   ORAL_LANGUAGE_SEARCH,
@@ -86,30 +86,118 @@ export default class ReaderProfileOctober extends React.Component {
           </div>
           <div style={panel}>
             <div style={heading}>Letters</div>
-            {this.renderChart(DIBELS_LNF)}
-            {this.renderChart(DIBELS_FSF)}
+            {this.renderChartBySlot(DIBELS_LNF)}
+            {this.renderChartBySlot(DIBELS_FSF)}
           </div>
           <div style={panel}>
             <div style={heading}>Sounds</div>
-            {this.renderChart(DIBELS_PSF)}
+            {this.renderChartBySlot(DIBELS_PSF)}
           </div>
         </div>
         <div style={row}>
           <div style={panel}>
             <div style={heading}>Phonics</div>
-            {this.renderChart(DIBELS_NWF_CLS)}
-            {this.renderChart(DIBELS_NWF_WWR)}
-            {this.renderChart(DIBELS_DORF_ACC)}
+            {this.renderChartBySlot(DIBELS_NWF_CLS)}
+            {this.renderChartBySlot(DIBELS_NWF_WWR)}
+            {this.renderChartBySlot(DIBELS_DORF_ACC)}
           </div>
           <div style={panel}>
             <div style={heading}>Fluency</div>
-            {this.renderChart(DIBELS_DORF_WPM)}
+            {this.renderChartBySlot(DIBELS_DORF_WPM)}
           </div>
           <div style={panel}>
             <div style={heading}>Comprehension</div>
-            {/*this.renderChart(F_AND_P_ENGLISH)*/}
+            {/*this.renderChartBySlot(F_AND_P_ENGLISH)*/}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  renderChartBySlot(benchmarkAssessmentKey) {
+    const {nowFn} = this.context;
+    const {student, dataPointsByAssessmentKey} = this.props;
+
+    const gradeNow = '4'; // student.grade;
+    const nowMoment = nowFn();
+    const benchmarkPeriodKey = benchmarkPeriodKeyFor(nowMoment);
+    const nPeriodsBack = 12;
+    const timePeriodPairs = countBackBenchmarkPeriodsFrom(benchmarkPeriodKey, toSchoolYear(nowMoment), nPeriodsBack);
+    // const gradeThen = adjustedGrade(toSchoolYear(nextMoment.toDate()), gradeNow, nowMoment);
+
+    // data and series
+    const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey] || [];  
+    const rows = benchmarkDataPoints.map(dataPoint => statsForDataPoint(dataPoint, gradeNow, nowMoment));
+    const benchmarkData = thresholdDataBySlot(benchmarkAssessmentKey, gradeNow, nowMoment, timePeriodPairs, 'benchmark');
+    const riskData = thresholdDataBySlot(benchmarkAssessmentKey, gradeNow, nowMoment, timePeriodPairs, 'risk');
+    const assessmentData = dataBySlot(benchmarkAssessmentKey, gradeNow, nowMoment, timePeriodPairs, rows);
+
+    // unshadow
+    function thresholdDataBySlot(benchmarkAssessmentKey, gradeNow, nowMoment, timePeriodPairs, thresholdKey) {
+      return timePeriodPairs.map(timePeriod => {
+        const [benchmarkPeriodKey, schoolYear] = timePeriod;
+        const gradeThen = adjustedGrade(schoolYear, gradeNow, nowMoment);
+        const thresholdsThen = somervilleReadingThresholdsFor(benchmarkAssessmentKey, gradeThen, benchmarkPeriodKey);
+        return thresholdsThen ? thresholdsThen[thresholdKey] : null;
+      });
+    }
+
+    // unshadow
+    function dataBySlot(benchmarkAssessmentKey, gradeNow, nowMoment, timePeriodPairs, rows) {
+      const rowsByTimePeriod = _.groupBy(rows, row => [row.benchmarkPeriodKey, row.schoolYear].join('-'));
+      return timePeriodPairs.map(timePeriod => {
+        const rowsInTimePeriod = rowsByTimePeriod[timePeriod.join('-')] || [];
+        return Math.max(rowsInTimePeriod.map(row => row.score)) || null;
+      });
+    }
+    const series = [
+      { opacity: 0.5, marker: { symbol: 'circle', radius: 0 }, name: 'Benchmark', color: high, data: benchmarkData },
+      { opacity: 0.5, marker: { symbol: 'circle', radius: 0 }, name: 'Risk point', color: medium, data: riskData },
+      { marker: { symbol: 'circle', radius: 3 }, name: benchmarkAssessmentKey, color: '#000000', data: assessmentData }
+    ];
+    console.log('series', series);
+
+    const highchartsOptions = {
+      ...lineChartOptions(),
+      chart: {
+        ...lineChartOptions().chart,
+        type: 'areaspline'
+      },
+      yAxis: {
+        title: { text: '' }
+      },
+      xAxis: [{
+        categories: timePeriodPairs.map(period => period.join(' ')),
+        offset: timePeriodPairs.length,
+        tickInterval: 4,
+        minorTickInterval: 1,
+        labels: {
+          align: 'left',
+          formatter() { return this.value.split(' ')[1]; }
+        }
+        // linkedTo: 0
+        // gradesAxis(nowMoment, nMonthsBack, gradeNow, {
+        //   labelForGrade: (gradeNumber) => {
+        //     if (gradeNumber < 0) return '';
+        //     if (gradeNumber === 0) return 'K';
+        //     return gradeText(gradeNumber.toString()).split(' ')[0];
+        //   }
+        // })
+      }],
+      series
+    };
+    const box = {
+      width: 240,
+      height: 160,
+      padding: 10,
+      margin: 5,
+      display: 'inline-block',
+      border: '1px solid #ccc'
+    };
+    return (
+      <div style={box}>
+        <div style={{fontSize: 12, fontWeight: 'bold'}}>{benchmarkAssessmentKey}</div>
+        <HighchartsWrapper style={{height: 120}} {...highchartsOptions} />
       </div>
     );
   }
@@ -118,7 +206,6 @@ export default class ReaderProfileOctober extends React.Component {
     const {nowFn} = this.context;
     const {student, dataPointsByAssessmentKey} = this.props;
 
-  
     // map and sort
     const nowMoment = nowFn();
     const nMonthsBack = 36;
@@ -311,4 +398,21 @@ function thresholdSeries(benchmarkAssessmentKey, gradeNow, nowMoment, nMonthsBac
     const thresholdsThen = somervilleReadingThresholdsFor(benchmarkAssessmentKey, gradeThen, benchmarkPeriodKeyThen);
     return thresholdsThen ? thresholdsThen[thresholdKey] : null;
   });
+}
+
+
+function countBackBenchmarkPeriodsFrom(benchmarkPeriodKey, schoolYear, nPeriodsBack) {
+  var timePeriods = [[benchmarkPeriodKey, schoolYear]];
+
+  var nLeft = nPeriodsBack;
+  var currentBenchmarkPeriodKey = benchmarkPeriodKey;
+  var currentSchoolYear = schoolYear;
+  while (nLeft > 0) {
+    var timePeriod = previousTimePeriod(currentBenchmarkPeriodKey, currentSchoolYear);
+    timePeriods.push(timePeriod);
+    [currentBenchmarkPeriodKey, currentSchoolYear] = timePeriod;
+    nLeft = nLeft - 1;
+  }
+
+  return timePeriods.reverse();
 }
