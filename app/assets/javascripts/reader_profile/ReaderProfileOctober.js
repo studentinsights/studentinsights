@@ -41,13 +41,14 @@ import {statsForDataPoint} from './ChipForDibels';
 import {xAxisWithGrades, gradesAxis} from '../student_profile/highchartsXAxisWithGrades';
 import {lineChartOptions} from '../student_profile/highchartsLineChart';
 import HighchartsWrapper from '../components/HighchartsWrapper';
-import {adjustedGrade} from '../helpers/gradeText';
+import {gradeText, adjustedGrade} from '../helpers/gradeText';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {
   high,
   medium,
   low
 } from '../helpers/colors';
+import SectionHeading from '../components/SectionHeading';
 
  // TODO(kr) experimental
 
@@ -60,16 +61,55 @@ export default class ReaderProfileOctober extends React.Component {
       ? buildLunrIndexForIEP(iepContents.parsed.cleaned_text)
       : null;
 
+    const row = {
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: 20
+    };
+    const panel = {
+      width: 260,
+      // flex: 1,
+      display: 'flex',
+      flexDirection: 'column'
+    };
+    const heading = {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 10
+    };
     return (
       <div style={{marginTop: 100}}>
-        {this.renderChart(DIBELS_LNF)}
-        {this.renderChart(DIBELS_FSF)}
-        {this.renderChart(DIBELS_PSF)}
-        {this.renderChart(DIBELS_NWF_CLS)}
-        {this.renderChart(DIBELS_NWF_WWR)}
-        {this.renderChart(DIBELS_DORF_ACC)}
-        {this.renderChart(DIBELS_DORF_WPM)}
-        {/*this.renderChart(F_AND_P_ENGLISH)*/}
+        <SectionHeading>Reader Profile, v4</SectionHeading>
+        <div style={row}>
+          <div style={panel}>
+            <div style={heading}>Profile</div>
+          </div>
+          <div style={panel}>
+            <div style={heading}>Letters</div>
+            {this.renderChart(DIBELS_LNF)}
+            {this.renderChart(DIBELS_FSF)}
+          </div>
+          <div style={panel}>
+            <div style={heading}>Sounds</div>
+            {this.renderChart(DIBELS_PSF)}
+          </div>
+        </div>
+        <div style={row}>
+          <div style={panel}>
+            <div style={heading}>Phonics</div>
+            {this.renderChart(DIBELS_NWF_CLS)}
+            {this.renderChart(DIBELS_NWF_WWR)}
+            {this.renderChart(DIBELS_DORF_ACC)}
+          </div>
+          <div style={panel}>
+            <div style={heading}>Fluency</div>
+            {this.renderChart(DIBELS_DORF_WPM)}
+          </div>
+          <div style={panel}>
+            <div style={heading}>Comprehension</div>
+            {/*this.renderChart(F_AND_P_ENGLISH)*/}
+          </div>
+        </div>
       </div>
     );
   }
@@ -92,8 +132,10 @@ export default class ReaderProfileOctober extends React.Component {
       return [row.atMoment.unix()*1000, parseInt(row.score, 10)]; // todo(kr) naive here
     });
     
-    console.log('seriesDataPoints', seriesDataPoints);
-    // order matters for visual layering (essentially, only show orange)
+    // order matters for visual layering
+
+     // TODO(kr) rework this all to be "slots within periods" rather than dates
+     // so that all charts align on x-axis scales
     const benchmarkSeriesData = thresholdSeries(benchmarkAssessmentKey, gradeNow, nowMoment, nMonthsBack, 'benchmark');
     const series = [
       // { opacity: 0.5, marker: { symbol: 'circle', radius: 1 }, name: 'Above benchmark', color: high, data: benchmarkSeriesData.map(d => [d[0], d[1] * 1.20]) },
@@ -118,22 +160,29 @@ export default class ReaderProfileOctober extends React.Component {
         title: { text: '' }
       },
       // xAxis: xAxisWithGrades(gradeNow, nowMoment, {nMonthsBack}),
-      xAxis: [gradesAxis(nowMoment, nMonthsBack, gradeNow)],
+      xAxis: [
+        gradesAxis(nowMoment, nMonthsBack, gradeNow, {
+          labelForGrade: (gradeNumber) => {
+            if (gradeNumber < 0) return '';
+            if (gradeNumber === 0) return 'K';
+            return gradeText(gradeNumber.toString()).split(' ')[0];
+          }
+        })
+      ],
        series: JSON.parse(JSON.stringify(series)) // hacking
     };
     const box = {
-      width: 300,
-      height: 250,
-      marginTop: 20,
-      marginRight: 20,
+      width: 240,
+      height: 160,
+      padding: 10,
+      margin: 5,
       display: 'inline-block',
-      border: '1px solid #ccc',
-      padding: 10
+      border: '1px solid #ccc'
     };
     return (
       <div style={box}>
         <div style={{fontSize: 12, fontWeight: 'bold'}}>{benchmarkAssessmentKey}</div>
-        <HighchartsWrapper style={{height: 200}} {...highchartsOptions} />
+        <HighchartsWrapper style={{height: 120}} {...highchartsOptions} />
       </div>
     );
   }
@@ -242,7 +291,6 @@ function expandSeries(benchmarkAssessmentKey, gradeNow, nowMoment, nMonthsBack, 
   while (nextMoment.isBefore(nowMoment)) {
     const benchmarkPeriodKeyThen = benchmarkPeriodKeyFor(nextMoment);
     const gradeThen = adjustedGrade(toSchoolYear(nextMoment.toDate()), gradeNow, nowMoment);
-    console.log('benchmarkAssessmentKey, gradeThen, benchmarkPeriodKeyThen', benchmarkAssessmentKey, gradeThen, benchmarkPeriodKeyThen);
     const value = expandFn(benchmarkAssessmentKey, gradeThen, benchmarkPeriodKeyThen);
     if (value !== null) {
       items.push([nextMoment.unix() * 1000, value]);

@@ -39,11 +39,11 @@ function datesAxis(nowMoment, nMonthsBack) {
 
 
 // Show grades over time
-export function gradesAxis(nowMoment, nMonthsBack, studentGrade) {
+export function gradesAxis(nowMoment, nMonthsBack, studentGrade, options = {}) {
   const gradeNumber = (studentGrade === parseInt(studentGrade, 10).toString())
     ? parseInt(studentGrade, 10)
     : 0;
-  const categories = getSchoolYearStartPositions(nMonthsBack, nowMoment, gradeNumber);
+  const categories = getSchoolYearStartPositions(nMonthsBack, nowMoment, gradeNumber, options);
   const tickPositions = _.keys(categories).map(Number);
 
   return {
@@ -56,7 +56,7 @@ export function gradesAxis(nowMoment, nMonthsBack, studentGrade) {
 }
 
 
-export function getSchoolYearStartPositions(n, now, currentGradeNumber) {
+export function getSchoolYearStartPositions(n, now, currentGradeNumber, options = {}) {
   // Takes in an integer (number of months back), the current date
   // as a Moment object (UTC), and the student's current grade.
   // Returns an object mapping:
@@ -68,7 +68,7 @@ export function getSchoolYearStartPositions(n, now, currentGradeNumber) {
     startDates.map(date => date.valueOf()),
     startDates.map((date, i) => {
       const gradeNumber = (currentGradeNumber - startDates.length) + (i + 1); // (current_grade - n/12) to current_grade inclusive
-      return labelForGrade(gradeNumber);
+      return options.labelForGrade ? options.labelForGrade(gradeNumber) : labelForGrade(gradeNumber);
     })
   );
 }
