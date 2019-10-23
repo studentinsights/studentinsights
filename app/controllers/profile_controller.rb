@@ -34,9 +34,10 @@ class ProfileController < ApplicationController
   end
 
   def reader_profile_json
-    student = Student.find(params[:id])
-    json = ReaderProfile.new(student, s3: s3).reader_profile_json
-    render json: json
+    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/0. DANGER/2019-10-23-reading-profile-boxes/reader_profile.json'))
+    # student = Student.find(params[:id])
+    # json = ReaderProfile.new(student, s3: s3).reader_profile_json
+    # render json: json
   end
 
   def educators_with_access_json

@@ -39,7 +39,7 @@ function datesAxis(nowMoment, nMonthsBack) {
 
 
 // Show grades over time
-function gradesAxis(nowMoment, nMonthsBack, studentGrade) {
+export function gradesAxis(nowMoment, nMonthsBack, studentGrade) {
   const gradeNumber = (studentGrade === parseInt(studentGrade, 10).toString())
     ? parseInt(studentGrade, 10)
     : 0;

@@ -79,7 +79,6 @@ export default class ProfileBarChart extends React.Component {
       </DetailsSection>
     );
   }
-
 }
 
 ProfileBarChart.propTypes = {

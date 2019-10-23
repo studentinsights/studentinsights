@@ -6,6 +6,7 @@ import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import RollbarErrorBoundary from '../components/RollbarErrorBoundary';
 import ReaderProfileJune from './ReaderProfileJune';
+import ReaderProfileOctober from './ReaderProfileOctober';
 
 
 export default class ReaderProfileJunePage extends React.Component {
@@ -27,16 +28,28 @@ export default class ReaderProfileJunePage extends React.Component {
 
   renderJson(json) {
     const {student} = this.props;
+
     return (
-      <ReaderProfileJune
-        student={student}
-        access={json.access}
-        services={json.services}
-        iepContents={json.iep_contents}
-        feedCards={json.feed_cards}
-        currentSchoolYear={json.current_school_year}
-        dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
-      />
+      <div>
+        <ReaderProfileJune
+          student={student}
+          access={json.access}
+          services={json.services}
+          iepContents={json.iep_contents}
+          feedCards={json.feed_cards}
+          currentSchoolYear={json.current_school_year}
+          dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
+        />
+        <ReaderProfileOctober
+          student={student}
+          access={json.access}
+          services={json.services}
+          iepContents={json.iep_contents}
+          feedCards={json.feed_cards}
+          currentSchoolYear={json.current_school_year}
+          dataPointsByAssessmentKey={_.groupBy(json.benchmark_data_points, 'benchmark_assessment_key')}
+        />
+      </div>
     );
   }
 }
