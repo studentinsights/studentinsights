@@ -1,17 +1,26 @@
 class TeamMembership < ApplicationRecord
   belongs_to :student
 
-  validates :student, presence: true
   validates :activity_text, presence: true, exclusion: { in: ['']}
   validates :coach_text, presence: true, exclusion: { in: ['']}
   validates :school_year_text, presence: true, format: {
     with: /\A(20\d\d)-(\d\d)\z/,
     message: 'must be format 2002-03'
   }
+  validates :student, presence: true, uniqueness: {
+    scope: [:activity_text, :school_year_text, :season_key]
+  }
+  validates :season_key, inclusion: { in: ['fall', 'winter', 'spring'] }
 
   def active(options = {})
     this_season_key, school_year_text = TeamMembership.this_season_and_year(options)
     self.school_year_text == school_year_text && self.season_key == this_season_key.to_s
+  end
+
+  def season_sort_key(options = {})
+    school_year = self.school_year_text.split('-').first.to_i
+    season_number = ['fall', 'winter', 'spring'].index(self.season_key) || 0
+    [school_year, season_number]
   end
 
   def self.active(options = {})
