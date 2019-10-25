@@ -96,7 +96,6 @@ GEM
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       xpath (~> 3.0)
-    choice (0.2.0)
     chunky_png (1.3.11)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
@@ -231,13 +230,11 @@ GEM
       ruby-rc4
       ttfunk
     pg (1.0.0)
-    pivotal_git_scripts (1.4.0)
     platform-api (2.1.0)
       heroics (~> 0.0.23)
       moneta (~> 0.8.1)
     pragmatic_segmenter (0.3.22)
       unicode
-    probability (1.0.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -268,11 +265,6 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-erd (1.5.2)
-      activerecord (>= 3.2)
-      activesupport (>= 3.2)
-      choice (~> 0.2.0)
-      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.2.0)
       loofah (~> 2.2, >= 2.2.2)
     railties (5.2.2.1)
@@ -326,7 +318,6 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
-    ruby-graphviz (1.2.3)
     ruby-progressbar (1.10.1)
     ruby-rc4 (0.1.5)
     ruby_audit (1.2.0)
@@ -430,17 +421,14 @@ DEPENDENCIES
   openssl
   pdf-reader
   pg
-  pivotal_git_scripts
   platform-api
   pragmatic_segmenter
-  probability
   pry
   puma
   rack-attack
   rack-test
   rails (~> 5.2.0)
   rails-controller-testing
-  rails-erd
   rbnacl
   rollbar
   rotp
