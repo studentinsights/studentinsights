@@ -3,18 +3,7 @@ source 'https://rubygems.org'
 ruby '2.6.5'
 
 # forced patches
-# gem 'nokogiri', '~> 1.10.4' # https://github.com/sparklemotion/nokogiri/issues/1915
-# gem 'loofah', '~> 2.3.1' # https://github.com/flavorjones/loofah/issues/171
-
-gem 'rails', '~> 5.2.0'
-gem 'pg'
-gem 'puma'
-gem 'rack-attack'
-gem 'ipcat'
-gem 'dalli'
-gem 'rotp'
-gem 'twilio-ruby'
-gem 'rqrcode'
+# none
 
 # build, deploy
 gem 'bootsnap', require: false
