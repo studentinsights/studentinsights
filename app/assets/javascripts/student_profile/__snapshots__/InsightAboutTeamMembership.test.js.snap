@@ -39,9 +39,7 @@ exports[`snapshots for last year 1`] = `
         text={
           <span>
             Mari
-             
-            was
-             on the 
+             was on the 
             <Team
               team={
                 Object {
@@ -53,7 +51,8 @@ exports[`snapshots for last year 1`] = `
                 }
               }
             />
-             team
+             team in 
+            2017-18
           </span>
         }
       />
@@ -131,9 +130,7 @@ exports[`snapshots view 1`] = `
         text={
           <span>
             Mari
-             
-            is
-             on the 
+             is on the 
             <Team
               team={
                 Object {

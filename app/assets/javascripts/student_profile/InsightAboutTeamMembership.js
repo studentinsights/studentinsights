@@ -10,7 +10,6 @@ export default class InsightAboutTeamMembership extends React.Component {
   render() {
     const {insightPayload, firstName} = this.props;
     const team = insightPayload;
-    const isOrWas = team.active ? 'is' : 'was';
     return (
       <InsightQuote
         className="InsightAboutTeamMembership"
@@ -19,7 +18,10 @@ export default class InsightAboutTeamMembership extends React.Component {
             minFontSize={12}
             maxFontSize={42}
             fontSizeStep={6}
-            text={<span>{firstName} {isOrWas} on the <Team team={team} /> team</span>}
+            text={team.active
+              ? <span>{firstName} is on the <Team team={team} /> team</span>
+              : <span>{firstName} was on the <Team team={team} /> team in {team.school_year_text}</span>
+            }
           />
         }
         sourceEl={

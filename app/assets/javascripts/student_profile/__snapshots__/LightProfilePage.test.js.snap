@@ -64,27 +64,6 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           />
         </div>
-        <div
-          style={
-            Object {
-              "bottom": -30,
-              "left": 5,
-              "position": "absolute",
-            }
-          }
-        >
-          <span
-            style={
-              Object {
-                "cursor": "default",
-                "fontSize": 20,
-              }
-            }
-            title="Soccer - Boys JV with Jonathan Fishman"
-          >
-            ⚽
-          </span>
-        </div>
       </div>
     </div>
     <div
@@ -1289,27 +1268,6 @@ exports[`snapshots works for aladdin notes 1`] = `
               }
             }
           />
-        </div>
-        <div
-          style={
-            Object {
-              "bottom": -30,
-              "left": 5,
-              "position": "absolute",
-            }
-          }
-        >
-          <span
-            style={
-              Object {
-                "cursor": "default",
-                "fontSize": 20,
-              }
-            }
-            title="Soccer - Boys JV with Jonathan Fishman"
-          >
-            ⚽
-          </span>
         </div>
       </div>
     </div>
@@ -2665,27 +2623,6 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           />
         </div>
-        <div
-          style={
-            Object {
-              "bottom": -30,
-              "left": 5,
-              "position": "absolute",
-            }
-          }
-        >
-          <span
-            style={
-              Object {
-                "cursor": "default",
-                "fontSize": 20,
-              }
-            }
-            title="Soccer - Boys JV with Jonathan Fishman"
-          >
-            ⚽
-          </span>
-        </div>
       </div>
     </div>
     <div
@@ -3871,15 +3808,6 @@ exports[`snapshots works for olaf math 1`] = `
             }
           />
         </div>
-        <div
-          style={
-            Object {
-              "bottom": -30,
-              "left": 5,
-              "position": "absolute",
-            }
-          }
-        />
       </div>
     </div>
     <div
@@ -5127,15 +5055,6 @@ exports[`snapshots works for olaf notes 1`] = `
             }
           />
         </div>
-        <div
-          style={
-            Object {
-              "bottom": -30,
-              "left": 5,
-              "position": "absolute",
-            }
-          }
-        />
       </div>
     </div>
     <div
@@ -6454,15 +6373,6 @@ exports[`snapshots works for olaf reading 1`] = `
             }
           />
         </div>
-        <div
-          style={
-            Object {
-              "bottom": -30,
-              "left": 5,
-              "position": "absolute",
-            }
-          }
-        />
       </div>
     </div>
     <div
