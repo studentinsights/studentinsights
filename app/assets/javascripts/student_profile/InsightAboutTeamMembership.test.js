@@ -11,7 +11,8 @@ function testProps(props = {}) {
     insightPayload: {
       activity_text: 'Indoor Track - Girls Varsity',
       season_key: 'winter',
-      coach_text: '2018-19',
+      school_year_text: '2018-19',
+      coach_text: 'Eric Taylor',
       active: true,
     },
     ...props
@@ -34,6 +35,22 @@ it('renders without crashing', () => {
 
 it('snapshots view', () => {
   const props = testProps();
+  const tree = renderer
+    .create(testEl(props))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots for last year', () => {
+  const defaultProps = testProps();
+  const props = {
+    ...defaultProps,
+    insightPayload: {
+      ...defaultProps.insightPayload,
+      school_year_text: '2017-18',
+      active: false
+    }
+  };
   const tree = renderer
     .create(testEl(props))
     .toJSON();
