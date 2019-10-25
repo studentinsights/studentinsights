@@ -8,24 +8,24 @@ FactoryBot.define do
   end
 
   factory :healey, class: School do
-    slug 'hea'
-    name 'Healey school'
-    local_id 'HEA'
-    school_type 'ES'
+    slug { 'hea' }
+    name { 'Healey school' }
+    local_id { 'HEA' }
+    school_type { 'ES' }
   end
 
   factory :brown, class: School do
-    slug 'brn'
-    name 'Brown school'
-    local_id 'BRN'
-    school_type 'ES'
+    slug { 'brn' }
+    name { 'Brown school' }
+    local_id { 'BRN' }
+    school_type { 'ES' }
   end
 
   factory :shs, class: School do
-    slug 'shs'
-    name 'Somerville High'
-    local_id 'SHS'
-    school_type "HS"
+    slug { 'shs' }
+    name { 'Somerville High' }
+    local_id { 'SHS' }
+    school_type { "HS" }
   end
 
   trait :with_educator do

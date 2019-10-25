@@ -12,14 +12,14 @@ FactoryBot.define do
     grade { generate(:valid_grade_level) }
     association :homeroom
     association :school
-    enrollment_status "Active"
+    enrollment_status { "Active" }
 
     trait :registered_last_year do
-      registration_date Time.now - 1.year
+      registration_date { Time.now - 1.year }
     end
 
     trait :low_income do
-      free_reduced_lunch "Free Lunch"
+      free_reduced_lunch { "Free Lunch" }
     end
 
     trait :with_service_and_event_note_and_intervention do
@@ -83,52 +83,52 @@ FactoryBot.define do
     end
 
     factory :student_who_registered_in_2013_2014 do
-      registration_date Date.new(2013, 8, 1)
+      registration_date { Date.new(2013, 8, 1) }
     end
     factory :high_school_student do
-      grade "11"
+      grade { "11" }
     end
     factory :student_we_want_to_update do       # Test importing data
-      local_id "10"                             # State ID matches fixture
-      home_language "English"
+      local_id { "10" }                             # State ID matches fixture
+      home_language { "English" }
     end
     factory :student_with_homeroom do
       association :homeroom, name: "601"
     end
     factory :sped_student do
-      program_assigned "Sp Ed"
-      sped_placement "Full Inclusion"
+      program_assigned { "Sp Ed" }
+      sped_placement { "Full Inclusion" }
     end
     factory :limited_english_student do
-      limited_english_proficiency "Limited"
+      limited_english_proficiency { "Limited" }
     end
 
     factory :student_with_registration_date do
-      registration_date Date.new(2015, 1, 1)
+      registration_date { Date.new(2015, 1, 1) }
 
       factory :student_with_mcas_assessment do
-        grade '6'
+        grade { '6' }
         after(:create) do |student|
           FactoryBot.create(:mcas_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_math_assessment do
-        grade '6'
+        grade { '6' }
         after(:create) do |student|
           FactoryBot.create(:mcas_math_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_ela_assessment do
-        grade '6'
+        grade { '6' }
         after(:create) do |student|
           FactoryBot.create(:mcas_ela_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_math_warning_assessment do
-        grade '6'
+        grade { '6' }
         after(:create) do |student|
           FactoryBot.create(:mcas_math_warning_assessment, student: student)
         end

@@ -3,7 +3,6 @@ FactoryBot.define do
   sequence(:staff_local_id) { |n| "000#{n}" }
 
   factory :educator do
-    password 'demo-password' # All the same for local development and the demo site
     full_name do
       first_name = FakeNames.deterministic_sample(FakeNames::FIRST_NAMES)
       last_name = FakeNames.deterministic_sample(FakeNames::LAST_NAMES)
@@ -21,10 +20,10 @@ FactoryBot.define do
     association :school
 
     trait :admin do
-      admin true
-      schoolwide_access true
-      restricted_to_sped_students false
-      restricted_to_english_language_learners false
+      admin { true }
+      schoolwide_access { true }
+      restricted_to_sped_students { false }
+      restricted_to_english_language_learners { false }
     end
 
     trait :without_email do
