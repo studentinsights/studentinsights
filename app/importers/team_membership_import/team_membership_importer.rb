@@ -45,6 +45,8 @@ class TeamMembershipImporter
       log("\n\ntab_id: #{tab.tab_id}, tab.name.first(1): #{tab.tab_name.first(1)}") # minimize logging
       log('Starting loop...')
       StreamingCsvTransformer.from_text(@log, tab.tab_csv).each_with_index do |row, index|
+        # Support multiple header rows to explain to users how to enter data, etc.
+        next if index < @skip_explanation_rows_count
         records << matching_record_for_row(row, index)
       end
       log("Total stats #{records.size} records, #{records.compact.size} non-nil.")
@@ -95,11 +97,6 @@ class TeamMembershipImporter
   end
 
   def matching_record_for_row(row, index)
-    # Support multiple header rows to explain to users how to enter data, etc.
-    if (index) < @skip_explanation_rows_count
-      return nil
-    end
-
     student_id = @matcher.find_student_id(row['LASID'])
     return nil if student_id.nil?
 
