@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.6.5'
 
 # forced patches
-# none
+# (none)
 
 # build, deploy
 gem 'bootsnap', require: false
