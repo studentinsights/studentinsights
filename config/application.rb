@@ -22,6 +22,8 @@ module SomervilleTeacherTool
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     Rails.application.config.tap do |config|
+      config.load_defaults 6.0 # to clarify, see https://github.com/rails/rails/pull/33584#issuecomment-430493200
+
       # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
       config.active_record.belongs_to_required_by_default = false
 
