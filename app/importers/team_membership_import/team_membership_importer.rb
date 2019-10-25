@@ -120,7 +120,6 @@ class TeamMembershipImporter
     record
   end
 
-
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
     @log.puts "TeamMembershipImporter: #{text}"

@@ -412,7 +412,7 @@ class PerDistrict
   def team_membership_importer_enabled?
     @district_key == SOMERVILLE
   end
-  
+
   # Specifically whether this importer class runs as part of import jobs
   def student_voice_survey_importer_enabled?
     @district_key == SOMERVILLE
