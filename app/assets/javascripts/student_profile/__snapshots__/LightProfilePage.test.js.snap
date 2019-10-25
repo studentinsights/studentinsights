@@ -2319,6 +2319,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 >
                   <svg
+                    className="LightHelpBubble-question-mark"
                     height={20}
                     style={
                       Object {
@@ -2490,6 +2491,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 >
                   <svg
+                    className="LightHelpBubble-question-mark"
                     height={20}
                     style={
                       Object {
@@ -6069,6 +6071,7 @@ exports[`snapshots works for olaf notes 1`] = `
                   }
                 >
                   <svg
+                    className="LightHelpBubble-question-mark"
                     height={20}
                     style={
                       Object {
@@ -6240,6 +6243,7 @@ exports[`snapshots works for olaf notes 1`] = `
                   }
                 >
                   <svg
+                    className="LightHelpBubble-question-mark"
                     height={20}
                     style={
                       Object {
@@ -10990,6 +10994,7 @@ exports[`snapshots works for pluto notes 1`] = `
                   }
                 >
                   <svg
+                    className="LightHelpBubble-question-mark"
                     height={20}
                     style={
                       Object {
@@ -11161,6 +11166,7 @@ exports[`snapshots works for pluto notes 1`] = `
                   }
                 >
                   <svg
+                    className="LightHelpBubble-question-mark"
                     height={20}
                     style={
                       Object {

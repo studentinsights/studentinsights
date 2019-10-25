@@ -620,6 +620,10 @@ class PerDistrict
     end
   end
 
+  def services_info_doc_url
+    ENV.fetch('SERVICES_INFO_DOC_URL', nil)
+  end
+
   private
   def yaml
     config_map = {

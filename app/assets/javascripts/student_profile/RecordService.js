@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import Datepicker from '../components/Datepicker';
+import Nbsp from '../components/Nbsp';
 import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
+import {recordServiceChoices} from '../helpers/PerDistrict';
 import {toSchoolYear, lastDayOfSchool} from '../helpers/schoolYear';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
 
@@ -115,44 +118,103 @@ export default class RecordService extends React.Component {
   }
 
   renderWhichService() {
+    const {districtKey} = this.context;
+    const {serviceTypeId} = this.state;
+    const {leftServiceTypeIds, rightServiceTypeIds} = recordServiceChoices(districtKey);
     return (
       <div>
-        <div style={{ marginBottom: 5, display: 'inline' }}>
+        <div style={{ marginBottom: 5, display: 'inline-block' }}>
           Which service?
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <div style={styles.buttonWidth}>
-            {this.renderServiceButton(503)}
-            {this.renderServiceButton(502)}
-            {this.renderServiceButton(504)}
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div>
+            {leftServiceTypeIds.map(this.renderServiceButton, this)}
           </div>
-          <div style={styles.buttonWidth}>
-            {this.renderServiceButton(505)}
-            {this.renderServiceButton(506)}
-            {this.renderServiceButton(507)}
+          <div>
+            {rightServiceTypeIds.map(this.renderServiceButton, this)}
           </div>
+        </div>
+        <div className="RecordService-service-info-box">
+          {this.renderServiceInfoBox(serviceTypeId)}
         </div>
       </div>
     );
   }
+  
+  renderServiceInfoBox(serviceTypeId) {
+    const {currentEducator, serviceTypesIndex, servicesInfoDocUrl} = this.props;
+    if (currentEducator.labels.indexOf('show_services_info') === -1) return null;
 
-  renderServiceButton(serviceTypeId, options) {
+    // nothing selected
+    if (serviceTypeId === null) {
+      return (
+        <div style={{...styles.infoBox, opacity: 0.25}}>
+          <div>Select a service for more description.</div>
+          <div><Nbsp /></div>
+          <div><Nbsp /></div>
+          <div style={{marginTop: 5}}><Nbsp /></div>
+        </div>
+      );
+    }
+
+    // no service info
+    const service = serviceTypesIndex[serviceTypeId];
+    if (!service || (!service.description && !service.data_owner)) {
+      return (
+        <div style={{...styles.infoBox, opacity: 0.5}}>
+          <div>No service info found.</div>
+          <div><Nbsp /></div>
+          <div><Nbsp /></div>
+          <div style={{marginTop: 5}}><Nbsp /></div>
+        </div>
+      );
+    }
+
+    // show info
+    return (
+      <div style={styles.infoBox}>
+        {service.description && <div>{service.description}</div>}
+        {service.intensity && <div>{service.intensity}</div>}
+        {service.data_owner && <div>Data owner: {service.data_owner}</div>}
+        {servicesInfoDocUrl && (
+          <div style={{marginTop: 5}}>
+            <a href={servicesInfoDocUrl} style={{fontSize: 12}} target="_blank" rel="noopener noreferrer">Learn more</a>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  renderServiceInfoText(serviceTypeId) {
+    const {serviceTypesIndex} = this.props;
+    const service = serviceTypesIndex[serviceTypeId];
+    return _.compact([
+      service.name,
+      service.description ? service.description : null,
+      service.intensity ? service.intensity : null,
+      service.data_owner ? `Data owner: ${service.data_owner}` : null
+    ]).join("\n");
+  }
+
+  renderServiceButton(serviceTypeId) {
     const serviceText = this.props.serviceTypesIndex[serviceTypeId].name;
     const color = serviceColor(serviceTypeId);
 
     return (
       <button
+        key={serviceTypeId}
         className={`btn service-type service-type-${serviceTypeId}`}
         onClick={this.onServiceClicked.bind(this, serviceTypeId)}
         tabIndex={-1}
-        style={merge(styles.serviceButton, styles.buttonWidth, {
+        title={this.renderServiceInfoText(serviceTypeId)}
+        style={merge(styles.serviceButton, {
           background: color,
           outline: 0,
           border: (this.state.serviceTypeId === serviceTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         })}>
-        {serviceText}
+        <span style={styles.serviceButtonText}>{serviceText}</span>
       </button>
     );
   }
@@ -219,12 +281,9 @@ export default class RecordService extends React.Component {
     const isFormComplete = this.isFormComplete();
 
     return (
-      <div style={{ marginTop: 15 }}>
+      <div style={{ marginTop: 20 }}>
         <button
-          style={{
-            marginTop: 20,
-            background: (isFormComplete) ? undefined : '#ccc'
-          }}
+          style={{background: (isFormComplete) ? undefined : '#ccc'}}
           disabled={!isFormComplete}
           className="btn save"
           onClick={this.onClickSave}>
@@ -243,6 +302,9 @@ export default class RecordService extends React.Component {
     );
   }
 }
+RecordService.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 RecordService.propTypes = {
   studentFirstName: PropTypes.string.isRequired,
   studentId: PropTypes.number.isRequired,
@@ -254,7 +316,11 @@ RecordService.propTypes = {
   nowMoment: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
-  currentEducator: PropTypes.object.isRequired
+  servicesInfoDocUrl: PropTypes.string,
+  currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired
 };
 
 const styles = {
@@ -281,12 +347,25 @@ const styles = {
     padding: 5
   },
   serviceButton: {
-    background: '#eee', // override CSS
-    color: 'black'
-  },
-  buttonWidth: {
-    width: '12em',
     fontSize: 12,
+    background: '#eee', // override CSS
+    color: 'black',
+    width: '14em', // tuned for two columns, when page at max screen width
+    height: 45,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 8
+  },
+  serviceButtonText: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden', // in case overflow
+  },
+  infoBox: {
+    margin: 10,
+    fontSize: 12,
+    padding: 10,
+    background: 'rgba(3, 102, 214, 0.1)',
+    border: '1px solid rgba(3, 102, 214, 0.1)'
   }
 };
