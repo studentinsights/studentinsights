@@ -6,7 +6,7 @@ import Nbsp from '../components/Nbsp';
 import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
-import {recordServiceChoices} from '../helpers/PerDistrict';
+import {recordServiceChoices, showServicesInfo} from '../helpers/PerDistrict';
 import {toSchoolYear, lastDayOfSchool} from '../helpers/schoolYear';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
 
@@ -142,8 +142,13 @@ export default class RecordService extends React.Component {
   }
   
   renderServiceInfoBox(serviceTypeId) {
+    const {districtKey} = this.context;
     const {currentEducator, serviceTypesIndex, servicesInfoDocUrl} = this.props;
-    if (currentEducator.labels.indexOf('show_services_info') === -1) return null;
+    const isEnabled = (
+      showServicesInfo(districtKey) ||
+      (currentEducator.labels.indexOf('show_services_info') !== -1)
+    );
+    if (!isEnabled) return null;
 
     // nothing selected
     if (serviceTypeId === null) {

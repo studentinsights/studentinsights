@@ -193,15 +193,8 @@ describe('integration tests', () => {
   });
 
   describe('service info', () => {
-    it('shows nothing unless URL and label are set', () => {
-      const props = testProps();
-      const {el} = testRender(props, {districtKey: 'bedford'});
-      helpers.simulateClickOnService(el, 703);
-      expect(helpers.findServiceInfoText(el)).toEqual('');
-    });
-
     it('shows service info as tooltip', () => {
-      const props = propsWithServiceInfoLabel(testProps());
+      const props = testProps({servicesInfoDocUrl: 'https://example.com/'});
       const {el} = testRender(props, {districtKey: 'bedford'});
       const buttonEl = helpers.findServiceButton(el, 703);
       expect(buttonEl.getAttribute('title')).toEqual([
@@ -213,7 +206,7 @@ describe('integration tests', () => {
     });
 
     it('shows no info at first, then shows details on click', () => {
-      const props = propsWithServiceInfoLabel(testProps());
+      const props = testProps({servicesInfoDocUrl: 'https://example.com/'});
       const {el} = testRender(props, {districtKey: 'bedford'});
       expect(helpers.findServiceInfoText(el)).toEqual('Select a service for more description.');
       helpers.simulateClickOnService(el, 703);
@@ -225,7 +218,21 @@ describe('integration tests', () => {
       ].join(''));
     });
 
-    it('says no info explicitly if enabled but no info present', () => {
+    it('does not show service info if not set in PerDistrict and no label', () => {
+      const props = testProps({servicesInfoDocUrl: 'https://example.com/'});
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      helpers.simulateClickOnService(el, 502);
+      expect(helpers.findServiceInfoText(el)).toEqual('');
+    });
+
+    it('would show info if not set in PerDistrict but label is set', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      helpers.simulateClickOnService(el, 502);
+      expect(helpers.findServiceInfoText(el)).toEqual('No service info found.');
+    });
+
+    it('says `no info` if enabled but no service type info is found', () => {
       const props = propsWithServiceInfoLabel(testProps());
       const {el} = testRender(props, {districtKey: 'somerville'});
       helpers.simulateClickOnService(el, 502);
