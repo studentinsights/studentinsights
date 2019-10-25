@@ -25,7 +25,10 @@ export default class InsightAboutTeamMembership extends React.Component {
         sourceEl={
           <div>
             <div>with coach {team.coach_text}</div>
-            <div>during the {team.season_key} season</div>
+            {team.active
+              ? <div>this {team.season_key} season</div>
+              : <div>during the {team.school_year_text} {team.season_key} season</div>
+            }
           </div>
         }
       />
@@ -38,6 +41,7 @@ InsightAboutTeamMembership.propTypes = {
     activity_text: PropTypes.string.isRequired,
     season_key: PropTypes.string.isRequired,
     coach_text: PropTypes.string.isRequired,
+    school_year_text: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired
   }).isRequired
 };
