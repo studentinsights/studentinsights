@@ -9,14 +9,14 @@ gem 'nokogiri', '~> 1.10.4' # https://github.com/sparklemotion/nokogiri/issues/1
 gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 gem 'sass-rails', '~> 5.0'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
 
 # rails plugins or patches
-gem 'administrate', '~> 0.10.0'
+gem 'administrate', '~> 0.12.0'
 gem 'authtrail'
 gem 'bundler-audit' # dependency audits
 gem 'devise', '~> 4.7.1'
