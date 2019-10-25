@@ -77,7 +77,8 @@ class FileImporterOptions
       'star_reading' => StarReadingImporter,
       'student_voice_surveys' => StudentVoiceSurveyImporter,
       'student_meetings' => StudentMeetingImporter,
-      'reading_benchmark_sheets' => ReadingBenchmarkSheetsImporter
+      'reading_benchmark_sheets' => ReadingBenchmarkSheetsImporter,
+      'team_memberships' => TeamMembershipImporter
     }
   end
 
@@ -103,7 +104,8 @@ class FileImporterOptions
       EdPlansImporter => 7,
       EdPlanAccommodationsImporter => 8,
       StudentVoiceSurveyImporter => 9,
-      ReadingBenchmarkSheetsImporter => 10
+      ReadingBenchmarkSheetsImporter => 10,
+      TeamMembershipImporter => 11
     }
   end
 end

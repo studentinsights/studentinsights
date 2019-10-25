@@ -193,8 +193,15 @@
       "option_school_scope"
     ],
     "description": "Student rosters"
-  },
-  {
+  }, {
+    "importer": "TeamMembershipImporter",
+    "source": "source_google_drive_sheet",
+    "frequency": "frequency_daily",
+    "merge": "merge_update_delete_unmarked",
+    "touches": ["TeamMembership"],
+    "options": [],
+    "description": "Import rosters for sports teams at SHS, which educators update via Google Sheets from other registration systems"
+  }, {
     "importer": "X2AssessmentImporter",
     "source": "source_sis_sftp_csv",
     "frequency": "frequency_daily",
