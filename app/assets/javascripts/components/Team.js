@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 const TEAM_ICON_MAP = {
   // fall
+  'Cheerleading Fall Varsity': '📣',
   'Competitive Cheerleading Varsity': '📣',
   'Cross Country - Boys Varsity': '👟',
   'Cross Country - Girls Varsity': '👟',

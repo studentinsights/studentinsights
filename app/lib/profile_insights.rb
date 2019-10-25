@@ -76,7 +76,9 @@ class ProfileInsights
   end
 
   def about_team_membership
-    @student.teams(time_now: @time_now).map do |team|
+    teams = @student.teams(time_now: @time_now)
+    sorted_teams = teams.sort_by(&:season_sort_key)
+    sorted_teams.map do |team|
       ProfileInsight.new(ABOUT_TEAM_MEMBERSHIP, team.as_json({
         only: [:activity_text, :coach_text, :season_key, :school_year_text],
         methods: [:active]
