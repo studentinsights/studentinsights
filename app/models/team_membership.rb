@@ -7,8 +7,8 @@ class TeamMembership < ApplicationRecord
     with: /\A(20\d\d)-(\d\d)\z/,
     message: 'must be format 2002-03'
   }
-  validates :student, presence: true, uniqueness: {
-    scope: [:activity_text, :school_year_text, :season_key]
+  validates :activity_text, presence: true, uniqueness: {
+    scope: [:student_id, :school_year_text, :season_key]
   }
   validates :season_key, inclusion: { in: ['fall', 'winter', 'spring'] }
 
