@@ -59,10 +59,9 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderStudentPhotoOrNull() {
-    const {student, teams} = this.props;
+    const {student} = this.props;
     if (!this.hasPhoto()) return null;
     
-    // The teams badges hang over the bottom
     return (
       <div style={{flex: 1, marginLeft: 10, position: 'relative'}}>
         <AutoSizer>
@@ -72,15 +71,26 @@ export default class LightProfileHeader extends React.Component {
               student={student} />
           )}
         </AutoSizer>
-        <div style={{position: 'absolute', bottom: -30, left: 5}}>
-          {teams.map(team => (
-            <TeamIcon
-              key={team.activity_text}
-              style={{fontSize: 20}}
-              team={team}
-            />
-          ))}
-        </div>
+        {this.renderTeamIcons()}
+      </div>
+    );
+  }
+
+  // The teams badges hang over the bottom, styling hack
+  renderTeamIcons() {
+    // disabled for now
+    if (window.location.search.indexOf('teamicons') === -1) return null;
+
+    const {teams} = this.props;
+    return (
+      <div style={{position: 'absolute', bottom: -30, left: 5}}>
+        {teams.map(team => (
+          <TeamIcon
+            key={team.activity_text}
+            style={{fontSize: 20}}
+            team={team}
+          />
+        ))}
       </div>
     );
   }

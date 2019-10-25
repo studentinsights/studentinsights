@@ -35,7 +35,7 @@ export default class InsightsCarousel extends React.Component {
 
   resetInterval() {
     this.clearInterval();
-    this.interval = window.setInterval(this.onIntervalTicked, 10000);
+    this.interval = window.setInterval(this.onIntervalTicked, 8000);
   }
 
   // Insights that we know how to render

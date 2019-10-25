@@ -142,7 +142,6 @@ class ProfileController < ApplicationController
   end
 
   def teams_json(student)
-    return [] unless ENV.fetch('SHOULD_SHOW_TEAM_ICONS', false)
     student.teams.as_json({
       only: [:activity_text, :coach_text, :season_key, :school_year_text],
       methods: [:active]

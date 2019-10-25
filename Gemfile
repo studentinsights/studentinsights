@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
+gem 'loofah', '~> 2.3.1' # https://github.com/flavorjones/loofah/issues/171
+
 gem 'rails', '~> 5.2.0'
 gem 'pg'
 gem 'puma'
