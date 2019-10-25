@@ -251,6 +251,11 @@ export function recordServiceChoices(districtKey) {
   throw new Error(`unsupported districtKey: ${districtKey}`);
 }
 
+// Whether to show the info panel when recording services.
+export function showServicesInfo(districtKey) {
+  if (districtKey === BEDFORD) return true;
+  return false;
+}
 
 // What service types should be in included in phaseslines for non-academic
 // information (eg, attendance, behavior, social or emotional?)
