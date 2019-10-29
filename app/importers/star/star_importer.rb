@@ -30,7 +30,9 @@ class StarImporter
       log("\nImporting #{remote_file_name}...")
 
       data_string = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
-        invalid: :replace, undef: :replace, replace: ''
+        invalid: :replace,
+        undef: :replace,
+        replace: ''
       })
 
       data = data_transformer.transform(data_string)

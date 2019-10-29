@@ -9,7 +9,7 @@ RSpec.describe StarReadingImporter do
     })
   }
 
-  describe '#import_row' do
+  describe '#import' do
 
     context 'reading file' do
 
