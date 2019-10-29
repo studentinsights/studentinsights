@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe StarMathImporter do
-  def create_mocked_importer(district_key, local_fixture_filename)
+  def create_mocked_importer(district_key, local_fixture_filename, options = {})
     mock_for_fixture!(district_key, local_fixture_filename)
     log = LogHelper::FakeLog.new
     importer = StarMathImporter.new(options: {
       school_scope: nil,
       log: log
-    })
+    }.merge(options))
     [importer, log]
   end
 
