@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe StarReadingImporter do
-  def create_mocked_importer(district_key, local_fixture_filename)
+  def create_mocked_importer(district_key, local_fixture_filename, options = {})
     mock_for_fixture!(district_key, local_fixture_filename)
     log = LogHelper::FakeLog.new
     importer = StarReadingImporter.new(options: {
       school_scope: nil,
       log: log
-    })
+    }.merge(options))
     [importer, log]
   end
 
@@ -69,6 +69,15 @@ RSpec.describe StarReadingImporter do
       importer.import
       expect(log.output).to include('error: ["Percentile rank too high"]')
       expect(log.output).to include('skipped 1 invalid rows')
+      expect(StarReadingResult.all.size).to eq(0)
+    end
+
+    it 'supports school filter (v2 as example)' do
+      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_reading_v2.csv", {
+        school_scope: ['SHS']
+      })
+      importer.import
+      expect(log.output).to include('skipped 1 rows because of school filter')
       expect(StarReadingResult.all.size).to eq(0)
     end
   end

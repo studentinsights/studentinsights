@@ -71,5 +71,14 @@ RSpec.describe StarMathImporter do
       expect(log.output).to include('skipped 1 invalid rows')
       expect(StarMathResult.all.size).to eq(0)
     end
+
+    it 'supports school filter (v2 as example)' do
+      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv", {
+        school_scope: ['SHS']
+      })
+      importer.import
+      expect(log.output).to include('skipped 1 rows because of school filter')
+      expect(StarMathResult.all.size).to eq(0)
+    end
   end
 end
