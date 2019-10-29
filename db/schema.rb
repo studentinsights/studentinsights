@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_170704) do
+ActiveRecord::Schema.define(version: 2019_10_29_151734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -554,7 +554,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_170704) do
     t.integer "percentile_rank", null: false
     t.integer "total_time", null: false
     t.string "grade_equivalent", null: false
-    t.decimal "instructional_reading_level", null: false
     t.bigint "student_id", null: false
     t.datetime "date_taken", null: false
     t.datetime "created_at", null: false
@@ -571,7 +570,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_170704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "percentile_rank"
-    t.decimal "instructional_reading_level"
     t.integer "assessment_id", null: false
     t.string "grade_equivalent"
     t.index ["student_id"], name: "index_student_assessments_on_student_id"

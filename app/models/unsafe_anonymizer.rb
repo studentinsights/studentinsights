@@ -115,7 +115,6 @@ class UnsafeAnonymizer
       subject: student_assessment.subject,
       date_taken: student_assessment.date_taken,
       percentile_rank: student_assessment.percentile_rank,
-      instructional_reading_level: student_assessment.instructional_reading_level,
       grade_equivalent: student_assessment.grade_equivalent
     }
   end
