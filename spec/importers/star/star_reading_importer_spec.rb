@@ -15,9 +15,9 @@ RSpec.describe StarReadingImporter do
     # mock config
     mock_per_district = PerDistrict.new
     allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_READING_IMPORT').and_return('file.csv')
-    allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_ZIP_FILE').and_return('star.zip')    
+    allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_ZIP_FILE').and_return('star.zip')
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
-    
+
     # zip fixture
     zipped_fixture = Tempfile.new('zipped').tap do |zip|
       Zip::File.open(zip, Zip::File::CREATE) do |zipfile|
@@ -34,7 +34,7 @@ RSpec.describe StarReadingImporter do
 
   describe '#import' do
     let!(:student) { FactoryBot.create(:student, local_id: '10') }
-    
+
     it 'works' do
       importer, log = create_mocked_importer("#{Rails.root}/spec/importers/star/fake_star_reading.csv")
       importer.import
