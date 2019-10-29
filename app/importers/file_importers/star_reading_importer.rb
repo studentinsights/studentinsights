@@ -1,3 +1,9 @@
+# Migration for 2019 year
+# StudentLocalID      StudentIdentifier
+# AssessmentDate      CompletedDate
+# PercentileRank      PercentileRank
+# GradeEquivalent     GradeEquivalent
+# TotalTime           TotalTimeInSeconds
 class StarReadingImporter
   def self.data_flow
     DataFlow.new({
@@ -36,7 +42,7 @@ class StarReadingImporter
       data = data_transformer.transform(data_string)
 
       data.each_with_index do |row, index|
-        import_row(row) if filter.include?(row.fetch('SchoolLocalID'))
+        import_row(row) if filter.include?(row.fetch('StudentIdentifier'))
         log("processed #{index} rows.") if index % 1000 == 0
       end
 
@@ -68,13 +74,13 @@ class StarReadingImporter
   end
 
   def import_row(row)
-    student = Student.find_by_local_id(row.fetch('StudentLocalID'))
+    student = Student.find_by_local_id(row.fetch('StudentIdentifier'))
     if student.nil?
-      log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
+      log("skipping, StudentIdentifier not found: #{row['StudentIdentifier']}")
       return
     end
 
-    datetime_string = row.fetch('AssessmentDate')
+    datetime_string = row.fetch('CompletedDate') # alt, LaunchDate, CompletedDateLocal
     day = DateTime.strptime(datetime_string, "%m/%d/%Y")
     time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
 
@@ -95,7 +101,6 @@ class StarReadingImporter
 
     test_result.assign_attributes({
       percentile_rank: row.fetch('PercentileRank'),
-      instructional_reading_level: row.fetch('IRL'),
       grade_equivalent: row.fetch('GradeEquivalent'),
       total_time: row.fetch('TotalTime'),
     })

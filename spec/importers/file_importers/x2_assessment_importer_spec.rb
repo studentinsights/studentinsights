@@ -158,7 +158,6 @@ RSpec.describe X2AssessmentImporter do
         "performance_level"=>"P",
         "growth_percentile"=>56,
         "percentile_rank"=>nil,
-        "instructional_reading_level"=>nil,
         "grade_equivalent"=>nil
       })
 
@@ -171,7 +170,6 @@ RSpec.describe X2AssessmentImporter do
         "performance_level"=>"M",
         "growth_percentile"=>34,
         "percentile_rank"=>nil,
-        "instructional_reading_level"=>nil,
         "grade_equivalent"=>nil
       })
     end
@@ -212,7 +210,6 @@ RSpec.describe X2AssessmentImporter do
         "performance_level"=>"P",
         "growth_percentile"=>56,
         "percentile_rank"=>nil,
-        "instructional_reading_level"=>nil,
         "grade_equivalent"=>nil
       })
 
@@ -225,7 +222,6 @@ RSpec.describe X2AssessmentImporter do
         "performance_level"=>"M",
         "growth_percentile"=>34,
         "percentile_rank"=>nil,
-        "instructional_reading_level"=>nil,
         "grade_equivalent"=>nil
       })
 

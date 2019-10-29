@@ -23,10 +23,6 @@ RSpec.describe StarReadingImporter do
           it 'creates a new student test result' do
             expect { import }.to change { StarReadingResult.count }.by 1
           end
-          it 'sets instructional reading level correctly' do
-            import
-            expect(StarReadingResult.last.instructional_reading_level).to eq 5.0
-          end
           it 'sets date taken correctly' do
             import
             expect(StarReadingResult.last.date_taken).to eq(
