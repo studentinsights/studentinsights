@@ -1,20 +1,13 @@
 # Intended to be minimally generic, for use across math and
 # reading to get percentiles and GLE.
-#
-# Migration for 2019 year:
-#  StudentLocalID    => StudentIdentifier
-#  AssessmentDate    => CompletedDate
-#  PercentileRank    => PercentileRank
-#  GradeEquivalent   => GradeEquivalent
-#  TotalTime         => TotalTimeInSeconds
-#
 class StarImporter
   def initialize(options:)
     @model_class = options.fetch(:model_class, nil)
     @remote_file_name = options.fetch(:remote_file_name, nil)
     @school_scope = options.fetch(:school_scope)
-    @log = options.fetch(:log)
+    @log = options.fetch(:log, nil)
     @invalid_rows_count = 0
+    @skipped_from_school_filter = 0
 
     raise 'missing option: model_class' if @model_class.nil?
     raise 'missing option: remote_file_name' if @remote_file_name.nil?
@@ -39,11 +32,12 @@ class StarImporter
       data = data_transformer.transform(data_string)
 
       data.each_with_index do |row, index|
-        import_row(row) if filter.include?(row.fetch('StudentIdentifier'))
+        import_row(row)
         log("processed #{index} rows.") if index % 1000 == 0
       end
 
       log("skipped #{@invalid_rows_count} invalid rows.")
+      log("skipped #{@skipped_from_school_filter} rows because of school filter.")
     end
   end
 
@@ -62,18 +56,30 @@ class StarImporter
     })
   end
 
-  def filter
+  def school_filter
     SchoolFilter.new(@school_scope)
   end
 
-  def import_row(row)
-    student = Student.find_by_local_id(row.fetch('StudentIdentifier'))
-    if student.nil?
-      log("skipping, StudentIdentifier not found: #{row['StudentIdentifier']}")
+  def import_row(raw_row)
+    # Handle differences in migrations across districts and different
+    # format exports.
+    row = PerDistrict.new.parsed_normalized_star_row(raw_row)
+
+    # Skip based on school filter
+    if !school_filter.include?(row['SchoolIdentifier'])
+      @skipped_from_school_filter += 1
       return
     end
 
-    datetime_string = row.fetch('CompletedDate') # alt, LaunchDate, CompletedDateLocal
+    # match student
+    student_local_id = row['StudentIdentifier']
+    student = Student.find_by_local_id(student_local_id)
+    if student.nil?
+      log("skipping, StudentIdentifier not found: #{student_local_id}")
+      return
+    end
+
+    datetime_string = row['CompletedDate']
     day = DateTime.strptime(datetime_string, "%m/%d/%Y")
     time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
 
@@ -93,9 +99,9 @@ class StarImporter
     )
 
     test_result.assign_attributes({
-      percentile_rank: row.fetch('PercentileRank'),
-      grade_equivalent: row.fetch('GradeEquivalent'),
-      total_time: row.fetch('TotalTimeInSeconds'),
+      percentile_rank: row['PercentileRank'],
+      grade_equivalent: row['GradeEquivalent'],
+      total_time: row['TotalTimeInSeconds']
     })
 
     if test_result.invalid?
