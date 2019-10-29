@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe StarMathImporter do
-  def create_mocked_importer(local_fixture_filename)
-    mock_for_fixture!(local_fixture_filename)
+  def create_mocked_importer(district_key, local_fixture_filename, options = {})
+    mock_for_fixture!(district_key, local_fixture_filename)
     log = LogHelper::FakeLog.new
     importer = StarMathImporter.new(options: {
       school_scope: nil,
       log: log
-    })
+    }.merge(options))
     [importer, log]
   end
 
-  def mock_for_fixture!(local_fixture_filename)
+  def mock_for_fixture!(district_key, local_fixture_filename)
     # mock config
-    mock_per_district = PerDistrict.new
+    mock_per_district = PerDistrict.new(district_key: district_key)
     allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_MATH_IMPORT').and_return('file.csv')
     allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_ZIP_FILE').and_return('star.zip')
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
@@ -33,10 +33,11 @@ RSpec.describe StarMathImporter do
   end
 
   describe '#import' do
-    let!(:student) { FactoryBot.create(:student, local_id: '10') }
+    let!(:pals) { TestPals.create! }
+    let!(:student) { FactoryBot.create(:student, local_id: '10', school: pals.west) }
 
-    it 'works' do
-      importer, log = create_mocked_importer("#{Rails.root}/spec/importers/star/fake_star_math.csv")
+    it 'works for v2 in somerville' do
+      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv")
       importer.import
       expect(log.output).to include(':processed_rows_count=>1')
       expect(StarMathResult.all.size).to eq(1)
@@ -49,11 +50,34 @@ RSpec.describe StarMathImporter do
       })
     end
 
-    it 'tolerates bad data' do
-      importer, log = create_mocked_importer("#{Rails.root}/spec/importers/star/bad_star_math_data.csv")
+    it 'works for v1 in new_bedford' do
+      importer, log = create_mocked_importer(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_math_v1.csv")
+      importer.import
+      expect(log.output).to include(':processed_rows_count=>1')
+      expect(StarMathResult.all.size).to eq(1)
+      expect(StarMathResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
+        "date_taken"=>DateTime.new(2015, 1, 21, 14, 18, 27), # stored in UTC
+        "percentile_rank"=>70,
+        "total_time"=>600,
+        "grade_equivalent"=>"1.00",
+        "student_id"=>student.id
+      })
+    end
+
+    it 'handles bad data (v2 as example)' do
+      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2_invalid.csv")
       importer.import
       expect(log.output).to include('error: ["Percentile rank can\'t be blank"]')
       expect(log.output).to include('skipped 1 invalid rows')
+      expect(StarMathResult.all.size).to eq(0)
+    end
+
+    it 'supports school filter (v2 as example)' do
+      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv", {
+        school_scope: ['SHS']
+      })
+      importer.import
+      expect(log.output).to include('skipped 1 rows because of school filter')
       expect(StarMathResult.all.size).to eq(0)
     end
   end

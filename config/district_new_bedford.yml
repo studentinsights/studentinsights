@@ -12,6 +12,7 @@ sftp_filenames:
   FILENAME_FOR_PHOTOS_ZIP:            /home/newbedford/photos.zip
 
 star_filenames:
+  FORMAT_VERSION:                     v1
   FILENAME_FOR_STAR_READING_IMPORT:   SR.csv
   FILENAME_FOR_STAR_MATH_IMPORT:      SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:         New Bedford Public Schools.zip

@@ -24,6 +24,7 @@ sftp_filenames:
     - /home/jbreslin/data/student-documents-1.zip
 
 star_filenames:
+  FORMAT_VERSION:                                   v2
   FILENAME_FOR_STAR_READING_IMPORT:                 SR_v2.csv
   FILENAME_FOR_STAR_MATH_IMPORT:                    SM_v2.csv
   FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
