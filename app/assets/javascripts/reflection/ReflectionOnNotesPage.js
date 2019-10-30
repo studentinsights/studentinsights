@@ -77,8 +77,8 @@ export default class ReflectionOnNotesPage extends React.Component {
     const words = _.flatMap(segments, segment => segment.split(' '));
     return (
       <div key={student.id} style={{display: 'flex', flexDirection: 'row', marginBottom: 50}}>
-        <div style={{width: 400, marginRight: 10}}>
-          {window.location.search.indexOf('photo') !== -1
+        <div style={{width: 400, marginRight: 10, textAlign: 'center'}}>
+          {window.location.search.indexOf('cropped') !== -1
             ? <StudentPhoto
               student={student}
               style={{height: 400}}

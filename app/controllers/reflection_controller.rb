@@ -6,10 +6,6 @@ class ReflectionController < ApplicationController
     time_now = Time.now
     school_year = SchoolYear.to_school_year(time_now)
     start_of_school_year = SchoolYear.first_day_of_school_for_year(school_year)
-    puts 'time_now:'
-    puts time_now
-    puts 'start_of_school_year:'
-    puts start_of_school_year
 
     students = authorizer.authorized { Student.active.to_a }
     event_notes = authorizer.authorized do
