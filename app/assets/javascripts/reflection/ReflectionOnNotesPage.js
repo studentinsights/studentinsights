@@ -77,14 +77,11 @@ export default class ReflectionOnNotesPage extends React.Component {
     const words = _.flatMap(segments, segment => segment.split(' '));
     return (
       <div key={student.id} style={{display: 'flex', flexDirection: 'row', marginBottom: 50}}>
-        <div>
+        <div style={{width: 400, marginRight: 10}}>
           {window.location.search.indexOf('photo') !== -1
           ? <StudentPhoto
               student={student}
-              style={{
-                maxWidth: 400,
-                maxHeight: 400
-              }}
+              style={{height: 400}}
             />
           : <StudentPhotoCropped
               studentId={student.id}
@@ -94,8 +91,8 @@ export default class ReflectionOnNotesPage extends React.Component {
               }}
             />
           }
-          <div>
-            <a href={Routes.studentProfile(student.id)} style={{fontSize: 24, margin: 5}}>
+          <div style={{textAlign: 'center'}}>
+            <a href={Routes.studentProfile(student.id)} style={{fontSize: 24, margin: 10}}>
               {student.first_name} {student.last_name}
             </a>
           </div>
