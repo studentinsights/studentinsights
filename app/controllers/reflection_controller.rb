@@ -38,6 +38,7 @@ class ReflectionController < ApplicationController
 
   private
   def ensure_authorized!
-    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reflection_on_notes_patterns')
+    is_authorized = current_educator.labels.include?('enable_reflection_on_notes_patterns') || EnvironmentVariable.is_true('ENABLE_REFLECTION_ON_NOTES_FOR_ALL')
+    raise Exceptions::EducatorNotAuthorized unless is_authorized
   end
 end
