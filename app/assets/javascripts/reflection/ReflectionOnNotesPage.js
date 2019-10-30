@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
+import StudentPhoto from '../components/StudentPhoto';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import Delay from '../components/Delay';
 import GenericLoader from '../components/GenericLoader';
@@ -77,13 +78,22 @@ export default class ReflectionOnNotesPage extends React.Component {
     return (
       <div key={student.id} style={{display: 'flex', flexDirection: 'row', marginBottom: 50}}>
         <div>
-          <StudentPhotoCropped
-            studentId={student.id}
-            style={{
-              width: 400,
-              height: 400
-            }}
-          />
+          {window.location.search.indexOf('photo') !== -1
+          ? <StudentPhoto
+              student={student}
+              style={{
+                maxWidth: 400,
+                maxHeight: 400
+              }}
+            />
+          : <StudentPhotoCropped
+              studentId={student.id}
+              style={{
+                width: 400,
+                height: 400
+              }}
+            />
+          }
           <div>
             <a href={Routes.studentProfile(student.id)} style={{fontSize: 24, margin: 5}}>
               {student.first_name} {student.last_name}
