@@ -159,7 +159,7 @@ export default class App extends React.Component {
   }
 
   renderReflectionOnNotes(routeProps) {
-    return <ReflectionOnNotesPage />
+    return <ReflectionOnNotesPage />;
   }
 
   renderMyNotesPage(routeProps) {

@@ -79,11 +79,11 @@ export default class ReflectionOnNotesPage extends React.Component {
       <div key={student.id} style={{display: 'flex', flexDirection: 'row', marginBottom: 50}}>
         <div style={{width: 400, marginRight: 10}}>
           {window.location.search.indexOf('photo') !== -1
-          ? <StudentPhoto
+            ? <StudentPhoto
               student={student}
               style={{height: 400}}
             />
-          : <StudentPhotoCropped
+            : <StudentPhotoCropped
               studentId={student.id}
               style={{
                 width: 400,

@@ -742,4 +742,4 @@ export default {
       "I met with her about staying after school so she could make them up, or how she could work with her lab partner."
     ]
   }
-}
+};
