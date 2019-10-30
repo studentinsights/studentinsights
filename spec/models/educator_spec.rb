@@ -134,6 +134,7 @@ RSpec.describe Educator do
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_reading_benchmark_data_entry',
+        'enable_reflection_on_notes_patterns',
         'enable_equity_experiments',
         'enable_reading_debug',
         'profile_enable_minimal_reading_data',
