@@ -4,6 +4,7 @@ import {NEW_BEDFORD} from '../app/assets/javascripts/helpers/PerDistrict';
 import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
+import ReflectionOnNotesPage from '../app/assets/javascripts/reflection/ReflectionOnNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
@@ -28,6 +29,7 @@ import {MemoryRouter} from 'react-router-dom';
 
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/search_notes/SearchNotesPage');
+jest.mock('../app/assets/javascripts/reflection/ReflectionOnNotesPage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/homeroom/HomeroomPage');
 jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
@@ -91,6 +93,10 @@ it('renders SearchNotesPage without crashing', () => {
   )).toEqual(true);
 });
 
+it('renders SearchNotesPage without crashing', () => {
+  const wrapper = mount(renderPath('/reflection/notes'));
+  expect(wrapper.contains(<ReflectionOnNotesPage />)).toEqual(true);
+});
 
 it('renders MyStudentsPage without crashing', () => {
   const wrapper = mount(renderPath('/educators/my_students'));

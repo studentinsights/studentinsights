@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import Delay from '../components/Delay';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import SectionHeading from '../components/SectionHeading';
 import BoxCard from '../components/BoxCard';
 import WordCloud from '../components/WordCloud';

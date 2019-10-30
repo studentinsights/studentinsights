@@ -159,13 +159,7 @@ export default class App extends React.Component {
   }
 
   renderReflectionOnNotes(routeProps) {
-    const {currentEducator} = this.props;
-    const {id, labels} = currentEducator;
-    return (
-      <ReflectionOnNotesPage
-        educatorId={id}
-        educatorLabels={labels} />
-    );
+    return <ReflectionOnNotesPage />
   }
 
   renderMyNotesPage(routeProps) {
