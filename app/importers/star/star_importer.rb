@@ -8,6 +8,7 @@ class StarImporter
     @log = options.fetch(:log, nil)
     @invalid_rows_count = 0
     @skipped_from_school_filter = 0
+    @student_id_not_found_count = 0
 
     raise 'missing option: model_class' if @model_class.nil?
     raise 'missing option: remote_file_name' if @remote_file_name.nil?
@@ -38,6 +39,7 @@ class StarImporter
 
       log("skipped #{@invalid_rows_count} invalid rows.")
       log("skipped #{@skipped_from_school_filter} rows because of school filter.")
+      log("skipped #{@student_id_not_found_count} rows because student not found.")
     end
   end
 
@@ -75,7 +77,7 @@ class StarImporter
     student_local_id = row['StudentIdentifier']
     student = Student.find_by_local_id(student_local_id)
     if student.nil?
-      log("skipping, StudentIdentifier not found: #{student_local_id}")
+      @student_id_not_found_count += 1
       return
     end
 

@@ -42,12 +42,12 @@ export default class WordCloud extends React.Component {
   }
 
   render() {
-    const {width, height} = this.props;
+    const {width, height, style = {}} = this.props;
     return (
       <canvas
         className="WordCloud"
         ref={el => this.el = el}
-        style={{cursor: 'pointer'}}
+        style={{cursor: 'pointer', ...style}}
         width={width}
         height={height}
       />
@@ -57,7 +57,8 @@ export default class WordCloud extends React.Component {
 WordCloud.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  words: PropTypes.arrayOf(PropTypes.string).isRequired
+  words: PropTypes.arrayOf(PropTypes.string).isRequired,
+  style: PropTypes.object
 };
 
 

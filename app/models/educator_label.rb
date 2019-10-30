@@ -42,6 +42,7 @@ class EducatorLabel < ApplicationRecord
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_searching_notes',
+        'enable_reflection_on_notes_patterns',
         'can_mark_notes_as_restricted',
         'enable_equity_experiments',
         'enable_counselor_meetings_page'

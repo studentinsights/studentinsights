@@ -13,6 +13,7 @@ import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal'
 import RollbarErrorBoundary from '../app/assets/javascripts/components/RollbarErrorBoundary';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
+import ReflectionOnNotesPage from '../app/assets/javascripts/reflection/ReflectionOnNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import SchoolRosterPage from '../app/assets/javascripts/school_overview/SchoolRosterPage';
@@ -104,6 +105,7 @@ export default class App extends React.Component {
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/search/notes" render={this.renderSearchNotesPage.bind(this)}/>
+        <Route exact path="/reflection/notes" render={this.renderReflectionOnNotes.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug/absences" render={this.renderAbsencesPage.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
@@ -154,6 +156,10 @@ export default class App extends React.Component {
         educatorId={id}
         educatorLabels={labels} />
     );
+  }
+
+  renderReflectionOnNotes(routeProps) {
+    return <ReflectionOnNotesPage />;
   }
 
   renderMyNotesPage(routeProps) {
