@@ -323,7 +323,7 @@ describe ProfileController, :type => :controller do
             'intensity',
             'data_owner'
           ])
-          expect(json['service_types_index'].keys).to eq([
+          expect(json['service_types_index'].keys.sort).to contain_exactly(*[
             '502',
             '503',
             '504',
@@ -331,16 +331,20 @@ describe ProfileController, :type => :controller do
             '506',
             '507',
             '508',
-            '511',
-            '513',
-            '514',
             '509',
             '510',
+            '511',
             '512',
+            '513',
+            '514',
             '515',
             '516',
             '517',
             '518',
+            '601',
+            '602',
+            '603',
+            '604',
             '701',
             '702',
             '703',
