@@ -527,6 +527,7 @@ exports[`snapshots 1`] = `
           >
             <img
               alt="😃"
+              className="StudentPhoto"
               onError={[Function]}
               src="/students/66/photo"
               style={
@@ -580,6 +581,7 @@ exports[`snapshots 1`] = `
           >
             <img
               alt="😃"
+              className="StudentPhoto"
               onError={[Function]}
               src="/students/64/photo"
               style={
@@ -633,6 +635,7 @@ exports[`snapshots 1`] = `
           >
             <img
               alt="😃"
+              className="StudentPhoto"
               onError={[Function]}
               src="/students/67/photo"
               style={
@@ -686,6 +689,7 @@ exports[`snapshots 1`] = `
           >
             <img
               alt="😃"
+              className="StudentPhoto"
               onError={[Function]}
               src="/students/60/photo"
               style={
@@ -739,6 +743,7 @@ exports[`snapshots 1`] = `
           >
             <img
               alt="😃"
+              className="StudentPhoto"
               onError={[Function]}
               src="/students/61/photo"
               style={
@@ -792,6 +797,7 @@ exports[`snapshots 1`] = `
           >
             <img
               alt="😃"
+              className="StudentPhoto"
               onError={[Function]}
               src="/students/63/photo"
               style={

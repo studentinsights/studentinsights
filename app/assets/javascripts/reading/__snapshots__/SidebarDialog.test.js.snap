@@ -25,6 +25,7 @@ exports[`snapshots 1`] = `
     >
       <img
         alt="Student photo for Mowgli Duck"
+        className="StudentPhoto"
         onError={[Function]}
         src="/students/64/photo"
         style={
