@@ -28,6 +28,8 @@ RSpec.describe WideStudentsExporter do
           include_event_notes: true
         })
         flat_row_hash = exporter.send(:flat_row_hash, school.students.first)
+        puts "flat_row_hash.keys"
+        puts flat_row_hash.keys.join("\n")
         expect(flat_row_hash.keys).to contain_exactly(*[
           'id',
           'grade',
