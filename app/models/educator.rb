@@ -46,7 +46,7 @@ class Educator < ApplicationRecord
   end
 
   def labels(options = {})
-    EducatorLabel.labels(self, options)
+    EducatorLabel.labels(self, options).sort
   end
 
   # deprecated, migrate to Authorizer

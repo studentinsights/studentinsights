@@ -20,13 +20,13 @@ describe UiController, :type => :controller do
           "school_id" => pals.healey.id,
           "labels" => [
             'can_upload_student_voice_surveys',
-            'should_show_levels_shs_link',
-            'enable_reading_benchmark_data_entry',
-            'enable_reflection_on_notes_patterns',
-            'profile_enable_minimal_reading_data',
             'enable_equity_experiments',
+            'enable_reading_benchmark_data_entry',
             'enable_reading_debug',
-            'enable_viewing_educators_with_access_to_student'
+            'enable_reflection_on_notes_patterns',
+            'enable_viewing_educators_with_access_to_student',
+            'profile_enable_minimal_reading_data',
+            'should_show_levels_shs_link'
           ]
         }
       }.deep_stringify_keys)
