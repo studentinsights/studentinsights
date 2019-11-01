@@ -80,6 +80,9 @@ Rails.application.routes.draw do
   # notes search
   get '/api/search_notes/query_json' => 'search_notes#query_json'
 
+  # reflection tools
+  get '/api/reflection/notes_patterns_json' => 'reflection#notes_patterns_json'
+
   # my notes
   get '/api/educators/my_notes_json'=> 'educators#my_notes_json'
 
@@ -157,6 +160,9 @@ Rails.application.routes.draw do
 
   # search notes
   get '/search/notes' => 'ui#ui'
+
+  # reflection tools
+  get '/reflection/notes' => 'ui#ui'
 
   # SHS levels
   get '/levels/:school_id' => 'ui#ui'

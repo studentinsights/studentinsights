@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import serviceColor from '../helpers/serviceColor';
+import {questionMarkEl} from './LightHelpBubble';
 
 /*
 Renders the list of services.
@@ -76,10 +77,10 @@ export default class ServicesList extends React.Component {
   }
 
   renderService(service) {
+    const {serviceTypesIndex, servicesInfoDocUrl} = this.props;
     const wasDiscontinued = this.wasDiscontinued(service);
-    const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
+    const serviceText = serviceTypesIndex[service.service_type_id].name;
     const providedByEducatorName = service.provided_by_educator_name;
-
     return (
       <div
         key={service.id}
@@ -92,14 +93,16 @@ export default class ServicesList extends React.Component {
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 'bold' }}>
               {serviceText}
+              {servicesInfoDocUrl && (
+                <a style={styles.infoDocLink} href={servicesInfoDocUrl} target="_blank" rel="noopener noreferrer">
+                  {questionMarkEl(16, {verticalAlign: 'middle'})}
+                </a>
+              )}
             </div>
             {this.renderEducatorName(providedByEducatorName)}
-            {// When did the service start?
-              this.renderDateStarted(service)}
-            {// When will the service end?
-              this.renderEstimatedEndDate(service)}
-            {// How long has it been going?
-              this.renderTimeSinceStarted(service)}
+            {this.renderDateStarted(service)}
+            {this.renderEstimatedEndDate(service)}
+            {this.renderTimeSinceStarted(service)}
           </div>
           {this.renderDiscontinuedInformation(service)}
         </div>
@@ -259,7 +262,8 @@ ServicesList.propTypes = {
   serviceTypesIndex: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   discontinueServiceRequests: PropTypes.object.isRequired,
-  onClickDiscontinueService: PropTypes.func.isRequired
+  onClickDiscontinueService: PropTypes.func.isRequired,
+  servicesInfoDocUrl: PropTypes.string
 };
   
 function initialState() {
@@ -299,6 +303,11 @@ const styles = {
   },
   discontinueConfirm: {
     background: '#E2664A'
+  },
+  infoDocLink: {
+    display: 'inline-block',
+    marginLeft: 10,
+    color: '#999'
   }
 };
 

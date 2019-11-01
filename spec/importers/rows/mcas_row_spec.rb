@@ -31,7 +31,6 @@ RSpec.describe McasRow do
         'assessment_id' => a_kind_of(Integer),
         'student_id' => pals.shs_freshman_mari.id,
         'date_taken' => Time.zone.local(2018, 5, 15),
-        'instructional_reading_level' => nil,
         'percentile_rank' => nil,
         'grade_equivalent' => nil,
         'scale_score' => 239,

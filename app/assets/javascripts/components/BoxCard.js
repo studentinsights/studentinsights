@@ -5,11 +5,11 @@ import Card from './Card';
 
 // A visual UI element for a boxy card of information, with a title.
 // Does not have a defined or minimum height; style that in the child element.
-export default function BoxCard({title, children, style, className}) {
+export default function BoxCard({title, children, style = {}, className}) {
   return (
     <Card
       className={`BoxCard ${className || ''}`}
-      style={styles.card}>
+      style={{...styles.card, ...style}}>
       <div style={styles.cardTitle}>{title}</div>
       {children}
     </Card>

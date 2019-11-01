@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
+import {mount} from 'enzyme';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import {
   studentProfile,
   nowMoment,
@@ -24,16 +26,41 @@ export function testProps(props) {
   };
 }
 
-const helpers = {
-  renderInto(el, props) {
-    const mergedProps = testProps(props);
-    return ReactDOM.render(<RecordService {...mergedProps} />, el); // eslint-disable-line
-  },
+function propsWithServiceInfoLabel(props = {}) {
+  return {
+    ...props,
+    servicesInfoDocUrl: 'https://example.com/',
+    currentEducator: {
+      ...props.currentEducator,
+      labels: ['show_services_info']
+    }
+  };
+}
 
+function forDistrict(el, districtKey) {
+  return <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>;
+}
+
+function mountWithContext(props, context = {districtKey: 'demo'}) {
+  return mount(<RecordService {...props} />, {context});
+}
+
+function testRender(props, options = {}) {
+  const el = document.createElement('div');
+  const districtKey = options.districtKey || 'somerville';
+  ReactDOM.render(forDistrict(<RecordService {...props} />, districtKey), el);
+  return {el};
+}
+
+const helpers = {
   serviceTypes(el) {
     return $(el).find('.btn.service-type').toArray().map(el => {
-      return el.innerHTML.trim();
+      return $(el).text().trim();
     });
+  },
+
+  findServiceButton(el, serviceTypeId) {
+    return $(el).find(`.btn.service-type-${serviceTypeId}`).get(0);
   },
 
   findSaveButton(el) {
@@ -48,6 +75,10 @@ const helpers = {
     return $(el).find('.datepicker').get(1);
   },
 
+  findServiceInfoText(el) {
+    return $(el).find('.RecordService-service-info-box').text().trim();
+  },
+
   isSaveButtonEnabled(el) {
     return helpers.findSaveButton(el).attr('disabled') !== 'disabled';
   },
@@ -57,7 +88,8 @@ const helpers = {
   },
 
   simulateClickOnService(el, serviceTypeId) {
-    ReactTestUtils.Simulate.click($(el).find(`.btn.service-type-${serviceTypeId}`).get(0));
+    const buttonEl = helpers.findServiceButton(el, serviceTypeId);
+    ReactTestUtils.Simulate.click(buttonEl);
   },
 
   simulateStartDateChange(el, text) {
@@ -86,19 +118,8 @@ const helpers = {
 
 describe('integration tests', () => {
   it('renders dialog for recording services', () => {
-    const el = document.createElement('div');
-    helpers.renderInto(el);
-
+    const {el} = testRender(testProps());
     expect($(el).text()).toContain('Which service?');
-    expect(helpers.serviceTypes(el)).toEqual([
-      'Attendance Contract',
-      'Attendance Officer',
-      'Behavior Contract',
-      'Counseling, in-house',
-      'Counseling, outside',
-      'Reading intervention'
-    ]);
-
 
     expect($(el).text()).toContain('Who is working with Tamyra?');
     // TODO (as): test staff dropdown autocomplete async
@@ -114,46 +135,145 @@ describe('integration tests', () => {
     expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
   });
 
+  describe('shows different service types across districts', () => {
+    it('works for bedford', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Soc.emo check in',
+        'Lunch bunch',
+        'Social Group',
+        'Individual Counseling',
+        'Formal Behavior Plan',
+        'LLI Reading Instruction',
+        'Reading intervention, with specialist',
+        'Title 1 Math intervention',
+        'Math Intervention, small group',
+      ]);
+    });
+
+    it('works for somerville', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Attendance Contract',
+        'Attendance Officer',
+        'Behavior Contract',
+        'Counseling, in-house',
+        'Counseling, outside',
+        'Reading intervention'
+      ]);
+    });
+
+    it('works for new_bedford', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'new_bedford'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Attendance Contract',
+        'Attendance Officer',
+        'Behavior Contract',
+        'Counseling, in-house',
+        'Counseling, outside',
+        'Reading intervention'
+      ]);
+    });
+
+    it('works for demo', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'demo'});
+      expect(helpers.serviceTypes(el)).toEqual([
+        'Attendance Contract',
+        'Attendance Officer',
+        'Behavior Contract',
+        'Counseling, in-house',
+        'Counseling, outside',
+        'Reading intervention'
+      ]);
+    });
+  });
+
+  describe('service info', () => {
+    it('shows service info as tooltip', () => {
+      const props = testProps({servicesInfoDocUrl: 'https://example.com/'});
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      const buttonEl = helpers.findServiceButton(el, 703);
+      expect(buttonEl.getAttribute('title')).toEqual([
+        'Soc.emo check in',
+        'Short regular check ins',
+        '1-3x 10min',
+        'Data owner: counselor'
+      ].join('\n'));
+    });
+
+    it('shows no info at first, then shows details on click', () => {
+      const props = testProps({servicesInfoDocUrl: 'https://example.com/'});
+      const {el} = testRender(props, {districtKey: 'bedford'});
+      expect(helpers.findServiceInfoText(el)).toEqual('Select a service for more description.');
+      helpers.simulateClickOnService(el, 703);
+      expect(helpers.findServiceInfoText(el)).toEqual([
+        'Short regular check ins',
+        '1-3x 10min',
+        'Data owner: counselor',
+        'Learn more'
+      ].join(''));
+    });
+
+    it('does not show service info if not set in PerDistrict and no label', () => {
+      const props = testProps({servicesInfoDocUrl: 'https://example.com/'});
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      helpers.simulateClickOnService(el, 502);
+      expect(helpers.findServiceInfoText(el)).toEqual('');
+    });
+
+    it('would show info if not set in PerDistrict but label is set', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      helpers.simulateClickOnService(el, 502);
+      expect(helpers.findServiceInfoText(el)).toEqual('No service info found.');
+    });
+
+    it('says `no info` if enabled but no service type info is found', () => {
+      const props = propsWithServiceInfoLabel(testProps());
+      const {el} = testRender(props, {districtKey: 'somerville'});
+      helpers.simulateClickOnService(el, 502);
+      expect(helpers.findServiceInfoText(el)).toEqual('No service info found.');
+    });    
+  });
+
   describe('validation', () => {
     it('shows warning on invalid start date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateStartDateChange(el, 'fds 1/2/2/22 not a valid date');
       expect(helpers.isWarningMessageShown(el)).toEqual(true);
     });
 
     it('shows warning on invalid end date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateEndDateChange(el, 'fds 1/2/2/22 not a valid date');
       expect(helpers.isWarningMessageShown(el)).toEqual(true);
     });
 
     it('does not allow save on invalid start date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateStartDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow save on invalid end date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateEndDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow save on end date before start date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateStartDateChange(el, '1/20/18');
       helpers.simulateEndDateChange(el, '1/2/18');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow save without educator', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateClickOnService(el, 507);
       helpers.simulateEducatorChange(el, '');
       helpers.simulateStartDateChange(el, '12/19/2018');
@@ -161,8 +281,7 @@ describe('integration tests', () => {
     });
 
     it('requires service, educator and valid start date set in order to save and allows blank end date', () => {
-      const el = document.createElement('div');
-      helpers.renderInto(el);
+      const {el} = testRender(testProps());
       helpers.simulateClickOnService(el, 507);
       helpers.simulateEducatorChange(el, 'kevin');
       helpers.simulateStartDateChange(el, '12/19/2018');
@@ -172,9 +291,8 @@ describe('integration tests', () => {
   });
 
   it('#onSave called as expected', () => {
-    const el = document.createElement('div');
     const props = testProps();
-    ReactDOM.render(<RecordService {...props} />, el);
+    const {el} = testRender(props);
     helpers.submitForm(el, { endDateText: '06/30/2019' });
 
     expect(props.onSave).toBeCalledWith({
@@ -187,9 +305,8 @@ describe('integration tests', () => {
   });
 
   it('#onSave called as expected when blank end date', () => {
-    const el = document.createElement('div');
     const props = testProps();
-    ReactDOM.render(<RecordService {...props} />, el);
+    const {el} = testRender(props);
     helpers.submitForm(el, { endDateText: '' });
 
     expect(props.onSave).toBeCalledWith({
@@ -202,13 +319,11 @@ describe('integration tests', () => {
   });
 
   it('#formatDateTextForRails', () => {
-    const el = document.createElement('div');
-    const props = testProps();
-    const instance = ReactDOM.render(<RecordService {...props} />, el); // eslint-disable-line react/no-render-return-value
-    expect(instance.formatDateTextForRails('12/19/2018')).toEqual('2018-12-19');
-    expect(instance.formatDateTextForRails('3/5/2018')).toEqual('2018-03-05');
-    expect(instance.formatDateTextForRails('1/15/18')).toEqual('2018-01-15');
-    expect(instance.formatDateTextForRails('01/5/18')).toEqual('2018-01-05');
-    expect(instance.formatDateTextForRails('01-5-18')).toEqual('2018-01-05');
+    const wrapper = mountWithContext(testProps());
+    expect(wrapper.instance().formatDateTextForRails('12/19/2018')).toEqual('2018-12-19');
+    expect(wrapper.instance().formatDateTextForRails('3/5/2018')).toEqual('2018-03-05');
+    expect(wrapper.instance().formatDateTextForRails('1/15/18')).toEqual('2018-01-15');
+    expect(wrapper.instance().formatDateTextForRails('01/5/18')).toEqual('2018-01-05');
+    expect(wrapper.instance().formatDateTextForRails('01-5-18')).toEqual('2018-01-05');
   });
 });

@@ -27,6 +27,36 @@ class SearchNotesController < ApplicationController
     }
   end
 
+  def notes_patterns_json
+    # notes for this school year, for students they work with
+    time_now = Time.now
+    school_year = SchoolYear.to_school_year(time_now)
+    start_of_school_year = SchoolYear.first_day_of_school_for_year(school_year)
+    students = authorizer.authorized { Student.active.to_a }
+    event_notes = authorizer.authorized do
+      EventNote
+        .where(student: students.map(&:id))
+        .where(is_restricted: false)
+        .where('recorded_at >= ?', start_of_school_year)
+    end
+
+    # by student, flatten out and segment text
+    notes_by_student_id = event_notes.group_by(&:student_id)
+    segments_by_student_id = {}
+    notes_by_student_id.each do |student_id, event_notes|
+      note_texts = event_notes.map(&:text)
+      segments = note_texts.flat_map do |text|
+        PragmaticSegmenter::Segmenter.new(text: text, language: 'en').segment
+      end
+      segments_by_student_id[student_id] = segments
+    end
+
+    render json: {
+      students: students.as_json(only: [:id, :first_name, :last_name, :grade, :house]),
+      segments_by_student_id: segments_by_student_id
+    }
+  end
+
   private
   # Defaults are set in the query class
   def query_from_safe_params(safe_params)

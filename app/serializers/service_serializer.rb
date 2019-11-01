@@ -19,7 +19,7 @@ class ServiceSerializer < Struct.new :service
   def self.service_types_index
     index = {}
     ServiceType.all.each do |service_type|
-      index[service_type.id] = service_type.as_json.symbolize_keys.slice(:id, :name)
+      index[service_type.id] = service_type.as_json(except: [:created_at, :updated_at]).symbolize_keys
     end
     index
   end

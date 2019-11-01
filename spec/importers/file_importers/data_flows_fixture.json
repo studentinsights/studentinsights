@@ -128,7 +128,7 @@
     "frequency": "frequency_daily",
     "merge": "merge_update_ignore_unmarked",
     "touches": [
-      "StarMathResult"
+      "StarReadingResult"
     ],
     "options": [
       "option_school_scope"

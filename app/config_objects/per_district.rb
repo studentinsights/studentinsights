@@ -56,6 +56,46 @@ class PerDistrict
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
   end
 
+  # This migrates up older formats still in use in New Bedfor
+  # into the v2 format that was new in Somerville for the 2019
+  # year.  The importer is minimal to keep the maintenance cost
+  # low here.
+  #
+  #  v1                   v2
+  # ----------------------------------------
+  #  StudentLocalID    => StudentIdentifier
+  #  AssessmentDate    => CompletedDate
+  #  PercentileRank    => PercentileRank
+  #  GradeEquivalent   => GradeEquivalent
+  #  TotalTime         => TotalTimeInSeconds
+  #
+  # If these differences become more substantive, we can break this
+  # apart into two separate importers, but since these are just name
+  # changes this is okay for now.
+  def parsed_normalized_star_row(row)
+    if @district_key == NEW_BEDFORD # translated safelist
+      {
+        'SchoolIdentifier' => row['SchoolLocalID'],
+        'StudentIdentifier' => row['StudentLocalID'],
+        'CompletedDate' => row['AssessmentDate'],
+        'PercentileRank' => row['PercentileRank'],
+        'GradeEquivalent' => row['GradeEquivalent'],
+        'TotalTimeInSeconds' => row['TotalTime']
+      }
+    elsif @district_key == SOMERVILLE # passthrough safelist
+      {
+        'SchoolIdentifier' => row['SchoolIdentifier'],
+        'StudentIdentifier' => row['StudentIdentifier'],
+        'CompletedDate' => row['CompletedDate'], # alt, LaunchDate, CompletedDateLocal
+        'PercentileRank' => row['PercentileRank'],
+        'GradeEquivalent' => row['GradeEquivalent'],
+        'TotalTimeInSeconds' => row['TotalTimeInSeconds']
+      }
+    else
+      raise_not_handled!
+    end
+  end
+
   # Support patching this for Somerville, so that it is derived
   # from the actual 504 plan document, since the SIS field from
   # the student export is inaccurate (eg, not considering if status of
@@ -618,6 +658,10 @@ class PerDistrict
     else
       false
     end
+  end
+
+  def services_info_doc_url
+    ENV.fetch('SERVICES_INFO_DOC_URL', nil)
   end
 
   private

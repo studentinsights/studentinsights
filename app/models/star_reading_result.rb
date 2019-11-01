@@ -3,8 +3,7 @@ class StarReadingResult < ApplicationRecord
   validate :valid_percentile_rank
 
   # These are also enforced with constraints at the database level:
-  validates :percentile_rank, :grade_equivalent, :total_time, :student,
-    :instructional_reading_level, presence: true
+  validates :percentile_rank, :grade_equivalent, :total_time, :student, presence: true
 
   def valid_percentile_rank
     return unless percentile_rank

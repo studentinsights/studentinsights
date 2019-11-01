@@ -88,10 +88,6 @@ FactoryBot.define do
     factory :high_school_student do
       grade { "11" }
     end
-    factory :student_we_want_to_update do       # Test importing data
-      local_id { "10" }                             # State ID matches fixture
-      home_language { "English" }
-    end
     factory :student_with_homeroom do
       association :homeroom, name: "601"
     end

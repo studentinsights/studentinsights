@@ -1729,6 +1729,7 @@ exports[`snapshots view with wordcloud 1`] = `
               "display": "flex",
               "flexDirection": "column",
               "margin": 20,
+              "marginTop": 10,
               "padding": 0,
             }
           }

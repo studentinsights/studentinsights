@@ -4,6 +4,8 @@ import {
   studentTableEventNoteTypeIds,
   eventNoteTypeIdsForSearch,
   hasActive504Plan,
+  recordServiceChoices,
+  nonAcademicServiceTypeIdsForPhaselines,
   decideStudentProfileTabs
 } from './PerDistrict';
 
@@ -66,6 +68,34 @@ describe('#hasActive504Plan', () => {
     expect(hasActive504Plan('NotIn504')).toEqual(false);
     expect(hasActive504Plan('Exited')).toEqual(false);
     expect(hasActive504Plan('unknown')).toEqual(false);
+  });
+});
+
+describe('#recordServiceChoices', () => {
+  it('works across districts', () => {
+    const defaultServiceChoices = {
+      leftServiceTypeIds: [503, 502, 504],
+      rightServiceTypeIds: [505, 506, 507]
+    };
+    expect(recordServiceChoices('somerville')).toEqual(defaultServiceChoices);
+    expect(recordServiceChoices('new_bedford')).toEqual(defaultServiceChoices);
+    expect(recordServiceChoices('demo')).toEqual(defaultServiceChoices);
+    
+    expect(recordServiceChoices('bedford')).toEqual({
+      leftServiceTypeIds: [703, 702, 705, 704, 709],
+      rightServiceTypeIds: [707, 706, 701, 708]
+    });
+  });
+});
+
+describe('#nonAcademicServiceTypeIdsForPhaselines', () => {
+  it('works across districts', () => {
+    const defaultServiceTypeIds = [502, 503, 504, 505, 506];
+    expect(nonAcademicServiceTypeIdsForPhaselines('somerville')).toEqual(defaultServiceTypeIds);
+    expect(nonAcademicServiceTypeIdsForPhaselines('new_bedford')).toEqual(defaultServiceTypeIds);
+    expect(nonAcademicServiceTypeIdsForPhaselines('demo')).toEqual(defaultServiceTypeIds);
+
+    expect(nonAcademicServiceTypeIdsForPhaselines('bedford')).toEqual([702, 703, 704, 705, 709]);
   });
 });
 
