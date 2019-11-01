@@ -81,23 +81,9 @@ class StarImporter
       return
     end
 
-    datetime_string = row['CompletedDate']
-    day = DateTime.strptime(datetime_string, "%m/%d/%Y")
-    time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
-
-    # Merge together data from DateTime and Time because:
-    #  * The Ruby `Time` class handles timezones properly (DateTime has issues)
-    #  * The Ruby `DateTime` class stores dates properly
-    #  * The only way I found to successfully parse and store this data was to
-    #    use both classes and merge the results together
-    date_taken = DateTime.new(
-      day.year, day.month, day.day,
-      time.hour, time.min, time.sec, time.formatted_offset
-    )
-
     test_result = @model_class.find_or_initialize_by(
       student_id: student.id,
-      date_taken: date_taken,
+      date_taken: row['CompletedDate'] # parsed into Time
     )
 
     test_result.assign_attributes({
