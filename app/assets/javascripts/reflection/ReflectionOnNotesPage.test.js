@@ -41,7 +41,7 @@ describe('integration tests', () => {
     setTimeout(() => {
       expect(wrapper.html()).toContain('Reflection on notes');
       expect($(wrapper.html()).find('.BoxCard').length).toEqual(10);
-      expect($(wrapper.html()).find('.StudentPhotoCropped').length).toEqual(10);
+      expect($(wrapper.html()).find('.StudentPhoto').length).toEqual(10);
       expect(wrapper.text()).toContain('More');
       done();
     }, 0);
