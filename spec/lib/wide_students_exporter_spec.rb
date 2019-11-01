@@ -114,7 +114,11 @@ RSpec.describe WideStudentsExporter do
           'LLI Reading Instruction (active_service_date_started)',
           'Lunch bunch (active_service_date_started)',
           'Reading intervention, with specialist (active_service_date_started)',
-          'Math Intervention, small group (active_service_date_started)'
+          'Math Intervention, small group (active_service_date_started)',
+          'SPS Heggerty, week 1 (active_service_date_started)',
+          'SPS Heggerty, week 5 (active_service_date_started)',
+          'SPS Heggerty, week 9 (active_service_date_started)',
+          'SPS Heggerty, week 13 (active_service_date_started)'
          ].sort
         )
       end

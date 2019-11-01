@@ -75,7 +75,11 @@ RSpec.describe ServiceUploadsController, type: :controller do
           'Summer Explore',
           'Summer Program for English Language Learners',
           'Title 1 Math intervention',
-          'X-Block'
+          'X-Block',
+          'SPS Heggerty, week 1',
+          'SPS Heggerty, week 5',
+          'SPS Heggerty, week 9',
+          'SPS Heggerty, week 13'
         ])
       end
     end
