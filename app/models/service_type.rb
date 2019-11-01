@@ -164,7 +164,7 @@ class ServiceType < ApplicationRecord
       intensity: "4 weeks",
       data_owner: "Director of SPELL"
     }, {
-      id: 511, 
+      id: 511,
       name: "Afterschool Tutoring",
       description: "Student is receiving 25 hours of afterschool tutoring math or reading services in a small group through Title I.",
       intensity: "25 hours afterschool",
