@@ -128,17 +128,25 @@ RSpec.describe Educator do
   describe '#labels' do
     let!(:pals) { TestPals.create! }
     it 'works' do
-      expect(pals.shs_bill_nye.labels).to eq ['shs_experience_team', 'should_show_low_grades_box', 'should_show_levels_shs_link']
-      expect(pals.shs_jodi.labels).to eq ['shs_experience_team', 'can_upload_student_voice_surveys', 'should_show_levels_shs_link']
-      expect(pals.uri.labels).to contain_exactly(*[
+      expect(pals.shs_bill_nye.labels).to eq [
+        'should_show_levels_shs_link',
+        'should_show_low_grades_box',
+        'shs_experience_team'
+      ]
+      expect(pals.shs_jodi.labels).to eq [
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
-        'enable_reading_benchmark_data_entry',
-        'enable_reflection_on_notes_patterns',
+        'shs_experience_team'
+      ]
+      expect(pals.uri.labels).to contain_exactly(*[
+        'can_upload_student_voice_surveys',
         'enable_equity_experiments',
+        'enable_reading_benchmark_data_entry',
         'enable_reading_debug',
+        'enable_reflection_on_notes_patterns',
+        'enable_viewing_educators_with_access_to_student',
         'profile_enable_minimal_reading_data',
-        'enable_viewing_educators_with_access_to_student'
+        'should_show_levels_shs_link'
       ])
     end
   end
