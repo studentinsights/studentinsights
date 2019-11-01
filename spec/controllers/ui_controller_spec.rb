@@ -42,9 +42,9 @@ describe UiController, :type => :controller do
           "admin" => false,
           "school_id" => pals.shs.id,
           "labels" => [
-            'shs_experience_team',
+            'should_show_levels_shs_link',
             'should_show_low_grades_box',
-            'should_show_levels_shs_link'
+            'shs_experience_team'
           ]
         }
       }.deep_stringify_keys)
