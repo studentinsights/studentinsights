@@ -64,7 +64,7 @@ class PerDistrict
   #  v1                   v2
   # ----------------------------------------
   #  StudentLocalID    => StudentIdentifier
-  #  AssessmentDate    => CompletedDate
+  #  AssessmentDate    => CompletedDate (parsed into Ruby Time)
   #  PercentileRank    => PercentileRank
   #  GradeEquivalent   => GradeEquivalent
   #  TotalTime         => TotalTimeInSeconds
@@ -77,7 +77,7 @@ class PerDistrict
       {
         'SchoolIdentifier' => row['SchoolLocalID'],
         'StudentIdentifier' => row['StudentLocalID'],
-        'CompletedDate' => row['AssessmentDate'],
+        'CompletedDate' => parse_star_date_taken_with_v1_format(row['AssessmentDate']),
         'PercentileRank' => row['PercentileRank'],
         'GradeEquivalent' => row['GradeEquivalent'],
         'TotalTimeInSeconds' => row['TotalTime']
@@ -86,7 +86,7 @@ class PerDistrict
       {
         'SchoolIdentifier' => row['SchoolIdentifier'],
         'StudentIdentifier' => row['StudentIdentifier'],
-        'CompletedDate' => row['CompletedDate'], # alt, LaunchDate, CompletedDateLocal
+        'CompletedDate' => parse_star_date_taken_with_v2_format(row['CompletedDate']), # alt, LaunchDate, CompletedDateLocal
         'PercentileRank' => row['PercentileRank'],
         'GradeEquivalent' => row['GradeEquivalent'],
         'TotalTimeInSeconds' => row['TotalTimeInSeconds']
@@ -94,6 +94,31 @@ class PerDistrict
     else
       raise_not_handled!
     end
+  end
+
+  # This is pretty old, but especially with the fixed `CDT` string here
+  # could probably be simplified or improved.
+  def parse_star_date_taken_with_v1_format(datetime_string)
+    day = DateTime.strptime(datetime_string, "%m/%d/%Y")
+    time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
+
+    # Merge together data from DateTime and Time because:
+    #  * The Ruby `Time` class handles timezones properly (DateTime has issues)
+    #  * The Ruby `DateTime` class stores dates properly
+    #  * The only way I found to successfully parse and store this data was to
+    #    use both classes and merge the results together
+    DateTime.new(
+      day.year, day.month, day.day,
+      time.hour, time.min, time.sec, time.formatted_offset
+    )
+  end
+
+  # Remove microseconds manually, since I can't figure out how to get Ruby
+  # to parse it properly, and always interpret as being in eastern time.
+  def parse_star_date_taken_with_v2_format(text)
+    text_without_microseconds = text.first(-4)
+    eastern_offset = Time.now.in_time_zone('Eastern Time (US & Canada)').formatted_offset
+    DateTime.strptime("#{text_without_microseconds} #{eastern_offset}", '%Y-%m-%d %H:%M:%S %Z')
   end
 
   # Support patching this for Somerville, so that it is derived

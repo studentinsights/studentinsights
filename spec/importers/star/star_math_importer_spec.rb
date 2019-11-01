@@ -42,7 +42,7 @@ RSpec.describe StarMathImporter do
       expect(log.output).to include(':processed_rows_count=>1')
       expect(StarMathResult.all.size).to eq(1)
       expect(StarMathResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
-        "date_taken"=>DateTime.new(2015, 1, 21, 14, 18, 27), # stored in UTC
+        "date_taken"=>DateTime.new(2015, 1, 21, 13, 18, 27), # stored in UTC
         "percentile_rank"=>70,
         "total_time"=>600,
         "grade_equivalent"=>"1.00",
