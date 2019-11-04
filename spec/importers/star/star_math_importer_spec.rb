@@ -37,31 +37,35 @@ RSpec.describe StarMathImporter do
     let!(:student) { FactoryBot.create(:student, local_id: '10', school: pals.west) }
 
     it 'works for v2 in somerville' do
-      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv")
-      importer.import
-      expect(log.output).to include(':processed_rows_count=>1')
-      expect(StarMathResult.all.size).to eq(1)
-      expect(StarMathResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
-        "date_taken"=>DateTime.new(2015, 1, 21, 13, 18, 27), # stored in UTC
-        "percentile_rank"=>70,
-        "total_time"=>600,
-        "grade_equivalent"=>"1.00",
-        "student_id"=>student.id
-      })
+      Timecop.freeze(pals.time_now) do
+        importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv")
+        importer.import
+        expect(log.output).to include(':processed_rows_count=>1')
+        expect(StarMathResult.all.size).to eq(1)
+        expect(StarMathResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
+          "date_taken"=>DateTime.new(2015, 1, 21, 13, 18, 27), # parsed as EDT/EST, stored in UTC
+          "percentile_rank"=>70,
+          "total_time"=>600,
+          "grade_equivalent"=>"1.00",
+          "student_id"=>student.id
+        })
+      end
     end
 
     it 'works for v1 in new_bedford' do
-      importer, log = create_mocked_importer(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_math_v1.csv")
-      importer.import
-      expect(log.output).to include(':processed_rows_count=>1')
-      expect(StarMathResult.all.size).to eq(1)
-      expect(StarMathResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
-        "date_taken"=>DateTime.new(2015, 1, 21, 14, 18, 27), # stored in UTC
-        "percentile_rank"=>70,
-        "total_time"=>600,
-        "grade_equivalent"=>"1.00",
-        "student_id"=>student.id
-      })
+      Timecop.freeze(pals.time_now) do
+        importer, log = create_mocked_importer(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_math_v1.csv")
+        importer.import
+        expect(log.output).to include(':processed_rows_count=>1')
+        expect(StarMathResult.all.size).to eq(1)
+        expect(StarMathResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
+          "date_taken"=>DateTime.new(2015, 1, 21, 13, 18, 27), # parsed as EDT/EST, stored in UTC
+          "percentile_rank"=>70,
+          "total_time"=>600,
+          "grade_equivalent"=>"1.00",
+          "student_id"=>student.id
+        })
+      end
     end
 
     it 'handles bad data (v2 as example)' do
