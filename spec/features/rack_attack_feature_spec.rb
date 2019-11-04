@@ -76,15 +76,40 @@ describe 'Rack::Attack respects example development config', type: :feature do
       allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return('52.95.252.0')
     end
 
-    it 'blocks the request and logs the datacenter name' do
+    it 'blocks root requests and logs the datacenter name' do
       rails_logger = LogHelper::RailsLogger.new
       allow(Rails).to receive(:logger).and_return(rails_logger)
 
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/datacenter`')
-      visit '/'
+      visit '/?hello'
       expect(page).to have_content 'Hello! This request has been blocked.'
       expect(rails_logger.output).to include('Rack::Attack req/datacenter matched `Amazon AWS`')
+    end
+
+    it 'blocks specific URL requests, sends additional error alert, and logs the datacenter name' do
+      rails_logger = LogHelper::RailsLogger.new
+      allow(Rails).to receive(:logger).and_return(rails_logger)
+
+      # additional error alert
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: 'Amazon AWS')
+
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/datacenter`')
+      visit '/specific-URL'
+      expect(page).to have_content 'Hello! This request has been blocked.'
+      expect(rails_logger.output).to include('Rack::Attack req/datacenter matched `Amazon AWS`')
+    end
+
+    it 'does not log specific URL request to noisy URLs, since they are blocked by higher-precedent rules first' do
+      rails_logger = LogHelper::RailsLogger.new
+      allow(Rails).to receive(:logger).and_return(rails_logger)
+
+      expect(Rollbar).to receive(:error).never
+      visit '/hacking.php?hacking=hacking'
+      expect(page).to have_content 'Hello! This request has been blocked.'
+      expect(rails_logger.output).not_to include('Rack::Attack req/datacenter matched `Amazon AWS`')
     end
   end
 
