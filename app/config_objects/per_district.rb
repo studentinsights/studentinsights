@@ -96,21 +96,11 @@ class PerDistrict
     end
   end
 
-  # This is pretty old, but especially with the fixed `CDT` string here
-  # could probably be simplified or improved.
+  # Parse in EDT/EST, depending on parse date (probably should be depending on
+  # the date itself.  In earlier iterations this parsing was fixed to CDT.
   def parse_star_date_taken_with_v1_format(datetime_string)
-    day = DateTime.strptime(datetime_string, "%m/%d/%Y")
-    time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
-
-    # Merge together data from DateTime and Time because:
-    #  * The Ruby `Time` class handles timezones properly (DateTime has issues)
-    #  * The Ruby `DateTime` class stores dates properly
-    #  * The only way I found to successfully parse and store this data was to
-    #    use both classes and merge the results together
-    DateTime.new(
-      day.year, day.month, day.day,
-      time.hour, time.min, time.sec, time.formatted_offset
-    )
+    eastern_offset = Time.now.in_time_zone('Eastern Time (US & Canada)').formatted_offset
+    DateTime.strptime("#{datetime_string} #{eastern_offset}", '%m/%d/%Y %H:%M:%S %Z')
   end
 
   # Remove microseconds manually, since I can't figure out how to get Ruby
