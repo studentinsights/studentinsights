@@ -53,6 +53,15 @@ class Rack::Attack
     parsed_config['whitelisted_ips'].include?(req.ip)
   end
 
+  # Find matching datacenter name, or nil if none
+  def self.matching_datacenter_name(req)
+    IPCat.datacenter?(req.ip).try(:name)
+  end
+
+  def self.is_root_page(req)
+    req.path == '/' || req.path.start_with?('/?')
+  end
+
   # Use a separate cache that the standard Rails cache;
   # we don't want any other application data to be able to get into this
   # cache, just Rack::Attack bits.
@@ -85,15 +94,6 @@ class Rack::Attack
   # Throttling requires a cache
   set_cache_from_config!
 
-  # Block all requests from known data centers
-  # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
-  blocklist('req/datacenter') do |req|
-    datacenter_name = IPCat.datacenter?(req.ip).try(:name)
-    if datacenter_name.present?
-      Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
-      true
-    end
-  end
 
   # Block things attacking WordPress and ASP, just to remove that noise
   blocklist('req/noise') do |request|
@@ -103,6 +103,21 @@ class Rack::Attack
     request.path.include?('.php') ||
     request.path.include?('.asp') ||
     request.path.include?('.aspx')
+  end
+
+  # Block all requests from known data centers
+  # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
+  # 
+  # Alert additionally as errors if specific URLs were targeted.
+  blocklist('req/datacenter') do |req|
+    datacenter_name = matching_datacenter_name(req)
+    if datacenter_name.present?
+      Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
+      if !is_root_page(req)
+        Rollbar.error('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: datacenter_name)
+      end
+      true
+    end
   end
 
   # Throttle all requests by IP
