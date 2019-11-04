@@ -53,15 +53,6 @@ class Rack::Attack
     parsed_config['whitelisted_ips'].include?(req.ip)
   end
 
-  # Find matching datacenter name, or nil if none
-  def self.matching_datacenter_name(req)
-    IPCat.datacenter?(req.ip).try(:name)
-  end
-
-  def self.is_root_page(req)
-    req.path == '/' || req.path.start_with?('/?')
-  end
-
   # Use a separate cache that the standard Rails cache;
   # we don't want any other application data to be able to get into this
   # cache, just Rack::Attack bits.
@@ -110,10 +101,11 @@ class Rack::Attack
   # 
   # Alert additionally as errors if specific URLs were targeted.
   blocklist('req/datacenter') do |req|
-    datacenter_name = matching_datacenter_name(req)
+    datacenter_name = IPCat.datacenter?(req.ip).try(:name)
     if datacenter_name.present?
       Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
-      if !is_root_page(req)
+      is_root_page = (req.path == '/' || req.path.start_with?('/?'))
+      if !is_root_page
         Rollbar.error('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: datacenter_name)
       end
       true
