@@ -20,6 +20,7 @@ function loadRollbar() {
     captureUncaught: true,
     captureUnhandledRejections: true,
     transform: transform, // see note below
+    sendConfig: false,
 
     // Throttle, mostly for limiting the impact of bugs in browser extensions
     itemsPerMinute: 5,
@@ -46,10 +47,24 @@ function loadRollbar() {
       'person',
       'fingerprint',
       'id',
-      'currentEducator',
+      
+      'student',
+      'student_id',
+      'first_name',
+      'last_name',
+      'full_name',
+      'name',
+      
       'educator',
       'email',
-      'username'
+      'username',
+      'current_educator',
+      'educator_id',
+      'currentEducator',
+
+      'search',
+      'query',
+      'q'
     ],
     
     // We limit the "Telemetry" because of the privacy risk, and
