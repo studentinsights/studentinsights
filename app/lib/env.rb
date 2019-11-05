@@ -20,6 +20,7 @@ class Env
     default_env['MOCK_LDAP_PASSWORD'] = 'demo-password'
     default_env['AWS_REGION'] = 'us-west-2'
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
+    default_env['ROLLBAR_ACCESS_TOKEN'] = 'fake_rollbar_access_token';
     default_env['TWILIO_CONFIG_JSON'] = '{"account_sid":"fake-twilio-sid-foo","auth_token":"fake-twilio-auth-token-foo","sending_number":"+15555551234"}'
     default_env['MAILGUN_API_KEY'] = 'fake-mailgun-api-key'
     default_env['MAILGUN_DOMAIN'] = 'fake-mailgun-domain'

@@ -107,7 +107,30 @@ class ApplicationController < ActionController::Base
     return_value
   end
 
+  # Avoid logging personal information to Rollbar.
+  # Called via Rollbar, set in rollbar.rb config.
+  # See https://docs.rollbar.com/docs/person-tracking
+  def rollbar_anonymized_person_method
+    anonymized_identifier = LogAnonymizer.new.educator_identifier(request)
+    AnonymizedPersonForRollbar.new(anonymized_identifier)
+  end
+
   private
+  # This prevents Rollbar from looking at the core Educator user objects,
+  # and only seeing a smaller view with only obfuscated identifiers.
+  # The separate class is required because of the Rollbar configuration
+  # expects to get an object with the name of a method it can call.
+  class AnonymizedPersonForRollbar
+    def initialize(anonymized_identifier)
+      @anonymized_identifier = anonymized_identifier
+    end
+
+    # Called via Rollbar, set in rollbar.rb config.
+    def rollbar_person_anonymized_identifier
+      @anonymized_identifier
+    end
+  end
+
   def authorizer
     Authorizer.new(current_educator)
   end
