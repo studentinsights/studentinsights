@@ -11,6 +11,13 @@ RSpec.describe SftpClient do
     allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
   end
 
+  def mock_net_sftp_for_x2!
+    expect(Net::SFTP).to receive(:start).with("sis.x2.com", "sis-user", { :key_data=>"sis-key" }) do |&block|
+      block.call(instance_double(Net::SFTP::Session))
+    end
+    nil
+  end
+
   describe '.for_x2' do
     before { mock_env_for_x2 }
     it 'configures the sftp client for X2' do
@@ -31,48 +38,47 @@ RSpec.describe SftpClient do
     end
   end
 
-  describe '#sftp_session' do
+  describe '#with_sftp_session' do
     context 'when using a password for STAR' do
-      before do
-        mock_env_for_star
-        allow(Net::SFTP).to receive_messages(start: 'sftp_client')
-      end
-
+      before { mock_env_for_star }
       it 'sends the correct data to Net::SFTP' do
-        expect(Net::SFTP).to receive(:start).with(
-          "ftp.star.com", "sftp-user", { :password=>"sftp-password" }
-        )
-        expect(SftpClient.for_star.send(:sftp_session)).to eq 'sftp_client'
+        expect(Net::SFTP).to receive(:start).with("ftp.star.com", "sftp-user", { :password=>"sftp-password" }) do |&block|
+          block.call(instance_double(Net::SFTP::Session))
+        end
+        SftpClient.for_star.send(:with_sftp_session) do |sftp_session|
+          # noop, just asserting that Net::SFTP received what we expect
+        end
       end
     end
 
     context 'when using a key for X2' do
-      before do
-        mock_env_for_x2
-        allow(Net::SFTP).to receive_messages(start: 'sftp_client')
-      end
-
+      before { mock_env_for_x2 }
       it 'sends the correct data to Net::SFTP' do
-        expect(Net::SFTP).to receive(:start).with(
-          "sis.x2.com", "sis-user", { :key_data=>"sis-key" }
-        )
-        expect(SftpClient.for_x2.send(:sftp_session)).to eq 'sftp_client'
+        expect(Net::SFTP).to receive(:start).with("sis.x2.com", "sis-user", { :key_data=>"sis-key" }) do |&block|
+          block.call(instance_double(Net::SFTP::Session))
+        end
+        SftpClient.for_x2.send(:with_sftp_session) do |sftp_session|
+          # noop, just asserting that Net::SFTP received what we expect
+        end
       end
     end
 
     context 'when called twice' do
-      before do
-        mock_env_for_star
-        allow(Net::SFTP).to receive_messages(start: 'sftp_client')
-      end
+      before { mock_env_for_x2 }
+      it 'makes two separate Net::SFTP connections, using v2 asan example' do
+        expect(Net::SFTP).to receive(:start).twice.with("sis.x2.com", "sis-user", { :key_data=>"sis-key" }) do |&block|
+          block.call(instance_double(Net::SFTP::Session))
+        end
 
-      it 're-uses the Net::SFTP connection' do
-        client = SftpClient.for_star
-        expect(Net::SFTP).to receive(:start).with(
-          "ftp.star.com", "sftp-user", { :password=>"sftp-password" }
-        ).once
-        client.send(:sftp_session)
-        client.send(:sftp_session)
+        first_session = nil
+        SftpClient.for_x2.send(:with_sftp_session) do |sftp_session|
+          first_session = sftp_session
+        end
+        second_session = nil
+        SftpClient.for_x2.send(:with_sftp_session) do |sftp_session|
+          second_session = sftp_session
+        end
+        expect(first_session == second_session).to eq(false)
       end
     end
 
