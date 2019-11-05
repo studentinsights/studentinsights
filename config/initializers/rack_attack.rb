@@ -99,13 +99,15 @@ class Rack::Attack
   # Block all requests from known data centers
   # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
   # 
-  # Alert additionally as errors if specific URLs were targeted.
+  # Alert additionally as errors if specific URLs for actual application routes
+  # were targeted.
   blocklist('req/datacenter') do |req|
     datacenter_name = IPCat.datacenter?(req.ip).try(:name)
     if datacenter_name.present?
       Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
+      matching_route = begin Rails.application.routes.recognize_path(req.path) rescue nil end
       is_root_page = (req.path == '/' || req.path.start_with?('/?'))
-      if !is_root_page
+      if matching_route.present? && !is_root_page
         Rollbar.error('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: datacenter_name)
       end
       true

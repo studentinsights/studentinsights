@@ -87,21 +87,34 @@ describe 'Rack::Attack respects example development config', type: :feature do
       expect(rails_logger.output).to include('Rack::Attack req/datacenter matched `Amazon AWS`')
     end
 
-    it 'blocks specific URL requests, sends additional error alert, and logs the datacenter name' do
+    it 'blocks but does not send additional error alert if URLS do not match routes for the application' do
       rails_logger = LogHelper::RailsLogger.new
       allow(Rails).to receive(:logger).and_return(rails_logger)
 
-      # additional error alert
+      # no additional error alert, because URL is not valid application route
+      allow(Rollbar).to receive(:error).never
+
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/datacenter`')
+      visit '/specific-invalid-URL'
+      expect(page).to have_content 'Hello! This request has been blocked.'
+      expect(rails_logger.output).to include('Rack::Attack req/datacenter matched `Amazon AWS`')
+    end
+
+    it 'blocks specific URL requests, sends additional error alert if matches a route, and logs the datacenter name' do
+      rails_logger = LogHelper::RailsLogger.new
+      allow(Rails).to receive(:logger).and_return(rails_logger)
+
+      # additional error alert, because URL matches valid route
       allow(Rollbar).to receive(:error)
       expect(Rollbar).to receive(:error).once.with('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: 'Amazon AWS')
 
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/datacenter`')
-      visit '/specific-URL'
+      visit '/students/999'
       expect(page).to have_content 'Hello! This request has been blocked.'
       expect(rails_logger.output).to include('Rack::Attack req/datacenter matched `Amazon AWS`')
     end
-
     it 'does not log specific URL request to noisy URLs, since they are blocked by higher-precedent rules first' do
       rails_logger = LogHelper::RailsLogger.new
       allow(Rails).to receive(:logger).and_return(rails_logger)
