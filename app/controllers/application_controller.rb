@@ -111,7 +111,6 @@ class ApplicationController < ActionController::Base
   # Called via Rollbar, set in rollbar.rb config.
   # See https://docs.rollbar.com/docs/person-tracking
   def rollbar_anonymized_person_method
-    puts '==> rollbar_anonymized_person_method'
     anonymized_identifier = LogAnonymizer.new.educator_identifier(request)
     AnonymizedPersonForRollbar.new(anonymized_identifier)
   end
@@ -128,7 +127,6 @@ class ApplicationController < ActionController::Base
 
     # Called via Rollbar, set in rollbar.rb config.
     def rollbar_person_anonymized_identifier
-      puts '==> rollbar_person_anonymized_identifier'
       @anonymized_identifier
     end
   end
