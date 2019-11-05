@@ -20,7 +20,7 @@ function loadRollbar() {
     captureUncaught: true,
     captureUnhandledRejections: true,
     transform: transform, // see note below
-    sendConfig: false, // not sure why, but this does not appear to work
+    sendConfig: false, // not sure why, but this does not appear to work and we still see `notifier.configured_options``
 
     // Throttle, mostly for limiting the impact of bugs in browser extensions
     itemsPerMinute: 5,
@@ -64,9 +64,7 @@ function loadRollbar() {
 
       'search',
       'query',
-      'q',
-
-      'configured_options' // since sendConfig:false does not appear to work
+      'q'
     ],
     
     // We limit the "Telemetry" because of the privacy risk, and
