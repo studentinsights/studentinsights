@@ -20,7 +20,7 @@ function loadRollbar() {
     captureUncaught: true,
     captureUnhandledRejections: true,
     transform: transform, // see note below
-    sendConfig: false,
+    sendConfig: false, // not sure why, but this does not appear to work
 
     // Throttle, mostly for limiting the impact of bugs in browser extensions
     itemsPerMinute: 5,
@@ -64,7 +64,9 @@ function loadRollbar() {
 
       'search',
       'query',
-      'q'
+      'q',
+
+      'configured_options' // since sendConfig:false does not appear to work
     ],
     
     // We limit the "Telemetry" because of the privacy risk, and
