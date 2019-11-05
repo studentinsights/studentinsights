@@ -49,6 +49,10 @@ _site/
 # into the project folder.  Developers should avoid working with production
 # data whenever possible, and avoid ever putting production data in the 
 # project folder, but this is another layer of defense.
+#
+# This can be helpful for auditing:
+#
+#   $ find . -not -path './node_modules/*' -not -path './coverage/*' -type f -name "*.json"
 *.json
 !./app.json
 !./jest.json
