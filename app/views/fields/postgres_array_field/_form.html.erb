@@ -2,7 +2,7 @@
   <%= f.label field.attribute %>
 </div>
 <div class="field-unit__field" id="grade-level-access-field">
-  <% @valid_grades.each.with_index do |grade, index| %>
+  <% GradeLevels::ORDERED_GRADE_LEVELS.each.with_index do |grade, index| %>
     <span style="width: 60px; display: inline-block;">
       <input type="checkbox"
              name="educator[grade_level_access][<%= grade %>]"
