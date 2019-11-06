@@ -48,6 +48,7 @@ class PerDistrict
     yaml.fetch('school_definitions_for_import')
   end
 
+  # Expand basename to full path
   def try_sftp_filename(key, fallback = nil)
     yaml.fetch('sftp_filenames', {}).fetch(key, fallback)
   end
@@ -483,9 +484,9 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def filenames_for_iep_pdf_zips
+  def filenames_for_iep_pdf_zips_ordered_oldest_to_newest
     if @district_key == SOMERVILLE
-      try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+      try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS_ORDERED_OLDEST_TO_NEWEST', [])
     else
       []
     end

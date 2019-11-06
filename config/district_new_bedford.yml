@@ -1,16 +1,3 @@
-sftp_filenames:
-  FILENAME_FOR_EDUCATORS_IMPORT:                    ../newbedford/istaff.csv
-  FILENAME_FOR_STUDENTS_IMPORT:                     ../newbedford/istudent.csv
-  FILENAME_FOR_BEHAVIOR_IMPORT:                     ../newbedford/iconduct.csv
-  FILENAME_FOR_ATTENDANCE_IMPORT:                   ../newbedford/iattendance.csv
-  FILENAME_FOR_ASSESSMENT_IMPORT:                   ../newbedford/iassessments.csv
-  FILENAME_FOR_COURSE_SECTION_IMPORT:               ../newbedford/isections.csv
-  FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT:  ../newbedford/isectionstaff.csv
-  FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT:  ../newbedford/isectionstudent.csv
-
-  # student photos, one-time batch
-  FILENAME_FOR_PHOTOS_ZIP:            /home/newbedford/photos.zip
-
 star_filenames:
   FORMAT_VERSION:                     v1
   FILENAME_FOR_STAR_READING_IMPORT:   SR.csv
