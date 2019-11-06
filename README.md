@@ -109,8 +109,21 @@ Useful tidbits:
 7. Use Storybook
 Running `yarn storybook` will start a storybook server on port 6006. You can use this to create "stories" iterate on UI features or components in particular states, separate from how they exist within the product.  To add new stories, write a new `.story.js` file and update `ui/config/.storybook/config.js`.
 
-8. Add Guardrails
+8. Add guardrails
 - Install [git-secrets](https://github.com/awslabs/git-secrets#installing-git-secrets) and ensure the hook is set for the repo
+- Update your terminal to show when your git working copy is dirty, to prevent accidentally checking in anything sensitive or that shouldn't be checked in.  One approach is to put this in `~/.bashrc`:
+
+```
+# prompt
+GIT_PS1_SHOWCOLORHINTS=1
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_STATESEPARATOR='  --!--  '
+source ~/.git-prompt.sh
+PS1='\h:\[\033[1;34m\]\W \[\033[0;33m\][$(__git_ps1 "%s")]\[\033[0;37m\] \$ '
+```
+
+You can find a copy of `git-prompt.sh` in source.
 
 
 # System overview
