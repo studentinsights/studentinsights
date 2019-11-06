@@ -20,7 +20,7 @@ class ImportTask
 
   def connect_transform_import
     begin
-      @record = create_import_record
+      @record = create_import_record!
       @report = create_report
       log("Initialized from options = #{@options.to_json}...")
 
@@ -77,8 +77,8 @@ class ImportTask
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
 
-  def create_import_record
-    ImportRecord.create(
+  def create_import_record!
+    ImportRecord.create!(
       task_options_json: @options.to_json,
       time_started: DateTime.current,
     )
@@ -166,8 +166,8 @@ class ImportTask
       log('Calling SchoolScopeMigrator#migrate_all!')
       SchoolScopeMigrator.new(log: @log).migrate_all!
 
-      log('Calling Student.update_recent_student_assessments...')
-      Student.update_recent_student_assessments
+      log('Calling Student.update_recent_student_assessments!...')
+      Student.update_recent_student_assessments!
 
       log('Calling PrecomputeStudentHashesJob.precompute_all!...')
       PrecomputeStudentHashesJob.new(@log).precompute_all!
@@ -186,6 +186,6 @@ class ImportTask
     @log.puts full_msg
     @log.flush # prevent buffering, this seems to be a problem in production jobs
     @record.log += full_msg
-    @record.save
+    @record.save!
   end
 end

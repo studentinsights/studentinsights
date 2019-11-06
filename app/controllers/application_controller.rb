@@ -92,21 +92,6 @@ class ApplicationController < ActionController::Base
     redirect_to not_authorized_path
   end
 
-  # Used to wrap a block with timing measurements and logging, returning the value of the
-  # block.
-  #
-  # Example: students = log_timing('load students') { Student.active }
-  # Outputs: log_timing:end [load students] 2998ms
-  def log_timing(message)
-    return_value = nil
-
-    logger.info "log_timing:start [#{message}]"
-    timing_ms = Benchmark.ms { return_value = yield }
-    logger.info "log_timing:end [#{message}] #{timing_ms.round}ms"
-
-    return_value
-  end
-
   # Avoid logging personal information to Rollbar.
   # Called via Rollbar, set in rollbar.rb config.
   # See https://docs.rollbar.com/docs/person-tracking

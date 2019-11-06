@@ -7,7 +7,7 @@ class DenormalizeServiceProviderByEducator < ActiveRecord::Migration[4.2]
       educator = Educator.find(educator_id)
       educator_name = educator.try(:full_name)
       service.provided_by_educator_name = educator_name
-      service.save
+      service.save!
     end
 
     remove_column :services, :provided_by_educator_id

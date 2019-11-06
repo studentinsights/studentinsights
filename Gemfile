@@ -13,6 +13,7 @@ gem 'dalli'
 gem 'rotp'
 gem 'twilio-ruby'
 gem 'rqrcode'
+gem 'rails_best_practices'
 
 gem 'administrate', '~> 0.10.0'
 gem 'authtrail'

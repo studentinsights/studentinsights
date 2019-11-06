@@ -70,6 +70,10 @@ class EducatorDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
+  #
+  # This is also a safelist of what fields are accepted
+  # from the client.
+  # See https://github.com/thoughtbot/administrate/blob/master/app/controllers/administrate/application_controller.rb#L136
   FORM_ATTRIBUTES = [
     :schoolwide_access,
     :grade_level_access,
