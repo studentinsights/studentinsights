@@ -9,27 +9,28 @@
 # ReplaceInstanceVariableWithLocalVariableCheck: { }
 # UseQueryAttributeCheck: { }
 
+
 # These are disabled by default, but are valuable.
 CheckSaveReturnValueCheck: { }
 CheckDestroyReturnValueCheck: { }
 
+
 # This is the biggest value in this tool so far, and found several bits
-# of dead code on first run.  There's some false positives, and some places
-# where
+# of dead code on first run.
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 RemoveUnusedMethodsInControllersCheck: {
   except_methods: [
     # False positives (often from metaprogramming, or implicit dependencies)
+    'Admin::EducatorsController#resource_params',
+    'AnonymizedPersonForRollbar#initialize',
+    'AnonymizedPersonForRollbar#rollbar_person_anonymized_identifier',
     'ApplicationController#after_sign_in_path_for',
-    'ApplicationController#rollbar_anonymized_person_method',
-    'Admin::EducatorsController#resource_params'
+    'ApplicationController#rollbar_anonymized_person_method'
   ]
 }
 RemoveUnusedMethodsInModelsCheck: {
   except_methods: [
-    # These are false positives (often from symbols passed to #as_json).
-    'AnonymizedPersonForRollbar#initialize',
-    'AnonymizedPersonForRollbar#rollbar_person_anonymized_identifier',
+    # False positives (often from symbols passed to #as_json or #map).
     'Student#latest_dibels',
     'Student#latest_access_results',
     'Student#winter_reading_doc',
@@ -54,7 +55,6 @@ RemoveUnusedMethodsInModelsCheck: {
     'UnsafeAnonymizer#all_service_types'
   ]
 }
-
 
 
 # Below are the defaults

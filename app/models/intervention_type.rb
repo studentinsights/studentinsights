@@ -7,7 +7,7 @@ class InterventionType < ApplicationRecord
   # `puts InterventionType.all.as_json.map {|i| i.except('created_at', 'updated_at') }`
   def self.seed_for_all_districts
     InterventionType.destroy_all
-    InterventionType.create([
+    InterventionType.create!([
       { id: 20, name: "After-School Tutoring (ATP)" },
       { id: 21, name: "Attendance Officer" },
       { id: 22, name: "Attendance Contract" },

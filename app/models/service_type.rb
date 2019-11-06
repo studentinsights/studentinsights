@@ -6,7 +6,7 @@ class ServiceType < ApplicationRecord
 
   def self.seed_for_all_districts
     ServiceType.destroy_all
-    ServiceType.create([
+    ServiceType.create!([
       { id: 502, name: 'Attendance Officer'},
       { id: 503, name: 'Attendance Contract'},
       { id: 504, name: 'Behavior Contract'},
