@@ -15,6 +15,10 @@ module LogHelper
       @msgs.join("\n")
     end
 
+    def flush
+      nil
+    end
+
     def clear!
       @msgs = []
     end
