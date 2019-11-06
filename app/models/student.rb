@@ -65,10 +65,6 @@ class Student < ApplicationRecord
   validates :house, exclusion: { in: ['']}
   validates :counselor, exclusion: { in: ['']}
 
-  def self.with_school
-    where.not(school: nil)
-  end
-
   # `enrollment_status` is from the SIS export, while `missing_from_last_export`
   # indicates the student was missing from the last export where we expected to
   # find them, so we treat them as no longer active.
@@ -140,12 +136,6 @@ class Student < ApplicationRecord
   def ordered_results_by_family_and_subject(family_name, subject_name)
     self.student_assessments
         .by_family_and_subject(family_name, subject_name)
-        .order_by_date_taken_asc
-  end
-
-  def ordered_results_by_family(family_name)
-    self.student_assessments
-        .by_family(family_name)
         .order_by_date_taken_asc
   end
 
@@ -224,22 +214,6 @@ class Student < ApplicationRecord
     find_each do |student|
       student.update_recent_student_assessments
     end
-  end
-
-  def self.with_mcas_math
-    where.not(most_recent_mcas_math_performance: nil)
-  end
-
-  def self.with_mcas_math_warning
-    where(most_recent_mcas_math_performance: 'W')
-  end
-
-  def self.with_mcas_ela
-    where.not(most_recent_mcas_ela_performance: nil)
-  end
-
-  def self.with_mcas_ela_warning
-    where(most_recent_mcas_ela_performance: 'W')
   end
 
   def event_notes_without_restricted

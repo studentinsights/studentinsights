@@ -256,14 +256,6 @@ class ClassListsController < ApplicationController
     student
   end
 
-  def educator_names(school_id)
-    school = School.find(school_id)
-    [
-      school.educator_names_for_services,
-      Service.provider_names
-    ].flatten.uniq.compact
-  end
-
   def serialize_class_list(class_list)
     class_list.as_json(only: [
       :workspace_id,
