@@ -7,10 +7,11 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_educator!
-    before_action :authenticate_project_lead!
+    before_action :authenticate_admin # administrate hook
 
     private
-    def authenticate_project_lead!
+    # override, administrate hook
+    def authenticate_admin
       redirect_to(not_authorized_path) unless current_educator && current_educator.can_set_districtwide_access?
     end
 

@@ -5,7 +5,6 @@
 module Admin
   class EducatorsController < Admin::ApplicationController
     before_action :set_default_params!
-    before_action :authenticate_project_lead!, only: [:index, :show, :edit, :update]
 
     # override and disable
     def create
