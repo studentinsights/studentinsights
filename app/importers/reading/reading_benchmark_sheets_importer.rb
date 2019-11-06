@@ -20,7 +20,7 @@ class ReadingBenchmarkSheetsImporter
     if @school_year != 2019
       raise "aborting because of unexpected school_year; review the syncer scoping closely before running on another year"
     end
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @dry_run = options.fetch(:dry_run, false)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))
     @syncer = ::RecordSyncer.new(log: @log)

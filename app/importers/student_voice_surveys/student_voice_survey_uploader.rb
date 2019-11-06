@@ -5,7 +5,7 @@ class StudentVoiceSurveyUploader
   def initialize(file_text, upload_attrs, options = {})
     @file_text = file_text
     @upload_attrs = upload_attrs
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @matcher = ImportMatcher.new
     reset_counters!
   end
