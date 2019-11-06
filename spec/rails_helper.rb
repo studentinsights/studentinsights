@@ -68,6 +68,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
     DatabaseConstants.new.seed_for_all_districts!
+    DistrictConfigLog.seed_for_development_and_test!
     Rack::Attack.cache.store.clear
   end
 

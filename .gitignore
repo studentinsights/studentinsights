@@ -67,6 +67,7 @@ _site/
 !/app.json
 !/jest.json
 !/package.json
+!/config/sftp_filenames_development_fixture.json
 !/spec/importers/helpers/data_flows_for_other_importers.json
 !/spec/importers/file_importers/data_flows_fixture.json
 
