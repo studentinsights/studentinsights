@@ -503,10 +503,6 @@ class PerDistrict
     end
   end
 
-  def is_research_matters_analysis_supported?
-    @district_key == SOMERVILLE
-  end
-
   # See also language.js
   def is_student_english_learner_now?(student)
     if @district_key == SOMERVILLE
