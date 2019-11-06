@@ -57,9 +57,12 @@ _site/
 # data whenever possible, and avoid ever putting production data in the 
 # project folder, but this is another layer of defense.
 #
-# This can be helpful for auditing:
+# These commands can be helpful for auditing:
 #
-#   $ find . -not -path './node_modules/*' -not -path './coverage/*' -type f -name "*.json"
+#  $ find . -not -path './node_modules/*' -not -path './coverage/*' -type f -name "*.json"
+#  $ git status --ignored
+#  $ git clean -d # clean and remove ignored files
+# 
 *.json
 !/app.json
 !/jest.json
