@@ -15,7 +15,7 @@ class StudentMeetingImporter
   end
 
   def initialize(options:)
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
     @explicit_sheet_id = options.fetch(:explicit_sheet_id, nil)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))

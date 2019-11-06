@@ -27,7 +27,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   end
 
   def make_importer_with_fixture(district_school_year)
-    fixture_file = "#{Rails.root}/spec/fixtures/educator_section_assignment_export.txt"
+    fixture_file = "#{Rails.root}/spec/fixtures/educator_section_assignment_export.csv"
     file = File.read(fixture_file)
     file_with_school_year = file.gsub('<district_school_year>', district_school_year.to_s)
     transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)

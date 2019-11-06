@@ -73,7 +73,7 @@ RSpec.describe CoursesSectionsImporter do
     let(:courses_sections_importer) {
       described_class.new(options: {
         school_scope: nil,
-        log: LogHelper::Redirect.instance.file
+        log: LogHelper::FakeLog.new
       })
     }
 

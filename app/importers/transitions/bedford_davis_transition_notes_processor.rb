@@ -14,7 +14,7 @@
 class BedfordDavisTransitionNotesProcessor
   def initialize(educator, form_url, options = {})
     Rollbar.warn('deprecation-warning: migrate to `services_checklist` and `teacher_forms` templates')
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
 
     @educator = educator
     @form_url = form_url

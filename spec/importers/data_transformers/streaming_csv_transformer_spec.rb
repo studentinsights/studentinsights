@@ -4,7 +4,7 @@ RSpec.describe StreamingCsvTransformer do
 
   describe '#transform' do
     context 'tracks total and processed rows' do
-      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
+      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.csv") }
       let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
       let(:output) { transformer.transform(csv_string) }
 
@@ -25,7 +25,7 @@ RSpec.describe StreamingCsvTransformer do
     end
 
     context 'headers in csv' do
-      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
+      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.csv") }
       let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
       let(:output) { transformer.transform(csv_string) }
 

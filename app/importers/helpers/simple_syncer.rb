@@ -1,7 +1,7 @@
 # experimental
 class SimpleSyncer
   def initialize(options = {})
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @syncer = options.fetch(:syncer, RecordSyncer.new(log: @log))
     @log_frequency = options.fetch(:log_frequency, 100)
   end

@@ -7,12 +7,12 @@ RSpec.describe CsvDownloader do
     csv_downloader = CsvDownloader.new({
       log: log,
       client: SftpClient.for_x2,
-      remote_file_name: '/pathway/secret/filename.txt',
+      remote_file_name: '/pathway/secret/filename.csv',
       transformer: transformer
     })
     allow(csv_downloader).to receive(:download_file).and_return 'foo-file-contents'
 
     expect(csv_downloader.get_data).to eq transformer
-    expect(log.output).to include("Downloading remote basename 'filename.txt'...")
+    expect(log.output).to include("Downloading remote basename 'filename.csv'...")
   end
 end

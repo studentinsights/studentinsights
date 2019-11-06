@@ -146,7 +146,7 @@ RSpec.describe BehaviorImporter do
   describe '#import' do
     let!(:pals) { TestPals.create! }
 
-    let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
+    let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.csv") }
     let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
     let(:output) { transformer.transform(csv_string) }
 
@@ -188,7 +188,7 @@ RSpec.describe BehaviorImporter do
       let(:student) { FactoryBot.create(:student, school: hea) }
       let!(:discipline_incident) { FactoryBot.create(:discipline_incident, student: student) }
       let(:discipline_incident_id) { discipline_incident.id }
-      let!(:school_scope) { ['SHS'] }  # All students in fake_behavior_export.txt are SHS
+      let!(:school_scope) { ['SHS'] }  # All students in fake_behavior_export.csv are SHS
 
       it 'creates three new rows, destroys zero' do
         expect { create_behavior_importer(school_scope: school_scope).import }.to change { DisciplineIncident.count }.by 3

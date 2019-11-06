@@ -24,7 +24,7 @@ class IepPdfImportJob
 
     @time_now = options.fetch(:time_now, Time.now)
     @s3_client = options.fetch(:s3_client, Aws::S3::Client.new)
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
   end
 
   # This imports all the IEP PDFs from a zip that

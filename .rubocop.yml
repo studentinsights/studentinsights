@@ -9,7 +9,6 @@ AllCops:
     - 'node_modules/**/*'
     - 'public/**/*'
     - 'scripts/**/*'
-    - 'sketch/**/*'
     - 'vendor/**/*'
     - 'x2_export/**/*'
 

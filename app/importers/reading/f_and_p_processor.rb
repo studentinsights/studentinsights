@@ -12,7 +12,7 @@ class FAndPProcessor
   def initialize(benchmark_date, educator_id, options = {})
     @benchmark_date = benchmark_date
     @educator_id = educator_id
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
   end
 
