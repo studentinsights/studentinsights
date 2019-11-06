@@ -62,6 +62,8 @@ install:
 script:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec ruby-audit check; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle audit check --update; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rails_best_practices -c config/rails_best_practices.yml; fi
+  
   # This DATABASE_URL assumes '' for the host is set in database.yml,
   # which is needed in Travis when using a specific version of Postgres
   # that's different than the default.
