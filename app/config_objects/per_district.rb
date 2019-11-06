@@ -48,13 +48,13 @@ class PerDistrict
     yaml.fetch('school_definitions_for_import')
   end
 
-  # Expand basename to full path
-  def try_sftp_filename(key, fallback = nil)
-    yaml.fetch('sftp_filenames', {}).fetch(key, fallback)
-  end
-
   def try_star_filename(key, fallback = nil)
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
+  end
+
+  def try_sftp_filename(key, fallback = nil)
+    config = DistrictConfigLog.fetch_latest(DistrictConfigLog::SFTP_FILENAMES, {})
+    config.fetch(key, fallback)
   end
 
   # This migrates up older formats still in use in New Bedfor
