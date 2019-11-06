@@ -14,7 +14,7 @@ class MegaReadingProcessor
   def initialize(educator_id, benchmark_school_year, options = {})
     @educator_id = educator_id
     @benchmark_school_year = benchmark_school_year
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
 
     # The standard 8/20/19 template has two extra rows explaining the columns,

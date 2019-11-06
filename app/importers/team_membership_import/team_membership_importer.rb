@@ -19,7 +19,7 @@ class TeamMembershipImporter
   end
 
   def initialize(options:)
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
     @explicit_folder_id = options.fetch(:explicit_folder_id, nil)
     @skip_explanation_rows_count = options.fetch(:skip_explanation_rows_count, 1)

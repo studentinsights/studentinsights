@@ -15,7 +15,7 @@ class ImportTask
     # to skip updating any indexes after (eg, when tuning a particular job)
     @skip_index_updates = @options.fetch('skip_index_updates', false)
 
-    @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
+    @log = Rails.env.test? ? LogHelper::FakeLog.new : STDOUT
   end
 
   def connect_transform_import

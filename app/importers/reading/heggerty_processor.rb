@@ -14,7 +14,7 @@
       @uploaded_by_educator_id = uploaded_by_educator_id
       @upload_filename = upload_filename
 
-      @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+      @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
       @time_now = options.fetch(:time_now, Time.now)
       @matcher = options.fetch(:matcher, ImportMatcher.new)
 

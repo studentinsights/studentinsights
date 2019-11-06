@@ -2,7 +2,7 @@
 # the survey content into `text`).
 class FlatNoteImporter
   def initialize(options = {})
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
   end
 
   # Map `parsed_rows` into `EventNote` attributes, adding in `note_title` to each note
