@@ -113,7 +113,7 @@ Student.all.each do |student|
 end
 
 puts 'Updating indexes...'
-Student.update_recent_student_assessments
+Student.update_recent_student_assessments!
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!
 
 puts "Total number of homerooms: #{Homeroom.count}."

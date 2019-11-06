@@ -197,8 +197,8 @@ class Student < ApplicationRecord
     ReadingBenchmarkDataPoint.doc_for(self.id, benchmark_school_year, :winter)
   end
 
-  def update_recent_student_assessments
-    update_attributes({
+  def update_recent_student_assessments!
+    update_attributes!({
       most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,
       most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
       most_recent_mcas_math_performance: latest_mcas_mathematics.performance_level,
@@ -210,9 +210,9 @@ class Student < ApplicationRecord
     })
   end
 
-  def self.update_recent_student_assessments
+  def self.update_recent_student_assessments!
     find_each do |student|
-      student.update_recent_student_assessments
+      student.update_recent_student_assessments!
     end
   end
 

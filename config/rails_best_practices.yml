@@ -13,10 +13,47 @@
 CheckSaveReturnValueCheck: { }
 CheckDestroyReturnValueCheck: { }
 
-# This is the biggest value in this tool:
-RemoveUnusedMethodsInControllersCheck: { except_methods: [] }
+# This is the biggest value in this tool so far, and found several bits
+# of dead code on first run.  There's some false positives, and some places
+# where
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
-RemoveUnusedMethodsInModelsCheck: { except_methods: [] }
+RemoveUnusedMethodsInControllersCheck: {
+  except_methods: [
+    # False positives (often from metaprogramming, or implicit dependencies)
+    'ApplicationController#after_sign_in_path_for',
+    'ApplicationController#rollbar_anonymized_person_method',
+    'Admin::EducatorsController#resource_params'
+  ]
+}
+RemoveUnusedMethodsInModelsCheck: {
+  except_methods: [
+    # These are false positives (often from symbols passed to #as_json).
+    'AnonymizedPersonForRollbar#initialize',
+    'AnonymizedPersonForRollbar#rollbar_person_anonymized_identifier',
+    'Student#latest_dibels',
+    'Student#latest_access_results',
+    'Student#winter_reading_doc',
+    'TeamMembership#season_sort_key',
+
+    # These are actually unused methods, but we want to keep them
+    # sometimes this is to allow for manual use on the console, or to express
+    # some kind of intent.
+    'ClassListSnapshot#diffs_across_workspaces',
+    'EdPlan#specific_disability',
+    'EdPlan#persons_responsible',
+    'EventNoteType#NGE',
+    'EventNoteType#SST',
+    'EventNoteType#TENGE',
+    'EventNoteType#NEST',
+    'SecondTransitionNote#has_restricted_text',
+    'Service#never_discontinued',
+    'Service#future_discontinue',
+    'StudentVoiceCompletedSurvey#columns_for_form_v1_deprecated',
+    'UnsafeAnonymizer#student_for_absence_dashboard',
+    'UnsafeAnonymizer#star_student_assessment',
+    'UnsafeAnonymizer#all_service_types'
+  ]
+}
 
 
 
