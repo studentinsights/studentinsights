@@ -73,7 +73,6 @@ RSpec.describe LoginChecker do
       expect(Net::HTTP).to receive(:post_form).once.with(URI.parse('https://api:fake-mailgun-api-key@api.mailgun.net/v3/fake-mailgun-domain/messages'), {
         from: 'Student Insights <security@studentinsights.org>',
         to: 'vivian@demo.studentinsights.org',
-        bcc: 'security@studentinsights.org',
         subject: 'Security alert for localhost.studentinsights.org',
         html: anything()
       })

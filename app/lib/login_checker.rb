@@ -61,7 +61,6 @@ class LoginChecker
     post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
       :from => "Student Insights <security@studentinsights.org>",
       :to => educator_email,
-      :bcc => 'security@studentinsights.org',
       :subject => "Security alert for #{@canonical_domain}",
       :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{email_text}</pre>"
     })
