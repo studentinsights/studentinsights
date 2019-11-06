@@ -1,33 +1,20 @@
-if [ -d tmp ]; then
-  echo "Deleting /tmp folder..."
-  rm -rf tmp
-  echo
-else
-  echo "No /tmp folder to delete..."
-  echo
-fi
+echo "Cleaning tmp folder..."
+rm -rf tmp/*
+  
+echo "Cleaning data folder..."
+rm -rf data/*
 
-if [ -d data ]; then
-  echo "Deleting /data folder..."
-  rm -rf data
-  echo
-else
-  echo "No /data folder to delete..."
-  echo
-fi
+echo "Cleaning log folder..."
+rm -rf log/*
 
-if [ -f config/local_env.yml ]; then
-  echo "Deleting local_env.yml..."
-  rm config/local_env.yml
-  echo
-else
-  echo "No local_env.yml to delete..."
-  echo
-fi
+echo "Cleaning build folders..."
+rm -rf public/build/*
+rm -rf public/dev/*
 
+echo "Cleaning ignored files..."
+git clean -xf
+
+echo
 echo "Logging out of Heroku..."; echo
 heroku logout
 echo
-
-echo "Resetting the database..."; echo
-rake db:reset
