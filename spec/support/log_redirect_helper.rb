@@ -1,23 +1,4 @@
 module LogHelper
-  class Redirect
-    include Singleton
-
-    attr_reader :file
-
-    def log_directory
-      "#{Rails.root}/tmp/spec/logs"
-    end
-
-    def log_path
-      "#{log_directory}/logs.log"
-    end
-
-    def initialize
-      Dir.mkdir(log_directory) unless File.exist?(log_directory)
-      @file = File.new(log_path, 'w')
-    end
-  end
-
   # STDOUT
   class FakeLog
     attr_reader :msgs
