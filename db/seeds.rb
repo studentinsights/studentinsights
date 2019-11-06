@@ -43,6 +43,9 @@ end
 puts 'Seeding database constants for all districts...'
 DatabaseConstants.new.seed_for_all_districts!
 
+puts 'Seeding generic development DistrictConfigLog...'
+DistrictConfigLog.seed_for_development_and_test!
+
 puts 'Destroying all educators...'
 Educator.destroy_all
 

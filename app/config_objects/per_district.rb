@@ -55,8 +55,8 @@ class PerDistrict
   # What filenames are district IT staff using when exporting specific
   # files to SFTP servers?
   def try_sftp_filename(key, fallback = nil)
-    config = DistrictConfigLog.latest(DistrictConfigLog::SFTP_FILENAMES) || {}
-    config.fetch(key, fallback)
+    json = DistrictConfigLog.latest_json(DistrictConfigLog::SFTP_FILENAMES, {})
+    json.fetch(key, fallback)
   end
 
   # This migrates up older formats still in use in New Bedfor

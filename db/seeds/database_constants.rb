@@ -1,10 +1,8 @@
 class DatabaseConstants
-  # Used for initializing the constants in a new database.  This
-  # is factored out of the main seed file so it can be used for
-  # RSpec tests as well.
-  #
-  # These are all specific to the initial Somerville deployment, but
-  # are used for local development as well and relied on in tests.
+  # Used for initializing the constants in a new database in development
+  # or test.  This is factored out of the main seed file so it can be used
+  # for RSpec tests as well.  These could be used as pieces of a new
+  # production deployment as well.
   def seed_for_all_districts!
     Assessment.seed_for_all_districts
     InterventionType.seed_for_all_districts
