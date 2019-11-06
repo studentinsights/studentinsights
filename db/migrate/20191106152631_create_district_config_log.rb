@@ -5,7 +5,7 @@ class CreateDistrictConfigLog < ActiveRecord::Migration[5.2]
       t.json :json, null: false
       t.datetime :created_at, null: false
     end
-    add_index :district_configs, :key
-    add_index :district_configs, :created_at
+    add_index :district_config_logs, :key
+    add_index :district_config_logs, :created_at
   end
 end

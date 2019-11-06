@@ -52,8 +52,10 @@ class PerDistrict
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
   end
 
+  # What filenames are district IT staff using when exporting specific
+  # files to SFTP servers?
   def try_sftp_filename(key, fallback = nil)
-    config = DistrictConfigLog.fetch_latest(DistrictConfigLog::SFTP_FILENAMES, {})
+    config = DistrictConfigLog.latest(DistrictConfigLog::SFTP_FILENAMES) || {}
     config.fetch(key, fallback)
   end
 
