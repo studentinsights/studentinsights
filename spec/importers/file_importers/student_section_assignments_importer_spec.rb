@@ -20,12 +20,12 @@ RSpec.describe StudentSectionAssignmentsImporter do
   end
 
   def fixture_without_years
-    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_without_district_school_year.txt"
+    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_without_district_school_year.csv"
     test_csv_from_file(filename)
   end
 
   def fixture_for_district_school_year(district_school_year)
-    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_with_district_school_year_token.txt"
+    filename = "#{Rails.root}/spec/fixtures/student_section_assignment_export_with_district_school_year_token.csv"
     file = File.read(filename)
     file_with_school_year = file.gsub('<district_school_year>', district_school_year.to_s)
 

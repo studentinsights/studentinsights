@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************* -->
+<!-- XML DEFINITION FOR THE "Student Insight Student Export" EXPORT -->
+<!-- ************************************************* -->
+<export table-id="tblStudent" header-row="true">
+  <filter field="stdEnrStatus" operator="equals" source="preference" value="sys.std.activeCode" />
+  <sort field="relStdPsnOid.psnNameLast" />
+  <field id="stdIDState" header-source="constant" header-value="state_id" />
+  <field id="stdIDLocal" header-source="constant" header-value="local_id" />
+  <field id="stdEnrStatus" header-source="constant" header-value="enrollment_status" />
+  <field id="stdViewName" header-source="constant" header-value="full_name" />
+  <field id="stdHomeLang" header-source="constant" header-value="home_language" />
+  <field id="stdFieldB013" header-source="constant" header-value="program_assigned" />
+  <field id="stdFieldB012" header-source="constant" header-value="limited_english_proficiency" />
+  <field id="stdFieldB051" header-source="constant" header-value="sped_placement" />
+  <field id="stdFieldB017" header-source="constant" header-value="disability" />
+  <field id="stdFieldB018" header-source="constant" header-value="sped_level_of_need" />
+  <field id="std504Status" header-source="constant" header-value="plan_504" />
+  <field id="relStdPsnOid.relPsnAdrPhys.adrAddress01" header-source="constant" header-value="student_address" />
+  <field id="stdGradeLevel" header-source="constant" header-value="grade" />
+  <field id="stdFieldB007" header-source="constant" header-value="free_reduced_lunch" />
+  <field id="relStdPsnOid.psnDob" header-source="constant" header-value="date_of_birth" />
+  <field id="stdHomeroom" header-source="constant" header-value="homeroom" />
+  <field id="relStdSklOid.sklSchoolID" header-source="constant" header-value="school_local_id" />
+  <field id="relStdPsnOid.psnGenderCode" header-source="constant" header-value="gender" />
+  <field id="relStdPsnOid.psnRaceView" header-source="constant" header-value="race" />
+  <field id="relStdPsnOid.psnHispLatInd" header-source="constant" header-value="hispanic_latino" />
+  <field id="relStdPsnOid.psnPhone01" header-source="constant" header-value="primary_phone" />
+  <field id="relStdCtjOid1.relCtjCntOid.relCntPsnOid.psnEmail01" header-source="constant" header-value="primary_email" />
+  <field id="stdFieldB033" header-source="constant" header-value="house" />
+  <field id="stdFieldB023" header-source="constant" header-value="counselor" />
+  <field id="stdFieldB024" header-source="constant" header-value="sped_liaison" />
+</export>
+

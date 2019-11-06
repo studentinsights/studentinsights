@@ -9,7 +9,7 @@ module LogHelper
     end
 
     def log_path
-      "#{log_directory}/logs.txt"
+      "#{log_directory}/logs.log"
     end
 
     def initialize

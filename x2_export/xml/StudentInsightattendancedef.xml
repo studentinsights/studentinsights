@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************* -->
+<!-- XML DEFINITION FOR THE "Student Insight Attendance Export" EXPORT -->
+<!-- ************************************************* -->
+<export table-id="tblStdAttend" header-row="true">
+  <field id="relAttStdOid.stdIDState" header-source="constant" header-value="state_id" />
+  <field id="relAttStdOid.stdIDLocal" header-source="constant" header-value="local_id" />
+  <field id="attAbsentInd" header-source="constant" header-value="absence" />
+  <field id="attTardyInd" header-source="constant" header-value="tardy" />
+  <field id="attDismissInd" header-source="constant" header-value="dismissed" />
+  <field id="attCodeView" header-source="constant" header-value="reason" />
+  <field id="attExcusedInd" header-source="constant" header-value="excused" />
+  <field id="attComment" header-source="constant" header-value="comment" />
+  <field id="attDate" header-source="constant" header-value="event_date" />
+  <field id="relAttSklOid.sklSchoolID" header-source="constant" header-value="school_local_id" />
+</export>
+

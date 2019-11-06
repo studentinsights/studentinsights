@@ -1,17 +1,26 @@
+# See https://github.com/github/gitignore for helpful suggestions.
+
+# OS X
 .DS_Store
+
+# Rails temporary files
 **.orig
 /log
 /tmp
 
 # Artificact of running simplecov analysis task
-coverage
+/coverage
 
 # Node.js dependencies and logs
 node_modules
 yarn-debug.log*
 yarn-error.log*
 
-# In past development setups, this file was used to holds configuration for
+# Build artifacts from `yarn build`
+/public/build
+/public/dev
+
+# In past development setups, files were used to holds configuration for
 # testing production import scripts by running them locally and connecting to
 # production services.  Developers should avoid working directly with production
 # credentials, and should use a Heroku dyno rather than connecting to other
@@ -19,6 +28,7 @@ yarn-error.log*
 # This is kept here defensively in case this file exists and contains any
 # secrets.
 config/local_env.yml
+.env
 
 # Use env initializers and read ENV variables instead, no good
 # comes from storing secrets on disk (this was deprecated
@@ -30,9 +40,6 @@ config/secrets.yml
 # Editor configuration (Sublime is the only supported setup)
 studentinsights.sublime-workspace
 
-# Build artifacts from `yarn build`
-public/build
-public/dev
 
 # Artificat from running qgsocksify.  Defensive against ever checking this in,
 # in case it contains any secrets.
@@ -54,30 +61,30 @@ _site/
 #
 #   $ find . -not -path './node_modules/*' -not -path './coverage/*' -type f -name "*.json"
 *.json
-!./app.json
-!./jest.json
-!./package.json
-!./spec/importers/helpers/data_flows_for_other_importers.json
-!./spec/importers/file_importers/data_flows_fixture.json
+!/app.json
+!/jest.json
+!/package.json
+!/spec/importers/helpers/data_flows_for_other_importers.json
+!/spec/importers/file_importers/data_flows_fixture.json
 
 *.csv
-!spec/**/*.csv
-
-*.txt
-!./QUOTAGUARD-LICENSE.txt
-!./public/robots.txt
-!./spec/fixtures/*.txt
+!spec/fixtures/*.csv
+!spec/importers/*.csv
 
 *.sql
-!./x2_export/sql/*.sql
+!/x2_export/sql/*.sql
 
 *.xml
-!./public/browserconfig.xml
-!./x2_export/xml/*.sql
+!/public/browserconfig.xml
+!/x2_export/xml/*.xml
 
 *.zip
-!./spec/importers/iep_import/iep-pdfs-for-test-1.zip
-!./spec/importers/iep_import/iep-pdfs-for-test-2.zip
+!/spec/importers/iep_import/iep-pdfs-for-test-1.zip
+!/spec/importers/iep_import/iep-pdfs-for-test-2.zip
+
+*.log
+
+*.sqlite3
 
 # The /data folder is not currently used, but was previously used for local
 # analysis of production data, so defensively ignore anything there as well.

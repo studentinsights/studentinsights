@@ -34,7 +34,7 @@ RSpec.describe StudentsImporter do
   end
 
   def fixture_filename
-    "#{Rails.root}/spec/fixtures/fake_students_export.txt"
+    "#{Rails.root}/spec/fixtures/fake_students_export.csv"
   end
 
   describe '#import integration tests' do
