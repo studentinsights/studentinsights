@@ -14,7 +14,7 @@ function testProps(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(<Button {...testProps()} />, el);
-  expect(el.innerHTML).toContain('Click me!');
+  expect(el.textContent).toContain('Click me!');
 });
 
 it('snapshots view', () => {

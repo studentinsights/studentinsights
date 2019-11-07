@@ -33,7 +33,7 @@ it('renders without crashing', () => {
 it('renders everything after fetch', done => {
   const props = testProps();
   const {el} = testRenderWithEl(props);
-  expect(el.innerHTML).toContain('This is an experimental prototype!');
+  expect(el.textContent).toContain('This is an experimental prototype!');
 
   setTimeout(() => {
     expect($(el).find('table tbody tr').length).toEqual(3);

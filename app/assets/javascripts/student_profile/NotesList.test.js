@@ -141,16 +141,16 @@ it('with full historical data, renders everything on the happy path', () => {
   expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
   expect($(el).find('.NoteShell').length).toEqual(5);
 
-  expect(el.innerHTML).toContain('Behavior Plan');
-  expect(el.innerHTML).toContain('Attendance Officer');
-  expect(el.innerHTML).toContain('MTSS Meeting');
-  expect(el.innerHTML).toContain('Transition note');
-  expect(el.innerHTML).not.toContain('SST Meeting');
+  expect(el.textContent).toContain('Behavior Plan');
+  expect(el.textContent).toContain('Attendance Officer');
+  expect(el.textContent).toContain('MTSS Meeting');
+  expect(el.textContent).toContain('Transition note');
+  expect(el.textContent).not.toContain('SST Meeting');
 
   // Notes attachments expectations
-  expect(el.innerHTML).toContain("https://www.example.com/morestudentwork");
-  expect(el.innerHTML).toContain("https://www.example.com/studentwork");
-  expect(el.innerHTML).toContain("remove");
+  expect(el.textContent).toContain("https://www.example.com/morestudentwork");
+  expect(el.textContent).toContain("https://www.example.com/studentwork");
+  expect(el.textContent).toContain("remove");
 });
 
 it('limits visible notes by default', () => {
@@ -215,16 +215,16 @@ it('does not allow editing notes written by someone else', () => {
 describe('props impacting restricted notes', () => {
   it('by default', () => {
     const el = testRender(testPropsForRestrictedNote());
-    expect(el.innerHTML).not.toContain('RESTRICTED-this-is-the-note-text');
-    expect(el.innerHTML).toContain('marked this note as restricted');
-    expect(el.innerHTML).not.toContain('https://www.example.com/');
+    expect(el.textContent).not.toContain('RESTRICTED-this-is-the-note-text');
+    expect(el.textContent).toContain('marked this note as restricted');
+    expect(el.textContent).not.toContain('https://www.example.com/');
   });
 
   it('for my notes page', () => {
     const el = testRender(testPropsForRestrictedNote());
-    expect(el.innerHTML).not.toContain('RESTRICTED-this-is-the-note-text');
-    expect(el.innerHTML).not.toContain('https://www.example.com/');
-    expect(el.innerHTML).toContain('marked this note as restricted');
+    expect(el.textContent).not.toContain('RESTRICTED-this-is-the-note-text');
+    expect(el.textContent).not.toContain('https://www.example.com/');
+    expect(el.textContent).toContain('marked this note as restricted');
   });
 });
 

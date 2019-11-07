@@ -14,7 +14,7 @@ function testProps(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(<Badge {...testProps()} />, el);
-  expect(el.innerHTML).toContain('hello');
+  expect(el.textContent).toContain('hello');
 });
 
 it('snapshots view', () => {

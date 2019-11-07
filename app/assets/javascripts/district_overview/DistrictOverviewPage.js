@@ -5,7 +5,6 @@ import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
 import {Website, Email, HelpEmail} from '../components/PublicLinks';
-import WorkBoard from '../components/WorkBoard';
 
 
 // Page for navigating between schools
@@ -38,7 +37,6 @@ export default class DistrictOverviewPage extends React.Component {
     return (
       <DistrictOverviewPageView
         enableStudentVoiceUploads={json.enable_student_voice_uploads}
-        showWorkBoard={json.show_work_board}
         schools={json.schools}
         currentEducator={json.current_educator}
       />
@@ -55,7 +53,6 @@ export class DistrictOverviewPageView extends React.Component {
           <div style={styles.column}>{this.renderProjectLeadLinks()}</div>
         </div>
         {this.renderEquityLinks()}
-        {this.renderWorkBoard()}
       </div>
     );
   }
@@ -261,29 +258,9 @@ export class DistrictOverviewPageView extends React.Component {
       </div>
     );
   }
-
-  renderWorkBoard() {
-    const {showWorkBoard} = this.props;
-    if (!showWorkBoard) return null;
-
-    return (
-      <div style={{marginTop: 40}}>
-        <SectionHeading>Student Insights work board</SectionHeading>
-        <div style={{margin: 10, marginBottom: 20}}>
-          This is how we communicate about what we’re working on now,
-          and what we think is coming next, across all districts.  Read
-          more at <Website /> or share what you’re thinking about with us at <Email />.
-        </div>
-        <div style={{margin: 20, width: '100%', height: 800}}>
-          <WorkBoard style={{width: '100%', height: '100%'}} />
-        </div>
-      </div>
-    );
-  }
 }
 DistrictOverviewPageView.propTypes = {
   enableStudentVoiceUploads: PropTypes.bool.isRequired,
-  showWorkBoard: PropTypes.bool.isRequired,
   currentEducator: PropTypes.shape({
     can_set_districtwide_access: PropTypes.bool.isRequired,
     admin: PropTypes.bool.isRequired,

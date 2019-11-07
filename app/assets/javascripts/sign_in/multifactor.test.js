@@ -45,7 +45,7 @@ describe('multifactorMain', () => {
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(true);
     expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(false);
-    expect(el.querySelector('.SignInPage-authentication-type-link').innerHTML).toEqual('Use multifactor login');
+    expect(el.querySelector('.SignInPage-authentication-type-link').textContent).toEqual('Use multifactor login');
   });
 
   it('checks login presence before allowing submit', () => {

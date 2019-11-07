@@ -13,7 +13,7 @@ function testProps(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(<Hover {...testProps()} />, el);
-  expect(el.innerHTML).toContain('some text, rendered based on isHovering: false');
+  expect(el.textContent).toContain('some text, rendered based on isHovering: false');
 });
 
 it('snapshots view', () => {

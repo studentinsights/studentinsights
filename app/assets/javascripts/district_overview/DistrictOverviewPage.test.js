@@ -42,7 +42,6 @@ describe('DistrictOverviewPageView', () => {
       .create(
         <DistrictOverviewPageView
           enableStudentVoiceUploads={json.enable_student_voice_uploads}
-          showWorkBoard={false}
           schools={json.schools}
           currentEducator={json.current_educator}
         />
@@ -57,7 +56,6 @@ describe('DistrictOverviewPageView', () => {
       .create(
         <DistrictOverviewPageView
           enableStudentVoiceUploads={json.enable_student_voice_uploads}
-          showWorkBoard={false}
           schools={json.schools}
           currentEducator={{
             ...json.current_educator,
@@ -75,7 +73,6 @@ describe('DistrictOverviewPageView', () => {
       .create(
         <DistrictOverviewPageView
           enableStudentVoiceUploads={json.enable_student_voice_uploads}
-          showWorkBoard={false}
           schools={json.schools}
           currentEducator={{
             ...json.current_educator,

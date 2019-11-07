@@ -163,7 +163,7 @@ describe('high-level integration test', () => {
     });
     const {el} = testRender(props);
 
-    expect(el.innerHTML).toContain('11/28/10');
-    expect(el.innerHTML).not.toContain('11/30/10');
+    expect(el.textContent).toContain('11/28/10');
+    expect(el.textContent).not.toContain('11/30/10');
   });
 });

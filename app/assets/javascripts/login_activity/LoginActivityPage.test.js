@@ -35,7 +35,7 @@ it('renders after fetching', done => {
   ReactDOM.render(withDefaultNowContext(<LoginActivityPage {...props} />), el);
 
   setTimeout(() => {
-    expect(el.innerHTML).toContain('Login Attempts, Past 30 days');
+    expect(el.textContent).toContain('Login Attempts, Past 30 days');
     expect(el.querySelectorAll('div.tooltip').length).toEqual(5);
     done();
   }, 0);
