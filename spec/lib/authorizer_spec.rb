@@ -265,16 +265,16 @@ RSpec.describe Authorizer do
       let!(:shs_restricted_note) { FactoryBot.create(:event_note, student: pals.shs_freshman_mari, is_restricted: true) }
 
       it 'limits access for relation' do
-        expect(authorized(pals.uri) { EventNote.all }).to eq [
+        expect(authorized(pals.uri) { EventNote.all }).to match_array [
           healey_public_note,
           healey_restricted_note,
           shs_public_note,
           shs_restricted_note
         ]
-        expect(authorized(pals.healey_vivian_teacher) { EventNote.all }).to eq [
+        expect(authorized(pals.healey_vivian_teacher) { EventNote.all }).to match_array [
           healey_public_note
         ]
-        expect(authorized(pals.shs_bill_nye) { EventNote.all }).to eq [
+        expect(authorized(pals.shs_bill_nye) { EventNote.all }).to match_array [
           shs_public_note
         ]
       end
@@ -286,16 +286,16 @@ RSpec.describe Authorizer do
           shs_public_note,
           shs_restricted_note
         ]
-        expect(authorized(pals.uri) { all_notes }).to eq [
+        expect(authorized(pals.uri) { all_notes }).to match_array [
           healey_public_note,
           healey_restricted_note,
           shs_public_note,
           shs_restricted_note
         ]
-        expect(authorized(pals.healey_vivian_teacher) { all_notes }).to eq [
+        expect(authorized(pals.healey_vivian_teacher) { all_notes }).to match_array [
           healey_public_note
         ]
-        expect(authorized(pals.shs_bill_nye) { all_notes }).to eq [
+        expect(authorized(pals.shs_bill_nye) { all_notes }).to match_array [
           shs_public_note
         ]
       end
@@ -348,16 +348,16 @@ RSpec.describe Authorizer do
           shs_public_note,
           shs_restricted_note
         ]
-        expect(authorized(pals.uri) { all_notes }).to eq [
+        expect(authorized(pals.uri) { all_notes }).to match_array [
           healey_public_note,
           healey_restricted_note,
           shs_public_note,
           shs_restricted_note
         ]
-        expect(authorized(pals.healey_vivian_teacher) { all_notes }).to eq [
+        expect(authorized(pals.healey_vivian_teacher) { all_notes }).to match_array [
           healey_public_note
         ]
-        expect(authorized(pals.shs_bill_nye) { all_notes }).to eq [
+        expect(authorized(pals.shs_bill_nye) { all_notes }).to match_array [
           shs_public_note
         ]
       end
