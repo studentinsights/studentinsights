@@ -5,7 +5,7 @@ import {multifactorMain} from './multifactor';
 function testEl() {
   const el = document.createElement('div');
   const signInHtml = fs.readFileSync('app/assets/javascripts/sign_in/sign_in.fixture.html').toString();
-  el.innerHTML = signInHtml;
+  el.innerHTML = signInHtml; // eslint-disable-line no-unsanitized/property
   return el;
 }
 

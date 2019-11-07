@@ -4,7 +4,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
-import {Website, Email, HelpEmail} from '../components/PublicLinks';
+import {HelpEmail} from '../components/PublicLinks';
 
 
 // Page for navigating between schools
