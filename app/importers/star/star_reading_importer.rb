@@ -14,16 +14,19 @@ class StarReadingImporter
   end
 
   def initialize(options:)
-    @school_scope = options.fetch(:school_scope)
-    @log = options.fetch(:log)
-    remote_file_name = PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_READING_IMPORT')
-    @star_importer = StarImporter.new(options: options.merge({
-      model_class: StarReadingResult,
-      remote_file_name: remote_file_name
-    }))
+    @options = options
   end
 
   def import
-    @star_importer.import
+    remote_file_name = PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_READING_IMPORT')
+    if remote_file_name.nil?
+      log('Aborting, no remote_file_name.')
+      return
+    end
+
+    StarImporter.new(options: @options.merge({
+      model_class: StarReadingResult,
+      remote_file_name: remote_file_name
+    })).import
   end
 end
