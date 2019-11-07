@@ -24,14 +24,4 @@ class School < ApplicationRecord
   def is_high_school?
     school_type == 'HS'
   end
-
-  # deprecated
-  def educators_without_test_account
-    educators.where.not(local_id: 'LDAP')
-  end
-
-  # deprecated
-  def educator_names_for_services
-    educators_without_test_account.pluck(:full_name)
-  end
 end

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 
 // A dropdown component that allows choosing a list of educator names, but also
 // includes names that aren't stricly in the educators table (eg, for
@@ -8,19 +9,29 @@ import React from 'react';
 // This component communicates with the server for the list of suggestions,
 // and includes previously entered names.  It also uses jQuery autocomplete,
 // and pollutes the body tag.
-class ProvidedByEducatorDropdown extends React.Component {
+export default class ProvidedByEducatorDropdown extends React.Component {
   constructor(props) {
     super(props);
+    this.initAutoComplete = this.initAutoComplete.bind(this);
     this.onToggleOpenMenu = this.onToggleOpenMenu.bind(this);
     this.onCloseMenu = this.onCloseMenu.bind(this);
   }
 
   componentDidMount() {
+    apiFetchJson('/api/educators/possible_names_for_service')
+      .then(this.initAutoComplete);
+  }
+
+  componentWillUnmount() {
+    $(this.el).autocomplete('destroy');
+  }
+
+  initAutoComplete(json) {
     const self = this;
 
-    // TODO: We should write a spec for this!
+    const sortedNames = json.names.sort();
     $(this.el).autocomplete({
-      source: '/educators/services_dropdown/' + this.props.studentId,
+      source: sortedNames,
       delay: 0,
       minLength: 0,
       autoFocus: true,
@@ -29,20 +40,20 @@ class ProvidedByEducatorDropdown extends React.Component {
         self.props.onUserDropdownSelect(ui.item.value);
       },
 
-      // Display what the user is typing first
-      response(event, ui) {
-        if (event.target.value !== "") {
-          const currentName = {label: event.target.value,
-            value: event.target.value};
-          ui.content.unshift(currentName);
-        }
+      // // Display what the user is typing first
+      // response(event, ui) {
+      //   if (event.target.value !== "") {
+      //     const currentName = {label: event.target.value,
+      //       value: event.target.value};
+      //     ui.content.unshift(currentName);
+      //   }
 
-        // Don't show a duplicate
-        for (let i = 1; i < ui.content.length; i++) {
-          if (ui.content[i].value === event.target.value)
-            ui.content = ui.content.splice(i,1);
-        }
-      },
+      //   // Don't show a duplicate
+      //   for (let i = 1; i < ui.content.length; i++) {
+      //     if (ui.content[i].value === event.target.value)
+      //       ui.content = ui.content.splice(i,1);
+      //   }
+      // },
 
       open() {
         $(window.document.body).on('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
@@ -53,9 +64,6 @@ class ProvidedByEducatorDropdown extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    $(this.el).autocomplete('destroy');
-  }
 
   onToggleOpenMenu () {
     $(this.el).autocomplete("search", "");
@@ -110,6 +118,3 @@ ProvidedByEducatorDropdown.propTypes = {
   onUserDropdownSelect: PropTypes.func.isRequired,
   studentId: PropTypes.number.isRequired
 };
-
-export default ProvidedByEducatorDropdown;
-
