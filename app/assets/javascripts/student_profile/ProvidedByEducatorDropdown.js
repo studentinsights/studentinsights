@@ -55,11 +55,12 @@ export default class ProvidedByEducatorDropdown extends React.Component {
   }
 
   renderInput () {
+    const {onUserTyping} = this.props;
     return (
       <input
         ref={el => this.el = el}
         className="ProvidedByEducatorDropdown"
-        onChange={this.props.onUserTyping}
+        onChange={e => onUserTyping(e.target.value)}
         placeholder="Last Name, First Name..."
         style={{
           marginTop: 2,
@@ -87,6 +88,5 @@ export default class ProvidedByEducatorDropdown extends React.Component {
 }
 ProvidedByEducatorDropdown.propTypes = {
   onUserTyping: PropTypes.func.isRequired,
-  onUserDropdownSelect: PropTypes.func.isRequired,
-  studentId: PropTypes.number.isRequired
+  onUserDropdownSelect: PropTypes.func.isRequired
 };
