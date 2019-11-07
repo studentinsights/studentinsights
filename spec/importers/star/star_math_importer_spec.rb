@@ -84,5 +84,19 @@ RSpec.describe StarMathImporter do
       expect(log.output).to include('skipped 1 rows because of school filter')
       expect(StarMathResult.all.size).to eq(0)
     end
+
+    it 'logs and aborts when config not set (eg, in Bedford)' do
+      mock_per_district = PerDistrict.new(district_key: 'bedford')
+      allow(mock_per_district).to receive(:try_star_filename).and_return(nil)
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+
+      log = LogHelper::FakeLog.new
+      importer = StarMathImporter.new(options: {
+        school_scope: nil,
+        log: log
+      })
+      importer.import
+      expect(log.output).to include 'Aborting, no remote_file_name'
+    end
   end
 end

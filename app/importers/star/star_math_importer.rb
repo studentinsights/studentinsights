@@ -15,6 +15,7 @@ class StarMathImporter
 
   def initialize(options:)
     @options = options
+    @log = options.fetch(:log, nil)
   end
 
   def import
@@ -28,5 +29,10 @@ class StarMathImporter
       model_class: StarMathResult,
       remote_file_name: remote_file_name
     })).import
+  end
+
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "StarMathImporter: #{text}"
   end
 end
