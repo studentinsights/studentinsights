@@ -14,7 +14,6 @@ export default class ProvidedByEducatorDropdown extends React.Component {
     super(props);
     this.initAutoComplete = this.initAutoComplete.bind(this);
     this.onToggleOpenMenu = this.onToggleOpenMenu.bind(this);
-    this.onCloseMenu = this.onCloseMenu.bind(this);
   }
 
   componentDidMount() {
@@ -39,38 +38,11 @@ export default class ProvidedByEducatorDropdown extends React.Component {
       select(event, ui) {
         self.props.onUserDropdownSelect(ui.item.value);
       },
-
-      // // Display what the user is typing first
-      // response(event, ui) {
-      //   if (event.target.value !== "") {
-      //     const currentName = {label: event.target.value,
-      //       value: event.target.value};
-      //     ui.content.unshift(currentName);
-      //   }
-
-      //   // Don't show a duplicate
-      //   for (let i = 1; i < ui.content.length; i++) {
-      //     if (ui.content[i].value === event.target.value)
-      //       ui.content = ui.content.splice(i,1);
-      //   }
-      // },
-
-      open() {
-        $(window.document.body).on('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
-      },
-      close() {
-        $(window.document.body).off('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
-      }
     });
   }
 
-
   onToggleOpenMenu () {
     $(this.el).autocomplete("search", "");
-  }
-
-  onCloseMenu () {
-    $(this.el).autocomplete('close');
   }
 
   render () {
