@@ -163,7 +163,7 @@ class EducatorsController < ApplicationController
 
   # Used for picking a name when creating a service, drawing from
   # active educators and from other text values entered previously.
-  def possible_names_for_service
+  def possible_names_for_service_json
     # We assume that the names of most providers are public anyway
     # in many other sources (eg, public staff directory on the web).
     # So while there's no real concern with sharing staff names with

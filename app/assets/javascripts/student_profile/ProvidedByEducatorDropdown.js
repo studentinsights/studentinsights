@@ -17,7 +17,7 @@ export default class ProvidedByEducatorDropdown extends React.Component {
   }
 
   componentDidMount() {
-    apiFetchJson('/api/educators/possible_names_for_service')
+    apiFetchJson('/api/educators/possible_names_for_service_json')
       .then(this.initAutoComplete);
   }
 
@@ -42,7 +42,7 @@ export default class ProvidedByEducatorDropdown extends React.Component {
   }
 
   onToggleOpenMenu () {
-    $(this.el).autocomplete("search", "");
+    $(this.el).autocomplete('search', '');
   }
 
   render () {

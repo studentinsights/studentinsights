@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   get '/api/educators/my_students_json' => 'educators#my_students_json'
   get '/api/educators/services_json' => 'educators#services_json'
   get '/api/educators/student_searchbar_json' => 'educators#student_searchbar_json'
-  get '/api/educators/possible_names_for_service' => 'educators#possible_names_for_service'
+  get '/api/educators/possible_names_for_service_json' => 'educators#possible_names_for_service_json'
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards
