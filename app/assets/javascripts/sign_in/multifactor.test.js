@@ -5,7 +5,7 @@ import {multifactorMain} from './multifactor';
 function testEl() {
   const el = document.createElement('div');
   const signInHtml = fs.readFileSync('app/assets/javascripts/sign_in/sign_in.fixture.html').toString();
-  el.innerHTML = signInHtml;
+  el.innerHTML = signInHtml; // eslint-disable-line no-unsanitized/property
   return el;
 }
 
@@ -45,7 +45,7 @@ describe('multifactorMain', () => {
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(true);
     expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(false);
-    expect(el.querySelector('.SignInPage-authentication-type-link').innerHTML).toEqual('Use multifactor login');
+    expect(el.querySelector('.SignInPage-authentication-type-link').textContent).toEqual('Use multifactor login');
   });
 
   it('checks login presence before allowing submit', () => {

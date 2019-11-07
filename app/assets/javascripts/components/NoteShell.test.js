@@ -17,7 +17,7 @@ function testProps(props = {}) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(<NoteShell {...testProps()} />, el);
-  expect(el.innerHTML).toContain('when!');
+  expect(el.textContent).toContain('when!');
 });
 
 it('snapshots across all scenarios at once', () => {

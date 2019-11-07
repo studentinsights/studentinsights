@@ -33,11 +33,11 @@ export function testEl(props, context = {}) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(testEl(testProps()), el);
-  expect(el.innerHTML).toContain('See themselves as a reader');
-  expect(el.innerHTML).toContain('Communicate with oral language');
-  expect(el.innerHTML).toContain('Speak and listen in English');
-  expect(el.innerHTML).toContain('Discriminate Sounds in Words');
-  expect(el.innerHTML).toContain('Represent Sounds with Letters');
+  expect(el.textContent).toContain('See themselves as a reader');
+  expect(el.textContent).toContain('Communicate with oral language');
+  expect(el.textContent).toContain('Speak and listen in English');
+  expect(el.textContent).toContain('Discriminate Sounds in Words');
+  expect(el.textContent).toContain('Represent Sounds with Letters');
 });
 
 it('snapshots view', () => {

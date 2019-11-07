@@ -55,12 +55,12 @@ it('renders without crashing', () => {
   const props = testProps();
   const {el} = renderTestEl(props);
 
-  expect(el.innerHTML).toContain('right now');
-  expect(el.innerHTML).toContain('demo@example.com');
-  expect($(el).find('textarea').length).toEqual(1);
-  expect($(el).find('.btn.note-type').length).toEqual(8);
-  expect($(el).find('.btn.save').length).toEqual(1);
-  expect($(el).find('.btn.cancel').length).toEqual(1);
+  expect(el.textContent).toContain('right now');
+  expect(el.querySelectorAll('.Educator')[0].href).toEqual('mailto:demo@example.com');
+  expect(el.querySelectorAll('textarea').length).toEqual(1);
+  expect(el.querySelectorAll('.btn.note-type').length).toEqual(8);
+  expect(el.querySelectorAll('.btn.save').length).toEqual(1);
+  expect(el.querySelectorAll('.btn.cancel').length).toEqual(1);
 });
 
 
@@ -135,8 +135,8 @@ it('showRestrictedCheckbox', () => {
   const props = testProps({showRestrictedCheckbox: true});
   const {el} = renderTestEl(props);
 
-  expect(el.innerHTML).toContain('Restrict access?');
-  expect(el.innerHTML).toContain('Yes, note contains private or sensitive personal information');
+  expect(el.textContent).toContain('Restrict access?');
+  expect(el.textContent).toContain('Yes, note contains private or sensitive personal information');
   const $checkboxEl = $(el).find('input[type=checkbox]');
   expect($checkboxEl.length).toEqual(1);
 });

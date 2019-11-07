@@ -54,18 +54,44 @@ exports[`chooseYourGradeProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -92,18 +118,44 @@ exports[`chooseYourGradeProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -130,18 +182,44 @@ exports[`chooseYourGradeProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -168,18 +246,44 @@ exports[`chooseYourGradeProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -206,18 +310,44 @@ exports[`chooseYourGradeProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -244,18 +374,44 @@ exports[`chooseYourGradeProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -695,18 +851,44 @@ exports[`chooseYourGradeProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -733,18 +915,44 @@ exports[`chooseYourGradeProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -771,18 +979,44 @@ exports[`chooseYourGradeProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -809,18 +1043,44 @@ exports[`chooseYourGradeProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -847,18 +1107,44 @@ exports[`chooseYourGradeProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -885,18 +1171,44 @@ exports[`chooseYourGradeProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1268,18 +1580,44 @@ exports[`chooseYourGradeProps 3`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1306,18 +1644,44 @@ exports[`chooseYourGradeProps 3`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1344,18 +1708,44 @@ exports[`chooseYourGradeProps 3`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1382,18 +1772,44 @@ exports[`chooseYourGradeProps 3`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1420,18 +1836,44 @@ exports[`chooseYourGradeProps 3`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1458,18 +1900,44 @@ exports[`chooseYourGradeProps 3`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1839,18 +2307,44 @@ exports[`exportProps snapshots all placed 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1877,18 +2371,44 @@ exports[`exportProps snapshots all placed 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1915,18 +2435,44 @@ exports[`exportProps snapshots all placed 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1953,18 +2499,44 @@ exports[`exportProps snapshots all placed 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -1991,18 +2563,44 @@ exports[`exportProps snapshots all placed 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2030,18 +2628,44 @@ exports[`exportProps snapshots all placed 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2525,18 +3149,44 @@ exports[`exportProps snapshots moves 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2563,18 +3213,44 @@ exports[`exportProps snapshots moves 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2601,18 +3277,44 @@ exports[`exportProps snapshots moves 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2639,18 +3341,44 @@ exports[`exportProps snapshots moves 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2677,18 +3405,44 @@ exports[`exportProps snapshots moves 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -2716,18 +3470,44 @@ exports[`exportProps snapshots moves 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3229,18 +4009,44 @@ exports[`exportProps snapshots unplaced 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3267,18 +4073,44 @@ exports[`exportProps snapshots unplaced 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3305,18 +4137,44 @@ exports[`exportProps snapshots unplaced 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3343,18 +4201,44 @@ exports[`exportProps snapshots unplaced 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3381,18 +4265,44 @@ exports[`exportProps snapshots unplaced 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3420,18 +4330,44 @@ exports[`exportProps snapshots unplaced 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3843,18 +4779,44 @@ exports[`exportProps snapshots with teachers 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3881,18 +4843,44 @@ exports[`exportProps snapshots with teachers 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3919,18 +4907,44 @@ exports[`exportProps snapshots with teachers 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3957,18 +4971,44 @@ exports[`exportProps snapshots with teachers 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -3995,18 +5035,44 @@ exports[`exportProps snapshots with teachers 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4034,18 +5100,44 @@ exports[`exportProps snapshots with teachers 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4541,18 +5633,44 @@ exports[`makeAPlanProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4580,18 +5698,44 @@ exports[`makeAPlanProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4618,18 +5762,44 @@ exports[`makeAPlanProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4656,18 +5826,44 @@ exports[`makeAPlanProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4694,18 +5890,44 @@ exports[`makeAPlanProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -4732,18 +5954,44 @@ exports[`makeAPlanProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5141,18 +6389,44 @@ exports[`makeAPlanProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5180,18 +6454,44 @@ exports[`makeAPlanProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5218,18 +6518,44 @@ exports[`makeAPlanProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5256,18 +6582,44 @@ exports[`makeAPlanProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5294,18 +6646,44 @@ exports[`makeAPlanProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5332,18 +6710,44 @@ exports[`makeAPlanProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5705,18 +7109,44 @@ exports[`shareWithPrincipalProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5743,18 +7173,44 @@ exports[`shareWithPrincipalProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5781,18 +7237,44 @@ exports[`shareWithPrincipalProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5820,18 +7302,44 @@ exports[`shareWithPrincipalProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5858,18 +7366,44 @@ exports[`shareWithPrincipalProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -5896,18 +7430,44 @@ exports[`shareWithPrincipalProps 1`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -6175,18 +7735,44 @@ exports[`shareWithPrincipalProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                1
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -6213,18 +7799,44 @@ exports[`shareWithPrincipalProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                2
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -6251,18 +7863,44 @@ exports[`shareWithPrincipalProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                3
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -6290,18 +7928,44 @@ exports[`shareWithPrincipalProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                4
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -6328,18 +7992,44 @@ exports[`shareWithPrincipalProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                5
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {
@@ -6366,18 +8056,44 @@ exports[`shareWithPrincipalProps 2`] = `
           }
         >
           <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
-              }
-            }
             style={
               Object {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
             }
-          />
+          >
+            <svg
+              style={
+                Object {
+                  "color": "#3177c9",
+                  "display": "inline-block",
+                  "fill": "#3177c9",
+                  "fontSize": 24,
+                  "height": 24,
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "userSelect": "none",
+                  "width": 24,
+                }
+              }
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx={12}
+                cy={12}
+                r={10}
+              />
+              <text
+                fill="#fff"
+                fontSize={12}
+                textAnchor="middle"
+                x={12}
+                y={16}
+              >
+                6
+              </text>
+            </svg>
+          </div>
           <span
             style={
               Object {

@@ -49,7 +49,7 @@ describe('high-level integration test', () => {
     expect($(el).find('thead > tr').length).toEqual(2);
     expect($(el).find('tbody > tr').length).toEqual(6);
     expect($(el).find('.StudentPhotoCropped').length).toEqual(5); // respects has_photo
-    expect(el.innerHTML).toContain('Kenobi, Aladdin');
+    expect(el.textContent).toContain('Kenobi, Aladdin');
   });
 
   it('renders SST and MTSS dates correctly for Somerville grade 2 as a happy path test case', () => {

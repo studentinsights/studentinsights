@@ -14,7 +14,7 @@ function testProps(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(<External {...testProps()} />, el);
-  expect(el.innerHTML).toContain('hello');
+  expect(el.querySelector('a').href).toEqual('https://example.com/hello');
 });
 
 it('snapshots view', () => {
