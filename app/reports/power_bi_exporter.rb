@@ -1,7 +1,7 @@
 require 'csv'
 
 # Creates a CSV string of flat tables
-class PowerBIExporter
+class PowerBiExporter
   def init(options = {})
     @time_now = options[:now] || Time.now
     @cutoff_date = @time_now - 3.years

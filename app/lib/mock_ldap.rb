@@ -13,7 +13,7 @@
 # Because the API for Insights to LDAP servers is slightly different per districts,
 # and we want to enable using this in development and test across districts, this
 # means that the behavior here varies using `PerDistrict`.
-class MockLDAP
+class MockLdap
 
   def self.should_use?
     return false unless ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
@@ -31,7 +31,7 @@ class MockLDAP
   end
 
   def bind
-    raise 'MockLDAP.should_use? returned false' unless MockLDAP.should_use?
+    raise 'MockLdap.should_use? returned false' unless MockLdap.should_use?
 
     return false unless login_present?
 

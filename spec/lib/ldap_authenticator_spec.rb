@@ -22,14 +22,14 @@ RSpec.describe 'LdapAuthenticator' do
   end
 
   def expect_bind_not_to_be_called
-    spy_ldap = MockLDAP.new(test_options(nil, nil)) # invalid, so if methods are called it will raise
-    allow(MockLDAP).to receive(:new).with(anything).and_return(spy_ldap)
+    spy_ldap = MockLdap.new(test_options(nil, nil)) # invalid, so if methods are called it will raise
+    allow(MockLdap).to receive(:new).with(anything).and_return(spy_ldap)
     expect(spy_ldap).not_to receive(:bind)
   end
 
-  describe '#is_authorized_by_ldap? using MockLDAP' do
+  describe '#is_authorized_by_ldap? using MockLdap' do
     def is_authorized_by_ldap?(ldap_login, ldap_password)
-      LdapAuthenticator.new(ldap_class: MockLDAP).is_authorized_by_ldap?(ldap_login, ldap_password)
+      LdapAuthenticator.new(ldap_class: MockLdap).is_authorized_by_ldap?(ldap_login, ldap_password)
     end
 
     let!(:pals) { TestPals.create! }

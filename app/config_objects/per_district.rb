@@ -345,7 +345,7 @@ class PerDistrict
     elsif @district_key == NEW_BEDFORD
       educator.email
     elsif @district_key == DEMO
-      educator.email # only used for MockLDAP in dev/test
+      educator.email # only used for MockLdap in dev/test
     else
       raise_not_handled!
     end
@@ -354,7 +354,7 @@ class PerDistrict
   # This is used to mock an LDAP server for local development, test and for the demo site.
   # The behavior here is different by districts.
   def find_educator_for_mock_ldap_login(ldap_login)
-    raise_not_handled! unless MockLDAP.should_use?
+    raise_not_handled! unless MockLdap.should_use?
 
     if @district_key == BEDFORD
       login_name = ldap_login.split('@').first
