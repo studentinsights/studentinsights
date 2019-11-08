@@ -71,7 +71,7 @@ RSpec.describe StarReadingImporter do
     it 'skips and logs bad data (v2 as example)' do
       importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_reading_v2_invalid.csv")
       importer.import
-      expect(log.output).to include('error: ["Percentile rank too high"]')
+      expect(log.output).to include('errors.keys: [:percentile_rank]')
       expect(log.output).to include('skipped 1 invalid rows')
       expect(StarReadingResult.all.size).to eq(0)
     end

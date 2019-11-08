@@ -29,11 +29,14 @@ RSpec.describe IepPdfImportJob do
       expect(log.output).to include 'unzipped 2 files from iep-pdfs-for-test-2.zip...'
       expect(log.output).to include 'unzipping iep-pdfs-for-test-1.zip...'
       expect(log.output).to include 'unzipped 1 files from iep-pdfs-for-test-1.zip...'
-      expect(log.output).to include 'storing iep pdf for student_local_id:2222222211 in s3...'
-      expect(log.output).to include 'storing iep pdf for student_local_id:333333333 in s3...'
-      expect(log.output).to include 'storing iep pdf for student_local_id:111111111 in s3...'
+      expect(log.output).to include 'storing iep pdf in s3...' # 3 times
       expect(log.output).to include 'found 3 PDF files within downloaded zips.'
       expect(log.output).to include 'created 3 IepDocument records.'
+
+      # avoid logging local student ids
+      expect(log.output).not_to include '111111111'
+      expect(log.output).not_to include '2222222211'
+      expect(log.output).not_to include '333333333'
     end
   end
 end
