@@ -59,7 +59,7 @@ class ServiceUploadsController < ApplicationController
 
         return unless date_ended
 
-        unless service.update_attributes({
+        unless service.update({
           :discontinued_at => date_ended,
           :discontinued_by_educator_id => current_educator.id
         })
