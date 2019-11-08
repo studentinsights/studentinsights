@@ -1,4 +1,4 @@
-RSpec.describe 'LDAPAuthenticatableTiny' do
+RSpec.describe 'LdapAuthenticatableTiny' do
   before(:each) do
     @timing = ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS']
     ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = '500'
@@ -7,7 +7,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
 
   def test_strategy
     warden_env = nil
-    Devise::Strategies::LDAPAuthenticatableTiny.new(warden_env)
+    Devise::Strategies::LdapAuthenticatableTiny.new(warden_env)
   end
 
   def expect_failure(strategy, symbol)
@@ -106,7 +106,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
     let!(:pals) { TestPals.create! }
 
     it 'fails and alerts if a) upstream bug allows empty login_text and b) downstream bug would allow it to authenticate' do
-      expect(Rollbar).to receive(:error).with('LDAPAuthenticatableTiny called with invalid params')
+      expect(Rollbar).to receive(:error).with('LdapAuthenticatableTiny called with invalid params')
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
@@ -122,7 +122,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
     end
 
     it 'fails and alerts if a) upstream bug allows empty login_code and b) downstream bug would allow it to authenticate' do
-      expect(Rollbar).to receive(:error).with('LDAPAuthenticatableTiny called with invalid params')
+      expect(Rollbar).to receive(:error).with('LdapAuthenticatableTiny called with invalid params')
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
@@ -138,7 +138,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
     end
 
     it 'fails and alerts if a) upstream bug allows empty password and b) downstream bug would allow it to authenticate' do
-      expect(Rollbar).to receive(:error).with('LDAPAuthenticatableTiny called with invalid params')
+      expect(Rollbar).to receive(:error).with('LdapAuthenticatableTiny called with invalid params')
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
@@ -362,7 +362,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
     it 'ignores errors with computing, and reports without logging password' do
       allow(PasswordChecker).to receive(:new).and_raise(NoMethodError)
       allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('LDAPAuthenticatableTiny, store_password_check raised NoMethodError, ignoring and continuing...')
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check raised NoMethodError, ignoring and continuing...')
 
       strategy = mock_authenticate_with_laura!(true)
       expect(strategy.result).to eq :success
@@ -372,7 +372,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
     it 'ignores errors with storing, and reports without logging password' do
       allow(PasswordCheck).to receive(:create!).and_raise(NoMethodError)
       allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('LDAPAuthenticatableTiny, store_password_check raised NoMethodError, ignoring and continuing...')
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check raised NoMethodError, ignoring and continuing...')
 
       strategy = mock_authenticate_with_laura!(true)
       expect(strategy.result).to eq :success
@@ -398,7 +398,7 @@ RSpec.describe 'LDAPAuthenticatableTiny' do
     it 'ignores errors, and reports without logging password' do
       allow(LoginChecker).to receive(:new).and_raise(NoMethodError)
       allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('LDAPAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
 
       strategy = mock_authenticate_with_laura!(true)
       expect(strategy.result).to eq :success

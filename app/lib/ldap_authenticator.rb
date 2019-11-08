@@ -1,4 +1,4 @@
-class LDAPAuthenticator
+class LdapAuthenticator
   def initialize(options = {})
     @logger = options.fetch(:logger, Rails.logger)
     @ldap_class = options.fetch(:ldap_class, MockLDAP.should_use? ? MockLDAP : Net::LDAP)
@@ -9,11 +9,11 @@ class LDAPAuthenticator
   def is_authorized_by_ldap?(ldap_login, ldap_password)
     # Guard for bad calls
     if ldap_login.nil? || ldap_login == ''
-      @logger.error 'LDAPAuthenticator#is_authorized_by_ldap? aborting because of empty login.'
+      @logger.error 'LdapAuthenticator#is_authorized_by_ldap? aborting because of empty login.'
       return false
     end
     if ldap_password.nil? || ldap_password == ''
-      @logger.error 'LDAPAuthenticator#is_authorized_by_ldap? aborting because of empty password.'
+      @logger.error 'LdapAuthenticator#is_authorized_by_ldap? aborting because of empty password.'
       return false
     end
 
@@ -24,7 +24,7 @@ class LDAPAuthenticator
 
     if !is_authorized
       ldap_error = ldap.get_operation_result
-      @logger.error "LDAPAuthenticator, ldap_error from get_operation_result: #{ldap_error}"
+      @logger.error "LdapAuthenticator, ldap_error from get_operation_result: #{ldap_error}"
     end
 
     is_authorized

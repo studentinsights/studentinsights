@@ -1,8 +1,6 @@
 module Devise
   module Strategies
-    class LDAPAuthenticatableTiny < Authenticatable
-      puts '<<< hi <<<'
-      
+    class LdapAuthenticatableTiny < Authenticatable
       # This is the entry point, and we wrap it to prevent timing attacks
       # that could result from the different execution times of the different
       # code paths.
@@ -40,8 +38,8 @@ module Devise
           login_code = authentication_hash.fetch(:login_code, '').downcase.strip
           password_text = password()
           if login_text.empty? || login_code.empty? || password_text.empty?
-            Rollbar.error('LDAPAuthenticatableTiny called with invalid params')
-            logger.error 'LDAPAuthenticatableTiny  called with invalid params'
+            Rollbar.error('LdapAuthenticatableTiny called with invalid params')
+            logger.error 'LdapAuthenticatableTiny  called with invalid params'
             return fail!(:invalid)
           end
 
@@ -71,8 +69,8 @@ module Devise
           # Return success
           return success!(educator)
         rescue => error
-          Rollbar.error('LDAPAuthenticatableTiny error caught', error)
-          logger.error "LDAPAuthenticatableTiny, error caught: #{error}"
+          Rollbar.error('LdapAuthenticatableTiny error caught', error)
+          logger.error "LdapAuthenticatableTiny, error caught: #{error}"
           return fail!(:error)
         end
         nil
@@ -95,7 +93,7 @@ module Devise
       end
 
       def is_authorized_by_ldap?(ldap_login, password_text)
-        LDAPAuthenticator.new(logger: logger).is_authorized_by_ldap?(ldap_login, password_text)
+        LdapAuthenticator.new(logger: logger).is_authorized_by_ldap?(ldap_login, password_text)
       end
 
       # Store password check, logging and ignoring any failures.
@@ -105,7 +103,7 @@ module Devise
           json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
           PasswordCheck.create!(json_encrypted: json_encrypted)
         rescue => error # don't log errors, in case they contain anything sensitive
-          error_message = "LDAPAuthenticatableTiny, store_password_check raised #{error.class}, ignoring and continuing..."
+          error_message = "LdapAuthenticatableTiny, store_password_check raised #{error.class}, ignoring and continuing..."
           Rollbar.error(error_message)
           logger.error(error_message)
         end
@@ -117,8 +115,8 @@ module Devise
         begin
           LoginChecker.new(educator).warn_if_suspicious
         rescue => _ # don't log errors, in case they contain anything sensitive
-          Rollbar.error('LDAPAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
-          logger.error "LDAPAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing..."
+          Rollbar.error('LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
+          logger.error "LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing..."
         end
         nil
       end
