@@ -28,10 +28,6 @@ class Service < ApplicationRecord
     where('discontinued_at < ?', Time.now)
   end
 
-  def self.provider_names
-    pluck(:provided_by_educator_name)
-  end
-
   def discontinued?
     discontinued_at.present? && (Time.now > discontinued_at)
   end

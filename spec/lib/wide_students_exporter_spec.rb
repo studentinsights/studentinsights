@@ -10,7 +10,7 @@ RSpec.describe WideStudentsExporter do
       # the test data is not deterministic (setting a seed in srand only worked on
       # a single-file test run), so we only test for the output shape
       3.times { FakeStudent.create!(school, homeroom) }
-      Student.update_recent_student_assessments
+      Student.update_recent_student_assessments!
     end
 
     describe '#csv_string' do
@@ -114,7 +114,11 @@ RSpec.describe WideStudentsExporter do
           'LLI Reading Instruction (active_service_date_started)',
           'Lunch bunch (active_service_date_started)',
           'Reading intervention, with specialist (active_service_date_started)',
-          'Math Intervention, small group (active_service_date_started)'
+          'Math Intervention, small group (active_service_date_started)',
+          'SPS Heggerty, week 1 (active_service_date_started)',
+          'SPS Heggerty, week 5 (active_service_date_started)',
+          'SPS Heggerty, week 9 (active_service_date_started)',
+          'SPS Heggerty, week 13 (active_service_date_started)'
          ].sort
         )
       end

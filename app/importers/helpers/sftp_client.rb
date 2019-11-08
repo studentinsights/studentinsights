@@ -25,18 +25,18 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
     )
   end
 
+  # Open connection, download file to local disk, close connection.
+  # Without scoping connection, it may stay open on remote box even when
+  # the Heroku dyno is killed (depending on that server's SSH config, like
+  # `ClientAliveInterval).
   def download_file(remote_file_name)
     FileUtils.mkdir_p(local_download_folder)
-
     local_filename = File.join(local_download_folder, remote_file_name.split("/").last)
     local_file = File.open(local_filename, 'w')
-    sftp_session.download!(remote_file_name, local_file.path)
-
+    with_sftp_session do |sftp_session|
+      sftp_session.download!(remote_file_name, local_file.path)
+    end
     local_file
-  end
-
-  def dir_entries(*args)
-    sftp_session.dir.entries(*args)
   end
 
   private
@@ -44,13 +44,13 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
     options.fetch(:unsafe_local_download_folder, Rails.root.join(File.join('tmp', 'data_download/')))
   end
 
-  # This returns an object that will reveal secure data if printed
-  def sftp_session
-    raise "SFTP information missing" unless sftp_info_present?
-    if @sftp_session.nil?
-      @sftp_session = Net::SFTP.start(host, user, auth_mechanism)
+  # Always open connection, execute, and then close after each call.
+  def with_sftp_session(&block)
+    raise 'SFTP information missing' unless sftp_info_present?
+    Net::SFTP.start(host, user, auth_mechanism) do |sftp_session|
+      block.call(sftp_session)
     end
-    @sftp_session
+    nil
   end
 
   def sftp_info_present?

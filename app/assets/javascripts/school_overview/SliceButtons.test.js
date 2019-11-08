@@ -17,6 +17,6 @@ it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(<SliceButtons {...props} />), el);
-  expect(el.innerHTML).toContain('Link to save these filters');
-  expect(el.innerHTML).toContain('Download CSV');
+  expect(el.textContent).toContain('Link to save these filters');
+  expect(el.textContent).toContain('Download CSV');
 });

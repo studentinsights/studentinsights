@@ -83,9 +83,9 @@ module SomervilleTeacherTool
 
       # Prepend all log lines with tags for the request, session and educator
       config.log_tags = [
-        ->(req) { LogTags.new.request_identifier(req) },
-        ->(req) { LogTags.new.session_identifier(req) },
-        ->(req) { LogTags.new.educator_identifier(req) }
+        ->(req) { LogAnonymizer.new.request_identifier(req) },
+        ->(req) { LogAnonymizer.new.session_identifier(req) },
+        ->(req) { LogAnonymizer.new.educator_identifier(req) }
       ]
     end
   end

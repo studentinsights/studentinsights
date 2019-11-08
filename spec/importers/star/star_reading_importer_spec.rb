@@ -37,31 +37,35 @@ RSpec.describe StarReadingImporter do
     let!(:student) { FactoryBot.create(:student, local_id: '10', school: pals.west) }
 
     it 'works for v2 format in somerville' do
-      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_reading_v2.csv")
-      importer.import
-      expect(log.output).to include(':processed_rows_count=>1')
-      expect(StarReadingResult.all.size).to eq(1)
-      expect(StarReadingResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
-        "date_taken"=>DateTime.new(2015, 1, 21, 14, 18, 27), # stored in UTC
-        "percentile_rank"=>90,
-        "total_time"=>710,
-        "grade_equivalent"=>"1.00",
-        "student_id"=>student.id
-      })
+      Timecop.freeze(pals.time_now) do
+        importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_reading_v2.csv")
+        importer.import
+        expect(log.output).to include(':processed_rows_count=>1')
+        expect(StarReadingResult.all.size).to eq(1)
+        expect(StarReadingResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
+          "date_taken"=>DateTime.new(2015, 1, 21, 13, 18, 27), # parsed as EDT/EST, stored in UTC
+          "percentile_rank"=>90,
+          "total_time"=>710,
+          "grade_equivalent"=>"1.00",
+          "student_id"=>student.id
+        })
+      end
     end
 
     it 'works for v1 format in new bedford' do
-      importer, log = create_mocked_importer(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_reading_v1.csv")
-      importer.import
-      expect(log.output).to include(':processed_rows_count=>1')
-      expect(StarReadingResult.all.size).to eq(1)
-      expect(StarReadingResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
-        "date_taken"=>DateTime.new(2015, 1, 21, 14, 18, 27), # stored in UTC
-        "percentile_rank"=>90,
-        "total_time"=>710,
-        "grade_equivalent"=>"1.00",
-        "student_id"=>student.id
-      })
+      Timecop.freeze(pals.time_now) do
+        importer, log = create_mocked_importer(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_reading_v1.csv")
+        importer.import
+        expect(log.output).to include(':processed_rows_count=>1')
+        expect(StarReadingResult.all.size).to eq(1)
+        expect(StarReadingResult.first.as_json(except: [:id, :created_at, :updated_at])).to eq({
+          "date_taken"=>DateTime.new(2015, 1, 21, 13, 18, 27), # parsed as EDT/EST, stored in UTC
+          "percentile_rank"=>90,
+          "total_time"=>710,
+          "grade_equivalent"=>"1.00",
+          "student_id"=>student.id
+        })
+      end
     end
 
     it 'skips and logs bad data (v2 as example)' do
@@ -80,5 +84,19 @@ RSpec.describe StarReadingImporter do
       expect(log.output).to include('skipped 1 rows because of school filter')
       expect(StarReadingResult.all.size).to eq(0)
     end
+  end
+
+  it 'logs and aborts when config not set (eg, in Bedford)' do
+    mock_per_district = PerDistrict.new(district_key: 'bedford')
+    allow(mock_per_district).to receive(:try_star_filename).and_return(nil)
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+
+    log = LogHelper::FakeLog.new
+    importer = StarReadingImporter.new(options: {
+      school_scope: nil,
+      log: log
+    })
+    importer.import
+    expect(log.output).to include 'Aborting, no remote_file_name'
   end
 end

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # Admin
   namespace :admin do
-    resources :educators
+    resources :educators, only: [:index, :show, :edit, :update] # administrate
     get '/authorization' => 'educators#authorization'
     post '/masquerade/become' => 'masquerade#become'
     post '/masquerade/clear' => 'masquerade#clear'
@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/api/educators/my_students_json' => 'educators#my_students_json'
   get '/api/educators/services_json' => 'educators#services_json'
   get '/api/educators/student_searchbar_json' => 'educators#student_searchbar_json'
+  get '/api/educators/possible_names_for_service_json' => 'educators#possible_names_for_service_json'
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards
@@ -139,7 +140,6 @@ Rails.application.routes.draw do
   get '/educators/services'=> 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/probe'=> 'educators#probe'
-  get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
 
   # error pages
   get 'no_default_page' => 'pages#no_default_page'

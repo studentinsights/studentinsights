@@ -2,7 +2,7 @@
 class BedfordTeacherTransitionProcessor
   def initialize(educator, options = {})
     Rollbar.warn('deprecation-warning, see `FormToNotesProcessor` and `teacher_forms` format')
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
 
     @educator = educator
     @matcher = ImportMatcher.new

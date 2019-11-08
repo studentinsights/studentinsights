@@ -16,8 +16,8 @@ function testProps(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(<LevelsBreakdown {...testProps()} />, el);
-  expect(el.innerHTML).toContain('message!');
-  expect(el.innerHTML).toContain('links!');
+  expect(el.textContent).toContain('message!');
+  expect(el.textContent).toContain('links!');
 });
 
 it('snapshots view', () => {

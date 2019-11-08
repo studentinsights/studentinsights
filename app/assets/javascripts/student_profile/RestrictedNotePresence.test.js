@@ -37,7 +37,7 @@ it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
   ReactDOM.render(testEl(props), el);
-  expect(el.innerHTML).not.toContain('RESTRICTED');
+  expect(el.textContent).not.toContain('RESTRICTED');
 });
 
 it('works with fetchRestrictedNoteText', done => {
@@ -46,13 +46,13 @@ it('works with fetchRestrictedNoteText', done => {
   const props = testProps({fetchRestrictedText});
   const el = document.createElement('div');
   ReactDOM.render(testEl(props), el);
-  expect(el.innerHTML).toContain('show restricted note');
+  expect(el.textContent).toContain('show restricted note');
 
   ReactTestUtils.Simulate.click($(el).find('a').get(0));
   setTimeout(() => {
-    expect(el.innerHTML).not.toContain('show restricted note');
-    expect(el.innerHTML).toContain('RESTRICTED-text');
-    expect(el.innerHTML).toContain('This is a restricted note');
+    expect(el.textContent).not.toContain('show restricted note');
+    expect(el.textContent).toContain('RESTRICTED-text');
+    expect(el.textContent).toContain('This is a restricted note');
     done();
   }, 0);
 });
@@ -63,13 +63,13 @@ it('works with fetchRestrictedTransitionNoteText', done => {
   const props = testProps({fetchRestrictedText});
   const el = document.createElement('div');
   ReactDOM.render(testEl(props), el);
-  expect(el.innerHTML).toContain('show restricted note');
+  expect(el.textContent).toContain('show restricted note');
 
   ReactTestUtils.Simulate.click($(el).find('a').get(0));
   setTimeout(() => {
-    expect(el.innerHTML).not.toContain('show restricted note');
-    expect(el.innerHTML).toContain('RESTRICTED-transition-note-text');
-    expect(el.innerHTML).toContain('This is a restricted note');
+    expect(el.textContent).not.toContain('show restricted note');
+    expect(el.textContent).toContain('RESTRICTED-transition-note-text');
+    expect(el.textContent).toContain('This is a restricted note');
     done();
   }, 0);
 });

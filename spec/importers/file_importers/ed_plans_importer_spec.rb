@@ -20,8 +20,8 @@ RSpec.describe EdPlansImporter do
   def mock_importer_download!(importer)
     mock_per_district = PerDistrict.new
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
-    allow(mock_per_district).to receive(:try_sftp_filename).with('FILENAME_FOR_ED_PLAN_IMPORT').and_return('test_filename_for_ed_plan_import.txt')
-    allow(importer).to receive(:download_csv_file_text).with('test_filename_for_ed_plan_import.txt').and_return(fixture_file_text)
+    allow(mock_per_district).to receive(:try_sftp_filename).with('FILENAME_FOR_ED_PLAN_IMPORT').and_return('test_filename_for_ed_plan_import.csv')
+    allow(importer).to receive(:download_csv_file_text).with('test_filename_for_ed_plan_import.csv').and_return(fixture_file_text)
   end
 
   describe 'integration test' do

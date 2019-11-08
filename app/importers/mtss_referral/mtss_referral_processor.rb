@@ -7,7 +7,7 @@
 # event_notes = rows.map {|row| EventNote.create!(row) };nil
 class MtssReferralProcessor
   def initialize(options = {})
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
 
     @matcher = ImportMatcher.new
     @fuzzy_student_matcher = FuzzyStudentMatcher.new

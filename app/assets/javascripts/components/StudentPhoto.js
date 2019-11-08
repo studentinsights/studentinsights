@@ -33,6 +33,7 @@ export default class StudentPhoto extends React.Component {
 
     return (
       <img
+        className="StudentPhoto"
         style={style}
         src={Routes.studentPhoto(student.id)}
         width={width}
@@ -49,6 +50,7 @@ export default class StudentPhoto extends React.Component {
 
     return (
       <img
+        className="StudentPhoto-fallback"
         style={style}
         src={whitePixel}
         width={width}

@@ -1,46 +1,95 @@
+# See https://github.com/github/gitignore for helpful suggestions.
+
+# OS X
 .DS_Store
+
+# Rails temporary files
 **.orig
 /log
 /tmp
-/sketch
-/data
-coverage
-spec/logs/logs.txt
-dump.rdb
 
-# Node.js
+# Artificact of running simplecov analysis task
+/coverage
+
+# Node.js dependencies and logs
 node_modules
 yarn-debug.log*
 yarn-error.log*
 
-# This holds configuration for testing production import scripts locally, so it shouldn't be checked into
-# source control.
+# Build artifacts from `yarn build`
+/public/build
+/public/dev
+
+# In past development setups, files were used to holds configuration for
+# testing production import scripts by running them locally and connecting to
+# production services.  Developers should avoid working directly with production
+# credentials, and should use a Heroku dyno rather than connecting to other
+# production services directly when possible.
+# This is kept here defensively in case this file exists and contains any
+# secrets.
 config/local_env.yml
+.env
 
 # Use env initializers and read ENV variables instead, no good
 # comes from storing secrets on disk (this was deprecated
 # in Rails 5.2, but keep in here preventatively anyway).
 config/secrets.yml
 
-## Environment normalisation:
-/.bundle
-# these should all be checked in to normalise the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
-
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
-
-# Editor configuration
+# See README for recommended Ruby and development environment setup
+# (eg, .ruby-version etc. should be checked into source).
+# Editor configuration (Sublime is the only supported setup)
 studentinsights.sublime-workspace
-.dir-locals.el
 
-public/build
-public/dev
 
-# For qgsocksify
+# Artificat from running qgsocksify.  Defensive against ever checking this in,
+# in case it contains any secrets.
 socks.conf
 
 # Specifically for gh-pages and jekyll
 _site/
 .sass-cache/
 .jekyll-metadata
+
+
+# Exclude all potential data files, unless explicitly safelisted.
+# This is a defense against accidentally saving production data files
+# into the project folder.  Developers should avoid working with production
+# data whenever possible, and avoid ever putting production data in the 
+# project folder, but this is another layer of defense.
+#
+# These commands can be helpful for auditing:
+#
+#  $ find . -not -path './node_modules/*' -not -path './coverage/*' -type f -name "*.json"
+#  $ git status --ignored
+#  $ git clean -d # clean and remove ignored files
+# 
+*.json
+!/app.json
+!/jest.json
+!/package.json
+!/config/sftp_filenames_development_fixture.json
+!/spec/importers/helpers/data_flows_for_other_importers.json
+!/spec/importers/file_importers/data_flows_fixture.json
+
+*.csv
+!spec/fixtures/*.csv
+!spec/importers/*.csv
+
+*.sql
+!/x2_export/sql/*.sql
+
+*.xml
+!/public/browserconfig.xml
+!/x2_export/xml/*.xml
+
+*.zip
+!/spec/importers/iep_import/iep-pdfs-for-test-1.zip
+!/spec/importers/iep_import/iep-pdfs-for-test-2.zip
+
+*.log
+
+*.sqlite3
+
+# The /data folder is not currently used, but was previously used for local
+# analysis of production data, so defensively ignore anything there as well.
+/data

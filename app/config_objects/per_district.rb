@@ -48,12 +48,15 @@ class PerDistrict
     yaml.fetch('school_definitions_for_import')
   end
 
-  def try_sftp_filename(key, fallback = nil)
-    yaml.fetch('sftp_filenames', {}).fetch(key, fallback)
-  end
-
   def try_star_filename(key, fallback = nil)
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
+  end
+
+  # What filenames are district IT staff using when exporting specific
+  # files to SFTP servers?
+  def try_sftp_filename(key, fallback = nil)
+    json = DistrictConfigLog.latest_json(DistrictConfigLog::SFTP_FILENAMES, {})
+    json.fetch(key, fallback)
   end
 
   # This migrates up older formats still in use in New Bedfor
@@ -64,7 +67,7 @@ class PerDistrict
   #  v1                   v2
   # ----------------------------------------
   #  StudentLocalID    => StudentIdentifier
-  #  AssessmentDate    => CompletedDate
+  #  AssessmentDate    => CompletedDate (parsed into Ruby Time)
   #  PercentileRank    => PercentileRank
   #  GradeEquivalent   => GradeEquivalent
   #  TotalTime         => TotalTimeInSeconds
@@ -77,7 +80,7 @@ class PerDistrict
       {
         'SchoolIdentifier' => row['SchoolLocalID'],
         'StudentIdentifier' => row['StudentLocalID'],
-        'CompletedDate' => row['AssessmentDate'],
+        'CompletedDate' => parse_star_date_taken_with_v1_format(row['AssessmentDate']),
         'PercentileRank' => row['PercentileRank'],
         'GradeEquivalent' => row['GradeEquivalent'],
         'TotalTimeInSeconds' => row['TotalTime']
@@ -86,7 +89,7 @@ class PerDistrict
       {
         'SchoolIdentifier' => row['SchoolIdentifier'],
         'StudentIdentifier' => row['StudentIdentifier'],
-        'CompletedDate' => row['CompletedDate'], # alt, LaunchDate, CompletedDateLocal
+        'CompletedDate' => parse_star_date_taken_with_v2_format(row['CompletedDate']), # alt, LaunchDate, CompletedDateLocal
         'PercentileRank' => row['PercentileRank'],
         'GradeEquivalent' => row['GradeEquivalent'],
         'TotalTimeInSeconds' => row['TotalTimeInSeconds']
@@ -94,6 +97,21 @@ class PerDistrict
     else
       raise_not_handled!
     end
+  end
+
+  # Parse in EDT/EST, depending on parse date (probably should be depending on
+  # the date itself.  In earlier iterations this parsing was fixed to CDT.
+  def parse_star_date_taken_with_v1_format(datetime_string)
+    eastern_offset = Time.now.in_time_zone('Eastern Time (US & Canada)').formatted_offset
+    DateTime.strptime("#{datetime_string} #{eastern_offset}", '%m/%d/%Y %H:%M:%S %Z')
+  end
+
+  # Remove microseconds manually, since I can't figure out how to get Ruby
+  # to parse it properly, and always interpret as being in eastern time.
+  def parse_star_date_taken_with_v2_format(text)
+    text_without_microseconds = text.first(-4)
+    eastern_offset = Time.now.in_time_zone('Eastern Time (US & Canada)').formatted_offset
+    DateTime.strptime("#{text_without_microseconds} #{eastern_offset}", '%Y-%m-%d %H:%M:%S %Z')
   end
 
   # Support patching this for Somerville, so that it is derived
@@ -468,9 +486,9 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def filenames_for_iep_pdf_zips
+  def filenames_for_iep_pdf_zips_ordered_oldest_to_newest
     if @district_key == SOMERVILLE
-      try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+      try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS_ORDERED_OLDEST_TO_NEWEST', [])
     else
       []
     end
@@ -483,10 +501,6 @@ class PerDistrict
     else
       false
     end
-  end
-
-  def is_research_matters_analysis_supported?
-    @district_key == SOMERVILLE
   end
 
   # See also language.js

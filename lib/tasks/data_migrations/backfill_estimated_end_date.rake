@@ -7,7 +7,7 @@ namespace :services do
     ActiveRecord::Base.transaction do
       services.each do |service|
         service.estimated_end_date = service.discontinued_at
-        service.save
+        service.save!
         puts "saving service"
       end
     end

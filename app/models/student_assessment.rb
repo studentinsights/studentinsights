@@ -21,10 +21,6 @@ class StudentAssessment < ApplicationRecord
 
   # TODO: Add validation for MCAS and ACCESS assessments.
 
-  def self.order_by_date_taken_desc
-    order(date_taken: :desc)
-  end
-
   def self.order_by_date_taken_asc
     order(date_taken: :asc)
   end
@@ -35,9 +31,5 @@ class StudentAssessment < ApplicationRecord
 
   def self.by_family_and_subject(family_name, subject_name)
     joins(:assessment).where(assessments: {family: family_name, subject: subject_name})
-  end
-
-  def self.find_by_student(student)
-    where(student_id: student.id)
   end
 end

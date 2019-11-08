@@ -8,7 +8,7 @@
 #   output = matcher.match_file(file_text) {|row| matcher.match_from_last_first(row['Student_Name']) }
 class FuzzyStudentMatcher
   def initialize(options = {})
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @active_students_only = options.fetch(:active_students_only, false)
     reset_counters!
   end

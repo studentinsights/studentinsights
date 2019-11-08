@@ -85,15 +85,6 @@ class Rack::Attack
   # Throttling requires a cache
   set_cache_from_config!
 
-  # Block all requests from known data centers
-  # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
-  blocklist('req/datacenter') do |req|
-    datacenter_name = IPCat.datacenter?(req.ip).try(:name)
-    if datacenter_name.present?
-      Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
-      true
-    end
-  end
 
   # Block things attacking WordPress and ASP, just to remove that noise
   blocklist('req/noise') do |request|
@@ -103,6 +94,24 @@ class Rack::Attack
     request.path.include?('.php') ||
     request.path.include?('.asp') ||
     request.path.include?('.aspx')
+  end
+
+  # Block all requests from known data centers
+  # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
+  # 
+  # Alert additionally as errors if specific URLs for actual application routes
+  # were targeted.
+  blocklist('req/datacenter') do |req|
+    datacenter_name = IPCat.datacenter?(req.ip).try(:name)
+    if datacenter_name.present?
+      Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
+      matching_route = begin Rails.application.routes.recognize_path(req.path) rescue nil end
+      is_root_page = (req.path == '/' || req.path.start_with?('/?'))
+      if matching_route.present? && !is_root_page
+        Rollbar.error('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: datacenter_name)
+      end
+      true
+    end
   end
 
   # Throttle all requests by IP

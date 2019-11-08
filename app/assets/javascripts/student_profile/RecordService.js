@@ -74,8 +74,8 @@ export default class RecordService extends React.Component {
     this.setState({estimatedEndDateText});
   }
 
-  onProvidedByEducatorTyping(event) {
-    this.setState({ providedByEducatorName: event.target.value });
+  onProvidedByEducatorTyping(string) {
+    this.setState({ providedByEducatorName: string });
   }
 
   onProvidedByEducatorDropdownSelect(string) {
@@ -229,7 +229,7 @@ export default class RecordService extends React.Component {
       <ProvidedByEducatorDropdown
         onUserTyping={this.onProvidedByEducatorTyping}
         onUserDropdownSelect={this.onProvidedByEducatorDropdownSelect}
-        studentId={this.props.studentId} />
+      />
     );
   }
 

@@ -48,7 +48,7 @@ class DestroyInactiveIepDocuments < ActiveRecord::Migration[5.1]
 
     puts "Response from AWS: #{response}"
 
-    document.destroy
+    document.destroy!
   end
 
   def client

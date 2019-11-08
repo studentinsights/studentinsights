@@ -24,16 +24,16 @@ class IepPdfImportJob
 
     @time_now = options.fetch(:time_now, Time.now)
     @s3_client = options.fetch(:s3_client, Aws::S3::Client.new)
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
   end
 
   # This imports all the IEP PDFs from a zip that
   # contains several older documents (ie., for a first-time import).
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    remote_filenames = [ENV.fetch('BULK_IEP_IMPORT_TARGET')]
+    ordered_remote_filenames = [ENV.fetch('BULK_IEP_IMPORT_FILENAMES_FOR_IEP_PDF_ZIPS_ORDERED_OLDEST_TO_NEWEST')]
 
-    import_ieps!(remote_filenames)
+    import_ieps!(ordered_remote_filenames)
   end
 
   # Each ZIP file sent down from EasyIEP has a number at the end, the number
@@ -48,7 +48,7 @@ class IepPdfImportJob
   #
   # Order is important here.
   def nightly_import!
-    import_ieps!(PerDistrict.new.filenames_for_iep_pdf_zips)
+    import_ieps!(PerDistrict.new.filenames_for_iep_pdf_zips_ordered_oldest_to_newest)
   end
 
   private

@@ -119,18 +119,6 @@ class EducatorsController < ApplicationController
     render json: json
   end
 
-  # Used for services
-  def names_for_dropdown
-    student = Student.find(params[:id])
-    school = student.school
-
-    if school.nil?
-      render json: [] and return
-    end
-
-    render json: filtered_names(params[:term], school)
-  end
-
   def my_notes_json
     safe_params = params.permit(:batch_size)
     batch_size = safe_params[:batch_size].to_i
@@ -173,22 +161,24 @@ class EducatorsController < ApplicationController
     }
   end
 
-  private
-  def filtered_names(term, school)
-    unfiltered = (school.educator_names_for_services + Service.provider_names).uniq.compact
+  # Used for picking a name when creating a service, drawing from
+  # active educators and from other text values entered previously.
+  def possible_names_for_service_json
+    # We assume that the names of most providers are public anyway
+    # in many other sources (eg, public staff directory on the web).
+    # So while there's no real concern with sharing staff names with
+    # signed-in educators, this is still defensive and only takes
+    # provider names from services that the educator is authorized to
+    # view.
+    student_ids = authorized { Student.active }.map(&:id)
+    provider_names = Service.active
+      .where(student_id: student_ids)
+      .map(&:provided_by_educator_name)
 
-    return unfiltered.sort_by(&:downcase) if term.nil?  # Handle missing param
-
-    filtered = unfiltered.select do |name|
-      split_name = name.split(', ')   # SIS name format expected
-      split_name.any? { |name_part| match?(term, name_part) } || match?(term, name)
-    end
-
-    return filtered.sort_by(&:downcase)
+    active_educator_names = Educator.active.map(&:full_name)
+    names = (provider_names + active_educator_names).uniq.compact
+    render json: {
+      names: names
+    }
   end
-
-  def match?(term, string_to_test)
-    term.downcase == string_to_test.slice(0, term.length).downcase
-  end
-
 end

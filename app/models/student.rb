@@ -65,10 +65,6 @@ class Student < ApplicationRecord
   validates :house, exclusion: { in: ['']}
   validates :counselor, exclusion: { in: ['']}
 
-  def self.with_school
-    where.not(school: nil)
-  end
-
   # `enrollment_status` is from the SIS export, while `missing_from_last_export`
   # indicates the student was missing from the last export where we expected to
   # find them, so we treat them as no longer active.
@@ -143,12 +139,6 @@ class Student < ApplicationRecord
         .order_by_date_taken_asc
   end
 
-  def ordered_results_by_family(family_name)
-    self.student_assessments
-        .by_family(family_name)
-        .order_by_date_taken_asc
-  end
-
   def mcas_mathematics_results
     ordered_results_by_family_and_subject("MCAS", "Mathematics")
   end
@@ -207,8 +197,8 @@ class Student < ApplicationRecord
     ReadingBenchmarkDataPoint.doc_for(self.id, benchmark_school_year, :winter)
   end
 
-  def update_recent_student_assessments
-    update_attributes({
+  def update_recent_student_assessments!
+    update_attributes!({
       most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,
       most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
       most_recent_mcas_math_performance: latest_mcas_mathematics.performance_level,
@@ -220,26 +210,10 @@ class Student < ApplicationRecord
     })
   end
 
-  def self.update_recent_student_assessments
+  def self.update_recent_student_assessments!
     find_each do |student|
-      student.update_recent_student_assessments
+      student.update_recent_student_assessments!
     end
-  end
-
-  def self.with_mcas_math
-    where.not(most_recent_mcas_math_performance: nil)
-  end
-
-  def self.with_mcas_math_warning
-    where(most_recent_mcas_math_performance: 'W')
-  end
-
-  def self.with_mcas_ela
-    where.not(most_recent_mcas_ela_performance: nil)
-  end
-
-  def self.with_mcas_ela_warning
-    where(most_recent_mcas_ela_performance: 'W')
   end
 
   def event_notes_without_restricted

@@ -8,7 +8,7 @@
 # records = importer.create!(file_text);nil
 class Q2SelfReflectionImporter
   def initialize(educator_id, form_url, options = {})
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
 
     @educator_id = educator_id
     @form_url = form_url

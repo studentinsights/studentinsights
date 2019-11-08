@@ -75,7 +75,11 @@ RSpec.describe ServiceUploadsController, type: :controller do
           'Summer Explore',
           'Summer Program for English Language Learners',
           'Title 1 Math intervention',
-          'X-Block'
+          'X-Block',
+          'SPS Heggerty, week 1',
+          'SPS Heggerty, week 5',
+          'SPS Heggerty, week 9',
+          'SPS Heggerty, week 13'
         ])
       end
     end
@@ -236,7 +240,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
 
         let!(:service_upload) {
-          ServiceUpload.create!(file_name: 'helpful-service.txt', uploaded_by_educator: educator)
+          ServiceUpload.create!(file_name: 'helpful-service.csv', uploaded_by_educator: educator)
         }
 
         let(:response_body) { JSON.parse(response.body) }
@@ -245,14 +249,14 @@ RSpec.describe ServiceUploadsController, type: :controller do
           make_request
           expect(response_body.class).to eq Array
           expect(response_body.size).to eq 1
-          expect(response_body[0]['file_name']).to eq 'helpful-service.txt'
+          expect(response_body[0]['file_name']).to eq 'helpful-service.csv'
         end
       end
 
       context 'educator w/o access' do
         let(:educator) { FactoryBot.create(:educator) }
         let!(:service_upload) {
-          ServiceUpload.create!(file_name: 'helpful-service.txt', uploaded_by_educator: educator)
+          ServiceUpload.create!(file_name: 'helpful-service.csv', uploaded_by_educator: educator)
         }
 
         it 'guards access' do

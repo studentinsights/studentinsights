@@ -1,4 +1,4 @@
-class LogTags
+class LogAnonymizer
   def request_identifier(req)
     "r:#{req.request_id.first(8)}"
   end

@@ -15,13 +15,13 @@ function testProps(props) {
 it('opens dialog on click', () => {
   const el = document.createElement('div');
   ReactDOM.render(<LightHelpBubble {...testProps()} />, el);
-  expect(el.innerHTML).not.toContain('Hello');
-  expect(el.innerHTML).not.toContain('message');
+  expect(el.textContent).not.toContain('Hello');
+  expect(el.textContent).not.toContain('message');
 
   ReactTestUtils.Simulate.click($(el).find('a').get(0));
   // the modal isn't in the same part of the DOM
-  expect(window.document.body.innerHTML).toContain('Hello');
-  expect(window.document.body.innerHTML).toContain('message');
+  expect(window.document.body.textContent).toContain('Hello');
+  expect(window.document.body.textContent).toContain('message');
 });
 
 it('snapshots view', () => {

@@ -31,7 +31,7 @@ describe('high-level integration test', () => {
     const {el} = testRender(testProps());
     const headers = $(el).find('#roster-header th');
     expect(headers.length).toEqual(3);
-    expect(headers[0].innerHTML).toEqual('Test Label 1');
+    expect(headers[0].textContent).toEqual('Test Label 1');
   });
 
   it('renders the correct data', () => {
@@ -42,6 +42,6 @@ describe('high-level integration test', () => {
     expect(dataElements.length).toEqual(3);
 
     const firstDataRows = dataElements.eq(0).find('td');
-    expect(firstDataRows[0].innerHTML).toEqual('Data 1-1');
+    expect(firstDataRows[0].textContent).toEqual('Data 1-1');
   });
 });

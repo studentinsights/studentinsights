@@ -36,13 +36,13 @@ describe EducatorsController, :type => :controller do
         "sections"=>[],
         "labels"=>[
           'can_upload_student_voice_surveys',
-          'should_show_levels_shs_link',
-          'enable_reading_benchmark_data_entry',
-          'enable_reflection_on_notes_patterns',
-          'profile_enable_minimal_reading_data',
           'enable_equity_experiments',
+          'enable_reading_benchmark_data_entry',
           'enable_reading_debug',
-          'enable_viewing_educators_with_access_to_student'
+          'enable_reflection_on_notes_patterns',
+          'enable_viewing_educators_with_access_to_student',
+          'profile_enable_minimal_reading_data',
+          'should_show_levels_shs_link'
         ]
       })
     end
@@ -244,93 +244,103 @@ describe EducatorsController, :type => :controller do
     end
   end
 
-  describe '#names_for_dropdown' do
-    def make_request(student)
+  describe '#possible_names_for_service_json' do
+    let!(:pals) { TestPals.create! }
+
+    def get_possible_names_for_service_json(educator)
+      sign_in(educator)
       request.env['HTTPS'] = 'on'
-      get :names_for_dropdown, params: { format: :json, id: student.id }
+      get :possible_names_for_service_json, params: { format: :json }
+      JSON.parse(response.body)
     end
 
-    context 'authorized' do
-      let(:json) { JSON.parse!(response.body) }
+    def create_test_service!(attrs = {})
+      FactoryBot.create(:service, {
+        provided_by_educator_name: 'Butler, Octavia',
+        recorded_by_educator: pals.healey_laura_principal,
+        discontinued_at: pals.time_now + 3.months,
+        student_id: pals.healey_kindergarten_student.id
+      }.merge(attrs))
+    end
 
-      before(:each) do
-        sign_in FactoryBot.create(:educator)
-        make_request(student)
-      end
+    it 'guards unauthenticated access' do
+      request.env['HTTPS'] = 'on'
+      get :possible_names_for_service_json, params: { format: :json }
+      expect(response.status).to eq(401)
+    end
 
-      context 'student has no school' do
-        let(:student) { FactoryBot.create(:student) }
-        it 'returns an empty array' do
-          expect(json).to eq []
-        end
-      end
+    it 'includes names for active educators (even if not at same school)' do
+      json = get_possible_names_for_service_json(pals.healey_vivian_teacher)
+      expect(json.keys).to eq ['names']
+      expect(json['names']).to match_array [
+        'Disney, Uri',
+        'Districtwide, Rich',
+        'Counselor, Les',
+        'Counselor, Sofia',
+        'Housemaster, Harry',
+        'Principal, Laura',
+        'Teacher, Hugo',
+        'Teacher, Jodi',
+        'Teacher, Marcus',
+        'Teacher, Sarah',
+        'Teacher, Silva',
+        'Teacher, Vivian',
+        'Teacher, Alonso',
+        'Teacher, Bill',
+        'Teacher, Fatima'
+      ]
+    end
 
-      context 'student has school' do
-        let(:student) { FactoryBot.create(:student, school: school) }
+    it 'does not include names for inactive educators' do
+      Timecop.freeze(pals.time_now) do
+        pals.shs_sofia_counselor.update!(missing_from_last_export: true)
 
-        context 'educators at school' do
-          let(:school) { FactoryBot.create(:healey, :with_educator) }
-          it 'returns array of their names' do
-            expect(json).to eq ['Stephenson, Neal']
-          end
-        end
-
-        context 'educators providing services' do
-          let(:school) { FactoryBot.create(:healey) }
-          let!(:service) {
-            FactoryBot.create(:service, provided_by_educator_name: 'Butler, Octavia')
-          }
-
-          it 'returns array of their names' do
-            make_request(student)
-            expect(json).to eq ['Butler, Octavia']
-          end
-        end
-
-        context 'educators at school and providing services' do
-          let(:school) { FactoryBot.create(:healey, :with_educator) }
-          let!(:service) {
-            FactoryBot.create(:service, provided_by_educator_name: 'Butler, Octavia')
-          }
-
-          it 'returns names of both, sorted alphabetically' do
-            make_request(student)
-            expect(json).to eq ['Butler, Octavia', 'Stephenson, Neal']
-          end
-
-          context 'search for "o"' do
-            it 'returns Octavia' do
-              get :names_for_dropdown, params: { format: :json, id: student.id, term: 'o' }
-              expect(json).to eq ['Butler, Octavia']
-            end
-          end
-
-          context 'search for "s"' do
-            it 'returns Stephenson' do
-              get :names_for_dropdown, params: { format: :json, id: student.id, term: 's' }
-              expect(json).to eq ['Stephenson, Neal']
-            end
-          end
-
-        end
-
-        context 'no educators at school or providing services' do
-          let(:school) { FactoryBot.create(:healey) }
-          it 'returns an empty array' do
-            expect(json).to eq []
-          end
-        end
-
+        json = get_possible_names_for_service_json(pals.healey_vivian_teacher)
+        expect(json['names'].size).to eq 14
+        expect(json['names']).not_to include('Couselor, Sofia')
       end
     end
 
-    context 'unauthorized' do
-      it 'returns unauthorized' do
-        make_request(FactoryBot.create(:student))
-        expect(response.status).to eq(401)
+    it 'includes names of service providers from active services for active, authorized students' do
+      Timecop.freeze(pals.time_now) do
+        create_test_service!
+
+        json = get_possible_names_for_service_json(pals.healey_vivian_teacher)
+        expect(json['names'].size).to eq(16)
+        expect(json['names']).to include('Butler, Octavia')
       end
     end
 
+    it 'excludes names of service providers for discontinued services, even if authorized active students' do
+      Timecop.freeze(pals.time_now) do
+        create_test_service!(discontinued_at: pals.time_now - 3.months)
+
+        json = get_possible_names_for_service_json(pals.healey_vivian_teacher)
+        expect(json['names'].size).to eq(15)
+        expect(json['names']).not_to include('Butler, Octavia')
+      end
+    end
+
+    it 'excludes names of service providers for inactive students, even if authorized' do
+      Timecop.freeze(pals.time_now) do
+        create_test_service!
+        pals.healey_kindergarten_student.update!(missing_from_last_export: true)
+
+        json = get_possible_names_for_service_json(pals.healey_vivian_teacher)
+        expect(json['names'].size).to eq(15)
+        expect(json['names']).not_to include('Butler, Octavia')
+      end
+    end
+
+    it 'excludes names of service providers if not authorized for student, even if active service' do
+      Timecop.freeze(pals.time_now) do
+        create_test_service!(student_id: pals.shs_senior_kylo.id)
+
+        json = get_possible_names_for_service_json(pals.healey_vivian_teacher)
+        expect(json['names'].size).to eq(15)
+        expect(json['names']).not_to include('Butler, Octavia')
+      end
+    end
   end
 
   describe '#reset_session_clock' do

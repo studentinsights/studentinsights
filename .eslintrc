@@ -8,10 +8,14 @@
     "$": true
   },
   "parser": "babel-eslint",
-  "plugins": ["react"],
+  "plugins": [
+    "react",
+    "no-unsanitized"
+  ],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:no-unsanitized/DOM"
   ],
   "rules": {
     "no-var": 2,

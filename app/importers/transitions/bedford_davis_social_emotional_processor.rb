@@ -18,7 +18,7 @@ class BedfordDavisSocialEmotionalProcessor
       Rollbar.warn('deprecation-warning, see RestrictedNotesProcessor and migrate to `restricted_notes`')
     end
 
-    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @matcher = ImportMatcher.new
     @time_now = options.fetch(:time_now, Time.now)
     @processor = GenericSurveyProcessor.new(log: @log) do |row|
