@@ -31,7 +31,13 @@ module SomervilleTeacherTool
       # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoload-paths-and-eager-load-paths
       # This needs all sub-folders in app that are referenced without
       # a containing module.
+      #
+      # This changed in Rails 6 with zeitwerk, and so these all
+      # define the top-level namespace, meaning the Ruby classes
+      # loaded here won't be nested by the folder
+      # name (eg, Star:StarMathImporter).
       class_paths = [
+        "#{config.root}/lib/ldap_authenticatable_tiny",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
         "#{config.root}/app/importers/helpers",
@@ -42,6 +48,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/precompute",
         "#{config.root}/app/importers/reading",
         "#{config.root}/app/importers/rows",
+        "#{config.root}/app/importers/star",
         "#{config.root}/app/importers/student_meeting",
         "#{config.root}/app/importers/student_voice_surveys",
         "#{config.root}/app/importers/team_membership_import",

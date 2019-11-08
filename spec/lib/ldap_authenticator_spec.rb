@@ -1,4 +1,4 @@
-RSpec.describe 'LdapAuthenticator' do
+RSpec.describe 'LDAPAuthenticator' do
   def test_tls_options_text
     '{"tls_foo": "tls_bar"}'
   end
@@ -29,7 +29,7 @@ RSpec.describe 'LdapAuthenticator' do
 
   describe '#is_authorized_by_ldap? using MockLDAP' do
     def is_authorized_by_ldap?(ldap_login, ldap_password)
-      LdapAuthenticator.new(ldap_class: MockLDAP).is_authorized_by_ldap?(ldap_login, ldap_password)
+      LDAPAuthenticator.new(ldap_class: MockLDAP).is_authorized_by_ldap?(ldap_login, ldap_password)
     end
 
     let!(:pals) { TestPals.create! }
@@ -73,7 +73,7 @@ RSpec.describe 'LdapAuthenticator' do
    end
 
     it 'respects environment variables' do
-      expect(LdapAuthenticator.new.send(:ldap_options_for, 'foo', 'bar')).to eq({
+      expect(LDAPAuthenticator.new.send(:ldap_options_for, 'foo', 'bar')).to eq({
         :auth => {
           :method=>:simple,
           :username=>"foo",

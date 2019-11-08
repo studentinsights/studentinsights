@@ -1,7 +1,7 @@
-require 'devise/strategies/authenticatable'
+# require 'devise/strategies/authenticatable'
 module Devise
   module Models
-    module LdapAuthenticatableTiny
+    module LDAPAuthenticatableTiny
       # Because Devise's session_controller#new
       # takes the authentication params and passes them along, we
       # get the user's password here.  So we need to implement
