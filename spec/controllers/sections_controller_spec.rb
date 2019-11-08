@@ -29,43 +29,43 @@ describe SectionsController, :type => :controller do
     end
 
     it 'works for Fatima as a happy path test case' do
-      expect(response_json_for_get_my_sections_json(pals.shs_fatima_science_teacher)).to eq({
-        "sections"=>[{
-          "id"=>pals.shs_third_period_physics.id,
-          "section_number"=>"SCI-201A",
-          "term_local_id"=>"S1",
-          "schedule"=>"3(M,W,F)",
-          "room_number"=>"306W",
-          "course"=>{
-            "id"=>pals.shs_physics_course.id,
-            "course_number"=>"SCI-201",
-            "course_description"=>"PHYSICS 1",
-            "school"=>{"id"=>pals.shs.id, "name"=>"Somerville High", "local_id"=>"SHS", "slug"=>"shs"}
-          },
-          "educators"=>[{
-            "id"=>pals.shs_fatima_science_teacher.id,
-            "email"=>"fatima@demo.studentinsights.org",
-            "full_name"=>"Teacher, Fatima"
-          }]
-        }, {
-          "id"=>pals.shs_fifth_period_physics.id,
-          "section_number"=>"SCI-201B",
-          "term_local_id"=>"S1",
-          "schedule"=>"5(M,W,F)",
-          "room_number"=>"306W",
-          "course"=>{
-            "id"=>pals.shs_physics_course.id,
-            "course_number"=>"SCI-201",
-            "course_description"=>"PHYSICS 1",
-            "school"=>{"id"=>pals.shs.id, "name"=>"Somerville High", "local_id"=>"SHS", "slug"=>"shs"}
-          },
-          "educators"=>[{
-            "id"=>pals.shs_fatima_science_teacher.id,
-            "email"=>"fatima@demo.studentinsights.org",
-            "full_name"=>"Teacher, Fatima"
-          }]
+      json = response_json_for_get_my_sections_json(pals.shs_fatima_science_teacher)
+      expect(json.keys).to eq(['sections'])
+      expect(json['sections']).to contain_exactly(*[{
+        "id"=>pals.shs_third_period_physics.id,
+        "section_number"=>"SCI-201A",
+        "term_local_id"=>"S1",
+        "schedule"=>"3(M,W,F)",
+        "room_number"=>"306W",
+        "course"=>{
+          "id"=>pals.shs_physics_course.id,
+          "course_number"=>"SCI-201",
+          "course_description"=>"PHYSICS 1",
+          "school"=>{"id"=>pals.shs.id, "name"=>"Somerville High", "local_id"=>"SHS", "slug"=>"shs"}
+        },
+        "educators"=>[{
+          "id"=>pals.shs_fatima_science_teacher.id,
+          "email"=>"fatima@demo.studentinsights.org",
+          "full_name"=>"Teacher, Fatima"
         }]
-      })
+      }, {
+        "id"=>pals.shs_fifth_period_physics.id,
+        "section_number"=>"SCI-201B",
+        "term_local_id"=>"S1",
+        "schedule"=>"5(M,W,F)",
+        "room_number"=>"306W",
+        "course"=>{
+          "id"=>pals.shs_physics_course.id,
+          "course_number"=>"SCI-201",
+          "course_description"=>"PHYSICS 1",
+          "school"=>{"id"=>pals.shs.id, "name"=>"Somerville High", "local_id"=>"SHS", "slug"=>"shs"}
+        },
+        "educators"=>[{
+          "id"=>pals.shs_fatima_science_teacher.id,
+          "email"=>"fatima@demo.studentinsights.org",
+          "full_name"=>"Teacher, Fatima"
+        }]
+      }])
     end
 
     it 'returns nothing for districtwide admin' do

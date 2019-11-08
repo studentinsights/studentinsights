@@ -27,10 +27,4 @@ FactoryBot.define do
     local_id 'SHS'
     school_type "HS"
   end
-
-  trait :with_educator do
-    after(:create) do |school|
-      school.educators << FactoryBot.create(:educator, full_name: 'Stephenson, Neal')
-    end
-  end
 end

@@ -119,6 +119,13 @@ const helpers = {
 };
 
 describe('integration tests', () => {
+  beforeEach(() => {
+    fetchMock.restore();
+    fetchMock.get('/api/educators/possible_names_for_service_json', {
+      names: ['Martinez, Pedro', 'Garciaparra, Nomar']
+    });
+  });
+  
   it('renders everything without raising on the happy path', () => {
     const {el} = helpers.renderInto();
     expect($(el).text()).toContain('Pluto Poppins');

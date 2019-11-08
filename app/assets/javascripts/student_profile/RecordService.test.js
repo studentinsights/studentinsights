@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import {mount} from 'enzyme';
+import fetchMock from 'fetch-mock/es5/client';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {
   studentProfile,
@@ -115,6 +116,13 @@ const helpers = {
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   }
 };
+
+beforeEach(() => {
+  fetchMock.restore();
+  fetchMock.get('/api/educators/possible_names_for_service_json', {
+    names: ['Martinez, Pedro', 'Garciaparra, Nomar']
+  });
+});
 
 describe('integration tests', () => {
   it('renders dialog for recording services', () => {
