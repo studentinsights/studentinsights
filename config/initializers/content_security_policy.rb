@@ -1,3 +1,10 @@
+# TODO(kr) in the longer term, we should probably migrate to this and remove
+# secure_headers.  Unfortunately it sounds like this is only CSP and so won't
+# replace other protections secure_headers providers (eg, HTTP headers).
+# It also sounds enabling just the CSP here may conflict with the secure_headers
+# config.  Since this change would only be a maintenance improvement, not a
+# security improvement, punting it for now.
+
 # Be sure to restart your server when you modify this file.
 
 # Define an application-wide content security policy
