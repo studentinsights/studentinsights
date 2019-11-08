@@ -112,7 +112,7 @@ class StudentsImporter
 
     # Match student records
     maybe_homeroom_id = match_homeroom_id(row)
-    maybe_student = StudentRow.new(row, maybe_homeroom_id, school_ids_dictionary, @log).build
+    maybe_student = StudentRow.new(row, maybe_homeroom_id, school_ids_dictionary).build
 
     # Sync records
     @syncer.validate_mark_and_sync!(maybe_student)

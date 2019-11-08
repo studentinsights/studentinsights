@@ -94,7 +94,7 @@ class StarImporter
 
     if test_result.invalid?
       @invalid_rows_count += 1
-      log("error: #{test_result.errors.full_messages}")
+      log("errors.keys: #{test_result.errors.keys}")
       return nil
     end
 
