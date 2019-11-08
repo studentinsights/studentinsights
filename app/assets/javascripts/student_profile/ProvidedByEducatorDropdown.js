@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 
 // A dropdown component that allows choosing a list of educator names, but also
@@ -30,19 +31,33 @@ export default class ProvidedByEducatorDropdown extends React.Component {
 
     const sortedNames = json.names.sort();
     $(this.el).autocomplete({
-      source: sortedNames,
       delay: 0,
-      minLength: 0,
-      autoFocus: true,
+      autoFocus: false,
 
+      // For updating other state in the app
       select(event, ui) {
         self.props.onUserDropdownSelect(ui.item.value);
       },
+
+      // Allow showing something like 'all' results when clicking
+      // on the dropdown button, but truncate results so hundreds
+      // aren't shown.
+      minLength: 0,
+      source: function(request, response) {
+        const {term} = request;
+        const LIMIT = 5;
+        const tokens = term.split(' ').map(t => t.toLowerCase());
+        const results = sortedNames.filter(item => {
+          return _.every(tokens, token => item.toLowerCase().indexOf(token) !== -1);
+        }).slice(0, LIMIT);
+        response(results);
+        return;
+      }
     });
   }
 
   onToggleOpenMenu () {
-    $(this.el).autocomplete('search', '');
+    $(this.el).autocomplete('search');
   }
 
   render () {
