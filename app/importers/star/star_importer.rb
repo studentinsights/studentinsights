@@ -44,11 +44,11 @@ class StarImporter
   end
 
   def client
-    SftpClient.for_star
+    PerDistrict.new.client_for_star_importer
   end
 
   def zip_file_name
-    PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_ZIP_FILE')
+    PerDistrict.new.remote_filename_for_star
   end
 
   def data_transformer
