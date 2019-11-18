@@ -53,7 +53,6 @@
 <div class="Board">
   <div class="Board-category">
     <div class="Board-title">Priorities now</div>
-    <div class="Card"><b>Reading</b>: Automate import from new templates</div>
     <div class="Card"><b>Reading</b>: Reader profiles</div>
   </div>
 

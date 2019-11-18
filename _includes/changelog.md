@@ -1,3 +1,110 @@
+Friday 11/15 updates:
+- **STAR**: Update config to read from export SFTP box instead of vendor [#2712](https://github.com/studentinsights/studentinsights/pull/2712)
+
+
+Friday 11/8 updates:
+- **Accounts**: Re-run imports after debugging upstream issues in New Bedford SIS export
+- **Import**: Close SFTP session more aggressively [#2699](https://github.com/studentinsights/studentinsights/pull/2699)
+- **Monitoring**: Update Rollbar Ruby gem and tighten configuration [#2693](https://github.com/studentinsights/studentinsights/pull/2693) [#2711](https://github.com/studentinsights/studentinsights/pull/2711)
+- **Monitoring**: Upgrade Rollbar.js version [#2695](https://github.com/studentinsights/studentinsights/pull/2695) [#2696](https://github.com/studentinsights/studentinsights/pull/2696) [#2698](https://github.com/studentinsights/studentinsights/pull/2698)
+- **Maintenance**: Create DistrictConfigLog to enable more self-serve district maintenance [#2701](https://github.com/studentinsights/studentinsights/pull/2701)
+- **Security**: Update Rack:Attack to alert separately for targeted URLs [#2691](https://github.com/studentinsights/studentinsights/pull/2691) [#2697](https://github.com/studentinsights/studentinsights/pull/2697)
+- **Security**: Investigate URL leaks in New Bedford
+- **Security**: Update secure_headers gem [#2694](https://github.com/studentinsights/studentinsights/pull/2694)
+- **Security**: Update gitignore to be more defensive about files [#2700](https://github.com/studentinsights/studentinsights/pull/2700)
+- **Security**: Remove bcc from LoginChecker [#2704](https://github.com/studentinsights/studentinsights/pull/2704)
+- **Security**: auditjs added to Travis build [#2702](https://github.com/studentinsights/studentinsights/pull/2702)
+- **Security**: Add rails_best_practices checks to Travis build, do cleanup [#2703](https://github.com/studentinsights/studentinsights/pull/2703)
+- **Security**: Another scrub pass on importer logging [#2710](https://github.com/studentinsights/studentinsights/pull/2710)
+- **Security**: Remove use of innerHTML, disallow with linter [#2706](https://github.com/studentinsights/studentinsights/pull/2706)
+- **STAR**: Abort importers if filenames aren't set in config [#2705](https://github.com/studentinsights/studentinsights/pull/2705)
+- **Services**: Move filtering of provider suggestions to client, narrow scope of list [#2708](https://github.com/studentinsights/studentinsights/pull/2708) [#2709](https://github.com/studentinsights/studentinsights/pull/2709)
+
+
+Friday 11/1 updates:
+- **PD workshop**: Talking and writing about students with Strengths-based mindsets, [workshop #2 slides](https://docs.google.com/presentation/d/1J0vNnHMX2JYS_NbZ9Ck-Vr329O-RuCaC3tYWUC_3p7w)
+- **Reflection**: Patterns within notes [#2683](https://github.com/studentinsights/studentinsights/pull/2683) [#2684](https://github.com/studentinsights/studentinsights/pull/2684) [#2686](https://github.com/studentinsights/studentinsights/pull/2686)
+- **STAR**: Update after breaking changes to vendor export [#2681](https://github.com/studentinsights/studentinsights/pull/2681) [#2682](https://github.com/studentinsights/studentinsights/pull/2682) [#2688](https://github.com/studentinsights/studentinsights/pull/2688) [#2692](https://github.com/studentinsights/studentinsights/pull/2692)
+- **Services**: Updating Somerville service type descriptions [#2687](https://github.com/studentinsights/studentinsights/pull/2687)
+- **Maintenance**: Bump brakeman [#2689](https://github.com/studentinsights/studentinsights/pull/2689)
+
+
+Friday 10/25 updates:
+- **School scope**: Add Pulaski for New Bedford [#2674](https://github.com/studentinsights/studentinsights/pull/2674)
+- **Maintenance**: Upgrade to node 12 [#2675](https://github.com/studentinsights/studentinsights/pull/2675)
+- **Maintenance**: Remove transitional flags to complete upgrade to Rails 5.2 [#2676](https://github.com/studentinsights/studentinsights/pull/2676)
+- **Sports teams**: Automate import, revise template, always include in educator contacts [#2677](https://github.com/studentinsights/studentinsights/pull/2677)
+- **Sports teams**: Tighten validations, add to main import task, update icons [#2678](https://github.com/studentinsights/studentinsights/pull/2678)
+- **Services**: UI for new elements describing services, update available choices and non-academic phaselines [#2542](https://github.com/studentinsights/studentinsights/pull/2542)
+- **Service info**: Update to set per-district as well as with label [#2680](https://github.com/studentinsights/studentinsights/pull/2680)
+
+
+Friday 10/18 updates:
+- **PD workshop**: Talking and writing about students with Strengths-based mindsets, [workshop #1 slides](https://docs.google.com/presentation/d/1J0vNnHMX2JYS_NbZ9Ck-Vr329O-RuCaC3tYWUC_3p7w)
+- **Student meeting importer**: Automate import process [#2671](https://github.com/studentinsights/studentinsights/pull/2671)
+- **Notes**: Add New Bedford SST for taking notes, in table columns, and search [#2672](https://github.com/studentinsights/studentinsights/pull/2672)
+- **School roster**: Add minimal download CSV button [#2673](https://github.com/studentinsights/studentinsights/pull/2673)
+
+
+Friday 10/11 updates:
+- **New Bedford sections**: Update paths for new exports [#2668](https://github.com/studentinsights/studentinsights/pull/2668)
+- **Sections**: Add dialog link for New Bedford, preserving tabs [#2670](https://github.com/studentinsights/studentinsights/pull/2670)
+
+
+Friday 10/4 updates:
+- **Authorization**: Remove authorization for sections from Educator, and other unused methods [#2647](https://github.com/studentinsights/studentinsights/pull/2647)
+- **Authorization**: Centralize section authorization in Authorizer [#2654](https://github.com/studentinsights/studentinsights/pull/2654)
+- **Authorization**: Add separate flag for section-based authorization [#2661](https://github.com/studentinsights/studentinsights/pull/2661)
+- **Section authorization**: Optimize method to make it faster [#2656](https://github.com/studentinsights/studentinsights/pull/2656)
+- **Course and Section imports**: Update to use Syncer and revise stats [#2659](https://github.com/studentinsights/studentinsights/pull/2659)
+- **Courses**: Add uniqueness index [#2660](https://github.com/studentinsights/studentinsights/pull/2660)
+- **Grades importer**: Update logging to be more verbose [#2663](https://github.com/studentinsights/studentinsights/pull/2663)
+- **Home feed**: Optimize query for event notes [#2651](https://github.com/studentinsights/studentinsights/pull/2651)
+- **Home feed**: Add index to optimize imported form queries [#2650](https://github.com/studentinsights/studentinsights/pull/2650)
+- **Home page**: Optimize query for authorized students [#2652](https://github.com/studentinsights/studentinsights/pull/2652)
+- **Tardies**: Import Tardy records for CSV rows with both absence and tardy bits set [#1925](https://github.com/studentinsights/studentinsights/pull/1925) [#2658](https://github.com/studentinsights/studentinsights/pull/2658)
+- **Maintenance**:  Upgrade Ruby version [#2649](https://github.com/studentinsights/studentinsights/pull/2649) [#2655](https://github.com/studentinsights/studentinsights/pull/2655)
+- **Maintenance**: Remove get_process_mem [#2662](https://github.com/studentinsights/studentinsights/pull/2662)
+- **Maintenance**: Tune Rollbar throttling to be stricter [#2665](https://github.com/studentinsights/studentinsights/pull/2665)
+- **Reading**: Design iterations on Someville 2019-2020 reading debug (9/24/19)
+- **Reading**: Design iterations on Reader Profile (10/4/19)
+
+
+Friday 9/27 updates:
+- **Reading**: Updates to importer [#2619](https://github.com/studentinsights/studentinsights/pull/2619) [#2620](https://github.com/studentinsights/studentinsights/pull/2620) [#2621](https://github.com/studentinsights/studentinsights/pull/2621)
+- **Reading**: Minimal page for debugging import process by homeroom [#2622](https://github.com/studentinsights/studentinsights/pull/2622) [#2627](https://github.com/studentinsights/studentinsights/pull/2627) [#2632](https://github.com/studentinsights/studentinsights/pull/2632)
+- **Reading**: Update GoogleSheetsFetcher to recur into folders and batch calls [#2623](https://github.com/studentinsights/studentinsights/pull/2623) [#2626](https://github.com/studentinsights/studentinsights/pull/2626)
+- **Reading**: Enforce validations, except for F&P [#2628](https://github.com/studentinsights/studentinsights/pull/2628) [#2630](https://github.com/studentinsights/studentinsights/pull/2630)
+- **Reading**: Mark older data points about DIBELS and F&P on profile page [#2631](https://github.com/studentinsights/studentinsights/pull/2631)
+- **Reading**: Include FSF on profile [#2633](https://github.com/studentinsights/studentinsights/pull/2633)
+- **Reading**: Update importer job for daily automation [#2640](https://github.com/studentinsights/studentinsights/pull/2640) [#2641](https://github.com/studentinsights/studentinsights/pull/2641)
+- **Sections**: Refactor to allow sections in New Bedford middle schools [#2612](https://github.com/studentinsights/studentinsights/pull/2612)
+- **Sections**: Rename to Sections from My sections [#2635](https://github.com/studentinsights/studentinsights/pull/2635)
+- **Sections**: Show school on section page and list [#2638](https://github.com/studentinsights/studentinsights/pull/2638)
+- **New Bedford**: Temporary sections importer [#2613](https://github.com/studentinsights/studentinsights/pull/2613) [#2634](https://github.com/studentinsights/studentinsights/pull/2634)
+- **Permissions**: Add way for project leads to see which educators can access a specific student profile [#2637](https://github.com/studentinsights/studentinsights/pull/2637) [#2639](https://github.com/studentinsights/studentinsights/pull/2639) doc
+
+
+Friday 9/20 updates:
+- **Monitoring**: Stricter throttling on Rollbar to guard against bugs in browser extensions [#2603](https://github.com/studentinsights/studentinsights/pull/2603)
+- **Notes audit**: Allow limiting sample to unrestricted notes [#2604](https://github.com/studentinsights/studentinsights/pull/2604)
+- **Searchbar**: Fix sort order on educator searchbar, and flaky spec [#2605](https://github.com/studentinsights/studentinsights/pull/2605)
+- **Counselor meeting**: Default sort order to last seen [#2606](https://github.com/studentinsights/studentinsights/pull/2606)
+- **New Bedford**: Update school scoping for trainings [#2608](https://github.com/studentinsights/studentinsights/pull/2608) [#2609](https://github.com/studentinsights/studentinsights/pull/2609) [#2610](https://github.com/studentinsights/studentinsights/pull/2610)
+- **Sections**: Improve header and navigation to other sections [#2615](https://github.com/studentinsights/studentinsights/pull/2615) [#2617](https://github.com/studentinsights/studentinsights/pull/2617) [#2618](https://github.com/studentinsights/studentinsights/pull/2618)
+- **Reading**: Sheets Import and Process prototype [#2523](https://github.com/studentinsights/studentinsights/pull/2523)
+- **Reading**: Updates for importer in first test runs [#2616](https://github.com/studentinsights/studentinsights/pull/2616)
+
+
+Friday 9/13 updates:
+- **District overview**: Reading links should respect feature switches [#2597](https://github.com/studentinsights/studentinsights/pull/2597)
+- **My students**: Add homeroom column and filter [#2598](https://github.com/studentinsights/studentinsights/pull/2598) [#2599](https://github.com/studentinsights/studentinsights/pull/2599)
+- **Reading**: Template migration scripts [#2600](https://github.com/studentinsights/studentinsights/pull/2600)
+- **Reading**: Add thresholds page, update some thresholds [#2601](https://github.com/studentinsights/studentinsights/pull/2601)
+- **Reading**: Update MegaReadingImporter to 8/20/19 template format [#2544](https://github.com/studentinsights/studentinsights/pull/2544)
+- **Reading**: Fix grade comparison to thresholds in debug view [#2602](https://github.com/studentinsights/studentinsights/pull/2602)
+
+
 Friday 9/6 updates:
 - **Import**: Set up service accounts for Somerville for automated imports from Google Drive
 - **Student Voice importer**: Automate import each night [#2579](https://github.com/studentinsights/studentinsights/pull/2579) [#2580](https://github.com/studentinsights/studentinsights/pull/2580) [#2582](https://github.com/studentinsights/studentinsights/pull/2582)
