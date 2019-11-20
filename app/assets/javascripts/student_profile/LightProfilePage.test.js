@@ -80,7 +80,7 @@ describe('HS testing tab', () => {
     const el = testRender(props);
     expect(testingTabTextLines(2, el)).toEqual([
       'Testing',
-      'M',
+      'E',
       'ELA and Math MCAS',
       '10 months / 2 years ago'
     ]);
@@ -106,7 +106,7 @@ describe('HS testing tab', () => {
 describe('tabs', () => {
   it('for Bedford, shows MCAS in place of STAR', () => {
     const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
-      "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
+      "next_gen_mcas_mathematics_scaled": [[2016,5,15,478]],
       "next_gen_mcas_ela_scaled": [[2017,5,15,536]],
       "mcas_series_math_scaled": [],
       "mcas_series_ela_scaled": []
@@ -114,13 +114,13 @@ describe('tabs', () => {
     const el = testRender(props, {districtKey: 'bedford'});
     expect(testingTabTextLines(1, el)).toEqual([
       'Reading',
-      'M',
+      'E',
       'MCAS ELA',
       '10 months ago'
     ]);
     expect(testingTabTextLines(2, el)).toEqual([
       'Math',
-      'M',
+      'PM',
       'MCAS Math',
       '2 years ago'
     ]);

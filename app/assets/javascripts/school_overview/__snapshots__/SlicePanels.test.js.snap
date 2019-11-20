@@ -2484,7 +2484,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                12%
+                20%
               </td>
               <td
                 style={
@@ -2499,7 +2499,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "6%",
+                      "width": "10%",
                     }
                   }
                 />
@@ -2544,7 +2544,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                24%
+                8%
               </td>
               <td
                 style={
@@ -2559,7 +2559,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "12%",
+                      "width": "4%",
                     }
                   }
                 />
@@ -2604,7 +2604,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                24%
+                16%
               </td>
               <td
                 style={
@@ -2619,7 +2619,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "12%",
+                      "width": "8%",
                     }
                   }
                 />
@@ -2664,7 +2664,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                20%
+                8%
               </td>
               <td
                 style={
@@ -2679,7 +2679,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "10%",
+                      "width": "4%",
                     }
                   }
                 />
@@ -3519,6 +3519,66 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Partially Meeting
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
                 12%
               </td>
               <td
@@ -3566,66 +3626,6 @@ exports[`matches snapshot 1`] = `
                     }
                   }
                 >
-                  Partially Meeting
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                28%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "14%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
                   Meeting Expectations
                 </a>
               </td>
@@ -3639,7 +3639,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                8%
+                4%
               </td>
               <td
                 style={
@@ -3654,7 +3654,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "4%",
+                      "width": "2%",
                     }
                   }
                 />
@@ -3699,7 +3699,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                24%
+                12%
               </td>
               <td
                 style={
@@ -3714,7 +3714,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "12%",
+                      "width": "6%",
                     }
                   }
                 />
