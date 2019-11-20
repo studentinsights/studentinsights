@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {nextGenMcasScoreRange} from '../helpers/mcasScores';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 import {xAxisWithGrades} from './highchartsXAxisWithGrades';
 import {lineChartOptions} from './highchartsLineChart';
-
 import {yAxisPercentileOptions} from './highchartsYAxisPercentileOptions';
 import {toMoment, toValue} from './QuadConverter';
 
@@ -140,10 +140,17 @@ const oldMcasBandsPlotlines = [{
   }
 }];
 
+function toFromRange(code) {
+  const [min, max] = nextGenMcasScoreRange(code);
+  return {
+    from: min,
+    to: max
+  };
+}
+
 const nextGenBandsPlotlines = [{
   color: '#E7EBED',
-  from: 400,
-  to: 450,
+  ...toFromRange('NM'),
   label: {
     text: 'Not Meeting Expectations',
     align: 'left',
@@ -153,8 +160,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#F6F7F8',
-  from: 450,
-  to: 500,
+  ...toFromRange('PM'),
   label: {
     text: 'Partially Meeting',
     align: 'left',
@@ -164,8 +170,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#E7EBED',
-  from: 500,
-  to: 550,
+  ...toFromRange('M'),
   label: {
     text: 'Meeting Expectations',
     align: 'left',
@@ -175,8 +180,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#F6F7F8',
-  from: 550,
-  to: 600,
+  ...toFromRange('E'),
   label: {
     text: 'Exceeding Expectations',
     align: 'left',
