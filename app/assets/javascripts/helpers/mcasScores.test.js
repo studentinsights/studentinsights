@@ -6,10 +6,13 @@ import {
 
 describe('#shortLabelFromNextGenMcasScore', () => {
   it('works', () => {
-    expect(shortLabelFromNextGenMcasScore(412)).toEqual('NM');
-    expect(shortLabelFromNextGenMcasScore(450)).toEqual('PM');
+    expect(shortLabelFromNextGenMcasScore(412)).toEqual(undefined);
+    expect(shortLabelFromNextGenMcasScore(445)).toEqual('NM');
+    expect(shortLabelFromNextGenMcasScore(450)).toEqual('NM');
+    expect(shortLabelFromNextGenMcasScore(473)).toEqual('PM');
     expect(shortLabelFromNextGenMcasScore(504)).toEqual('M');
     expect(shortLabelFromNextGenMcasScore(551)).toEqual('E');
+    expect(shortLabelFromNextGenMcasScore(590)).toEqual(undefined);
   });
 });
 
