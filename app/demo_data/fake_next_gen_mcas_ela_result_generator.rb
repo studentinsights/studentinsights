@@ -25,7 +25,7 @@ class FakeNextGenMcasElaResultGenerator
     {
       assessment_id: mcas_ela_assessment_id,
       date_taken: @start_date + (@index * @days_between_tests),
-      scale_score: rand(400..600),
+      scale_score: rand(440..560),
       performance_level: performance_levels.sample,
       growth_percentile: rand(10..99),
       student_id: @student.id
