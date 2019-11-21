@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
 const NEXT_GEN_MCAS_RANGES = {
-  NM: [400, 450],
-  PM: [450, 500],
-  M: [500, 550],
-  E: [550, 600]
+  NM: [440, 469],
+  PM: [470, 499],
+  M: [500, 529],
+  E: [530, 560]
 };
 
 const OLD_MCAS_RANGES = {
@@ -18,14 +18,14 @@ const OLD_MCAS_RANGES = {
 export function shortLabelFromNextGenMcasScore(score) {
   return _.find(Object.keys(NEXT_GEN_MCAS_RANGES), code => {
     const [lower, upper] = NEXT_GEN_MCAS_RANGES[code];
-    return (score >= lower && score < upper);
+    return (score >= lower && score <= upper);
   });
 }
   
 export function shortLabelFromOldMcasScore(score) {
   return _.find(Object.keys(OLD_MCAS_RANGES), code => {
     const [lower, upper] = OLD_MCAS_RANGES[code];
-    return (score >= lower && score < upper);
+    return (score >= lower && score <= upper);
   });
 }
 

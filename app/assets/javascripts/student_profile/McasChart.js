@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {nextGenMcasScoreRange} from '../helpers/mcasScores';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 import {xAxisWithGrades} from './highchartsXAxisWithGrades';
 import {lineChartOptions} from './highchartsLineChart';
-
 import {yAxisPercentileOptions} from './highchartsYAxisPercentileOptions';
 import {toMoment, toValue} from './QuadConverter';
 
@@ -46,15 +47,19 @@ McasChart.propTypes = {
 
 // For next generation MCAS
 export function McasNextGenChart(props) {
+  const notMeetingMin = nextGenMcasScoreRange('NM')[0];
+  const exceedingMax = nextGenMcasScoreRange('E')[1];
   return (
     <McasChart
       {...props}
       seriesName="Scaled score"
       yAxis={{
         ...defaultYAxis,
-        min: 400,
-        max: 600,
+        min: notMeetingMin,
+        max: exceedingMax,
         plotLines: nextGenBandsPlotlines,
+        tickPositions: nextGenBandsPlotlines.map(p => p.from).concat([_.last(nextGenBandsPlotlines).to]),
+        gridLineWidth: 0,
         title: { text: 'Scaled score' }
       }}
     />
@@ -140,10 +145,17 @@ const oldMcasBandsPlotlines = [{
   }
 }];
 
+function toRangeForChart(code) {
+  const [min, max] = nextGenMcasScoreRange(code);
+  return {
+    from: min,
+    to: max
+  };
+}
+
 const nextGenBandsPlotlines = [{
   color: '#E7EBED',
-  from: 400,
-  to: 450,
+  ...toRangeForChart('NM'),
   label: {
     text: 'Not Meeting Expectations',
     align: 'left',
@@ -153,8 +165,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#F6F7F8',
-  from: 450,
-  to: 500,
+  ...toRangeForChart('PM'),
   label: {
     text: 'Partially Meeting',
     align: 'left',
@@ -164,8 +175,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#E7EBED',
-  from: 500,
-  to: 550,
+  ...toRangeForChart('M'),
   label: {
     text: 'Meeting Expectations',
     align: 'left',
@@ -175,8 +185,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#F6F7F8',
-  from: 550,
-  to: 600,
+  ...toRangeForChart('E'),
   label: {
     text: 'Exceeding Expectations',
     align: 'left',
@@ -187,6 +196,11 @@ const nextGenBandsPlotlines = [{
 }];
 
 const defaultYAxis = {
+  // Without these, max/min aren't actually enforced.
+  endOnTick: false,
+  startOnTick: false,
+  alignTicks: false,
+
   allowDecimals: false,
   title: {
     text: '',

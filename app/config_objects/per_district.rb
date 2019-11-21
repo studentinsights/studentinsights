@@ -52,6 +52,32 @@ class PerDistrict
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
   end
 
+  # Connect to the STAR SFTP site, or SFTP export box used
+  # for SIS.  This migration happened because of specific
+  # configuration issues.
+  def client_for_star_importer
+    if @district_key == SOMERVILLE
+      SftpClient.for_star
+    elsif @district_key == NEW_BEDFORD
+      SftpClient.for_x2
+    else
+      raise_not_handled!
+    end
+  end
+
+  # Depending on the client, we read the config from different places.
+  # Over time, we should move more of this into `DistrictConfigLog`, which
+  # removes friction on different places config is expressed.
+  def remote_filename_for_star
+    if @district_key == SOMERVILLE
+      self.try_star_filename('FILENAME_FOR_STAR_ZIP_FILE')
+    elsif @district_key == NEW_BEDFORD
+      self.try_sftp_filename('FILENAME_FOR_STAR_ZIP_FILE')
+    else
+      nil
+    end
+  end
+
   # What filenames are district IT staff using when exporting specific
   # files to SFTP servers?
   def try_sftp_filename(key, fallback = nil)

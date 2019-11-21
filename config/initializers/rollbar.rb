@@ -41,6 +41,7 @@ Rollbar.configure do |config|
   # See https://docs.rollbar.com/docs/ruby#section-scrubbing-items 
   # and https://docs.rollbar.com/docs/ruby#section-managing-sensitive-data 
   config.scrub_fields = :scrub_all # note that docs say this isn't recursive
+  config.scrub_whitelist = [:district_key]
   config.scrub_password = true
   config.scrub_user = true
   config.randomize_scrub_length = true

@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StarMathImporter do
-  def create_mocked_importer(district_key, local_fixture_filename, options = {})
-    mock_for_fixture!(district_key, local_fixture_filename)
+  def create_test_importer!(options = {})
     log = LogHelper::FakeLog.new
     importer = StarMathImporter.new(options: {
       school_scope: nil,
@@ -11,24 +10,36 @@ RSpec.describe StarMathImporter do
     [importer, log]
   end
 
-  def mock_for_fixture!(district_key, local_fixture_filename)
-    # mock config
+  # config read from two places
+  def mock_sis_sftp!(district_key, local_fixture_filename)
     mock_per_district = PerDistrict.new(district_key: district_key)
+    allow(mock_per_district).to receive(:try_sftp_filename).with('FILENAME_FOR_STAR_ZIP_FILE').and_return('star.zip')
     allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_MATH_IMPORT').and_return('file.csv')
-    allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_ZIP_FILE').and_return('star.zip')
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
 
-    # zip fixture
+    mock_sftp_connection!(:for_x2, local_fixture_filename)
+  end
+
+  def mock_star_sftp!(district_key, local_fixture_filename)
+    mock_per_district = PerDistrict.new(district_key: district_key)
+    allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_ZIP_FILE').and_return('star.zip')
+    allow(mock_per_district).to receive(:try_star_filename).with('FILENAME_FOR_STAR_MATH_IMPORT').and_return('file.csv')
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+
+    mock_sftp_connection!(:for_star, local_fixture_filename)
+  end
+
+  # mock connection and zip download
+  def mock_sftp_connection!(method_name, local_fixture_filename)
     zipped_fixture = Tempfile.new('zipped').tap do |zip|
       Zip::File.open(zip, Zip::File::CREATE) do |zipfile|
         zipfile.add('file.csv', local_fixture_filename)
       end
     end
 
-    # mock zip download
     mock_client = SftpClient.new
     allow(mock_client).to receive(:download_file).with('star.zip').and_return(zipped_fixture)
-    allow(SftpClient).to receive(:for_star).and_return(mock_client)
+    allow(SftpClient).to receive(method_name).and_return(mock_client)
     nil
   end
 
@@ -38,7 +49,8 @@ RSpec.describe StarMathImporter do
 
     it 'works for v2 in somerville' do
       Timecop.freeze(pals.time_now) do
-        importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv")
+        mock_star_sftp!(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv")
+        importer, log = create_test_importer!()
         importer.import
         expect(log.output).to include(':processed_rows_count=>1')
         expect(StarMathResult.all.size).to eq(1)
@@ -52,9 +64,10 @@ RSpec.describe StarMathImporter do
       end
     end
 
-    it 'works for v1 in new_bedford' do
+    it 'works for v1 in new_bedford, via SFTP box for SIS' do
       Timecop.freeze(pals.time_now) do
-        importer, log = create_mocked_importer(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_math_v1.csv")
+        mock_sis_sftp!(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_math_v1.csv")
+        importer, log = create_test_importer!()
         importer.import
         expect(log.output).to include(':processed_rows_count=>1')
         expect(StarMathResult.all.size).to eq(1)
@@ -69,7 +82,8 @@ RSpec.describe StarMathImporter do
     end
 
     it 'handles bad data (v2 as example)' do
-      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2_invalid.csv")
+      mock_star_sftp!(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2_invalid.csv")
+      importer, log = create_test_importer!()
       importer.import
       expect(log.output).to include('error: ["Percentile rank can\'t be blank"]')
       expect(log.output).to include('skipped 1 invalid rows')
@@ -77,7 +91,8 @@ RSpec.describe StarMathImporter do
     end
 
     it 'supports school filter (v2 as example)' do
-      importer, log = create_mocked_importer(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv", {
+      mock_star_sftp!(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2.csv")
+      importer, log = create_test_importer!({
         school_scope: ['SHS']
       })
       importer.import
