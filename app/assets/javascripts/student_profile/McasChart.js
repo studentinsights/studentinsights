@@ -46,8 +46,8 @@ McasChart.propTypes = {
 
 // For next generation MCAS
 export function McasNextGenChart(props) {
-  const notMeetingMin = toFromRange('NM')[0];
-  const exceedingMax = toFromRange('E')[1];
+  const notMeetingMin = nextGenMcasScoreRange('NM')[0];
+  const exceedingMax = nextGenMcasScoreRange('E')[1];
   return (
     <McasChart
       {...props}
@@ -142,7 +142,7 @@ const oldMcasBandsPlotlines = [{
   }
 }];
 
-function toFromRange(code) {
+function toRangeForChart(code) {
   const [min, max] = nextGenMcasScoreRange(code);
   return {
     from: min,
@@ -152,7 +152,7 @@ function toFromRange(code) {
 
 const nextGenBandsPlotlines = [{
   color: '#E7EBED',
-  ...toFromRange('NM'),
+  ...toRangeForChart('NM'),
   label: {
     text: 'Not Meeting Expectations',
     align: 'left',
@@ -162,7 +162,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#F6F7F8',
-  ...toFromRange('PM'),
+  ...toRangeForChart('PM'),
   label: {
     text: 'Partially Meeting',
     align: 'left',
@@ -172,7 +172,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#E7EBED',
-  ...toFromRange('M'),
+  ...toRangeForChart('M'),
   label: {
     text: 'Meeting Expectations',
     align: 'left',
@@ -182,7 +182,7 @@ const nextGenBandsPlotlines = [{
   }
 }, {
   color: '#F6F7F8',
-  ...toFromRange('E'),
+  ...toRangeForChart('E'),
   label: {
     text: 'Exceeding Expectations',
     align: 'left',
