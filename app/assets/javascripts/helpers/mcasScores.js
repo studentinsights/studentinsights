@@ -18,14 +18,14 @@ const OLD_MCAS_RANGES = {
 export function shortLabelFromNextGenMcasScore(score) {
   return _.find(Object.keys(NEXT_GEN_MCAS_RANGES), code => {
     const [lower, upper] = NEXT_GEN_MCAS_RANGES[code];
-    return (score >= lower && score < upper);
+    return (score >= lower && score <= upper);
   });
 }
   
 export function shortLabelFromOldMcasScore(score) {
   return _.find(Object.keys(OLD_MCAS_RANGES), code => {
     const [lower, upper] = OLD_MCAS_RANGES[code];
-    return (score >= lower && score < upper);
+    return (score >= lower && score <= upper);
   });
 }
 
