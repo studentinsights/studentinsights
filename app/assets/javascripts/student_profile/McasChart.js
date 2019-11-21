@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {nextGenMcasScoreRange} from '../helpers/mcasScores';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 import {xAxisWithGrades} from './highchartsXAxisWithGrades';
@@ -57,6 +58,8 @@ export function McasNextGenChart(props) {
         min: notMeetingMin,
         max: exceedingMax,
         plotLines: nextGenBandsPlotlines,
+        tickPositions: nextGenBandsPlotlines.map(p => p.from).concat([_.last(nextGenBandsPlotlines).to]),
+        gridLineWidth: 0,
         title: { text: 'Scaled score' }
       }}
     />
@@ -193,6 +196,11 @@ const nextGenBandsPlotlines = [{
 }];
 
 const defaultYAxis = {
+  // Without these, max/min aren't actually enforced.
+  endOnTick: false,
+  startOnTick: false,
+  alignTicks: false,
+
   allowDecimals: false,
   title: {
     text: '',
