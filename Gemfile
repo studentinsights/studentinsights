@@ -24,11 +24,11 @@ gem 'immigrant'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'json-diff'
-gem 'memory_profiler'       # Used in rake task so needs to be included in production
+gem 'memory_profiler' # Used in rake task so needs to be included in production
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'net-ldap'
-gem 'nokogiri', '~> 1.10.4' # https://github.com/sparklemotion/nokogiri/issues/1915
+gem 'nokogiri', '~> 1.10.5' # https://github.com/sparklemotion/nokogiri/issues/1943
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'openssl'
