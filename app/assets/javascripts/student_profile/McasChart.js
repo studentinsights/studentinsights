@@ -46,14 +46,16 @@ McasChart.propTypes = {
 
 // For next generation MCAS
 export function McasNextGenChart(props) {
+  const notMeetingMin = toFromRange('NM')[0];
+  const exceedingMax = toFromRange('E')[1];
   return (
     <McasChart
       {...props}
       seriesName="Scaled score"
       yAxis={{
         ...defaultYAxis,
-        min: 400,
-        max: 600,
+        min: notMeetingMin,
+        max: exceedingMax,
         plotLines: nextGenBandsPlotlines,
         title: { text: 'Scaled score' }
       }}
