@@ -23,7 +23,7 @@ RSpec.describe BedfordDavisTransitionNotesProcessor do
         'educator_id' => pals.healey_vivian_teacher.id,
         'form_key' => ImportedForm::BEDFORD_DAVIS_TRANSITION_NOTES_FORM,
         'form_url' => 'https://example.com/form_url',
-        'form_timestamp' => pals.time_now,
+        'form_timestamp' => pals.time_now.as_json,
         "form_json"=>{
           "LLI"=>'yes',
           "Reading Intervention (w/ specialist)"=>nil,

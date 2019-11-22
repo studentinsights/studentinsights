@@ -53,7 +53,7 @@ RSpec.describe EdPlanAccommodationsImporter do
         "iac_sep_oid"=>"test-sep-oid-1",
         "iac_description"=>"Student will meet with teachers before or after school to find out about any make-up work.",
         "iac_field"=>"Student, teachers",
-        "iac_last_modified"=>Time.parse('2016-02-02 12:34:28.000000000 +0000')
+        "iac_last_modified"=>'2016-02-02T12:34:28.000Z'
       }])
     end
 
