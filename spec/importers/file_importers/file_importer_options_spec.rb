@@ -12,6 +12,7 @@ RSpec.describe FileImporterOptions do
     end
 
     it 'references ApplicationRecord classes with :touches' do
+      Rails.application.eager_load! # necessary for the next method to return all model classes
       model_class_names = ApplicationRecord.descendants.map(&:name)
       touches = FileImporterOptions.new.all_data_flows.flat_map(&:touches)
       expect { touches.map(&:constantize) }.not_to raise_error
