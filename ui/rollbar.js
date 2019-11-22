@@ -64,7 +64,8 @@ function loadRollbar() {
 
       'search',
       'query',
-      'q'
+      'q',
+      'text'
     ],
     
     // We limit the "Telemetry" because of the privacy risk, and
