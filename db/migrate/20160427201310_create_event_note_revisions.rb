@@ -5,7 +5,6 @@ class CreateEventNoteRevisions < ActiveRecord::Migration[4.2]
       t.integer :educator_id
       t.integer :event_note_type_id
       t.text :text
-      t.datetime :created_at
       t.datetime :updated_at
       t.integer :event_note_id
       t.integer :version
