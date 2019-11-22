@@ -135,7 +135,7 @@ class PerDistrict
   # Remove microseconds manually, since I can't figure out how to get Ruby
   # to parse it properly, and always interpret as being in eastern time.
   def parse_star_date_taken_with_v2_format(text)
-    text_without_microseconds = text.first(-4)
+    text_without_microseconds = text.slice(0, text.size - 4)
     eastern_offset = Time.now.in_time_zone('Eastern Time (US & Canada)').formatted_offset
     DateTime.strptime("#{text_without_microseconds} #{eastern_offset}", '%Y-%m-%d %H:%M:%S %Z')
   end
