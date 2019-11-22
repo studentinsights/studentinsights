@@ -142,7 +142,7 @@ class ImportMatcher
     {
       valid_rows_count: @valid_rows_count,
       invalid_rows_count: @invalid_rows_count,
-      invalid_student_local_ids_size: @invalid_student_local_ids_count,
+      invalid_student_local_ids_size: @invalid_student_local_ids.size,
       invalid_educator_emails_size: @invalid_educator_emails.size,
       invalid_educator_last_names_size: @invalid_educator_last_names.size,
       invalid_educator_logins_size: @invalid_educator_logins.size,
