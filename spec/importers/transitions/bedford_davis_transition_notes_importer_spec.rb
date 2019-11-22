@@ -54,7 +54,7 @@ RSpec.describe BedfordDavisTransitionNotesImporter do
           :invalid_educator_last_names_size => 0,
           :invalid_educator_logins_size => 0,
           :invalid_sep_oids => [],
-          :invalid_student_local_ids => []
+          :invalid_student_local_ids_size => 0
         },
         :syncer=>{
           :total_sync_calls_count=>1,

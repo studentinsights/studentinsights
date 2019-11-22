@@ -40,7 +40,7 @@ class DibelsRow < Struct.new :row, :student_id, :log
     return 'INTENSIVE' if raw_string.upcase == 'INTENSIVE'
     return 'INTENSIVE' if raw_string.upcase.include?('INT')
 
-    log.puts("DibelsRow: couldn't parse DIBELS benchmark: #{raw_string}")
+    log.puts("DibelsRow: couldn't parse DIBELS benchmark")
 
     return nil
   end

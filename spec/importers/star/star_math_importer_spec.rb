@@ -85,7 +85,7 @@ RSpec.describe StarMathImporter do
       mock_star_sftp!(PerDistrict::SOMERVILLE, "#{Rails.root}/spec/importers/star/star_math_v2_invalid.csv")
       importer, log = create_test_importer!()
       importer.import
-      expect(log.output).to include('error: ["Percentile rank can\'t be blank"]')
+      expect(log.output).to include('errors.keys: [:percentile_rank]')
       expect(log.output).to include('skipped 1 invalid rows')
       expect(StarMathResult.all.size).to eq(0)
     end
