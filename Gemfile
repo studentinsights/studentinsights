@@ -61,7 +61,7 @@ gem 'pragmatic_segmenter'
 
 # other libs
 gem 'json-diff' # for diff metata in class list changes
-gem 'rubyzip', '~> 1.3.0'
+gem 'rubyzip', '~> 1.3.0',  require: 'zip'
 
 # tools used in build (eg, static analysis, dependency audits)
 group :development do
