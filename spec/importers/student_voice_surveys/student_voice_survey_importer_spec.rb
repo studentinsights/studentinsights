@@ -106,7 +106,7 @@ RSpec.describe StudentVoiceSurveyImporter do
       ])
       expect(most_recent_survey_json).to eq({
         "student_id"=> pals.shs_freshman_mari.id,
-        "form_timestamp" => DateTime.parse('2018-08-12 10:28:23 +0000'),
+        "form_timestamp" => '2018-08-12T10:28:23.000Z',
         "first_name" => "Mari",
         "student_lasid" => pals.shs_freshman_mari.local_id,
         "proud" => "Stole the most bases in the league this year",
