@@ -28,10 +28,6 @@ FactoryBot.define do
       restricted_to_english_language_learners { false }
     end
 
-    trait :without_email do
-      email nil
-    end
-
     factory :educator_with_homeroom do
       after(:create) do |educator|
         create(:homeroom, educator: educator, school: educator.school)

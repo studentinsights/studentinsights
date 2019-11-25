@@ -58,18 +58,21 @@ RSpec.describe Service do
 
   describe '#must_be_discontinued_after_service_start_date' do
 
-    context 'recorded before start date' do
-      let(:invalid_service) { FactoryBot.build(:service, discontinued_at: service.date_started - 1.day)}
-      it 'is invalid' do
-        expect(invalid_service).to be_invalid
-      end
+    it 'prevents invalid' do
+      expect do
+        FactoryBot.create(:service, {
+          date_started: Date.new(2014, 9, 9),
+          discontinued_at: Date.new(2014, 9, 8)
+        })
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    context 'recorded after start date' do
-      let(:valid_service) { FactoryBot.build(:service, discontinued_at: service.date_started + 1.day)}
-      it 'valid' do
-        expect(valid_service).to be_valid
-      end
+    it 'allows valid' do
+      service = FactoryBot.create(:service, {
+        date_started: Date.new(2014, 9, 9),
+        discontinued_at: Date.new(2014, 9, 10)
+      })
+      expect(service.valid?).to eq true
     end
 
   end

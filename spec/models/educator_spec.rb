@@ -117,11 +117,9 @@ RSpec.describe Educator do
 
   end
 
-  describe '#local_email' do
-    context 'no email' do
-      it 'is invalid' do
-        expect(FactoryBot.build(:educator, :without_email)).to be_invalid
-      end
+  describe 'validations' do
+    it 'requires email' do
+      expect(FactoryBot.build(:educator, email: nil)).to be_invalid
     end
   end
 
