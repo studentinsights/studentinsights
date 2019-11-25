@@ -10,7 +10,7 @@ RSpec.describe Assessment, type: :model do
     it 'allows valid' do
       expect(FactoryBot.create(:assessment, family: 'MCAS', subject: 'Mathematics').valid?).to eq true
     end
-    
+
     it 'fails invalid subject' do
       expect { FactoryBot.create(:assessment, family: 'MCAS', subject: 'Math') }.to raise_error(ActiveRecord::RecordInvalid)
     end
