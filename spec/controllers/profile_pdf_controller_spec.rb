@@ -131,7 +131,7 @@ describe ProfilePdfController, :type => :controller do
       expect(response).to be_successful
       expect(response.headers).to eq({
         "Content-Type" => "application/pdf",
-        "Content-Disposition" => "inline; filename=\"student_report.pdf\"",
+        "Content-Disposition" => "inline; filename=\"student_report.pdf\"; filename*=UTF-8''student_report.pdf",
         "Content-Transfer-Encoding" => "binary",
         "Cache-Control" => "private"
       })

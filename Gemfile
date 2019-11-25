@@ -83,7 +83,7 @@ group :development, :test do
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'
   gem 'rails-controller-testing'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.0.beta3'
   gem 'simplecov'
   gem 'spring'
   gem 'timecop'
