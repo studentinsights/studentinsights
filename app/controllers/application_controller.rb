@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   # Order matters here a lot.
   protect_from_forgery with: :exception
 
-  force_ssl unless Rails.env.development?
-
   before_action :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers (in this app 'users' are 'educators')
 
