@@ -1,3 +1,5 @@
+require "#{Rails.root}/spec/support/fake_names"
+
 FactoryBot.define do
 
   sequence(:staff_local_id) { |n| "000#{n}" }
