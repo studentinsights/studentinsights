@@ -3,21 +3,16 @@ require 'rails_helper'
 RSpec.describe Assessment, type: :model do
 
   it 'validates family' do
-    expect(FactoryBot.build(:assessment, family: 'foo')).to be_invalid
+    expect { FactoryBot.create(:assessment, family: 'foo') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   context 'MCAS' do
-    context 'valid subject' do
-      let(:assessment) { FactoryBot.build(:assessment, family: 'MCAS', subject: 'Mathematics') }
-      it 'is valid' do
-        expect(assessment).to be_valid
-      end
+    it 'allows valid' do
+      expect(FactoryBot.create(:assessment, family: 'MCAS', subject: 'Mathematics').valid?).to eq true
     end
-    context 'invalid subject' do
-      let(:assessment) { FactoryBot.build(:assessment, family: 'MCAS', subject: 'Math') }
-      it 'is invalid' do
-        expect(assessment).to be_invalid
-      end
+    
+    it 'fails invalid subject' do
+      expect { FactoryBot.create(:assessment, family: 'MCAS', subject: 'Math') }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

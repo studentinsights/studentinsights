@@ -220,8 +220,7 @@ RSpec.describe PerDistrict do
 
   describe '#patched_plan_504' do
     it 'works for Somerville when ed plan' do
-      student = FactoryBot.build(:student, plan_504: nil)
-      student.save!
+      student = FactoryBot.create(:student, plan_504: nil)
       EdPlan.create!({
         student_id: student.id,
         sep_status: 1,
@@ -234,20 +233,17 @@ RSpec.describe PerDistrict do
     end
 
     it 'works for Somerville when no ed plan' do
-      student = FactoryBot.build(:student, plan_504: '504')
-      student.save!
+      student = FactoryBot.create(:student, plan_504: '504')
       expect(for_somerville.patched_plan_504(student)).to eq nil
     end
 
     it 'works for Bedford' do
-      student = FactoryBot.build(:student, plan_504: '504')
-      student.save!
+      student = FactoryBot.create(:student, plan_504: '504')
       expect(for_bedford.patched_plan_504(student)).to eq '504'
     end
 
     it 'works for New Bedford' do
-      student = FactoryBot.build(:student, plan_504: '504')
-      student.save!
+      student = FactoryBot.create(:student, plan_504: '504')
       expect(for_new_bedford.patched_plan_504(student)).to eq '504'
     end
   end
