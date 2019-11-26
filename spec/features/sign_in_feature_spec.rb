@@ -141,7 +141,7 @@ describe 'educator sign in using Mock LDAP', type: :feature do
       expect(log.output).not_to include('login_code')
       expect(log.output).not_to include('password')
       expect(log.output).not_to include('demo-password')
-      expect(log.output).to include('Parameters: {"utf8"=>"[FILTERED]", "educator"=>"[FILTERED]"}')
+      expect(log.output).to include('Parameters: {"educator"=>"[FILTERED]"}')
     end
   end
 end
