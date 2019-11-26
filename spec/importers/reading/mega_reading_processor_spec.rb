@@ -76,7 +76,7 @@ RSpec.describe MegaReadingProcessor do
         :matcher => {
           :valid_rows_count=>28,
           :invalid_rows_count=>0,
-          :invalid_student_local_ids=>[],
+          :invalid_student_local_ids_size=>0,
           :invalid_educator_emails_size=>0,
           :invalid_educator_last_names_size=>0,
           :invalid_educator_logins_size=>0,

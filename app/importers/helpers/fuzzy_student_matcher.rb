@@ -21,11 +21,11 @@ class FuzzyStudentMatcher
   def match_from_full_name(full_name)
     student_id = guess_from_name(full_name)
     if student_id.nil?
-      @invalid_student_name += 1
+      @invalid_student_name_count += 1
       return nil
     end
 
-    @valid_student_name += 1
+    @valid_student_name_count += 1
     {
       full_name: full_name,
       student_id: student_id
@@ -47,14 +47,14 @@ class FuzzyStudentMatcher
 
   private
   def reset_counters!
-    @invalid_student_name = 0
-    @valid_student_name = 0
+    @invalid_student_name_count = 0
+    @valid_student_name_count = 0
   end
 
   def stats
     {
-      invalid_student_name: @invalid_student_name,
-      valid_data_points: @valid_data_points
+      invalid_student_name_count: @invalid_student_name_count,
+      valid_student_name_count: @valid_student_name_count
     }
   end
 

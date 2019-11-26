@@ -38,7 +38,7 @@ class IepStorer
     # Match to student
     student = Student.find_by_local_id(student_local_id)
     if student.nil?
-      log("student local_id: #{student_local_id} not found, dropping the IEP PDF file...")
+      log("student local_id not found, dropping the IEP PDF file...")
       return nil
     end
 
@@ -68,7 +68,7 @@ class IepStorer
 
   # Returns filename on success, nil on error
   def store_object_in_s3(student_local_id)
-    log("storing iep pdf for student_local_id:#{student_local_id} in s3...")
+    log("storing iep pdf in s3...")
 
     # s3 filenames are sorted by student / upload date / iep
     # Filename shape: {64-character hash} / {YYYY}-{MM}-{DD} / {64-character hash}.

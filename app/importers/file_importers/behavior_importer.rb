@@ -111,7 +111,6 @@ class BehaviorImporter
     student = Student.find_by_local_id(row[:local_id])
     if student.nil?
       @skipped_from_invalid_student_id += 1
-      log("skipping, StudentLocalID not found: #{row[:local_id]}")
       return
     end
 
