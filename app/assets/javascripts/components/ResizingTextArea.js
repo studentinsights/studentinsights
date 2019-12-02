@@ -42,12 +42,12 @@ export default class ResizingTextArea extends React.Component {
     // purposes of sizing.  This limits the impact to when there is a trailing
     // newline, and the last character is about to wrap.
     this.span.textContent = this.el.textContent + '#';
-    console.log('>> resize', this.el.style.height, '.', this.el.offsetHeight, this.el.scrollHeight, '|', this.span.style.height, '.', this.span.offsetHeight, this.span.scrollHeight);
+    // console.log('>> resize', this.el.style.height, '.', this.el.offsetHeight, this.el.scrollHeight, '|', this.span.style.height, '.', this.span.offsetHeight, this.span.scrollHeight);
 
     // simple, just set `height` if it's not big enough
     const needsToExpand = (this.el.offsetHeight < this.el.scrollHeight);
     if (needsToExpand) {
-       console.log('  expand!', this.el.scrollHeight);
+      // console.log('  expand!', this.el.scrollHeight);
       this.el.style.height = this.el.scrollHeight + 'px';
       return;
     }
@@ -55,7 +55,7 @@ export default class ResizingTextArea extends React.Component {
     // needs span to measure once `height` is set the first time
     const needsToContract = (this.el.scrollHeight > this.span.scrollHeight);
     if (needsToContract) {
-       console.log('  contract!', this.span.scrollHeight);
+      // console.log('  contract!', this.span.scrollHeight);
       this.el.style.height = this.span.scrollHeight + 'px';
       return;
     }
