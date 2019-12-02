@@ -1,4 +1,3 @@
-require 'devise/strategies/authenticatable'
 module Devise
   module Models
     module LdapAuthenticatableTiny

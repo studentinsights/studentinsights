@@ -54,16 +54,12 @@ module FeatureHelpers
 
   # This makes the sign out requests manually, since it's a delete request
   # and would require jquery_ujs and a JavaScript driver.  This involves
-  # manually following two redirects - one to HTTPS (not sure why) and the
-  # other to follow the real redirection after signing out back to the root url.
+  # manually following the redirect after signing out back to the root url.
   #
   # This doesn't actually test the Sign Out link on the page.
   def feature_sign_out
     # Make a delete request
     page.driver.delete Rails.application.routes.url_helpers.destroy_educator_session_path
-
-    # Follow https, make same delete request.
-    page.driver.delete page.driver.response.location
 
     # Follow redirection back to root.
     page.visit page.driver.response.location

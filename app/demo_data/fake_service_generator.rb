@@ -21,7 +21,7 @@ class FakeServiceGenerator
       date_started: @date - rand(0..7),
       recorded_at: @date,
       recorded_by_educator_id: Educator.all.sample.id,
-      service_upload_id: 1.in(2) ? @service_upload_ids.sample : nil
+      service_upload_id: rand() < 0.50 ? @service_upload_ids.sample : nil
     }
   end
 end

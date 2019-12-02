@@ -114,10 +114,10 @@ RSpec.describe StudentSectionGradesImporter do
           ]
         })
         expect(db_records_json).to contain_exactly(*[
-          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"333"}, "grade_numeric"=>85.12.to_d, "grade_letter"=>"B+" },
-          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"111"}, "grade_numeric"=>85.45.to_d, "grade_letter"=>"B+" },
-          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"222"}, "grade_numeric"=>85.78.to_d, "grade_letter"=>"B+" },
-          { "section"=>{"section_number"=>"ELA6-002", "term_local_id"=>"FY"},"student"=>{"local_id"=>"333"}, "grade_numeric"=>85.99.to_d, "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"333"}, "grade_numeric"=>"85.12", "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"111"}, "grade_numeric"=>"85.45", "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"SOC6-001", "term_local_id"=>"FY"},"student"=>{"local_id"=>"222"}, "grade_numeric"=>"85.78", "grade_letter"=>"B+" },
+          { "section"=>{"section_number"=>"ELA6-002", "term_local_id"=>"FY"},"student"=>{"local_id"=>"333"}, "grade_numeric"=>"85.99", "grade_letter"=>"B+" },
         ])
       end
     end

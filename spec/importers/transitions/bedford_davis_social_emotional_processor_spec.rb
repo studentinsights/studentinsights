@@ -28,21 +28,21 @@ RSpec.describe BedfordDavisSocialEmotionalProcessor do
         "educator_id"=>counselor.id,
         "event_note_type_id"=>304,
         "text"=>"Social emotional services during 2018-2019\n- Soc.Emo. Check in w/ counselor\n\nNew to district this year, transition was a little tough but settled in now.",
-        "recorded_at"=>pals.time_now,
+        "recorded_at"=>pals.time_now.as_json,
         "is_restricted"=>true
       },{
         "student_id"=>pals.shs_freshman_amir.id,
         "educator_id"=>counselor.id,
         "event_note_type_id"=>304,
         "text"=>"Social emotional services during 2018-2019\n- Soc. Emo. Small group",
-        "recorded_at"=>pals.time_now,
+        "recorded_at"=>pals.time_now.as_json,
         "is_restricted"=>true
       },{
         "student_id"=>pals.west_eighth_ryan.id,
         "educator_id"=>pals.rich_districtwide.id,
         "event_note_type_id"=>304,
         "text"=>"Family medical issues this year, they took on a lot to support everyone at home",
-        "recorded_at"=>pals.time_now,
+        "recorded_at"=>pals.time_now.as_json,
         "is_restricted"=>true
       }])
     end

@@ -54,7 +54,7 @@ describe CounselorMeetingsController, :type => :controller do
       expect(CounselorMeeting.all.first.as_json(except: [:id, :updated_at, :created_at])).to eq({
         'student_id' => pals.shs_freshman_mari.id,
         'educator_id' => pals.shs_sofia_counselor.id,
-        'meeting_date' => Date.parse('2017-03-21')
+        'meeting_date' => '2017-03-21'
       })
     end
   end

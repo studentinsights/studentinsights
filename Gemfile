@@ -2,79 +2,89 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
-gem 'loofah', '~> 2.3.1' # https://github.com/flavorjones/loofah/issues/171
+# forced patches
+# (none)
 
-gem 'rails', '~> 5.2.0'
-gem 'pg'
-gem 'puma'
-gem 'rack-attack'
-gem 'ipcat'
-gem 'dalli'
-gem 'rotp'
-gem 'twilio-ruby'
-gem 'rqrcode'
-gem 'rails_best_practices'
-
-gem 'administrate', '~> 0.10.0'
-gem 'authtrail'
-gem 'aws-sdk', '~> 2'
-gem 'devise', '~> 4.7.1'
-gem 'friendly_id', '~> 5.1.0'
-gem 'immigrant'
+# build, deploy
+gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'json-diff'
-gem 'memory_profiler' # Used in rake task so needs to be included in production
-gem 'net-sftp'
-gem 'net-ssh'
-gem 'net-ldap'
-gem 'nokogiri', '~> 1.10.5' # https://github.com/sparklemotion/nokogiri/issues/1943
-gem 'oj'
-gem 'oj_mimic_json'
-gem 'openssl'
-gem 'pdf-reader'
-gem 'platform-api'
-gem 'pragmatic_segmenter'
-gem 'probability'
-gem 'rollbar'
+gem 'rails', '~> 6.0.0'
 gem 'sass-rails', '~> 5.0'
-gem 'secure_headers'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
-gem 'rubyzip', '~> 1.3.0'
+
+# rails plugins or patches
+gem 'administrate', '~> 0.12.0'
+gem 'authtrail'
+gem 'devise', '~> 4.7.1'
+gem 'factory_bot_rails' # seeding (for demo site in production)
+gem 'friendly_id', '~> 5.1.0' # deprecated
+gem 'immigrant'
+gem 'memory_profiler' # used in rake task so needs to be included in production
+gem 'oj'
+gem 'oj_mimic_json'
+gem 'rack-attack'
+gem 'secure_headers'
+
+# services
+gem 'aws-sdk', '~> 2'
+gem 'dalli' # memcached for rack::attack
+gem 'google-api-client', "~> 0.28.7"
+gem 'platform-api' # heroku, for forcibly restarting dynos
+gem 'net-ldap'
+gem 'net-sftp'
+gem 'net-ssh'
+gem 'nokogiri', '~> 1.10.5' # https://github.com/sparklemotion/nokogiri/issues/1943
+gem 'openssl'
+gem 'pg'
+gem 'puma'
+gem 'rollbar'
+gem 'twilio-ruby'
+
+### standalone libraries
+# security
+gem 'ipcat'
 gem 'rbnacl'
+gem 'rotp'
+gem 'rqrcode'
 gem 'zxcvbn-js', require: 'zxcvbn'
 
-# dependency audits
-gem 'bundler-audit'
-gem 'ruby_audit'
+# generating pdfs
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
-# used to seed demo data in production
-gem 'factory_bot_rails'
+# text processing (eg, IEP PDFs)
+gem 'pdf-reader'
+gem 'pragmatic_segmenter'
 
+# other libs
+gem 'json-diff' # for diff metata in class list changes
+gem 'rubyzip', '~> 1.3.0',  require: 'zip'
+
+# tools used in build (eg, static analysis, dependency audits)
+group :development do
+  gem 'brakeman'
+  gem 'bundler-audit'
+  gem 'rails_best_practices'
+  gem 'ruby_audit'
+  gem 'rubocop', '~> 0.75.0', require: false
+end
+
+# local development or test-only tools
 group :development, :test do
+  gem 'better_errors'
   gem 'bourbon', '~> 4.3.2'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'descriptive-statistics'
+  gem 'listen'
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'
   gem 'rails-controller-testing'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.0.beta3'
   gem 'simplecov'
-  gem 'timecop'
-  gem 'brakeman'
-end
-
-group :development do
-  gem 'better_errors'
-  gem 'pivotal_git_scripts'
-  gem 'rails-erd', require: false
-  gem 'rubocop', '~> 0.75.0', require: false
   gem 'spring'
+  gem 'timecop'
 end
-
-gem "google-api-client", "~> 0.28.7"

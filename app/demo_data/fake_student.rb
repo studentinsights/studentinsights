@@ -156,18 +156,18 @@ class FakeStudent
   end
 
   def enrollment_status
-    7.in(8) ? 'Active' : 'Transferred'
+    flip(7, 8) ? 'Active' : 'Transferred'
   end
 
   def plan_504
-    2.in(100) ? { plan_504: "504" } : { plan_504: "Not 504" }
+    flip(2, 100) ? { plan_504: "504" } : { plan_504: "Not 504" }
   end
 
   def program_assigned_and_sped_disability
-    if 20.in(100)
+    if flip(20, 100)
       { program_assigned: "Sp Ed" }.merge(sped).merge(disability).merge(sped_liaison)
     else
-      if 15.in(100)
+      if flip(15, 100)
         { program_assigned: ["Reg Ed", "2Way English", "2Way Spanish"].sample }.merge(disability)
       else
         { program_assigned: ["Reg Ed", "2Way English", "2Way Spanish"].sample }
@@ -340,7 +340,7 @@ class FakeStudent
   end
 
   def add_deprecated_interventions
-    15.in(100) do
+    flip(15, 100) do
       generator = FakeInterventionGenerator.new(@student)
       intervention_count = rand > 0.5 ? 0 : (1..6).to_a.sample
       intervention_count.times do
@@ -361,13 +361,13 @@ class FakeStudent
   #These are saving for some students only.
   def add_services
     generator = FakeServiceGenerator.new(@student)
-    service_counts = 20.in(100) ? rand(1..5) : 0
+    service_counts = flip(20, 100) ? rand(1..5) : 0
     service_counts.times { Service.new(generator.next).save! }
     nil
   end
 
   def add_ieps
-    15.in(100) do
+    flip(15, 100) do
       file_name = "#{@student.local_id}_IEPAtAGlance_#{@student.first_name}_#{@student.last_name}.pdf"
       file_digest = SecureRandom.hex
       IepDocument.create!(
@@ -381,4 +381,14 @@ class FakeStudent
     nil
   end
 
+  # from https://github.com/ariejan/probability/blob/master/lib/probability/core_ext/integer.rb
+  def flip(x, number)
+    return false if number <= 0
+
+    threshold = x / number.to_f
+    result = SecureRandom.random_number(0) <= threshold
+
+    return yield if result && block_given?
+    result
+  end
 end

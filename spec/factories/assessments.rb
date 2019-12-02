@@ -8,20 +8,20 @@ FactoryBot.define do
       end
     end
     trait :mcas do
-      family "MCAS"
+      family { 'MCAS' }
     end
     trait :math do
-      subject "Mathematics"
+      subject { 'Mathematics' }
     end
     trait :reading do
-      subject "Reading"
+      subject { 'Reading' }
     end
     trait :ela do
-      subject "ELA"
+      subject { 'ELA' }
     end
     trait :access do
-      family "ACCESS"
-      subject "Composite"
+      family { 'ACCESS' }
+      subject { 'Composite' }
     end
   end
 end

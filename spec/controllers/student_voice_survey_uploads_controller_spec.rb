@@ -112,8 +112,8 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         "file_name"=>"student_voice_survey_v2.csv",
         "file_size"=>534,
         "file_digest"=> "944dd188a9ade53c95115f33d7fe2920cced21ffb6f7c42ba94b798bbf89b8b2",
-        "created_at"=>a_kind_of(ActiveSupport::TimeWithZone),
-        "updated_at"=>a_kind_of(ActiveSupport::TimeWithZone),
+        "created_at"=>a_kind_of(String),
+        "updated_at"=>a_kind_of(String),
         "uploaded_by_educator_id"=>pals.uri.id,
         "completed"=>true,
         "stats"=>{
@@ -131,7 +131,7 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         "id"=>a_kind_of(Integer),
         "student_voice_survey_upload_id"=>a_kind_of(Integer),
         "student_id"=>pals.shs_freshman_mari.id,
-        "form_timestamp"=>a_kind_of(ActiveSupport::TimeWithZone),
+        "form_timestamp"=>a_kind_of(String),
         "first_name"=>"Mari",
         "student_lasid"=>"111222222",
         "proud"=>"Stole the most bases in the league this year",
@@ -139,8 +139,8 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         "activities_and_interests"=>"Making podcasts, teaching my sister songs",
         "nervous_or_stressed"=>"when there is too much work and I don't know what to do",
         "learn_best"=>"are kind and explain what we need to do to get good grades",
-        "created_at"=>a_kind_of(ActiveSupport::TimeWithZone),
-        "updated_at"=>a_kind_of(ActiveSupport::TimeWithZone)
+        "created_at"=>a_kind_of(String),
+        "updated_at"=>a_kind_of(String)
       })
     end
   end

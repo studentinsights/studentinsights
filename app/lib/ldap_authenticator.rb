@@ -1,7 +1,7 @@
 class LdapAuthenticator
   def initialize(options = {})
     @logger = options.fetch(:logger, Rails.logger)
-    @ldap_class = options.fetch(:ldap_class, MockLDAP.should_use? ? MockLDAP : Net::LDAP)
+    @ldap_class = options.fetch(:ldap_class, MockLdap.should_use? ? MockLdap : Net::LDAP)
   end
 
   # Create a Net::LDAP instance, `bind` to it and close.

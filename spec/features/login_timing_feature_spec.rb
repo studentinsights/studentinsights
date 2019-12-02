@@ -11,7 +11,7 @@ describe 'login timing', type: :feature do
 
   # simulate a really slow response from an LDAP #bind
   def mock_slow_ldap_bind!(username, password, delay_milliseconds)
-    slow_mock_ldap = MockLDAP.new({
+    slow_mock_ldap = MockLdap.new({
       auth: {
         username: username,
         password: password
@@ -21,7 +21,7 @@ describe 'login timing', type: :feature do
       sleep(delay_milliseconds/1000.0)
       false
     end
-    allow(MockLDAP).to receive(:new).and_return(slow_mock_ldap)
+    allow(MockLdap).to receive(:new).and_return(slow_mock_ldap)
     nil
   end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe MockLDAP do
+RSpec.describe MockLdap do
   describe '.should_use?' do
     context 'USE_MOCK_LDAP is "false"' do
       before do
@@ -8,7 +8,7 @@ RSpec.describe MockLDAP do
       end
 
       it 'returns false' do
-        expect(MockLDAP.should_use?).to eq false
+        expect(MockLdap.should_use?).to eq false
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe MockLDAP do
       end
 
       it 'returns false' do
-        expect(MockLDAP.should_use?).to eq false
+        expect(MockLdap.should_use?).to eq false
       end
     end
 
@@ -29,13 +29,13 @@ RSpec.describe MockLDAP do
       end
 
       it 'returns false' do
-        expect(MockLDAP.should_use?).to eq false
+        expect(MockLdap.should_use?).to eq false
       end
     end
 
     context 'USE_MOCK_LDAP is "true", password is set (test.rb defaults)'  do
       it 'returns true' do
-        expect(MockLDAP.should_use?).to eq true
+        expect(MockLdap.should_use?).to eq true
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe MockLDAP do
       end
 
       it 'returns false' do
-        expect(MockLDAP.should_use?).to eq false
+        expect(MockLdap.should_use?).to eq false
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe MockLDAP do
       end
 
       it 'returns false' do
-        expect(MockLDAP.should_use?).to eq false
+        expect(MockLdap.should_use?).to eq false
       end
     end
   end

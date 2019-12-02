@@ -72,7 +72,7 @@ RSpec.describe AttendanceImporter do
       expect(Absence.all.size).to eq 1
       expect(Absence.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
         'student_id' => pals.shs_freshman_mari.id,
-        'occurred_at' => Date.parse('Fri, 16 Sep 2005'),
+        'occurred_at' => '2005-09-16',
         'dismissed' => false,
         'excused' => false,
         'reason' => 'Medical',

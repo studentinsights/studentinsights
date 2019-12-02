@@ -45,18 +45,13 @@ describe 'masquerading, testing only in Somerville', type: :feature do
 
   # This is all a manual workaround for not being able to click on links that use
   # jquery_ujs in RackTest (there's no JS running to interpret the click and translate it
-  # into a post request).  If we just used `visit` directly, it'd make a get request and
+  # into a POST request).  If we just used `visit` directly, it'd make a GET request and
   # not work.
   #
   # This doesn't actually test the content of the link on the page.
+  # Similar to `FeatureHelpers#feature_sign_out`
   def simulate_clicking_become_link(page, target_educator_email)
     page.driver.post admin_masquerade_become_url(masquerading_educator_id: pals.shs_jodi.id)
-
-    # I'm not sure why, but everything to this point has been http, and this
-    # redirects to https.  Also not sure why Capybara doesn't follow this (perhaps
-    # because we're manually make posting requests to RackTest.  Either way,
-    # this manually follows the redirect and makes another post to the same path at https.
-    page.driver.post page.driver.response.location
 
     # And one more time we manually follow the expected redirect (in this case it's back to
     # the home page).

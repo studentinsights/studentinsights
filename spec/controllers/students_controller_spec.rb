@@ -138,7 +138,8 @@ describe StudentsController, :type => :controller do
       expect(response.status).to eq 200
       expect(response.body).to eq '<pdfbytes>'
       expect(response.headers['Content-Type']).to eq ('application/pdf')
-      expect(response.headers['Content-Disposition']).to eq ("inline; filename=\"IEP_HamiltonAlexander_20180304_#{iep_student.id}_#{iep_document.id}.pdf\"")
+      expected_filename = "IEP_HamiltonAlexander_20180304_#{iep_student.id}_#{iep_document.id}.pdf"
+      expect(response.headers['Content-Disposition']).to eq ("inline; filename=\"#{expected_filename}\"; filename*=UTF-8''#{expected_filename}")
     end
 
     it 'works to get latest document when there are multiple' do
@@ -161,7 +162,8 @@ describe StudentsController, :type => :controller do
       expect(response.status).to eq 200
       expect(response.body).to eq '<newbytes>'
       expect(response.headers['Content-Type']).to eq ('application/pdf')
-      expect(response.headers['Content-Disposition']).to eq ("inline; filename=\"IEP_HamiltonAlexander_20180304_#{iep_student.id}_#{newer_iep_document.id}.pdf\"")
+      expected_filename = "IEP_HamiltonAlexander_20180304_#{iep_student.id}_#{newer_iep_document.id}.pdf"
+      expect(response.headers['Content-Disposition']).to eq ("inline; filename=\"#{expected_filename}\"; filename*=UTF-8''#{expected_filename}")
     end
 
     context 'student has no IEP' do

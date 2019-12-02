@@ -135,7 +135,7 @@ class PerDistrict
   # Remove microseconds manually, since I can't figure out how to get Ruby
   # to parse it properly, and always interpret as being in eastern time.
   def parse_star_date_taken_with_v2_format(text)
-    text_without_microseconds = text.first(-4)
+    text_without_microseconds = text.slice(0, text.size - 4)
     eastern_offset = Time.now.in_time_zone('Eastern Time (US & Canada)').formatted_offset
     DateTime.strptime("#{text_without_microseconds} #{eastern_offset}", '%Y-%m-%d %H:%M:%S %Z')
   end
@@ -371,7 +371,7 @@ class PerDistrict
     elsif @district_key == NEW_BEDFORD
       educator.email
     elsif @district_key == DEMO
-      educator.email # only used for MockLDAP in dev/test
+      educator.email # only used for MockLdap in dev/test
     else
       raise_not_handled!
     end
@@ -380,7 +380,7 @@ class PerDistrict
   # This is used to mock an LDAP server for local development, test and for the demo site.
   # The behavior here is different by districts.
   def find_educator_for_mock_ldap_login(ldap_login)
-    raise_not_handled! unless MockLDAP.should_use?
+    raise_not_handled! unless MockLdap.should_use?
 
     if @district_key == BEDFORD
       login_name = ldap_login.split('@').first
@@ -638,7 +638,7 @@ class PerDistrict
   # This is just a heuristic for Somerville, see links like:
   # http://www.somerville.k12.ma.us/schools/somerville-high-school/departments-academics/athletics/spring-sports-registration
   def sports_season_key(date_time)
-    return nil unless @district_key == SOMERVILLE
+    return nil unless @district_key == SOMERVILLE || @district_key == DEMO
 
     school_year = SchoolYear.to_school_year(date_time)
     if date_time < DateTime.new(school_year, 11, 26)

@@ -129,7 +129,7 @@ RSpec.describe SearchNotesQueries do
           "scope_key" => "SCOPE_ALL_STUDENTS"
         }.to_json,
         "all_results_size"=>1,
-        "search_date"=>Date.today
+        "search_date"=>Date.today.as_json
       }])
     end
   end

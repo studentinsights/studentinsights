@@ -28,7 +28,7 @@ RSpec.describe BedfordSixthGradeTransitionProcessor do
         'educator_id' => pals.healey_laura_principal.id,
         'form_key' => 'bedford_sixth_grade_transition_form',
         'form_url' => 'https://example.com/form_url',
-        'form_timestamp' => DateTime.parse('2017-05-28 15:17:48'),
+        'form_timestamp' => '2017-05-28T15:17:48.000Z',
         "form_json" => {
           "My interests and activities outside of school are..."=>"lacrosse, karate and violin",
           "Thinking back on last year, I am proud that I..."=>"learned a lot more than i expected in math this year"

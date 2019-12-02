@@ -16,7 +16,7 @@ RSpec.describe FAndPProcessor do
       expect(f_and_ps.size).to eq 1
       expect(FAndPAssessment.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
         "student_id"=>pals.healey_kindergarten_student.id,
-        "benchmark_date"=>benchmark_date,
+        "benchmark_date"=>'2018-12-19',
         "instructional_level"=>"A",
         "f_and_p_code"=>"WC",
         "uploaded_by_educator_id"=>pals.uri.id

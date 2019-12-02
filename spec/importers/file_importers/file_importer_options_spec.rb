@@ -12,6 +12,16 @@ RSpec.describe FileImporterOptions do
     end
 
     it 'references ApplicationRecord classes with :touches' do
+      # Eager loading is necessary for the next method to return all model
+      # classes.  But the method is broken in Rails 6, so the first method
+      # call doesn't work, and we have to call the second method ourselves.
+      # When this is fixed upstream, we can remove the direct call to Zeitwerk.
+      #
+      # See also:
+      # - https://github.com/rails/rails/issues/37006
+      # - https://github.com/rails/rails/pull/37045
+      Rails.application.eager_load!
+      Zeitwerk::Loader.eager_load_all
       model_class_names = ApplicationRecord.descendants.map(&:name)
       touches = FileImporterOptions.new.all_data_flows.flat_map(&:touches)
       expect { touches.map(&:constantize) }.not_to raise_error

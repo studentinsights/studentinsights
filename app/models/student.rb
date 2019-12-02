@@ -198,7 +198,7 @@ class Student < ApplicationRecord
   end
 
   def update_recent_student_assessments!
-    update_attributes!({
+    update!({
       most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,
       most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
       most_recent_mcas_math_performance: latest_mcas_mathematics.performance_level,

@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
     service = Service.find(service_id)
     serializer = ServiceSerializer.new(service)
 
-    if service.update_attributes(:discontinued_at => Time.now, :discontinued_by_educator_id => current_educator.id)
+    if service.update(:discontinued_at => Time.now, :discontinued_by_educator_id => current_educator.id)
       render json: serializer.serialize_service
     else
       render json: { errors: service.errors.full_messages }, status: 422

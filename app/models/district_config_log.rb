@@ -14,7 +14,12 @@ class DistrictConfigLog < ApplicationRecord
   # These aren't entirely static, but this seeds with
   # values that are useful for dev and test.
   def self.seed_for_development_and_test!
-    raise 'only for dev/test!' unless (Rails.env.development? || Rails.env.test?)
+    is_allowed = (
+      Rails.env.development? ||
+      Rails.env.test? ||
+      EnvironmentVariable.is_true('ALLOW_DISTRICT_CONFIG_LOG_SEED')
+    )
+    raise 'only for dev/test!' unless is_allowed
 
     DistrictConfigLog.create!({
       key: DistrictConfigLog::SFTP_FILENAMES,
