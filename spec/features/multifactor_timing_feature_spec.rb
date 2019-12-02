@@ -22,7 +22,7 @@ describe 'Multifactor', type: :feature do
   end
 
   describe 'across all execution paths' do
-    let!(:expected_timing_in_milliseconds) { 500 } # for faster tests
+    let!(:expected_timing_in_milliseconds) { 300 } # for faster tests
     before(:each) { LoginTests.reset_rack_attack! }
     before(:each) { before_set_timing!(expected_timing_in_milliseconds) }
     after(:each) { after_reset_timing! }
@@ -40,7 +40,7 @@ describe 'Multifactor', type: :feature do
         # expect(page.html).to eq ''
         feature_reset_login_attempt!
 
-        tolerance_ms = 100
+        tolerance_ms = 300
         failure_message = "unexpected timing for login_text='#{login_text}'  timing: #{elapsed_milliseconds}"
         expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), failure_message
         print('✓') # a nice progress indicator since these are slower tests
