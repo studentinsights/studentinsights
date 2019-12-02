@@ -638,7 +638,7 @@ class PerDistrict
   # This is just a heuristic for Somerville, see links like:
   # http://www.somerville.k12.ma.us/schools/somerville-high-school/departments-academics/athletics/spring-sports-registration
   def sports_season_key(date_time)
-    return nil unless @district_key == SOMERVILLE
+    return nil unless @district_key == SOMERVILLE || @district_key == DEMO
 
     school_year = SchoolYear.to_school_year(date_time)
     if date_time < DateTime.new(school_year, 11, 26)

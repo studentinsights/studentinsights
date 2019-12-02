@@ -540,9 +540,6 @@ class TestPals
   # "now" in time_now for test (not wall clock)
   def add_team_memberships
     this_season_key, school_year_text = TeamMembership.this_season_and_year(time_now: time_now)
-    puts ">> time_now.to_i: #{time_now.to_i}"
-    puts ">> this_season_key: #{this_season_key}"
-    puts ">> school_year_text: #{school_year_text}"
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
       activity_text: 'Competitive Cheerleading Varsity',
