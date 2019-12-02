@@ -10,8 +10,13 @@
 import assign from 'object-assign';
 Object.assign = assign;
 
-import Promise from 'promise-polyfill';
+// Object.values doesn't exist in IE11
+import values from 'object.values';
+if (!Object.values) {
+  Object.values = values;
+}
 
+import Promise from 'promise-polyfill';
 if (!window.Promise) {
   window.Promise = Promise;
 }
