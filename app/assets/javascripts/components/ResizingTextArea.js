@@ -20,7 +20,7 @@ export default class ResizingTextArea extends React.Component {
 
   resize() {
     if (this.el) {
-      this.el.style.height = (this.el.scrollHeight) + 'px;';
+      // this.el.style.height = (this.el.scrollHeight) + 'px;';
       this.el.style.height = 'auto';
       this.el.style.height = (this.el.scrollHeight) + 'px';
     }
