@@ -42,6 +42,7 @@ const BEDFORD_MAP = { // Bedford doesn't appear to track FLEP the same way
 
 const LANGUAGE_MAPS_BY_DISTRICT_KEY = {
   [SOMERVILLE]: SOMERVILLE_MAP,
+  [DEMO]: SOMERVILLE_MAP,
   [BEDFORD]: BEDFORD_MAP,
   [NEW_BEDFORD]: NEW_BEDFORD_MAP
 };
@@ -107,11 +108,10 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
 
 // For use in Select dropdowns
 export function englishProficiencyOptions(districtKey) {
-  if (!(districtKey === SOMERVILLE || districtKey === DEMO)) {
+  const districtMap = LANGUAGE_MAPS_BY_DISTRICT_KEY[districtKey];
+  if (!districtMap) {
     throw new Error(`unsupported districtKey: ${districtKey}`);
   }
-  
-  const districtMap = LANGUAGE_MAPS_BY_DISTRICT_KEY[districtKey];
   return [{ value: ALL, label: 'All' }].concat(Object.keys(districtMap).map(value => {
     const status = districtMap[value];
     const label = PRETTY_STATUS_TEXT[status];
