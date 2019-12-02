@@ -107,7 +107,7 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
 
 // For use in Select dropdowns
 export function englishProficiencyOptions(districtKey) {
-  if (districtKey !== SOMERVILLE || districtKey !== DEMO) {
+  if (!(districtKey === SOMERVILLE || districtKey === DEMO)) {
     throw new Error(`unsupported districtKey: ${districtKey}`);
   }
   
