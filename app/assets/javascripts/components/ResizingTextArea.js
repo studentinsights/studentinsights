@@ -19,7 +19,7 @@ export default class ResizingTextArea extends React.Component {
   }
 
   // This component is fragile to changes; verify changes across browsers and
-  // with these test cases below.
+  // with these test cases below.  See also the story.
   //
   // Cases:
   // - on load, resizes to show all text
@@ -41,23 +41,28 @@ export default class ResizingTextArea extends React.Component {
     // This hacks around, and always appends a character to the hidden span for the
     // purposes of sizing.  This limits the impact to when there is a trailing
     // newline, and the last character is about to wrap.
-    this.span.textContent = this.el.textContent + '#';
+    // if (this.el.textContent.slice(-1) === '\n') {
+    // this.el.textContent = this.el.textContent + '\n';
+    // }
+    this.span.textContent = this.el.textContent + '\n#';
 
     // debugging
-    debugLog('>> resize', this.el.style.height, '.', this.el.offsetHeight, this.el.scrollHeight, '|', this.span.style.height, '.', this.span.offsetHeight, this.span.scrollHeight);
+    // debugLog('>> resize', this.el.style.height, '.', this.el.offsetHeight, this.el.scrollHeight, '|', this.span.style.height, '.', this.span.offsetHeight, this.span.scrollHeight);
 
     // simple, just set `height` if it's not big enough
-    const needsToExpand = (this.el.offsetHeight < this.el.scrollHeight);
+    const needsToExpand = (this.el.offsetHeight < this.span.scrollHeight);
     if (needsToExpand) {
-      debugLog('  expand!', this.el.scrollHeight);
-      this.el.style.height = this.el.scrollHeight + 'px';
+      // debugLog('  expand!', this.span.scrollHeight);
+      // debugLog('this.el.scrollTop', this.el.scrollTop);
+      this.el.style.height = this.span.scrollHeight + 'px';
       return;
     }
 
     // needs span to measure once `height` is set the first time
     const needsToContract = (this.el.scrollHeight > this.span.scrollHeight);
     if (needsToContract) {
-      debugLog('  contract!', this.span.scrollHeight);
+      // debugLog('  contract!', this.span.scrollHeight);
+      // debugLog('this.el.scrollTop', this.el.scrollTop);
       this.el.style.height = this.span.scrollHeight + 'px';
       return;
     }
@@ -108,12 +113,29 @@ ResizingTextArea.propTypes = {
 };
 
 
-
+// For working around when in IE11 in a VM, when using the console
+// or debugger tools can be prohibitively slow.
 function debugLog(...debugMsgs) {
-  // const debugEl = document.createElement('pre');
-  // debugEl.textContent = debugMsgs.join('  ');
-  // debugEl.style['border-top'] = '1px solid #ccc';
-  // debugEl.style['margin-top'] = '10px';
-  // document.body.appendChild(debugEl);
-  // console.log(...debugMsgs);
+  let containerEl = document.querySelector('.ResizingTextArea-debug');
+  if (!containerEl) {
+    containerEl = document.createElement('div');
+    containerEl.classList.add('ResizingTextArea-debug');
+    containerEl.style['z-index'] = 999;
+    containerEl.style['position'] = 'fixed';
+    containerEl.style['top'] = '50px';
+    containerEl.style['right'] = '10px';
+    containerEl.style['bottom'] = '50px';
+    containerEl.style['width'] = '400px';
+    containerEl.style['background'] = 'white';
+    containerEl.style['overflow-y'] = 'scroll';
+    containerEl.style['border'] = '1px solid black';
+    containerEl.style['padding'] = '10px';
+    document.body.appendChild(containerEl);
+  }
+  const debugEl = document.createElement('pre');
+  debugEl.textContent = debugMsgs.join('  ');
+  debugEl.style['border-top'] = '1px solid #ccc';
+  debugEl.style['margin-top'] = '10px';
+  containerEl.insertBefore(debugEl, containerEl.children[0]);
+  console.log(...debugMsgs);
 }
