@@ -105,7 +105,7 @@ const helpers = {
 
   editNoteText(el, noteIndex, uiParams) {
     const $noteCard = $(el).find('.NotesList .NoteShell').eq(noteIndex);
-    const $text = $noteCard.find('.ResizingTextArea');
+    const $text = $noteCard.find('.ResizingTextArea-textarea');
     changeTextValue($text.get(0), uiParams.text);
   },
 
