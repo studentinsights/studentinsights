@@ -14,6 +14,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/FitText.story');
   require('../../../app/assets/javascripts/components/NoteBadge.story');
   require('../../../app/assets/javascripts/components/ReactSelect.story');
+  require('../../../app/assets/javascripts/components/ResizingTextArea.story');
   require('../../../app/assets/javascripts/components/Stack.story');
 
   // home

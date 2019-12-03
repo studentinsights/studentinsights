@@ -83,12 +83,12 @@ function testRender(props) {
 }
 
 function editNoteText(el, text) {
-  const $text = $(el).find('.ResizingTextArea');
+  const $text = $(el).find('.ResizingTextArea-textarea');
   changeTextValue($text.get(0), text);
 }
 
 function getNoteHTML(el) {
-  return $(el).find('.ResizingTextArea').html();
+  return $(el).find('.ResizingTextArea-textarea').html();
 }
 
 

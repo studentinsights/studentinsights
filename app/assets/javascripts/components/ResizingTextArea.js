@@ -42,12 +42,14 @@ export default class ResizingTextArea extends React.Component {
     // purposes of sizing.  This limits the impact to when there is a trailing
     // newline, and the last character is about to wrap.
     this.span.textContent = this.el.textContent + '#';
-    // console.log('>> resize', this.el.style.height, '.', this.el.offsetHeight, this.el.scrollHeight, '|', this.span.style.height, '.', this.span.offsetHeight, this.span.scrollHeight);
+
+    // debugging
+    debugLog('>> resize', this.el.style.height, '.', this.el.offsetHeight, this.el.scrollHeight, '|', this.span.style.height, '.', this.span.offsetHeight, this.span.scrollHeight);
 
     // simple, just set `height` if it's not big enough
     const needsToExpand = (this.el.offsetHeight < this.el.scrollHeight);
     if (needsToExpand) {
-      // console.log('  expand!', this.el.scrollHeight);
+      debugLog('  expand!', this.el.scrollHeight);
       this.el.style.height = this.el.scrollHeight + 'px';
       return;
     }
@@ -55,19 +57,22 @@ export default class ResizingTextArea extends React.Component {
     // needs span to measure once `height` is set the first time
     const needsToContract = (this.el.scrollHeight > this.span.scrollHeight);
     if (needsToContract) {
-      // console.log('  contract!', this.span.scrollHeight);
+      debugLog('  contract!', this.span.scrollHeight);
       this.el.style.height = this.span.scrollHeight + 'px';
       return;
     }
   }
 
   render() {
+    const {style = {}, containerStyle = {}} = this.props;
     return (
-      <div className="ResizingTextArea" style={{position: 'relative'}}>
+      <div
+        className="ResizingTextArea"
+        style={{...containerStyle, position: 'relative'}}>
         <span
           ref={el => this.span = el}
           style={{
-            ...this.props.style, // eg, margins
+            ...style, // eg, margins
             pointerEvents: 'none', 
             position: 'absolute',
             top: 0,
@@ -86,10 +91,11 @@ export default class ResizingTextArea extends React.Component {
           }} 
         />
         <textarea
+          className="ResizingTextArea-textarea"
           ref={el => this.el = el}
           {...this.props}
           // to debug visually, do something like this:
-          // style={{...this.props.style, outline: '1px solid blue'}}
+          // style={{...style, outline: '1px solid blue'}}
         />
       </div>
     );
@@ -97,5 +103,17 @@ export default class ResizingTextArea extends React.Component {
 }
 ResizingTextArea.propTypes = {
   value: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  containerStyle: PropTypes.object
 };
+
+
+
+function debugLog(...debugMsgs) {
+  // const debugEl = document.createElement('pre');
+  // debugEl.textContent = debugMsgs.join('  ');
+  // debugEl.style['border-top'] = '1px solid #ccc';
+  // debugEl.style['margin-top'] = '10px';
+  // document.body.appendChild(debugEl);
+  // console.log(...debugMsgs);
+}
