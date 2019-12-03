@@ -91,6 +91,7 @@ export default class ResizingTextArea extends React.Component {
           }} 
         />
         <textarea
+          className="ResizingTextArea-textarea"
           ref={el => this.el = el}
           {...this.props}
           // to debug visually, do something like this:
