@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
 import ResizingTextArea from './ResizingTextArea';
 
@@ -15,6 +16,7 @@ function TestCase({defaultText}) {
     onChange: e => setText(e.target.value),
     style: {
       outline: '1px solid black',
+      width: 300,
       border: 0,
       padding: 0,
       margin: 0
@@ -26,16 +28,23 @@ TestCase.propTypes = {
   defaultText: PropTypes.string.isRequired
 };
 
+const longText = _.repeat('This is a really long sentence with many different clauses saying many, many important things.', 20);
+
 
 storiesOf('components/ResizingTextArea', module) // eslint-disable-line no-undef
   .add('all', () => {
     return (
-      <div>
-        <div style={{padding: 10}}><TestCase defaultText={`hello`} /></div>
-        <div style={{padding: 10}}><TestCase defaultText={`hello world`} /></div>
-        <div style={{padding: 10}}><TestCase defaultText={`hello\nworld`} /></div>
-        <div style={{padding: 10}}><TestCase defaultText={`hello\nworld\n`} /></div>
-        <div style={{padding: 10}}><TestCase defaultText={`hello\nworld\nwith\nresizing`} /></div>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{flex: 1}}>
+          <div style={{padding: 10}}><TestCase defaultText={`hello`} /></div>
+          <div style={{padding: 10}}><TestCase defaultText={`hello world`} /></div>
+          <div style={{padding: 10}}><TestCase defaultText={`hello\nworld`} /></div>
+          <div style={{padding: 10}}><TestCase defaultText={`hello\nworld\n`} /></div>
+          <div style={{padding: 10}}><TestCase defaultText={`hello\nworld\nwith\nresizing`} /></div>
+        </div>
+        <div style={{flex: 1}}>
+          <div style={{padding: 10}}><TestCase defaultText={longText} /></div>
+        </div>
       </div>
     );
   });
