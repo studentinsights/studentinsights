@@ -28,6 +28,12 @@ export default class ResizingTextArea extends React.Component {
   // - no unexpected losing focus or jumping scroll when expanding/contracting
   // - works when trailing newline
   // - across browsers to IE11
+  // 
+  // Also:
+  // - when testing in the app, the behavior is different based on some
+  //   other state I can't track down (window scroll history?).  this
+  //   means you can experience  different behavior when editing an existing
+  //   note, creating one from new and then editing, etc.
   //
   // More helpful bits in:
   // - https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
