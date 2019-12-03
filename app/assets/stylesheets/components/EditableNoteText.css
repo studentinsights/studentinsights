@@ -1,4 +1,4 @@
-.EditableNoteText .ResizingTextArea {
+.EditableNoteText .ResizingTextArea .ResizingTextArea-textarea {
   &:focus,
   &:hover {
     outline-color: #e5e5e5 !important; /* overrides inline style */
