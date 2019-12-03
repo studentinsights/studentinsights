@@ -50,7 +50,7 @@ storiesOf('components/ResizingTextArea', module) // eslint-disable-line no-undef
             <li>passive: confirm above works with edge cases like trailing newline</li>
             <li>interactive: load, scroll all the way down.  after first transition, screen should stay scrolled down until transition to short text.</li>
             <li>interactive: after transitions, scroll down on long text.  when editing, scroll should not jump at all</li>
-            <li>interactive: after transitions, delete chunk of long text.  textarea ahouls contract, with no unexpected scroll or cursor jumps.</li>
+            <li>interactive: after transitions, delete chunk of long text.  textarea should contract, with no unexpected scroll or cursor jumps.</li>
           </ol>
         </p>
         <div style={{display: 'flex', flexDirection: 'row'}}>
