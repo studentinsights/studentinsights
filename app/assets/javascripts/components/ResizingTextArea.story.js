@@ -52,7 +52,7 @@ storiesOf('components/ResizingTextArea', module) // eslint-disable-line no-undef
             <li>interactive: after transitions, scroll down on long text.  when editing, scroll should not jump at all</li>
             <li>interactive: after transitions, delete chunk of long text.  textarea should contract, with no unexpected scroll or cursor jumps.</li>
             <li>interactive: after transitions, enter text with trailing newline, then add one word per line, should not see flicker</li>
-            <li>interactive: after transitions, type text on a line, shouldn't see any vertical jitter from scrolling</li>
+            <li>interactive: after transitions, type text on a line, should not see any vertical jitter from scrolling</li>
           </ol>
         </p>
         <div style={{display: 'flex', flexDirection: 'row'}}>

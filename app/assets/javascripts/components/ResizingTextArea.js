@@ -115,27 +115,27 @@ ResizingTextArea.propTypes = {
 
 // For working around when in IE11 in a VM, when using the console
 // or debugger tools can be prohibitively slow.
-function debugLog(...debugMsgs) {
-  let containerEl = document.querySelector('.ResizingTextArea-debug');
-  if (!containerEl) {
-    containerEl = document.createElement('div');
-    containerEl.classList.add('ResizingTextArea-debug');
-    containerEl.style['z-index'] = 999;
-    containerEl.style['position'] = 'fixed';
-    containerEl.style['top'] = '50px';
-    containerEl.style['right'] = '10px';
-    containerEl.style['bottom'] = '50px';
-    containerEl.style['width'] = '400px';
-    containerEl.style['background'] = 'white';
-    containerEl.style['overflow-y'] = 'scroll';
-    containerEl.style['border'] = '1px solid black';
-    containerEl.style['padding'] = '10px';
-    document.body.appendChild(containerEl);
-  }
-  const debugEl = document.createElement('pre');
-  debugEl.textContent = debugMsgs.join('  ');
-  debugEl.style['border-top'] = '1px solid #ccc';
-  debugEl.style['margin-top'] = '10px';
-  containerEl.insertBefore(debugEl, containerEl.children[0]);
-  console.log(...debugMsgs);
-}
+// function debugLog(...debugMsgs) {
+//   let containerEl = document.querySelector('.ResizingTextArea-debug');
+//   if (!containerEl) {
+//     containerEl = document.createElement('div');
+//     containerEl.classList.add('ResizingTextArea-debug');
+//     containerEl.style['z-index'] = 999;
+//     containerEl.style['position'] = 'fixed';
+//     containerEl.style['top'] = '50px';
+//     containerEl.style['right'] = '10px';
+//     containerEl.style['bottom'] = '50px';
+//     containerEl.style['width'] = '400px';
+//     containerEl.style['background'] = 'white';
+//     containerEl.style['overflow-y'] = 'scroll';
+//     containerEl.style['border'] = '1px solid black';
+//     containerEl.style['padding'] = '10px';
+//     document.body.appendChild(containerEl);
+//   }
+//   const debugEl = document.createElement('pre');
+//   debugEl.textContent = debugMsgs.join('  ');
+//   debugEl.style['border-top'] = '1px solid #ccc';
+//   debugEl.style['margin-top'] = '10px';
+//   containerEl.insertBefore(debugEl, containerEl.children[0]);
+//   console.log(...debugMsgs);
+// }
