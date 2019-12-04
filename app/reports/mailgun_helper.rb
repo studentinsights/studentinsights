@@ -5,4 +5,10 @@ class MailgunHelper
     domain = env['MAILGUN_DOMAIN']
     "https://api:#{api_key}@api.mailgun.net/v3/#{domain}/messages"
   end
+
+  def validate!
+    raise Exceptions::InvalidConfiguration unless env.has_key('MAILGUN_API_KEY')
+    raise Exceptions::InvalidConfiguration unless env.has_key('MAILGUN_DOMAIN')
+    nil
+  end
 end

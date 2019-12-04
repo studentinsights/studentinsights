@@ -1,9 +1,10 @@
 # Performs multifactor authentication for either an authenticator app
-# or from an OTP send via SMS.  This does not handle provisioning for
-# either case, and assumes that is already set.
+# or from an OTP send via SMS or email.  This does not handle provisioning
+# for either case, and assumes that is already set.
 #
 # Note that these have different security and UX profiles (short version:
-# authenticator is more secure, but SMS is lower barrier to entry for users).
+# authenticator is more secure, SMS is lower barrier to entry for users, email
+# requires no setup step but the second 'factor' is very weak).
 class MultifactorAuthenticator
   def initialize(educator, options = {})
     @educator = educator
@@ -34,23 +35,39 @@ class MultifactorAuthenticator
     true
   end
 
-  # If multifactor is enabled, and they are using SMS, send a login code.
+  # If multifactor is enabled, and they are using SMS or email, send a login code.
   # Otherwise do nothing (eg, they get login code from authenticator app).
   def send_login_code_if_necessary!
     return nil unless is_multifactor_enabled?
-    send_login_code_via_sms! if multifactor_config.sms_number.present?
+    case multifactor_config.mode
+      when EducatorMultifactorConfig::SMS_MODE then send_login_code_via_sms!
+      when EducatorMultifactorConfig::EMAIL_MODE then send_login_code_via_email!
+    end
     nil
   end
 
   private
   def send_login_code_via_sms!
     return nil unless is_multifactor_enabled?
+    return nil unless multifactor_config.mode == EducatorMultifactorConfig::SMS_MODE
     return nil unless multifactor_config.sms_number.present?
 
     login_code = get_login_code()
     message_with_login_code = "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please reply to let us know so we can secure your account!"
     twilio_message_sid = send_twilio_message!(message_with_login_code, multifactor_config.sms_number)
     @logger.info("MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message, sid:#{twilio_message_sid}")
+    nil
+  end
+
+  def send_login_code_via_email!
+    return nil unless is_multifactor_enabled?
+    return nil unless multifactor_config.mode == EducatorMultifactorConfig::EMAIL_MODE
+    return nil unless @educator.email.present?
+
+    login_code = get_login_code()
+    message_with_login_code = "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please forward to security@studentinsights.org so we can secure your account!"
+    send_email_message!(message_with_login_code, @educator.email)
+    @logger.info("MultifactorAuthenticator#send_login_code_via_email! sent message to Mailgun.")
     nil
   end
 
@@ -130,5 +147,26 @@ class MultifactorAuthenticator
     raise Exceptions::InvalidConfiguration if twilio_config['sending_number'].nil?
     raise Exceptions::InvalidConfiguration if twilio_config['sending_number'].match(/\A\+1\d{10}\z/).nil?
     twilio_config
+  end
+
+  ### mailgun
+  def send_email_message!(text, educator_email)
+    mailgun_helper = MailgunHelper.new
+    mailgun_helper.validate!
+    mailgun_url = mailgun_helper.mailgun_url_from_env(ENV)
+    post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
+      :from => "Student Insights <security@studentinsights.org>",
+      :to => educator_email,
+      :subject => "Sign in code for Student Insights",
+      :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{email_text}</pre>"
+    })
+
+    # Alert if post to Mailgun failed
+    if post_data.code.to_i != 200
+      error_message_text = "MultifactorAuthenticator#send_email_message! request to Mailgun failed with post_data.code: #{post_data.code}"
+      @logger.error(error_message_text)
+      Rollbar.error(error_message_text)
+    end
+    nil
   end
 end
