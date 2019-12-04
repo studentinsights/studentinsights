@@ -10,10 +10,11 @@ class MultifactorAuthenticator
     @educator = educator
     @logger = options.fetch(:logger, Rails.logger)
     @twilio_client_class = options.fetch(:twilio_client_class, MockTwilioClient.should_use? ? MockTwilioClient : Twilio::REST::Client)
+    @mailgun_client_class = options.fetch(:mailgun_client_class, MailgunHelper.should_use_mock? ? MailgunHelper::MockClient : MailgunHelper::Client)
   end
 
   def is_multifactor_enabled?
-    multifactor_config.present?
+    multifactor_config.present? && multifactor_config.mode.present?
   end
 
   # Returns true/false and burns the login_code if it is accepted,
@@ -150,20 +151,19 @@ class MultifactorAuthenticator
   end
 
   ### mailgun
-  def send_email_message!(text, educator_email)
-    mailgun_helper = MailgunHelper.new
-    mailgun_helper.validate!
-    mailgun_url = mailgun_helper.mailgun_url_from_env(ENV)
-    post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
+  def send_email_message!(email_text, educator_email)
+    mailgun_url = MailgunHelper.new.mailgun_url_from_env(ENV)
+    mailgun_client = @mailgun_client_class.new()
+    response_code = mailgun_client.post_email(mailgun_url, {
       :from => "Student Insights <security@studentinsights.org>",
       :to => educator_email,
       :subject => "Sign in code for Student Insights",
-      :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{email_text}</pre>"
+      :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{email_text}</pre></body></html>"
     })
 
     # Alert if post to Mailgun failed
-    if post_data.code.to_i != 200
-      error_message_text = "MultifactorAuthenticator#send_email_message! request to Mailgun failed with post_data.code: #{post_data.code}"
+    if response_code != 200
+      error_message_text = "MultifactorAuthenticator#send_email_message! request to Mailgun failed with response_code: #{response_code}"
       @logger.error(error_message_text)
       Rollbar.error(error_message_text)
     end
