@@ -19,7 +19,7 @@ class EducatorMultifactorConfig < ApplicationRecord
 
   # What mode are they set to?  Should we send a code via email, via SMS, or
   # do nothing because they have an authenticator app configured.
-  # 
+  #
   # Defensively confirm the record is valid, saved, and unchanged or raise if not.
   def mode
     raise Exceptions::InvalidConfiguration if (!self.valid? || !self.persisted? || self.changed?)

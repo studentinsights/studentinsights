@@ -116,7 +116,8 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
       expect{ EducatorMultifactorConfig.new({
         educator_id: pals.shs_jodi.id,
         rotp_secret: ROTP::Base32.random_base32
-      }).mode }.to raise_error Exceptions::InvalidConfiguration
+      }).mode
+}      .to raise_error Exceptions::InvalidConfiguration
     end
 
     it 'raises if not valid' do
@@ -125,7 +126,8 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
         sms_number: '123',
         via_email: true,
         rotp_secret: ROTP::Base32.random_base32
-      }).mode }.to raise_error Exceptions::InvalidConfiguration
+      }).mode
+}      .to raise_error Exceptions::InvalidConfiguration
     end
 
     it 'raises if changes since save' do
@@ -136,6 +138,6 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
       record.via_email = true
       expect{ record.mode }.to raise_error Exceptions::InvalidConfiguration
     end
-    
+
   end
 end
