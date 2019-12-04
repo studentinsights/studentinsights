@@ -36,9 +36,6 @@ class MailgunHelper
   class MockClient
     # Make HTTP request and return response code only
     def post_email(mailgun_url, params = {})
-      puts '>>>> logger: '
-      puts logger.class
-      puts logger
       logger.puts 'MailgunHelper::MockClient posted an email!'
       logger.puts "     from: #{params[:from]}"
       logger.puts "       to: #{params[:to]}"
