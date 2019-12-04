@@ -20,8 +20,9 @@ class EducatorMultifactorConfig < ApplicationRecord
   # What mode are they set to?  Should we send a code via email, via SMS, or
   # do nothing because they have an authenticator app configured.
   # 
-  # If record validation enforcement fails, favor SMS over email.
+  # Defensively confirm the record is valid, saved, and unchanged or raise if not.
   def mode
+    raise Exceptions::InvalidConfiguration if (!self.valid? || !self.persisted? || self.changed?)
     return SMS_MODE if sms_number.present?
     return EMAIL_MODE if via_email
     return APP_MODE
