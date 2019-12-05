@@ -1,6 +1,6 @@
 class ImportRecordsController < ApplicationController
   include ActionView::Helpers::DateHelper
-  before_action :ensure_districtwide_access!
+  before_action :ensure_project_lead!
 
   def import_records_json
     recent_records = ImportRecord.order(created_at: :desc).take(25)
@@ -12,8 +12,8 @@ class ImportRecordsController < ApplicationController
   end
 
   private
-  def ensure_districtwide_access!
-    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access?
+  def ensure_project_lead!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
   end
 
   def import_record_for_page(import_record)

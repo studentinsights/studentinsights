@@ -15,19 +15,27 @@ RSpec.describe ImportRecordsController, type: :controller do
       expect(response.status).to eq 401
     end
 
-    it 'guards access if districtwide_access: false' do
-      educator = FactoryBot.create(:educator, districtwide_access: false, admin: true)
+    it 'guards access if can_set_districtwide_access:false' do
+      educator = FactoryBot.create(:educator, {
+        can_set_districtwide_access: false,
+        districtwide_access: true,
+        admin: true
+      })
       sign_in(educator)   
       make_request
       expect(response.status).to eq 403
     end
 
-    context 'educator signed in, with districwide access' do
+    context 'educator signed in, with can_set_districtwide_access:true even if admin:false' do
 
       before { sign_in(educator) }
 
       let(:educator) {
-        FactoryBot.create(:educator, districtwide_access: true, admin: false)
+        FactoryBot.create(:educator, {
+          can_set_districtwide_access: true,
+          districtwide_access: true,
+          admin: false
+        })
       }
 
       context 'no import records' do
