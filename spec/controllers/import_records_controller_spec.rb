@@ -21,7 +21,7 @@ RSpec.describe ImportRecordsController, type: :controller do
         districtwide_access: true,
         admin: true
       })
-      sign_in(educator)   
+      sign_in(educator)
       make_request
       expect(response.status).to eq 403
     end
