@@ -409,9 +409,9 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       pals.healey_laura_principal.update!(created_at: pals.time_now - 32.days)
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', {
-        flags: [:first_login_month_after_creation],
-        warning_id: anything(),
-        time_now: anything()
+        rollbar_safelist_login_flags: [:first_login_month_after_creation],
+        rollbar_safelist_warning_id: anything(),
+        rollbar_safelist_time_now: anything()
       })
 
       strategy = mock_authenticate_with_laura!(true)
@@ -426,9 +426,9 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       })
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with("LoginChecker#warn_if_suspicious", {
-        flags: [:first_login_after_six_months],
-        warning_id: anything(),
-        time_now: anything()
+        rollbar_safelist_login_flags: [:first_login_after_six_months],
+        rollbar_safelist_warning_id: anything(),
+        rollbar_safelist_time_now: anything()
       })
 
       strategy = mock_authenticate_with_laura!(true)
