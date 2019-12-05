@@ -1,13 +1,6 @@
 class ImportRecordsController < ApplicationController
-  # Authentication by default inherited from ApplicationController.
-  before_action :authorize_for_districtwide_access_admin # Extra authentication layer
   include ActionView::Helpers::DateHelper
-
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
-    end
-  end
+  before_action :ensure_districtwide_access!
 
   def import_records_json
     recent_records = ImportRecord.order(created_at: :desc).take(25)
@@ -19,6 +12,9 @@ class ImportRecordsController < ApplicationController
   end
 
   private
+  def ensure_districtwide_access!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access?
+  end
 
   def import_record_for_page(import_record)
     if import_record.completed?
