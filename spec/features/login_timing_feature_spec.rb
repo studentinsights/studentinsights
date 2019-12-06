@@ -53,7 +53,7 @@ describe 'login timing', type: :feature do
     it 'tolerates and warns' do
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('ConsistentTiming#wait_for_milliseconds_or_alert was negative', {
-        milliseconds_to_wait: anything
+        rollbar_safelist_milliseconds_to_wait: anything
       })
 
       login, password = [pals.shs_jodi.email, 'wrong-password']

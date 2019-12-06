@@ -137,8 +137,7 @@ class ImportTask
 
         message = "ImportTask#import_all_the_data caught an error from #{file_import_class.name} and aborted that import task, but is continuing the job..."
         log(message)
-        extra_info =  { "importer" => file_importer.class.name }
-        Rollbar.error(message, error, extra_info)
+        Rollbar.error(message, error)
       end
 
       timing_data[:end_time] = Time.current

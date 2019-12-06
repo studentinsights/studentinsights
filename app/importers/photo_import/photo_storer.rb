@@ -81,7 +81,7 @@ class PhotoStorer
       @logger.error("    could not create StudentPhoto record for student_id: ##{student.id}...")
       @logger.error("    orphan Photo up in S3: #{s3_filename}")
       @logger.error("    StudentPhoto model errors: #{student_photo.errors.try(:details).try(:keys).inspect}")
-      Rollbar.error('PhotoStorer#create_student_photo_record', error, { student_id: student.id })
+      Rollbar.error("PhotoStorer#create_student_photo_record raised for student.id: #{student.id}", error)
       nil
     end
   end
