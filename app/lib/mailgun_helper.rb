@@ -12,10 +12,9 @@ class MailgunHelper
   def mailgun_url_from_env(env, options = {})
     api_key = env['MAILGUN_API_KEY']
     domain = env['MAILGUN_DOMAIN']
-    if options.fetch(:validate, true)
-      raise Exceptions::InvalidConfiguration unless api_key.present?
-      raise Exceptions::InvalidConfiguration unless domain.present?
-    end
+    raise Exceptions::InvalidConfiguration unless api_key.present?
+    raise Exceptions::InvalidConfiguration unless domain.present?
+
     "https://api:#{api_key}@api.mailgun.net/v3/#{domain}/messages"
   end
 
