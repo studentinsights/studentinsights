@@ -108,7 +108,9 @@ class Rack::Attack
       matching_route = begin Rails.application.routes.recognize_path(req.path) rescue nil end
       is_root_page = (req.path == '/' || req.path.start_with?('/?'))
       if matching_route.present? && !is_root_page
-        Rollbar.error('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: datacenter_name)
+        Rollbar.error('Rack::Attack req/datacenter rule matched a specific URL', {
+          rollbar_safelist_datacenter_name: datacenter_name
+        })
       end
       true
     end

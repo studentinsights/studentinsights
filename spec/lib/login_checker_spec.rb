@@ -18,9 +18,9 @@ RSpec.describe LoginChecker do
 
     allow(Rollbar).to receive(:warn)
     expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', {
-      flags: [:first_login_after_six_months],
-      warning_id: anything(),
-      time_now: pals.time_now.to_i
+      rollbar_safelist_login_flags: [:first_login_after_six_months],
+      rollbar_safelist_warning_id: anything(),
+      rollbar_safelist_time_now: pals.time_now.to_i
     })
 
     expect(test_checker().warn_if_suspicious).to eq [:first_login_after_six_months]
@@ -31,20 +31,16 @@ RSpec.describe LoginChecker do
 
     allow(Rollbar).to receive(:warn)
     expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', {
-      flags: [:first_login_month_after_creation],
-      warning_id: anything(),
-      time_now: pals.time_now.to_i
+      rollbar_safelist_login_flags: [:first_login_month_after_creation],
+      rollbar_safelist_warning_id: anything(),
+      rollbar_safelist_time_now: pals.time_now.to_i
     })
     expect(test_checker().warn_if_suspicious).to eq [:first_login_month_after_creation]
   end
 
   it '#with_isolation works' do
     allow(Rollbar).to receive(:error)
-    expect(Rollbar).to receive(:error).once.with('LoginChecker#with_isolation rescued', {
-      error_class: 'RuntimeError',
-      error_message: 'something broke!',
-      error_backtrace: anything()
-    })
+    expect(Rollbar).to receive(:error).once.with('LoginChecker#with_isolation rescued', anything())
     checker = test_checker()
     checker.warn_if_suspicious
 

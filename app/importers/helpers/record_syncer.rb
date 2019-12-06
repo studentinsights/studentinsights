@@ -203,8 +203,8 @@ class RecordSyncer
     # create distinct Rollbar issues
     msg = "RecordSyncer#notify! in #{district_key} for #{@notification_tag}"
     Rollbar.error(msg, nil, {
-      alerts: alerts,
-      caller: caller
+      rollbar_safelist_alerts: alerts,
+      rollbar_safelist_caller: caller
     })
   end
 
