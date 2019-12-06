@@ -159,7 +159,7 @@ class MultifactorAuthenticator
     response_code = mailgun_client.post_email(mailgun_url, {
       :from => "Student Insights <security@studentinsights.org>",
       :to => educator_email,
-      :subject => "Sign in code for Student Insights",
+      :subject => "Sign in code for Student Insights", # no domain name included
       :html => html
     })
 
