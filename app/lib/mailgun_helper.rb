@@ -20,8 +20,12 @@ class MailgunHelper
   end
 
   # Make a bare-bones HTML doc that is just text.
-  def plain_html_from_unsafe_text(unsafe_text)
-    "<html><body><pre style='font: monospace; font-size: 12px;'>#{unsafe_text}</pre></body></html>"
+  def plain_html_from_text(unsafe_text)
+    text = ActionView::Base.full_sanitizer.sanitize(unsafe_text)
+    if text != unsafe_text
+      Rollbar.error('MailgunHelper#plain_html_from_text unexpectedly had to sanitize email text (redacted, see Mailgun logs).')
+    end
+    "<html><body><pre style='font: monospace; font-size: 12px;'>#{text}</pre></body></html>"
   end
 
   class Client

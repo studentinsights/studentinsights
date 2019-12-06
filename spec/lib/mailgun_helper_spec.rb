@@ -73,4 +73,36 @@ RSpec.describe MailgunHelper do
       end
     end
   end
+
+  describe '#plain_html_from_text' do
+    it 'sanitizes, and alerts when it does' do
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).exactly(3).times.with('MailgunHelper#plain_html_from_text unexpectedly had to sanitize email text (redacted, see Mailgun logs).')
+
+      expect(MailgunHelper.new.plain_html_from_text('<script>alert(43)</script>')).to eq [
+        "<html><body><pre style='font: monospace; font-size: 12px;'>",
+        "",
+        "</pre></body></html>"
+      ].join('')
+      expect(MailgunHelper.new.plain_html_from_text('hi <b> there!')).to eq [
+        "<html><body><pre style='font: monospace; font-size: 12px;'>",
+        "hi  there!",
+        "</pre></body></html>"
+      ].join('')
+      expect(MailgunHelper.new.plain_html_from_text('cool <a href="example.com">link</a> you got')).to eq [
+        "<html><body><pre style='font: monospace; font-size: 12px;'>",
+        'cool link you got',
+        "</pre></body></html>"
+      ].join('')
+    end
+
+    it 'does not alert when not sanitizing' do
+      expect(Rollbar).not_to receive(:error)
+      expect(MailgunHelper.new.plain_html_from_text('hi there!')).to eq [
+        "<html><body><pre style='font: monospace; font-size: 12px;'>",
+        'hi there!',
+        "</pre></body></html>"
+      ].join('')
+    end
+  end
 end

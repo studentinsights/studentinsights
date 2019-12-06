@@ -59,7 +59,7 @@ class LoginChecker
     email_text = user_facing_email_text(warning_id)
     mailgun_helper = MailgunHelper.new
     mailgun_url = mailgun_helper.mailgun_url_from_env(ENV)
-    html = mailgun_helper.plain_html_from_unsafe_text(email_text)
+    html = mailgun_helper.plain_html_from_text(email_text)
     post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
       :from => "Student Insights <security@studentinsights.org>",
       :to => educator_email,

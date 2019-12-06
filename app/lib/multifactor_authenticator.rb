@@ -152,13 +152,15 @@ class MultifactorAuthenticator
 
   ### mailgun
   def send_email_message!(email_text, educator_email)
-    mailgun_url = MailgunHelper.new.mailgun_url_from_env(ENV)
+    mailgun_helper = MailgunHelper.new()
+    mailgun_url = mailgun_helper.mailgun_url_from_env(ENV)
+    html = mailgun_helper.plain_html_from_text(email_text)
     mailgun_client = @mailgun_client_class.new()
     response_code = mailgun_client.post_email(mailgun_url, {
       :from => "Student Insights <security@studentinsights.org>",
       :to => educator_email,
       :subject => "Sign in code for Student Insights",
-      :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{email_text}</pre></body></html>"
+      :html => html
     })
 
     # Alert if post to Mailgun failed
