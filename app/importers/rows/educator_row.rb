@@ -2,7 +2,8 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   # Returns a new or existing Educator record matching the row, or nil if it can't
   # understand the row.
   def match_educator_record
-    # login_name is the primary key, but we also always require email
+    # login_name is the primary key, but we also always require email,
+    # and require that the email is in a safelist of domain names
     login_name = row[:login_name]
     return nil if login_name.nil? || login_name == ''
     email = email_from_row(row)

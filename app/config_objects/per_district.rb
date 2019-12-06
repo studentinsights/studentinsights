@@ -320,6 +320,8 @@ class PerDistrict
   # as the `login_name`, and emails are the same but with a domain
   # suffix.  But for Bedford, emails are distinct and imported separately
   # from `login_name`.
+  #
+  # In all cases, these need to match a safelist of domain names.
   def email_from_educator_import_row(row)
     if @district_key == BEDFORD
       row[:email]
