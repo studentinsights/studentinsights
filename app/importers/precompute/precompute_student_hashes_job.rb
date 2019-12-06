@@ -61,7 +61,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
         authorized_students_digest: authorized_students_digest
       )
     rescue => error
-      Rollbar.error('PrecomputeStudentHashesJob#create_document!', error, { key: key })
+      Rollbar.error("PrecomputeStudentHashesJob#create_document! failed for key: #{key}", error)
       log.puts "create_document! failed for key: #{key}"
       nil
     end

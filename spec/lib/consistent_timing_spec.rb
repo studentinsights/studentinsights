@@ -13,7 +13,7 @@ RSpec.describe 'ConsistentTiming' do
 
     it 'alerts when it cannot enforce timing' do
       expect(Rollbar).to receive(:warn).once.with('ConsistentTiming#wait_for_milliseconds_or_alert was negative', {
-        milliseconds_to_wait: anything
+        rollbar_safelist_milliseconds_to_wait: anything
       })
 
       start_clock = read_clock()
@@ -26,8 +26,7 @@ RSpec.describe 'ConsistentTiming' do
 
   describe '#measure_timing_only' do
     it 'enforces timing even when exception raised, and alerts' do
-      expect(Rollbar).to receive(:error).with('ConsistentTiming#measure_timing_only caught an error', err: Exceptions::InvalidConfiguration)
-      expect(Rollbar).to receive(:error).with(Exceptions::InvalidConfiguration)
+      expect(Rollbar).to receive(:error).with('ConsistentTiming#measure_timing_only caught an error', Exceptions::InvalidConfiguration)
       start_clock = read_clock()
       expect(ConsistentTiming.new.enforce_timing(500) { raise Exceptions::InvalidConfiguration }).to eq nil
       end_clock = read_clock()

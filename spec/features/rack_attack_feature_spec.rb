@@ -107,7 +107,9 @@ describe 'Rack::Attack respects example development config', type: :feature do
 
       # additional error alert, because URL matches valid route
       allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('Rack::Attack req/datacenter rule matched a specific URL', datacenter_name: 'Amazon AWS')
+      expect(Rollbar).to receive(:error).once.with('Rack::Attack req/datacenter rule matched a specific URL', {
+        rollbar_safelist_datacenter_name: 'Amazon AWS'
+      })
 
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/datacenter`')
