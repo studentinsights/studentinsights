@@ -15,6 +15,8 @@ class Educator < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, case_sensitive: false
   validates :login_name, presence: true, uniqueness: true, case_sensitive: false
+
+  validate :validate_admin_gets_access_to_all_students
   validate :validate_grade_level
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ].freeze
@@ -63,6 +65,15 @@ class Educator < ApplicationRecord
   end
 
   private
+  # TODO(kr) deprecated, see offline
+  def validate_admin_gets_access_to_all_students
+    has_access_to_all_students = (
+      restricted_to_sped_students == false &&
+      restricted_to_english_language_learners == false
+    )
+    errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students
+  end
+
   def validate_grade_level
     if grade_level_access.nil?
       errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?

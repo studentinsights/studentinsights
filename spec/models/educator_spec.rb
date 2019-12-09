@@ -135,6 +135,21 @@ RSpec.describe Educator do
     it 'requires email' do
       expect(FactoryBot.build(:educator, email: nil)).to be_invalid
     end
+
+    describe 'when "restriction" fields are interpreted as limitations on "admin"' do
+      context 'admin with access to all students' do
+        let(:admin) { FactoryBot.build(:educator, :admin) }
+        it 'is valid' do
+          expect(admin).to be_valid
+        end
+      end
+      context 'admin without access to all students' do
+        let(:admin) { FactoryBot.build(:educator, :admin, restricted_to_sped_students: true) }
+        it 'is invalid' do
+          expect(admin).to be_invalid
+        end
+      end
+    end
   end
 
   describe '#labels' do
