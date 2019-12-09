@@ -11,13 +11,6 @@ RSpec.describe SftpClient do
     allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
   end
 
-  def mock_net_sftp_for_x2!
-    expect(Net::SFTP).to receive(:start).with("sis.x2.com", "sis-user", { :key_data=>"sis-key" }) do |&block|
-      block.call(instance_double(Net::SFTP::Session))
-    end
-    nil
-  end
-
   describe '.for_x2' do
     before { mock_env_for_x2 }
     it 'configures the sftp client for X2' do
