@@ -46,7 +46,7 @@ RSpec.describe Educator do
 
     it 'requires grade_level_access to be valid GRADE_LEVEL values' do
       educator = FactoryBot.build(:educator)
-      educator.grade_level_access = ['14']
+      educator.grade_level_access = ['3', '14']
       educator.valid?
       expect(educator.errors.details).to eq(grade_level_access: [{:error=>"invalid grade"}])
     end
@@ -56,6 +56,20 @@ RSpec.describe Educator do
       educator.grade_level_access = ['2', '2']
       educator.valid?
       expect(educator.errors.details).to eq(grade_level_access: [{:error=>"duplicate values"}])
+    end
+
+    it 'requires grade_level_access to be an array' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = false
+      educator.valid?
+      expect(educator.errors.details).to eq(grade_level_access: [{:error=>"should be an array, containing strings"}])
+    end
+
+    it 'requires grade_level_access to be present' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = nil
+      educator.valid?
+      expect(educator.errors.details).to eq(grade_level_access: [{:error=>"cannot be nil"}])
     end
   end
 

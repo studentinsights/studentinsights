@@ -66,8 +66,8 @@ class Educator < ApplicationRecord
   def validate_grade_level
     if grade_level_access.nil?
       errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?
-    elsif grade_level_access.any? { |grade| !grade.instance_of?(String) }
-      errors.add(:grade_level_access, "should be an array of strings")
+    elsif grade_level_access.class != Array
+      errors.add(:grade_level_access, "should be an array, containing strings")
     elsif grade_level_access.any? { |grade| !(GradeLevels::ORDERED_GRADE_LEVELS.include?(grade)) }
       errors.add(:grade_level_access, "invalid grade")
     elsif grade_level_access.uniq.size != grade_level_access.size

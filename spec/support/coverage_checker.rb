@@ -46,5 +46,6 @@ class CoverageChecker
       puts "CoverageChecker: Only found #{files_matching_filter.size} files, but there were #{files_to_check.length} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
       Kernel.exit MISSING_FILES_STATUS_CODE
     end
+    files_matching_filter
   end
 end
