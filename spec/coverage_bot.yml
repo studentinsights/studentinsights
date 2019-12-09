@@ -1,15 +1,18 @@
 # See rails_helpers.rb and coverage_checker.rb
 # This is our own file, which we use to fail the build if specific files fall do not have 100% test coverage.
 check_test_coverage_for_files:
-  - app/model/educator.rb
+  - app/models/educator.rb
 
   - app/lib/authorizer.rb
+  - app/lib/authorized_dispatcher.rb
   - app/lib/ldap_authenticator.rb
   - app/lib/multifactor_authenticator.rb
-  
+  - app/lib/masquerade.rb
+
   - config/initializers/ldap_authenticatable_tiny.rb
   - lib/devise/models/ldap_authenticatable_tiny.rb
   - lib/devise/strategies/ldap_authenticatable_tiny.rb
-
   - app/controllers/educators/sessions_controller.rb
   - app/controllers/multifactor_controller.rb
+
+  

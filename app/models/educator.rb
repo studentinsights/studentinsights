@@ -15,12 +15,7 @@ class Educator < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, case_sensitive: false
   validates :login_name, presence: true, uniqueness: true, case_sensitive: false
-
-  validate :validate_admin_gets_access_to_all_students,
-           :validate_grade_level_access_is_array_of_strings,
-           :validate_grade_level_strings_are_valid,
-           :validate_grade_level_strings_are_uniq,
-           :validate_grade_level_access_is_not_nil
+  validate :validate_grade_level
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ].freeze
 
@@ -68,33 +63,15 @@ class Educator < ApplicationRecord
   end
 
   private
-  def validate_admin_gets_access_to_all_students
-    has_access_to_all_students = (
-      restricted_to_sped_students == false &&
-      restricted_to_english_language_learners == false
-    )
-    errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students
-  end
-
-  def validate_grade_level_access_is_array_of_strings
-    unless grade_level_access.all? { |grade| grade.instance_of? String }
+  def validate_grade_level
+    if grade_level_access.nil?
+      errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?
+    elsif grade_level_access.any? { |grade| !grade.instance_of?(String) }
       errors.add(:grade_level_access, "should be an array of strings")
-    end
-  end
-
-  def validate_grade_level_strings_are_valid
-    if grade_level_access.any? { |grade| !(GradeLevels::ORDERED_GRADE_LEVELS.include?(grade)) }
+    elsif grade_level_access.any? { |grade| !(GradeLevels::ORDERED_GRADE_LEVELS.include?(grade)) }
       errors.add(:grade_level_access, "invalid grade")
-    end
-  end
-
-  def validate_grade_level_strings_are_uniq
-    unless grade_level_access.uniq.size == grade_level_access.size
+    elsif grade_level_access.uniq.size != grade_level_access.size
       errors.add(:grade_level_access, "duplicate values")
     end
-  end
-
-  def validate_grade_level_access_is_not_nil
-    errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?
   end
 end

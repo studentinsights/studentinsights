@@ -29,22 +29,7 @@ RSpec.describe Educator do
     expect(FactoryBot.build(:educator, school: nil)).to be_valid
   end
 
-  describe '#admin_gets_access_to_all_students' do
-    context 'admin with access to all students' do
-      let(:admin) { FactoryBot.build(:educator, :admin) }
-      it 'is valid' do
-        expect(admin).to be_valid
-      end
-    end
-    context 'admin without access to all students' do
-      let(:admin) { FactoryBot.build(:educator, :admin, restricted_to_sped_students: true) }
-      it 'is invalid' do
-        expect(admin).to be_invalid
-      end
-    end
-  end
-
-  describe 'grade level access' do
+  describe 'grade_level_access' do
     context 'mix of strings and not strings' do
       let(:educator) { FactoryBot.create(:educator, grade_level_access: ['3', 4]) }
       it 'is coerced into an array of strings' do
@@ -55,7 +40,22 @@ RSpec.describe Educator do
       let(:educator) { FactoryBot.create(:educator, grade_level_access: [3, 4]) }
       it 'is coerced into an array of strings' do
         expect(educator.grade_level_access).to eq ["3", "4"]
+        expect(educator.valid?).to eq true
       end
+    end
+
+    it 'requires grade_level_access to be valid GRADE_LEVEL values' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = ['14']
+      educator.valid?
+      expect(educator.errors.details).to eq(grade_level_access: [{:error=>"invalid grade"}])
+    end
+
+    it 'requires grade_level_access to have unique values' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = ['2', '2']
+      educator.valid?
+      expect(educator.errors.details).to eq(grade_level_access: [{:error=>"duplicate values"}])
     end
   end
 
@@ -120,27 +120,6 @@ RSpec.describe Educator do
   describe 'validations' do
     it 'requires email' do
       expect(FactoryBot.build(:educator, email: nil)).to be_invalid
-    end
-
-    it 'requires grade_level_access to be an array of strings' do
-      educator = FactoryBot.build(:educator)
-      educator.grade_level_access = [3]
-      educator.valid?
-      expect(educator.errors.details).to eq(foo: 'bar')
-    end
-
-    it 'requires grade_level_access to be valid GRADE_LEVEL values' do
-      educator = FactoryBot.build(:educator)
-      educator.grade_level_access = ['14']
-      educator.valid?
-      expect(educator.errors.details).to eq(foo: 'nooo')
-    end
-
-    it 'requires grade_level_access to have unique values' do
-      educator = FactoryBot.build(:educator)
-      educator.grade_level_access = ['2', '2']
-      educator.valid?
-      expect(educator.errors.details).to eq(foo: 'nooop')
     end
   end
 

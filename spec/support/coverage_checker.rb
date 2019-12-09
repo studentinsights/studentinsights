@@ -29,6 +29,7 @@ class CoverageChecker
         "#{file.filename} - #{file.covered_percent.round}%"
       end
       puts " - " + file_lines.join("\n - ")
+      puts "\n\nERROR from CoverageChecker\n\n"
       puts "CoverageChecker: Exiting with error status #{ERROR_STATUS_CODE}"
       Kernel.exit ERROR_STATUS_CODE
     end
@@ -41,6 +42,7 @@ class CoverageChecker
       files_to_check.any? {|file_to_check| file.filename.ends_with?(file_to_check)}
     end
     if files_matching_filter.length < files_to_check.size
+      puts "\n\nERROR from CoverageChecker\n\n"
       puts "CoverageChecker: Only found #{files_matching_filter.size} files, but there were #{files_to_check.length} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
       Kernel.exit MISSING_FILES_STATUS_CODE
     end
