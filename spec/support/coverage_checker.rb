@@ -41,7 +41,7 @@ class CoverageChecker
       files_to_check.any? {|file_to_check| file.filename.ends_with?(file_to_check)}
     end
     if files_matching_filter.length < files_to_check.size
-      puts "CoverageChecker: Only found #{files_matching_filter.size} files, but there were #{files_to_check} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
+      puts "CoverageChecker: Only found #{files_matching_filter.size} files, but there were #{files_to_check.length} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
       Kernel.exit MISSING_FILES_STATUS_CODE
     end
   end

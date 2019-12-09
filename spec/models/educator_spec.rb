@@ -121,6 +121,27 @@ RSpec.describe Educator do
     it 'requires email' do
       expect(FactoryBot.build(:educator, email: nil)).to be_invalid
     end
+
+    it 'requires grade_level_access to be an array of strings' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = [3]
+      educator.valid?
+      expect(educator.errors.details).to eq(foo: 'bar')
+    end
+
+    it 'requires grade_level_access to be valid GRADE_LEVEL values' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = ['14']
+      educator.valid?
+      expect(educator.errors.details).to eq(foo: 'nooo')
+    end
+
+    it 'requires grade_level_access to have unique values' do
+      educator = FactoryBot.build(:educator)
+      educator.grade_level_access = ['2', '2']
+      educator.valid?
+      expect(educator.errors.details).to eq(foo: 'nooop')
+    end
   end
 
   describe '#labels' do
