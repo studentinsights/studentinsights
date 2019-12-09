@@ -14,5 +14,3 @@ check_test_coverage_for_files:
   - lib/devise/strategies/ldap_authenticatable_tiny.rb
   - app/controllers/educators/sessions_controller.rb
   - app/controllers/multifactor_controller.rb
-
-  
