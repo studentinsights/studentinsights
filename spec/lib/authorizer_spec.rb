@@ -122,34 +122,67 @@ RSpec.describe Authorizer do
 
   describe '#authorized' do
     describe 'Student' do
-      it 'limits access with Student.all' do
-        expect(authorized(pals.uri) { Student.all }).to match_array [
-          pals.healey_kindergarten_student,
-          pals.west_eighth_ryan,
-          pals.shs_freshman_mari,
-          pals.shs_freshman_amir,
-          pals.shs_senior_kylo
-        ]
-        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
-          pals.healey_kindergarten_student
-        ]
-        expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
-          pals.shs_freshman_mari,
-          pals.shs_freshman_amir
-        ]
-        expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array [
-          pals.shs_freshman_mari
-        ]
-        expect(authorized(pals.shs_fatima_science_teacher) { Student.all }).to match_array [
-          pals.shs_freshman_mari,
-          pals.shs_freshman_amir,
-          pals.shs_senior_kylo
-        ]
-        expect(authorized(pals.shs_harry_housemaster) { Student.all }).to match_array [
-          pals.shs_freshman_mari,
-          pals.shs_freshman_amir,
-          pals.shs_senior_kylo
-        ]
+      it 'limits access with Student.all, testing exhaustively across all Educators' do
+        expectations = {
+          pals.uri => [
+            pals.healey_kindergarten_student,
+            pals.west_eighth_ryan,
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ],
+          pals.rich_districtwide => [
+            pals.healey_kindergarten_student,
+            pals.west_eighth_ryan,
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ],
+          pals.healey_vivian_teacher => [
+            pals.healey_kindergarten_student
+          ],
+          pals.healey_sarah_teacher => [],
+          pals.healey_sped_teacher => [],
+          pals.healey_ell_teacher => [],
+          pals.healey_laura_principal => [
+            pals.healey_kindergarten_student
+          ],
+          pals.west_marcus_teacher => [],
+          pals.west_counselor => [
+            pals.west_eighth_ryan
+          ],
+          pals.shs_jodi => [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir
+          ],
+          pals.shs_bill_nye => [
+            pals.shs_freshman_mari
+          ],
+          pals.shs_hugo_art_teacher => [
+            pals.shs_senior_kylo
+          ],
+          pals.shs_fatima_science_teacher => [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ],
+          pals.shs_sofia_counselor => [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ],
+          pals.shs_harry_housemaster => [
+            pals.shs_freshman_mari,
+            pals.shs_freshman_amir,
+            pals.shs_senior_kylo
+          ]
+        }
+        expect(expectations.keys.map(&:login_name)).to match_array(Educator.all.map(&:login_name))
+        expectations.each do |educator, expected_students|
+          authorized_students = authorized(educator) { Student.all}
+          failure_msg = "did not match for #{educator.login_name}, expecting: #{expected_students.map(&:first_name).inspect}"
+          expect(authorized_students).to match_array(expected_students), failure_msg
+        end
       end
 
       it 'limits access for Student.find' do
