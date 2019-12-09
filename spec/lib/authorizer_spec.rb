@@ -109,12 +109,9 @@ RSpec.describe Authorizer do
         # one of these educators should raise an error about a missing
         # attribute.
         expect do
-          authorized(Educator.select(*some_fields).find(pals.uri.id)) { students }
-          authorized(Educator.select(*some_fields).find(pals.healey_vivian_teacher.id)) { students }
-          authorized(Educator.select(*some_fields).find(pals.healey_ell_teacher.id)) { students }
-          authorized(Educator.select(*some_fields).find(pals.healey_sped_teacher.id)) { students }
-          authorized(Educator.select(*some_fields).find(pals.shs_bill_nye.id)) { students }
-          authorized(Educator.select(*some_fields).find(pals.shs_sofia_counselor.id)) { students }
+          Educator.all.shuffle.each do |educator|
+            authorized(Educator.select(*some_fields).find(educator.id)) { students }
+          end
         end.to raise_error(ActiveModel::MissingAttributeError)
       end
     end
@@ -664,14 +661,6 @@ RSpec.describe Authorizer do
   end
 
   describe '#why_authorized_for_student?' do
-    def why_authorized_map(educator, students)
-      authorizer = Authorizer.new(educator)
-      students.reduce({}) do |map, student|
-        reason = authorizer.why_authorized_for_student?(student)
-        if reason then map.merge([student.id] => reason) else map end
-      end
-    end
-
     def outcomes_for(educators, students, options = {})
       outcomes = []
       educators.each do |educator|

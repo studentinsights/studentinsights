@@ -12,14 +12,6 @@ RSpec.describe ClassList do
     }.merge(params))
   end
 
-  def revise_class_list(class_list, educator, params = {})
-    revised_class_list = clas_list.dup
-    revised_class_list.update!({
-      revised_by_principal_educator_id: educator.id,
-    }.merge(params))
-    revised_class_list
-  end
-
   let!(:pals) { TestPals.create! }
 
   describe 'presence validations' do

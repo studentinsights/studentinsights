@@ -5,10 +5,6 @@ describe 'login timing', type: :feature do
   let!(:pals) { TestPals.create! }
   before(:each) { LoginTests.reset_rack_attack! }
 
-  def sample_educator(seed)
-    Educator.all.sample(random: Random.new(seed))
-  end
-
   # simulate a really slow response from an LDAP #bind
   def mock_slow_ldap_bind!(username, password, delay_milliseconds)
     slow_mock_ldap = MockLdap.new({
