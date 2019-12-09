@@ -35,6 +35,7 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
     local_file = File.open(local_filename, 'w')
     with_sftp_session do |sftp_session|
       sftp_session.download!(remote_file_name, local_file.path)
+      check_freshness!(sftp_session, remote_file_name, options)
     end
     local_file
   end
@@ -42,6 +43,19 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   private
   def local_download_folder
     options.fetch(:unsafe_local_download_folder, Rails.root.join(File.join('tmp', 'data_download/')))
+  end
+
+  # Raise if the freshness of the file is not 
+  def check_freshness!(sftp_session, remote_file_name, options = {})
+    return nil unless options.fetch(:freshness_check, true)
+
+    within_n_days = options.fetch(:modified_within_n_days, 7)
+    time_now = options.fetch(:time_now, Time.now)
+    threshold_time = time_now - within_n_days.days
+    sftp_session.lstat(remote_file_name) do |response|
+      mtime = Time.at(response.data[:attrs].mtime)
+      raise "check_freshness! failed for remote file last modified at #{mtime.to_i}" if mtime < threshold_time
+    end
   end
 
   # Always open connection, execute, and then close after each call.
