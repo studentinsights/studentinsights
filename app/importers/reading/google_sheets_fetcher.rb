@@ -97,14 +97,14 @@ class GoogleSheetsFetcher
     log "  list_sheets(#{obscure(unsafe_folder_id)})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet'"
-    drive_service.list_files(q: q, fields: 'files(id, name)')
+    drive_service.list_files(q: q, fields: 'files(id, name)', options: command_options)
   end
 
   def list_folders(unsafe_folder_id)
     log "  list_folders(#{obscure(unsafe_folder_id)})"
     folder_id = verify_safe_folder_id!(unsafe_folder_id)
     q = "'#{folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder'"
-    drive_service.list_files(q: q, fields: 'files(id, name)')
+    drive_service.list_files(q: q, fields: 'files(id, name)', options: command_options)
   end
 
   # minimal check for query injection
@@ -119,9 +119,9 @@ class GoogleSheetsFetcher
     # then a second batch request to get the contents of each tab.
     # See https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/batchGet
     # and https://github.com/googleapis/google-api-ruby-client/blob/cb0b81f79451b8dee9df07eb248110b3e6045916/generated/google/apis/sheets_v4/service.rb
-    spreadsheet = sheets_service.get_spreadsheet(sheet_id)
+    spreadsheet = sheets_service.get_spreadsheet(sheet_id, options: command_options)
     sheet_titles = spreadsheet.sheets.map(&:properties).map(&:title)
-    batch_responses = sheets_service.batch_get_spreadsheet_values(sheet_id, ranges: sheet_titles)
+    batch_responses = sheets_service.batch_get_spreadsheet_values(sheet_id, ranges: sheet_titles, options: command_options)
     log "  download_tab_csvs_batched(#{obscure(sheet_id)}), found #{sheet_titles.size} sheets"
 
     # iterate through to zip them together
@@ -143,6 +143,11 @@ class GoogleSheetsFetcher
       })
     end
     tabs
+  end
+
+  # Enable retries for transient network errors
+  def command_options
+    { retries: 2 }
   end
 
   def drive_service
