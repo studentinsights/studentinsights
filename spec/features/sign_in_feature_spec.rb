@@ -6,6 +6,22 @@ describe 'educator sign in using Mock LDAP', type: :feature do
   before(:each) { LoginTests.before_disable_consistent_timing! }
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
+  # Because of the way TestPals evolved, it still uses School definitions
+  # from Somerville.  So order of the calls here matters so that
+  # seeding happens before the mocking would change that.
+  # We should migrate away from TestPals being test to Somerville
+  # school definitions.
+  def test_pals_for!(district_key)
+    puts "\n\ntest_pals_for!"
+    puts "  district_key: #{district_key}"
+    per_district = PerDistrict.new(district_key: district_key)
+    email_domain = per_district.email_domain_for_test_pals()
+    puts "  email_domain: #{email_domain}"
+    pals = TestPals.create!(email_domain: email_domain)
+    allow(PerDistrict).to receive(:new).and_return(per_district)
+    pals
+  end
+
   context 'with default TestPals' do
     let!(:pals) { TestPals.create! }
 
@@ -30,29 +46,25 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 
   describe 'for Jodi with Mock LDAP and no multifactor, integration tests work across districts' do
     it 'works for Somerville using email' do
-      TestPals.create!(email_domain: 'k12.somerville.ma.us')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      test_pals_for!(PerDistrict::SOMERVILLE)
       feature_plain_sign_in('jodi@k12.somerville.ma.us', 'demo-password')
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for New Bedford using email' do
-      TestPals.create!(email_domain: 'newbedfordschools.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
+      test_pals_for!(PerDistrict::NEW_BEDFORD)
       feature_plain_sign_in('jodi@newbedfordschools.org', 'demo-password')
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for Bedford using plain login_name, and separate email address for LDAP authentication' do
-      TestPals.create!(email_domain: 'bedfordps.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      test_pals_for!(PerDistrict::BEDFORD)
       feature_plain_sign_in('jodi', 'demo-password')
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for demo' do
-      TestPals.create!
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
+      test_pals_for!(PerDistrict::DEMO)
       feature_plain_sign_in('jodi@demo.studentinsights.org', 'demo-password')
       expect(page).to have_content 'Sign Out'
     end
@@ -60,29 +72,25 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 
   describe 'for Uri with authenticator MFA cheating, integration tests work for across districts' do
     it 'works for Somerville' do
-      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      pals = test_pals_for!(PerDistrict::SOMERVILLE)
       feature_multifactor_sign_in_by_peeking(pals.uri)
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for New Bedford' do
-      pals = TestPals.create!(email_domain: 'newbedfordschools.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
+      pals = test_pals_for!(PerDistrict::NEW_BEDFORD)
       feature_multifactor_sign_in_by_peeking(pals.uri)
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for Bedford using plain login_name' do
-      pals = TestPals.create!(email_domain: 'bedfordps.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      pals = test_pals_for!(PerDistrict::BEDFORD)
       feature_multifactor_sign_in_by_peeking(pals.uri, login_text: 'uri')
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for demo' do
-      pals = TestPals.create!
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
+      pals = test_pals_for!(PerDistrict::DEMO)
       feature_multifactor_sign_in_by_peeking(pals.uri)
       expect(page).to have_content 'Sign Out'
     end
@@ -90,29 +98,25 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 
   describe 'for Rich with SMS MFA cheating, integration tests work for across districts' do
     it 'works for Somerville' do
-      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      pals = test_pals_for!(PerDistrict::SOMERVILLE)
       feature_multifactor_sign_in_by_peeking(pals.rich_districtwide)
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for New Bedford' do
-      pals = TestPals.create!(email_domain: 'newbedfordschools.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
+      pals = test_pals_for!(PerDistrict::NEW_BEDFORD)
       feature_multifactor_sign_in_by_peeking(pals.rich_districtwide)
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for Bedford using plain login_name' do
-      pals = TestPals.create!(email_domain: 'bedfordps.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      pals = test_pals_for!(PerDistrict::BEDFORD)
       feature_multifactor_sign_in_by_peeking(pals.rich_districtwide, login_text: 'rich')
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for demo' do
-      pals = TestPals.create!
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
+      pals = test_pals_for!(PerDistrict::DEMO)
       feature_multifactor_sign_in_by_peeking(pals.rich_districtwide)
       expect(page).to have_content 'Sign Out'
     end
@@ -120,29 +124,25 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 
   describe 'for Harry with email MFA cheating, integration tests work for across districts' do
     it 'works for Somerville' do
-      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      pals = test_pals_for!(PerDistrict::SOMERVILLE)
       feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster)
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for New Bedford' do
-      pals = TestPals.create!(email_domain: 'newbedfordschools.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
+      pals = test_pals_for!(PerDistrict::NEW_BEDFORD)
       feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster)
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for Bedford using plain login_name' do
-      pals = TestPals.create!(email_domain: 'bedfordps.org')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      pals = test_pals_for!(PerDistrict::BEDFORD)
       feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster, login_text: 'harry')
       expect(page).to have_content 'Sign Out'
     end
 
     it 'works for demo' do
-      pals = TestPals.create!
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
+      pals = test_pals_for!(PerDistrict::DEMO)
       feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster)
       expect(page).to have_content 'Sign Out'
     end
@@ -159,8 +159,7 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 
     it 'scrubs parameters from log' do
       log = mock_subscribers_log!
-      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      pals = test_pals_for!(PerDistrict::SOMERVILLE)
       peeked_login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
       feature_multifactor_sign_in_by_peeking(pals.rich_districtwide)
       expect(page).to have_content 'Sign Out'

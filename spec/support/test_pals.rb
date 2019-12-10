@@ -11,7 +11,13 @@ class TestPals
     pals
   end
 
-  # This uses the YAML config
+  # This uses the Somerville YAML config.
+  #
+  # Because of the way TestPals evolved, it still uses School definitions
+  # from Somerville.  So order of the calls here matters so that
+  # seeding happens before the mocking would change that.
+  # We should migrate away from TestPals being test to Somerville
+  # school definitions.
   def self.seed_somerville_schools_for_test!
     per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
     school_definitions = per_district.school_definitions_for_import

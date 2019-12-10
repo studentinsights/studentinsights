@@ -88,8 +88,10 @@ class Educator < ApplicationRecord
   end
 
   def validate_email_domain
-    if !PerDistrict.new.is_email_domain_safe?(email)
-      errors.add(:email, 'email domain is not safe for this districtKey')
+    per_district = PerDistrict.new
+    puts "  validate_email_domain: #{per_district.district_key}"
+    if !per_district.is_email_domain_safe?(email)
+      errors.add(:email, "email domain is not safe for districtKey: #{per_district.district_key}")
     end
   end
 end
