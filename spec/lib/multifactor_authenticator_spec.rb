@@ -199,7 +199,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       allow(MailgunHelper::MockClient).to receive(:new).and_return mock_client
       expect(mock_client).to receive(:post_email).once.with('https://api:fake-mailgun-api-key@api.mailgun.net/v3/fake-mailgun-domain/messages', {
         from: 'Student Insights <security@studentinsights.org>',
-        to: 'harry@demo.studentinsights.org',
+        to: 'harry@k12.somerville.ma.us',
         subject: 'Sign in code for Student Insights',
         html: [
           "<html><body><pre style='font: monospace; font-size: 12px;'>",
@@ -223,7 +223,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       authenticator.send_login_code_if_necessary!
 
       expect(log.output).to include('from: Student Insights <security@studentinsights.org>')
-      expect(log.output).to include('to: harry@demo.studentinsights.org')
+      expect(log.output).to include('to: harry@k12.somerville.ma.us')
       expect(log.output).to include("Sign in code for Student Insights: #{login_code}")
       expect(log.output).to include('If you did not request this, please forward to security@studentinsights.org so we can secure your account!')
     end
@@ -238,6 +238,19 @@ RSpec.describe 'MultifactorAuthenticator' do
       expect(rails_logger.output).not_to include(login_code)
       expect(rails_logger.output).not_to include(pals.shs_harry_housemaster.email)
       expect(rails_logger.output).not_to include('+1555')
+    end
+
+    it 'will not send anything if the email address domain is not safe' do
+      pending
+      # rails_logger = LogHelper::RailsLogger.new
+      # authenticator = MultifactorAuthenticator.new(pals.shs_harry_housemaster, logger: rails_logger)
+      # login_code = LoginTests.peek_at_correct_multifactor_code(pals.shs_harry_housemaster)
+      # authenticator.send_login_code_if_necessary!
+
+      # expect(rails_logger.output).to include('MultifactorAuthenticator#send_login_code_via_email! sent message to Mailgun.')
+      # expect(rails_logger.output).not_to include(login_code)
+      # expect(rails_logger.output).not_to include(pals.shs_harry_housemaster.email)
+      # expect(rails_logger.output).not_to include('+1555')
     end
   end
 

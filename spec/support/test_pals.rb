@@ -74,7 +74,7 @@ class TestPals
   def create!(options = {})
     TestPals.seed_somerville_schools_for_test!
 
-    email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
+    email_domain = options.fetch(:email_domain, PerDistrict.new.email_domain_for_test_pals())
     skip_team_memberships = options.fetch(:skip_team_memberships, false)
     skip_imported_forms = options.fetch(:skip_imported_forms, false)
     district_school_year = options.fetch(:district_school_year, Section.to_district_school_year(SchoolYear.to_school_year(time_now)))

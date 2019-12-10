@@ -356,6 +356,24 @@ class PerDistrict
     end
   end
 
+  # When generating users for TestPals, default to using these
+  # domain names when kaing email addresses.
+  # This is intended only for test/dev and not production, for
+  # testing the production code related to this.
+  def email_domain_for_test_pals
+    if @district_key == BEDFORD
+      'bedfordps.org'
+    elsif @district_key == SOMERVILLE
+      'k12.somerville.ma.us'
+    elsif @district_key == NEW_BEDFORD
+      'newbedfordschools.org'
+    elsif @district_key == DEMO
+      'demo.studentinsights.org'
+    else
+      raise_not_handled!
+    end
+  end
+
   # Sometimes we want to be able to import specific educators, even
   # if they aren't in the specific set of schools we import.
   def educators_importer_login_name_whitelist
