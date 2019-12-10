@@ -69,6 +69,15 @@ describe MultifactorController, :type => :controller do
       expect(response.status).to eq 204
     end
 
+    it 'calls send_login_code_if_necessary! for Harry' do
+      fake_authenticator = MultifactorAuthenticator.new(pals.shs_harry_housemaster)
+      allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
+      expect(fake_authenticator).to receive(:send_login_code_if_necessary!)
+
+      post_multifactor(multifactor: { login_text: 'harry@demo.studentinsights.org' })
+      expect(response.status).to eq 204
+    end
+
     it 'does not call send_login_code_if_necessary! for Jodi, as one example' do
       fake_authenticator = MultifactorAuthenticator.new(pals.shs_jodi)
       allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
@@ -78,7 +87,7 @@ describe MultifactorController, :type => :controller do
       expect(response.status).to eq 204
     end
 
-    it 'does not call send_login_code_if_necessary! for Uri, when active? false' do
+    it 'does not call send_login_code_if_necessary! when active? false, using Uri as an example' do
       pals.uri.update!(missing_from_last_export: true)
       fake_authenticator = MultifactorAuthenticator.new(pals.uri)
       allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
