@@ -10,7 +10,7 @@ RSpec.describe 'MultifactorAuthenticator' do
   end
 
   def enabled_educators
-    [pals.uri, pals.rich_districtwide]
+    [pals.uri, pals.rich_districtwide, pals.shs_harry_housemaster]
   end
 
   describe 'Twilio config missing' do
@@ -64,7 +64,7 @@ RSpec.describe 'MultifactorAuthenticator' do
   end
 
   describe '#is_multifactor_enabled?' do
-    it 'is enabled for Uri and Rich' do
+    it 'is enabled for Uri and Rich and Harry' do
       enabled_educators.each do |educator|
         expect(MultifactorAuthenticator.new(educator).is_multifactor_enabled?).to eq true
       end
@@ -133,7 +133,7 @@ RSpec.describe 'MultifactorAuthenticator' do
     end
   end
 
-  describe '#send_login_code_if_necessary! with MockTwilioClient' do
+  describe '#send_login_code_if_necessary! with mocked SMS and email services' do
     it 'does nothing when multifactor not enabled' do
       log = log_for_mock_twilio_client
       (Educator.all - enabled_educators).each do |educator|
@@ -144,7 +144,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       end
     end
 
-    it 'does nothing when no SMS number (authenticator app)' do
+    it 'does nothing for authenticator app' do
       log = log_for_mock_twilio_client
       authenticator = MultifactorAuthenticator.new(pals.uri)
       expect(authenticator).not_to receive(:send_twilio_message!)
@@ -178,7 +178,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       expect(log.output).to include('If you did not request this, please reply to let us know so we can secure your account!')
     end
 
-    it 'logs to Rails that a message was sent, without any sensitive information (eg, when MockTwilioClient is not logging)' do
+    it 'logs to Rails that a message was sent to Rich, without any sensitive information (separate from MockTwilioClient logging in dev/demo)' do
       rails_logger = LogHelper::RailsLogger.new
       authenticator = MultifactorAuthenticator.new(pals.rich_districtwide, logger: rails_logger)
       login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
@@ -186,9 +186,58 @@ RSpec.describe 'MultifactorAuthenticator' do
 
       expect(rails_logger.output).to include('MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message')
       expect(rails_logger.output).not_to include(login_code)
-      expect(rails_logger.output).not_to include(pals.uri.email)
+      expect(rails_logger.output).not_to include(pals.rich_districtwide.email)
       expect(rails_logger.output).not_to include('+15555551234')
       expect(rails_logger.output).not_to include('+15555550009')
+    end
+
+    it 'works for Harry when verifying params sent to mocked MailGun' do
+      authenticator = MultifactorAuthenticator.new(pals.shs_harry_housemaster)
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.shs_harry_housemaster)
+
+      mock_client = MailgunHelper::MockClient.new
+      allow(MailgunHelper::MockClient).to receive(:new).and_return mock_client
+      expect(mock_client).to receive(:post_email).once.with('https://api:fake-mailgun-api-key@api.mailgun.net/v3/fake-mailgun-domain/messages', {
+        from: 'Student Insights <security@studentinsights.org>',
+        to: 'harry@demo.studentinsights.org',
+        subject: 'Sign in code for Student Insights',
+        html: [
+          "<html><body><pre style='font: monospace; font-size: 12px;'>",
+          "Sign in code for Student Insights: #{login_code}\n\n",
+          "If you did not request this, please forward to security@studentinsights.org so we can secure your account!",
+          "</pre></body></html>"
+        ].join('')
+      }).and_return 342
+
+      authenticator.send_login_code_if_necessary!
+    end
+
+    it 'works for Harry when verifying log output for development' do
+      log = LogHelper::FakeLog.new
+      mock_client = MailgunHelper::MockClient.new
+      allow(mock_client).to receive(:logger).and_return(log)
+      allow(MailgunHelper::MockClient).to receive(:new).and_return mock_client
+
+      authenticator = MultifactorAuthenticator.new(pals.shs_harry_housemaster)
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.shs_harry_housemaster)
+      authenticator.send_login_code_if_necessary!
+
+      expect(log.output).to include('from: Student Insights <security@studentinsights.org>')
+      expect(log.output).to include('to: harry@demo.studentinsights.org')
+      expect(log.output).to include("Sign in code for Student Insights: #{login_code}")
+      expect(log.output).to include('If you did not request this, please forward to security@studentinsights.org so we can secure your account!')
+    end
+
+    it 'logs to Rails that a message was sent to Harry, without any sensitive information (separate from MailgunHelper::MockClient logging in dev/demo)' do
+      rails_logger = LogHelper::RailsLogger.new
+      authenticator = MultifactorAuthenticator.new(pals.shs_harry_housemaster, logger: rails_logger)
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.shs_harry_housemaster)
+      authenticator.send_login_code_if_necessary!
+
+      expect(rails_logger.output).to include('MultifactorAuthenticator#send_login_code_via_email! sent message to Mailgun.')
+      expect(rails_logger.output).not_to include(login_code)
+      expect(rails_logger.output).not_to include(pals.shs_harry_housemaster.email)
+      expect(rails_logger.output).not_to include('+1555')
     end
   end
 

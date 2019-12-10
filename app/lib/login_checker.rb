@@ -29,9 +29,9 @@ class LoginChecker
     # alert developer
     with_isolation do
       Rollbar.warn('LoginChecker#warn_if_suspicious', {
-        flags: flags,
-        warning_id: warning_id,
-        time_now: @time_now.to_i
+        rollbar_safelist_login_flags: flags,
+        rollbar_safelist_warning_id: warning_id,
+        rollbar_safelist_time_now: @time_now.to_i
       })
     end
 
@@ -46,30 +46,28 @@ class LoginChecker
     begin
       block.call()
     rescue => err
-      Rollbar.error('LoginChecker#with_isolation rescued', {
-        error_class: err.class.name,
-        error_message: err.message,
-        error_backtrace: err.backtrace
-      })
+      Rollbar.error("LoginChecker#with_isolation rescued", err)
     end
     nil
   end
 
   def send_email_to_user!(educator_email, warning_id)
     email_text = user_facing_email_text(warning_id)
-    mailgun_url = MailgunHelper.new.mailgun_url_from_env(ENV)
+    mailgun_helper = MailgunHelper.new
+    mailgun_url = mailgun_helper.mailgun_url_from_env(ENV)
+    html = mailgun_helper.plain_html_from_text(email_text)
     post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
       :from => "Student Insights <security@studentinsights.org>",
       :to => educator_email,
       :subject => "Security alert for #{@canonical_domain}",
-      :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{email_text}</pre>"
+      :html => html
     })
 
     # Alert if post to Mailgun failed
     if post_data.code.to_i != 200
       Rollbar.error("LoginChecker#send_email_to_user! failed with post_data.code: #{post_data.code}", {
-        warning_id: warning_id,
-        time_now: @time_now.to_i
+        rollbar_safelist_warning_id: warning_id,
+        rollbar_safelist_time_now: @time_now.to_i
       })
     end
     nil

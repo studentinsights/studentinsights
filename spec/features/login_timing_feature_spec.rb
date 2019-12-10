@@ -5,10 +5,6 @@ describe 'login timing', type: :feature do
   let!(:pals) { TestPals.create! }
   before(:each) { LoginTests.reset_rack_attack! }
 
-  def sample_educator(seed)
-    Educator.all.sample(random: Random.new(seed))
-  end
-
   # simulate a really slow response from an LDAP #bind
   def mock_slow_ldap_bind!(username, password, delay_milliseconds)
     slow_mock_ldap = MockLdap.new({
@@ -53,7 +49,7 @@ describe 'login timing', type: :feature do
     it 'tolerates and warns' do
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('ConsistentTiming#wait_for_milliseconds_or_alert was negative', {
-        milliseconds_to_wait: anything
+        rollbar_safelist_milliseconds_to_wait: anything
       })
 
       login, password = [pals.shs_jodi.email, 'wrong-password']

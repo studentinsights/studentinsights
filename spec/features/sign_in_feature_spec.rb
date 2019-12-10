@@ -118,6 +118,36 @@ describe 'educator sign in using Mock LDAP', type: :feature do
     end
   end
 
+  describe 'for Harry with email MFA cheating, integration tests work for across districts' do
+    it 'works for Somerville' do
+      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster)
+      expect(page).to have_content 'Sign Out'
+    end
+
+    it 'works for New Bedford' do
+      pals = TestPals.create!(email_domain: 'newbedfordschools.org')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
+      feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster)
+      expect(page).to have_content 'Sign Out'
+    end
+
+    it 'works for Bedford using plain login_name' do
+      pals = TestPals.create!(email_domain: 'bedfordps.org')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster, login_text: 'harry')
+      expect(page).to have_content 'Sign Out'
+    end
+
+    it 'works for demo' do
+      pals = TestPals.create!
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
+      feature_multifactor_sign_in_by_peeking(pals.shs_harry_housemaster)
+      expect(page).to have_content 'Sign Out'
+    end
+  end
+
   describe 'with logger spied' do
     def mock_subscribers_log!
       log = LogHelper::RailsLogger.new

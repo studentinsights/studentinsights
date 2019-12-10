@@ -114,7 +114,7 @@ class IepStorer
       log("    could not create IepDocument record for student_id: ##{student.id}...")
       log("    orphan file up in S3: #{s3_filename}")
       log("    IepDocument model errors: #{iep_document.errors.try(:details).try(:keys).inspect}")
-      Rollbar.error('IepStorer#create_iep_document_record', error, { student_id: student.id })
+      Rollbar.error("IepStorer#create_iep_document_record raised for student.id: #{student.id}", error)
       nil
     end
   end

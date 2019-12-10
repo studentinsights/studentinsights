@@ -16,8 +16,7 @@ class ConsistentTiming
     begin
       return_value = block.call()
     rescue => err
-      Rollbar.error('ConsistentTiming#measure_timing_only caught an error', err: err)
-      Rollbar.error(err)
+      Rollbar.error('ConsistentTiming#measure_timing_only caught an error', err)
       return_value = nil
     end
     end_milliseconds = read_monotonic_milliseconds()
@@ -29,7 +28,9 @@ class ConsistentTiming
   def wait_for_milliseconds_or_alert(milliseconds_to_wait)
     return sleep(milliseconds_to_wait/1000.0) if milliseconds_to_wait > 0
 
-    Rollbar.warn('ConsistentTiming#wait_for_milliseconds_or_alert was negative', milliseconds_to_wait: milliseconds_to_wait)
+    Rollbar.warn('ConsistentTiming#wait_for_milliseconds_or_alert was negative', {
+      rollbar_safelist_milliseconds_to_wait: milliseconds_to_wait
+    })
   end
 
   def read_monotonic_milliseconds

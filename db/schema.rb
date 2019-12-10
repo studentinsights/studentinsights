@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_152631) do
+ActiveRecord::Schema.define(version: 2019_12_04_175034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_152631) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "rotp_secret", null: false
+    t.boolean "via_email", default: false
     t.index ["educator_id"], name: "index_educator_multifactor_configs_on_educator_id", unique: true
     t.index ["rotp_secret"], name: "index_educator_multifactor_configs_on_rotp_secret", unique: true
     t.index ["sms_number"], name: "index_educator_multifactor_configs_on_sms_number", unique: true
