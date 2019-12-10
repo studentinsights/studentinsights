@@ -8,6 +8,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
     return nil if login_name.nil? || login_name == ''
     email = email_from_row(row)
     return nil if email.nil? || email == ''
+    return nil unless is_email_domain_safe?(email)
 
     # login_name is the primary key, and email is always secondary
     educator = Educator.find_or_initialize_by(login_name: login_name)

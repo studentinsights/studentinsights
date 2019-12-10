@@ -152,6 +152,16 @@ class MultifactorAuthenticator
 
   ### mailgun
   def send_email_message!(email_text, educator_email)
+    # Defensively, validate that the email domain is safe to send to;
+    # import process and model validations shoudl also prevent this
+    if !PerDistrict.new.is_email_domain_safe?(educator_email)
+      unsafe_domain_message_text = 'MultifactorAuthenticator#send_email_message! aborted because it was called with an `educator_email` for an unsafe domain name.'
+      @logger.error(unsafe_domain_message_text)
+      Rollbar.error(unsafe_domain_message_text)
+      return nil
+    end
+
+    # Form email and send it
     mailgun_helper = MailgunHelper.new()
     mailgun_url = mailgun_helper.mailgun_url_from_env(ENV)
     html = mailgun_helper.plain_html_from_text(email_text)

@@ -320,8 +320,6 @@ class PerDistrict
   # as the `login_name`, and emails are the same but with a domain
   # suffix.  But for Bedford, emails are distinct and imported separately
   # from `login_name`.
-  #
-  # In all cases, these need to match a safelist of domain names.
   def email_from_educator_import_row(row)
     if @district_key == BEDFORD
       row[:email]
@@ -331,6 +329,28 @@ class PerDistrict
       row[:login_name] + '@newbedfordschools.org'
     elsif @district_key == DEMO
       row[:login_name] + '@demo.studentinsights.org'
+    else
+      raise_not_handled!
+    end
+  end
+
+  # In all cases, email addresses need to match a safelist of domains
+  # to import or to send.
+  def is_email_domain_safe?(email)
+    # Split address, if that fails return false
+    return false if email == '' || email.nil?
+    parts = email.split('@')
+    return false if parts.size != 2
+    domain_name = parts[1]
+
+    if @district_key == BEDFORD
+      domain_name == 'bedfordps.org'
+    elsif @district_key == SOMERVILLE
+      domain_name == 'k12.somerville.ma.us'
+    elsif @district_key == NEW_BEDFORD
+      domain_name == 'newbedfordschools.org'
+    elsif @district_key == DEMO
+      domain_name == 'demo.studentinsights.org'
     else
       raise_not_handled!
     end

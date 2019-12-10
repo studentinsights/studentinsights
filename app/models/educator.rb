@@ -16,6 +16,7 @@ class Educator < ApplicationRecord
   validates :email, presence: true, uniqueness: true, case_sensitive: false
   validates :login_name, presence: true, uniqueness: true, case_sensitive: false
 
+  validate :validate_email_domain
   validate :validate_admin_gets_access_to_all_students
   validate :validate_grade_level
 
@@ -83,6 +84,12 @@ class Educator < ApplicationRecord
       errors.add(:grade_level_access, "invalid grade")
     elsif grade_level_access.uniq.size != grade_level_access.size
       errors.add(:grade_level_access, "duplicate values")
+    end
+  end
+
+  def validate_email_domain
+    if !PerDistrict.new.is_email_domain_safe?(email)
+      errors.add(:email, 'email domain is not safe for this districtKey')
     end
   end
 end
