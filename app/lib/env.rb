@@ -8,7 +8,7 @@ class Env
     default_env = {}
 
     # instance config
-    default_env['DISTRICT_KEY'] = 'somerville'
+    default_env['DISTRICT_KEY'] = 'demo'
     default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
     default_env['CANONICAL_DOMAIN'] = nil # no redirection or HTTPS locally
     default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_base":"student-insights-multifactor-authenticator-educator"}'

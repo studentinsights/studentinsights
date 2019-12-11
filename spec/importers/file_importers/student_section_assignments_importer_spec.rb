@@ -73,7 +73,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
   end
 
   describe 'integration tests' do
-    before { TestPals.seed_somerville_schools_for_test! }
+    before { TestPals.seed_schools_for_test! }
 
     it 'considers section rows invalid if they are missing district_school_year, even if they would match section records with district_school_year:nil' do
       create_students_for_fixture()
@@ -198,7 +198,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
   describe '#import_row' do
     def create_test_records_and_test_row(options = {})
       time_now = options.fetch(:time_now, TestPals.new.time_now)
-      TestPals.seed_somerville_schools_for_test!
+      TestPals.seed_schools_for_test!
 
       district_school_year = 1 + SchoolYear.to_school_year(time_now)
       high_school = School.find_by_local_id('SHS')
@@ -264,7 +264,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
   end
 
   describe 'deleting rows' do
-    before { TestPals.seed_somerville_schools_for_test! }
+    before { TestPals.seed_schools_for_test! }
 
     def sync_records(importer)
       syncer = importer.instance_variable_get(:@syncer)
@@ -335,7 +335,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
   end
 
   describe '#matching_insights_record_for_row' do
-    before { TestPals.seed_somerville_schools_for_test! }
+    before { TestPals.seed_schools_for_test! }
 
     def create_test_music_records_for_school(school)
       time_now = TestPals.new.time_now

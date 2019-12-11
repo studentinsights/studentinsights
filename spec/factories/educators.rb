@@ -12,7 +12,8 @@ FactoryBot.define do
     end
     email do
       last_name, first_name = full_name.split(', ')
-      "#{first_name}.#{last_name}@demo.studentinsights.org"
+      domain = PerDistrict.new.email_domain_for_test_pals
+      "#{first_name}.#{last_name}@#{domain}"
     end
     login_name do
       last_name, first_name = full_name.split(', ')

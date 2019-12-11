@@ -15,7 +15,7 @@ class TestPals
   # evolved, but these are now isolated.  It'd be an improvement if
   # to migrate these definitions and tests over time, so that they used
   # use different names and made it clearer these are for the test/dev setup.
-  def self.seed_somerville_schools_for_test!
+  def self.seed_schools_for_test!
     school_definitions = [{
       local_id: 'BRN',
       slug: 'brn',
@@ -139,7 +139,7 @@ class TestPals
   end
 
   def create!(options = {})
-    TestPals.seed_somerville_schools_for_test!
+    TestPals.seed_schools_for_test!
 
     email_domain = options.fetch(:email_domain, PerDistrict.new.email_domain_for_test_pals())
     skip_team_memberships = options.fetch(:skip_team_memberships, false)

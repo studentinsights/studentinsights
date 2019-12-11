@@ -397,7 +397,7 @@ RSpec.describe EducatorsImporter do
 
   describe 'process_unmarked_records! integration tests' do
     it 'sets missing_from_last_export: true for students missing from the export' do
-      TestPals.seed_somerville_schools_for_test!
+      TestPals.seed_schools_for_test!
 
       # first import, all educators
       first_log = LogHelper::FakeLog.new

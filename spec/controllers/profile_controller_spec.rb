@@ -705,9 +705,8 @@ describe ProfileController, :type => :controller do
     end
 
     it 'returns bedford_end_of_year_transitions with expected shape, and no URLs' do
-      pals = TestPals.create!
-
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      pals = TestPals.create!
       feed = controller.send(:student_feed, pals.healey_kindergarten_student)
       bedford_end_of_year_transitions = feed[:bedford_end_of_year_transitions]
 

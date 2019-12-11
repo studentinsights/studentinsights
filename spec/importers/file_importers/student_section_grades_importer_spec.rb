@@ -27,7 +27,7 @@ RSpec.describe StudentSectionGradesImporter do
     district_school_year = options.fetch(:district_school_year, nil)
 
     # schools
-    TestPals.seed_somerville_schools_for_test!
+    TestPals.seed_schools_for_test!
     east = School.find_by_local_id('ESCS')
     high_school = School.find_by_local_id('SHS')
 

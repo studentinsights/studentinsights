@@ -40,7 +40,7 @@ RSpec.describe StudentsImporter do
   describe '#import integration tests' do
     let!(:log) { LogHelper::FakeLog.new }
     let!(:importer) { make_students_importer(log: log) }
-    before { TestPals.seed_somerville_schools_for_test! }
+    before { TestPals.seed_schools_for_test! }
 
     it 'does not create Homeroom records' do
       mock_importer_with_csv(importer, fixture_filename)
@@ -102,7 +102,7 @@ RSpec.describe StudentsImporter do
 
       it 'does not set missing_from_last_export' do
         # first import, all students in fixture
-        TestPals.seed_somerville_schools_for_test!
+        TestPals.seed_schools_for_test!
         first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
         first_log = LogHelper::FakeLog.new
         first_importer = make_students_importer(log: first_log)
@@ -134,7 +134,7 @@ RSpec.describe StudentsImporter do
 
       it 'sets missing_from_last_export: true for students missing from the export' do
         # first import, all students in fixture
-        TestPals.seed_somerville_schools_for_test!
+        TestPals.seed_schools_for_test!
         first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
         first_log = LogHelper::FakeLog.new
         first_importer = make_students_importer(log: first_log)
@@ -194,7 +194,7 @@ RSpec.describe StudentsImporter do
 
   describe '#import_row' do
     context 'good data' do
-      before { TestPals.seed_somerville_schools_for_test! }
+      before { TestPals.seed_schools_for_test! }
       let!(:high_school) { School.find_by_local_id('SHS') }
       let!(:healey) { School.find_by_local_id('HEA') }
       let!(:brown) { School.find_by_local_id('BRN') }

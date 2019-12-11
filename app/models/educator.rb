@@ -91,6 +91,7 @@ class Educator < ApplicationRecord
     per_district = PerDistrict.new
     if !per_district.is_email_domain_safe?(email)
       errors.add(:email, "email domain is not safe for districtKey: #{per_district.district_key}")
+        errors.add(:email, "UNSAFE email: #{email}")
     end
   end
 end

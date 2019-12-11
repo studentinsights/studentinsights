@@ -39,7 +39,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   end
 
   def create_records_for_tests_with_fixture_file(district_school_year)
-    TestPals.seed_somerville_schools_for_test!
+    TestPals.seed_schools_for_test!
     high_school = School.find_by_local_id('SHS')
 
     # educators
@@ -256,7 +256,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       district_school_year, time_now = test_district_school_year()
       Timecop.freeze(time_now) do
         # existing db, with similar records across schools
-        TestPals.seed_somerville_schools_for_test!
+        TestPals.seed_schools_for_test!
         _, _, _ = make_test_row(district_school_year, school: School.find_by_local_id('BRN'))
         row, educator, healey_section = make_test_row(district_school_year, school: School.find_by_local_id('HEA'))
         _, _, _ = make_test_row(district_school_year, school: School.find_by_local_id('WSNS'))
