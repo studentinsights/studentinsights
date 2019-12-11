@@ -7,6 +7,7 @@ import {
   toSchoolYear,
   firstDayOfSchool
 } from '../helpers/schoolYear';
+import {toMoment} from '../helpers/toMoment';
 
 
 // Render options for downloading a profile PDF
@@ -17,8 +18,8 @@ export default class ProfilePdfDialog extends React.Component {
     const nowMoment = context.nowFn();
     this.state = {
       includeRestrictedNotes: false,
-      filterFromDate: firstDayOfSchool(toSchoolYear(nowMoment)-1),
-      filterToDate: nowMoment
+      filterFromDateText: firstDayOfSchool(toSchoolYear(nowMoment)-1).format('MM/DD/YYYY'),
+      filterToDateText: nowMoment.format('MM/DD/YYYY')
     };
 
     this.checkboxContainerEl = null;
@@ -29,15 +30,28 @@ export default class ProfilePdfDialog extends React.Component {
   }
 
   filterFromDateForQuery() {
-    const {filterFromDate} = this.state;
-
-    return filterFromDate.format('MM/DD/YYYY');
+    const {filterFromDateText} = this.state;
+    return this.formatDateTextForRails(filterFromDateText);
   }
 
   filterToDateForQuery() {
-    const {filterToDate} = this.state;
+    const {filterToDateText} = this.state;
+    return this.formatDateTextForRails(filterToDateText);
+  }
 
-    return filterToDate.format('MM/DD/YYYY');
+  // Normalize input date text into format Rails expects, tolerating empty string as null.
+  // If the date is not valid, an error will be raised.
+  formatDateTextForRails(dateText) {
+    const moment = toMoment(dateText);
+    if (!moment.isValid()) throw new Error('invalid date: ' + dateText);
+    return moment.format('YYYY-MM-DD');
+  }
+
+  // Both dates need to be valid
+  areDatesValid() {
+    const {filterFromDateText, filterToDateText} = this.state;
+    if (!toMoment(filterFromDateText).isValid() || !toMoment(filterToDateText).isValid() ) return false;
+    return true;
   }
 
   studentReportURL() {
@@ -60,16 +74,12 @@ export default class ProfilePdfDialog extends React.Component {
     this.setState({includeRestrictedNotes: e.target.checked});
   }
 
-  onFilterFromDateChanged(dateText) {
-    const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-    const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-    this.setState({ filterFromDate: updatedMoment });
+  onFilterFromDateChanged(filterFromDateText) {
+    this.setState({filterFromDateText});
   }
 
-  onFilterToDateChanged(dateText) {
-    const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-    const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-    this.setState({ filterToDate: updatedMoment });
+  onFilterToDateChanged(filterToDateText) {
+    this.setState({filterToDateText});
   }
 
   onClickGenerateStudentReport(event) {
@@ -80,6 +90,7 @@ export default class ProfilePdfDialog extends React.Component {
   render() {
     const {allowRestrictedNotes, showTitle, style} = this.props;
     const {includeRestrictedNotes} = this.state;
+    const areDatesValid = this.areDatesValid();
 
     return (
       <div className="ProfilePdfDialog" style={{...styles.root, ...style}}>
@@ -119,7 +130,7 @@ export default class ProfilePdfDialog extends React.Component {
                 datepicker: styles.datepickerContainer,
                 input: styles.datepickerInput
               }}
-              value={this.state.filterFromDate.format('MM/DD/YYYY')}
+              value={this.state.filterFromDateText}
               onChange={this.onFilterFromDateChanged}
               datepickerOptions={{
                 showOn: 'both',
@@ -134,7 +145,7 @@ export default class ProfilePdfDialog extends React.Component {
                 datepicker: styles.datepickerContainer,
                 input: styles.datepickerInput
               }}
-              value={this.state.filterToDate.format('MM/DD/YYYY')}
+              value={this.state.filterToDateText}
               onChange={this.onFilterToDateChanged}
               datepickerOptions={{
                 showOn: 'both',
@@ -142,10 +153,14 @@ export default class ProfilePdfDialog extends React.Component {
                 minDate: undefined
               }} />
           </div>
+          <div style={{height: '2em'}}>
+            {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date (end date is optional)</div>}
+          </div>
         </div>
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
           <button
-            style={styles.studentReportButton}
+            style={{background: (areDatesValid) ? undefined : '#ccc'}}
+            disabled={!areDatesValid}
             className="btn btn-warning"
             onClick={this.onClickGenerateStudentReport}>
             Generate Student Report
