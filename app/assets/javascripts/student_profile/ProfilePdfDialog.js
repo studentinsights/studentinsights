@@ -31,20 +31,20 @@ export default class ProfilePdfDialog extends React.Component {
 
   filterFromDateForQuery() {
     const {filterFromDateText} = this.state;
-    return this.formatDateTextForRails(filterFromDateText);
+    return this.formatDateText(filterFromDateText);
   }
 
   filterToDateForQuery() {
     const {filterToDateText} = this.state;
-    return this.formatDateTextForRails(filterToDateText);
+    return this.formatDateText(filterToDateText);
   }
 
-  // Normalize input date text into format Rails expects, tolerating empty string as null.
+  // Normalize input date text into format Rails expects
   // If the date is not valid, an error will be raised.
-  formatDateTextForRails(dateText) {
+  formatDateText(dateText) {
     const moment = toMoment(dateText);
     if (!moment.isValid()) throw new Error('invalid date: ' + dateText);
-    return moment.format('YYYY-MM-DD');
+    return moment.format('MM/DD/YYYY');
   }
 
   // Both dates need to be valid
