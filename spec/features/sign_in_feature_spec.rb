@@ -6,20 +6,10 @@ describe 'educator sign in using Mock LDAP', type: :feature do
   before(:each) { LoginTests.before_disable_consistent_timing! }
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
-  # Because of the way TestPals evolved, it still uses School definitions
-  # from Somerville.  So order of the calls here matters so that
-  # seeding happens before the mocking would change that.
-  # We should migrate away from TestPals being test to Somerville
-  # school definitions.
   def test_pals_for!(district_key)
-    puts "\n\ntest_pals_for!"
-    puts "  district_key: #{district_key}"
     per_district = PerDistrict.new(district_key: district_key)
-    email_domain = per_district.email_domain_for_test_pals()
-    puts "  email_domain: #{email_domain}"
-    pals = TestPals.create!(email_domain: email_domain)
     allow(PerDistrict).to receive(:new).and_return(per_district)
-    pals
+    TestPals.create!
   end
 
   context 'with default TestPals' do

@@ -11,16 +11,77 @@ class TestPals
     pals
   end
 
-  # This uses the Somerville YAML config.
-  #
-  # Because of the way TestPals evolved, it still uses School definitions
-  # from Somerville.  So order of the calls here matters so that
-  # seeding happens before the mocking would change that.
-  # We should migrate away from TestPals being test to Somerville
-  # school definitions.
+  # These use the same as Somerville because that's how the fixtures
+  # evolved, but these are now isolated.  It'd be an improvement if
+  # to migrate these definitions and tests over time, so that they used
+  # use different names and made it clearer these are for the test/dev setup.
   def self.seed_somerville_schools_for_test!
-    per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
-    school_definitions = per_district.school_definitions_for_import
+    school_definitions = [{
+      local_id: 'BRN',
+      slug: 'brn',
+      name: 'Benjamin G Brown',
+      school_type: 'ES'
+    }, {
+      local_id: 'HEA',
+      slug: 'hea',
+      name: 'Arthur D Healey',
+      school_type: 'ESMS'
+    }, {
+      local_id: 'KDY',
+      slug: 'kdy',
+      name: 'John F Kennedy',
+      school_type: 'ESMS'
+    }, {
+      local_id: 'AFAS',
+      slug: 'afas',
+      name: 'Albert F. Argenziano School',
+      school_type: 'ESMS'
+    }, {
+      local_id: 'ESCS',
+      slug: 'escs',
+      name: 'E Somerville Community',
+      school_type: 'ESMS'
+    }, {
+      local_id: 'WSNS',
+      slug: 'wsns',
+      name: 'West Somerville Neighborhood',
+      school_type: 'ESMS'
+    }, {
+      local_id: 'WHCS',
+      slug: 'whcs',
+      name: 'Winter Hill Community',
+      school_type: 'ESMS'
+    }, {
+      local_id: 'NW',
+      slug: 'nw',
+      name: 'Next Wave Junior High',
+      school_type: 'MS'
+    }, {
+      local_id: 'SHS',
+      slug: 'shs',
+      name: 'Somerville High',
+      school_type: 'HS'
+    }, {
+      local_id: 'FC',
+      slug: 'fc',
+      name: 'Full Circle High School',
+      school_type: 'HS'
+    }, {
+      local_id: 'CAP',
+      slug: 'cap',
+      name: 'Capuano Early Childhood Center',
+      school_type: 'ECS'
+    }, {
+      local_id: 'PIC',
+      slug: 'pic',
+      name: 'Parent Information Center',
+      school_type: 'OTHER'
+    }, {
+      local_id: 'SPED',
+      slug: 'sped',
+      name: 'SPED Outplacement and Walk-in',
+      school_type: 'OTHER'
+    }]
     School.create!(school_definitions)
   end
 
@@ -551,6 +612,8 @@ class TestPals
   # "now" in time_now for test (not wall clock)
   def add_team_memberships
     this_season_key, school_year_text = TeamMembership.this_season_and_year(time_now: time_now)
+    return if this_season_key.nil?
+
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
       activity_text: 'Competitive Cheerleading Varsity',
