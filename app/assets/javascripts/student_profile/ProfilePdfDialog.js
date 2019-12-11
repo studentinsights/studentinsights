@@ -51,6 +51,7 @@ export default class ProfilePdfDialog extends React.Component {
   areDatesValid() {
     const {filterFromDateText, filterToDateText} = this.state;
     if (!toMoment(filterFromDateText).isValid() || !toMoment(filterToDateText).isValid() ) return false;
+    if (toMoment(filterToDateText).isBefore(toMoment(filterFromDateText))) return false;
     return true;
   }
 
@@ -154,7 +155,7 @@ export default class ProfilePdfDialog extends React.Component {
               }} />
           </div>
           <div style={{height: '2em'}}>
-            {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date (end date is optional)</div>}
+            {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date</div>}
           </div>
         </div>
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
