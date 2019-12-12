@@ -356,6 +356,13 @@ exports[`snapshots view 1`] = `
         />
       </div>
     </div>
+    <div
+      style={
+        Object {
+          "height": "2em",
+        }
+      }
+    />
   </div>
   <div
     style={
@@ -367,11 +374,11 @@ exports[`snapshots view 1`] = `
   >
     <button
       className="btn btn-warning"
+      disabled={false}
       onClick={[Function]}
       style={
         Object {
-          "fontSize": 12,
-          "margin": 0,
+          "background": undefined,
         }
       }
     >

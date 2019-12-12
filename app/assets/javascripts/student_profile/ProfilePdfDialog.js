@@ -155,7 +155,7 @@ export default class ProfilePdfDialog extends React.Component {
               }} />
           </div>
           <div style={{height: '2em'}}>
-            {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date</div>}
+            {!this.areDatesValid() && <div className="PdfDialogue-warning" style={styles.invalidDate}>Choose a valid date</div>}
           </div>
         </div>
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
