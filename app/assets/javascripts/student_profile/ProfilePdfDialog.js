@@ -18,7 +18,7 @@ export default class ProfilePdfDialog extends React.Component {
     this.state = {
       includeRestrictedNotes: false,
       filterFromDateText: firstDayOfSchool(toSchoolYear(nowMoment)-1).format('MM/DD/YYYY'),
-      filterToDateText: nowMoment.format('MM/DD/YYYY')
+      filterToDateText: nowMoment.add(1, 'days').format('MM/DD/YYYY')
     };
 
     this.checkboxContainerEl = null;
@@ -154,12 +154,12 @@ export default class ProfilePdfDialog extends React.Component {
               }} />
           </div>
           <div style={{height: '2em'}}>
-            {!this.areDatesValid() && <div className="PdfDialogue-warning" style={styles.invalidDate}>Choose a valid date</div>}
+            {!areDatesValid && <div className="PdfDialogue-warning" style={styles.invalidDate}>Choose a valid date</div>}
           </div>
         </div>
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
           <button
-            style={{background: (areDatesValid) ? undefined : '#ccc'}}
+            style={{...styles.studentReportButton, ...{background: (areDatesValid) ? undefined : '#ccc'}}}
             disabled={!areDatesValid}
             className="btn btn-warning"
             onClick={this.onClickGenerateStudentReport}>
@@ -255,5 +255,9 @@ const styles = {
   studentReportButton: {
     fontSize: 12,
     margin: 0
+  },
+  invalidDate: {
+    color: 'red',
+    padding: 5
   }
 };
