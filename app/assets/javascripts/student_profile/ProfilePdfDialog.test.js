@@ -97,13 +97,13 @@ describe('PDF', () => {
   it('creates download URL in correct format', () => {
     const context = testContext();
     const wrapper = mount(<ProfilePdfDialog {...testProps()} />, {context});
-    expect(wrapper.instance().studentReportURL()).toEqual('/students/42/student_report.pdf?from_date=08%2F15%2F2016&include_restricted_notes=false&sections=notes%2Cservices%2Cattendance%2Cdiscipline_incidents%2Cassessments&to_date=03%2F13%2F2018');
+    expect(wrapper.instance().studentReportURL()).toEqual('/students/42/student_report.pdf?from_date=08%2F15%2F2016&include_restricted_notes=false&sections=notes%2Cservices%2Cattendance%2Cdiscipline_incidents%2Cassessments&to_date=03%2F14%2F2018');
   });
 
   it('creates download URL in correct format with include_restricted_notes', () => {
     const context = testContext();
     const wrapper = mount(<ProfilePdfDialog {...testProps()} />, {context});
     wrapper.setState({includeRestrictedNotes: true});
-    expect(wrapper.instance().studentReportURL()).toEqual('/students/42/student_report.pdf?from_date=08%2F15%2F2016&include_restricted_notes=true&sections=notes%2Cservices%2Cattendance%2Cdiscipline_incidents%2Cassessments&to_date=03%2F13%2F2018');
+    expect(wrapper.instance().studentReportURL()).toEqual('/students/42/student_report.pdf?from_date=08%2F15%2F2016&include_restricted_notes=true&sections=notes%2Cservices%2Cattendance%2Cdiscipline_incidents%2Cassessments&to_date=03%2F14%2F2018');
   });
 });

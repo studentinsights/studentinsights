@@ -352,7 +352,7 @@ exports[`snapshots view 1`] = `
               "width": "8em",
             }
           }
-          value="03/13/2018"
+          value="03/14/2018"
         />
       </div>
     </div>
@@ -379,6 +379,8 @@ exports[`snapshots view 1`] = `
       style={
         Object {
           "background": undefined,
+          "fontSize": 12,
+          "margin": 0,
         }
       }
     >
