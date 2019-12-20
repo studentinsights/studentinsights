@@ -23,11 +23,12 @@ class MultifactorAuthenticator
     return false unless is_multifactor_enabled?
 
     # Check the code, enforcing that it comes after the last verification, but
-    # allowing 15 seconds of drift if the code hasn't been used yet.
+    # allowing n seconds of drift if the code hasn't been used yet.
+    drift_behind = 30 # check tests to see impact of tuning this
     totp = create_totp!
     verified_password_timestamp = totp.verify(login_code, {
       after: multifactor_config.last_verification_at,
-      drift_behind: 15
+      drift_behind: drift_behind
     })
     return false if verified_password_timestamp.nil?
 

@@ -110,24 +110,46 @@ RSpec.describe 'MultifactorAuthenticator' do
       end
     end
 
-    it 'allows drift under 15 seconds' do
+    it 'allows code within drift interval (when at start of window)' do
       time_now = Time.parse('2017-03-16T11:12:00.000Z')
       login_code = nil
       Timecop.freeze(time_now) do
         login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
       end
-      Timecop.freeze(time_now + 30.seconds + 14.seconds) do
+      Timecop.freeze(time_now + 30.seconds + 29.seconds) do
         expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(login_code)).to eq true
       end
     end
 
-    it 'guards against drift of 15 seconds or more' do
+    it 'guards against stale code outside drift interval (when at start of window)' do
       time_now = Time.parse('2017-03-16T11:12:00.000Z')
       login_code = nil
       Timecop.freeze(time_now) do
         login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
       end
-      Timecop.freeze(time_now + 30.seconds + 15.seconds) do
+      Timecop.freeze(time_now + 30.seconds + 30.seconds) do
+        expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(login_code)).to eq false
+      end
+    end
+
+    it 'allows drift (when at end of window)' do
+      time_now = Time.parse('2017-03-16T11:12:29.000Z')
+      login_code = nil
+      Timecop.freeze(time_now) do
+        login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
+      end
+      Timecop.freeze(time_now + 1.seconds + 29.seconds) do
+        expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(login_code)).to eq true
+      end
+    end
+
+    it 'guards access (when at end of window)' do
+      time_now = Time.parse('2017-03-16T11:12:29.000Z')
+      login_code = nil
+      Timecop.freeze(time_now) do
+        login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
+      end
+      Timecop.freeze(time_now + 1.seconds + 30.seconds) do
         expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(login_code)).to eq false
       end
     end
@@ -273,6 +295,73 @@ RSpec.describe 'MultifactorAuthenticator' do
     it 'returns nil when not enabled' do
       authenticator = MultifactorAuthenticator.new(pals.shs_sofia_counselor)
       expect(authenticator.send(:provision)).to eq nil
+    end
+  end
+
+  describe 'totp library itself, works the way we expect with a specific drift_behind value' do
+    let!(:drift_behind) { 30 }
+
+    it 'works at start of window' do
+      totp = ROTP::TOTP.new('base32secret3232')
+      now = Time.at(1474590600+0).utc
+      expect(now.to_s).to eq '2016-09-23 00:30:00 UTC'
+      expect(now.to_i % 30).to eq 0
+
+      login_code = totp.at(now)
+      expect(login_code).to eq('250939')
+
+      # just test 'em all +/- 120 seconds in both directions and verify behavior
+      valid_n_seconds_after = (-120..120).select do |n|
+        totp.verify(login_code, drift_behind: drift_behind, at: now+n).present?
+      end
+      expect(valid_n_seconds_after.minmax).to eq [0, 59]
+    end
+
+    it 'works at end of window' do
+      totp = ROTP::TOTP.new('base32secret3232')
+      now = Time.at(1474590600+29).utc
+      expect(now.to_s).to eq '2016-09-23 00:30:29 UTC'
+      expect(now.to_i % 30).to eq 29
+
+      login_code = totp.at(now)
+      expect(login_code).to eq('250939')
+
+      # just test 'em all +/- 120 seconds in both directions and verify behavior
+      valid_n_seconds_after = (-120..120).select do |n|
+        totp.verify(login_code, drift_behind: drift_behind, at: now+n).present?
+      end
+      expect(valid_n_seconds_after.minmax).to eq [-29, 30]
+    end
+
+    it 'range makes sense, regardless of where in the time window' do
+      totp = ROTP::TOTP.new('base32secret3232')
+
+      # simulate doing this at a range of times
+      times_within_window = (-130..130).map do |n|
+        Time.at(1474590600+n).utc
+      end
+
+      # for each time, get the login code
+      # then compute how many seconds afterward that code remains valid for
+      # and how long beforehand it would be valid (eg, based on authenticator
+      # app heuristics)
+      max_n_seconds_before = []
+      max_n_seconds_after = []
+      times_within_window.each do |time|
+        login_code = totp.at(time)
+        valid_at_n_seconds = (-70..70).select do |n|
+          totp.verify(login_code, drift_behind: drift_behind, at: time+n).present?
+        end
+        max_n_seconds_after << valid_at_n_seconds.max
+        max_n_seconds_before << valid_at_n_seconds.min
+      end
+
+      # whatever the initial time was, the login code should remains valid
+      # afterward for a limited time period that is in the range we expect,
+      # and would be valid for only a limited period beforehand (eg, heuristics
+      # in the authenticator app)
+      expect(max_n_seconds_before.minmax).to eq [-29, 0]
+      expect(max_n_seconds_after.minmax).to eq [30, 59]
     end
   end
 end
