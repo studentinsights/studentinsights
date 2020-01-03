@@ -43,7 +43,7 @@
     "percentile": "^1.2.0",
     "promise-polyfill": "^6.0.2",
     "query-string": "^5.1.0",
-    "react": "^16.8.6",
+    "react": "~16.8.6",
     "react-autocomplete": "^1.8.1",
     "react-beautiful-dnd": "^11.0.2",
     "react-debounce-input": "^3.2.0",
