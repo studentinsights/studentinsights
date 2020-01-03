@@ -60,6 +60,9 @@ install:
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm install --lts; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm use --lts; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn install; fi
+  # It's okay that the lockfile is linted after `yarn install` since the point
+  # is to protect the production environment, not the CI environment.
+  - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn lockfile-lint-cli; fi
 
 script:
   # dependency audits
