@@ -12,6 +12,7 @@
   "scripts": {
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts ui; exit 0",
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts ui",
+    "lockfile-lint": "lockfile-lint -t yarn --path yarn.lock --allowed-hosts registry.yarnpkg.com --validate-https",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
@@ -79,6 +80,7 @@
     "eslint-plugin-react": "^7.14.2",
     "jest": "^24.7.1",
     "jest-canvas-mock": "^1.1.0",
+    "lockfile-lint": "^3.0.5",
     "script-loader": "^0.7.2",
     "style-loader": "^0.20.3",
     "webpack": "^3.8.1",
