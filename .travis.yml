@@ -59,6 +59,7 @@ install:
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then . $HOME/.nvm/nvm.sh; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm install --lts; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm use --lts; fi
+  - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn lockfile-lint; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn install; fi
 
 script:
