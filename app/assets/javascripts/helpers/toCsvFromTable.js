@@ -2,7 +2,8 @@ import {renderToStaticMarkup} from 'react-dom/server';
 
 
 // For converting a react-virtualized table into a CSV in the client for download.
-// Reads the `<Column />` definition.
+// Reads the `<Column />` definition for `label` and `cellRenderer`.
+// Minimal implementation for reading Column and for escaping.
 export function toCsvTextFromTable(columns, rows, options = {}) {
   const delimiter = options.delimiter || ',';
   const headers = columns.map(column => column.label.replace(/\s/g, '_'));
