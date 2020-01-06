@@ -161,14 +161,19 @@ const styles = {
   }
 };
 
-
 // This is used both for react-virtualized and interpreted to make the CSV export.
-export function describeColumns(nowMoment) {
+export function describeColumns(nowMoment, options = {}) {
   const gradeCellWidth = 50;
   const numericCellWidth = 60;
   const supportCellWidth = 60;
 
-  return [{
+  // This allows including first/last as separate columns for spreadsheet uses,
+  // since they are a pain to split back up with formulas.
+  const extraCsvColumns = (options.csv) ? [{
+    label: 'Student name reversed',
+    cellRenderer: renderStudentReversedForCsv
+  }] : [];
+  return extraCsvColumns.concat([{
     dataKey: 'student',
     label: 'Student',
     width: 140,
@@ -249,7 +254,7 @@ export function describeColumns(nowMoment) {
     label: 'Program or SPED',
     width: supportCellWidth,
     cellRenderer: renderProgram
-  }];
+  }]);
 }
 
 // The linter wants propTypes for all these now that they're factored out from
@@ -259,6 +264,14 @@ function renderStudent({rowData}) {
   const student = rowData;
   return <a style={styles.person} target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
 }
+
+// Using commas means making a TSV, since the CSV creator is not
+// smart about escaping.
+function renderStudentReversedForCsv({rowData}) {
+  const student = rowData;
+  return <span>{student.last_name}, {student.first_name}</span>;
+}
+
 
 function renderLevel({rowData}) {
   return <span style={{textAlign: 'center'}}>{rowData.level.level_number}</span>;
