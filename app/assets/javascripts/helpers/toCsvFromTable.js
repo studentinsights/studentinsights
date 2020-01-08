@@ -1,5 +1,5 @@
 import {renderToStaticMarkup} from 'react-dom/server';
-import csvStringify from 'csv-stringify/lib/sync';
+import csvStringify from 'csv-stringify/lib/es5/sync'; // note ES5
 
 // For converting a react-virtualized table into a CSV in the client for download.
 // Reads the `<Column />` definition for `label` and `cellRenderer`.
