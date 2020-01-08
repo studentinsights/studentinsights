@@ -269,8 +269,7 @@ export default class LevelsView extends React.Component {
   // This is expensive to render, since it unrolls the whole spreadsheet into a string
   // and writes it inline to the link.
   renderLinkWithCsvDataInline(columns, students) {
-    // Use tab delimited, to allow commas in reversed full names.
-    const csvText = toCsvTextFromTable(columns, students, {delimiter: '\t'});
+    const csvText = toCsvTextFromTable(columns, students);
     const {nowFn} = this.context;
     const now = nowFn();
     const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
