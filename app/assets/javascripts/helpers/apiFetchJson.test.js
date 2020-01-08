@@ -34,6 +34,28 @@ it('#apiFetchJson', done => {
   });
 });
 
+it('#apiFetchJson parses non-20x responses, rejecting Promise', done => {
+  fetchMock.get('/test-url', {
+    status: 403,
+    body: {json_error: 'msg' }
+  });
+
+  apiFetchJson('/test-url', { queryFoo: 'bar' }).catch(json => {
+    expect(fetchMock.calls()).toEqual([[
+      '/test-url',
+      {
+        "credentials": "same-origin",
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET"
+      }
+    ]]);
+    expect(json).toEqual({json_error: 'msg'});
+    done();
+  });
+});
+
 
 it('#apiPostJson', done => {
   fetchMock.post('/test-url', { responseFoo: 'baz' });
