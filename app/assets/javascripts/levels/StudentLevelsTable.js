@@ -265,8 +265,8 @@ function renderStudent({rowData}) {
   return <a style={styles.person} target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
 }
 
-// This assumes when we generate an actual CSV that the comma will be
-// properly escaped.
+// Using commas means making a TSV, since the CSV creator is not
+// smart about escaping.
 function renderStudentReversedForCsv({rowData}) {
   const student = rowData;
   return <span>{student.last_name}, {student.first_name}</span>;
