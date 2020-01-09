@@ -1,7 +1,7 @@
 {% include navbar.html %}
 
 # What's next?
-*Last updated on 11/18/19*
+*Last updated on 1/9/20*
 
 Student Insights is [open source](https://github.com/studentinsights/studentinsights), which means that all code and all changes are published publicly.  We also aim to build in the open, and so much of our discussion about what to build and why is public as well.  We also believe in [free software](https://www.gnu.org/philosophy/free-sw.en.html), and the idea that school communities should have the freedom to run, copy, change and improve their software.  If this is new to you, welcome!
 

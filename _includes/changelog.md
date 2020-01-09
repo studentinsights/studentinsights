@@ -1,3 +1,38 @@
+Friday 1/3 updates:
+- **Security**: Update JavaScript dependency resolutions [#2735](https://github.com/studentinsights/studentinsights/pull/2735)
+
+Friday 12/13 updates:
+- **Google API**: Retry by default [#2725](https://github.com/studentinsights/studentinsights/pull/2725)
+- **Testing**: Update CoverageChecker to notice when file names change [#2726](https://github.com/studentinsights/studentinsights/pull/2726)
+- **Login security**: Enable email verification on login, for internal use only [#2721](https://github.com/studentinsights/studentinsights/pull/2721)
+- **Login**: Adjust drift_behind for MFA verification [#2728](https://github.com/studentinsights/studentinsights/pull/2728)
+
+Friday 12/6 updates:
+- **Notes**: Fix to resizing text area when longer than screen height [#2719](https://github.com/studentinsights/studentinsights/pull/2719) [#2720](https://github.com/studentinsights/studentinsights/pull/2720)
+- **Demo**: Support language dropdown for Levels page in demo [#2718](https://github.com/studentinsights/studentinsights/pull/2718)
+- **Maintenance**: Object.values polyfill for IE11 [#2717](https://github.com/studentinsights/studentinsights/pull/2717)
+- **Maintenance**: Upgrade to Rails 6 [#2679](https://github.com/studentinsights/studentinsights/pull/2679)
+- **Monitoring**: Review and safelist some fields for alerting [#2724](https://github.com/studentinsights/studentinsights/pull/2724)
+- **Security**: Update Puma server to 4.3.1
+- **Admin tools**: Fix breaking changes in administrate; remove some code on top [#2722](https://github.com/studentinsights/studentinsights/pull/2722)
+- **Admin tools**: Fix bug blocking districtwide users not set as admin in SIS from seeing import jobs [#2723](https://github.com/studentinsights/studentinsights/pull/2723)
+
+Friday 11/29 updates:
+- **Problem solving**: Trying variant of problem solving for reading in MTSS
+
+Friday 11/22 updates:
+- **MCAS**: Update score range, add more tests [#2713](https://github.com/studentinsights/studentinsights/pull/2713) [#2714](https://github.com/studentinsights/studentinsights/pull/2714) [#2715](https://github.com/studentinsights/studentinsights/pull/2715)
+- **Security**: Another scrub pass on importer logging [#2710](https://github.com/studentinsights/studentinsights/pull/2710)
+- **Security**: Update scrubbing in Rollbar.js for searching notes
+- **Search notes**: Release for Bedford school and instructional leaders
+
+
+
+
+
+
+
+
 Friday 11/15 updates:
 - **STAR**: Update config to read from export SFTP box instead of vendor [#2712](https://github.com/studentinsights/studentinsights/pull/2712)
 
