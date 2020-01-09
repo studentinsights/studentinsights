@@ -8,7 +8,7 @@ As we've built Student Insights, we've created different training materials ours
     <img style="border: 1px solid #eee;" src="img/training-first.png" />
     <div>Student Insights: Basics and Navigation video</div>
   </a>
-  <a target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/1kfjw-mOfdLzgbaDjns-4zqm-FRsFCwyT" style="display: block; flex: 1;">
+  <a target="_blank" rel="noopener noreferrer" href="https://drive.google.com/file/d/1xGjTpU08Z-vJpLjjsvWLSsyLZ3MnY1vc/view" style="display: block; flex: 1;">
     <img style="border: 1px solid #eee;" src="img/training-notes.png" />
     <div>Student Insights: Notes training video</div>
   </a>
