@@ -1,14 +1,17 @@
 import {renderToStaticMarkup} from 'react-dom/server';
-
+import csvStringify from 'csv-stringify/lib/es5/sync'; // note ES5
 
 // For converting a react-virtualized table into a CSV in the client for download.
 // Reads the `<Column />` definition for `label` and `cellRenderer`.
 // Minimal implementation for reading Column and for escaping.
 export function toCsvTextFromTable(columns, rows, options = {}) {
-  const delimiter = options.delimiter || ',';
   const headers = columns.map(column => column.label.replace(/\s/g, '_'));
-  const lines = rows.map(row => toCsvColumns(columns, row).join(delimiter));
-  return [headers.join(delimiter)].concat(lines).join("\n");
+  const records = rows.map(row => toCsvColumns(columns, row));
+  return csvStringify(records, {
+    header: true,
+    columns: headers,
+    ...options
+  });
 }
 
 function toCsvColumns(columns, rowData) {
