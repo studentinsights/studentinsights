@@ -72,7 +72,7 @@
     "babel-preset-react-app": "^7.0.0",
     "clean-webpack-plugin": "^0.1.17",
     "compression-webpack-plugin": "^1.0.1",
-    "concurrently": "^3.5.0",
+    "concurrently": "^5.0.2",
     "css-loader": "^2.1.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.12.1",
