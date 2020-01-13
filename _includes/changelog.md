@@ -1,3 +1,8 @@
+Friday 1/10 updates:
+- **Levels**: Also export reversed name in download [#2736](https://github.com/studentinsights/studentinsights/pull/2736])
+- **Export**: Swap in CSV package for escaping [#2737](https://github.com/studentinsights/studentinsights/pull/2737])
+- **Reading**: Design iterations on reader profile mockups (see internal docs)
+
 Friday 1/3 updates:
 - **Security**: Update JavaScript dependency resolutions [#2735](https://github.com/studentinsights/studentinsights/pull/2735)
 
