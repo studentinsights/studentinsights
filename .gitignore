@@ -72,8 +72,8 @@ _site/
 !/spec/importers/file_importers/data_flows_fixture.json
 
 *.csv
-!spec/fixtures/*.csv
-!spec/importers/*.csv
+!spec/fixtures/**/*.csv
+!spec/importers/**/*.csv
 
 *.sql
 !/x2_export/sql/*.sql
