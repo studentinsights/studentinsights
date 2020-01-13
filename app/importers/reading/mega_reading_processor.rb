@@ -15,7 +15,6 @@ class MegaReadingProcessor
     @educator_id = educator_id
     @benchmark_school_year = benchmark_school_year
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
-    @matcher = options.fetch(:matcher, ImportMatcher.new)
 
     # The standard 8/20/19 template has two extra rows explaining the columns,
     # we skip them for importing the data.  Some one-off imports may use
@@ -37,7 +36,7 @@ class MegaReadingProcessor
       next if flattened_rows.nil?
 
       rows += flattened_rows
-      flattened_rows.size.times { @matcher.count_valid_row }
+      flattened_rows.size.times { @valid_rows_count += 1 }
     end
     log "MegaReadingProcessor#stats: #{stats}"
 
@@ -54,25 +53,26 @@ class MegaReadingProcessor
 
   def stats
     {
+      valid_rows_count: @valid_rows_count,
       valid_student_names_count: @valid_student_names_count,
       valid_data_points_count: @valid_data_points_count,
       blank_student_name_count: @blank_student_name_count,
       invalid_student_name_count: @invalid_student_name_count,
-      invalid_student_names_list_size: @invalid_student_names_list.size,
       blank_data_points_count: @blank_data_points_count,
       missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
-      matcher: @matcher.stats
     }
   end
 
   private
   def reset_counters!
+
     @blank_data_points_count = 0
     @missing_data_point_because_student_moved_school = 0
     @invalid_student_name_count = 0
-    @invalid_student_names_list = []
+    @invalid_student_names_list = [] # potentially sensitive
     @valid_data_points_count = 0
     @valid_student_names_count = 0
+    @valid_rows_count = 0
     @blank_student_name_count = 0
   end
 
@@ -127,7 +127,7 @@ class MegaReadingProcessor
     # look it up
     student = Student.find_by_local_id(local_id)
     if student.nil?
-      [nil, :not_found, "row index: #{index}"]
+      return [nil, :not_found, "row index: #{index}"]
     end
 
     [student.id, nil, nil]
