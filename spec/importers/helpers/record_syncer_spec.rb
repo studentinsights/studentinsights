@@ -324,7 +324,11 @@ RSpec.describe RecordSyncer do
 
     it 'includes district_key and notification_tag when logging and reporting to Rollbar' do
       expect(Rollbar).to receive(:error).with('RecordSyncer#notify! in somerville for AttendanceImporter', nil, {
-        rollbar_safelist_alerts: [{key: :invalid_rows_count, count: 30, percentage: 0.30}],
+        rollbar_safelist_alerts: [{
+          rollbar_safelist_alert_key: :invalid_rows_count,
+          rollbar_safelist_alert_count: 30,
+          rollbar_safelist_alert_percentage: 0.30
+        }],
         rollbar_safelist_caller: a_kind_of(Array)
       })
       _, log, _ = test_alerting_for([
@@ -336,10 +340,15 @@ RSpec.describe RecordSyncer do
 
     it 'calls Rollbar when alerting exceeds thresholds' do
       expect(Rollbar).to receive(:error).with('RecordSyncer#notify! in somerville for default', nil, {
-        rollbar_safelist_alerts: [
-          {key: :invalid_rows_count, count: 17, percentage: 0.17},
-          {key: :created_rows_count, count: 13, percentage: 0.13}
-        ],
+        rollbar_safelist_alerts: [{
+          rollbar_safelist_alert_key: :invalid_rows_count,
+          rollbar_safelist_alert_count: 17,
+          rollbar_safelist_alert_percentage: 0.17
+        }, {
+          rollbar_safelist_alert_key: :created_rows_count,
+          rollbar_safelist_alert_count: 13,
+          rollbar_safelist_alert_percentage: 0.13
+        }],
         rollbar_safelist_caller: a_kind_of(Array)
       })
 
