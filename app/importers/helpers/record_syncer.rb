@@ -180,6 +180,11 @@ class RecordSyncer
     alerts = []
 
     # Check each stat
+    # :passed_nil_record_count,
+    # :invalid_rows_count,
+    # :updated_rows_count,
+    # :created_rows_count,
+    # :destroyed_records_count
     computed_stats = stats
     @alert_on_stats.each do |key|
       count = computed_stats[key]
@@ -188,7 +193,11 @@ class RecordSyncer
       percentage = (count.to_f / @total_sync_calls_count)
       next unless @alert_tuning.should_alert?(key, count, percentage)
 
-      alerts << { key: key, count: count, percentage: percentage }
+      alerts << {
+        rollbar_safelist_alert_key: key,
+        rollbar_safelist_alert_count: count,
+        rollbar_safelist_alert_percentage: percentage
+      }
     end
 
     alerts
