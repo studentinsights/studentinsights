@@ -64,9 +64,13 @@ RSpec.describe StarReadingImporter do
       end
     end
 
-    it 'works for v1 format in new bedford, via SFTP box for SIS' do
+    it 'when new_bedford is enabled, it works for v1, via SFTP box for SIS' do
       Timecop.freeze(pals.time_now) do
         mock_sis_sftp!(PerDistrict::NEW_BEDFORD, "#{Rails.root}/spec/importers/star/star_reading_v1.csv")
+        # mock that new_bedford is enabled, to exercise this test code
+        # even if it has been temporarily disabled
+        allow(PerDistrict.new).to receive(:is_star_import_enabled).and_return(true)
+
         importer, log = create_test_importer!
         importer.import
         expect(log.output).to include(':processed_rows_count=>1')
@@ -101,7 +105,7 @@ RSpec.describe StarReadingImporter do
     end
   end
 
-  it 'logs and aborts when config not set (eg, in Bedford)' do
+  it 'logs and aborts when not enabled (eg, in Bedford)' do
     mock_per_district = PerDistrict.new(district_key: 'bedford')
     allow(mock_per_district).to receive(:try_star_filename).and_return(nil)
     allow(PerDistrict).to receive(:new).and_return(mock_per_district)
@@ -112,6 +116,6 @@ RSpec.describe StarReadingImporter do
       log: log
     })
     importer.import
-    expect(log.output).to include 'Aborting, no remote_file_name'
+    expect(log.output).to include 'Aborting, is_star_import_enabled=false'
   end
 end
