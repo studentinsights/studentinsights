@@ -115,6 +115,22 @@ RSpec.describe EducatorsImporter do
       expect(log.output).to include('@skipped_from_school_filter: 0')
       expect(log.output).to include('@included_because_in_whitelist_count: 1')
     end
+
+    it 'counts ignored_because_login_or_email_missing_count when login_name missing, not as nil' do
+      importer = make_educators_importer()
+      allow(importer).to receive(:download_csv).and_return([make_test_row(login_name: '')])
+      importer.import
+      expect(log.output).to include('@ignored_because_login_or_email_missing_count: 1')
+      expect(log.output).to_not include(':passed_nil_record_count=>1')
+    end
+
+    it 'counts ignored_because_login_or_email_missing_count when email missing, not as nil' do
+      importer = make_educators_importer()
+      allow(importer).to receive(:download_csv).and_return([make_test_row(login_name: '')])
+      importer.import
+      expect(log.output).to include('@ignored_because_login_or_email_missing_count: 1')
+      expect(log.output).to_not include(':passed_nil_record_count=>1')
+    end
   end
 
   describe 'works for login_name and email across districts' do
