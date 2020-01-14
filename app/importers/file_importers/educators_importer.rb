@@ -41,6 +41,7 @@ class EducatorsImporter
     log('Done loop.')
     log("@included_because_in_whitelist_count: #{@included_because_in_whitelist_count}")
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
+    log("@ignored_because_login_or_email_missing_count: #{@ignored_because_login_or_email_missing_count}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
     log("@ignored_homeroom_because_no_school_count: #{@ignored_homeroom_because_no_school_count}")
@@ -73,6 +74,7 @@ class EducatorsImporter
   def reset_counters!
     @included_because_in_whitelist_count = 0
     @skipped_from_school_filter = 0
+    @ignored_because_login_or_email_missing_count = 0
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
     @ignored_homeroom_because_no_school_count = 0
@@ -118,8 +120,16 @@ class EducatorsImporter
       return
     end
 
-    # Find the matching Educator record if possible and sync it
+    # Find the matching Educator record if possible.
+    # Since there are often records coming from the SIS without email or login_name,
+    # count those separately.
     maybe_educator = EducatorRow.new(row, school_ids_dictionary).match_educator_record
+    if maybe_educator.nil?
+      @ignored_because_login_or_email_missing_count += 1
+      return
+    end
+
+    # Sync the educator row
     @educator_syncer.validate_mark_and_sync!(maybe_educator)
 
     # Find the matching Homeroom record if possible and
