@@ -64,7 +64,8 @@ class EducatorsImporter
     log("Educator RecordSyncer#stats: #{@educator_syncer.stats}")
     log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
 
-    # Preserve Homeroom records that aren't exported any more as well.
+    # Preserve Homeroom records that aren't exported any more as well, or
+    # are no longer referenced by any educators.
     # This doesn't mark them though and leaves them untouched.
     log('For Homeroom, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Homeroom records.')
     log("Homeroom RecordSyncer#stats: #{@homeroom_syncer.stats}")
@@ -152,7 +153,7 @@ class EducatorsImporter
     end
 
     # No homeroom for educator
-    if !row[:homeroom]
+    if !row.has_key?(:homeroom) || row[:homeroom].nil? || row[:homeroom] == ''
       @ignored_no_homeroom_count += 1
       return nil
     end
