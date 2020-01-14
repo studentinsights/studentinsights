@@ -137,7 +137,6 @@ RSpec.describe EducatorsImporter do
       allow(importer).to receive(:download_csv).and_return([make_test_row(homeroom: '')])
       importer.import
       expect(log.output).to include('@ignored_no_homeroom_count: 1')
-      expect(log.output).to_not include(':passed_nil_record_count=>1')
     end
   end
 
