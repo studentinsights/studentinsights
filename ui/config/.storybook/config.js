@@ -39,6 +39,7 @@ function loadStories() {
 
   // reader profile
   require('../../../app/assets/javascripts/reader_profile/ReaderProfileJune.story');
+  require('../../../app/assets/javascripts/reader_profile_january/ReaderProfileJanuary.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');

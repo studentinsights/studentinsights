@@ -5,12 +5,12 @@ import tabProptypes from './tabPropTypes';
 import {adjustedGrade} from '../helpers/gradeText';
 import {somervilleReadingThresholdsFor, DIBELS_FSF} from '../reading/thresholds';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
-
+import {Tab, NoInformation} from './Tabs';
 
 export default class FirstSoundFluencyTab extends React.Component {
   render() {
     const {nowFn} = this.context;
-    const {student, readerJson} = this.props;
+    const {onClick, student, readerJson} = this.props;
 
     // Most recent data point
     const benchmarkDataPoints = readerJson.benchmark_data_points.filter(d => d.benchmark_assessment_key === DIBELS_FSF);
@@ -19,7 +19,13 @@ export default class FirstSoundFluencyTab extends React.Component {
     }));
 
     if (!dataPoint) {
-      return <div style={{backgroundColor: 'grey'}}>No information</div>;
+      return (
+        <Tab
+          text="First sound fluency"
+          orange={true}
+          onClick={onClick}
+        />
+      );
     }
 
     // Format
@@ -29,17 +35,18 @@ export default class FirstSoundFluencyTab extends React.Component {
       gradeThen,
       dataPoint.benchmark_period_key
     ]);
-    const backgroundColor = (dataPoint.json.value < benchmark)
-      ? 'orange'
-      : 'green';
-
     
-    return <div style={backgroundColor}>First sound fluency</div>;
+    return (
+      <Tab
+        text="First sound fluency"
+        orange={dataPoint.json.value < benchmark}
+        onClick={onClick}
+      />
+    );
   }
 }
 FirstSoundFluencyTab.propTypes = tabProptypes;
 FirstSoundFluencyTab.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
-
 

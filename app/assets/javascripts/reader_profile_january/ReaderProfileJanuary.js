@@ -72,17 +72,16 @@ export default class ReaderProfileJanuary extends React.Component {
 
   renderTab(rpKey) {
     const {student, readerJson} = this.props;
+    
     const {grades, Tab} = componentsForReaderProfileKey(rpKey);
     if (grades.indexOf(student.grade) === -1) return null;
-
-    const tabProps = {
-      student,
-      readerJson
-    };
     return (
-      <div key={rpKey} style={styles.tab} onClick={this.onTabSelected.bind(this, rpKey)}>
-        <Tab {...tabProps} />
-      </div>
+      <Tab
+        key={rpKey}
+        student={student}
+        readerJson={readerJson}
+        onClick={this.onTabSelected.bind(this, rpKey)}
+      />
     );
   }
 
@@ -152,19 +151,6 @@ const styles = {
     alignItems: 'flex-end'
   },
   tabs: {},
-  tab: {
-    border: '1px solid #eee',
-    margin: 5,
-    marginLeft: 0,
-    marginRight: 10,
-    padding: 5,
-    borderRadius: 1,
-    height: '3em',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    cursor: 'pointer'
-  },
   expanded: {
     margin: 10,
     border: '1px solid #333',

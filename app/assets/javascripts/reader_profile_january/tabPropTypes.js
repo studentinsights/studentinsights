@@ -13,5 +13,7 @@ export default {
     feed_cards: PropTypes.arrayOf(PropTypes.object).isRequired,
     current_school_year: PropTypes.number.isRequired,
     benchmark_data_points: PropTypes.arrayOf(PropTypes.object).isRequired
-  }).isRequired
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  style: PropTypes.object
 };
