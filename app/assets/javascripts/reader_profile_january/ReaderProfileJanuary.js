@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OralReadingFluencyTab from './tabs/OralReadingFluencyTab';
-import OralReadingFluencyView from './tabs/OralReadingFluencyView';
-import LetterNamingFluencyTab from './tabs/LetterNamingFluencyTab';
-import LetterNamingFluencyView from './tabs/LetterNamingFluencyView';
-import FirstSoundFluencyTab from './tabs/FirstSoundFluencyTab';
-import FirstSoundFluencyView from './tabs/FirstSoundFluencyView';
-import PhonemicSegmentationFluencyTab from './tabs/PhonemicSegmentationFluencyTab';
-import PhonemicSegmentationFluencyView from './tabs/PhonemicSegmentationFluencyView';
+import AccessTab from './AccessTab';
+import AccessView from './AccessView';
+import OralReadingFluencyTab from './OralReadingFluencyTab';
+import OralReadingFluencyView from './OralReadingFluencyView';
+import LetterNamingFluencyTab from './LetterNamingFluencyTab';
+import LetterNamingFluencyView from './LetterNamingFluencyView';
+import FirstSoundFluencyTab from './FirstSoundFluencyTab';
+import FirstSoundFluencyView from './FirstSoundFluencyView';
+import PhonemicSegmentationFluencyTab from './PhonemicSegmentationFluencyTab';
+import PhonemicSegmentationFluencyView from './PhonemicSegmentationFluencyView';
 
 
+// This manages the frame and overall interaction of selection
+// and the API for components describing different bits of
+// info.
 export default class ReaderProfileJanuary extends React.Component {
   constructor(props) {
     super(props);
@@ -21,25 +26,28 @@ export default class ReaderProfileJanuary extends React.Component {
   }
 
   onTabSelected(rpKey) {
-    this.setState({rpKey});
+    const updatedKey = (rpKey === this.state.rpKey) ? null : rpKey;
+    this.setState({rpKey: updatedKey});
   }
 
   render() {
     const {rpKey} = this.state;
     return (
-      <div>
-        <div className="ReaderProfileJanuary-Tabs">
-          {this.renderCategory("Student experience", [])}
-          {this.renderCategory("Oral language", [])}
-          {this.renderCategory("Phonological Awareness", [
+      <div className="ReaderProfileJanuary" style={styles.root}>
+        <div style={styles.categories}>
+          {this.renderCategory('Student experience', [])}
+          {this.renderCategory('Oral language', [
+            KEYS.ACCESS
+          ])}
+          {this.renderCategory('Phonological Awareness', [
             KEYS.FirstSoundFluency,
             KEYS.PhonemicSegmentationFluency
           ])}
-          {this.renderCategory("Phonics Fluency", [
+          {this.renderCategory('Phonics Fluency', [
             KEYS.LetterNamingFluency,
             KEYS.OralReadingFluency
           ])}
-          {this.renderCategory("Comprehension", [])}
+          {this.renderCategory('Comprehension', [])}
         </div>
         {rpKey && this.renderExpandedView(rpKey)}
       </div>
@@ -47,23 +55,32 @@ export default class ReaderProfileJanuary extends React.Component {
   }
 
   renderCategory(titleText, rpKeys) {
+    const isFaded = (this.state.rpKey !== null && rpKeys.indexOf(this.state.rpKey) === -1);
+    const categoryStyle = {
+      ...styles.category,
+      ...(isFaded ? styles.categoryFaded : {})
+    };
     return (
-      <div className="ReaderProfileCategory">
-        <h4>{titleText}</h4>
-        <div>{rpKeys.map(this.renderTab, this)}</div>
+      <div style={categoryStyle}>
+        <div style={styles.categoryTitle}>{titleText}</div>
+        <div style={styles.tabs}>
+          {rpKeys.map(this.renderTab, this)}
+        </div>
       </div>
     );
   }
 
   renderTab(rpKey) {
     const {student, readerJson} = this.props;
+    const {grades, Tab} = componentsForReaderProfileKey(rpKey);
+    if (grades.indexOf(student.grade) === -1) return null;
+
     const tabProps = {
       student,
       readerJson
     };
-    const {Tab} = componentsForReaderProfileKey(rpKey);
     return (
-      <div key={rpKey} onClick={this.onTabSelected.bind(this, rpKey)}>
+      <div key={rpKey} style={styles.tab} onClick={this.onTabSelected.bind(this, rpKey)}>
         <Tab {...tabProps} />
       </div>
     );
@@ -79,7 +96,7 @@ export default class ReaderProfileJanuary extends React.Component {
     };
     const {View} = componentsForReaderProfileKey(rpKey);
     return (
-      <div className="ReaderProfileJanuary-Expanded">
+      <div style={styles.expanded}>
         <View {...expandedProps} />
       </div>
     );
@@ -108,7 +125,60 @@ ReaderProfileJanuary.propTypes = {
 };
 
 
+const styles = {
+  root: {
+    marginBottom: 40
+  },
+  categories: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  category: {
+    flex: 1
+  },
+  categoryFaded: {
+    opacity: 0.2
+  },
+  categoryTitle: {
+    fontSize: 16,
+    marginRight: 10,
+    height: '3em',
+    lineHeight: '1.2em',
+    fontWeight: 'bold',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end'
+  },
+  tabs: {},
+  tab: {
+    border: '1px solid #eee',
+    margin: 5,
+    marginLeft: 0,
+    marginRight: 10,
+    padding: 5,
+    borderRadius: 1,
+    height: '3em',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    cursor: 'pointer'
+  },
+  expanded: {
+    margin: 10,
+    border: '1px solid #333',
+    padding: 10
+  }
+};
+
+
+
+
+// Describes the different reader profile keys (assessments).
+// These have components for a "Tab" and a "View" when clicked.
 const KEYS = {
+  ACCESS: 'r:ACCESS',
   FirstSoundFluency: 'r:DIBELS_FSF',
   PhonemicSegmentationFluency: 'r:DIBELS_PSF',
   LetterNamingFluency: 'r:DIBELS_LNF',
@@ -116,56 +186,30 @@ const KEYS = {
 };
 function componentsForReaderProfileKey(rpKey) {
   return {
+    [KEYS.ACCESS]: {
+      grades: ['KF', '1', '2', '3', '4', '5'],
+      Tab: AccessTab,
+      View: AccessView
+    },
     [KEYS.FirstSoundFluency]: {
+      grades: ['KF', '1', '2'],
       Tab: FirstSoundFluencyTab,
       View: FirstSoundFluencyView
     },
     [KEYS.PhonemicSegmentationFluency]: {
+      grades: ['KF', '1', '2'],
       Tab: PhonemicSegmentationFluencyTab,
       View: PhonemicSegmentationFluencyView
     },
     [KEYS.LetterNamingFluency]: {
+      grades: ['KF', '1', '2'],
       Tab: LetterNamingFluencyTab,
       View: LetterNamingFluencyView
     },
     [KEYS.OralReadingFluency]: {
+      grades: ['1', '2', '3', '4', '5'],
       Tab: OralReadingFluencyTab,
       View: OralReadingFluencyView
     }
   }[rpKey];
 }
-
- // // These keys define the categories of the reader profile.
-// const CATEGORIES = {
-//   ENGAGEMENT: 'c:ENGAGEMENT',
-//   ORAL_LANGUAGE: 'c:ORAL_LANGUAGE',
-//   PHONOLOGICAL_AWARENESS: 'c:PHONOLOGICAL_AWARENESS',
-//   PHONICS_FLUENCY: 'c:PHONICS_FLUENCY',
-//   COMPREHENSION: 'c:COMPREHENSION'
-// };
-
-// // This describes what should be shown in each category of the reader
-// // profile, and the ordering.
-// //
-// // These are "reader profile keys" that can be used to look up
-// // the React component to render for the tab or for the expanded view.
-// const READER_PROFILE_KEYS_BY_CATEGORY = {
-//   [CATEGORIES.ENGAGEMENT]: [],
-//   [CATEGORIES.ORAL_LANGUAGE]: [
-//     'r:ACCESS'
-//   ],
-//   [CATEGORIES.PHONOLOGICAL_AWARENESS]: [
-//     'r:DIBELS_FSF',
-//     'r:DIBELS_PSF'
-//   ],
-//   [CATEGORIES.PHONICS_FLUENCY]: [
-//     'r:DIBELS_LNF',
-//     'r:DIBELS_NWF',
-//     'r:DIBELS_ORF'
-//   ],
-//   [CATEGORIES.COMPREHENSION]: [
-//     'r:F_AND_P_ENGLISH',
-//     'r:F_AND_P_SPANISH',
-//     'r:STAR_READING'
-//   ]
-// };
