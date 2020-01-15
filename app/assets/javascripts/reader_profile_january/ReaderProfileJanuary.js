@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OralReadingFluencyTab from '../tabs/OralReadingFluencyTab';
-// import NonsenseWordFluencyTab from '../tabs/NonsenseWordFluencyTab';
-import LetterNamingFluencyTab from '../tabs/LetterNamingFluencyTab';
-import FirstSoundFluencyTab from '../tabs/FirstSoundFluencyTab';
-import PhonemicSegmentationTab from '../tabs/PhonemicSegmentationTab';
+import OralReadingFluencyTab from './tabs/OralReadingFluencyTab';
+import OralReadingFluencyView from './tabs/OralReadingFluencyView';
+import LetterNamingFluencyTab from './tabs/LetterNamingFluencyTab';
+import LetterNamingFluencyView from './tabs/LetterNamingFluencyView';
+import FirstSoundFluencyTab from './tabs/FirstSoundFluencyTab';
+import FirstSoundFluencyView from './tabs/FirstSoundFluencyView';
+import PhonemicSegmentationFluencyTab from './tabs/PhonemicSegmentationFluencyTab';
+import PhonemicSegmentationFluencyView from './tabs/PhonemicSegmentationFluencyView';
 
 
 export default class ReaderProfileJanuary extends React.Component {
@@ -23,61 +26,66 @@ export default class ReaderProfileJanuary extends React.Component {
 
   render() {
     const {rpKey} = this.state;
-    const {readerJson, instructionalStrategiesJson} = this.props;
-    const tabProps = {
-      readerJson: readerJson,
-      instructionalStrategiesJson,
-      onSelect: this.onTabSelected
-    };
-
     return (
       <div>
         <div className="ReaderProfileJanuary-Tabs">
-          <Category titleText="Student experience" />
-          <Category titleText="Oral language" />
-          <Category titleText="Phonological Awareness">
-            {this.renderPhonologicalAwarenessTabs(tabProps)}
-          </Category>
-          <Category titleText="Phonics Fluency">
-            {this.renderPhonicsFluencyTabs(tabProps)}
-          </Category>
-          <Category titleText="Comprehension" />
+          {this.renderCategory("Student experience", [])}
+          {this.renderCategory("Oral language", [])}
+          {this.renderCategory("Phonological Awareness", [
+            KEYS.FirstSoundFluency,
+            KEYS.PhonemicSegmentationFluency
+          ])}
+          {this.renderCategory("Phonics Fluency", [
+            KEYS.LetterNamingFluency,
+            KEYS.OralReadingFluency
+          ])}
+          {this.renderCategory("Comprehension", [])}
         </div>
         {rpKey && this.renderExpandedView(rpKey)}
       </div>
     );
   }
 
-  renderPhonologicalAwarenessTabs(tabProps) {
+  renderCategory(titleText, rpKeys) {
     return (
-      <div>
-        <FirstSoundFluencyTab {...tabProps} />
-        <PhonemicSegmentationTab {...tabProps} />
+      <div className="ReaderProfileCategory">
+        <h4>{titleText}</h4>
+        <div>{rpKeys.map(this.renderTab, this)}</div>
       </div>
     );
   }
 
-  renderPhonicsFluencyTabs(tabProps) {
+  renderTab(rpKey) {
+    const {student, readerJson} = this.props;
+    const tabProps = {
+      student,
+      readerJson
+    };
+    const {Tab} = componentsForReaderProfileKey(rpKey);
     return (
-      <div>
-        <LetterNamingFluencyTab {...tabProps} />
-        {/*<NonsenseWordFluencyTab {...tabProps} />*/}
-        <OralReadingFluencyTab {...tabProps} />
+      <div key={rpKey} onClick={this.onTabSelected.bind(this, rpKey)}>
+        <Tab {...tabProps} />
       </div>
     );
   }
 
-  renderExpandedView() {
-    return 'expanded!';
-    // return (
-    //   <Expanded
-    //     readerJson={readerJson}
-    //     instructionalStrategiesJson={instructionalStrategiesJson}
-    //     onClose={this.onTabSelected.bind(this, null)}
-    //   />
-    // );
+  renderExpandedView(rpKey) {
+    const {student, readerJson, instructionalStrategiesJson} = this.props;
+    const expandedProps = {
+      student,
+      readerJson,
+      instructionalStrategiesJson,
+      onClose: this.onTabSelected.bind(this, null)
+    };
+    const {View} = componentsForReaderProfileKey(rpKey);
+    return (
+      <div className="ReaderProfileJanuary-Expanded">
+        <View {...expandedProps} />
+      </div>
+    );
   }
 }
+
 ReaderProfileJanuary.contextTypes = {
   nowFn: PropTypes.func.isRequired,
   districtKey: PropTypes.string.isRequired
@@ -100,24 +108,32 @@ ReaderProfileJanuary.propTypes = {
 };
 
 
-class Category extends React.Component {
-  render() {
-    const {titleText, children} = this.props;
-    return (
-      <div className="ReaderProfileCategory">
-        <h4>{titleText}</h4>
-        <div>{children}</div>
-      </div>
-    );
-  }
-}
-Category.propTypes = {
-  titleText: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+const KEYS = {
+  FirstSoundFluency: 'r:DIBELS_FSF',
+  PhonemicSegmentationFluency: 'r:DIBELS_PSF',
+  LetterNamingFluency: 'r:DIBELS_LNF',
+  OralReadingFluency: 'r:DIBELS_ORF'
 };
-
-
-
+function componentsForReaderProfileKey(rpKey) {
+  return {
+    [KEYS.FirstSoundFluency]: {
+      Tab: FirstSoundFluencyTab,
+      View: FirstSoundFluencyView
+    },
+    [KEYS.PhonemicSegmentationFluency]: {
+      Tab: PhonemicSegmentationFluencyTab,
+      View: PhonemicSegmentationFluencyView
+    },
+    [KEYS.LetterNamingFluency]: {
+      Tab: LetterNamingFluencyTab,
+      View: LetterNamingFluencyView
+    },
+    [KEYS.OralReadingFluency]: {
+      Tab: OralReadingFluencyTab,
+      View: OralReadingFluencyView
+    }
+  }[rpKey];
+}
 
  // // These keys define the categories of the reader profile.
 // const CATEGORIES = {

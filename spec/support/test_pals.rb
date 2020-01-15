@@ -129,6 +129,10 @@ class TestPals
       educator: @uri,
       label_key: 'enable_reflection_on_notes_patterns'
     })
+    EducatorLabel.create!({
+      educator: @uri,
+      label_key: 'enable_reader_profile_january'
+    })
     EducatorMultifactorConfig.create!({
       educator: @uri,
       rotp_secret: '4444rrr2vwjqgua2umohlpuzobar4444' # so development and demo have a stable TOTP setup over deploys

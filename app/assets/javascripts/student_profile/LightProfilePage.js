@@ -511,8 +511,8 @@ export default class LightProfilePage extends React.Component {
     const showReaderProfileJanuary = currentEducator.labels.indexOf('enable_reader_profile_january') !== -1;
     const readerProfileEl = (!showMinimalReadingData && !showReaderProfileJanuary) ? null : (
       <div>
-        {showMinimalReadingData && <ReaderProfileJunePage student={student} />}
         {showReaderProfileJanuary && <ReaderProfileJanuaryPage student={student} />}
+        {showMinimalReadingData && <ReaderProfileJunePage student={student} />}
       </div>
     );
     return (
