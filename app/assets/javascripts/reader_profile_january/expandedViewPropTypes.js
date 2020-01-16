@@ -14,6 +14,6 @@ export default {
     current_school_year: PropTypes.number.isRequired,
     benchmark_data_points: PropTypes.arrayOf(PropTypes.object).isRequired
   }).isRequired,
-  instructionalStrategiesJson: PropTypes.array.isRequired,
+  instructionalStrategies: PropTypes.array.isRequired,
   onClose: PropTypes.func.isRequired
 };

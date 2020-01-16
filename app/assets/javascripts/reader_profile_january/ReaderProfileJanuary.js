@@ -86,11 +86,11 @@ export default class ReaderProfileJanuary extends React.Component {
   }
 
   renderExpandedView(rpKey) {
-    const {student, readerJson, instructionalStrategiesJson} = this.props;
+    const {student, readerJson, instructionalStrategies} = this.props;
     const expandedProps = {
       student,
       readerJson,
-      instructionalStrategiesJson,
+      instructionalStrategies,
       onClose: this.onTabSelected.bind(this, null)
     };
     const {View} = componentsForReaderProfileKey(rpKey);
@@ -120,7 +120,7 @@ ReaderProfileJanuary.propTypes = {
     current_school_year: PropTypes.number.isRequired,
     benchmark_data_points: PropTypes.arrayOf(PropTypes.object).isRequired
   }).isRequired,
-  instructionalStrategiesJson: PropTypes.array.isRequired
+  instructionalStrategies: PropTypes.array.isRequired
 };
 
 
@@ -170,6 +170,7 @@ const KEYS = {
   LetterNamingFluency: 'r:DIBELS_LNF',
   OralReadingFluency: 'r:DIBELS_ORF'
 };
+
 function componentsForReaderProfileKey(rpKey) {
   return {
     [KEYS.ACCESS]: {

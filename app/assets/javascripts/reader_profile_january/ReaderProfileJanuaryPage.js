@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import RollbarErrorBoundary from '../components/RollbarErrorBoundary';
 import ReaderProfileJanuary from './ReaderProfileJanuary';
+import {readInstructionalStrategies} from './instructionalStrategies';
+
 
 // The entry point.  Pieces of this data is read by each of the components,
 // both to render their tabs in the overview, and also
@@ -27,14 +28,15 @@ export default class ReaderProfileJanuaryPage extends React.Component {
     );
   }
 
-  // TODO It fetches the monolithic `readerJson` and  `instructionalStrategiesJson` itself.
+  // It provides all data on reader profile and instructional strategies,
+  // for individual components to parse how they like.
   renderJson(json) {
     const {student} = this.props;
     return (
       <ReaderProfileJanuary
         student={student}
         readerJson={json}
-        instructionalStrategiesJson={[]}
+        instructionalStrategies={readInstructionalStrategies()}
       />
     );
   }
