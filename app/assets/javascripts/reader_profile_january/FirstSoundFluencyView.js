@@ -133,8 +133,8 @@ const styles = {
     fontWeight: 'bold'
   },
   addSuggestion: {
-    marginTop: 10,
     color: '#999',
-    fontSize: 12
+    fontSize: 12,
+    margin: 10
   }
 };

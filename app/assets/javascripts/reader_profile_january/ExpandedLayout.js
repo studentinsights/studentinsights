@@ -61,7 +61,8 @@ const styles = {
     fontSize: 16
   },
   close: {
-    color: '#999'
+    color: '#999',
+    cursor: 'pointer'
   },
   columns: {
     display: 'flex',
