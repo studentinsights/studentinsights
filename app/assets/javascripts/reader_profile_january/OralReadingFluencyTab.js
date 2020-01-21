@@ -6,7 +6,6 @@ import GenericDibelsTab from './GenericDibelsTab';
 
 export default class OralReadingFluencyTab extends React.Component {
   render() {
-    console.log('props', this.props);
     return (
       <GenericDibelsTab
         {...this.props}

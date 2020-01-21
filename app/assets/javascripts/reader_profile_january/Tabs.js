@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 // 
 // If there's no data, use <NoInformation /> instead, although
 // see the layout page for more.
-export function Tab({text, orange, style, onClick}) {
+export function Tab({text, orange, onClick, style = {}}) {
   return (
     <div
       onClick={onClick}

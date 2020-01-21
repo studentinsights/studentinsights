@@ -23,8 +23,8 @@ export const Categories = {
 // Map the downcased text that people use in Excel to internal keys,
 // so code outside this file can only use keys.
 const CategoryKeyMapping = {
-  'phonological awareness': [Categories.PHONOLOGICAL_AWARENESS],
-  'phonics fluency': [Categories.PHONICS_FLUENCY]
+  'phonological awareness': Categories.PHONOLOGICAL_AWARENESS,
+  'phonics fluency': Categories.PHONICS_FLUENCY
 };
 
 // Takes the CSV format, but parses the grades field into an array
@@ -82,10 +82,10 @@ export function readInstructionalStrategies() {
 
 // Instructional strategies are by category and grade, generically.
 // Also filter ones that don't have text or educator_email.
-export function matchStrategies(strategies, grade, categoryText) {
+export function matchStrategies(strategies, grade, categoryKey) {
   return strategies.filter(strategy => {
     if (strategy.grades.indexOf(grade) === -1) return false;
-    if (strategy.category_text.toLowerCase() !== categoryText.toLowerCase()) return false;
+    if (strategy.category_key !== categoryKey) return false;
     if (strategy.text === '') return false;
     if (strategy.educator_email === '') return false;
 

@@ -8,13 +8,14 @@ import {Tab} from './Tabs';
 export default class GenericDibelsTab extends React.Component {
   render() {
     const {nowFn} = this.context;
-    const {onClick, student, readerJson, tabText, benchmarkAssessmentKey} = this.props;
+    const {style, onClick, student, readerJson, tabText, benchmarkAssessmentKey} = this.props;
     
-    const dataPoint = mostRecentDataPoint(readerJson, benchmarkAssessmentKey);    
+    const dataPoint = mostRecentDataPoint(readerJson, benchmarkAssessmentKey);
     if (!dataPoint) return null;
     const isOrange = shouldHighlight(dataPoint, student.grade, nowFn());
     return (
       <Tab
+        style={style}
         text={tabText}
         orange={isOrange}
         onClick={onClick}

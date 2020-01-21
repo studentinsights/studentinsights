@@ -9,7 +9,7 @@ export default class LetterNamingFluencyTab extends React.Component {
     return (
       <GenericDibelsTab
         {...this.props}
-        tabText="First sound fluency"
+        tabText="Letter naming fluency"
         benchmarkAssessmentKey={DIBELS_LNF}
       />
     );

@@ -43,7 +43,6 @@ function storyProps(props) {
 
 function testAccess(beforeNowString, options = {}) {
   const dateTaken = toMomentFromTimestamp(beforeNowString).clone().subtract(35, 'days').format('YYYY-MM-DDTHH:mm:ss.SSSZ');
-  console.log('dateTaken', dateTaken);
   const performanceLevel = options.performanceLevel || '4';
   return {
     composite: {
@@ -180,7 +179,7 @@ storiesOf('reader_profile_january/ReaderProfileJanuary', module) // eslint-disab
         {runs.map(([nowString, cases]) => {
           return (
             <div key={nowString} style={{marginBottom: 40}}>
-              <h4 style={{color: '#999', margin: 5}}>on {toMomentFromTimestamp(nowString).format('M/D/Y')}</h4>
+              <h4 style={{color: '#999', marginBottom: 10}}>on {toMomentFromTimestamp(nowString).format('M/D/Y')}</h4>
               {cases.map((props, index) => (
                 <div key={index} style={{marginRight: 20, marginBottom: 20}}>
                   <h2>{props.student.first_name}, {props.student.grade}</h2>

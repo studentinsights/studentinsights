@@ -7,8 +7,8 @@ import {benchmarkPeriodToMoment} from '../reading/readingData';
 // Get most recent data point, regardless of time.
 export function mostRecentDataPoint(readerJson, benchmarkAssessmentKey) {
   const benchmarkDataPoints = readerJson.benchmark_data_points.filter(d => d.benchmark_assessment_key === benchmarkAssessmentKey);
-  return _.last(benchmarkDataPoints.map(dataPoint => {
-    return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year);
+  return _.last(_.sortBy(benchmarkDataPoints, dataPoint => {
+    return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year).unix();
   }));
 }
 

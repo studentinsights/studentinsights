@@ -63,7 +63,7 @@ export default class ReaderProfileJanuary extends React.Component {
     const isFaded = (this.state.rpKey !== null && rpKeys.indexOf(this.state.rpKey) === -1);
     const categoryStyle = {
       ...styles.category,
-      ...(isFaded ? styles.categoryFaded : {})
+      ...(isFaded ? styles.faded : {})
     };
     return (
       <div style={categoryStyle}>
@@ -86,11 +86,13 @@ export default class ReaderProfileJanuary extends React.Component {
 
   renderTab(rpKey) {
     const {student, readerJson} = this.props;
-    
-    const {grades, Tab} = componentsForReaderProfileKey(rpKey);
+    const {grades, TabComponent} = componentsForReaderProfileKey(rpKey);
     if (grades.indexOf(student.grade) === -1) return null;
+
+    const isFaded = (this.state.rpKey !== null && this.state.rpKey !== rpKey);
     return (
-      <Tab
+      <TabComponent
+        style={isFaded ? styles.faded : {}}
         key={rpKey}
         student={student}
         readerJson={readerJson}
@@ -107,10 +109,10 @@ export default class ReaderProfileJanuary extends React.Component {
       instructionalStrategies,
       onClose: this.onTabSelected.bind(this, null)
     };
-    const {View} = componentsForReaderProfileKey(rpKey);
+    const {ViewComponent} = componentsForReaderProfileKey(rpKey);
     return (
       <div style={styles.expanded}>
-        <View {...expandedProps} />
+        <ViewComponent {...expandedProps} />
       </div>
     );
   }
@@ -151,7 +153,7 @@ const styles = {
   category: {
     flex: 1
   },
-  categoryFaded: {
+  faded: {
     opacity: 0.2
   },
   categoryTitle: {
@@ -189,28 +191,28 @@ function componentsForReaderProfileKey(rpKey) {
   return {
     [KEYS.ACCESS]: {
       grades: ['KF', '1', '2', '3', '4', '5'],
-      Tab: AccessTab,
-      View: AccessView
+      TabComponent: AccessTab,
+      ViewComponent: AccessView
     },
     [KEYS.FirstSoundFluency]: {
       grades: ['KF', '1', '2'],
-      Tab: FirstSoundFluencyTab,
-      View: FirstSoundFluencyView
+      TabComponent: FirstSoundFluencyTab,
+      ViewComponent: FirstSoundFluencyView
     },
     [KEYS.PhonemicSegmentationFluency]: {
       grades: ['KF', '1', '2'],
-      Tab: PhonemicSegmentationFluencyTab,
-      View: PhonemicSegmentationFluencyView
+      TabComponent: PhonemicSegmentationFluencyTab,
+      ViewComponent: PhonemicSegmentationFluencyView
     },
     [KEYS.LetterNamingFluency]: {
       grades: ['KF', '1', '2'],
-      Tab: LetterNamingFluencyTab,
-      View: LetterNamingFluencyView
+      TabComponent: LetterNamingFluencyTab,
+      ViewComponent: LetterNamingFluencyView
     },
     [KEYS.OralReadingFluency]: {
       grades: ['1', '2', '3', '4', '5'],
-      Tab: OralReadingFluencyTab,
-      View: OralReadingFluencyView
+      TabComponent: OralReadingFluencyTab,
+      ViewComponent: OralReadingFluencyView
     }
   }[rpKey];
 }
