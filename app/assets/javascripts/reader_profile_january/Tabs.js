@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
+// <Tab /> should only be used when there is data that can be expanded.
+// `orange` determines highlighting (true|false|null).
+// 
+// If there's no data, use <NoInformation /> instead, although
+// see the layout page for more.
 export function Tab({text, orange, style, onClick}) {
   return (
     <div
