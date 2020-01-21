@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import expandedViewPropTypes from './expandedViewPropTypes';
-import ExpandedLayout from './ExpandedLayout';
 import {adjustedGrade} from '../helpers/gradeText';
 import {DIBELS_FSF} from '../reading/thresholds';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
+import expandedViewPropTypes from './expandedViewPropTypes';
+import ExpandedLayout from './ExpandedLayout';
+import {matchStrategies, Categories} from './instructionalStrategies';
 
 
 export default class FirstSoundFluencyView extends React.Component {
@@ -26,8 +27,8 @@ export default class FirstSoundFluencyView extends React.Component {
     const fileKey = 'FirstSoundFluency-K.1';
 
     // Instructional strategies are by category and grade, generically.
-    const strategies = matchStrategies(instructionalStrategies, student.grade, 'Phonics Fluency');
-    
+    const strategies = matchStrategies(instructionalStrategies, student.grade, Categories.PHONOLOGICAL_AWARENESS);
+    console.log('instructionalStrategies', instructionalStrategies);
     return (
       <ExpandedLayout
         titleText="First Sound Fluency"
@@ -53,18 +54,6 @@ const URLS = {
 
 /* ------------------------------------------------------ */
 
-// Instructional strategies are by category and grade, generically.
-// Also filter ones that don't have text or educator_email.
-function matchStrategies(strategies, grade, categoryText) {
-  return strategies.filter(strategy => {
-    if (strategy.grades.indexOf(grade) === -1) return false;
-    if (strategy.category_text.toLowerCase() !== categoryText.toLowerCase()) return false;
-    if (strategy.text === '') return false;
-    if (strategy.educator_email === '') return false;
-
-    return true;
-  });
-}
 
 
 function MaterialImage({fileKey}) {
