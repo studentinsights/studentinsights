@@ -5,7 +5,7 @@ import tabProptypes from './tabPropTypes';
 import {adjustedGrade} from '../helpers/gradeText';
 import {somervilleReadingThresholdsFor, DIBELS_FSF} from '../reading/thresholds';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
-import {Tab, NoInformation} from './Tabs';
+import {Tab} from './Tabs';
 
 export default class FirstSoundFluencyTab extends React.Component {
   render() {
@@ -14,32 +14,39 @@ export default class FirstSoundFluencyTab extends React.Component {
 
     // Most recent data point
     const benchmarkDataPoints = readerJson.benchmark_data_points.filter(d => d.benchmark_assessment_key === DIBELS_FSF);
+    console.log('benchmarkDataPoints', benchmarkDataPoints);
     const dataPoint = _.last(benchmarkDataPoints.map(dataPoint => {
       return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year);
     }));
 
     if (!dataPoint) {
-      return (
-        <Tab
-          text="First sound fluency"
-          orange={true}
-          onClick={onClick}
-        />
-      );
+      return null;
     }
+     /*
+      <Tab
+        text="First sound fluency"
+        orange={true}
+        onClick={onClick}
+      />
+    */
 
     // Format
     const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, student.grade, nowFn());
-    const {benchmark} = somervilleReadingThresholdsFor(...[
+    console.log('gradeThen', gradeThen);
+    const thresholds = somervilleReadingThresholdsFor(...[
       dataPoint.benchmark_assessment_key,
       gradeThen,
       dataPoint.benchmark_period_key
     ]);
+    console.log('thresholds', thresholds);
+    const orange = (thresholds && thresholds.benchmark !== undefined)
+      ? dataPoint.json.value < thresholds.benchmark
+      : null;
     
     return (
       <Tab
         text="First sound fluency"
-        orange={dataPoint.json.value < benchmark}
+        orange={orange}
         onClick={onClick}
       />
     );

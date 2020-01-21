@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {NoInformation} from './Tabs';
 import AccessTab from './AccessTab';
 import AccessView from './AccessView';
 import OralReadingFluencyTab from './OralReadingFluencyTab';
@@ -64,10 +66,19 @@ export default class ReaderProfileJanuary extends React.Component {
       <div style={categoryStyle}>
         <div style={styles.categoryTitle}>{titleText}</div>
         <div style={styles.tabs}>
-          {rpKeys.map(this.renderTab, this)}
+          {this.renderTabsInterpretation(rpKeys)}
         </div>
       </div>
     );
+  }
+
+  renderTabsInterpretation(rpKeys) {
+    const tabEls = _.compact(rpKeys.map(this.renderTab, this));
+    if (tabEls.length === 0) {
+      return <NoInformation />;
+    } else {
+      return tabEls;
+    }
   }
 
   renderTab(rpKey) {

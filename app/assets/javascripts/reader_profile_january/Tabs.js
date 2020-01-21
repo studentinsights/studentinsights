@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export function Tab({text, orange, onClick}) {
+export function Tab({text, orange, style, onClick}) {
   return (
     <div
       onClick={onClick}
       style={{
         ...styles.tab,
+        ...style,
         ...(onClick ? styles.clickable : {}),
         ...(orange === true ? styles.orange : {}),
         ...(orange === false ? styles.green : {})
@@ -18,6 +19,7 @@ export function Tab({text, orange, onClick}) {
 Tab.propTypes = {
   text: PropTypes.string.isRequired,
   orange: PropTypes.bool, // false different than null/undefined
+  style: PropTypes.object,
   onClick: PropTypes.func
 };
 
@@ -31,7 +33,7 @@ NoInformation.propTypes = {
 
 const styles = {
   tab: {
-    border: '1px solid #eee',
+    border: '1px solid #f8f8f8',
     margin: 5,
     marginLeft: 0,
     marginRight: 10,
@@ -42,7 +44,10 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     cursor: 'default',
-    backgroundColor: '#eee'
+    backgroundColor: '#ccc'
+  },
+  none: {
+    backgroundColor: '#f8f8f8'
   },
   clickable: {
     cursor: 'pointer'

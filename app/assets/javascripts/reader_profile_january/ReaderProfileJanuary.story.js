@@ -3,6 +3,19 @@ import {storiesOf} from '@storybook/react';
 import {withNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {
+  DIBELS_DORF_WPM,
+  DIBELS_DORF_ACC,
+  DIBELS_DORF_ERRORS,
+  DIBELS_FSF,
+  DIBELS_LNF,
+  DIBELS_PSF,
+  DIBELS_NWF_CLS,
+  DIBELS_NWF_WWR,
+  F_AND_P_ENGLISH,
+  F_AND_P_SPANISH,
+  INSTRUCTIONAL_NEEDS
+} from '../reading/thresholds';
 import {readInstructionalStrategies} from './instructionalStrategies';
 import ReaderProfileJanuary from './ReaderProfileJanuary';
 
@@ -26,6 +39,7 @@ function storyProps(props) {
     ...props
   };
 }
+
 
 function testAccess(beforeNowString, options = {}) {
   const dateTaken = toMomentFromTimestamp(beforeNowString).clone().subtract(35, 'days').toDate();
@@ -66,10 +80,49 @@ function testAccess(beforeNowString, options = {}) {
   };
 }
 
+
+function benchmark(params = {}) {
+  return {
+    "id": 999,
+    "student_id": 777,
+    "benchmark_school_year": 2018,
+    "benchmark_period_key": "fall",
+    "benchmark_assessment_key": "f_and_p_english",
+    "json": {
+      "value": 35
+    },
+    "educator_id": 999999,
+    "created_at": "2019-05-26T19:27:10.429Z",
+    "updated_at": "2019-05-26T19:27:10.429Z",
+    ...params
+  };
+}
+
+function allBenchmarks(nowString, params = {}) {
+  const benchmark_school_year = toMomentFromTimestamp(nowString).year();
+  return [
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_DORF_WPM}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_DORF_ACC}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_DORF_ERRORS}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_FSF}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_LNF}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_PSF}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_NWF_CLS}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_NWF_WWR}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: F_AND_P_ENGLISH}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: F_AND_P_SPANISH}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: INSTRUCTIONAL_NEEDS})
+  ];
+}
 function studentCases(nowString) {
   const defaultProps = storyProps();
   return [
-    storyProps({}),
+    storyProps({
+      readerJson: {
+        ...defaultProps.readerJson,
+        benchmark_data_points: allBenchmarks(nowString)
+      }
+    }),
     storyProps({
       student: {
         id: 7,
@@ -116,12 +169,12 @@ storiesOf('reader_profile_january/ReaderProfileJanuary', module) // eslint-disab
     });
     return (
       <div style={{display: 'flex', margin: 20}}>
-        {runs.map(([nowString, cases], index) => {
+        {runs.map(([nowString, cases]) => {
           return (
-            <div key={index} style={{marginBottom: 40}}>
+            <div key={nowString} style={{marginBottom: 40}}>
               <h4 style={{color: '#999', margin: 5}}>on {toMomentFromTimestamp(nowString).format('M/D/Y')}</h4>
-              {cases.map(props => (
-                <div key={nowString} style={{marginRight: 20, marginBottom: 20}}>
+              {cases.map((props, index) => (
+                <div key={index} style={{marginRight: 20, marginBottom: 20}}>
                   <h2>{props.student.first_name}, {props.student.grade}</h2>
                   <div style={{width: 1000, border: '1px solid #333'}}>
                     {withNowContext(nowString, (
