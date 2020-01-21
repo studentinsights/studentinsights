@@ -42,12 +42,13 @@ function storyProps(props) {
 
 
 function testAccess(beforeNowString, options = {}) {
-  const dateTaken = toMomentFromTimestamp(beforeNowString).clone().subtract(35, 'days').toDate();
-  const performanceLevel = options.performanceLevel || 4;
+  const dateTaken = toMomentFromTimestamp(beforeNowString).clone().subtract(35, 'days').format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+  console.log('dateTaken', dateTaken);
+  const performanceLevel = options.performanceLevel || '4';
   return {
     composite: {
       date_taken: dateTaken,
-      performance_level: 6
+      performance_level: '6'
     },
     oral: {
       date_taken: dateTaken,
@@ -63,19 +64,19 @@ function testAccess(beforeNowString, options = {}) {
     },
     literacy: {
       date_taken: dateTaken,
-      performance_level: 6
+      performance_level: '6'
     },
     reading: {
       date_taken: dateTaken,
-      performance_level: 6
+      performance_level: '6'
     },
     comprehension: {
       date_taken: dateTaken,
-      performance_level: 6
+      performance_level: '6'
     },
     writing: {
       date_taken: dateTaken,
-      performance_level: 6
+      performance_level: '6'
     },
   };
 }
@@ -116,11 +117,12 @@ function allBenchmarks(nowString, params = {}) {
 }
 function studentCases(nowString) {
   const defaultProps = storyProps();
+  const benchmarkDataPoints = allBenchmarks(nowString);
   return [
     storyProps({
       readerJson: {
         ...defaultProps.readerJson,
-        benchmark_data_points: allBenchmarks(nowString)
+        benchmark_data_points: benchmarkDataPoints
       }
     }),
     storyProps({
@@ -131,7 +133,8 @@ function studentCases(nowString) {
       },
       readerJson: {
         ...defaultProps.readerJson,
-        access: testAccess(nowString)
+        access: testAccess(nowString),
+        benchmark_data_points: benchmarkDataPoints
       }
     }),
     storyProps({
@@ -142,7 +145,8 @@ function studentCases(nowString) {
       },
       readerJson: {
         ...defaultProps.readerJson,
-        access: testAccess(nowString, {performanceLevel: 6})
+        access: testAccess(nowString, {performanceLevel: 6}),
+        benchmark_data_points: benchmarkDataPoints
       }
     }),
     storyProps({
@@ -150,6 +154,10 @@ function studentCases(nowString) {
         id: 8,
         first_name: 'Amir',
         grade: '3'
+      },
+      readerJson: {
+        ...defaultProps.readerJson,
+        benchmark_data_points: benchmarkDataPoints
       }
     })
   ];

@@ -27,7 +27,10 @@ export default class ReaderProfileJanuary extends React.Component {
     this.onTabSelected = this.onTabSelected.bind(this);
   }
 
-  onTabSelected(rpKey) {
+  onTabSelected(rpKey, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
     const updatedKey = (rpKey === this.state.rpKey) ? null : rpKey;
     this.setState({rpKey: updatedKey});
   }
@@ -35,7 +38,7 @@ export default class ReaderProfileJanuary extends React.Component {
   render() {
     const {rpKey} = this.state;
     return (
-      <div className="ReaderProfileJanuary" style={styles.root}>
+      <div className="ReaderProfileJanuary" style={styles.root} onClick={this.onTabSelected.bind(this, null)}>
         <div style={styles.categories}>
           {this.renderCategory('Student experience', [])}
           {this.renderCategory('Oral language', [
