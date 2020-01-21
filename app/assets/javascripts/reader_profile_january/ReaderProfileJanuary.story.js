@@ -27,6 +27,81 @@ function storyProps(props) {
   };
 }
 
+function testAccess(beforeNowString, options = {}) {
+  const dateTaken = toMomentFromTimestamp(beforeNowString).clone().subtract(35, 'days').toDate();
+  const performanceLevel = options.performanceLevel || 4;
+  return {
+    composite: {
+      date_taken: dateTaken,
+      performance_level: 6
+    },
+    oral: {
+      date_taken: dateTaken,
+      performance_level: performanceLevel
+    },
+    listening: {
+      date_taken: dateTaken,
+      performance_level: performanceLevel
+    },
+    speaking: {
+      date_taken: dateTaken,
+      performance_level: performanceLevel
+    },
+    literacy: {
+      date_taken: dateTaken,
+      performance_level: 6
+    },
+    reading: {
+      date_taken: dateTaken,
+      performance_level: 6
+    },
+    comprehension: {
+      date_taken: dateTaken,
+      performance_level: 6
+    },
+    writing: {
+      date_taken: dateTaken,
+      performance_level: 6
+    },
+  };
+}
+
+function studentCases(nowString) {
+  const defaultProps = storyProps();
+  return [
+    storyProps({}),
+    storyProps({
+      student: {
+        id: 7,
+        first_name: 'Alex',
+        grade: '1'
+      },
+      readerJson: {
+        ...defaultProps.readerJson,
+        access: testAccess(nowString)
+      }
+    }),
+    storyProps({
+      student: {
+        id: 9,
+        first_name: 'Ryan',
+        grade: '2'
+      },
+      readerJson: {
+        ...defaultProps.readerJson,
+        access: testAccess(nowString, {performanceLevel: 6})
+      }
+    }),
+    storyProps({
+      student: {
+        id: 8,
+        first_name: 'Amir',
+        grade: '3'
+      }
+    })
+  ];
+}
+
 const Nows = {
   FALL: '2018-09-19T11:03:06.123Z',
   WINTER: '2019-01-11T11:03:06.123Z',
@@ -35,43 +110,19 @@ const Nows = {
 
 storiesOf('reader_profile_january/ReaderProfileJanuary', module) // eslint-disable-line no-undef
   .add('all', () => {
-    const studentProps = [
-      storyProps({}),
-      storyProps({
-        student: {
-          id: 7,
-          first_name: 'Alex',
-          grade: '1'
-        }
-      }),
-      storyProps({
-        student: {
-          id: 9,
-          first_name: 'Ryan',
-          grade: '2'
-        }
-      }),
-      storyProps({
-        student: {
-          id: 8,
-          first_name: 'Amir',
-          grade: '3'
-        }
-      })
-    ];
     const times = [Nows.FALL, Nows.WINTER, Nows.SPRING];
-    const runs = studentProps.map(props => {
-      return {times, props};
+    const runs = times.map(nowString => {
+      return [nowString, studentCases(nowString)];
     });
     return (
       <div style={{display: 'flex', margin: 20}}>
-        {runs.map(({props, times}, index) => {
+        {runs.map(([nowString, cases], index) => {
           return (
             <div key={index} style={{marginBottom: 40}}>
-              <h2>{props.student.first_name}, {props.student.grade}</h2>
-              {times.map(nowString => (
+              <h4 style={{color: '#999', margin: 5}}>on {toMomentFromTimestamp(nowString).format('M/D/Y')}</h4>
+              {cases.map(props => (
                 <div key={nowString} style={{marginRight: 20, marginBottom: 20}}>
-                  <h4 style={{color: '#999', margin: 5}}>on {toMomentFromTimestamp(nowString).format('M/D/Y')}</h4>
+                  <h2>{props.student.first_name}, {props.student.grade}</h2>
                   <div style={{width: 1000, border: '1px solid #333'}}>
                     {withNowContext(nowString, (
                       <PerDistrictContainer districtKey="somerville">

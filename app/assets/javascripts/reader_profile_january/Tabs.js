@@ -51,6 +51,6 @@ const styles = {
     backgroundColor: 'orange'
   },
   green: {
-    backgroundColor: 'green'
+    backgroundColor: 'rgb(147, 196, 125)'
   }
 };
