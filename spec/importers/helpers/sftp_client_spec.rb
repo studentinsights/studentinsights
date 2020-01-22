@@ -11,6 +11,32 @@ RSpec.describe SftpClient do
     allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
   end
 
+  def mock_download_file_and_lstat!(remote_filename_path, contents, lstat_mtime)
+    Tempfile.new('mock_remote_file').tap do |mock_remote_file|
+      mock_remote_file.write contents
+      mock_remote_file.close
+
+      mock_sftp_session = instance_double(Net::SFTP::Session)
+      expect(mock_sftp_session).to receive(:download!) do |remote_file_name, local_path|
+        IO.write(local_path, IO.read(mock_remote_file))
+      end
+      expect(mock_sftp_session).to receive(:lstat).with(remote_filename_path) do |&block|
+        block.call(MockLstatResponse.new(attrs: MockLstatAttrs.new(lstat_mtime)))
+      end
+
+      expect(Net::SFTP).to receive(:start) do |&block|
+        block.call(mock_sftp_session)
+      end
+
+      yield
+    end
+  end
+
+  class MockLstatResponse < Struct.new :data
+  end
+  class MockLstatAttrs < Struct.new :mtime
+  end
+
   describe '.for_x2' do
     before { mock_env_for_x2 }
     it 'configures the sftp client for X2' do
@@ -28,6 +54,65 @@ RSpec.describe SftpClient do
       expect(sftp_client.send(:host)).to eq('ftp.star.com')
       expect(sftp_client.send(:user)).to eq('sftp-user')
       expect(sftp_client.send(:password)).to eq('sftp-password')
+    end
+  end
+
+  describe '#download_file' do
+    let!(:time_now) { TestPals.new.time_now }
+    it 'works on happy path' do
+      expect(Rollbar).not_to receive(:error)
+      remote_filename_path = '/remote/foo/bar/assessment.csv'
+      contents = "name,pitch_name,rating\npedro,change up,awesome"
+      mock_download_file_and_lstat!(remote_filename_path, contents, time_now - 2.hours) do
+        mock_env_for_x2()
+        client = SftpClient.for_x2(nil, time_now: time_now)
+        file = client.download_file(remote_filename_path)
+        expect(IO.read(file)).to eq(contents)
+      end
+    end
+
+    it 'safely handles remote_file_path' do
+      remote_filename_path = '/remote/foo/bar/../../assessment.csv'
+      contents = "name,pitch_name,rating\npedro,change up,awesome"
+      mock_download_file_and_lstat!(remote_filename_path, contents, time_now - 2.hours) do
+        mock_env_for_x2()
+        client = SftpClient.for_x2(nil, time_now: time_now)
+        file = client.download_file(remote_filename_path)
+        expect(File.basename(file)).to eq 'assessment.csv'
+        expect(file.path.ends_with?('tmp/data_download/assessment.csv')).to eq true
+        expect(IO.read(file)).to eq(contents)
+      end
+    end
+
+    it 'check_freshness alerts if file is stale' do
+      mtime = time_now - 4.days
+      expect(Rollbar).to receive(:error).once.with("SftpClient#check_freshness! failed for remote file, basename: assessment.csv, last modified: 1520593380")
+
+      remote_filename_path = '/remote/foo/bar/assessment.csv'
+      contents = "name,pitch_name,rating\npedro,change up,awesome"
+      mock_download_file_and_lstat!(remote_filename_path, contents, mtime) do
+        mock_env_for_x2()
+        client = SftpClient.for_x2(nil, time_now: time_now)
+        file = client.download_file(remote_filename_path)
+        expect(IO.read(file)).to eq(contents)
+      end
+    end
+
+    it 'responds to options about disabling check_freshness' do
+      mtime = time_now - 4.days
+      expect(Rollbar).not_to receive(:error)
+
+      remote_filename_path = '/remote/foo/bar/assessment.csv'
+      contents = "name,pitch_name,rating\npedro,change up,awesome"
+      mock_download_file_and_lstat!(remote_filename_path, contents, mtime) do
+        mock_env_for_x2()
+        client = SftpClient.for_x2(nil, {
+          time_now: time_now,
+          modified_within_n_days: 7
+        })
+        file = client.download_file(remote_filename_path)
+        expect(IO.read(file)).to eq(contents)
+      end
     end
   end
 

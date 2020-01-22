@@ -31,10 +31,11 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   # `ClientAliveInterval).
   def download_file(remote_file_name)
     FileUtils.mkdir_p(local_download_folder)
-    local_filename = File.join(local_download_folder, remote_file_name.split("/").last)
+    local_filename = File.join(local_download_folder, File.basename(remote_file_name))
     local_file = File.open(local_filename, 'w')
     with_sftp_session do |sftp_session|
       sftp_session.download!(remote_file_name, local_file.path)
+      check_freshness!(sftp_session, remote_file_name)
     end
     local_file
   end
@@ -42,6 +43,24 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   private
   def local_download_folder
     options.fetch(:unsafe_local_download_folder, Rails.root.join(File.join('tmp', 'data_download/')))
+  end
+
+  # Send to Rollbar if the freshness of the file is not what was expected.
+  # Can be configured with `options`
+  def check_freshness!(sftp_session, remote_file_name)
+    return nil unless options.fetch(:check_freshness, true)
+
+    within_n_days = options.fetch(:modified_within_n_days, 3)
+    time_now = options.fetch(:time_now, Time.now)
+    threshold_time = time_now - within_n_days.days
+    sftp_session.lstat(remote_file_name) do |response|
+      mtime = Time.at(response.data[:attrs].mtime)
+      if mtime < threshold_time
+        basename = File.basename(remote_file_name)
+        Rollbar.error("SftpClient#check_freshness! failed for remote file, basename: #{basename}, last modified: #{mtime.to_i}")
+      end
+    end
+    nil
   end
 
   # Always open connection, execute, and then close after each call.
