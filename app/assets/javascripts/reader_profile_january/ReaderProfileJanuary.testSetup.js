@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {
   DIBELS_DORF_WPM,

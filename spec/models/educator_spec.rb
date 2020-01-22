@@ -168,6 +168,7 @@ RSpec.describe Educator do
       expect(pals.uri.labels).to contain_exactly(*[
         'can_upload_student_voice_surveys',
         'enable_equity_experiments',
+        'enable_reader_profile_january',
         'enable_reading_benchmark_data_entry',
         'enable_reading_debug',
         'enable_reflection_on_notes_patterns',
