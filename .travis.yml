@@ -51,6 +51,8 @@ before_install:
   # Match Heroku RubyGems version (eg https://devcenter.heroku.com/changelog-items/1569)
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then gem update --system; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then gem --version; fi
+  # Working around Travis errors, from https://docs.travis-ci.com/user/languages/ruby/#bundler-20
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then gem install bundler; fi
 
 install:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle install --retry=3; fi
@@ -58,6 +60,9 @@ install:
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm install --lts; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm use --lts; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn install; fi
+  # It's okay that the lockfile is linted after `yarn install` since the point
+  # is to protect the production environment, not the CI environment.
+  - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn lockfile-lint-cli; fi
 
 script:
   # dependency audits

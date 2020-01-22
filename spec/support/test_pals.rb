@@ -346,6 +346,11 @@ class TestPals
       schoolwide_access: true,
       can_view_restricted_notes: true
     )
+    EducatorMultifactorConfig.create!({
+      educator: @shs_harry_housemaster,
+      via_email: true,
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret
+    })
     EducatorLabel.create!({
       educator: @shs_harry_housemaster,
       label_key: 'high_school_house_master'

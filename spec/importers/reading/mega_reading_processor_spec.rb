@@ -66,23 +66,29 @@ RSpec.describe MegaReadingProcessor do
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_listening", "json"=>{"value" => "2" }}
       ])
       expect(stats).to eq({
+        :valid_rows_count => 28,
         :valid_data_points_count => 28,
         :valid_student_names_count => 2,
         :blank_student_name_count => 0,
         :invalid_student_name_count => 0,
-        :invalid_student_names_list_size => 0,
         :missing_data_point_because_student_moved_school => 0,
-        :blank_data_points_count => 6,
-        :matcher => {
-          :valid_rows_count=>28,
-          :invalid_rows_count=>0,
-          :invalid_student_local_ids_size=>0,
-          :invalid_educator_emails_size=>0,
-          :invalid_educator_last_names_size=>0,
-          :invalid_educator_logins_size=>0,
-          :invalid_course_numbers=>[],
-          :invalid_sep_oids=>[]
-        }
+        :blank_data_points_count => 6
+      })
+    end
+
+    it 'can handle failing to match a student' do
+      fixture_file = IO.read("#{Rails.root}/spec/importers/reading/mega_reading_processor_fixture_unknown_student.csv")
+      processor = MegaReadingProcessor.new(pals.uri.id, 2018, include_benchmark_grade: true)
+      rows, stats = processor.process(fixture_file)
+      expect(rows.size).to eq 0
+      expect(stats).to eq({
+        :valid_rows_count => 0,
+        :valid_data_points_count => 0,
+        :valid_student_names_count => 0,
+        :blank_student_name_count => 0,
+        :invalid_student_name_count => 1,
+        :missing_data_point_because_student_moved_school => 0,
+        :blank_data_points_count => 0
       })
     end
   end

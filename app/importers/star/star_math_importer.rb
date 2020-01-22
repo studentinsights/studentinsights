@@ -19,12 +19,12 @@ class StarMathImporter
   end
 
   def import
-    remote_file_name = PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_MATH_IMPORT')
-    if remote_file_name.nil?
-      log('Aborting, no remote_file_name.')
+    if !PerDistrict.new.is_star_import_enabled()
+      log('Aborting, is_star_import_enabled=false.')
       return
     end
 
+    remote_file_name = PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_MATH_IMPORT')
     StarImporter.new(options: @options.merge({
       model_class: StarMathResult,
       remote_file_name: remote_file_name

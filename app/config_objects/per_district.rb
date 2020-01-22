@@ -48,6 +48,22 @@ class PerDistrict
     yaml.fetch('school_definitions_for_import')
   end
 
+  # Should we be running the import?  This lets us keep other config in
+  # place when temporarily disabling to resolve issues, etc.
+  def is_star_import_enabled
+    if @district_key == SOMERVILLE
+      true
+    elsif @district_key == NEW_BEDFORD
+      false # upstream data quality issue
+    elsif @district_key == BEDFORD
+      false # never enabled
+    elsif @district_key == DEMO
+      true # allow exercising in test
+    else
+      raise_not_handled!
+    end
+  end
+
   def try_star_filename(key, fallback = nil)
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
   end

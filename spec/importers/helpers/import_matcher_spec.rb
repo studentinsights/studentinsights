@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ImportMatcher do
-  def make_log
-    LogHelper::FakeLog.new
-  end
-
   describe '#parse_sheets_est_timestamp' do
     it 'works when EST (+5)' do
       Timecop.freeze(Time.parse('2019-01-30 12:22:02 -0000')) do

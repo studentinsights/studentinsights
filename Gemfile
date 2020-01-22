@@ -32,7 +32,6 @@ gem 'secure_headers'
 gem 'aws-sdk', '~> 2'
 gem 'dalli' # memcached for rack::attack
 gem 'google-api-client', "~> 0.28.7"
-gem 'platform-api' # heroku, for forcibly restarting dynos
 gem 'net-ldap'
 gem 'net-sftp'
 gem 'net-ssh'

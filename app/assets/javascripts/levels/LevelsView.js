@@ -248,7 +248,7 @@ export default class LevelsView extends React.Component {
   renderDownloadLink(students) {
     const {nowFn} = this.context;
     const nowMoment = nowFn();
-    const columns = describeColumns(nowMoment);
+    const columns = describeColumns(nowMoment, {csv: true});
     const {isDownloadOpen} = this.state;
 
     return (
