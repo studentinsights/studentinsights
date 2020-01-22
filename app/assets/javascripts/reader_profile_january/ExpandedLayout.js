@@ -13,7 +13,7 @@ export default class ExpandedLayout extends React.Component {
     } = this.props;
 
     return (
-      <div style={styles.root}>
+      <div className="ExpandedLayout" style={styles.root}>
         <div style={styles.header}>
           <div style={styles.title}>{titleText}</div>
           <div onClick={onClose} style={styles.close}>Close</div>

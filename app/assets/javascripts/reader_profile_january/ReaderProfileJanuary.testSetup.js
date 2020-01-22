@@ -64,7 +64,13 @@ export function testProps(props) {
       iep_contents: null,
       feed_cards: [],
       current_school_year: 2019,
-      benchmark_data_points: []
+      benchmark_data_points: [
+        benchmark({
+          benchmark_school_year: 2018, 
+          benchmark_period_key: 'spring',
+          benchmark_assessment_key: DIBELS_FSF
+        })
+      ]
     },
     instructionalStrategies: readInstructionalStrategies(),
     ...props

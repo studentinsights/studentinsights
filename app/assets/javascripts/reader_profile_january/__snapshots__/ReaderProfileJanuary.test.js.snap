@@ -95,6 +95,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -146,6 +147,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -197,6 +199,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -219,6 +222,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -269,6 +273,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -319,6 +324,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -413,6 +419,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -464,6 +471,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -514,6 +522,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -536,6 +545,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -586,6 +596,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -608,6 +619,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   Letter naming fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -658,6 +670,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -752,6 +765,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -803,6 +817,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -853,6 +868,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -875,6 +891,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -925,6 +942,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -947,6 +965,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   Letter naming fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -997,6 +1016,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1091,6 +1111,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -1142,6 +1163,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -1193,6 +1215,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -1244,6 +1267,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1294,6 +1318,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1407,6 +1432,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -1458,6 +1484,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -1509,6 +1536,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1531,6 +1559,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1581,6 +1610,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1631,6 +1661,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1725,6 +1756,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -1776,6 +1808,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1826,6 +1859,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1848,6 +1882,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1898,6 +1933,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1920,6 +1956,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   Letter naming fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -1970,6 +2007,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2064,6 +2102,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -2115,6 +2154,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2165,6 +2205,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2187,6 +2228,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2237,6 +2279,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2259,6 +2302,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   Letter naming fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2309,6 +2353,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2403,6 +2448,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -2454,6 +2500,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -2505,6 +2552,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -2556,6 +2604,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2606,6 +2655,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2719,6 +2769,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -2770,6 +2821,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -2821,6 +2873,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2843,6 +2896,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2893,6 +2947,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -2943,6 +2998,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3037,6 +3093,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -3088,6 +3145,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3138,6 +3196,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3160,6 +3219,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3210,6 +3270,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3232,6 +3293,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   Letter naming fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3282,6 +3344,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3376,6 +3439,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -3427,6 +3491,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3477,6 +3542,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3499,6 +3565,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   First sound fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3549,6 +3616,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3571,6 +3639,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   Letter naming fluency
                 </div>
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3621,6 +3690,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3715,6 +3785,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -3766,6 +3837,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -3817,6 +3889,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   style={
                     Object {
                       "alignItems": "center",
@@ -3868,6 +3941,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {
@@ -3918,6 +3992,7 @@ exports[`snapshots views across all testRuns 1`] = `
                 style={Object {}}
               >
                 <div
+                  className="Tab"
                   onClick={[Function]}
                   style={
                     Object {

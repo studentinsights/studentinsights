@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 export function Tab({text, orange, onClick, style = {}}) {
   return (
     <div
+      className="Tab"
       onClick={onClick}
       style={{
         ...styles.tab,
