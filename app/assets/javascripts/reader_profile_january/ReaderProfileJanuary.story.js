@@ -109,14 +109,15 @@ function allBenchmarks(nowString, params = {}) {
     benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_PSF}),
     benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_NWF_CLS}),
     benchmark({...params, benchmark_school_year, benchmark_assessment_key: DIBELS_NWF_WWR}),
-    benchmark({...params, benchmark_school_year, benchmark_assessment_key: F_AND_P_ENGLISH}),
-    benchmark({...params, benchmark_school_year, benchmark_assessment_key: F_AND_P_SPANISH}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: F_AND_P_ENGLISH, json: {"value":"D"}}),
+    benchmark({...params, benchmark_school_year, benchmark_assessment_key: F_AND_P_SPANISH, json: {"value":"D"}}),
     benchmark({...params, benchmark_school_year, benchmark_assessment_key: INSTRUCTIONAL_NEEDS})
   ];
 }
 function studentCases(nowString) {
   const defaultProps = storyProps();
   const benchmarkDataPoints = allBenchmarks(nowString);
+  console.log('benchmarkDataPoints', benchmarkDataPoints);
   return [
     storyProps({
       readerJson: {

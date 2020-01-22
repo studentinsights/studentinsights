@@ -12,7 +12,10 @@ import FirstSoundFluencyTab from './FirstSoundFluencyTab';
 import FirstSoundFluencyView from './FirstSoundFluencyView';
 import PhonemicSegmentationFluencyTab from './PhonemicSegmentationFluencyTab';
 import PhonemicSegmentationFluencyView from './PhonemicSegmentationFluencyView';
-
+import FAndPEnglishTab from './FAndPEnglishTab';
+import FAndPEnglishView from './FAndPEnglishView';
+import StarReadingTab from './StarReadingTab';
+import StarReadingView from './StarReadingView';
 
 // This manages the frame and overall interaction of selection
 // and the API for components describing different bits of
@@ -38,8 +41,8 @@ export default class ReaderProfileJanuary extends React.Component {
   render() {
     const {rpKey} = this.state;
     return (
-      <div className="ReaderProfileJanuary" style={styles.root} onClick={this.onTabSelected.bind(this, null)}>
-        <div style={styles.categories}>
+      <div className="ReaderProfileJanuary" style={styles.root}>
+        <div style={styles.categories} onClick={this.onTabSelected.bind(this, null)}>
           {this.renderCategory('Student experience', [])}
           {this.renderCategory('Oral language', [
             KEYS.ACCESS
@@ -52,7 +55,10 @@ export default class ReaderProfileJanuary extends React.Component {
             KEYS.LetterNamingFluency,
             KEYS.OralReadingFluency
           ])}
-          {this.renderCategory('Comprehension', [])}
+          {this.renderCategory('Comprehension', [
+            KEYS.FAndPEnglish,
+            KEYS.StarReading
+          ])}
         </div>
         {rpKey && this.renderExpandedView(rpKey)}
       </div>
@@ -184,7 +190,9 @@ const KEYS = {
   FirstSoundFluency: 'r:DIBELS_FSF',
   PhonemicSegmentationFluency: 'r:DIBELS_PSF',
   LetterNamingFluency: 'r:DIBELS_LNF',
-  OralReadingFluency: 'r:DIBELS_ORF'
+  OralReadingFluency: 'r:DIBELS_ORF',
+  StarReading: 'r:STAR_READING',
+  FAndPEnglish: 'r:F_AND_P_ENGLISH'
 };
 
 function componentsForReaderProfileKey(rpKey) {
@@ -213,6 +221,16 @@ function componentsForReaderProfileKey(rpKey) {
       grades: ['1', '2', '3', '4', '5'],
       TabComponent: OralReadingFluencyTab,
       ViewComponent: OralReadingFluencyView
+    },
+    [KEYS.FAndPEnglish]: {
+      grades: ['KF', '1', '2', '3', '4', '5'],
+      TabComponent: FAndPEnglishTab,
+      ViewComponent: FAndPEnglishView
+    },
+    [KEYS.StarReading]: {
+      grades: ['2', '3', '4', '5'],
+      TabComponent: StarReadingTab,
+      ViewComponent: StarReadingView
     }
   }[rpKey];
 }

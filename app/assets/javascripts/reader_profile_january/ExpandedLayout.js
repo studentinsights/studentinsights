@@ -28,7 +28,7 @@ export default class ExpandedLayout extends React.Component {
           </div>
           <div style={{...styles.column, ...styles.data}}>
             <div style={styles.subtitle}>Data for {studentFirstName}</div>
-            <div>{dataEl}.</div>
+            <div>{dataEl}</div>
           </div>
         </div>
       </div>

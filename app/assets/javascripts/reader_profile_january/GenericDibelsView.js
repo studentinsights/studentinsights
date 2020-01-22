@@ -8,6 +8,7 @@ import {mostRecentDataPoint} from './dibelsParsing';
 import ExpandedLayout from './ExpandedLayout';
 import MaterialsCarousel from './MaterialsCarousel';
 import Strategies from './Strategies';
+import GenericDibelsDataPoint from './GenericDibelsDataPoint';
 
 
 
@@ -19,14 +20,13 @@ export default class GenericDibelsView extends React.Component {
     const dataPoint = mostRecentDataPoint(readerJson, benchmarkAssessmentKey);
     const fileKeys = materialsFileKeys(dataPoint, student.grade, nowFn(), urls);
     const strategies = matchStrategies(instructionalStrategies, student.grade, categoryKey);
-    console.log('strategies for:', categoryKey, 'from:', instructionalStrategies, 'are:', strategies);
     return (
       <ExpandedLayout
         titleText={titleText}
         studentFirstName={student.first_name}
         materialsEl={<MaterialsCarousel fileKeys={fileKeys} />}
         strategiesEl={<Strategies strategies={strategies} />}
-        dataEl="..."
+        dataEl={<GenericDibelsDataPoint dataPoint={dataPoint} />}
         onClose={onClose}
       />
     );

@@ -34,7 +34,10 @@ export default class MaterialsCarousel extends React.Component {
     const {fileKeys} = this.props;
     const {index} = this.state;
     
-    if (fileKeys.length === 0) return null;
+    if (fileKeys.length === 0) {
+      return <div>Images not added yet</div>;
+    }
+
     return (
       <div className="MaterialsCarousel">
         <MaterialImage fileKey={fileKeys[index]} />

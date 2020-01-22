@@ -30,7 +30,7 @@ Tab.propTypes = {
 };
 
 export function NoInformation({style}) {
-  return <Tab style={styles.none} text="No information" />;
+  return <Tab style={styles.none} text="Ask teacher" />;
 }
 NoInformation.propTypes = {
   style: PropTypes.object
@@ -44,6 +44,7 @@ const styles = {
     marginLeft: 0,
     marginRight: 10,
     padding: 5,
+    paddingLeft: 10,
     borderRadius: 1,
     height: '3em',
     display: 'flex',
@@ -53,7 +54,9 @@ const styles = {
     backgroundColor: '#ccc'
   },
   none: {
-    backgroundColor: '#f8f8f8'
+    backgroundColor: '#f8f8f8',
+    color: '#999',
+    opacity: 0.5
   },
   clickable: {
     cursor: 'pointer'
