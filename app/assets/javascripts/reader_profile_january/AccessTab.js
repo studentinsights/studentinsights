@@ -8,14 +8,14 @@ export default class AccessTab extends React.Component {
     const {onClick, readerJson} = this.props;
     const {access} = readerJson;
     
-     const oralAccessKey = 'oral';
+    const oralAccessKey = 'oral';
     if (!hasAnyAccessData(access)) {
       return <NoInformation />;
     } else if (access[oralAccessKey] === null || access[oralAccessKey] === undefined) {
       return <NoInformation />;
     }
 
-     // TODO refactor language.js / <AccessPanel />
+    // TODO refactor language.js / <AccessPanel />
     const dataPoint = access[oralAccessKey];
     const performanceLevel = dataPoint && dataPoint.performance_level;
     // Rounding is meaningful educationally; see `roundedWidaLevel` for more

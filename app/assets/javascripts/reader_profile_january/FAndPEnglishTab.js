@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import tabProptypes from './tabPropTypes';
 import {mostRecentDataPoint} from './dibelsParsing';
 import {F_AND_P_ENGLISH} from '../reading/thresholds';
