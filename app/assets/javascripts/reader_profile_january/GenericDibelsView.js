@@ -45,6 +45,7 @@ GenericDibelsView.contextTypes = {
 
 
 function materialsFileKeys(dataPoint, gradeNow, nowMoment, urls) {
+  if (dataPoint === null || dataPoint === undefined) return [];
   const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, gradeNow, nowMoment);
   const materialKey = [gradeThen, dataPoint.benchmark_period_key].join('-');
   return _.compact([urls[materialKey]]);

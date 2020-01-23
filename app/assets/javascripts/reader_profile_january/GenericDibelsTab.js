@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tabProptypes from './tabPropTypes';
 import {mostRecentDataPoint, shouldHighlight} from './dibelsParsing';
-import {Tab} from './Tabs';
+import {Tab, NoInformation} from './Tabs';
 
 
 export default class GenericDibelsTab extends React.Component {
   render() {
     const {nowFn} = this.context;
     const {style, onClick, student, readerJson, tabText, benchmarkAssessmentKey} = this.props;
-    
     const dataPoint = mostRecentDataPoint(readerJson, benchmarkAssessmentKey);
-    if (!dataPoint) return null;
+    if (!dataPoint) {
+      return <NoInformation />;
+    }
+    
     const isOrange = shouldHighlight(dataPoint, student.grade, nowFn());
     return (
       <Tab
