@@ -122,7 +122,12 @@ class IepPdfImportJob
   end
 
   def download(remote_filename)
-    sftp_client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)
+    # Expect and allow more stale files than typical, since these
+    # are rotated each day for a week.
+    sftp_client = SftpClient.for_x2(nil, {
+      modified_within_n_days: 10,
+      unsafe_local_download_folder: absolute_local_download_path
+    })
 
     begin
       local_file = sftp_client.download_file(remote_filename)
