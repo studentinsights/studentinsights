@@ -366,7 +366,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    secure_headers (6.1.1)
+    secure_headers (6.3.0)
     selectize-rails (0.12.6)
     sexp_processor (4.13.0)
     signet (0.12.0)
