@@ -53,7 +53,7 @@ MaterialsCarousel.propTypes = {
 function MaterialImage({fileKey}) {
   // fileKey values are checked into source, but be defensive anyway
   const safeFileKey = fileKey.replace(/[^a-zA-Z0-9-]/g,'');
-  const path = `/assets/reading/${safeFileKey}.jpg`;
+  const path = `/img/reading/${safeFileKey}.jpg`;
   return (
     <img
       className="MaterialImage"
