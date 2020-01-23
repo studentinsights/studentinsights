@@ -1,0 +1,4025 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots views across all testRuns 1`] = `
+<div
+  className="ReaderProfileJanuary-testGrid"
+  style={
+    Object {
+      "display": "flex",
+      "margin": 20,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "marginBottom": 40,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#999",
+          "marginBottom": 10,
+        }
+      }
+    >
+      on 
+      9/19/2018
+    </h4>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Mari
+        , 
+        KF
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Alex
+        , 
+        1
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  ACCESS Oral Language
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Ryan
+        , 
+        2
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  ACCESS Oral Language
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Amir
+        , 
+        3
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 40,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#999",
+          "marginBottom": 10,
+        }
+      }
+    >
+      on 
+      1/11/2019
+    </h4>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Mari
+        , 
+        KF
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Alex
+        , 
+        1
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  ACCESS Oral Language
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Ryan
+        , 
+        2
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  ACCESS Oral Language
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Amir
+        , 
+        3
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 40,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#999",
+          "marginBottom": 10,
+        }
+      }
+    >
+      on 
+      5/15/2018
+    </h4>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Mari
+        , 
+        KF
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Alex
+        , 
+        1
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  ACCESS Oral Language
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Ryan
+        , 
+        2
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "rgb(147, 196, 125)",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  ACCESS Oral Language
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  First sound fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Phonemic segmentation fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Letter naming fluency
+                </div>
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginRight": 20,
+        }
+      }
+    >
+      <h2>
+        Amir
+        , 
+        3
+      </h2>
+      <div
+        style={
+          Object {
+            "border": "1px solid #333",
+            "width": 1000,
+          }
+        }
+      >
+        <div
+          className="ReaderProfileJanuary"
+          style={
+            Object {
+              "marginBottom": 40,
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "margin": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Student experience
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Oral language
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonological Awareness
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Phonics Fluency
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "orange",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Oral reading fluency
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "height": "3em",
+                    "justifyContent": "flex-start",
+                    "lineHeight": "1.2em",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Comprehension
+              </div>
+              <div
+                style={Object {}}
+              >
+                <div
+                  className="Tab"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#ccc",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "cursor": "pointer",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F&P English
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

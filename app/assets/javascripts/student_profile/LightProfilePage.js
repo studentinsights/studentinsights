@@ -8,6 +8,7 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {isStudentActive, shouldUseStarData, decideStudentProfileTabs} from '../helpers/PerDistrict';
 import ReaderProfileJunePage from '../reader_profile/ReaderProfileJunePage';
+import ReaderProfileJanuaryPage from '../reader_profile_january/ReaderProfileJanuaryPage';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import LightAttendanceDetails from './LightAttendanceDetails';
@@ -507,9 +508,13 @@ export default class LightProfilePage extends React.Component {
     const {districtKey} = this.context;
     const {student, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
-    const readerProfileEl = (showMinimalReadingData)
-      ? <ReaderProfileJunePage student={student} />
-      : null;
+    const showReaderProfileJanuary = currentEducator.labels.indexOf('enable_reader_profile_january') !== -1;
+    const readerProfileEl = (!showMinimalReadingData && !showReaderProfileJanuary) ? null : (
+      <div>
+        {showReaderProfileJanuary && <ReaderProfileJanuaryPage student={student} />}
+        {showMinimalReadingData && <ReaderProfileJunePage student={student} />}
+      </div>
+    );
     return (
       <ElaDetails
         className="LightProfilePage-ela"
