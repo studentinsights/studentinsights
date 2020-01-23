@@ -77,7 +77,8 @@ const styles = {
     flex: 5
   },
   strategies: {
-    flex: 3
+    flex: 3,
+    overflow: 'hidden'
   },
   data: {
     flex: 5

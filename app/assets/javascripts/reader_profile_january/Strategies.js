@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function Strategies({strategies}) {
   return (
-    <div className="Strategies">
+    <div className="Strategies" style={styles.root}>
       <div>
         {strategies.map(strategy => {
           return (
@@ -48,7 +48,8 @@ const styles = {
     padding: 10
   },
   strategyTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    whiteSpace: 'nowrap'
   },
   addSuggestion: {
     color: '#999',
