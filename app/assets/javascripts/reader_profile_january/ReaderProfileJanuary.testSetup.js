@@ -156,6 +156,18 @@ function studentCases(nowString) {
   const benchmarkDataPoints = allBenchmarks(nowString);
   return [
     testProps({
+      student: {
+        id: 12,
+        first_name: 'Nikhil',
+        grade: 'KF'
+      },
+      readerJson: {
+        ...defaultProps.readerJson,
+        benchmark_data_points: []
+      }
+    }),
+
+    testProps({
       readerJson: {
         ...defaultProps.readerJson,
         benchmark_data_points: benchmarkDataPoints
