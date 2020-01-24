@@ -123,11 +123,6 @@ export default class ReaderProfileJanuary extends React.Component {
     );
   }
 }
-
-ReaderProfileJanuary.contextTypes = {
-  nowFn: PropTypes.func.isRequired,
-  districtKey: PropTypes.string.isRequired
-};
 ReaderProfileJanuary.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,

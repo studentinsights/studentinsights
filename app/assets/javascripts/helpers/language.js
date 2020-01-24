@@ -144,3 +144,8 @@ export function roundedWidaLevel(performanceLevel, options = {}) {
     ? Math.floor(performanceLevelFloat*2)/2
     : Math.floor(performanceLevelFloat);
 }
+
+export function readAccessOral(access) {
+  if (!access) return null;
+  return access['oral'] || null;
+}
