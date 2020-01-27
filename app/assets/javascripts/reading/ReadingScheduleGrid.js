@@ -18,24 +18,8 @@ import {
 
 export default class ReadingScheduleGrid extends React.Component {
   render() {
-    const benchmarkAssessmentKeys = [
-      DIBELS_FSF,
-      DIBELS_LNF,
-      DIBELS_PSF,
-      DIBELS_NWF_CLS,
-      DIBELS_NWF_WWR,
-      DIBELS_DORF_WPM,
-      DIBELS_DORF_ACC,
-      F_AND_P_ENGLISH,
-      F_AND_P_SPANISH
-    ];
-    const periodKeys = [
-      'fall',
-      'winter',
-      'spring'
-    ];
-    const grades = ['KF', '1', '2', '3', '4', '5'];
-    const cells = _.flatMap(grades, grade => periodKeys.map(periodKey => [grade, periodKey]));
+    const {benchmarkAssessmentKeys, grades, benchmarkPeriodKeys} = gridParams();
+    const cells = _.flatMap(grades, grade => benchmarkPeriodKeys.map(periodKey => [grade, periodKey]));
 
     return (
       <div className="ReadingScheduleGrid">
@@ -83,3 +67,24 @@ ReadingScheduleGrid.propTypes = {
 };
 
 
+
+export function gridParams() {
+  const benchmarkAssessmentKeys = [
+    DIBELS_FSF,
+    DIBELS_LNF,
+    DIBELS_PSF,
+    DIBELS_NWF_CLS,
+    DIBELS_NWF_WWR,
+    DIBELS_DORF_WPM,
+    DIBELS_DORF_ACC,
+    F_AND_P_ENGLISH,
+    F_AND_P_SPANISH
+  ];
+  const benchmarkPeriodKeys = [
+    'fall',
+    'winter',
+    'spring'
+  ];
+  const grades = ['KF', '1', '2', '3', '4', '5'];
+  return {benchmarkAssessmentKeys, benchmarkPeriodKeys, grades};
+}
