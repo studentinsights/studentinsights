@@ -58,6 +58,14 @@ export function testRuns() {
 }
 
 export function testProps(props) {
+  const defaultProps = createDefaultProps();
+  return {
+    ...deterministicSampleFor('Mari', 'KF', '2018-09-19T11:03:06.123Z', defaultProps),
+    ...props
+  };
+} 
+
+function createDefaultProps(props) {
   return {
     student: {
       id: 12,
@@ -136,7 +144,7 @@ function benchmark(params = {}) {
 }
 
 function studentCases(nowString) {
-  const defaultProps = testProps();
+  const defaultProps = createDefaultProps();
   return [
     deterministicSampleFor('Nikhil', 'KF', nowString, defaultProps, {percentMissing: 100}),
     deterministicSampleFor('Mari', 'KF', nowString, defaultProps),
@@ -181,7 +189,7 @@ function renderCellFn(caseProps, nowMoment, benchmarkAssessmentKey, grade, bench
 function deterministicSampleFor(firstName, gradeNow, nowString, defaultProps, options = {}) {
   const id = parseInt(hash({firstName, gradeNow}), 16) % 1024;
   const benchmarkDataPoints = deterministicDataPointsSample(gradeNow, nowString, options);
-  return testProps({
+  return createDefaultProps({
     student: {
       id,
       first_name: firstName,
