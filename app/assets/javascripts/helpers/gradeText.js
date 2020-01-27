@@ -79,3 +79,14 @@ export function adjustedGrade(schoolYearThen, gradeNow, nowMoment) {
 
   return inferredGrade;
 }
+
+// Figure out how many school years between these grades.
+export function howManyYears(gradeNow, gradeThen) {
+  const grades = allGrades();
+  const nowIndex = grades.indexOf(gradeNow);
+  const thenIndex = grades.indexOf(gradeThen);
+  if (nowIndex === -1 || thenIndex === -1) {
+    return null;
+  }
+  return (nowIndex - thenIndex);
+}

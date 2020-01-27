@@ -4,14 +4,16 @@ import _ from 'lodash';
 import {NoInformation} from './Tabs';
 import AccessTab from './AccessTab';
 import AccessView from './AccessView';
+import NonsenseWordFluencyTab from './NonsenseWordFluencyTab';
+import NonsenseWordFluencyView from './NonsenseWordFluencyView';
 import OralReadingFluencyTab from './OralReadingFluencyTab';
 import OralReadingFluencyView from './OralReadingFluencyView';
 import LetterNamingFluencyTab from './LetterNamingFluencyTab';
 import LetterNamingFluencyView from './LetterNamingFluencyView';
 import FirstSoundFluencyTab from './FirstSoundFluencyTab';
 import FirstSoundFluencyView from './FirstSoundFluencyView';
-import PhonemicSegmentationFluencyTab from './PhonemicSegmentationFluencyTab';
-import PhonemicSegmentationFluencyView from './PhonemicSegmentationFluencyView';
+import PhonemeSegmentationFluencyTab from './PhonemeSegmentationFluencyTab';
+import PhonemeSegmentationFluencyView from './PhonemeSegmentationFluencyView';
 import FAndPEnglishTab from './FAndPEnglishTab';
 import FAndPEnglishView from './FAndPEnglishView';
 import StarReadingTab from './StarReadingTab';
@@ -49,10 +51,11 @@ export default class ReaderProfileJanuary extends React.Component {
           ])}
           {this.renderCategory('Phonological Awareness', [
             KEYS.FirstSoundFluency,
-            KEYS.PhonemicSegmentationFluency
+            KEYS.PhonemeSegmentationFluency
           ])}
           {this.renderCategory('Phonics Fluency', [
             KEYS.LetterNamingFluency,
+            KEYS.NonsenseWordFluency,
             KEYS.OralReadingFluency
           ])}
           {this.renderCategory('Comprehension', [
@@ -123,11 +126,6 @@ export default class ReaderProfileJanuary extends React.Component {
     );
   }
 }
-
-ReaderProfileJanuary.contextTypes = {
-  nowFn: PropTypes.func.isRequired,
-  districtKey: PropTypes.string.isRequired
-};
 ReaderProfileJanuary.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -183,13 +181,16 @@ const styles = {
 
 
 
-// Describes the different reader profile keys (assessments).
+// Describes the different reader profile keys (which may be more general
+// than the benchmark_assessment_key, and not exactly the same thing when
+// an assessment reports multiple measures).
 // These have components for a "Tab" and a "View" when clicked.
 const KEYS = {
   ACCESS: 'r:ACCESS',
   FirstSoundFluency: 'r:DIBELS_FSF',
-  PhonemicSegmentationFluency: 'r:DIBELS_PSF',
+  PhonemeSegmentationFluency: 'r:DIBELS_PSF',
   LetterNamingFluency: 'r:DIBELS_LNF',
+  NonsenseWordFluency: 'r:DIBELS_NWF',
   OralReadingFluency: 'r:DIBELS_ORF',
   StarReading: 'r:STAR_READING',
   FAndPEnglish: 'r:F_AND_P_ENGLISH'
@@ -207,15 +208,20 @@ function componentsForReaderProfileKey(rpKey) {
       TabComponent: FirstSoundFluencyTab,
       ViewComponent: FirstSoundFluencyView
     },
-    [KEYS.PhonemicSegmentationFluency]: {
+    [KEYS.PhonemeSegmentationFluency]: {
       grades: ['KF', '1', '2'],
-      TabComponent: PhonemicSegmentationFluencyTab,
-      ViewComponent: PhonemicSegmentationFluencyView
+      TabComponent: PhonemeSegmentationFluencyTab,
+      ViewComponent: PhonemeSegmentationFluencyView
     },
     [KEYS.LetterNamingFluency]: {
       grades: ['KF', '1', '2'],
       TabComponent: LetterNamingFluencyTab,
       ViewComponent: LetterNamingFluencyView
+    },
+    [KEYS.NonsenseWordFluency]: {
+      grades: ['KF', '1', '2', '3', '4'],
+      TabComponent: NonsenseWordFluencyTab,
+      ViewComponent: NonsenseWordFluencyView
     },
     [KEYS.OralReadingFluency]: {
       grades: ['1', '2', '3', '4', '5'],

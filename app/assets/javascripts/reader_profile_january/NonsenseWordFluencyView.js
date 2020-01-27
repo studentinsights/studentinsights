@@ -1,21 +1,21 @@
 import React from 'react';
 import expandedViewPropTypes from './expandedViewPropTypes';
-import {DIBELS_DORF_WPM} from '../reading/thresholds';
+import {DIBELS_NWF_CLS} from '../reading/thresholds';
 import {PHONICS_FLUENCY} from './instructionalStrategies';
 import GenericDibelsView from './GenericDibelsView';
 
 
-export default function OralReadingFluencyView(props) {
+export default function NonsenseWordFluencyView(props) {
   return (
     <GenericDibelsView
       {...props}
-      titleText="Oral reading fluency"
-      benchmarkAssessmentKey={DIBELS_DORF_WPM}
+      titleText="Nonsense word fluency"
+      benchmarkAssessmentKey={DIBELS_NWF_CLS}
       categoryKey={PHONICS_FLUENCY}
       urls={MATERIAL_URLS}
     />
   );
 }
-OralReadingFluencyView.propTypes = expandedViewPropTypes;
+NonsenseWordFluencyView.propTypes = expandedViewPropTypes;
 
 const MATERIAL_URLS = {};
