@@ -1,5 +1,12 @@
 import React from 'react';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {adjustedGrade} from '../helpers/gradeText';
+import {withNowContext} from '../testing/NowContainer';
+import HelpBubble from '../components/HelpBubble';
+import Nbsp from '../components/Nbsp';
+import PerDistrictContainer from '../components/PerDistrictContainer';
+import {computeMids} from '../reading/readingData';
+import {somervilleReadingThresholdsFor} from '../reading/thresholds';
 import {
   DIBELS_DORF_WPM,
   DIBELS_DORF_ACC,
@@ -13,9 +20,8 @@ import {
   F_AND_P_SPANISH,
   INSTRUCTIONAL_NEEDS
 } from '../reading/thresholds';
+import ReadingScheduleGrid from '../reading/ReadingScheduleGrid';
 import {readInstructionalStrategies} from './instructionalStrategies';
-import {withNowContext} from '../testing/NowContainer';
-import PerDistrictContainer from '../components/PerDistrictContainer';
 import ReaderProfileJanuary from './ReaderProfileJanuary';
 
 
@@ -23,12 +29,20 @@ export function renderTestGrid(testRuns) {
   return (
     <div className="ReaderProfileJanuary-testGrid" style={{display: 'flex', margin: 20}}>
       {testRuns.map(([nowString, cases]) => {
+        const nowMoment = toMomentFromTimestamp(nowString);
         return (
           <div key={nowString} style={{marginBottom: 40}}>
-            <h4 style={{color: '#999', marginBottom: 10}}>on {toMomentFromTimestamp(nowString).format('M/D/Y')}</h4>
+            <h4 style={{color: '#999', marginBottom: 10}}>on {nowMoment.format('M/D/Y')}</h4>
             {cases.map((caseProps, index) => (
               <div key={index} style={{marginRight: 20, marginBottom: 20}}>
-                <h2>{caseProps.student.first_name}, {caseProps.student.grade}</h2>
+                <h2 style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                  <div>{caseProps.student.first_name}, {caseProps.student.grade}</div>
+                  <HelpBubble
+                    title={`Reading Schedule Grid: ${caseProps.student.first_name}`}
+                    content={<ReadingScheduleGrid renderCellFn={(...params) => renderCellFn(caseProps, nowMoment, ...params)} />}
+                    teaser='grid of scores'
+                  />
+                </h2>
                 <div style={{width: 1000, border: '1px solid #333'}}>
                   {withNowContext(nowString, (
                     <PerDistrictContainer districtKey="somerville">
@@ -122,10 +136,10 @@ function benchmark(params = {}) {
     "id": 999,
     "student_id": 777,
     "benchmark_school_year": 2018,
-    "benchmark_period_key": "fall",
+    "benchmark_period_key": 'fall', // _.sample(['fall', 'winter', 'spring']),
     "benchmark_assessment_key": "f_and_p_english",
     "json": {
-      "value": 35
+      "value": 35, // Math.round((10 + (Math.random() * 100)))  
     },
     "educator_id": 999999,
     "created_at": "2019-05-26T19:27:10.429Z",
@@ -216,3 +230,21 @@ const Nows = {
   WINTER: '2019-01-11T11:03:06.123Z',
   SPRING: '2018-05-15T11:03:06.123Z'
 };
+
+
+function renderCellFn(caseProps, nowMoment, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+  const {readerJson, student} = caseProps;
+  const dataPoints = (readerJson.benchmark_data_points || []).filter(d => {
+    if (d.benchmark_assessment_key !== benchmarkAssessmentKey) return false;
+    if (d.benchmark_period_key !== benchmarkPeriodKey) return false;
+    const gradeThen = adjustedGrade(d.benchmark_school_year, student.grade, nowMoment);
+    if (gradeThen !== grade) return false;
+    return true;
+  });
+
+  return (
+    <div key={[grade, benchmarkAssessmentKey].join('-')} style={{color: '#666', textAlign: 'center', height: 80}}>
+      {dataPoints.map((d, index) => <div key={index} style={{margin: 10}}>{d.json.value}</div>)}
+    </div>
+  );
+}

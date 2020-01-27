@@ -264,3 +264,22 @@ export function rankBenchmarkDataPoint(d) {
   const value = interpretDibels(text);
   return (value === null || value === undefined) ? -1 : value;
 }
+
+
+export function computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+  if (!thresholds) return [null, null];
+  if (thresholds.risk === undefined || thresholds.benchmark === undefined) return [null, null];  
+
+  if ([F_AND_P_ENGLISH, F_AND_P_SPANISH].indexOf(benchmarkAssessmentKey) !== -1) {
+    const levels = orderedFAndPLevels();
+    return [
+      levels[levels.indexOf(thresholds.risk) + 1],
+      levels[levels.indexOf(thresholds.benchmark) - 1]
+    ];
+  }
+
+  return [
+    thresholds.risk + 1,
+    thresholds.benchmark - 1
+  ];
+}

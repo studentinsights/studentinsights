@@ -19,6 +19,8 @@ export default function LetterNamingFluencyView(props) {
 LetterNamingFluencyView.propTypes = expandedViewPropTypes;
 
 const MATERIAL_URLS = {
-  'KF-fall': 'LetterNamingFluency-K1',
-  'KF-winter': 'LetterNamingFluency-K2'
+  'KF-fall': 'LetterNamingFluency-KF-fall',
+  'KF-winter': 'LetterNamingFluency-KF-winter',
+  'KF-spring': 'LetterNamingFluency-KF-spring',
+  '1-fall': 'LetterNamingFluency-1-fall'
 };
