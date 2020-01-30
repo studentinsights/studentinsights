@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {adjustedGrade} from '../helpers/gradeText';
-import {benchmarkPeriodToMoment} from '../reading/readingData';
 import expandedViewPropTypes from './expandedViewPropTypes';
 import {matchStrategies} from './instructionalStrategies';
 import {mostRecentDataPoint} from './dibelsParsing';
