@@ -37,3 +37,10 @@ it('snapshots views across all testRuns', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+it('snapshots across all testRuns, even when all views are expanded', () => {
+  const tree = renderer
+    .create(renderTestGrid(testRuns({debugShowAllExpandedViews: true})))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});

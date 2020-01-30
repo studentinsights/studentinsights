@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="ExpandedLayout"
+  style={
+    Object {
+      "padding": 10,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "fontSize": 16,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      First sound fluency
+    </div>
+    <div
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "color": "#999",
+          "cursor": "pointer",
+        }
+      }
+    >
+      Close
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "flex": 5,
+          "marginRight": 20,
+        }
+      }
+    >
+      <div>
+        <div
+          className="MaterialsCarousel"
+        >
+          <img
+            className="MaterialImage"
+            src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+            style={
+              Object {
+                "border": "1px solid #ccc",
+              }
+            }
+            width="100%"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 3,
+          "marginRight": 20,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "color": "#333",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Instructional strategies
+      </div>
+      <div>
+        <div
+          className="Strategies"
+        >
+          <div>
+            <a
+              href="https://www.dropbox.com/sh/md15rd36xq81wwi/AAD-I9Eto1rG5wdgwN3bxOEwa/ELA%202019-2020/Kindergarten/PA%20Intervention"
+              rel="noopener noreferrer"
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "background": "#eee",
+                  "border": "1px solid #ccc",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "height": "4em",
+                  "justifyContent": "center",
+                  "overflow": "hidden",
+                  "padding": 10,
+                }
+              }
+              target="_blank"
+              title="5 minute lessons for phonological awareness"
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                SPS Heggerty
+              </div>
+              <div>
+                by 
+                ggeorge
+              </div>
+            </a>
+            <a
+              href="https://www.dropbox.com/sh/md15rd36xq81wwi/AAD40J3eTcxj5khUtz5mpRKva/ELA%202019-2020/Kindergarten/PA%20Workbooks"
+              rel="noopener noreferrer"
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "background": "#eee",
+                  "border": "1px solid #ccc",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "height": "4em",
+                  "justifyContent": "center",
+                  "overflow": "hidden",
+                  "padding": 10,
+                }
+              }
+              target="_blank"
+              title="Notebook for repeating Kindergarten PA unit, 12 weeks"
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                SPS notebook for double dose
+              </div>
+              <div>
+                by 
+                jbuckwalter
+              </div>
+            </a>
+          </div>
+          <div
+            style={
+              Object {
+                "color": "#999",
+                "fontSize": 12,
+                "margin": 10,
+              }
+            }
+          >
+            Add suggestion
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 5,
+          "marginRight": 20,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "color": "#333",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Data for 
+        Max
+      </div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <b
+                style={
+                  Object {
+                    "paddingRight": 5,
+                  }
+                }
+              >
+                36
+              </b>
+              <span>
+                in 
+                winter
+                 of 
+                Kindergarten
+              </span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <b
+                style={
+                  Object {
+                    "paddingRight": 5,
+                  }
+                }
+              >
+                12
+              </b>
+              <span>
+                in 
+                fall
+                 of 
+                Kindergarten
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

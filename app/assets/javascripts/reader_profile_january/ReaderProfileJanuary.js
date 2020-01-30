@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {NoInformation} from './Tabs';
+import DebugReadingScheduleGrid from './DebugReadingScheduleGrid';
 import AccessTab from './AccessTab';
 import AccessView from './AccessView';
 import NonsenseWordFluencyTab from './NonsenseWordFluencyTab';
@@ -18,6 +19,7 @@ import FAndPEnglishTab from './FAndPEnglishTab';
 import FAndPEnglishView from './FAndPEnglishView';
 import StarReadingTab from './StarReadingTab';
 import StarReadingView from './StarReadingView';
+
 
 // This manages the frame and overall interaction of selection
 // and the API for components describing different bits of
@@ -41,29 +43,25 @@ export default class ReaderProfileJanuary extends React.Component {
   }
 
   render() {
-    const {rpKey} = this.state;
     return (
       <div className="ReaderProfileJanuary" style={styles.root}>
         <div style={styles.categories} onClick={this.onTabSelected.bind(this, null)}>
-          {this.renderCategory('Student experience', [])}
-          {this.renderCategory('Oral language', [
-            KEYS.ACCESS
-          ])}
-          {this.renderCategory('Phonological Awareness', [
-            KEYS.FirstSoundFluency,
-            KEYS.PhonemeSegmentationFluency
-          ])}
-          {this.renderCategory('Phonics Fluency', [
-            KEYS.LetterNamingFluency,
-            KEYS.NonsenseWordFluency,
-            KEYS.OralReadingFluency
-          ])}
-          {this.renderCategory('Comprehension', [
-            KEYS.FAndPEnglish,
-            KEYS.StarReading
-          ])}
+          {UI_PANELS.map(({titleText, rpKeys}) => this.renderCategory(titleText, rpKeys))}
         </div>
-        {rpKey && this.renderExpandedView(rpKey)}
+        {this.renderExpandedViewOrDebugAll()}
+        {this.renderDebug()}
+      </div>
+    );
+  }
+
+  renderDebug() {
+    const {readerJson, student} = this.props;
+    return (
+      <div style={styles.debug}>
+        <DebugReadingScheduleGrid
+          readerJson={readerJson}
+          gradeNow={student.grade}
+        />
       </div>
     );
   }
@@ -75,7 +73,7 @@ export default class ReaderProfileJanuary extends React.Component {
       ...(isFaded ? styles.faded : {})
     };
     return (
-      <div style={categoryStyle}>
+      <div key={titleText} style={categoryStyle}>
         <div style={styles.categoryTitle}>{titleText}</div>
         <div style={styles.tabs}>
           {this.renderTabsInterpretation(rpKeys)}
@@ -110,6 +108,15 @@ export default class ReaderProfileJanuary extends React.Component {
     );
   }
 
+  renderExpandedViewOrDebugAll() {
+    const {debugShowAllExpandedViews} = this.props;
+    const {rpKey} = this.state;
+    const rpKeys = (debugShowAllExpandedViews)
+      ? _.flatMap(UI_PANELS, p => p.rpKeys)
+      : _.compact([rpKey]);
+    return rpKeys.map(this.renderExpandedView, this);
+  }
+
   renderExpandedView(rpKey) {
     const {student, readerJson, instructionalStrategies} = this.props;
     const expandedProps = {
@@ -120,7 +127,7 @@ export default class ReaderProfileJanuary extends React.Component {
     };
     const {ViewComponent} = componentsForReaderProfileKey(rpKey);
     return (
-      <div style={styles.expanded}>
+      <div key={rpKey} style={styles.expanded}>
         <ViewComponent {...expandedProps} />
       </div>
     );
@@ -140,12 +147,14 @@ ReaderProfileJanuary.propTypes = {
     current_school_year: PropTypes.number.isRequired,
     benchmark_data_points: PropTypes.arrayOf(PropTypes.object).isRequired
   }).isRequired,
-  instructionalStrategies: PropTypes.array.isRequired
+  instructionalStrategies: PropTypes.array.isRequired,
+  debugShowAllExpandedViews: PropTypes.bool
 };
 
 
 const styles = {
   root: {
+    position: 'relative',
     marginBottom: 40
   },
   categories: {
@@ -175,6 +184,11 @@ const styles = {
     margin: 10,
     border: '1px solid #333',
     padding: 10
+  },
+  debug: {
+    position: 'absolute',
+    right: 0,
+    top: 0
   }
 };
 
@@ -195,6 +209,43 @@ const KEYS = {
   StarReading: 'r:STAR_READING',
   FAndPEnglish: 'r:F_AND_P_ENGLISH'
 };
+
+// Define what to show in the UI
+const UI_PANELS = [
+  {
+    titleText: 'Student experience',
+    rpKeys: []
+  },
+  {
+    titleText: 'Oral language',
+    rpKeys: [
+      KEYS.ACCESS
+    ]
+  },
+  {
+    titleText: 'Phonological Awareness',
+    rpKeys: [
+      KEYS.FirstSoundFluency,
+      KEYS.PhonemeSegmentationFluency
+    ]
+  },
+  {
+    titleText: 'Phonics Fluency',
+    rpKeys: [
+      KEYS.LetterNamingFluency,
+      KEYS.NonsenseWordFluency,
+      KEYS.OralReadingFluency
+    ]
+  },
+  {
+    titleText: 'Comprehension',
+    rpKeys: [
+      KEYS.FAndPEnglish,
+      KEYS.StarReading
+    ]
+  }
+];
+
 
 function componentsForReaderProfileKey(rpKey) {
   return {
