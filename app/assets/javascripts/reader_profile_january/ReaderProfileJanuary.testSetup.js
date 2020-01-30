@@ -5,7 +5,6 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {adjustedGrade, howManyYears} from '../helpers/gradeText';
 import {withNowContext} from '../testing/NowContainer';
-import HelpBubble from '../components/HelpBubble';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {benchmarkPeriodKeyFor} from '../reading/readingData';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
@@ -13,7 +12,7 @@ import {
   F_AND_P_ENGLISH,
   F_AND_P_SPANISH,
 } from '../reading/thresholds';
-import ReadingScheduleGrid, {gridParams} from '../reading/ReadingScheduleGrid';
+import {gridParams} from '../reading/ReadingScheduleGrid';
 import {readInstructionalStrategies} from './instructionalStrategies';
 import ReaderProfileJanuary from './ReaderProfileJanuary';
 
@@ -28,14 +27,7 @@ export function renderTestGrid(testRuns) {
             <h4 style={{color: '#999', marginBottom: 10}}>on {nowMoment.format('M/D/Y')}</h4>
             {cases.map((caseProps, index) => (
               <div key={index} style={{marginRight: 20, marginBottom: 20}}>
-                <h2 style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                  <div>{caseProps.student.first_name}, {caseProps.student.grade}</div>
-                  <HelpBubble
-                    title={`Reading Schedule Grid: ${caseProps.student.first_name}`}
-                    content={<ReadingScheduleGrid renderCellFn={(...params) => renderCellFn(caseProps, nowMoment, ...params)} />}
-                    teaser='grid of scores'
-                  />
-                </h2>
+                <h2>{caseProps.student.first_name}, {caseProps.student.grade}</h2>
                 <div style={{width: 1000, border: '1px solid #333'}}>
                   {withNowContext(nowString, (
                     <PerDistrictContainer districtKey="somerville">
@@ -52,12 +44,12 @@ export function renderTestGrid(testRuns) {
   );
 }
 
-export function testRuns() {
+export function testRuns(props = {}) {
   const times = [Nows.FALL, Nows.WINTER, Nows.SPRING];
-  return times.map(nowString => [nowString, studentCases(nowString)]);
+  return times.map(nowString => [nowString, studentCases(nowString, props)]);
 }
 
-export function testProps(props) {
+export function testProps(props = {}) {
   const defaultProps = createDefaultProps();
   return {
     ...deterministicSampleFor('Mari', 'KF', '2018-09-19T11:03:06.123Z', defaultProps),
@@ -65,7 +57,7 @@ export function testProps(props) {
   };
 } 
 
-function createDefaultProps(props) {
+function createDefaultProps(props = {}) {
   return {
     student: {
       id: 12,
@@ -127,8 +119,7 @@ function testAccess(beforeNowString, options = {}) {
 
 
 function benchmark(params = {}) {
-  return {
-    "id": 999,
+  const dataPoint = {
     "student_id": 777,
     "benchmark_school_year": 2018,
     "benchmark_period_key": 'fall', // _.sample(['fall', 'winter', 'spring']),
@@ -141,10 +132,12 @@ function benchmark(params = {}) {
     "updated_at": "2019-05-26T19:27:10.429Z",
     ...params
   };
+  dataPoint.id = parseInt(hash(dataPoint), 16) % Math.pow(10, 6);
+  return dataPoint;
 }
 
-function studentCases(nowString) {
-  const defaultProps = createDefaultProps();
+function studentCases(nowString, props = {}) {
+  const defaultProps = createDefaultProps(props);
   return [
     deterministicSampleFor('Nikhil', 'KF', nowString, defaultProps, {percentMissing: 100}),
     deterministicSampleFor('Mari', 'KF', nowString, defaultProps),
@@ -169,27 +162,11 @@ const Nows = {
 };
 
 
-function renderCellFn(caseProps, nowMoment, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
-  const {readerJson, student} = caseProps;
-  const dataPoints = (readerJson.benchmark_data_points || []).filter(d => {
-    if (d.benchmark_assessment_key !== benchmarkAssessmentKey) return false;
-    if (d.benchmark_period_key !== benchmarkPeriodKey) return false;
-    const gradeThen = adjustedGrade(d.benchmark_school_year, student.grade, nowMoment);
-    if (gradeThen !== grade) return false;
-    return true;
-  });
-
-  return (
-    <div key={[grade, benchmarkAssessmentKey].join('-')} style={{color: '#666', textAlign: 'center', height: 80}}>
-      {dataPoints.map((d, index) => <div key={index} style={{margin: 10}}>{d.json.value}</div>)}
-    </div>
-  );
-}
-
 function deterministicSampleFor(firstName, gradeNow, nowString, defaultProps, options = {}) {
   const id = parseInt(hash({firstName, gradeNow}), 16) % 1024;
   const benchmarkDataPoints = deterministicDataPointsSample(gradeNow, nowString, options);
   return createDefaultProps({
+    ...defaultProps,
     student: {
       id,
       first_name: firstName,
