@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tabProptypes from './tabPropTypes';
+import {adjustedGrade} from '../helpers/gradeText';
 import {mostRecentDataPoint, shouldHighlight} from './dibelsParsing';
 import {Tab, NoInformation} from './Tabs';
 
@@ -14,7 +15,8 @@ export default class GenericDibelsTab extends React.Component {
       return <NoInformation />;
     }
     
-    const isOrange = shouldHighlight(dataPoint, student.grade, nowFn());
+    const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, student.grade, nowFn());
+    const isOrange = shouldHighlight(dataPoint, gradeThen);
     return (
       <Tab
         style={style}

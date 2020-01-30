@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import {adjustedGrade} from '../helpers/gradeText';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
 
@@ -13,8 +12,7 @@ export function mostRecentDataPoint(readerJson, benchmarkAssessmentKey) {
 }
 
 // Decide whether to highlight based on thresholds; returns true|false|null.
-export function shouldHighlight(dataPoint, gradeNow, nowMoment) {
-  const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, gradeNow, nowMoment);
+export function shouldHighlight(dataPoint, gradeThen) {
   const thresholds = somervilleReadingThresholdsFor(...[
     dataPoint.benchmark_assessment_key,
     gradeThen,

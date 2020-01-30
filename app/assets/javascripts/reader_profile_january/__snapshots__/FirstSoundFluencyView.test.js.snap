@@ -200,47 +200,213 @@ exports[`snapshots 1`] = `
           }
         }
       >
-        Data for 
+        Somerville benchmarks for 
         Max
       </div>
       <div>
-        <div>
+        <div
+          className="Data"
+        >
           <div>
-            <div>
-              <b
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <div
                 style={
                   Object {
-                    "paddingRight": 5,
+                    "flex": 1,
+                    "paddingRight": 20,
                   }
                 }
               >
-                36
-              </b>
-              <span>
-                in 
-                winter
-                 of 
-                Kindergarten
-              </span>
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "white",
+                        "color": "rgba(0, 0, 0, 0.5)",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #ccc",
+                      }
+                    }
+                    title={null}
+                  >
+                    fall
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "white",
+                        "color": "rgba(0, 0, 0, 0.5)",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #ccc",
+                      }
+                    }
+                    title={null}
+                  >
+                    winter
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "white",
+                        "color": "rgba(0, 0, 0, 0.5)",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #ccc",
+                      }
+                    }
+                    title={null}
+                  >
+                    spring
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Pre-K (PK)
+                  , 
+                  2016
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                    "paddingRight": 20,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#ccc",
+                        "color": "black",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #aaa",
+                      }
+                    }
+                    title={12}
+                  >
+                    fall
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#ccc",
+                        "color": "black",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #aaa",
+                      }
+                    }
+                    title={36}
+                  >
+                    winter
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "white",
+                        "color": "rgba(0, 0, 0, 0.5)",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #ccc",
+                      }
+                    }
+                    title={null}
+                  >
+                    spring
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Kindergarten
+                  , 
+                  2017
+                </div>
+              </div>
             </div>
           </div>
-          <div>
-            <div>
-              <b
+          <div
+            style={
+              Object {
+                "marginTop": 40,
+              }
+            }
+          >
+            <div
+              className="Expandable"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
                 style={
                   Object {
-                    "paddingRight": 5,
+                    "padding": 10,
+                    "paddingLeft": 0,
                   }
                 }
               >
-                12
-              </b>
-              <span>
-                in 
-                fall
-                 of 
-                Kindergarten
-              </span>
+                Show raw scores
+              </a>
             </div>
           </div>
         </div>

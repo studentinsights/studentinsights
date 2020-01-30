@@ -8,6 +8,10 @@ import ReaderProfileJanuary from './ReaderProfileJanuary';
 import {testProps, testRuns, renderTestGrid} from './ReaderProfileJanuary.testSetup';
 
 
+// Ignore the details of data rendering itself.
+jest.mock('./Data');
+
+
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(
@@ -28,7 +32,7 @@ it('can expand view', () => {
   const expandedText = el.querySelector('.ExpandedLayout').textContent;
   expect(expandedText).toContain('First sound fluency');
   expect(expandedText).toContain('Instructional strategies');
-  expect(expandedText).toContain('Data for Mari');
+  expect(expandedText).toContain('Somerville benchmarks for Mari');
 });
 
 it('snapshots views across all testRuns', () => {
