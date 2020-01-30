@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import chroma from 'chroma-js';
 import {previousGrade, gradeText} from '../helpers/gradeText';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
-import {shouldHighlight} from './dibelsParsing';
-import {ORANGE, GREEN, PRESENT, BLANK} from './colors';
+import {boxStyle} from './colors';
 
 
 export default class BoxChart extends React.Component {
@@ -60,7 +58,7 @@ function YearBox(props) {
         {benchmarkPeriodKeys.map((benchmarkPeriodKey, index) => {
           const dataPoint = ds[index];
           const valueEl = dataPoint ? dataPoint.json.value : null;
-          const style = pickStyle(dataPoint, gradeThen);
+          const style = boxStyle(dataPoint, gradeThen, styles.box);
           return (
             <div key={benchmarkPeriodKey} style={style} title={valueEl}>
               {benchmarkPeriodKey}
@@ -77,37 +75,6 @@ YearBox.propTypes = {
   gradeThen: PropTypes.string.isRequired,
   sortedDataPoints: PropTypes.array.isRequired
 };
-
-
-function pickStyle(dataPoint, gradeThen) {
-  // no data
-  if (!dataPoint) {
-    return boxStyle(BLANK);
-  }
-
-  // data, but how should we color it?
-  const isOrange = shouldHighlight(dataPoint, gradeThen);
-  if (isOrange === true) {
-    return boxStyle(ORANGE);
-  }
-  if (isOrange === false) {
-    return boxStyle(GREEN);
-  }
-
-  // value, but no thresholds
-  return boxStyle(PRESENT);
-}
-
-
-function boxStyle(color) {
-  return {
-    ...styles.box,
-    background: color,
-    outline: `1px solid ${chroma(color).darken().hex()}`,
-    color: chroma(color).darken().darken().hex()
-  };
-}
-
 
 const styles = {
   years: {
