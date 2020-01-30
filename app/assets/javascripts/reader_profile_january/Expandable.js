@@ -35,7 +35,7 @@ export default class Expandable extends React.Component {
       <div>
         <div style={styles.bar}>
           <div>{text}</div>
-          {this.renderToggle('close')}
+          {this.renderToggle('hide')}
         </div>
         <div style={styles.content}>{children}</div>
       </div>

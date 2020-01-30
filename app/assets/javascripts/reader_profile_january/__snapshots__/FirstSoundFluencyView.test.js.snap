@@ -237,14 +237,14 @@ exports[`snapshots 1`] = `
                     style={
                       Object {
                         "alignItems": "center",
-                        "background": "white",
-                        "color": "rgba(0, 0, 0, 0.5)",
+                        "background": "#f8f8f8",
+                        "color": "#959595",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
                         "height": 40,
                         "justifyContent": "center",
-                        "outline": "1px solid #ccc",
+                        "outline": "1px solid #c5c5c5",
                       }
                     }
                     title={null}
@@ -255,14 +255,14 @@ exports[`snapshots 1`] = `
                     style={
                       Object {
                         "alignItems": "center",
-                        "background": "white",
-                        "color": "rgba(0, 0, 0, 0.5)",
+                        "background": "#f8f8f8",
+                        "color": "#959595",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
                         "height": 40,
                         "justifyContent": "center",
-                        "outline": "1px solid #ccc",
+                        "outline": "1px solid #c5c5c5",
                       }
                     }
                     title={null}
@@ -273,14 +273,14 @@ exports[`snapshots 1`] = `
                     style={
                       Object {
                         "alignItems": "center",
-                        "background": "white",
-                        "color": "rgba(0, 0, 0, 0.5)",
+                        "background": "#f8f8f8",
+                        "color": "#959595",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
                         "height": 40,
                         "justifyContent": "center",
-                        "outline": "1px solid #ccc",
+                        "outline": "1px solid #c5c5c5",
                       }
                     }
                     title={null}
@@ -320,14 +320,14 @@ exports[`snapshots 1`] = `
                     style={
                       Object {
                         "alignItems": "center",
-                        "background": "#ccc",
-                        "color": "black",
+                        "background": "orange",
+                        "color": "#904a00",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
                         "height": 40,
                         "justifyContent": "center",
-                        "outline": "1px solid #aaa",
+                        "outline": "1px solid #c67600",
                       }
                     }
                     title={12}
@@ -338,14 +338,14 @@ exports[`snapshots 1`] = `
                     style={
                       Object {
                         "alignItems": "center",
-                        "background": "#ccc",
-                        "color": "black",
+                        "background": "orange",
+                        "color": "#904a00",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
                         "height": 40,
                         "justifyContent": "center",
-                        "outline": "1px solid #aaa",
+                        "outline": "1px solid #c67600",
                       }
                     }
                     title={36}
@@ -356,14 +356,14 @@ exports[`snapshots 1`] = `
                     style={
                       Object {
                         "alignItems": "center",
-                        "background": "white",
-                        "color": "rgba(0, 0, 0, 0.5)",
+                        "background": "#f8f8f8",
+                        "color": "#959595",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
                         "height": 40,
                         "justifyContent": "center",
-                        "outline": "1px solid #ccc",
+                        "outline": "1px solid #c5c5c5",
                       }
                     }
                     title={null}
