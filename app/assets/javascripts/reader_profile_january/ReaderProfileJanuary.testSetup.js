@@ -3,7 +3,7 @@ import hash from 'object-hash';
 import _ from 'lodash';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {toSchoolYear} from '../helpers/schoolYear';
-import {adjustedGrade, howManyYears} from '../helpers/gradeText';
+import {howManyYears} from '../helpers/gradeText';
 import {withNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {benchmarkPeriodKeyFor} from '../reading/readingData';
