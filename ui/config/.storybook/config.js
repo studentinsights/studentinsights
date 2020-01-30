@@ -41,6 +41,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/reader_profile/ReaderProfileJune.story');
   require('../../../app/assets/javascripts/reader_profile_january/ReaderProfileJanuary.story');
   require('../../../app/assets/javascripts/reader_profile_january/FirstSoundFluencyView.story');
+  require('../../../app/assets/javascripts/reader_profile_january/BoxChart.story');
 
   //reading (grouping, data entry)
   require('../../../app/assets/javascripts/reading/ChooseTeam.story');

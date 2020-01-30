@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {ORANGE, GREEN, PRESENT, BLANK} from './colors';
 
 
 // <Tab /> should only be used when there is data that can be expanded.
@@ -52,10 +53,10 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     cursor: 'default',
-    backgroundColor: '#ccc'
+    backgroundColor: PRESENT
   },
   none: {
-    backgroundColor: '#f8f8f8',
+    backgroundColor: BLANK,
     color: '#999',
     opacity: 0.5
   },
@@ -63,9 +64,9 @@ const styles = {
     cursor: 'pointer'
   },
   orange: {
-    backgroundColor: 'orange'
+    backgroundColor: ORANGE,
   },
   green: {
-    backgroundColor: 'rgb(147, 196, 125)'
+    backgroundColor: GREEN
   }
 };

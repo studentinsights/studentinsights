@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {adjustedGrade} from '../helpers/gradeText';
-import {benchmarkPeriodToMoment} from '../reading/readingData';
 import expandedViewPropTypes from './expandedViewPropTypes';
 import {matchStrategies} from './instructionalStrategies';
 import {mostRecentDataPoint} from './dibelsParsing';
 import ExpandedLayout from './ExpandedLayout';
 import MaterialsCarousel from './MaterialsCarousel';
 import Strategies from './Strategies';
-import GenericDibelsDataPoint from './GenericDibelsDataPoint';
+import Data from './Data';
+
 
 export default class GenericDibelsView extends React.Component {
   render() {
@@ -45,26 +45,14 @@ export default class GenericDibelsView extends React.Component {
     return <MaterialsCarousel fileKeys={fileKeys} />;
   }
 
-  renderData(gradeThen) {
-    const {nowFn} = this.context;
+  renderData() {
     const {student, readerJson, benchmarkAssessmentKey} = this.props;
-    const dataPoints = readerJson.benchmark_data_points.filter(d => d.benchmark_assessment_key === benchmarkAssessmentKey);
-    const sortedDataPoints = _.sortBy(dataPoints, dataPoint => {
-      return -1 * benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year).unix();
-    });
     return (
-      <div>
-        {sortedDataPoints.map(dataPoint => {
-          const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, student.grade, nowFn());
-          return (
-            <GenericDibelsDataPoint
-              key={dataPoint.id}
-              dataPoint={dataPoint}
-              gradeThen={gradeThen}
-            />
-          );
-        })}
-      </div>
+      <Data
+        gradeNow={student.grade}
+        readerJson={readerJson}
+        benchmarkAssessmentKey={benchmarkAssessmentKey}
+      />
     );
   }
 }
