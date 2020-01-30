@@ -12,6 +12,7 @@ export default class ExpandedLayout extends React.Component {
       dataEl
     } = this.props;
 
+    const noneEl = <div>None</div>;
     return (
       <div className="ExpandedLayout" style={styles.root}>
         <div style={styles.header}>
@@ -20,15 +21,15 @@ export default class ExpandedLayout extends React.Component {
         </div>
         <div style={styles.columns}>
           <div style={{...styles.column, ...styles.materials}}>
-            <div>{materialsEl}</div>
+            <div>{materialsEl || noneEl}</div>
           </div>
           <div style={{...styles.column, ...styles.strategies}}>
             <div style={styles.subtitle}>Instructional strategies</div>
-            <div>{strategiesEl}</div>
+            <div>{strategiesEl || noneEl}</div>
           </div>
           <div style={{...styles.column, ...styles.data}}>
             <div style={styles.subtitle}>Data for {studentFirstName}</div>
-            <div>{dataEl}</div>
+            <div>{dataEl || noneEl}</div>
           </div>
         </div>
       </div>
@@ -39,9 +40,9 @@ ExpandedLayout.propTypes = {
   titleText: PropTypes.string.isRequired,
   studentFirstName: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  materialsEl: PropTypes.node.isRequired,
-  strategiesEl: PropTypes.node.isRequired,
-  dataEl: PropTypes.node.isRequired
+  materialsEl: PropTypes.node,
+  strategiesEl: PropTypes.node,
+  dataEl: PropTypes.node
 };
 
 
