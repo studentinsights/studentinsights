@@ -31,5 +31,20 @@ const MATERIAL_URLS = {
     'OralReadingFluency-1-spring-31',
     'OralReadingFluency-1-spring-32',
     'OralReadingFluency-1-spring-33'
+  ],
+  '2-fall': [
+    'OralReadingFluency-2-fall-11',
+    'OralReadingFluency-2-fall-12',
+    'OralReadingFluency-2-fall-13'
+  ],
+  '2-winter': [
+    'OralReadingFluency-2-winter-21',
+    'OralReadingFluency-2-winter-22',
+    'OralReadingFluency-2-winter-23'
+  ],
+  '2-spring': [
+    'OralReadingFluency-2-spring-31',
+    'OralReadingFluency-2-spring-32',
+    'OralReadingFluency-2-spring-33'
   ]
 };
