@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Nbsp from '../components/Nbsp';
+import {prettyDibelsText} from '../reading/readingData';
 import {
   DIBELS_DORF_WPM,
   DIBELS_DORF_ACC,
@@ -11,8 +12,7 @@ import {
   DIBELS_NWF_CLS,
   DIBELS_NWF_WWR,
   F_AND_P_ENGLISH,
-  F_AND_P_SPANISH,
-  prettyText
+  F_AND_P_SPANISH
 } from '../reading/thresholds';
 
 
@@ -40,7 +40,7 @@ export default class ReadingScheduleGrid extends React.Component {
               return (
                 <tr key={benchmarkAssessmentKey}>
                   <td style={{width: 80, paddingRight: 10, paddingBottom: 20, verticalAlign: 'top', marginwhiteSpace: 'normal'}}>
-                    {prettyText(benchmarkAssessmentKey)}
+                    {prettyDibelsText(benchmarkAssessmentKey)}
                   </td>
                   {cells.map(cell => (
                     <td key={cell.join('-')}>

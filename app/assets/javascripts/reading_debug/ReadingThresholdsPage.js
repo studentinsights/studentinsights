@@ -18,23 +18,8 @@ export default class ReadingThresholdsPage extends React.Component {
           <div style={styles.headerLinkContainer}>
             <a style={styles.headerLink} href={SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer">Source code</a>
           </div>
-        </SectionHeading>      
-        <ReadingScheduleGrid renderCellFn={this.renderCellFn} />
-      </div>
-    );
-  }
-
-  renderCellFn(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
-    const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
-    const [midLow, midHigh] = computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodKey);
-    const [belowRisk, medium, aboveBenchmark] = ['#F4C7C3','#FCE8B2','#B7E1CD']; // google sheets
-    const missingEl = <div><Nbsp /></div>;
-    return (
-      <div key={[grade, benchmarkAssessmentKey].join('-')} style={{color: '#666', textAlign: 'center', height: 80}}>
-        {thresholds && thresholds.benchmark !== undefined ? <div style={{backgroundColor: aboveBenchmark}}>{thresholds.benchmark}</div> : missingEl}
-        {midHigh ? <div style={{backgroundColor: medium}}>{midHigh}</div> : missingEl}
-        {midLow ? <div style={{backgroundColor: medium}}>{midLow}</div> : missingEl}
-        {thresholds && thresholds.risk !== undefined ? <div style={{backgroundColor: belowRisk}}>{thresholds.risk}</div> : missingEl}
+        </SectionHeading>
+        <ReadingThresholdsGrid />
       </div>
     );
   }
@@ -55,5 +40,32 @@ const styles = {
   },
   headerLink: {
     fontSize: 12
+  },
+  cell: {
+    color: '#666',
+    height: 80,
+    textAlign: 'center',
+    overflow: 'hidden'
   }
 };
+
+
+export function ReadingThresholdsGrid() {
+  return <ReadingScheduleGrid renderCellFn={renderCellFn} />;
+}
+
+
+function renderCellFn(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+  const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  const [midLow, midHigh] = computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  const [belowRisk, medium, aboveBenchmark] = ['#F4C7C3','#FCE8B2','#B7E1CD']; // google sheets
+  const missingEl = <div><Nbsp /></div>;
+  return (
+    <div key={[grade, benchmarkAssessmentKey].join('-')} style={styles.cell}>
+      {thresholds && thresholds.benchmark !== undefined ? <div style={{backgroundColor: aboveBenchmark}}>{thresholds.benchmark}</div> : missingEl}
+      {midHigh ? <div style={{backgroundColor: medium}}>{midHigh}</div> : missingEl}
+      {midLow ? <div style={{backgroundColor: medium}}>{midLow}</div> : missingEl}
+      {thresholds && thresholds.risk !== undefined ? <div style={{backgroundColor: belowRisk}}>{thresholds.risk}</div> : missingEl}
+    </div>
+  );
+}

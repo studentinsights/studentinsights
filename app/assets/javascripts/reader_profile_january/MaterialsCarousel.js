@@ -58,6 +58,7 @@ function MaterialImage({fileKey}) {
   return (
     <img
       className="MaterialImage"
+      title={fileKey}
       width="100%"
       style={{border: '1px solid #ccc'}}
       src={path}
@@ -71,6 +72,6 @@ MaterialImage.propTypes = {
 
 // Check env to see if this is running in dev mode in Storybook.
 function isStorybookDev() {
-  const env = process.env;
+  const env = process.env; // eslint-disable-line
   return (env.NODE_ENV === 'development' && env.STORYBOOK_RUNNING === 'true');
 }

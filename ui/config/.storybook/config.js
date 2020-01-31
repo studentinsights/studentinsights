@@ -43,11 +43,12 @@ function loadStories() {
   require('../../../app/assets/javascripts/reader_profile_january/FirstSoundFluencyView.story');
   require('../../../app/assets/javascripts/reader_profile_january/BoxChart.story');
 
-  //reading (grouping, data entry)
+  //reading (grouping, data entry, debug)
   require('../../../app/assets/javascripts/reading/ChooseTeam.story');
   require('../../../app/assets/javascripts/reading/MakePlan.story');
   require('../../../app/assets/javascripts/reading/CreateGroups.story');
   require('../../../app/assets/javascripts/reading/SidebarDialog.story');
+  require('../../../app/assets/javascripts/reading_debug/ReadingThresholdsPage.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');

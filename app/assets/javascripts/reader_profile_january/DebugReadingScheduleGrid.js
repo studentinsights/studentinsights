@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HelpBubble from '../components/HelpBubble';
 import {adjustedGrade} from '../helpers/gradeText';
 import ReadingScheduleGrid from '../reading/ReadingScheduleGrid';
 import {boxStyle} from './colors';
+
 
 export default class DebugReadingScheduleGrid extends React.Component {
   render() {
     const {nowFn} = this.context;
     const {readerJson, gradeNow} = this.props;
     return (
-      <HelpBubble
-        linkStyle={{color: '#ccc', padding: 10}}
-        title="Debug Reading Schedule Grid"
-        content={<ReadingScheduleGrid renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowFn(), ...params)} />}
-        teaser='history'
+      <ReadingScheduleGrid
+        renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowFn(), ...params)}
       />
     );
   }
@@ -27,19 +24,11 @@ DebugReadingScheduleGrid.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 
-export function testRender(readerJson, gradeNow, nowMoment) {
-  return (
-    <ReadingScheduleGrid
-      renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowMoment, ...params)}
-    />
-  );
-}
-
 
 function renderCellFn(readerJson, gradeNow, nowMoment, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   const dataPoints = readerJson.benchmark_data_points || [];
   return (
-    <div key={[grade, benchmarkAssessmentKey].join('-')} style={{color: '#666', textAlign: 'center', height: 80}}>
+    <div key={[grade, benchmarkAssessmentKey].join('-')} style={styles.cell}>
       {dataPoints.map((d, index) => {
         if (d.benchmark_assessment_key !== benchmarkAssessmentKey) return null;
         if (d.benchmark_period_key !== benchmarkPeriodKey) return null;
@@ -53,6 +42,13 @@ function renderCellFn(readerJson, gradeNow, nowMoment, benchmarkAssessmentKey, g
 }
 
 const styles = {
+  cell: {
+    color: '#666',
+    height: 80,
+    display: 'flex',
+    justifyContent: 'center',
+    overflow: 'hidden'
+  },
   box: {
     display: 'flex',
     justifyContent: 'center',
