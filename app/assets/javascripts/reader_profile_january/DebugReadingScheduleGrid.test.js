@@ -4,8 +4,7 @@ import renderer from 'react-test-renderer';
 import {withNowContext} from '../testing/NowContainer';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import {renderCellFn} from './DebugReadingScheduleGrid';
-import ReadingScheduleGrid from '../reading/ReadingScheduleGrid';
+import {testRender} from './DebugReadingScheduleGrid';
 
 
 // this test data is only correct shape, but not semantically meaningful
@@ -31,7 +30,7 @@ export function testRender(props = {}) {
   const nowMoment = toMomentFromTimestamp(nowString);
   return withNowContext(nowString,
     <PerDistrictContainer districtKey="somerville">
-      <ReadingScheduleGrid renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowMoment, ...params)} />
+      {testRender(readerJson, gradeNow, nowMoment)}
     </PerDistrictContainer>
   );
 }

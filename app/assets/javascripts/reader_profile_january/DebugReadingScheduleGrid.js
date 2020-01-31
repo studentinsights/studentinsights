@@ -27,8 +27,16 @@ DebugReadingScheduleGrid.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 
+export function testRender(readerJson, gradeNow, nowMoment) {
+  return (
+    <ReadingScheduleGrid
+      renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowMoment, ...params)}
+    />
+  );
+}
 
-export function renderCellFn(readerJson, gradeNow, nowMoment, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
+
+function renderCellFn(readerJson, gradeNow, nowMoment, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   const dataPoints = readerJson.benchmark_data_points || [];
   return (
     <div key={[grade, benchmarkAssessmentKey].join('-')} style={{color: '#666', textAlign: 'center', height: 80}}>
