@@ -17052,8 +17052,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-2-fall-11.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-2-fall-11"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -21458,8 +21503,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-fall-11.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-fall-11"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -25728,8 +25818,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -29941,8 +30076,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -42939,7 +43119,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             "border": "1px solid #ccc",
                           }
                         }
-                        title="OralReadingFluency-1-winter-21"
+                        title=" OralReadingFluency-1-winter-21"
                         width="100%"
                       />
                       <div
@@ -47423,8 +47603,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-2-winter-21.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-2-winter-21"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -51829,8 +52054,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-winter-21.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-winter-21"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56099,8 +56369,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -60312,8 +60627,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -73310,7 +73670,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             "border": "1px solid #ccc",
                           }
                         }
-                        title="OralReadingFluency-1-spring-31"
+                        title=" OralReadingFluency-1-spring-31"
                         width="100%"
                       />
                       <div
@@ -77794,8 +78154,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-2-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-2-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -82200,8 +82605,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -86470,8 +86920,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -90683,8 +91178,53 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   }
                 >
                   <div>
-                    <div>
-                      Images not added yet
+                    <div
+                      className="MaterialsCarousel"
+                    >
+                      <img
+                        className="MaterialImage"
+                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                        style={
+                          Object {
+                            "border": "1px solid #ccc",
+                          }
+                        }
+                        title="OralReadingFluency-3-spring-31"
+                        width="100%"
+                      />
+                      <div
+                        style={
+                          Object {
+                            "display": "flex",
+                            "justifyContent": "space-between",
+                          }
+                        }
+                      >
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ◄
+                        </div>
+                        <div
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "color": "#aaa",
+                              "cursor": "pointer",
+                              "fontSize": 12,
+                            }
+                          }
+                        >
+                          ►
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
