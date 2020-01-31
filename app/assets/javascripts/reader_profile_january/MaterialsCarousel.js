@@ -53,7 +53,8 @@ MaterialsCarousel.propTypes = {
 function MaterialImage({fileKey}) {
   // fileKey values are checked into source, but be defensive anyway
   const safeFileKey = fileKey.replace(/[^a-zA-Z0-9-]/g,'');
-  const path = `/img/reading/${safeFileKey}.jpg`;
+  const domain = (isStorybookDev()) ? 'http://localhost:3000' : '';
+  const path = `${domain}/img/reading/${safeFileKey}.jpg`;
   return (
     <img
       className="MaterialImage"
@@ -67,3 +68,9 @@ MaterialImage.propTypes = {
   fileKey: PropTypes.string.isRequired
 };
 
+
+// Check env to see if this is running in dev mode in Storybook.
+function isStorybookDev() {
+  const env = process.env;
+  return (env.NODE_ENV === 'development' && env.STORYBOOK_RUNNING === 'true');
+}
