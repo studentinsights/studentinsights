@@ -19,7 +19,7 @@
     "jest": "TZ='America/New_York' jest --config jest.json",
     "test": "yarn jest --watch",
     "test-cli": "yarn lint-cli && yarn jest && yarn audit && yarn auditjs",
-    "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
+    "storybook": "STORYBOOK_RUNNING=true start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
   "heroku-run-build-script": true,
   "dependencies": {

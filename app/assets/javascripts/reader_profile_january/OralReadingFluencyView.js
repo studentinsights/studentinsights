@@ -18,4 +18,48 @@ export default function OralReadingFluencyView(props) {
 }
 OralReadingFluencyView.propTypes = expandedViewPropTypes;
 
-const MATERIAL_URLS = {};
+const MATERIAL_URLS = {
+  '1-fall': [
+    ' OralReadingFluency-1-fall'
+  ],
+  '1-winter': [
+    ' OralReadingFluency-1-winter-21',
+    ' OralReadingFluency-1-winter-22',
+    ' OralReadingFluency-1-winter-23'
+  ],
+  '1-spring': [
+    ' OralReadingFluency-1-spring-31',
+    'OralReadingFluency-1-spring-32',
+    'OralReadingFluency-1-spring-33'
+  ],
+  '2-fall': [
+    'OralReadingFluency-2-fall-11',
+    'OralReadingFluency-2-fall-12',
+    'OralReadingFluency-2-fall-13'
+  ],
+  '2-winter': [
+    'OralReadingFluency-2-winter-21',
+    'OralReadingFluency-2-winter-22',
+    'OralReadingFluency-2-winter-23'
+  ],
+  '2-spring': [
+    'OralReadingFluency-2-spring-31',
+    'OralReadingFluency-2-spring-32',
+    'OralReadingFluency-2-spring-33'
+  ],
+  '3-fall': [
+    'OralReadingFluency-3-fall-11',
+    'OralReadingFluency-3-fall-12',
+    'OralReadingFluency-3-fall-13'
+  ],
+  '3-winter': [
+    'OralReadingFluency-3-winter-21',
+    'OralReadingFluency-3-winter-22',
+    'OralReadingFluency-3-winter-23'
+  ],
+  '3-spring': [
+    'OralReadingFluency-3-spring-31',
+    'OralReadingFluency-3-spring-32',
+    'OralReadingFluency-3-spring-33'
+  ]
+};

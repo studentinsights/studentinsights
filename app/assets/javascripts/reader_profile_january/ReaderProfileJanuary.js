@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {NoInformation} from './Tabs';
+import HelpBubble from '../components/HelpBubble';
+import {ReadingThresholdsGrid} from '../reading_debug/ReadingThresholdsPage';
 import DebugReadingScheduleGrid from './DebugReadingScheduleGrid';
 import AccessTab from './AccessTab';
 import AccessView from './AccessView';
@@ -49,18 +51,31 @@ export default class ReaderProfileJanuary extends React.Component {
           {UI_PANELS.map(({titleText, rpKeys}) => this.renderCategory(titleText, rpKeys))}
         </div>
         {this.renderExpandedViewOrDebugAll()}
-        {this.renderDebug()}
+        {this.renderHistoryAndThresholds()}
       </div>
     );
   }
 
-  renderDebug() {
+  renderHistoryAndThresholds() {
     const {readerJson, student} = this.props;
     return (
       <div style={styles.debug}>
-        <DebugReadingScheduleGrid
-          readerJson={readerJson}
-          gradeNow={student.grade}
+        <HelpBubble
+          teaser='history'
+          linkStyle={styles.debugLink}
+          title="Debug Reading Schedule Grid"
+          content={
+            <DebugReadingScheduleGrid
+              readerJson={readerJson}
+              gradeNow={student.grade}
+            />
+          }
+        />
+        <HelpBubble
+          teaser='thresholds'
+          linkStyle={styles.debugLink}
+          title="Reading: Thresholds and Benchmarks"
+          content={<ReadingThresholdsGrid />}
         />
       </div>
     );
@@ -189,6 +204,10 @@ const styles = {
     position: 'absolute',
     right: 0,
     top: 0
+  },
+  debugLink: {
+    color: '#ccc',
+    paddingRight: 10
   }
 };
 

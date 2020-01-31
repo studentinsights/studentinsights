@@ -11,7 +11,10 @@ export const BLANK = '#f8f8f8';
 export function boxStyle(dataPoint, gradeThen, style = {}) {
   // no data
   if (!dataPoint) {
-    return createBoxStyle(BLANK, style);
+    return createBoxStyle(BLANK, {
+      ...style,
+      color: muchDarkerColor(BLANK).alpha(0.5).hex()
+    });
   }
 
   // data, but how should we color it?
@@ -32,7 +35,11 @@ function createBoxStyle(color, style = {}) {
   return {
     background: color,
     outline: `1px solid ${chroma(color).darken().hex()}`,
-    color: chroma(color).darken().darken().hex(),
+    color: muchDarkerColor(color).hex(),
     ...style
   };
+}
+
+function muchDarkerColor(color) {
+  return chroma(color).darken().darken();
 }

@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {withNowContext} from '../testing/NowContainer';
-import {toMomentFromTimestamp} from '../helpers/toMoment';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import {renderCellFn} from './DebugReadingScheduleGrid';
-import ReadingScheduleGrid from '../reading/ReadingScheduleGrid';
+import DebugReadingScheduleGrid from './DebugReadingScheduleGrid';
 
+
+const TEST_NOW_STRING = '2020-01-03T14:36:34.501Z';
 
 // this test data is only correct shape, but not semantically meaningful
 export function testProps(props = {}) {
@@ -26,12 +26,9 @@ export function testProps(props = {}) {
 
 // simulate this to test the full render
 export function testRender(props = {}) {
-  const {readerJson, gradeNow} = props;
-  const nowString = '2020-01-03T14:36:34.501Z';
-  const nowMoment = toMomentFromTimestamp(nowString);
-  return withNowContext(nowString,
+  return withNowContext(TEST_NOW_STRING,
     <PerDistrictContainer districtKey="somerville">
-      <ReadingScheduleGrid renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowMoment, ...params)} />
+      <DebugReadingScheduleGrid {...props} />
     </PerDistrictContainer>
   );
 }

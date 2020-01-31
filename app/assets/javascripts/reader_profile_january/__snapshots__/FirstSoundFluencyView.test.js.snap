@@ -72,6 +72,7 @@ exports[`snapshots 1`] = `
                 "border": "1px solid #ccc",
               }
             }
+            title="FirstSoundFluency-KF-winter"
             width="100%"
           />
         </div>
@@ -238,7 +239,7 @@ exports[`snapshots 1`] = `
                       Object {
                         "alignItems": "center",
                         "background": "#f8f8f8",
-                        "color": "#959595",
+                        "color": "#95959580",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
@@ -256,7 +257,7 @@ exports[`snapshots 1`] = `
                       Object {
                         "alignItems": "center",
                         "background": "#f8f8f8",
-                        "color": "#959595",
+                        "color": "#95959580",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
@@ -274,7 +275,7 @@ exports[`snapshots 1`] = `
                       Object {
                         "alignItems": "center",
                         "background": "#f8f8f8",
-                        "color": "#959595",
+                        "color": "#95959580",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,
@@ -357,7 +358,7 @@ exports[`snapshots 1`] = `
                       Object {
                         "alignItems": "center",
                         "background": "#f8f8f8",
-                        "color": "#959595",
+                        "color": "#95959580",
                         "cursor": "default",
                         "display": "flex",
                         "flex": 1,

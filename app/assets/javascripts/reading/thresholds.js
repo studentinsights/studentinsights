@@ -90,7 +90,7 @@ const somervilleThresholds = {
     }
   },
   [DIBELS_NWF_CLS]: {
-    'KF:winter': {
+    'KF:winter': { // made optional, changed January 2020
       benchmark: 27,
       risk: 12
     },
@@ -116,7 +116,7 @@ const somervilleThresholds = {
     },
   },
   [DIBELS_NWF_WWR]: {
-    'K:spring': {
+    'KF:spring': {
       benchmark: 4,
       risk: 0
     },
@@ -215,18 +215,3 @@ export function somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, be
   const periodKey = [grade, benchmarkPeriodKey].join(':');
   return thresholds[periodKey] || null;
 }
-
-export function prettyText(benchmarkAssessmentKey) {
-  return {
-    [F_AND_P_ENGLISH]: 'F&P English',
-    [F_AND_P_SPANISH]: 'F&P Spanish',
-    [DIBELS_FSF]: 'FSF, First sound fluency',
-    [DIBELS_LNF]: 'LNF, Letter naming fluency',
-    [DIBELS_PSF]: 'PSF, Phonemic segmentation fluency',
-    [DIBELS_NWF_CLS]: 'NWF-CLS, Nonsense word fluency',
-    [DIBELS_NWF_WWR]: 'NWF-WWR, Nonsense word fluency',
-    [DIBELS_DORF_WPM]: 'ORF words/minute',
-    [DIBELS_DORF_ACC]: 'ORF accuracy',
-  }[benchmarkAssessmentKey] || 'Unknown';
-}
-

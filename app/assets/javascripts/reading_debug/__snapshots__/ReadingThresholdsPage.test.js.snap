@@ -573,7 +573,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            FSF, First sound fluency
+            First Sound Fluency
           </td>
           <td>
             <div
@@ -581,6 +581,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -629,6 +630,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -677,6 +679,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -717,6 +720,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -757,6 +761,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -797,6 +802,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -837,6 +843,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -877,6 +884,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -917,6 +925,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -957,6 +966,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -997,6 +1007,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1037,6 +1048,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1077,6 +1089,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1117,6 +1130,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1157,6 +1171,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1197,6 +1212,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1237,6 +1253,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1277,6 +1294,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1324,7 +1342,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            LNF, Letter naming fluency
+            Letter Naming Fluency
           </td>
           <td>
             <div
@@ -1332,6 +1350,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1380,6 +1399,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1428,6 +1448,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1476,6 +1497,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1524,6 +1546,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1564,6 +1587,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1604,6 +1628,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1644,6 +1669,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1684,6 +1710,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1724,6 +1751,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1764,6 +1792,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1804,6 +1833,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1844,6 +1874,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1884,6 +1915,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1924,6 +1956,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -1964,6 +1997,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2004,6 +2038,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2044,6 +2079,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2091,7 +2127,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            PSF, Phonemic segmentation fluency
+            Phoneme Segmentation Fluency
           </td>
           <td>
             <div
@@ -2099,6 +2135,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2139,6 +2176,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2187,6 +2225,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2235,6 +2274,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2283,6 +2323,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2323,6 +2364,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2363,6 +2405,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2403,6 +2446,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2443,6 +2487,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2483,6 +2528,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2523,6 +2569,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2563,6 +2610,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2603,6 +2651,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2643,6 +2692,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2683,6 +2733,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2723,6 +2774,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2763,6 +2815,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2803,6 +2856,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2850,7 +2904,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            NWF-CLS, Nonsense word fluency
+            Nonsense Word Fluency Correct Letter Sounds
           </td>
           <td>
             <div
@@ -2858,6 +2912,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2898,6 +2953,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2946,6 +3002,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -2994,6 +3051,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3042,6 +3100,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3090,6 +3149,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3138,6 +3198,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3186,6 +3247,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3226,6 +3288,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3266,6 +3329,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3306,6 +3370,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3346,6 +3411,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3386,6 +3452,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3426,6 +3493,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3466,6 +3534,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3506,6 +3575,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3546,6 +3616,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3586,6 +3657,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3633,7 +3705,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            NWF-WWR, Nonsense word fluency
+            Nonsense Word Fluency Whole Words Read
           </td>
           <td>
             <div
@@ -3641,6 +3713,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3681,6 +3754,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3721,37 +3795,46 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
             >
-              <div>
-                <span
-                  style={Object {}}
-                >
-                   
-                </span>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "#B7E1CD",
+                  }
+                }
+              >
+                4
               </div>
-              <div>
-                <span
-                  style={Object {}}
-                >
-                   
-                </span>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "#FCE8B2",
+                  }
+                }
+              >
+                3
               </div>
-              <div>
-                <span
-                  style={Object {}}
-                >
-                   
-                </span>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "#FCE8B2",
+                  }
+                }
+              >
+                1
               </div>
-              <div>
-                <span
-                  style={Object {}}
-                >
-                   
-                </span>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "#F4C7C3",
+                  }
+                }
+              >
+                0
               </div>
             </div>
           </td>
@@ -3761,6 +3844,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3809,6 +3893,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3857,6 +3942,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3905,6 +3991,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3953,6 +4040,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -3993,6 +4081,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4033,6 +4122,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4073,6 +4163,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4113,6 +4204,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4153,6 +4245,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4193,6 +4286,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4233,6 +4327,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4273,6 +4368,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4313,6 +4409,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4353,6 +4450,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4400,7 +4498,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            ORF words/minute
+            Oral Reading Fluency
           </td>
           <td>
             <div
@@ -4408,6 +4506,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4448,6 +4547,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4488,6 +4588,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4528,6 +4629,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4568,6 +4670,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4616,6 +4719,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4664,6 +4768,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4712,6 +4817,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4760,6 +4866,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4808,6 +4915,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4856,6 +4964,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4904,6 +5013,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4952,6 +5062,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -4992,6 +5103,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5032,6 +5144,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5072,6 +5185,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5112,6 +5226,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5152,6 +5267,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5199,7 +5315,7 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            ORF accuracy
+            Oral Reading Accuracy
           </td>
           <td>
             <div
@@ -5207,6 +5323,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5247,6 +5364,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5287,6 +5405,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5327,6 +5446,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5367,6 +5487,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5415,6 +5536,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5463,6 +5585,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5511,6 +5634,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5559,6 +5683,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5607,6 +5732,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5655,6 +5781,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5703,6 +5830,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5751,6 +5879,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5791,6 +5920,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5831,6 +5961,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5871,6 +6002,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5911,6 +6043,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5951,6 +6084,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -5997,15 +6131,14 @@ exports[`snapshots 1`] = `
                 "width": 80,
               }
             }
-          >
-            F&P English
-          </td>
+          />
           <td>
             <div
               style={
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6048,6 +6181,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6096,6 +6230,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6138,6 +6273,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6178,6 +6314,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6226,6 +6363,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6268,6 +6406,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6308,6 +6447,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6348,6 +6488,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6390,6 +6531,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6430,6 +6572,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6478,6 +6621,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6520,6 +6664,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6560,6 +6705,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6600,6 +6746,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6640,6 +6787,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6680,6 +6828,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6720,6 +6869,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6766,15 +6916,14 @@ exports[`snapshots 1`] = `
                 "width": 80,
               }
             }
-          >
-            F&P Spanish
-          </td>
+          />
           <td>
             <div
               style={
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6817,6 +6966,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6865,6 +7015,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6907,6 +7058,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6947,6 +7099,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -6995,6 +7148,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7037,6 +7191,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7077,6 +7232,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7117,6 +7273,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7159,6 +7316,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7199,6 +7357,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7247,6 +7406,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7289,6 +7449,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7329,6 +7490,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7369,6 +7531,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7409,6 +7572,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7449,6 +7613,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }
@@ -7489,6 +7654,7 @@ exports[`snapshots 1`] = `
                 Object {
                   "color": "#666",
                   "height": 80,
+                  "overflow": "hidden",
                   "textAlign": "center",
                 }
               }

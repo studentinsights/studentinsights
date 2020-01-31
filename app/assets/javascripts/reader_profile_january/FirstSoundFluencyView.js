@@ -19,6 +19,6 @@ export default function FirstSoundFluencyView(props) {
 FirstSoundFluencyView.propTypes = expandedViewPropTypes;
 
 const MATERIAL_URLS = {
-  'KF-fall': 'FirstSoundFluency-KF-fall',
-  'KF-winter': 'FirstSoundFluency-KF-winter'
+  'KF-fall': ['FirstSoundFluency-KF-fall'],
+  'KF-winter': ['FirstSoundFluency-KF-winter']
 };

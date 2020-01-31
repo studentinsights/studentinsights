@@ -67,7 +67,7 @@ export function prettyDibelsText(benchmarkAssessmentKey) {
   return {
     [DIBELS_FSF]: 'First Sound Fluency',
     [DIBELS_LNF]: 'Letter Naming Fluency',
-    [DIBELS_PSF]: 'Phonemic Segmentation Fluency',
+    [DIBELS_PSF]: 'Phoneme Segmentation Fluency',
     [DIBELS_NWF_CLS]: 'Nonsense Word Fluency Correct Letter Sounds',
     [DIBELS_NWF_WWR]: 'Nonsense Word Fluency Whole Words Read',
     [DIBELS_DORF_WPM]: 'Oral Reading Fluency',
