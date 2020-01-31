@@ -18,4 +18,18 @@ export default function OralReadingFluencyView(props) {
 }
 OralReadingFluencyView.propTypes = expandedViewPropTypes;
 
-const MATERIAL_URLS = {};
+const MATERIAL_URLS = {
+  '1-fall': [
+    'OralReadingFluency-1-fall'
+  ],
+  '1-winter': [
+    'OralReadingFluency-1-winter-21',
+    'OralReadingFluency-1-winter-22',
+    'OralReadingFluency-1-winter-23'
+  ],
+  '1-spring': [
+    'OralReadingFluency-1-spring-31',
+    'OralReadingFluency-1-spring-32',
+    'OralReadingFluency-1-spring-33'
+  ]
+};

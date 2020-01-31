@@ -19,10 +19,10 @@ export default function NonsenseWordFluencyView(props) {
 NonsenseWordFluencyView.propTypes = expandedViewPropTypes;
 
 const MATERIAL_URLS = {
-  'KF-winter': 'NonsenseWordFluency-KF-winter', // optional, changed in January 2020
-  'KF-spring': 'NonsenseWordFluency-KF-spring',
-  '1-fall': 'NonsenseWordFluency-1-fall',
-  '1-winter': 'NonsenseWordFluency-1-winter',
-  '1-spring': 'NonsenseWordFluency-1-spring',
-  '2-fall': 'NonsenseWordFluency-2-fall'
+  'KF-winter': ['NonsenseWordFluency-KF-winter'], // optional, changed in January 2020
+  'KF-spring': ['NonsenseWordFluency-KF-spring'],
+  '1-fall': ['NonsenseWordFluency-1-fall'],
+  '1-winter': ['NonsenseWordFluency-1-winter'],
+  '1-spring': ['NonsenseWordFluency-1-spring'],
+  '2-fall': ['NonsenseWordFluency-2-fall']
 };
