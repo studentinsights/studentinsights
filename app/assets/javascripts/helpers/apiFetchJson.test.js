@@ -7,6 +7,7 @@ import {
   apiDeleteJson
 } from './apiFetchJson';
 import mockCsrfForTest from '../testing/mockCsrfForTest';
+import fetchMockCalls from '../testing/fetchMockCalls';
 
 
 beforeEach(() => {
@@ -19,7 +20,7 @@ it('#apiFetchJson', done => {
   fetchMock.get('/test-url', { responseFoo: 'baz' });
 
   apiFetchJson('/test-url', { queryFoo: 'bar' }).then(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMockCalls()).toEqual([[
       '/test-url',
       {
         "credentials": "same-origin",
@@ -39,7 +40,7 @@ it('#apiPostJson', done => {
   fetchMock.post('/test-url', { responseFoo: 'baz' });
 
   apiPostJson('/test-url', { bodyFoo: 'bar' }).then(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMockCalls()).toEqual([[
       '/test-url',
       {
         "body": "{\"bodyFoo\":\"bar\"}",
@@ -61,7 +62,7 @@ it('#apiPatchJson', done => {
   fetchMock.patch('/test-url', { responseFoo: 'baz' });
 
   apiPatchJson('/test-url', { bodyFoo: 'bar' }).then(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMockCalls()).toEqual([[
       '/test-url',
       {
         "body": "{\"bodyFoo\":\"bar\"}",
@@ -83,7 +84,7 @@ it('#apiPutJson', done => {
   fetchMock.put('/test-url', { responseFoo: 'baz' });
 
   apiPutJson('/test-url', { bodyFoo: 'bar' }).then(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMockCalls()).toEqual([[
       '/test-url',
       {
         "body": "{\"bodyFoo\":\"bar\"}",
@@ -105,7 +106,7 @@ it('#apiDeleteJson', done => {
   fetchMock.delete('/test-url', { responseFoo: 'baz' });
 
   apiDeleteJson('/test-url').then(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMockCalls()).toEqual([[
       '/test-url',
       {
         "body": "{\"_method\":\"delete\",\"authenticity_token\":\"mocked-csrf-token\"}",

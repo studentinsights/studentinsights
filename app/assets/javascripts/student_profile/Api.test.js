@@ -1,6 +1,8 @@
 import Api from './Api';
 import fetchMock from 'fetch-mock/es5/client';
 import mockCsrfForTest from '../testing/mockCsrfForTest';
+import fetchMockCalls from '../testing/fetchMockCalls';
+
 
 function createTestApi() {
   const api = new Api();
@@ -49,7 +51,7 @@ it('#deleteEventNoteAttachment', done => {
 
   const {api} = createTestApi();
   api.deleteEventNoteAttachment(42).then(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMockCalls()).toEqual([[
       '/api/event_notes/attachments/42',
       {
         "body": "{\"_method\":\"delete\",\"authenticity_token\":\"mocked-csrf-token\"}",
