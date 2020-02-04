@@ -18,7 +18,9 @@
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
     "jest": "TZ='America/New_York' jest --config jest.json",
     "test": "yarn jest --watch",
-    "test-cli": "yarn lint-cli && yarn jest && yarn audit && yarn auditjs",
+    "audits": "yarn audit && yarn auditjs-cli",
+    "auditjs-cli": "yarn auditjs --package yarn.lock",
+    "test-cli": "yarn lint-cli && yarn jest && yarn audits",
     "storybook": "STORYBOOK_RUNNING=true start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
   "heroku-run-build-script": true,
@@ -62,8 +64,8 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@storybook/addon-actions": "^5.1.0-alpha.33",
-    "@storybook/react": "^5.1.0-alpha.33",
+    "@storybook/addon-actions": "5.1.10",
+    "@storybook/react": "5.1.10",
     "auditjs": "^3.2.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",
