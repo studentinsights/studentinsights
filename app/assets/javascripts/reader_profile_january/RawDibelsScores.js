@@ -6,6 +6,7 @@ import {benchmarkPeriodToMoment} from '../reading/readingData';
 import GenericDibelsDataPoint from './GenericDibelsDataPoint';
 
 
+// deprecated
 export default class RawDibelsScores extends React.Component {
   constructor(props) {
     super(props);

@@ -208,181 +208,179 @@ exports[`snapshots 1`] = `
         <div
           className="Data"
         >
-          <div>
+          <div
+            className="BoxChart"
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "fontSize": 12,
+              }
+            }
+          >
             <div
               style={
                 Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "fontSize": 12,
+                  "flex": 1,
                 }
               }
             >
               <div
                 style={
                   Object {
-                    "flex": 1,
-                    "paddingRight": 20,
+                    "display": "flex",
+                    "flexDirection": "row",
                   }
                 }
               >
                 <div
                   style={
                     Object {
+                      "alignItems": "center",
+                      "background": "#f8f8f8",
+                      "color": "#95959580",
+                      "cursor": "default",
                       "display": "flex",
-                      "flexDirection": "row",
+                      "flex": 1,
+                      "height": 40,
+                      "justifyContent": "center",
+                      "outline": "1px solid #c5c5c5",
                     }
                   }
+                  title={null}
                 >
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "background": "#f8f8f8",
-                        "color": "#95959580",
-                        "cursor": "default",
-                        "display": "flex",
-                        "flex": 1,
-                        "height": 40,
-                        "justifyContent": "center",
-                        "outline": "1px solid #c5c5c5",
-                      }
-                    }
-                    title={null}
-                  >
-                    fall
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "background": "#f8f8f8",
-                        "color": "#95959580",
-                        "cursor": "default",
-                        "display": "flex",
-                        "flex": 1,
-                        "height": 40,
-                        "justifyContent": "center",
-                        "outline": "1px solid #c5c5c5",
-                      }
-                    }
-                    title={null}
-                  >
-                    winter
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "background": "#f8f8f8",
-                        "color": "#95959580",
-                        "cursor": "default",
-                        "display": "flex",
-                        "flex": 1,
-                        "height": 40,
-                        "justifyContent": "center",
-                        "outline": "1px solid #c5c5c5",
-                      }
-                    }
-                    title={null}
-                  >
-                    spring
-                  </div>
+                  fall
                 </div>
                 <div
                   style={
                     Object {
-                      "marginTop": 5,
+                      "alignItems": "center",
+                      "background": "#f8f8f8",
+                      "color": "#95959580",
+                      "cursor": "default",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": 40,
+                      "justifyContent": "center",
+                      "outline": "1px solid #c5c5c5",
                     }
                   }
+                  title={null}
                 >
-                  Pre-K (PK)
-                  , 
-                  2016
+                  winter
+                </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "background": "#f8f8f8",
+                      "color": "#95959580",
+                      "cursor": "default",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": 40,
+                      "justifyContent": "center",
+                      "outline": "1px solid #c5c5c5",
+                    }
+                  }
+                  title={null}
+                >
+                  spring
                 </div>
               </div>
               <div
                 style={
                   Object {
-                    "flex": 1,
-                    "paddingRight": 20,
+                    "marginTop": 5,
+                  }
+                }
+              >
+                Pre-K (PK)
+                , 
+                2016
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "flex": 1,
+                  "paddingLeft": 20,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flexDirection": "row",
                   }
                 }
               >
                 <div
                   style={
                     Object {
+                      "alignItems": "center",
+                      "background": "orange",
+                      "color": "#904a00",
+                      "cursor": "default",
                       "display": "flex",
-                      "flexDirection": "row",
+                      "flex": 1,
+                      "height": 40,
+                      "justifyContent": "center",
+                      "outline": "1px solid #c67600",
                     }
                   }
+                  title={12}
                 >
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "background": "orange",
-                        "color": "#904a00",
-                        "cursor": "default",
-                        "display": "flex",
-                        "flex": 1,
-                        "height": 40,
-                        "justifyContent": "center",
-                        "outline": "1px solid #c67600",
-                      }
-                    }
-                    title={12}
-                  >
-                    fall
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "background": "orange",
-                        "color": "#904a00",
-                        "cursor": "default",
-                        "display": "flex",
-                        "flex": 1,
-                        "height": 40,
-                        "justifyContent": "center",
-                        "outline": "1px solid #c67600",
-                      }
-                    }
-                    title={36}
-                  >
-                    winter
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "background": "#f8f8f8",
-                        "color": "#95959580",
-                        "cursor": "default",
-                        "display": "flex",
-                        "flex": 1,
-                        "height": 40,
-                        "justifyContent": "center",
-                        "outline": "1px solid #c5c5c5",
-                      }
-                    }
-                    title={null}
-                  >
-                    spring
-                  </div>
+                  fall
                 </div>
                 <div
                   style={
                     Object {
-                      "marginTop": 5,
+                      "alignItems": "center",
+                      "background": "orange",
+                      "color": "#904a00",
+                      "cursor": "default",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": 40,
+                      "justifyContent": "center",
+                      "outline": "1px solid #c67600",
                     }
                   }
+                  title={36}
                 >
-                  Kindergarten
-                  , 
-                  2017
+                  winter
                 </div>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "background": "#f8f8f8",
+                      "color": "#95959580",
+                      "cursor": "default",
+                      "display": "flex",
+                      "flex": 1,
+                      "height": 40,
+                      "justifyContent": "center",
+                      "outline": "1px solid #c5c5c5",
+                    }
+                  }
+                  title={null}
+                >
+                  spring
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                Kindergarten
+                , 
+                2017
               </div>
             </div>
           </div>

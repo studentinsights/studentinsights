@@ -24,6 +24,7 @@ export default class Data extends React.Component {
         gradeNow={gradeNow}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}
+        renderCellFn={({benchmarkPeriodKey}) => benchmarkPeriodKey}
       />
     );
   }
@@ -32,10 +33,11 @@ export default class Data extends React.Component {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
       <Expandable text="Show raw scores">
-        <RawDibelsScores
+        <BoxChart
           gradeNow={gradeNow}
           readerJson={readerJson}
           benchmarkAssessmentKey={benchmarkAssessmentKey}
+          renderCellFn={({valueEl}) => valueEl}
         />
       </Expandable>
     );
