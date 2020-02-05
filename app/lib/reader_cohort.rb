@@ -1,50 +1,44 @@
 class ReaderCohort
-  def initialize(educator, student, options = {})
-    @authorizer = Authorizer.new(educator)
+  def initialize(student, options = {})
     @student = student
     @time_now = options.fetch(:time_now, Time.now)
   end
 
   def reader_cohort_json(benchmark_assessment_key, school_years)
     comparison_students = full_cohort_skipping_authorization()
-    cohort_years_json = school_years.map do |benchmark_school_year|
-      [:fall, :winter, :spring].map do |benchmark_period_key|
+    
+    cells = {}
+    school_years.each do |benchmark_school_year|
+      [:fall, :winter, :spring].each do |benchmark_period_key|
         value = extract_values([@student], benchmark_assessment_key, benchmark_school_year, benchmark_period_key).try(:first)
-        if value.nil?
-          {
-            value: nil
-          }
-        else
-          comparison_values = extract_values(@comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
-          stats_json = stats(comparison_values, value)
-          {
-            values: comparison_values.size,
-            value: value,
-            stats: stats_json
-          }
+        when_key = [benchmark_school_year, benchmark_period_key].join('-')
+        if value.present?
+          cells[when_key] = cell_json(value, comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
         end
       end
     end
 
-    # While the full cohort used in the computation may include students the educator
-    # is not authorized to access, this is limited to students the educator is 
-    # authorized to view their full profile.
-    authorized_comparison_students_json = @authorized.authorizer { comparison_students }.as_json({
-      only: [:id, :first_name, :last_name, :school_id]
-    })
-
     {
-      student_id: @student.id,
-      comparison_students: comparison_students.size,
-      authorized_comparison_students: authorized_comparison_students_json,
-      benchmark_assessment_key: benchmark_assessment_key,
       time_now: @time_now,
+      student_id: @student.id,
+      benchmark_assessment_key: benchmark_assessment_key,
       school_years: school_years,
-      cohort_years: cohort_years_json
+      comparison_students: comparison_students.size,
+      cells: cells
     }
   end
 
   private
+  def cell_json(value, comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
+    comparison_values = extract_values(comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
+    stats_json = stats(comparison_values, value)
+
+    {
+      value: value,
+      stats: stats_json
+    }
+  end
+
   # This can leak information to the educator about students in the cohort that
   # they are not authorized to view.  In practice, they already have access to
   # more detailed reading information about a wider cohort in the Google Sheets
@@ -54,10 +48,11 @@ class ReaderCohort
     Student.active.where(grade: @student.grade).where.not(id: @student.id)
   end
 
+  # Can be optimized
   def extract_values(students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
     most_recent_data_points = students.map do |student|
       student.reading_benchmark_data_points.where({
-        benchmark_assessment_key: benchmark_assessment_key,
+        benchmark_assessment_key: benchmark_assessment_key.to_s,
         benchmark_school_year: benchmark_school_year,
         benchmark_period_key: benchmark_period_key
       }).order(updated_at: :desc).limit(1).first
@@ -70,14 +65,14 @@ class ReaderCohort
 
   # returns a map including percentile and rank
   def stats(values, value)
-    n_with_lower_scores = values.select {|v| v < value }.size
+    n_lower = values.select {|v| v < value }.size
     equal = values.select {|v| v == value }.size
-    n_with_higher_scores = values.size - (n_with_lower_scores + equal)
-    percentile = (n_with_lower_scores / values.size.to_f) + (equal / values.size.to_f / 2)
+    n_higher = values.size - (n_lower + equal)
+    percentile = (n_lower / values.size.to_f) + (equal / values.size.to_f / 2)
     {
       p: (percentile * 100).to_i,
-      n_with_lower_scores: n_with_lower_scores,
-      n_with_higher_scores: n_with_higher_scores
+      n_lower: n_lower,
+      n_higher: n_higher
     }
   end
 

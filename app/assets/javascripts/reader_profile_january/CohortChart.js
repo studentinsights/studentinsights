@@ -35,3 +35,6 @@ CohortChart.propTypes = {
   benchmarkAssessmentKey: PropTypes.string.isRequired,
   readerJson: PropTypes.object.isRequired
 };
+
+
+console.log('remove json');
