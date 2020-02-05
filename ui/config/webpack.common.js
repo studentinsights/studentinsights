@@ -10,27 +10,20 @@ module.exports = {
     rules: [
       // Process JS with Babel.
       {
-        test: /\.js$/, // use .js instead of .jsx
-        exclude: /(node_modules|bower_components)/,
+        test: /\.js$/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            // // This is what create-react-app uses.
+            // presets: ['babel-preset-react-app'],
+
+            // This is a feature of `babel-loader` for webpack (not Babel itself).
+            // It enables caching results in ./node_modules/.cache/babel-loader/
+            // directory for faster rebuilds.
+            cacheDirectory: true,
           }
         }
-
-        // use: {
-        //   loader: 'babel-loader',
-        //   options: {
-        //     // babelrc: true,
-        //     presets: ['babel-preset-react-app'],
-
-        //     // This is a feature of `babel-loader` for webpack (not Babel itself).
-        //     // It enables caching results in ./node_modules/.cache/babel-loader/
-        //     // directory for faster rebuilds.
-        //     cacheDirectory: true,
-        //   }
-        // }
       },
       {
         test: /\.css$/,

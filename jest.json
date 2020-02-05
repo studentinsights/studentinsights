@@ -5,6 +5,9 @@
   "setupFiles": [
     "./ui/config/setupTests.js"
   ],
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
   "moduleNameMapper": {
     "\\.css$": "<rootDir>/ui/config/styleMock.js"
   }
