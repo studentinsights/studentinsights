@@ -4,11 +4,12 @@ const webpack = require('webpack');
 const common = require('./webpack.common.js');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = merge(common, {
+  mode: 'production',
   devtool: 'source-map',
 
   // Rails looks in this particular place
@@ -20,15 +21,15 @@ module.exports = merge(common, {
 
   plugins: [
     new CleanWebpackPlugin(['../../public/build'], { allowExternal: true }),
-    new UglifyJSPlugin({
-      sourceMap: true,
+    // new UglifyJSPlugin({
+    //   sourceMap: true,
 
-      // so that Function.name works for React inferring `displayName`
-      // see plugin docs here https://github.com/mishoo/UglifyJS2#mangle-options
-      mangle: {
-        keep_fnames: true
-      }
-    }),
+    //   // so that Function.name works for React inferring `displayName`
+    //   // see plugin docs here https://github.com/mishoo/UglifyJS2#mangle-options
+    //   mangle: {
+    //     keep_fnames: true
+    //   }
+    // }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')

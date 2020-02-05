@@ -11,18 +11,26 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.js$/, // use .js instead of .jsx
+        exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
-            // babelrc: true,
-            presets: ['babel-preset-react-app'],
-
-            // This is a feature of `babel-loader` for webpack (not Babel itself).
-            // It enables caching results in ./node_modules/.cache/babel-loader/
-            // directory for faster rebuilds.
-            cacheDirectory: true,
+            presets: ['@babel/preset-env']
           }
         }
+
+        // use: {
+        //   loader: 'babel-loader',
+        //   options: {
+        //     // babelrc: true,
+        //     presets: ['babel-preset-react-app'],
+
+        //     // This is a feature of `babel-loader` for webpack (not Babel itself).
+        //     // It enables caching results in ./node_modules/.cache/babel-loader/
+        //     // directory for faster rebuilds.
+        //     cacheDirectory: true,
+        //   }
+        // }
       },
       {
         test: /\.css$/,
