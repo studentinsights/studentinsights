@@ -35,9 +35,19 @@ class ProfileController < ApplicationController
   end
 
   def reader_profile_json
-    student = Student.find(params[:id])
+    student = authorized_or_raise! { Student.find(params[:id]) }
     json = ReaderProfile.new(student, s3: s3).reader_profile_json
     render json: json
+  end
+
+  def reader_profile_cohort_json
+    student_id = params.require(:id)
+    benchmark_assessment_key = params.require(:benchmark_assessment_key)
+    school_years = params.require(:school_years)
+
+    student = authorized_or_raise! { Student.find(student_id) }
+    cohort = ReaderCohort.new(current_educator, student)
+    cohort.reader_cohort_json(benchmark_assessment_key, school_years)
   end
 
   def educators_with_access_json

@@ -77,7 +77,6 @@ group :development, :test do
   gem 'bourbon', '~> 4.3.2'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'descriptive-statistics'
   gem 'listen'
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'

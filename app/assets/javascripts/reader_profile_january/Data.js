@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {gradeText} from '../helpers/gradeText';
 import BoxChart from './BoxChart';
-import RawDibelsScores from './RawDibelsScores';
 import Expandable from './Expandable';
+import CohortChart from './CohortChart';
 
 
 export default class Data extends React.Component {
@@ -11,6 +12,7 @@ export default class Data extends React.Component {
       <div className="Data">
         {this.renderBoxChart()}
         <div style={styles.expansions}>
+          {this.renderCohort()}
           {this.renderExpandableRawScores()}
         </div>
       </div>
@@ -26,6 +28,19 @@ export default class Data extends React.Component {
         benchmarkAssessmentKey={benchmarkAssessmentKey}
         renderCellFn={({benchmarkPeriodKey}) => benchmarkPeriodKey}
       />
+    );
+  }
+
+  renderCohort() {
+    const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
+    return (
+      <Expandable text={`Context for ${gradeText(gradeNow)} cohort`}>
+        <CohortChart
+          gradeNow={gradeNow}
+          readerJson={readerJson}
+          benchmarkAssessmentKey={benchmarkAssessmentKey}
+        />
+      </Expandable>
     );
   }
 
