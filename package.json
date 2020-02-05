@@ -27,7 +27,6 @@
   "heroku-run-build-script": true,
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "bin-links": "^1.1.7",
     "chroma-js": "^2.1.0",
     "core-js": "^3.6.4",
     "csv-stringify": "^5.3.6",
@@ -37,7 +36,6 @@
     "jquery": "^3.4.0",
     "lodash": "^4.17.15",
     "lunr": "^2.3.6",
-    "mem": "^4.3.0",
     "moment": "2.19.3",
     "npm": "^6.13.4",
     "object-hash": "^2.0.1",
@@ -89,10 +87,10 @@
     "webpack-merge": "^4.1.0"
   },
   "resolutions": {
-    "auditjs/**/bin-links": "^1.1.5",
+    "auditjs/**/bin-links": "^1.1.7",
     "jest/**/mixin-deep": "^2.0.1",
     "jest/**/set-value": "^3.0.1",
-    "mem": "^4.0.0",
+    "mem": "^4.3.0",
     "serialize-javascript": "^2.1.1",
     "@storybook/react/**/lodash-es": "^4.17.15"
   }
