@@ -32,7 +32,7 @@
     "d3": "3.5.12",
     "highcharts": "^6.0.2",
     "jquery": "^3.4.0",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "lunr": "^2.3.6",
     "moment": "2.19.3",
     "object-hash": "^2.0.1",
@@ -85,14 +85,12 @@
   "resolutions": {
     "auditjs/**/bin-links": "^1.1.5",
     "auditjs/**/npm": "^6.13.4",
-    "eslint-utils": "^1.4.1",
+    "eslint/**/eslint-utils": "^1.4.1",
     "jest/**/handlebars": "^4.5.3",
-    "lodash": "^4.17.14",
-    "lodash.mergewith": "^4.6.2",
-    "lodash-es": "^4.17.14",
-    "mixin-deep": "^1.3.2",
-    "set-value": "^3.0.1",
+    "jest/**/mixin-deep": "^1.3.2",
     "serialize-javascript": "^2.1.1",
+    "set-value": "^3.0.1",
+    "@storybook/react/**/lodash-es": "^4.17.15",
     "webpack/**/mem": "^4.0.0",
     "webpack/**/os-locale": "^3.1.0"
   }
