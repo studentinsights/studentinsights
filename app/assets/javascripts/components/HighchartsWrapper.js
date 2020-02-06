@@ -6,11 +6,11 @@ import 'highcharts';
 // options as props, and it bridges calling into the library.
 
 export default class HighchartsWrapper extends React.Component {
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     $(this.chartEl).highcharts(this.props);
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     $(this.chartEl).highcharts(newProps);
   }
 

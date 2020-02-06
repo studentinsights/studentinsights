@@ -111,7 +111,7 @@ export class ReadingDebugView extends React.Component {
     this.onVisualizationChanged = this.onVisualizationChanged.bind(this);
   }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     ReactModal.setAppElement(document.body);
   }
 

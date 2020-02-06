@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 // component definition.
 //
 // Example:
-//   <Lifecycle componentWillMount={this.prefetchScreenTwoData}>
+//   <Lifecycle componentDidMount={this.prefetchScreenTwoData}>
 //     <ScreenOne />
 //   </Lifecycle>
 export default class Lifecycle extends React.Component {
-  componentWillMount(nextProps, nextState) {
-    const {componentWillMount} = this.props;
-    if (componentWillMount) componentWillMount(nextProps, nextState);
+  componentDidMount(nextProps, nextState) {
+    const {componentDidMount} = this.props;
+    if (componentDidMount) componentDidMount(nextProps, nextState);
   }
 
   render() {
@@ -24,5 +24,5 @@ export default class Lifecycle extends React.Component {
 
 Lifecycle.propTypes = {
   children: PropTypes.node.isRequired,
-  componentWillMount: PropTypes.func
+  componentDidMount: PropTypes.func
 };

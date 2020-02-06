@@ -17,7 +17,8 @@ export default class PageContainer extends React.Component {
     super(props);
 
     this.state = initialState(props);
-
+    this.api = this.props.api || new Api();
+    
     this.onColumnClicked = this.onColumnClicked.bind(this);
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCreateNewNoteDone = this.onCreateNewNoteDone.bind(this);
@@ -34,10 +35,6 @@ export default class PageContainer extends React.Component {
     this.onDiscontinueService = this.onDiscontinueService.bind(this);
     this.onDiscontinueServiceDone = this.onDiscontinueServiceDone.bind(this);
     this.onDiscontinueServiceFail = this.onDiscontinueServiceFail.bind(this);
-  }
-
-  componentWillMount(props, state) {
-    this.api = this.props.api || new Api();
   }
 
   componentDidUpdate(props, state) {

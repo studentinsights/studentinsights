@@ -33,7 +33,7 @@ export default class Datepicker extends React.Component {
 
   //This allows us to set the min and max dates dynamically to prevent selecting
   //start dates later than end dates and vice versa
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (!this.props.dynamicUpdate) return;
 
     const el = this.el;

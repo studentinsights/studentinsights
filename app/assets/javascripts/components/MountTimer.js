@@ -13,7 +13,7 @@ class MountTimer extends React.Component {
     this.didMount = null;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.willMount = performance.now();
   }
 

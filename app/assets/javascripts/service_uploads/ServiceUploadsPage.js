@@ -26,6 +26,7 @@ export default class ServiceUploadsPage extends React.Component {
       uploadingInProgress: false,
     };
 
+    this.api = new Api();
     this.onServiceTypesNamesLoaded = this.onServiceTypesNamesLoaded.bind(this);
     this.onGetPastServiceUploads = this.onGetPastServiceUploads.bind(this);
     this.onFileReaderLoaded = this.onFileReaderLoaded.bind(this);
@@ -41,10 +42,6 @@ export default class ServiceUploadsPage extends React.Component {
     this.onValidateLasidAuthError = this.onValidateLasidAuthError.bind(this);
     this.onClickDeleteServiceUpload = this.onClickDeleteServiceUpload.bind(this);
     this.onDeleteUpload = this.onDeleteUpload.bind(this);
-  }
-
-  componentWillMount(props, state) {
-    this.api = new Api();
   }
 
   componentDidMount() {

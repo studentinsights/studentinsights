@@ -18,8 +18,11 @@ export default class SliceButtons extends React.Component {
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     ReactModal.setAppElement(document.body);
+  }
+
+  componentDidMount() {
     $(document).on('keydown', this.onKeyDown);
   }
 

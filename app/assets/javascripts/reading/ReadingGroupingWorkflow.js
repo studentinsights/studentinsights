@@ -176,7 +176,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
     const {teams} = this.props;
     const {plan} = this.state;
     return (
-      <Lifecycle componentWillMount={this.fetchReadingDataJson}>
+      <Lifecycle componentDidMount={this.fetchReadingDataJson}>
         <MakePlan
           isEditable={this.isPhaseEditable(Phases.MAKE_PLAN)}
           plan={plan}

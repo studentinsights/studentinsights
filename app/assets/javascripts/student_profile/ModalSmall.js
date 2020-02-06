@@ -16,7 +16,7 @@ export default class ModalSmall extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // This needs to be called for some reason, and we need to do it by the time the DOM exists.
     ReactModal.setAppElement(document.body);
   }

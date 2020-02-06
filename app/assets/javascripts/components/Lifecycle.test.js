@@ -9,11 +9,11 @@ it('renders without crashing', () => {
 });
 
 
-it('calls componentWillMount', () => {
+it('calls componentDidMount', () => {
   const div = document.createElement('div');
   const props = {
-    componentWillMount: jest.fn()
+    componentDidMount: jest.fn()
   };
   ReactDOM.render(<Lifecycle {...props}><div>hello</div></Lifecycle>, div);
-  expect(props.componentWillMount).toHaveBeenCalled();
+  expect(props.componentDidMount).toHaveBeenCalled();
 });
