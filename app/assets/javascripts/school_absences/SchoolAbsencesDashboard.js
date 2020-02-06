@@ -51,7 +51,7 @@ export default class SchoolAbsencesDashboard extends React.Component {
 
   // Props changes won't happen as this component is currently written,
   // so this is just defensive.
-  UNSAFE_componentWillReceiveProps() {
+  componentWillReceiveProps() {
     this.memoize = memoizer();
   }
 

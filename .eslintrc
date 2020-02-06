@@ -34,7 +34,6 @@
       order: [
         'static-methods',
         'mixins',
-        '/^UNSAFE_component.+/',
         'lifecycle',
         'everything-else',
         '/^on.+$/',

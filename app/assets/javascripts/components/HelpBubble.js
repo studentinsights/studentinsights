@@ -15,7 +15,7 @@ export default class HelpBubble extends React.Component {
     this.openModal = this.openModal.bind(this);
   }
 
-  UNSAFE_componentWillMount(){
+  componentWillMount(){
     // This needs to be called for some reason, and we need to do it by the time the DOM exists.
     ReactModal.setAppElement(document.body);
   }
