@@ -49,7 +49,7 @@
     "react-dom": "^16.8.6",
     "react-modal": "^3.11.1",
     "react-router-dom": "^4.2.2",
-    "react-select": "^1.2.1",
+    "react-select": "^3.0.8",
     "react-test-renderer": "^16.8.6",
     "react-virtualized": "9.20",
     "rollbar": "^2.14.0",
