@@ -10,19 +10,21 @@
   },
   "license": "MIT",
   "scripts": {
+    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
+    "test": "yarn jest --watch",
+    "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
+    "storybook": "STORYBOOK_RUNNING=true start-storybook -p 6006 --config-dir ui/config/.storybook --quiet --ci",
+
+    "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
+    "test-cli": "yarn yarn-checks-cli && yarn lint-cli && yarn jest && yarn audits && yarn storybook-cli",
+    "jest": "TZ='America/New_York' jest --config jest.json",
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts ui; exit 0",
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts ui",
     "lockfile-lint-cli": "lockfile-lint -t yarn --path yarn.lock --allowed-hosts registry.yarnpkg.com --validate-https",
-    "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
-    "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
-    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
-    "jest": "TZ='America/New_York' jest --config jest.json",
-    "test": "yarn jest --watch",
     "audits": "yarn audit && yarn auditjs-cli",
     "auditjs-cli": "yarn auditjs --package yarn.lock",
-    "test-cli": "yarn lint-cli && yarn jest && yarn audits && yarn storybook-cli",
-    "storybook": "STORYBOOK_RUNNING=true start-storybook -p 6006 --config-dir ui/config/.storybook --quiet --ci",
-    "storybook-cli": "yarn storybook --smoke-test"
+    "storybook-cli": "yarn storybook --smoke-test",
+    "yarn-checks-cli": "yarn install --check-files && yarn check --integrity"
   },
   "heroku-run-build-script": true,
   "dependencies": {
