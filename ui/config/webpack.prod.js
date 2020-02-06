@@ -6,6 +6,7 @@ const merge = require('webpack-merge');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 
 module.exports = merge(common, {
@@ -30,6 +31,20 @@ module.exports = merge(common, {
     new CompressionPlugin({
       filename: '[path].gz[query]'
     })
-  ]
+  ],
+
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          // This config is to preserve React components' names from
+          // being compiled away, so we can see them in Rollbar alerts.
+          keep_classnames: true,
+          kep_fnames: true,
+          sourceMap: true
+        }
+      })
+    ]
+  }
 });
 /* eslint-disable no-undef */
