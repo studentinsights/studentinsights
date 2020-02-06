@@ -1,0 +1,10 @@
+# Our app needs to run on IE11, probably forever.
+#
+# This file is used by `eslint-plugin-compat` to enforce some checks that
+# only supported JS APIs are used (or are polyfilled).
+#
+# See also polyfill.js and .eslintrc and Webpack config to see how it
+# all fits together.
+
+defaults
+ie 11

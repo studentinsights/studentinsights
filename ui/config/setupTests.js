@@ -9,12 +9,6 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
-// These are for MountTimer and measurePageLoad.
-// See https://gist.github.com/ShirtlessKirk/eb41720a797411defae6
-import './performance-timing-api';
-import {performance} from 'perf_hooks';
-window.performance = performance;
-
 // See https://github.com/hustcc/jest-canvas-mock#setup-file
 import 'jest-canvas-mock';
 
