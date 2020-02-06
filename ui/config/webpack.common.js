@@ -15,13 +15,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            // // This is what create-react-app uses.
-            // presets: ['babel-preset-react-app'],
-
             // This is a feature of `babel-loader` for webpack (not Babel itself).
             // It enables caching results in ./node_modules/.cache/babel-loader/
             // directory for faster rebuilds.
             cacheDirectory: true,
+            
+            // define config for Babel itself and its plugins there, not
+            // in here.
+            babelrc: true
           }
         }
       },

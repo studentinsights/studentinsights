@@ -39,7 +39,7 @@
     "npm": "^6.13.4",
     "object-hash": "^2.0.1",
     "percentile": "^1.2.0",
-    "query-string": "^6.10.1",
+    "query-string": "^5",
     "react": "~16.8.6",
     "react-app-polyfill": "^1.0.6",
     "react-autocomplete": "^1.8.1",
