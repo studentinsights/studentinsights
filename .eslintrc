@@ -1,11 +1,11 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
     "jest": true
   },
   "globals": {
-    "$": true
+    "$": true,
+    "Promise": true
   },
   "parser": "babel-eslint",
   "plugins": [
