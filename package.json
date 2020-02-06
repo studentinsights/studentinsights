@@ -18,7 +18,7 @@
     "test-cli": "yarn yarn-checks-cli && yarn lint-cli && yarn jest && yarn audits && yarn storybook-cli",
     "jest": "TZ='America/New_York' jest --config jest.json",
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts ui; exit 0",
-    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts ui",
+    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc apkkp/assets/javascripts ui",
     "lockfile-lint-cli": "lockfile-lint -t yarn --path yarn.lock --allowed-hosts registry.yarnpkg.com --validate-https",
     "audits": "yarn audit && yarn auditjs-cli",
     "auditjs-cli": "yarn auditjs --package yarn.lock",
