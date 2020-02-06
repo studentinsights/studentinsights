@@ -3,10 +3,10 @@ const path = require('path');
 const webpack = require('webpack');
 const common = require('./webpack.common.js');
 const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+
 
 module.exports = merge(common, {
   mode: 'production',
@@ -20,11 +20,15 @@ module.exports = merge(common, {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['../../public/build'], { allowExternal: true }),
+    new CleanWebpackPlugin({
+      dry: false, // required for `dangerouslyAllowCleanPatternsOutsideProject` to work
+      dangerouslyAllowCleanPatternsOutsideProject: true,
+      cleanOnceBeforeBuildPatterns: path.join(process.cwd(), '../../public/build')
+    }),
     new webpack.HashedModuleIdsPlugin(),
     new ManifestPlugin({fileName: 'manifest.json' }),
     new CompressionPlugin({
-      asset: '[path].gz[query]'
+      filename: '[path].gz[query]'
     })
   ]
 });
