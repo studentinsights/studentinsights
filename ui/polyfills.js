@@ -8,6 +8,8 @@ webpack build config, rather than `imported` from `index.js`.
 
 Over time, we should aim to align to create-react-app.
 See https://github.com/facebook/create-react-app/tree/master/packages/react-app-polyfill
+
+For lint support, keep `eslint-plugin-compat` configuration in .eslintrc in sync.
 */
 
 

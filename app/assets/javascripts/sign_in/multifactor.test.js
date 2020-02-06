@@ -14,7 +14,10 @@ function isHidden(el) {
 }
 
 function serializedForm(form) {
-  return new URLSearchParams(new FormData(form)).toString();
+  // This uses URLSearchParams, which isn't widely supported in browsers,
+  // but this is supported in test, and is good enough for the smoke test
+  // here.
+  return new URLSearchParams(new FormData(form)).toString(); // eslint-disable-line compat/compat
 }
 
 
