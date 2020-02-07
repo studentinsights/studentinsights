@@ -46,8 +46,9 @@ class ProfileController < ApplicationController
     school_years = params.require(:school_years)
 
     student = authorized_or_raise! { Student.find(student_id) }
-    cohort = ReaderCohort.new(current_educator, student)
-    cohort.reader_cohort_json(benchmark_assessment_key, school_years)
+    cohort = ReaderCohort.new(student)
+    json = cohort.reader_cohort_json(benchmark_assessment_key, school_years)
+    render json: json
   end
 
   def educators_with_access_json

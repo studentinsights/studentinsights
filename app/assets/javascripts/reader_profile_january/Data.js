@@ -10,7 +10,9 @@ export default class Data extends React.Component {
   render() {
     return (
       <div className="Data">
-        {this.renderBoxChart()}
+        <div style={styles.mainBox}>
+          {this.renderBoxChart()}
+        </div>
         <div style={styles.expansions}>
           {this.renderCohort()}
           {this.renderExpandableRawScores()}
@@ -32,10 +34,11 @@ export default class Data extends React.Component {
   }
 
   renderCohort() {
-    const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
+    const {studentId, gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
-      <Expandable text={`Context for ${gradeText(gradeNow)} cohort`}>
+      <Expandable text={`Percentile in ${gradeText(gradeNow)} school cohort`}>
         <CohortChart
+          studentId={studentId}
           gradeNow={gradeNow}
           readerJson={readerJson}
           benchmarkAssessmentKey={benchmarkAssessmentKey}
@@ -47,18 +50,19 @@ export default class Data extends React.Component {
   renderExpandableRawScores() {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
-      <Expandable text="Show raw scores">
+      <Expandable text="Raw scores">
         <BoxChart
           gradeNow={gradeNow}
           readerJson={readerJson}
           benchmarkAssessmentKey={benchmarkAssessmentKey}
-          renderCellFn={({valueEl}) => valueEl}
+          renderCellFn={({value}) => value}
         />
       </Expandable>
     );
   }
 }
 Data.propTypes = {
+  studentId: PropTypes.number.isRequired,
   gradeNow: PropTypes.string.isRequired,
   benchmarkAssessmentKey: PropTypes.string.isRequired,
   readerJson: PropTypes.object.isRequired
@@ -69,7 +73,8 @@ Data.contextTypes = {
 
 
 const styles = {
-  expansions: {
-    marginTop: 40
-  }
+  mainBox: {
+    marginBottom: 40
+  },
+  expansions: {}
 };

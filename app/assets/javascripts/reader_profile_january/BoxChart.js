@@ -10,7 +10,7 @@ import {boxStyle} from './colors';
 export default class BoxChart extends React.Component {
   render() {
     const {nowFn} = this.context;
-    const {gradeNow, readerJson, benchmarkAssessmentKey, renderCellFn} = this.props;
+    const {gradeNow, readerJson, benchmarkAssessmentKey, renderRaw, renderCellFn} = this.props;
     const dataPoints = readerJson.benchmark_data_points.filter(d => d.benchmark_assessment_key === benchmarkAssessmentKey);
     const sortedDataPoints = _.sortBy(dataPoints, dataPoint => {
       return -1 * benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year).unix();
@@ -23,6 +23,7 @@ export default class BoxChart extends React.Component {
           gradeThen={previousGrade(gradeNow)}
           schoolYear={schoolYear-1}
           sortedDataPoints={sortedDataPoints}
+          renderRaw={renderRaw}
           renderCellFn={renderCellFn}
         />
         <YearBox
@@ -30,6 +31,7 @@ export default class BoxChart extends React.Component {
           gradeThen={gradeNow}
           schoolYear={schoolYear}
           sortedDataPoints={sortedDataPoints}
+          renderRaw={renderRaw}
           renderCellFn={renderCellFn}
         />
       </div>
@@ -40,7 +42,8 @@ BoxChart.propTypes = {
   readerJson: PropTypes.object.isRequired,
   benchmarkAssessmentKey: PropTypes.string.isRequired,
   gradeNow: PropTypes.string.isRequired,
-  renderCellFn: PropTypes.func
+  renderCellFn: PropTypes.func.isRequired,
+  renderRaw: PropTypes.bool
 };
 BoxChart.contextTypes = {
   nowFn: PropTypes.func.isRequired
@@ -49,7 +52,7 @@ BoxChart.contextTypes = {
 
 // Take only most recent (the constraint comes from the input spreadsheets)
 function YearBox(props) {
-  const {schoolYear, gradeThen, sortedDataPoints, renderCellFn, style = {}} = props;
+  const {schoolYear, gradeThen, sortedDataPoints, renderCellFn, renderRaw, style = {}} = props;
   const benchmarkPeriodKeys = ['fall', 'winter', 'spring'];
   const ds = benchmarkPeriodKeys.map(benchmarkPeriodKey => {
     return _.find(sortedDataPoints, d => d.benchmark_school_year === schoolYear && d.benchmark_period_key == benchmarkPeriodKey);
@@ -59,19 +62,20 @@ function YearBox(props) {
       <div style={styles.yearCells}>
         {benchmarkPeriodKeys.map((benchmarkPeriodKey, index) => {
           const dataPoint = ds[index];
-          const valueEl = dataPoint ? dataPoint.json.value : null;
-          const style = boxStyle(dataPoint, gradeThen, styles.box);
-          return (
-            <div key={benchmarkPeriodKey} style={style} title={valueEl}>
-              {!renderCellFn ? benchmarkPeriodKey : renderCellFn({
-                schoolYear,
-                gradeThen,
-                benchmarkPeriodKey,
-                dataPoint,
-                valueEl
-              })}
-            </div>
-          );
+          const value = dataPoint ? dataPoint.json.value : null;
+          const styled = boxStyle(dataPoint, gradeThen, styles.box);
+          const el = renderCellFn({
+            styled,
+            boxStyle: styles.box,
+            schoolYear,
+            gradeThen,
+            benchmarkPeriodKey,
+            dataPoint,
+            value
+          });
+          return (renderRaw)
+            ? el
+            : <div key={benchmarkPeriodKey} style={styled} title={value}>{el}</div>;
         })}
       </div>
       <div style={styles.yearWhen}>{gradeText(gradeThen)}, {schoolYear}</div>
@@ -82,8 +86,9 @@ YearBox.propTypes = {
   schoolYear: PropTypes.number.isRequired,
   gradeThen: PropTypes.string.isRequired,
   sortedDataPoints: PropTypes.array.isRequired,
-  style: PropTypes.object,
-  renderCellFn: PropTypes.func
+  renderCellFn: PropTypes.func.isRequired,
+  renderRaw: PropTypes.bool,
+  style: PropTypes.object
 };
 
 const styles = {

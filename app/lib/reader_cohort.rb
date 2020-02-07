@@ -4,8 +4,8 @@ class ReaderCohort
     @time_now = options.fetch(:time_now, Time.now)
   end
 
-  def reader_cohort_json(benchmark_assessment_key, school_years)
-    comparison_students = full_cohort_skipping_authorization()
+  def reader_cohort_json(benchmark_assessment_key, school_years, options = {})
+    comparison_students = options.fetch(:comparison_students, full_cohort_skipping_authorization())
     
     cells = {}
     school_years.each do |benchmark_school_year|
@@ -44,23 +44,30 @@ class ReaderCohort
   # more detailed reading information about a wider cohort in the Google Sheets
   # used to enter this information at the school level, so the information leakage
   # here is much less and not a significant concern.
+  #
+  # The intention here in using school is to encourage problem solving, and an 
+  # actionable reference for teacher or school-based specialist, coach or AP.
   def full_cohort_skipping_authorization
-    Student.active.where(grade: @student.grade).where.not(id: @student.id)
+    return [] if @student.school_id.nil? || @student.grade.nil?
+    Student.active
+      .where(school_id: @student.school_id)
+      .where(grade: @student.grade)
+      .where.not(id: @student.id)
   end
 
-  # Can be optimized
+  # Optimized to one query
   def extract_values(students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
-    most_recent_data_points = students.map do |student|
-      student.reading_benchmark_data_points.where({
-        benchmark_assessment_key: benchmark_assessment_key.to_s,
-        benchmark_school_year: benchmark_school_year,
-        benchmark_period_key: benchmark_period_key
-      }).order(updated_at: :desc).limit(1).first
+    all_data_points = ReadingBenchmarkDataPoint.where({
+      student_id: students.map(&:id),
+      benchmark_assessment_key: benchmark_assessment_key.to_s,
+      benchmark_school_year: benchmark_school_year,
+      benchmark_period_key: benchmark_period_key
+    })
+    grouped_data_points = all_data_points.group_by(&:student_id)
+    grouped_data_points.map do |student_id, data_points|
+      most_recent_data_point = data_points.sort_by(&:updated_at).last
+      ComparableDataPoint.new(most_recent_data_point).extract
     end
-    int_values = most_recent_data_points.compact.map do |d|
-      ComparableDataPoint.new(d).extract
-    end
-    int_values.compact
   end
 
   # returns a map including percentile and rank
