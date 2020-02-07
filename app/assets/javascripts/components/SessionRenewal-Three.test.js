@@ -5,9 +5,10 @@ beforeEach(() => {
   fetchMock.reset();
   fetchMock.restore();
   fetchMock.get('/educators/reset', {});
-  fetchMock.get('/educators/probe', new Response('{}', {
-    status: 401
-  }));
+
+  // This use of Response is not supported in target browsers, but is
+  // supported in the test setup, so is fine for this smoke test.
+  fetchMock.get('/educators/probe', new Response('{}', { status: 401 })); // eslint-disable-line compat/compat
 });
 
 it('if probe fails, calls forciblyClearPage', done => {

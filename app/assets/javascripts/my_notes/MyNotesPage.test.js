@@ -37,10 +37,11 @@ describe('integration tests', () => {
     expect(wrapper.text()).toContain('Loading...');
 
     setTimeout(() => {
-      expect(wrapper.html()).toContain('My notes');
-      expect($(wrapper.html()).find('.EventNoteCard').length).toEqual(2);
-      expect($(wrapper.html()).find('.NoteCard-substance').length).toEqual(2);
-      expect(wrapper.html()).not.toContain('redacted');
+      const html = wrapper.getDOMNode().innerHTML;
+      expect(html).toContain('My notes');
+      expect($(html).find('.EventNoteCard').length).toEqual(2);
+      expect($(html).find('.NoteCard-substance').length).toEqual(2);
+      expect(html).not.toContain('redacted');
       done();
     }, 0);
   });

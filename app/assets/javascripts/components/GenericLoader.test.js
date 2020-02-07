@@ -20,7 +20,7 @@ it('renders when pending', () => {
 it('renders when resolved', () => {
   const props = testProps();
   const wrapper = mount(<GenericLoader {...props} />);
-  setTimeout(() => expect(wrapper.html()).toContain('bar'), 0);
+  setTimeout(() => expect(wrapper.getDOMNode().innerHTML).toContain('bar'), 0);
 });
 
 
@@ -51,7 +51,7 @@ describe('when not GENERIC_LOADER_THROW_ON_REJECT_IN_TEST', () => {
     });
     const wrapper = mount(<GenericLoader {...props} />);
     setTimeout(() => {
-      expect(wrapper.html()).toContain('There was an error loading this data.');
+      expect(wrapper.getDOMNode().innerHTML).toContain('There was an error loading this data.');
       done();
     }, 0);
   });

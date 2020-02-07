@@ -1,11 +1,11 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
     "jest": true
   },
   "globals": {
-    "$": true
+    "$": true,
+    "Promise": true
   },
   "parser": "babel-eslint",
   "plugins": [
@@ -14,6 +14,7 @@
   ],
   "extends": [
     "eslint:recommended",
+    "plugin:compat/recommended",
     "plugin:react/recommended",
     "plugin:no-unsanitized/DOM"
   ],
@@ -47,6 +48,14 @@
     }]
   },
   "settings": {
+    "polyfills": [
+      "Object",
+      "Array",
+      "Promise",
+      "Map",
+      "Set",
+      "fetch",
+    ],
     "react": {
       "version": "detect"
     }

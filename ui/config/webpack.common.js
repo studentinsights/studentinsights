@@ -10,19 +10,21 @@ module.exports = {
     rules: [
       // Process JS with Babel.
       {
-        test: /\.js$/, // use .js instead of .jsx
-
-        loader: require.resolve('babel-loader'),
-        options: {
-          // @remove-on-eject-begin
-          babelrc: false,
-          presets: [require.resolve('babel-preset-react-app')],
-          // @remove-on-eject-end
-          // This is a feature of `babel-loader` for webpack (not Babel itself).
-          // It enables caching results in ./node_modules/.cache/babel-loader/
-          // directory for faster rebuilds.
-          cacheDirectory: true,
-        },
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            // This is a feature of `babel-loader` for webpack (not Babel itself).
+            // It enables caching results in ./node_modules/.cache/babel-loader/
+            // directory for faster rebuilds.
+            cacheDirectory: true,
+            
+            // define config for Babel itself and its plugins there, not
+            // in here.
+            babelrc: true
+          }
+        }
       },
       {
         test: /\.css$/,
