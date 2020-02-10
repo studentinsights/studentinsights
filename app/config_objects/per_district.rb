@@ -54,7 +54,7 @@ class PerDistrict
     if @district_key == SOMERVILLE
       true
     elsif @district_key == NEW_BEDFORD
-      false # upstream data quality issue
+      true
     elsif @district_key == BEDFORD
       false # never enabled
     elsif @district_key == DEMO
