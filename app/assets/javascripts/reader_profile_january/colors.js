@@ -8,6 +8,10 @@ export const PRESENT = '#ccc';
 export const BLANK = '#f8f8f8';
 
 
+export function toOutlineColor(color) {
+  return chroma(color).darken().hex();
+}
+
 export function boxStyle(dataPoint, gradeThen, style = {}) {
   // no data
   if (!dataPoint) {
@@ -34,7 +38,7 @@ export function boxStyle(dataPoint, gradeThen, style = {}) {
 function createBoxStyle(color, style = {}) {
   return {
     background: color,
-    outline: `1px solid ${chroma(color).darken().hex()}`,
+    outline: `1px solid ${toOutlineColor(color)}`,
     color: muchDarkerColor(color).hex(),
     ...style
   };

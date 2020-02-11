@@ -5,7 +5,7 @@ import {toSchoolYear} from '../helpers/schoolYear';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {percentileWithSuffix} from '../helpers/percentiles';
 import GenericLoader from '../components/GenericLoader';
-import {BLANK, PRESENT} from './colors';
+import {BLANK, PRESENT, toOutlineColor} from './colors';
 import BoxChart from './BoxChart';
 
 
@@ -55,9 +55,9 @@ export default class CohortChart extends React.Component {
           const color = pText ? PRESENT : BLANK;
           const cellStyle = {
             ...boxStyle,
-            outline: `1px solid ${color}`,
-            zIndex: pText ? 1 : 0, // for outline overlapping
-            background: 'white'
+            outline: `1px solid ${toOutlineColor(color)}`,
+            backgroundColor: BLANK,
+            zIndex: pText ? 1 : 0 // for outline overlapping
           };
           return (
             <div key={benchmarkPeriodKey} title={pText} style={cellStyle}>

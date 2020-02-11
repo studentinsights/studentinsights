@@ -7,7 +7,7 @@ import PerDistrictContainer from '../components/PerDistrictContainer';
 import {firstGradeWinter} from './BoxChart.fixture.js';
 import CohortChart from './CohortChart';
 
-beforeEach(mockFetch());
+beforeEach(mockFetch);
 
 export function mockFetch() {
   fetchMock.restore();
