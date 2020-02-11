@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import renderer from 'react-test-renderer';
 import {withNowContext} from '../testing/NowContainer';
+import {expectSnapshotToMatchAfterTick} from '../testing/snapshotAsync';
 import fetchMock from 'fetch-mock/es5/client';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {firstGradeWinter} from './BoxChart.fixture.js';
@@ -52,7 +52,6 @@ it('renders without crashing', () => {
 });
 
 
-it('snapshots', () => {
-  const tree = renderer.create(testRender(testProps())).toJSON();
-  expect(tree).toMatchSnapshot();
+it('snapshots', done => {
+  expectSnapshotToMatchAfterTick(testRender(testProps()), done);
 });

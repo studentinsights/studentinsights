@@ -4,14 +4,179 @@ exports[`snapshots 1`] = `
 <div
   className="CohortChart"
 >
-  <div
-    style={
-      Object {
-        "padding": 10,
+  <div>
+    <div
+      className="BoxChart"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "fontSize": 12,
+        }
       }
-    }
-  >
-    Loading...
+    >
+      <div
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#f8f8f8",
+                "cursor": "default",
+                "display": "flex",
+                "flex": 1,
+                "height": 40,
+                "justifyContent": "center",
+                "outline": "1px solid #ccc",
+                "zIndex": 0,
+              }
+            }
+            title={null}
+          />
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#f8f8f8",
+                "cursor": "default",
+                "display": "flex",
+                "flex": 1,
+                "height": 40,
+                "justifyContent": "center",
+                "outline": "1px solid #ccc",
+                "zIndex": 1,
+              }
+            }
+            title="20th"
+          >
+            20th
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#f8f8f8",
+                "cursor": "default",
+                "display": "flex",
+                "flex": 1,
+                "height": 40,
+                "justifyContent": "center",
+                "outline": "1px solid #ccc",
+                "zIndex": 1,
+              }
+            }
+            title="35th"
+          >
+            35th
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 5,
+            }
+          }
+        >
+          Kindergarten
+          , 
+          2018
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "flex": 1,
+            "paddingLeft": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#f8f8f8",
+                "cursor": "default",
+                "display": "flex",
+                "flex": 1,
+                "height": 40,
+                "justifyContent": "center",
+                "outline": "1px solid #ccc",
+                "zIndex": 1,
+              }
+            }
+            title="45th"
+          >
+            45th
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#f8f8f8",
+                "cursor": "default",
+                "display": "flex",
+                "flex": 1,
+                "height": 40,
+                "justifyContent": "center",
+                "outline": "1px solid #ccc",
+                "zIndex": 1,
+              }
+            }
+            title="41st"
+          >
+            41st
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#f8f8f8",
+                "cursor": "default",
+                "display": "flex",
+                "flex": 1,
+                "height": 40,
+                "justifyContent": "center",
+                "outline": "1px solid #ccc",
+                "zIndex": 0,
+              }
+            }
+            title={null}
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 5,
+            }
+          }
+        >
+          1st grade
+          , 
+          2019
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
