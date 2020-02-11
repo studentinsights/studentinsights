@@ -54,7 +54,7 @@ export default class LightProfilePage extends React.Component {
     const {isTakingNotes} = this.state;
 
     if (isTakingNotes) {
-      const shouldDiscardNote = confirm("You have a note in progress.\n\nDiscard that note?");
+      const shouldDiscardNote = confirm("You have a note in progress.\n\nDiscard that note?"); // eslint-disable-line no-alert
       if (!shouldDiscardNote) return;
     }
     

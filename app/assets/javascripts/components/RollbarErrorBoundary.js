@@ -36,8 +36,8 @@ export default class RollbarErrorBoundary extends React.Component {
   // Read more at https://stackoverflow.com/questions/18391212/is-it-not-possible-to-stringify-an-error-using-json-stringify
   rollbarErrorFn(msg, ...params) {
     if (this.props.rollbarErrorFn) return this.props.rollbarErrorFn(msg, ...params);
-    if (window.Rollbar.error) return window.Rollbar.error(msg, ...params);
-    console.error('RollbarErrorBoundary#rollbarErrorFn could not find function for reporting error:', msg, ...params);
+    if (window.Rollbar && window.Rollbar.error) return window.Rollbar.error(msg, ...params);
+    console.error('RollbarErrorBoundary#rollbarErrorFn could not find function for reporting error:', msg, ...params); // eslint-disable-line no-console
   }
 
   render() {

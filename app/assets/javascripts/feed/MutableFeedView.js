@@ -30,11 +30,15 @@ export default class MutableFeedView extends React.Component {
 
   onClickMarkRestricted(eventNoteId, e) {
     e.preventDefault();
-    if (!confirm("Marking this note as restricted will protect the student's privacy,\nwhile also limiting which educators can access this information.\n\nIf you need to undo this, you can email help@studentinsights.org.\n\nContinue?")) return;
+    const confirmationMsg = "Marking this note as restricted will protect the student's privacy,\nwhile also limiting which educators can access this information.\n\nIf you need to undo this, you can email help@studentinsights.org.\n\nContinue?";
+    if (!confirm(confirmationMsg)) { // eslint-disable-line no-alert
+      return;
+    }
 
     // Make server request optimistically
+    const errorMsg = 'There was an error trying to update the note, and help@studentinsights.org has been sent a notification.';
     apiPutJson(`/api/event_notes/${eventNoteId}/mark_as_restricted`)
-      .catch(err => alert('There was an error trying to update the note, and help@studentinsights.org has been sent a notification.'));
+      .catch(err => alert(errorMsg)); // eslint-disable-line no-alert
 
     // Remove from UI now
     const {feedCards} = this.state;

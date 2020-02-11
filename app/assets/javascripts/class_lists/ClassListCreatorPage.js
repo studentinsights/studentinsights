@@ -483,7 +483,7 @@ export default class ClassListCreatorPage extends React.Component {
 
   onSubmitClicked() {
     const confirmMessage = "Are you sure?  You won't be able to make any changes after submitting.";
-    if (!window.confirm(confirmMessage)) return;
+    if (!window.confirm(confirmMessage)) return; // eslint-disable-line no-alert
 
     // This updates the UI locally to disable editing and mark as submitted.
     // When that state change is done, we also force saving, since
