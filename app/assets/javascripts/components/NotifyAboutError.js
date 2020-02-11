@@ -13,8 +13,8 @@ export default class NotifyAboutError extends React.Component {
 
   rollbarErrorFn(msg, ...params) {
     if (this.props.rollbarErrorFn) return this.props.rollbarErrorFn(msg, ...params);
-    if (window.Rollbar.error) return window.Rollbar.error(msg, ...params);
-    console.error('NotifyAboutError#rollbarErrorFn could not find function for reporting error:', msg, ...params);
+    if (window.Rollbar && window.Rollbar.error) return window.Rollbar.error(msg, ...params);
+    console.error('NotifyAboutError#rollbarErrorFn could not find function for reporting error:', msg, ...params); // eslint-disable-line no-console
   }
 
   render() {

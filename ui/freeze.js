@@ -14,5 +14,5 @@
 try {
   Object.freeze(Object.prototype);
 } catch (err) {
-  console.error('Object.freeze(Object.prototype) failed', err);
+  console.error('Object.freeze(Object.prototype) failed', err); // eslint-disable-line no-console
 }

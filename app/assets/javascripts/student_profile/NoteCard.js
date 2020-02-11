@@ -43,7 +43,7 @@ export default class NoteCard extends React.Component {
   // No feedback, fire and forget
   onDeleteAttachmentClicked(eventNoteAttachmentId, e) {
     e.preventDefault();
-    if (!confirm('Remove this link?')) return;
+    if (!confirm('Remove this link?')) return; // eslint-disable-line no-alert
     this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
   }
 

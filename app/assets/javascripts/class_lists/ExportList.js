@@ -57,7 +57,7 @@ export default class ExportList extends React.Component {
     const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
     const teacherName = (option === null) ? '' : option.name;
     if ((teacherName !== '') && _.includes(principalTeacherNamesByRoom, teacherName)) {
-      return alert('Duplicate teacher name.');
+      return alert('Duplicate teacher name.'); // eslint-disable-line no-alert
     }
     onPrincipalTeacherNamesByRoomChanged({
       ...principalTeacherNamesByRoom,
