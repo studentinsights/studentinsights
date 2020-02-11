@@ -27,6 +27,7 @@ import {
 } from './thresholds';
 
 
+// See also reaading_benchmark_data_point.rb
 const ORDERED_F_AND_P_ENGLISH_LEVELS = {
   'NR': 50,
   'AA': 80,
@@ -209,13 +210,13 @@ export function interpretFAndPEnglish(text) {
 
 // Only letters and whitespace, no other characters
 function strictMatchForFAndPLevel(text) {
-  const trimmed = text.trim();
-  return (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, trimmed.toUpperCase()))
-    ? trimmed.toUpperCase()
+  const normalized = text.trim().toUpperCase();
+  return (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, normalized))
+    ? normalized
     : null;
 }
 
-export function orderedFAndPLevels() {
+function orderedFAndPLevels() {
   return _.sortBy(Object.keys(ORDERED_F_AND_P_ENGLISH_LEVELS), level => ORDERED_F_AND_P_ENGLISH_LEVELS[level]);
 }
 

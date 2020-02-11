@@ -17,7 +17,6 @@ it('#interpretFAndPEnglish', () => {
   expect(interpretFAndPEnglish('A+')).toEqual('A');
   expect(interpretFAndPEnglish('A +')).toEqual('A');
   expect(interpretFAndPEnglish('Z+')).toEqual('Z'); // Z+ is actually a special case per F&P levels docs, but we're ignoring it for now
-  expect(interpretFAndPEnglish('a')).toEqual('A');
   expect(interpretFAndPEnglish('A/B')).toEqual('A');
   expect(interpretFAndPEnglish('A/ B')).toEqual('A');
   expect(interpretFAndPEnglish('a-B')).toEqual('A');
