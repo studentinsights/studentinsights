@@ -7,7 +7,7 @@ import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
 function testProps(props = {}) {
   return {
     onUserTyping: jest.fn(),
-    onUserDropdownSelect: x => console.log('onUserDropdownSelect', x),
+    onUserDropdownSelect: jest.fn(),
     ...props
   };
 }

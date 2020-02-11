@@ -23,13 +23,14 @@
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "only-multiline"],
+    "no-alert": "error",
+    "no-console": "error",
     "no-unused-vars": ["error", {
       "args": "none"
     }],
     "no-use-before-define": "off",
     "eol-last": "off",
     "react/prefer-stateless-function": "off",
-    "react/prefer-es6-class": "off",
     "react/sort-comp": ["error", {
       order: [
         'static-methods',

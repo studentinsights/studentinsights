@@ -38,7 +38,7 @@ export default class WordCloud extends React.Component {
   }
 
   onClick(e) {
-    alert(`The word "${e[0]}" appears ${e[1]} times.`);
+    alert(`The word "${e[0]}" appears ${e[1]} times.`); // eslint-disable-line no-alert
   }
 
   render() {

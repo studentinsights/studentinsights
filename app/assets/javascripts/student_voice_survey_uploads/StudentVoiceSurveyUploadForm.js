@@ -46,13 +46,13 @@ export default class StudentVoiceSurveyUploadForm extends React.Component {
       uploadState: null
     });
     onUploadDone();
-    alert("Done!\n\n" + JSON.stringify(json, null, 2));
+    alert("Done!\n\n" + JSON.stringify(json, null, 2)); // eslint-disable-line no-alert
   }
 
   onUploadFailed(err) {
     const {onUploadDone} = this.props;
     onUploadDone();
-    alert("The upload failed.\n\n" + JSON.stringify(err, null, 2));
+    alert("The upload failed.\n\n" + JSON.stringify(err, null, 2)); // eslint-disable-line no-alert
   }
 
   render() {

@@ -63,7 +63,7 @@ export default class SecondTransitionNoteDialog extends React.Component {
     // Warn about pending changes
     const {isDirty, pending, failed} = bridge;
     if (isDirty || pending.length > 0 || failed.length > 0) {
-      if (!confirm('You have unsaved changes, discard them?')) return;
+      if (!confirm('You have unsaved changes, discard them?')) return; // eslint-disable-line no-alert
     }
     const {onClose} = this.props;
     onClose();
