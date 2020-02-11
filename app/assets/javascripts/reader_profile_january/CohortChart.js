@@ -5,6 +5,7 @@ import {toSchoolYear} from '../helpers/schoolYear';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {percentileWithSuffix} from '../helpers/percentiles';
 import GenericLoader from '../components/GenericLoader';
+import {BLANK, PRESENT} from './colors';
 import BoxChart from './BoxChart';
 
 
@@ -41,19 +42,25 @@ export default class CohortChart extends React.Component {
 
   renderBoxChartFromJson(json) {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
-    console.log('json.cells', json.cells);
     return (
       <BoxChart
         gradeNow={gradeNow}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}
         renderRaw={true}
-        renderCellFn={({schoolYear, benchmarkPeriodKey, styled}) => {
+        renderCellFn={({schoolYear, benchmarkPeriodKey, boxStyle}) => {
           const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
           const cell = json.cells[whenKey];
           const pText = cell ? percentileWithSuffix(cell.stats.p) : null;
+          const color = pText ? PRESENT : BLANK;
+          const cellStyle = {
+            ...boxStyle,
+            outline: `1px solid ${color}`,
+            zIndex: pText ? 1 : 0, // for outline overlapping
+            background: 'white'
+          };
           return (
-            <div key={benchmarkPeriodKey} title={pText} style={styled}>
+            <div key={benchmarkPeriodKey} title={pText} style={cellStyle}>
               {pText}
             </div>
           );
