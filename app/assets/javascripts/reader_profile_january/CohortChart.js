@@ -5,7 +5,7 @@ import {toSchoolYear} from '../helpers/schoolYear';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {percentileWithSuffix} from '../helpers/percentiles';
 import GenericLoader from '../components/GenericLoader';
-import {BLANK, PRESENT, toOutlineColor} from './colors';
+import {BLANK, PRESENT} from './colors';
 import BoxChart from './BoxChart';
 
 
@@ -52,10 +52,9 @@ export default class CohortChart extends React.Component {
           const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
           const cell = json.cells[whenKey];
           const pText = cell ? percentileWithSuffix(cell.stats.p) : null;
-          const color = pText ? PRESENT : BLANK;
           const cellStyle = {
             ...boxStyle,
-            outline: `1px solid ${toOutlineColor(color)}`,
+            outline: `1px solid ${PRESENT}`,
             backgroundColor: BLANK,
             zIndex: pText ? 1 : 0 // for outline overlapping
           };
