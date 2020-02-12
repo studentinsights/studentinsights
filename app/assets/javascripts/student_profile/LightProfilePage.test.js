@@ -281,6 +281,7 @@ describe('reader profile', () => {
 
     const el = testRender(props);
     expect(findReaderProfiles(el)).toEqual({
+      deprecated: false,
       june: false,
       january: false
     });
