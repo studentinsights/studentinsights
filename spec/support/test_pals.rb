@@ -131,6 +131,10 @@ class TestPals
     })
     EducatorLabel.create!({
       educator: @uri,
+      label_key: 'enable_reader_profile_june'
+    })
+    EducatorLabel.create!({
+      educator: @uri,
       label_key: 'enable_reader_profile_january'
     })
     EducatorMultifactorConfig.create!({

@@ -28,6 +28,7 @@ describe DistrictController, :type => :controller do
             'can_upload_student_voice_surveys',
             'enable_equity_experiments',
             'enable_reader_profile_january',
+            'enable_reader_profile_june',
             'enable_reading_benchmark_data_entry',
             'enable_reading_debug',
             'enable_reflection_on_notes_patterns',

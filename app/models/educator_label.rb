@@ -23,6 +23,7 @@ class EducatorLabel < ApplicationRecord
         'profile_enable_minimal_reading_data',
         'enable_reading_benchmark_data_entry', # deprecated
         'enable_reading_debug',
+        'enable_reader_profile_june',
         'enable_reader_profile_january',
 
         # profile

@@ -13,6 +13,11 @@ import {
 } from './LightProfilePage.fixture';
 
 
+jest.mock('./ReaderProfileDeprecated', () => 'mocked-reader-profile-deprecated');
+jest.mock('../reader_profile/ReaderProfileJunePage', () => 'mocked-reader-profile-june-page');
+jest.mock('../reader_profile_january/ReaderProfileJanuaryPage', () => 'mocked-reader-profile-january-page');
+
+
 function testingTabTextLines(tabIndex, el) {
   const leafEls = $(el).find('.LightProfileTab:eq(' + tabIndex+ ') *:not(:has(*))').toArray(); // magic selector from https://stackoverflow.com/questions/4602431/what-is-the-most-efficient-way-to-get-leaf-nodes-with-jquery#4602476
   return leafEls.map(el => $(el).text());
@@ -30,6 +35,15 @@ function testRender(props, context = {}) {
   const el = document.createElement('div');
   ReactDOM.render(testEl(props, context), el);
   return el;
+}
+
+function findReaderProfiles(el) {
+  const elaDetailsEl = $(el).find('.ElaDetails');
+  return {
+    deprecated: $(elaDetailsEl).find('mocked-reader-profile-deprecated').length == 1,
+    june: $(elaDetailsEl).find('mocked-reader-profile-june-page').length == 1,
+    january: $(elaDetailsEl).find('mocked-reader-profile-january-page').length == 1
+  };
 }
 
 it('renders without crashing', () => {
@@ -238,5 +252,74 @@ describe('buttons', () => {
     });
     const el = testRender(props);
     expect($(el).html()).toContain('Educators with access');
+  });
+});
+
+describe('reader profile', () => {
+  it('shows nothing for HS student, even with all labels and if reading tab were somehow selected', () => {
+    let props = testPropsForAladdinMouse();
+    props = mergeAtPath(props, ['profileJson', 'currentEducator'], {
+      labels: [
+        'profile_enable_minimal_reading_data',
+        'enable_reader_profile_june',
+        'enable_reader_profile_january'
+      ]
+    });
+    props = {...props, selectedColumnKey: 'reading'};
+    const el = testRender(props);
+    expect(findReaderProfiles(el)).toEqual({
+      deprecated: false,
+      june: false,
+      january: false
+    });
+  });
+
+  it('shows nothing for 3rd grade student without labels', () => {
+    let props = testPropsForAladdinMouse();
+    props = mergeAtPath(props, ['profileJson', 'student'], {grade: '3'});
+    props = {...props, selectedColumnKey: 'reading'};
+
+    const el = testRender(props);
+    expect(findReaderProfiles(el)).toEqual({
+      deprecated: false,
+      june: false,
+      january: false
+    });
+  });
+  
+  it('shows January profile when label set, PK grade student', () => {
+    let props = testPropsForAladdinMouse();
+    props = mergeAtPath(props, ['profileJson', 'currentEducator'], {
+      labels: ['enable_reader_profile_january']
+    });
+    props = mergeAtPath(props, ['profileJson', 'student'], {grade: 'PK'});
+    props = {...props, selectedColumnKey: 'reading'};
+
+    const el = testRender(props);
+    expect(findReaderProfiles(el)).toEqual({
+      deprecated: false,
+      june: false,
+      january: true
+    });
+  });
+
+  it('shows both profiles when both labels set, 5th grade student', () => {
+    let props = testPropsForAladdinMouse();
+    props = mergeAtPath(props, ['profileJson', 'currentEducator'], {
+      labels: [
+        'profile_enable_minimal_reading_data',
+        'enable_reader_profile_june',
+        'enable_reader_profile_january'
+      ]
+    });
+    props = mergeAtPath(props, ['profileJson', 'student'], {grade: '5'});
+    props = {...props, selectedColumnKey: 'reading'};
+
+    const el = testRender(props);
+    expect(findReaderProfiles(el)).toEqual({
+      deprecated: true,
+      june: true,
+      january: true
+    });
   });
 });

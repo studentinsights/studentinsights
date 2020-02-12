@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {toMomentFromRailsDate} from '../helpers/toMoment';
-import {high, medium, low} from '../helpers/colors';
 import {Email} from '../components/PublicLinks';
 import DetailsSection from './DetailsSection';
 import StarChart from './StarChart';
@@ -21,8 +19,6 @@ export default class ElaDetails extends React.Component {
     const {hideStar} = this.props;
     const els = [
       this.renderReaderProfile(),
-      this.renderDibels(),
-      this.renderFAndPs(),
       (!hideStar && this.renderStarReading()),
       this.renderMCASELANextGenScores(),
       this.renderMCASELAScores(),
@@ -51,49 +47,13 @@ export default class ElaDetails extends React.Component {
 
     return <div key="reader-profile">{readerProfileEl}</div>;
   }
-
-  renderDibels() {
-    const {dibels} = this.props;
-    if (dibels.length === 0) return null;
-    const latestDibels = _.last(_.sortBy(dibels, 'date_taken'));
-    return (
-      <DetailsSection key="dibels" title="DIBELS, older data">
-        <div>{this.renderDibelsScore(latestDibels.benchmark)} on {toMomentFromRailsDate(latestDibels.date_taken).format('M/D/YY')}</div>
-      </DetailsSection>
-    );
-  }
-
-  renderDibelsScore(score) {
-    const backgroundColor = {
-      'INTENSIVE': low,
-      'STRATEGIC': medium,
-      'CORE': high
-    }[score] || '#ccc';
-    return <span style={{padding: 5, opacity: 0.85, fontWeight: 'bold', color: 'white', backgroundColor}}>{score}</span>;
-  }
-
-  renderFAndPs() {
-    const {fAndPs} = this.props;
-    if (fAndPs.length === 0) return null;
-    const fAndP = _.last(_.sortBy(fAndPs, 'benchmark_date'));
-    const maybeCode = (fAndP.f_and_p_code) ? ` with ${fAndP.f_and_p_code} code` : null;
-    
-    return (
-      <DetailsSection key="f_and_ps" title="Fountas and Pinnell (F&P), older data">
-        <div>
-          <span style={{padding: 5, backgroundColor: '#ccc', fontWeight: 'bold'}}>Level {fAndP.instructional_level}{maybeCode}</span>
-          <span> on {toMomentFromRailsDate(fAndP.benchmark_date).format('M/D/YY')}</span>
-        </div>
-      </DetailsSection>
-    );
-  }
-
+  
   renderStarReading() {
     const {chartData, studentGrade} = this.props;
     return (
       <DetailsSection key="star" title="STAR Reading, last 4 years">
         <StarChart
-          starSeries={chartData.star_series_reading_percentile}
+          starSeries={chartData.star_series_reading_percentile || []}
           studentGrade={studentGrade}
         />
       </DetailsSection>
@@ -147,8 +107,6 @@ export default class ElaDetails extends React.Component {
 }
 
 ElaDetails.propTypes = {
-  dibels: PropTypes.array.isRequired,
-  fAndPs: PropTypes.array.isRequired,
   chartData: PropTypes.shape({
     star_series_reading_percentile: PropTypes.array,
     mcas_series_ela_scaled: PropTypes.array,
