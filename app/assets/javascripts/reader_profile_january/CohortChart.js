@@ -52,6 +52,14 @@ export default class CohortChart extends React.Component {
           const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
           const cell = json.cells[whenKey];
           const pText = cell && cell.stats.p ? percentileWithSuffix(cell.stats.p) : null;
+          const tooltipText = (cell && cell.stats.p) ? [
+            `${pText} percentile`,
+            '',
+            'Within the school, at that grade level:',
+            `  ${padStart(cell.stats.n_higher, 3)} students have a higher score`,
+            `  ${padStart(cell.stats.n_equal, 3)} students have the same score`,
+            `  ${padStart(cell.stats.n_lower, 3)} students have a lower score`
+          ].join("\n") : null;
           const cellStyle = {
             ...boxStyle,
             outline: `1px solid ${PRESENT}`,
@@ -59,7 +67,7 @@ export default class CohortChart extends React.Component {
             zIndex: pText ? 1 : 0 // for outline overlapping
           };
           return (
-            <div key={benchmarkPeriodKey} title={pText} style={cellStyle}>
+            <div key={benchmarkPeriodKey} title={tooltipText} style={cellStyle}>
               {pText}
             </div>
           );
@@ -77,3 +85,12 @@ CohortChart.propTypes = {
   benchmarkAssessmentKey: PropTypes.string.isRequired,
   readerJson: PropTypes.object.isRequired
 };
+
+
+function padStart(input, n) {
+  let str = input.toString();
+  while (str.length < n) {
+    str = ' ' + str;
+  }
+  return str;
+}
