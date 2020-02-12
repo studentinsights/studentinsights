@@ -53,12 +53,12 @@ export default class CohortChart extends React.Component {
           const cell = json.cells[whenKey];
           const pText = cell && cell.stats.p ? percentileWithSuffix(cell.stats.p) : null;
           const tooltipText = (cell && cell.stats.p) ? [
-            `${pText} percentile`,
-            '',
             'Within the school, at that grade level:',
-            `  ${padStart(cell.stats.n_higher, 3)} students have a higher score`,
-            `  ${padStart(cell.stats.n_equal, 3)} students have the same score`,
-            `  ${padStart(cell.stats.n_lower, 3)} students have a lower score`
+            `  ${padFormatStudentsHave(cell.stats.n_higher, 3)} a higher score`,
+            `  ${padFormatStudentsHave(cell.stats.n_equal, 3)} the same score`,
+            `  ${padFormatStudentsHave(cell.stats.n_lower, 3)} a lower score`,
+            '',
+            `A score of "${cell.value}" is in the ${pText} percentile`
           ].join("\n") : null;
           const cellStyle = {
             ...boxStyle,
@@ -87,10 +87,11 @@ CohortChart.propTypes = {
 };
 
 
-function padStart(input, n) {
-  let str = input.toString();
-  while (str.length < n) {
-    str = ' ' + str;
-  }
-  return str;
+function padFormatStudentsHave(num, n) {
+  let str = num.toString() + "\t";
+  // while (str.length < n) {
+  //   str = ' ' + str;
+  // }
+
+  return (num === 1) ? `${str} student has` : `${str} students have`;
 }
