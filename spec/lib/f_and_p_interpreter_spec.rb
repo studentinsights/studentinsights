@@ -48,6 +48,8 @@ RSpec.describe FAndPInterpreter do
         f_and_p.ordering('A (indep.)'),
         f_and_p.ordering('a(independent)'),
         f_and_p.ordering('a (instructional)'),
+        f_and_p.ordering('C'),
+        f_and_p.ordering('F'),
         f_and_p.ordering('Z+') # Z+ is actually a special case per F&P levels docs, but we're ignoring for now
       ]
       expect(manually_ordered).to eq manually_ordered.sort()

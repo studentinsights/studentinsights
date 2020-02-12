@@ -782,6 +782,63 @@ describe ProfileController, :type => :controller do
     end
   end
 
+  describe '#reader_profile_cohort_json' do
+    let!(:pals) { TestPals.create! }
+
+    def get_reader_profile_cohort_json(educator, student_id, params = {})
+      request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      get :reader_profile_cohort_json, params: {
+        id: student_id,
+        format: :json
+      }.merge(params)
+    end
+
+    it 'guards authorization' do
+      pending
+      other_educators = (Educator.all - [
+        pals.healey_laura_principal,
+        pals.healey_vivian_teacher,
+        pals.rich_districtwide,
+        pals.uri
+      ])
+      other_educators.each do |educator|
+        get_reader_profile_json(educator, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'returns correct shape on happy path' do
+      Timecop.freeze(pals.time_now) do
+        get_reader_profile_cohort_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id, {
+          benchmark_assessment_key: 'dibels_fsf',
+          school_years: [pals.time_now.year - 1, pals.time_now.year]
+        })
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        pending
+        expect(json).to eq({
+          "current_school_year" => 2017,
+          "access" => {
+            "composite"=>nil,
+            "comprehension"=>nil,
+            "literacy"=>nil,
+            "oral"=>nil,
+            "listening"=>nil,
+            "reading"=>nil,
+            "speaking"=>nil,
+            "writing"=>nil
+          },
+          "benchmark_data_points" => [],
+          "feed_cards" => [],
+          "iep_contents" => nil,
+          "services" => []
+        })
+      end
+    end
+  end
+
   describe '#educators_with_access_json' do
     let!(:pals) { TestPals.create! }
 

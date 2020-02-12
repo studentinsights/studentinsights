@@ -1,9 +1,9 @@
-# See also readingData.js
+# See also fAndPInterpreter.js
 class FAndPInterpreter
-  # Ported from readingData.js
   # For interpreting user input like A/C or A+ or H(indep) or B-C
   # for each, round down (latest independent 'mastery' level)
   # if not found in list of levels and can't understand, return null
+  # See also fAndPInterpreter.js
   def interpret_f_and_p_english(text) 
     # always trim whitespace
     if text.length != text.strip().length
@@ -48,7 +48,7 @@ class FAndPInterpreter
   end
 
   private
-  # Ported from readingData.js
+  # See also fAndPInterpreter.js
   # Only letters and whitespace, no other characters
   def strict_match_for_f_and_p_level(text)
     normalized = text.strip().upcase
@@ -59,7 +59,7 @@ class FAndPInterpreter
     end
   end
 
-  # Ported from readingData.js
+  # See also fAndPInterpreter.js
   ORDERED_F_AND_P_ENGLISH_LEVELS = {
     'NR' => 50,
     'AA' => 80,

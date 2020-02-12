@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import moment from 'moment';
 import {
   high,
@@ -25,39 +24,8 @@ import {
   DIBELS_NWF_WWR,
   somervilleReadingThresholdsFor
 } from './thresholds';
+import {fAndPOrdering, orderedFAndPLevels} from './fAndPInterpreter';
 
-
-// See also reaading_benchmark_data_point.rb
-const ORDERED_F_AND_P_ENGLISH_LEVELS = {
-  'NR': 50,
-  'AA': 80,
-  'A': 110,
-  'B': 120,
-  'C': 130,
-  'D': 150,
-  'E': 160,
-  'F': 170,
-  'G': 180,
-  'H': 190,
-  'I': 200,
-  'J': 210,
-  'K': 220,
-  'L': 230,
-  'M': 240,
-  'N': 250,
-  'O': 260,
-  'P': 270,
-  'Q': 280,
-  'R': 290,
-  'S': 300,
-  'T': 310,
-  'U': 320,
-  'V': 330,
-  'W': 340,
-  'X': 350,
-  'Y': 360,
-  'Z': 370 // Z+ is also a special case per F&P docs, but ignore it for now since folks use + a lot of different places
-};
 
 // benchmark_assessment_key values:
 export function readDoc(doc, studentId, benchmarkAssessmentKey) {
@@ -163,62 +131,6 @@ export function dibelsColor(value, thresholds) {
   return medium;
 }
 
-export function classifyFAndPEnglish(level, grade, benchmarkPeriodKey) {
-  if (!ORDERED_F_AND_P_ENGLISH_LEVELS[level]) return null;
-  const thresholds = somervilleReadingThresholdsFor(F_AND_P_ENGLISH, grade, benchmarkPeriodKey);
-  if (!thresholds) return null;
-
-  if (ORDERED_F_AND_P_ENGLISH_LEVELS[level] >= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.benchmark]) return 'high';
-
-  // might not be a "risk"
-  if (thresholds.risk && ORDERED_F_AND_P_ENGLISH_LEVELS[level] <= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.risk]) return 'low';
-  return 'medium';
-}
-
-// For interpreting user input like A/C or A+ or H(indep) or B-C
-// for each, round down (latest independent 'mastery' level)
-// if not found in list of levels and can't understand, return null
-export function interpretFAndPEnglish(text) {
-  // always trim whitespace
-  if (text.length !== text.trim().length) return interpretFAndPEnglish(text.trim());
-
-  // F, NR, AA (exact match)
-  const exactMatch = strictMatchForFAndPLevel(text);
-  if (exactMatch) return exactMatch;
-
-  // F+
-  if (_.endsWith(text, '+')) {
-    return strictMatchForFAndPLevel(text.slice(0, -1));
-  }
-
-  // F?
-  if (_.endsWith(text, '?')) {
-    return strictMatchForFAndPLevel(text.slice(0, -1));
-  }
-
-  // F-G or F/G
-  if (text.indexOf('/') !== -1) return strictMatchForFAndPLevel(text.split('/')[0]);
-  if ((text.indexOf('-') !== -1)) return strictMatchForFAndPLevel(text.split('-')[0]);
-
-  // F (indep) or F (instructional)
-  if ((text.indexOf('(') !== -1)) {
-    return strictMatchForFAndPLevel(text.replace(/\([^)]+\)/g, ''));
-  }
-
-  return null;
-}
-
-// Only letters and whitespace, no other characters
-function strictMatchForFAndPLevel(text) {
-  const normalized = text.trim().toUpperCase();
-  return (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, normalized))
-    ? normalized
-    : null;
-}
-
-function orderedFAndPLevels() {
-  return _.sortBy(Object.keys(ORDERED_F_AND_P_ENGLISH_LEVELS), level => ORDERED_F_AND_P_ENGLISH_LEVELS[level]);
-}
 
 // see ReadingBenchmarkDataPoint#benchmark_period_key_at
 export function benchmarkPeriodKeyFor(timeMoment) {
@@ -256,9 +168,7 @@ export function rankBenchmarkDataPoint(d) {
   }
 
   if (benchmarkAssessmentKey === F_AND_P_ENGLISH || benchmarkAssessmentKey === F_AND_P_SPANISH) {
-    const level = interpretFAndPEnglish(text);
-    if (!level) return -1;
-    return ORDERED_F_AND_P_ENGLISH_LEVELS[level] || -1;
+    return fAndPOrdering(text) || -1;
   }
 
   // dibels
@@ -266,7 +176,7 @@ export function rankBenchmarkDataPoint(d) {
   return (value === null || value === undefined) ? -1 : value;
 }
 
-
+// Figure out what is between the [benchmark, risk] values
 export function computeMids(thresholds, benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   if (!thresholds) return [null, null];
   if (thresholds.risk === undefined || thresholds.benchmark === undefined) return [null, null];  

@@ -14,7 +14,14 @@ RSpec.describe ComparableReadingBenchmarkDataPoint do
     ComparableReadingBenchmarkDataPoint.new(data_point)
   end
 
-  it 'works for dibel_fsf' do
+  def expect_ordering(a, b, c)
+    expect([a, b, c].sort()).to eq [a, b, c]
+    expect([c, b, a].sort()).to eq [a, b, c]
+    expect(a.ordering < b.ordering).to eq true
+    expect(b.ordering < c.ordering).to eq true
+  end
+
+  it 'works for f_and_p_english' do
     a = create_comparable({
       benchmark_assessment_key: 'f_and_p_english',
       json: { value: 'C+'}
@@ -27,28 +34,38 @@ RSpec.describe ComparableReadingBenchmarkDataPoint do
       benchmark_assessment_key: 'f_and_p_english',
       json: { value: 'Z+'}
     })
-    expect([a, b, c].sort()).to eq [a, b, c]
-    expect([c, b, a].sort()).to eq [a, b, c]
-    expect(a.ordering < b.ordering).to eq true
-    expect(b.ordering < c.ordering).to eq true
+    expect_ordering(a, b, c)
   end
 
-  it 'works for dibel_fsf' do
+  it 'works for dibels_fsf' do
     a = create_comparable({
-      benchmark_assessment_key: 'dibel_fsf',
+      benchmark_assessment_key: 'dibels_fsf',
       json: { value: '9'}
     })
     b = create_comparable({
-      benchmark_assessment_key: 'dibel_fsf',
+      benchmark_assessment_key: 'dibels_fsf',
       json: { value: '10'}
     })
     c = create_comparable({
-      benchmark_assessment_key: 'dibel_fsf',
+      benchmark_assessment_key: 'dibels_fsf',
       json: { value: '12'}
     })
-    expect([a, b, c].sort()).to eq [a, b, c]
-    expect([c, b, a].sort()).to eq [a, b, c]
-    expect(a.ordering < b.ordering).to eq true
-    expect(b.ordering < c.ordering).to eq true
+    expect_ordering(a, b, c)
+  end
+
+  it 'works for instructional_needs' do
+    a = create_comparable({
+      benchmark_assessment_key: 'instructional_needs',
+      json: { value: 'engaging texts for practicing stamina' }
+    })
+    b = create_comparable({
+      benchmark_assessment_key: 'instructional_needs',
+      json: { value: 'phonics, consonant blends'}
+    })
+    c = create_comparable({
+      benchmark_assessment_key: 'instructional_needs',
+      json: { value: 'phonological awareness, elision'}
+    })
+    expect_ordering(a, b, c)
   end
 end

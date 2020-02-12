@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {gradeText, adjustedGrade} from '../helpers/gradeText';
-import {
-  classifyFAndPEnglish,
-  benchmarkPeriodToMoment
-} from '../reading/readingData';
+import {benchmarkPeriodToMoment} from '../reading/readingData';
+import {classifyFAndPEnglish} from '../reading/fAndPInterpreter';
 import {somervilleReadingThresholdsFor} from '../reading/thresholds';
 import HoverSummary, {thresholdsExplanation, secondLineMonthsAgo} from './HoverSummary';
 import Tooltip from './Tooltip';

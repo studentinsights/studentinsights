@@ -25,7 +25,7 @@ import {
 import {
   interpretFAndPEnglish,
   classifyFAndPEnglish
-} from '../reading/readingData';
+} from '../reading/fAndPInterpreter';
 
 
 // For highlighting students based on their attributes.

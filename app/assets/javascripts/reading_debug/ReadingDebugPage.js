@@ -21,7 +21,7 @@ import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BoxAndWhisker from '../components/BoxAndWhisker';
-import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/readingData';
+import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/fAndPInterpreter';
 import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
 import GradeTimeGrid from './GradeTimeGrid';
 import {
