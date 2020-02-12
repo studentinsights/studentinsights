@@ -41,6 +41,7 @@ class ProfileController < ApplicationController
   end
 
   def reader_profile_cohort_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reader_profile_january')
     student_id = params.require(:id)
     benchmark_assessment_key = params.require(:benchmark_assessment_key)
     school_years = params.require(:school_years)

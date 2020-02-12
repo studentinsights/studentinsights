@@ -4,7 +4,7 @@ class FAndPInterpreter
   # for each, round down (latest independent 'mastery' level)
   # if not found in list of levels and can't understand, return null
   # See also fAndPInterpreter.js
-  def interpret_f_and_p_english(text) 
+  def interpret_f_and_p_english(text)
     # always trim whitespace
     if text.length != text.strip().length
       return interpret_f_and_p_english(text.strip())

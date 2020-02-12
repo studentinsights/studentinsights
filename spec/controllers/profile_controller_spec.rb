@@ -796,44 +796,31 @@ describe ProfileController, :type => :controller do
     end
 
     it 'guards authorization' do
-      pending
-      other_educators = (Educator.all - [
-        pals.healey_laura_principal,
-        pals.healey_vivian_teacher,
-        pals.rich_districtwide,
-        pals.uri
-      ])
+      other_educators = (Educator.all - [pals.uri])
       other_educators.each do |educator|
-        get_reader_profile_json(educator, pals.healey_kindergarten_student.id)
+        get_reader_profile_cohort_json(educator, pals.healey_kindergarten_student.id, {
+          benchmark_assessment_key: 'dibels_fsf',
+          school_years: [pals.time_now.year - 1, pals.time_now.year]
+        })
         expect(response.status).to eq 403
       end
     end
 
     it 'returns correct shape on happy path' do
       Timecop.freeze(pals.time_now) do
-        get_reader_profile_cohort_json(pals.healey_vivian_teacher, pals.healey_kindergarten_student.id, {
+        get_reader_profile_cohort_json(pals.uri, pals.healey_kindergarten_student.id, {
           benchmark_assessment_key: 'dibels_fsf',
           school_years: [pals.time_now.year - 1, pals.time_now.year]
         })
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        pending
         expect(json).to eq({
-          "current_school_year" => 2017,
-          "access" => {
-            "composite"=>nil,
-            "comprehension"=>nil,
-            "literacy"=>nil,
-            "oral"=>nil,
-            "listening"=>nil,
-            "reading"=>nil,
-            "speaking"=>nil,
-            "writing"=>nil
-          },
-          "benchmark_data_points" => [],
-          "feed_cards" => [],
-          "iep_contents" => nil,
-          "services" => []
+          "benchmark_assessment_key"=>"dibels_fsf",
+          "cells"=>{},
+          "comparison_students"=>0,
+          "school_years"=>["2017", "2018"],
+          "student_id"=>pals.healey_kindergarten_student.id,
+          "time_now"=>"2018-03-13T11:03:00.000+00:00"
         })
       end
     end

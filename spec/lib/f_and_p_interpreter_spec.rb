@@ -24,7 +24,7 @@ RSpec.describe FAndPInterpreter do
       expect(f_and_p.interpret_f_and_p_english('C(instructional) - B (independent)')).to eq nil
     end
   end
-  
+
   describe '#ordering' do
     it 'works' do
       f_and_p = FAndPInterpreter.new

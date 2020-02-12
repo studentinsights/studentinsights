@@ -6,7 +6,7 @@ class ReaderCohort
 
   def reader_cohort_json(benchmark_assessment_key, school_years, options = {})
     comparison_students = options.fetch(:comparison_students, full_cohort_skipping_authorization())
-    
+
     cells = {}
     school_years.each do |benchmark_school_year|
       [:fall, :winter, :spring].each do |benchmark_period_key|
@@ -39,7 +39,7 @@ class ReaderCohort
   # used to enter this information at the school level, so the information leakage
   # here is much less and not a significant concern.
   #
-  # The intention here in using school is to encourage problem solving, and an 
+  # The intention here in using school is to encourage problem solving, and an
   # actionable reference for teacher or school-based specialist, coach or AP.
   def full_cohort_skipping_authorization
     return [] if @student.school_id.nil? || @student.grade.nil?
@@ -67,7 +67,7 @@ class ReaderCohort
   def cell_json(comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
     data_point = most_recent_data_points([@student], benchmark_assessment_key, benchmark_school_year, benchmark_period_key).try(:first)
     return nil if data_point.nil?
-    
+
     comparison_data_points = most_recent_data_points(comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
     stats_json = stats(data_point, comparison_data_points)
     {
