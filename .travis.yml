@@ -67,7 +67,7 @@ install:
 script:
   # dependency audits
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec ruby-audit check; fi
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec bundle audit check --update; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec bundle-audit check --update; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rails_best_practices -c config/rails_best_practices.yml; fi
   
   # This DATABASE_URL assumes '' for the host is set in database.yml,
