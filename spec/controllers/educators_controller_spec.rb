@@ -37,6 +37,7 @@ describe EducatorsController, :type => :controller do
         "labels"=>[
           'can_upload_student_voice_surveys',
           'enable_equity_experiments',
+          'enable_reader_profile_june',
           'enable_reader_profile_january',
           'enable_reading_benchmark_data_entry',
           'enable_reading_debug',
