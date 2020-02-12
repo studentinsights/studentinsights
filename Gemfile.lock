@@ -124,7 +124,6 @@ GEM
       momentjs-rails (>= 2.8.1)
     declarative (0.0.10)
     declarative-option (0.1.0)
-    descriptive-statistics (2.2.0)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -432,7 +431,6 @@ DEPENDENCIES
   capybara
   dalli
   database_cleaner
-  descriptive-statistics
   devise (~> 4.7.1)
   factory_bot_rails
   friendly_id (~> 5.1.0)
