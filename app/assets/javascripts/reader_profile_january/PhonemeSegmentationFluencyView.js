@@ -19,9 +19,9 @@ export default function PhonemeSegmentationFluencyView(props) {
 PhonemeSegmentationFluencyView.propTypes = expandedViewPropTypes;
 
 const MATERIAL_URLS = {
-  'KF-winter': 'PhonemeSegmentationFluency-KF-winter',
-  'KF-spring': 'PhonemeSegmentationFluency-KF-spring',
-  '1-fall': 'PhonemeSegmentationFluency-1-fall'
+  'KF-winter': ['PhonemeSegmentationFluency-KF-winter'],
+  'KF-spring': ['PhonemeSegmentationFluency-KF-spring'],
+  '1-fall': ['PhonemeSegmentationFluency-1-fall']
 };
 
 
