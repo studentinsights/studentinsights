@@ -9,6 +9,7 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {isStudentActive, shouldUseStarData, decideStudentProfileTabs} from '../helpers/PerDistrict';
+import ReaderProfileDeprecated from '../ReaderProfileDeprecated';
 import ReaderProfileJunePage from '../reader_profile/ReaderProfileJunePage';
 import ReaderProfileJanuaryPage from '../reader_profile_january/ReaderProfileJanuaryPage';
 import LightProfileHeader from './LightProfileHeader';
@@ -507,31 +508,39 @@ export default class LightProfilePage extends React.Component {
 
   renderReading() {
     const {districtKey} = this.context;
-    const {student, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
-
-    // Regardless of labels, only ever show for grades 5 and under.
-    // Also respect labels for January and June profiles.
-    const allGradeLevels = allGrades();
-    const allowReaderProfile = (allGradeLevels.indexOf(student.grade) <= allGradeLevels.indexOf('5'));
-    const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
-    const showReaderProfileJanuary = currentEducator.labels.indexOf('enable_reader_profile_january') !== -1;
-    const showReaderProfileSection = (allowReaderProfile && (showMinimalReadingData || showReaderProfileJanuary));
-    const readerProfileEl = (!showReaderProfileSection) ? null : (
-      <div>
-        {showReaderProfileJanuary && <ReaderProfileJanuaryPage student={student} />}
-        {showMinimalReadingData && <ReaderProfileJunePage student={student} />}
-      </div>
-    );
+    const {student, chartData} = this.props.profileJson;
+    const readerProfileEl = this.renderReaderProfiles();
     return (
       <ElaDetails
         className="LightProfilePage-ela"
         chartData={chartData}
         studentGrade={student.grade}
         hideStar={!shouldUseStarData(districtKey)}
-        dibels={showMinimalReadingData ? dibels : []}
-        fAndPs={showMinimalReadingData ? fAndPs : []}
         readerProfileEl={readerProfileEl}
       />
+    );
+  }
+
+  // This should wrap up all iterations of the reader profile, and the branching
+  // between then for features switches, etc.  When this fully ships, we can remove the
+  // older paths.
+  renderReaderProfiles() {
+    const {student, currentEducator, dibels, fAndPs} = this.props.profileJson;
+
+    // Regardless of labels, only ever show for grades 5 and under.
+    // Also respect labels for January and June profiles.
+    const allGradeLevels = allGrades();
+    const allowReaderProfile = (allGradeLevels.indexOf(student.grade) <= allGradeLevels.indexOf('5'));
+    const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
+    const showReaderProfileJune = currentEducator.labels.indexOf('enable_reader_profile_june') !== -1;
+    const showReaderProfileJanuary = currentEducator.labels.indexOf('enable_reader_profile_january') !== -1;
+    const showReaderProfileSection = (allowReaderProfile && (showMinimalReadingData || showReaderProfileJune || showReaderProfileJanuary));
+    return (!showReaderProfileSection) ? null : (
+      <div>
+        {showReaderProfileJanuary && <ReaderProfileJanuaryPage student={student} />}
+        {showReaderProfileJune && <ReaderProfileJunePage student={student} />}
+        {showMinimalReadingData && <ReaderProfileDeprecated dibels={dibels} fAndPs={fAndPs} />}
+      </div>
     );
   }
 
