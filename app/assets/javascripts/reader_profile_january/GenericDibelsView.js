@@ -49,6 +49,7 @@ export default class GenericDibelsView extends React.Component {
     const {student, readerJson, benchmarkAssessmentKey} = this.props;
     return (
       <Data
+        studentId={student.id}
         gradeNow={student.grade}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}

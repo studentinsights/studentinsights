@@ -782,6 +782,50 @@ describe ProfileController, :type => :controller do
     end
   end
 
+  describe '#reader_profile_cohort_json' do
+    let!(:pals) { TestPals.create! }
+
+    def get_reader_profile_cohort_json(educator, student_id, params = {})
+      request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      get :reader_profile_cohort_json, params: {
+        id: student_id,
+        format: :json
+      }.merge(params)
+    end
+
+    it 'guards authorization' do
+      other_educators = (Educator.all - [pals.uri])
+      other_educators.each do |educator|
+        get_reader_profile_cohort_json(educator, pals.healey_kindergarten_student.id, {
+          benchmark_assessment_key: 'dibels_fsf',
+          school_years: [pals.time_now.year - 1, pals.time_now.year]
+        })
+        expect(response.status).to eq 403
+      end
+    end
+
+    it 'returns correct shape on happy path' do
+      Timecop.freeze(pals.time_now) do
+        get_reader_profile_cohort_json(pals.uri, pals.healey_kindergarten_student.id, {
+          benchmark_assessment_key: 'dibels_fsf',
+          school_years: [pals.time_now.year - 1, pals.time_now.year]
+        })
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json).to eq({
+          "benchmark_assessment_key"=>"dibels_fsf",
+          "cells"=>{},
+          "comparison_students"=>0,
+          "school_years"=>["2017", "2018"],
+          "student_id"=>pals.healey_kindergarten_student.id,
+          "time_now"=>"2018-03-13T11:03:00.000+00:00"
+        })
+      end
+    end
+  end
+
   describe '#educators_with_access_json' do
     let!(:pals) { TestPals.create! }
 

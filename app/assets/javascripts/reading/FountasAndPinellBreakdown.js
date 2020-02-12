@@ -11,7 +11,7 @@ import {
 import {
   interpretFAndPEnglish,
   classifyFAndPEnglish
-} from '../reading/readingData';
+} from '../reading/fAndPInterpreter';
 
 // Visual component showing a horizontal bar broken down into three colors
 // showing percent of students at different F&P levels.

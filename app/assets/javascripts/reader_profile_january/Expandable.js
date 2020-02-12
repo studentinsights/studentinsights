@@ -60,10 +60,11 @@ const styles = {
     alignItems: 'center'
   },
   link: {
-    padding: 10,
-    paddingLeft: 0
+    padding: 0,
+    paddingRight: 10
   },
   content: {
-    marginTop: 5
+    marginTop: 5,
+    marginBottom: 20
   }
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import {alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds';
+import {percentileWithSuffix} from '../helpers/percentiles';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
@@ -721,14 +722,4 @@ export function latestStar(starDataPoints, nowMoment) {
     ? percentileWithSuffix(percentile)
     : '-';
   return {nDaysText, percentileText};
-}
-
-function percentileWithSuffix(percentile) {
-  const lastDigit = _.last(percentile.toString());
-  const suffix = {
-    1: 'st',
-    2: 'nd',
-    3: 'rd'
-  }[lastDigit] || 'th';
-  return `${percentile}${suffix}`;
 }

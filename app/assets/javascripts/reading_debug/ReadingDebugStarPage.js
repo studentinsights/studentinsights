@@ -13,11 +13,8 @@ import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import BreakdownBar from '../components/BreakdownBar';
 import SimpleFilterSelect from '../components/SimpleFilterSelect';
 import BoxAndWhisker from '../components/BoxAndWhisker';
-import {
-  classifyFAndPEnglish,
-  interpretFAndPEnglish,
-  benchmarkPeriodKeyFor
-} from '../reading/readingData';
+import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/fAndPInterpreter';
+import {benchmarkPeriodKeyFor} from '../reading/readingData';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {
   high,

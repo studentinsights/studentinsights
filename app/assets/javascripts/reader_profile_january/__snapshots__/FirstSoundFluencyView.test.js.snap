@@ -208,8 +208,15 @@ exports[`snapshots 1`] = `
         <div
           className="Data"
         >
-          <div>
+          <div
+            style={
+              Object {
+                "marginBottom": 40,
+              }
+            }
+          >
             <div
+              className="BoxChart"
               style={
                 Object {
                   "display": "flex",
@@ -222,7 +229,6 @@ exports[`snapshots 1`] = `
                 style={
                   Object {
                     "flex": 1,
-                    "paddingRight": 20,
                   }
                 }
               >
@@ -305,7 +311,7 @@ exports[`snapshots 1`] = `
                 style={
                   Object {
                     "flex": 1,
-                    "paddingRight": 20,
+                    "paddingLeft": 20,
                   }
                 }
               >
@@ -387,11 +393,7 @@ exports[`snapshots 1`] = `
             </div>
           </div>
           <div
-            style={
-              Object {
-                "marginTop": 40,
-              }
-            }
+            style={Object {}}
           >
             <div
               className="Expandable"
@@ -401,12 +403,28 @@ exports[`snapshots 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
-                    "padding": 10,
-                    "paddingLeft": 0,
+                    "padding": 0,
+                    "paddingRight": 10,
                   }
                 }
               >
-                Show raw scores
+                Percentile in Kindergarten school cohort
+              </a>
+            </div>
+            <div
+              className="Expandable"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "padding": 0,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Raw scores
               </a>
             </div>
           </div>

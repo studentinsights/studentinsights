@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {percentileWithSuffix} from '../helpers/percentiles';
 import StudentPhoto from '../components/StudentPhoto';
 import FountasAndPinnellLevelChart, {classifyLevel} from './FountasAndPinnellLevelChart';
 import {
@@ -204,18 +205,6 @@ function renderLatestStarReading(student) {
   if (!latest.percentile_rank) return none();
   return <div style={{marginLeft: 5}}>{percentileWithSuffix(latest.percentile_rank)}</div>;
 }
-
-
-function percentileWithSuffix(percentile) {
-  const lastDigit = _.last(percentile.toString());
-  const suffix = {
-    1: 'st',
-    2: 'nd',
-    3: 'rd'
-  }[lastDigit] || 'th';
-  return `${percentile}${suffix}`;
-}
-
 
 function renderDibels(benchmarkPeriodKey, grade, doc, studentId, benchmarkAssessmentKey, suffixEl) {
   const value = readDoc(doc, studentId, benchmarkAssessmentKey);

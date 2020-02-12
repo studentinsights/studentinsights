@@ -8,6 +8,7 @@ export const PRESENT = '#ccc';
 export const BLANK = '#f8f8f8';
 
 
+
 export function boxStyle(dataPoint, gradeThen, style = {}) {
   // no data
   if (!dataPoint) {
