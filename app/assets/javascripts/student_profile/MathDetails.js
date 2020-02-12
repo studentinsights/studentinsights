@@ -45,7 +45,7 @@ export default class MathDetails extends React.Component {
     return (
       <DetailsSection key="star" title="STAR Math, last 4 years">
         <StarChart
-          starSeries={chartData.star_series_math_percentile}
+          starSeries={chartData.star_series_math_percentile || []}
           studentGrade={studentGrade}
         />
       </DetailsSection>

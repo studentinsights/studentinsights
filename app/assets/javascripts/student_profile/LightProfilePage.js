@@ -54,7 +54,6 @@ export default class LightProfilePage extends React.Component {
 
   onColumnClicked(columnKey) {
     const {isTakingNotes} = this.state;
-
     if (isTakingNotes) {
       const shouldDiscardNote = confirm("You have a note in progress.\n\nDiscard that note?"); // eslint-disable-line no-alert
       if (!shouldDiscardNote) return;
@@ -513,7 +512,7 @@ export default class LightProfilePage extends React.Component {
     // Regardless of labels, only ever show for grades 5 and under.
     // Also respect labels for January and June profiles.
     const allGradeLevels = allGrades();
-    const allowReaderProfile = (allGradeLevels.index(student.grade) <= allGradeLevels.indexOf('5'));
+    const allowReaderProfile = (allGradeLevels.indexOf(student.grade) <= allGradeLevels.indexOf('5'));
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
     const showReaderProfileJanuary = currentEducator.labels.indexOf('enable_reader_profile_january') !== -1;
     const showReaderProfileSection = (allowReaderProfile && (showMinimalReadingData || showReaderProfileJanuary));

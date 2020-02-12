@@ -93,7 +93,7 @@ export default class ElaDetails extends React.Component {
     return (
       <DetailsSection key="star" title="STAR Reading, last 4 years">
         <StarChart
-          starSeries={chartData.star_series_reading_percentile}
+          starSeries={chartData.star_series_reading_percentile || []}
           studentGrade={studentGrade}
         />
       </DetailsSection>
