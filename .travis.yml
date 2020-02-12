@@ -55,7 +55,7 @@ before_install:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then gem install bundler; fi
 
 install:
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle install --retry=3; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle install --retry=3 --deployment; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then . $HOME/.nvm/nvm.sh; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm install --lts; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then nvm use --lts; fi
