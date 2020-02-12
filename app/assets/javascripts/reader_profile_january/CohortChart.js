@@ -89,9 +89,5 @@ CohortChart.propTypes = {
 
 function padFormatStudentsHave(num, n) {
   let str = num.toString() + "\t";
-  // while (str.length < n) {
-  //   str = ' ' + str;
-  // }
-
   return (num === 1) ? `${str} student has` : `${str} students have`;
 }
