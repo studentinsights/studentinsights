@@ -20,10 +20,10 @@ class EducatorLabel < ApplicationRecord
         'use_community_school_based_feed',
 
         # reading
-        'profile_enable_minimal_reading_data',
+        'profile_enable_minimal_reading_data', # deprecated
         'enable_reading_benchmark_data_entry', # deprecated
         'enable_reading_debug',
-        'enable_reader_profile_june',
+        'enable_reader_profile_june', # deprecated
         'enable_reader_profile_january',
 
         # profile
