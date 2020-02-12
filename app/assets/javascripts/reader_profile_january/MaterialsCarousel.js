@@ -93,10 +93,8 @@ const styles = {
 
 // Check env to see if this is running in dev mode in Storybook.
 function isStorybookDev() {
-  try {
-    const env = process.env; // eslint-disable-line
-    return (env.NODE_ENV === 'development' && env.STORYBOOK_RUNNING === 'true');
-  } catch {
-    return false;
-  }
+  if (!window.process || !window.process.env) return false;
+  if (window.process.env.NODE_ENV !== 'development') return false;
+  if (window.process.env.STORYBOOK_RUNNING !== 'true') return false;
+  return true;
 }
