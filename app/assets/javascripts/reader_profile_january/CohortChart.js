@@ -51,7 +51,7 @@ export default class CohortChart extends React.Component {
         renderCellFn={({schoolYear, benchmarkPeriodKey, boxStyle}) => {
           const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
           const cell = json.cells[whenKey];
-          const pText = cell ? percentileWithSuffix(cell.stats.p) : null;
+          const pText = cell && cell.stats.p ? percentileWithSuffix(cell.stats.p) : null;
           const cellStyle = {
             ...boxStyle,
             outline: `1px solid ${PRESENT}`,

@@ -71,8 +71,8 @@ class ReaderCohort
     comparison_data_points = most_recent_data_points(comparison_students, benchmark_assessment_key, benchmark_school_year, benchmark_period_key)
     stats_json = stats(data_point, comparison_data_points)
     {
-      value: data_json.json['value'],
-      stats: stats_json
+      value: data_point.json['value'],
+      stats: stats_json # maybe nil
     }
   end
 
@@ -81,17 +81,25 @@ class ReaderCohort
     # Use ComparableReadingBenchmarkDataPoint to be able
     # to interpret and directly compare and sort different types
     # of data (eg, text describing F&P levels).
-    anchor_d = ComparableReadingBenchmarkDataPoint.new(data_point)
-    other_ds = comparison_data_points.map {|d| ComparableReadingBenchmarkDataPoint.new(d) }
+    anchor_comparable = ComparableReadingBenchmarkDataPoint.new(data_point)
+    others = comparison_data_points.map {|d| ComparableReadingBenchmarkDataPoint.new(d) }
+    return nil if others.size == 0
+    stats_percentiles(anchor_comparable, others)
+  end
 
-    # Do the math
-    n_lower = other_ds.select {|v| v < anchor_d }.size
-    equal = other_ds.select {|v| v == anchor_d }.size
-    n_higher = other_ds.size - (n_lower + equal)
-    percentile = (n_lower / other_ds.size.to_f) + (equal / other_ds.size.to_f / 2)
+  # Do the math, relying on these implementing Comparable
+  # See p50, Dibels 6th Edition 2009-2010 Percentiles
+  # https://dibels.uoregon.edu/docs/techreports/DIBELS_6th_Ed_2009-10_Percentile_Ranks.pdf
+  def stats_percentiles(anchor_comparable, others)
+    return nil if others.size == 0
+    n_lower = others.select {|v| v < anchor_comparable }.size
+    equal = others.select {|v| v == anchor_comparable }.size
+    n_higher = others.size - (n_lower + equal)
+    percentile = (n_lower / others.size.to_f) + (equal / others.size.to_f / 2)
     {
       p: (percentile * 100).to_i,
       n_lower: n_lower,
+      n_equal: equal,
       n_higher: n_higher
     }
   end
