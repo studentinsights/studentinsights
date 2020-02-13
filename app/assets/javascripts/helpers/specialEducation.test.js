@@ -181,3 +181,30 @@ describe('#prettyIepTextForSpecialEducationStudent', () => {
     })).toEqual('IEP');
   });
 });
+
+
+describe('Bedford test cases', () => {
+  it('works for test case a', () => {
+    const a = {
+      program_assigned: 'Not Enrolled',
+      sped_placement: 'Not special ed',
+      disability: 'Developmental Delay',
+      sped_level_of_need: 'Low (2 hours or less)'
+    };
+    expect(hasActiveIep(a)).toEqual(true);
+    expect(prettyProgramOrPlacementText(a)).toEqual(null);
+    expect(prettyIepTextForSpecialEducationStudent(a)).toEqual('IEP for Developmental Delay');
+  });
+
+  it('works for test case b', () => {
+    const b = {
+      program_assigned: 'Not Enrolled',
+      sped_placement: 'Exited this year',
+      disability: 'Specific Learning',
+      sped_level_of_need: 'Moderate'
+    };
+    expect(hasActiveIep(b)).toEqual(true);
+    expect(prettyProgramOrPlacementText(b)).toEqual('Exited this year');
+    expect(prettyIepTextForSpecialEducationStudent(b)).toEqual('Exited SPED this year');
+  });
+});
