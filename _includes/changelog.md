@@ -2,39 +2,39 @@ Friday 2/21 updates:
 - No updates, school vacation week.
 
 Friday 2/14 updates:
-- **Maintenance**: Update eslintrc to restore no-console [#2760](https://github.com/studentinsights/pull/2760)
-- **Maintenance**: Fail build when mismatch between Gemfile and Gemfile.lock [#2764](https://github.com/studentinsights/pull/2764) [#2766](https://github.com/studentinsights/pull/2766)
+- **Maintenance**: Update eslintrc to restore no-console [#2760](https://github.com/studentinsights/studentinsights/pull/2760)
+- **Maintenance**: Fail build when mismatch between Gemfile and Gemfile.lock [#2764](https://github.com/studentinsights/studentinsights/pull/2764) [#2766](https://github.com/studentinsights/studentinsights/pull/2766)
 - **Security**: Update nokogiri info
 - **New Bedford**: Security updates
 - **STAR**: Update for New Bedford
-- **Reading**: Add cohort chart and raw scores [#2761](https://github.com/studentinsights/pull/2761)
-- **Reading**: Limit reader profile by grade [#2765](https://github.com/studentinsights/pull/2765)
-- **Reading**: Fix images of Phoneme Segmentation Fluency materials [#2767](https://github.com/studentinsights/pull/2767)
+- **Reading**: Add cohort chart and raw scores [#2761](https://github.com/studentinsights/studentinsights/pull/2761)
+- **Reading**: Limit reader profile by grade [#2765](https://github.com/studentinsights/studentinsights/pull/2765)
+- **Reading**: Fix images of Phoneme Segmentation Fluency materials [#2767](https://github.com/studentinsights/studentinsights/pull/2767)
 
 Friday 2/7 updates:
-- **Maintenance**: Upgrades to Storybook, fetch-mock, fetch-mock-jest, config for auditjs [#2758](https://github.com/studentinsights/pull/2758)
-- **Maintenance**: JS dependency updates [#2759](https://github.com/studentinsights/pull/2759)
+- **Maintenance**: Upgrades to Storybook, fetch-mock, fetch-mock-jest, config for auditjs [#2758](https://github.com/studentinsights/studentinsights/pull/2758)
+- **Maintenance**: JS dependency updates [#2759](https://github.com/studentinsights/studentinsights/pull/2759)
 - **Maintenance**: Upgrade node.js
 
 Friday 1/31 updates:
-- **Reading**: Improve layout, add materials, minimal ACCESS, and rework story/test data [#2753](https://github.com/studentinsights/pull/2753)
-- **Reading**: Show all data points when expanded [#2754](https://github.com/studentinsights/pull/2754)
-- **Reading**: Add BoxChart visual [#2755](https://github.com/studentinsights/pull/2755)
-- **Reading**: Add coloring to history view, for validating data [#2756](https://github.com/studentinsights/pull/2756)
-- **Reading**: Add rest of DIBELS materials, allow paging, add thresholds link [#2757](https://github.com/studentinsights/pull/2757)
+- **Reading**: Improve layout, add materials, minimal ACCESS, and rework story/test data [#2753](https://github.com/studentinsights/studentinsights/pull/2753)
+- **Reading**: Show all data points when expanded [#2754](https://github.com/studentinsights/studentinsights/pull/2754)
+- **Reading**: Add BoxChart visual [#2755](https://github.com/studentinsights/studentinsights/pull/2755)
+- **Reading**: Add coloring to history view, for validating data [#2756](https://github.com/studentinsights/studentinsights/pull/2756)
+- **Reading**: Add rest of DIBELS materials, allow paging, add thresholds link [#2757](https://github.com/studentinsights/studentinsights/pull/2757)
 
 Friday 1/24 updates:
-- **Import**: Check freshness when downloading file [#2747](https://github.com/studentinsights/pull/2747) [#2751](https://github.com/studentinsights/pull/2751)
-- **Reading**: January reader profile prototype [#2748](https://github.com/studentinsights/pull/2748) [#2750](https://github.com/studentinsights/pull/2750) [#2752](https://github.com/studentinsights/pull/2752)
+- **Import**: Check freshness when downloading file [#2747](https://github.com/studentinsights/studentinsights/pull/2747) [#2751](https://github.com/studentinsights/studentinsights/pull/2751)
+- **Reading**: January reader profile prototype [#2748](https://github.com/studentinsights/studentinsights/pull/2748) [#2750](https://github.com/studentinsights/studentinsights/pull/2750) [#2752](https://github.com/studentinsights/studentinsights/pull/2752)
 - **Security**: Update secure headers 32d284
 
 Friday 1/17 updates:
-- **Maintenance**: Update concurrently package [#2743](https://github.com/studentinsights/pull/2743)
-- **STAR**: Update config for importers to allow disabling importers [#2742](https://github.com/studentinsights/pull/2742)
-- **Monitoring**: Update Rollbar safelist to allow sync alerts to send more info [#2744](https://github.com/studentinsights/pull/2744)
-- **Reading**: Update importer to better tolerate unmatched student ids [#2741](https://github.com/studentinsights/pull/2741)
-- **Educators importer**: Track missing email or login_name separately and skip [#2745](https://github.com/studentinsights/pull/2745)
-- **Educators importer**: Skip trying to match homerooms when none set [#2746](https://github.com/studentinsights/pull/2746)
+- **Maintenance**: Update concurrently package [#2743](https://github.com/studentinsights/studentinsights/pull/2743)
+- **STAR**: Update config for importers to allow disabling importers [#2742](https://github.com/studentinsights/studentinsights/pull/2742)
+- **Monitoring**: Update Rollbar safelist to allow sync alerts to send more info [#2744](https://github.com/studentinsights/studentinsights/pull/2744)
+- **Reading**: Update importer to better tolerate unmatched student ids [#2741](https://github.com/studentinsights/studentinsights/pull/2741)
+- **Educators importer**: Track missing email or login_name separately and skip [#2745](https://github.com/studentinsights/studentinsights/pull/2745)
+- **Educators importer**: Skip trying to match homerooms when none set [#2746](https://github.com/studentinsights/studentinsights/pull/2746)
 - **Security**: Update npm
 
 Friday 1/10 updates:
