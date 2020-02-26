@@ -16,6 +16,7 @@ class StudentPhotoImporter
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
     raise "remote filename not set!" if remote_filename.nil?
     @time_now = Time.now
+    @modified_within_n_days = 365 # these are typically only updated yearly
   end
 
   def import
@@ -66,7 +67,9 @@ class StudentPhotoImporter
   end
 
   def sftp_client
-    @sftp_client ||= SftpClient.for_x2
+    @sftp_client ||= SftpClient.for_x2({
+      modified_within_n_days: @modified_within_n_days
+    })
   end
 
   def s3_client
