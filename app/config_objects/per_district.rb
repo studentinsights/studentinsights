@@ -73,9 +73,9 @@ class PerDistrict
   # configuration issues.
   def client_for_star_importer
     if @district_key == SOMERVILLE
-      SftpClient.for_star
+      SftpClient.for_star # assuming daily updates
     elsif @district_key == NEW_BEDFORD
-      SftpClient.for_x2
+      SftpClient.for_x2(modified_within_n_days: 90) # assuming regular quarterly updates
     else
       raise_not_handled!
     end
