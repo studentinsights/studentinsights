@@ -65,7 +65,7 @@ RSpec.describe SftpClient do
       contents = "name,pitch_name,rating\npedro,change up,awesome"
       mock_download_file_and_lstat!(remote_filename_path, contents, time_now - 2.hours) do
         mock_env_for_x2()
-        client = SftpClient.for_x2(nil, time_now: time_now)
+        client = SftpClient.for_x2(time_now: time_now)
         file = client.download_file(remote_filename_path)
         expect(IO.read(file)).to eq(contents)
       end
@@ -76,7 +76,7 @@ RSpec.describe SftpClient do
       contents = "name,pitch_name,rating\npedro,change up,awesome"
       mock_download_file_and_lstat!(remote_filename_path, contents, time_now - 2.hours) do
         mock_env_for_x2()
-        client = SftpClient.for_x2(nil, time_now: time_now)
+        client = SftpClient.for_x2(time_now: time_now)
         file = client.download_file(remote_filename_path)
         expect(File.basename(file)).to eq 'assessment.csv'
         expect(file.path.ends_with?('tmp/data_download/assessment.csv')).to eq true
@@ -92,7 +92,7 @@ RSpec.describe SftpClient do
       contents = "name,pitch_name,rating\npedro,change up,awesome"
       mock_download_file_and_lstat!(remote_filename_path, contents, mtime) do
         mock_env_for_x2()
-        client = SftpClient.for_x2(nil, time_now: time_now)
+        client = SftpClient.for_x2(time_now: time_now)
         file = client.download_file(remote_filename_path)
         expect(IO.read(file)).to eq(contents)
       end
@@ -106,7 +106,7 @@ RSpec.describe SftpClient do
       contents = "name,pitch_name,rating\npedro,change up,awesome"
       mock_download_file_and_lstat!(remote_filename_path, contents, mtime) do
         mock_env_for_x2()
-        client = SftpClient.for_x2(nil, {
+        client = SftpClient.for_x2({
           time_now: time_now,
           modified_within_n_days: 7
         })
