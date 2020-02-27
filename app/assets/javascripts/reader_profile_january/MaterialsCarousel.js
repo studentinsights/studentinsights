@@ -42,12 +42,12 @@ export default class MaterialsCarousel extends React.Component {
     }
 
     return (
-      <div className="MaterialsCarousel">
+      <div className="MaterialsCarousel" style={styles.root}>
         <MaterialImage fileKey={fileKeys[index]} />
         {fileKeys.length > 1 && (
           <div style={styles.nav}>
-            <div style={styles.arrow} onClick={this.onPrevious}>◄</div>
-            <div style={styles.arrow} onClick={this.onNext}>►</div>
+            <div style={{...styles.arrow, left: 0}} onClick={this.onPrevious}>◄</div>
+            <div style={{...styles.arrow, right: 0}} onClick={this.onNext}>►</div>
           </div>
         )}
       </div>
@@ -68,7 +68,7 @@ function MaterialImage({fileKey}) {
       className="MaterialImage"
       title={fileKey}
       width="100%"
-      style={{border: '1px solid #ccc'}}
+      style={styles.image}
       src={path}
     />
   );
@@ -79,14 +79,31 @@ MaterialImage.propTypes = {
 
 
 const styles = {
+  root: {
+    position: 'relative'
+  },
   nav: {
-    display: 'flex',
-    justifyContent: 'space-between'
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   },
   arrow: {
     color: '#aaa',
     fontSize: 12,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    top: 0,
+    bottom: 0,
+    width: 30,
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginBottom: 15
+  },
+  image: {
+    border: '1px solid #ccc'
   }
 };
 
