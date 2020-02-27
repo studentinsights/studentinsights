@@ -7342,6 +7342,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -7764,6 +7769,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -8390,7 +8400,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -11635,6 +11645,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -11852,6 +11867,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -12069,6 +12089,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -12320,6 +12345,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -12809,7 +12839,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -16052,6 +16082,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -16269,6 +16304,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -16486,6 +16526,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -16737,6 +16782,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -16988,6 +17038,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -17003,8 +17058,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -17012,9 +17070,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -17024,9 +17091,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -17271,7 +17347,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -20470,6 +20546,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -20687,6 +20768,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -20904,6 +20990,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -21155,6 +21246,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -21406,6 +21502,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -21421,8 +21522,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -21430,9 +21534,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -21442,9 +21555,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -21689,7 +21811,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -24888,6 +25010,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -25071,6 +25198,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -25254,6 +25386,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -25471,6 +25608,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -25688,6 +25830,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -25703,8 +25850,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -25712,9 +25862,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -25724,9 +25883,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -25937,7 +26105,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -29113,6 +29281,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -29296,6 +29469,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -29479,6 +29657,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -29696,6 +29879,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -29913,6 +30101,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -29928,8 +30121,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -29937,9 +30133,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -29949,9 +30154,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -30162,7 +30376,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -37627,6 +37841,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -37844,6 +38063,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -38061,6 +38285,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -38278,6 +38507,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -38699,7 +38933,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -41943,6 +42177,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -42160,6 +42399,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -42377,6 +42621,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -42628,6 +42877,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -42879,6 +43133,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -42894,8 +43153,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -42903,9 +43165,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -42915,9 +43186,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -43162,7 +43442,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -46405,6 +46685,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -46622,6 +46907,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -46839,6 +47129,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -47090,6 +47385,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -47341,6 +47641,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -47356,8 +47661,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -47365,9 +47673,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -47377,9 +47694,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -47624,7 +47950,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -50823,6 +51149,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -51040,6 +51371,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -51257,6 +51593,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -51508,6 +51849,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -51759,6 +52105,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -51774,8 +52125,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -51783,9 +52137,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -51795,9 +52158,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -52042,7 +52414,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -55241,6 +55613,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -55424,6 +55801,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -55607,6 +55989,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -55824,6 +56211,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -56041,6 +56433,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -56056,8 +56453,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -56065,9 +56465,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -56077,9 +56486,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -56290,7 +56708,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -59466,6 +59884,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -59649,6 +60072,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -59832,6 +60260,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -60049,6 +60482,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -60266,6 +60704,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -60281,8 +60724,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -60290,9 +60736,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -60302,9 +60757,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -60515,7 +60979,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -67980,6 +68444,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -68197,6 +68666,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -68414,6 +68888,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -68631,6 +69110,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -69052,7 +69536,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -72296,6 +72780,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -72513,6 +73002,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -72730,6 +73224,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -72981,6 +73480,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -73232,6 +73736,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -73247,8 +73756,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -73256,9 +73768,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -73268,9 +73789,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -73515,7 +74045,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -76758,6 +77288,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -76975,6 +77510,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -77192,6 +77732,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -77443,6 +77988,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -77694,6 +78244,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -77709,8 +78264,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -77718,9 +78276,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -77730,9 +78297,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -77977,7 +78553,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -81176,6 +81752,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -81393,6 +81974,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -81610,6 +82196,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -81861,6 +82452,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -82112,6 +82708,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -82127,8 +82728,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -82136,9 +82740,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -82148,9 +82761,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -82395,7 +83017,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -85594,6 +86216,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -85777,6 +86404,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -85960,6 +86592,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -86177,6 +86814,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -86394,6 +87036,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -86409,8 +87056,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -86418,9 +87068,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -86430,9 +87089,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -86643,7 +87311,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
@@ -89819,6 +90487,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -90002,6 +90675,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -90185,6 +90863,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -90402,6 +91085,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -90619,6 +91307,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   <div>
                     <div
                       className="MaterialsCarousel"
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
                     >
                       <img
                         className="MaterialImage"
@@ -90634,8 +91327,11 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                       <div
                         style={
                           Object {
-                            "display": "flex",
-                            "justifyContent": "space-between",
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
                           }
                         }
                       >
@@ -90643,9 +91339,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "left": 0,
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -90655,9 +91360,18 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           onClick={[Function]}
                           style={
                             Object {
+                              "alignItems": "flex-end",
+                              "bottom": 0,
                               "color": "#aaa",
                               "cursor": "pointer",
+                              "display": "flex",
                               "fontSize": 12,
+                              "justifyContent": "center",
+                              "marginBottom": 15,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                              "width": 30,
                             }
                           }
                         >
@@ -90868,7 +91582,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      Images not added yet
+                      None
                     </div>
                   </div>
                 </div>
