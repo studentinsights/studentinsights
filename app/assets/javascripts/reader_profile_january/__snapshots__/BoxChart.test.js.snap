@@ -30,14 +30,14 @@ exports[`snapshots 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "background": "rgb(147, 196, 125)",
-            "color": "#366525",
+            "background": "#ccc",
+            "color": "#6d6d6d",
             "cursor": "default",
             "display": "flex",
             "flex": 1,
             "height": 40,
             "justifyContent": "center",
-            "outline": "1px solid #649350",
+            "outline": "1px solid #9b9b9b",
           }
         }
         title="AA"
@@ -48,14 +48,14 @@ exports[`snapshots 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "background": "orange",
-            "color": "#904a00",
+            "background": "#ccc",
+            "color": "#6d6d6d",
             "cursor": "default",
             "display": "flex",
             "flex": 1,
             "height": 40,
             "justifyContent": "center",
-            "outline": "1px solid #c67600",
+            "outline": "1px solid #9b9b9b",
           }
         }
         title="B"
@@ -113,14 +113,14 @@ exports[`snapshots 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "background": "#ccc",
-            "color": "#6d6d6d",
+            "background": "rgb(147, 196, 125)",
+            "color": "#366525",
             "cursor": "default",
             "display": "flex",
             "flex": 1,
             "height": 40,
             "justifyContent": "center",
-            "outline": "1px solid #9b9b9b",
+            "outline": "1px solid #649350",
           }
         }
         title="F"

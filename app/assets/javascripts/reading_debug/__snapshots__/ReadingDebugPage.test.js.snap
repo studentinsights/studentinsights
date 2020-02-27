@@ -443,7 +443,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "50%",
+                            "width": "100%",
                           }
                         }
                       >
@@ -458,41 +458,11 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "50%",
+                            "width": "100%",
                           }
                         }
                       >
-                        4
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        style={
-                          Object {
-                            "background": "rgba(0,128,0,0.5)",
-                            "height": 5,
-                            "left": "50%",
-                            "position": "absolute",
-                            "width": "50%",
-                          }
-                        }
-                      >
-                         
-                      </div>
-                      <div
-                        style={
-                          Object {
-                            "color": "rgba(0,128,0,0.5)",
-                            "left": "50%",
-                            "paddingRight": 1,
-                            "position": "absolute",
-                            "textAlign": "right",
-                            "top": 5,
-                            "width": "50%",
-                          }
-                        }
-                      >
-                        4
+                        8
                       </div>
                     </div>
                   </div>
@@ -663,7 +633,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "background": "rgba(255,0,0,0.5)",
+                            "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "50%",
                             "position": "absolute",
@@ -676,7 +646,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "color": "rgba(255,0,0,0.5)",
+                            "color": "rgba(255,140,0,0.6)",
                             "left": "50%",
                             "paddingRight": 1,
                             "position": "absolute",
@@ -773,7 +743,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "32%",
                           }
                         }
                       >
@@ -788,11 +758,71 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "32%",
                           }
                         }
                       >
-                        16
+                        5
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(0,128,0,0.5)",
+                            "height": 5,
+                            "left": "32%",
+                            "position": "absolute",
+                            "width": "19%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(0,128,0,0.5)",
+                            "left": "32%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "19%",
+                          }
+                        }
+                      >
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "50%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "50%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "50%",
+                          }
+                        }
+                      >
+                        8
                       </div>
                     </div>
                   </div>
@@ -1196,7 +1226,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "19%",
                           }
                         }
                       >
@@ -1211,11 +1241,71 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "19%",
                           }
                         }
                       >
-                        16
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(0,128,0,0.5)",
+                            "height": 5,
+                            "left": "19%",
+                            "position": "absolute",
+                            "width": "38%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(0,128,0,0.5)",
+                            "left": "19%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "38%",
+                          }
+                        }
+                      >
+                        6
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "57%",
+                            "position": "absolute",
+                            "width": "44%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "57%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "44%",
+                          }
+                        }
+                      >
+                        7
                       </div>
                     </div>
                   </div>
@@ -1236,170 +1326,6 @@ exports[`snapshots view 1`] = `
               2018
                
               fall
-            </div>
-          </td>
-          <td
-            style={
-              Object {
-                "textAlign": "center",
-              }
-            }
-          >
-            <div
-              onClick={[Function]}
-              style={
-                Object {
-                  "border": "2px solid white",
-                  "cursor": "pointer",
-                  "padding": 10,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "minHeight": 40,
-                    "minWidth": 80,
-                    "overflow": "hidden",
-                  }
-                }
-              >
-                <div
-                  className="BreakdownBar"
-                  style={
-                    Object {
-                      "height": 5,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "height": 5,
-                        "position": "relative",
-                        "width": "100%",
-                      }
-                    }
-                  >
-                    <div>
-                      <div
-                        style={
-                          Object {
-                            "background": "#ccc",
-                            "height": 5,
-                            "left": "0%",
-                            "position": "absolute",
-                            "width": "13%",
-                          }
-                        }
-                      >
-                         
-                      </div>
-                      <div
-                        style={
-                          Object {
-                            "color": "#ccc",
-                            "left": "0%",
-                            "paddingRight": 1,
-                            "position": "absolute",
-                            "textAlign": "right",
-                            "top": 5,
-                            "width": "13%",
-                          }
-                        }
-                      >
-                        1
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        style={
-                          Object {
-                            "background": "rgba(0,128,0,0.5)",
-                            "height": 5,
-                            "left": "13%",
-                            "position": "absolute",
-                            "width": "88%",
-                          }
-                        }
-                      >
-                         
-                      </div>
-                      <div
-                        style={
-                          Object {
-                            "color": "rgba(0,128,0,0.5)",
-                            "left": "13%",
-                            "paddingRight": 1,
-                            "position": "absolute",
-                            "textAlign": "right",
-                            "top": 5,
-                            "width": "88%",
-                          }
-                        }
-                      >
-                        7
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td
-            style={
-              Object {
-                "textAlign": "center",
-              }
-            }
-          >
-            <div
-              onClick={[Function]}
-              style={
-                Object {
-                  "border": "2px solid white",
-                  "cursor": "pointer",
-                  "padding": 10,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "minHeight": 40,
-                    "minWidth": 80,
-                    "overflow": "hidden",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            style={
-              Object {
-                "textAlign": "center",
-              }
-            }
-          >
-            <div
-              onClick={[Function]}
-              style={
-                Object {
-                  "border": "2px solid white",
-                  "cursor": "pointer",
-                  "padding": 10,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "minHeight": 40,
-                    "minWidth": 80,
-                    "overflow": "hidden",
-                  }
-                }
-              />
             </div>
           </td>
           <td
@@ -1533,6 +1459,34 @@ exports[`snapshots view 1`] = `
                     "overflow": "hidden",
                   }
                 }
+              />
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "minHeight": 40,
+                    "minWidth": 80,
+                    "overflow": "hidden",
+                  }
+                }
               >
                 <div
                   className="BreakdownBar"
@@ -1559,7 +1513,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "13%",
                           }
                         }
                       >
@@ -1574,11 +1528,237 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "13%",
                           }
                         }
                       >
-                        16
+                        1
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(0,128,0,0.5)",
+                            "height": 5,
+                            "left": "13%",
+                            "position": "absolute",
+                            "width": "38%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(0,128,0,0.5)",
+                            "left": "13%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "38%",
+                          }
+                        }
+                      >
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "50%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "50%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "50%",
+                          }
+                        }
+                      >
+                        4
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "minHeight": 40,
+                    "minWidth": 80,
+                    "overflow": "hidden",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "border": "2px solid white",
+                  "cursor": "pointer",
+                  "padding": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "minHeight": 40,
+                    "minWidth": 80,
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <div
+                  className="BreakdownBar"
+                  style={
+                    Object {
+                      "height": 5,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": 5,
+                        "position": "relative",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "#ccc",
+                            "height": 5,
+                            "left": "0%",
+                            "position": "absolute",
+                            "width": "19%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "#ccc",
+                            "left": "0%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "19%",
+                          }
+                        }
+                      >
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(0,128,0,0.5)",
+                            "height": 5,
+                            "left": "19%",
+                            "position": "absolute",
+                            "width": "13%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(0,128,0,0.5)",
+                            "left": "19%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "13%",
+                          }
+                        }
+                      >
+                        2
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "32%",
+                            "position": "absolute",
+                            "width": "69%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "32%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "69%",
+                          }
+                        }
+                      >
+                        11
                       </div>
                     </div>
                   </div>
@@ -1652,7 +1832,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "38%",
+                            "width": "100%",
                           }
                         }
                       >
@@ -1667,71 +1847,11 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "38%",
+                            "width": "100%",
                           }
                         }
                       >
-                        3
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        style={
-                          Object {
-                            "background": "rgba(0,128,0,0.5)",
-                            "height": 5,
-                            "left": "38%",
-                            "position": "absolute",
-                            "width": "50%",
-                          }
-                        }
-                      >
-                         
-                      </div>
-                      <div
-                        style={
-                          Object {
-                            "color": "rgba(0,128,0,0.5)",
-                            "left": "38%",
-                            "paddingRight": 1,
-                            "position": "absolute",
-                            "textAlign": "right",
-                            "top": 5,
-                            "width": "50%",
-                          }
-                        }
-                      >
-                        4
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        style={
-                          Object {
-                            "background": "rgba(255,0,0,0.5)",
-                            "height": 5,
-                            "left": "88%",
-                            "position": "absolute",
-                            "width": "13%",
-                          }
-                        }
-                      >
-                         
-                      </div>
-                      <div
-                        style={
-                          Object {
-                            "color": "rgba(255,0,0,0.5)",
-                            "left": "88%",
-                            "paddingRight": 1,
-                            "position": "absolute",
-                            "textAlign": "right",
-                            "top": 5,
-                            "width": "13%",
-                          }
-                        }
-                      >
-                        1
+                        8
                       </div>
                     </div>
                   </div>
@@ -1902,7 +2022,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "background": "rgba(255,0,0,0.5)",
+                            "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "63%",
                             "position": "absolute",
@@ -1915,7 +2035,7 @@ exports[`snapshots view 1`] = `
                       <div
                         style={
                           Object {
-                            "color": "rgba(255,0,0,0.5)",
+                            "color": "rgba(255,140,0,0.6)",
                             "left": "63%",
                             "paddingRight": 1,
                             "position": "absolute",
@@ -2012,7 +2132,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "19%",
                           }
                         }
                       >
@@ -2027,11 +2147,71 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "19%",
                           }
                         }
                       >
-                        16
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(0,128,0,0.5)",
+                            "height": 5,
+                            "left": "19%",
+                            "position": "absolute",
+                            "width": "44%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(0,128,0,0.5)",
+                            "left": "19%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "44%",
+                          }
+                        }
+                      >
+                        7
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "63%",
+                            "position": "absolute",
+                            "width": "38%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "63%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "38%",
+                          }
+                        }
+                      >
+                        6
                       </div>
                     </div>
                   </div>
@@ -2465,7 +2645,7 @@ exports[`snapshots view 1`] = `
                             "height": 5,
                             "left": "0%",
                             "position": "absolute",
-                            "width": "100%",
+                            "width": "19%",
                           }
                         }
                       >
@@ -2480,11 +2660,71 @@ exports[`snapshots view 1`] = `
                             "position": "absolute",
                             "textAlign": "right",
                             "top": 5,
-                            "width": "100%",
+                            "width": "19%",
                           }
                         }
                       >
-                        16
+                        3
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(0,128,0,0.5)",
+                            "height": 5,
+                            "left": "19%",
+                            "position": "absolute",
+                            "width": "32%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(0,128,0,0.5)",
+                            "left": "19%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "32%",
+                          }
+                        }
+                      >
+                        5
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={
+                          Object {
+                            "background": "rgba(255,140,0,0.6)",
+                            "height": 5,
+                            "left": "50%",
+                            "position": "absolute",
+                            "width": "50%",
+                          }
+                        }
+                      >
+                         
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "color": "rgba(255,140,0,0.6)",
+                            "left": "50%",
+                            "paddingRight": 1,
+                            "position": "absolute",
+                            "textAlign": "right",
+                            "top": 5,
+                            "width": "50%",
+                          }
+                        }
+                      >
+                        8
                       </div>
                     </div>
                   </div>
