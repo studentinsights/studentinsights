@@ -46,7 +46,12 @@ export default class FAndPEnglishView extends React.Component {
     const fileKeys = MATERIAL_URLS[level];
     if (!fileKeys) return null;
 
-    return <MaterialsCarousel fileKeys={fileKeys} />;
+    return (
+      <div>
+        <MaterialsCarousel fileKeys={fileKeys} />
+        <div style={styles.level}>Instructional level: {level}</div>
+      </div>
+    );
   }
 
   renderData() {
@@ -63,6 +68,12 @@ export default class FAndPEnglishView extends React.Component {
 }
 FAndPEnglishView.propTypes = expandedViewPropTypes;
 
+const styles = {
+  level: {
+    textAlign: 'center',
+    fontSize: 12
+  }
+};
 
 const MATERIAL_URLS = {
   'A': ['FP-A1-cover', 'FP-A1-page', 'FP-A2-cover', 'FP-A2-page'],

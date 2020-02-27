@@ -90,7 +90,8 @@ const styles = {
     bottom: 0
   },
   arrow: {
-    color: '#aaa',
+    color: 'white',
+    textShadow: '#999 0px 0px 1px',
     fontSize: 12,
     cursor: 'pointer',
     top: 0,

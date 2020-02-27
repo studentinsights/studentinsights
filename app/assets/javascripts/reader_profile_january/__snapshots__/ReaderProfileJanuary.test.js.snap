@@ -17072,7 +17072,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -17080,6 +17080,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -17093,7 +17094,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -17101,6 +17102,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -21536,7 +21538,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -21544,6 +21546,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -21557,7 +21560,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -21565,6 +21568,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -25864,7 +25868,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -25872,6 +25876,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -25885,7 +25890,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -25893,6 +25898,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -30135,7 +30141,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -30143,6 +30149,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -30156,7 +30163,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -30164,6 +30171,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -43167,7 +43175,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -43175,6 +43183,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -43188,7 +43197,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -43196,6 +43205,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -47675,7 +47685,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -47683,6 +47693,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -47696,7 +47707,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -47704,6 +47715,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -52139,7 +52151,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -52147,6 +52159,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -52160,7 +52173,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -52168,6 +52181,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -56467,7 +56481,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -56475,6 +56489,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -56488,7 +56503,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -56496,6 +56511,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -60738,7 +60754,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -60746,6 +60762,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -60759,7 +60776,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -60767,6 +60784,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -73770,7 +73788,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -73778,6 +73796,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -73791,7 +73810,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -73799,6 +73818,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -78278,7 +78298,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -78286,6 +78306,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -78299,7 +78320,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -78307,6 +78328,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -82742,7 +82764,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -82750,6 +82772,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -82763,7 +82786,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -82771,6 +82794,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -87070,7 +87094,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -87078,6 +87102,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -87091,7 +87116,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -87099,6 +87124,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -91341,7 +91367,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -91349,6 +91375,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "left": 0,
                               "marginBottom": 15,
                               "position": "absolute",
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
@@ -91362,7 +91389,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                             Object {
                               "alignItems": "flex-end",
                               "bottom": 0,
-                              "color": "#aaa",
+                              "color": "white",
                               "cursor": "pointer",
                               "display": "flex",
                               "fontSize": 12,
@@ -91370,6 +91397,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "marginBottom": 15,
                               "position": "absolute",
                               "right": 0,
+                              "textShadow": "#999 0px 0px 1px",
                               "top": 0,
                               "width": 30,
                             }
