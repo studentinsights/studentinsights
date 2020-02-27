@@ -70,7 +70,7 @@ FAndPEnglishView.propTypes = expandedViewPropTypes;
 
 const styles = {
   level: {
-    textAlign: 'center',
+    paddingLeft: 5,
     fontSize: 12
   }
 };
