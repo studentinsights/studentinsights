@@ -40,7 +40,10 @@ export function prettyDibelsText(benchmarkAssessmentKey) {
     [DIBELS_NWF_CLS]: 'Nonsense Word Fluency Correct Letter Sounds',
     [DIBELS_NWF_WWR]: 'Nonsense Word Fluency Whole Words Read',
     [DIBELS_DORF_WPM]: 'Oral Reading Fluency',
-    [DIBELS_DORF_ACC]: 'Oral Reading Accuracy'
+    [DIBELS_DORF_ACC]: 'Oral Reading Accuracy',
+    [F_AND_P_ENGLISH]: 'F&P English',
+    [F_AND_P_SPANISH]: 'F&P Spanish',
+    [INSTRUCTIONAL_NEEDS]: 'Instructional needs'
   }[benchmarkAssessmentKey];
 }
 export function shortDibelsText(benchmarkAssessmentKey) {
@@ -55,7 +58,7 @@ export function shortDibelsText(benchmarkAssessmentKey) {
     [DIBELS_DORF_ERRORS]: 'ORF errors',
     [F_AND_P_ENGLISH]: 'F&P English',
     [F_AND_P_SPANISH]: 'F&P Spanish',
-    [INSTRUCTIONAL_NEEDS]: 'Instructional needs',
+    [INSTRUCTIONAL_NEEDS]: 'Instructional needs'
   }[benchmarkAssessmentKey];
 }
 
