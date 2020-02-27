@@ -1,11 +1,10 @@
 require 'fileutils'
 
 # These are keys into ENV
-class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password, :env_key_data, :options
+class SftpClient < Struct.new :env_host, :env_user, :env_password, :env_key_data, :options
 
-  def self.for_x2(override_env = nil, options = {})
+  def self.for_x2(options = {})
     new(
-      override_env,
       'SIS_SFTP_HOST',
       'SIS_SFTP_USER',
       nil,
@@ -14,9 +13,8 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
     )
   end
 
-  def self.for_star(override_env = nil, options = {})
+  def self.for_star(options = {})
     new(
-      override_env,
       'STAR_SFTP_HOST',
       'STAR_SFTP_USER',
       'STAR_SFTP_PASSWORD',
@@ -86,8 +84,6 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   def env(key)
     if key.nil?
       nil
-    elsif override_env.present?
-      override_env[key]
     else
       ENV[key]
     end
