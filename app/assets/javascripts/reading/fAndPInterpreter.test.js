@@ -29,25 +29,35 @@ it('#interpretFAndPEnglish', () => {
 });
 
 describe('#classifyFAndPEnglish', () => {
-  it('works for winter kindergarten as test case', () => {
-    expect(classifyFAndPEnglish('NR', 'KF', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('AA', 'KF', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('A', 'KF', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('B', 'KF', 'winter')).toEqual('medium');
-    expect(classifyFAndPEnglish('C', 'KF', 'winter')).toEqual('high');
-    expect(classifyFAndPEnglish('D', 'KF', 'winter')).toEqual('high');
-    expect(classifyFAndPEnglish('Z', 'KF', 'winter')).toEqual('high');
-    expect(classifyFAndPEnglish('Z+', 'KF', 'winter')).toEqual(null); // ignore Z+ special case for now
+  it('has no thresholds for fall kindergarten', () => {
+    expect(classifyFAndPEnglish('NR', 'KF', 'fall')).toEqual(null);
+    expect(classifyFAndPEnglish('Z', 'KF', 'fall')).toEqual(null);
+  });
+  
+  it('has no thresholds for winter kindergarten', () => {
+    expect(classifyFAndPEnglish('NR', 'KF', 'winter')).toEqual(null);
+    expect(classifyFAndPEnglish('Z', 'KF', 'winter')).toEqual(null);
+  });
+
+  it('works for spring kindergarten as test case', () => {
+    expect(classifyFAndPEnglish('NR', 'KF', 'spring')).toEqual('medium');
+    expect(classifyFAndPEnglish('AA', 'KF', 'spring')).toEqual('medium');
+    expect(classifyFAndPEnglish('A', 'KF', 'spring')).toEqual('medium');
+    expect(classifyFAndPEnglish('B', 'KF', 'spring')).toEqual('medium');
+    expect(classifyFAndPEnglish('C', 'KF', 'spring')).toEqual('high');
+    expect(classifyFAndPEnglish('D', 'KF', 'spring')).toEqual('high');
+    expect(classifyFAndPEnglish('Z', 'KF', 'spring')).toEqual('high');
+    expect(classifyFAndPEnglish('Z+', 'KF', 'spring')).toEqual(null); // ignore Z+ special case for now
   });
 
   it('works for winter 1st grade as test case', () => {
-    expect(classifyFAndPEnglish('NR', '1', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('AA', '1', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('B', '1', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('C', '1', 'winter')).toEqual('low');
-    expect(classifyFAndPEnglish('D', '1', 'winter')).toEqual('low');
+    expect(classifyFAndPEnglish('NR', '1', 'winter')).toEqual('medium');
+    expect(classifyFAndPEnglish('AA', '1', 'winter')).toEqual('medium');
+    expect(classifyFAndPEnglish('B', '1', 'winter')).toEqual('medium');
+    expect(classifyFAndPEnglish('C', '1', 'winter')).toEqual('medium');
+    expect(classifyFAndPEnglish('D', '1', 'winter')).toEqual('medium');
     expect(classifyFAndPEnglish('E', '1', 'winter')).toEqual('medium');
-    expect(classifyFAndPEnglish('F', '1', 'winter')).toEqual('medium');
+    expect(classifyFAndPEnglish('F', '1', 'winter')).toEqual('high');
     expect(classifyFAndPEnglish('G', '1', 'winter')).toEqual('high');
     expect(classifyFAndPEnglish('H', '1', 'winter')).toEqual('high');
     expect(classifyFAndPEnglish('Z+', '1', 'winter')).toEqual(null); // ignore Z+ special case for now
