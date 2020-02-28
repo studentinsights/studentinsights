@@ -23,7 +23,7 @@ export default class ReadingScheduleGrid extends React.Component {
 
     return (
       <div className="ReadingScheduleGrid">
-        <table style={{margin: 10, fontSize: 12, width: '100%'}}>
+        <table style={styles.table}>
           <thead>
             <tr>
               <th><Nbsp /></th>
@@ -38,12 +38,12 @@ export default class ReadingScheduleGrid extends React.Component {
           <tbody>
             {benchmarkAssessmentKeys.map(benchmarkAssessmentKey => {          
               return (
-                <tr key={benchmarkAssessmentKey}>
-                  <td style={{width: 80, paddingRight: 10, paddingBottom: 20, verticalAlign: 'top', marginwhiteSpace: 'normal'}}>
+                <tr key={benchmarkAssessmentKey} style={styles.row}>
+                  <td style={styles.labelCell}>
                     {prettyDibelsText(benchmarkAssessmentKey)}
                   </td>
                   {cells.map(cell => (
-                    <td key={cell.join('-')}>
+                    <td key={cell.join('-')} style={styles.cell}>
                       {this.renderCell(cell, benchmarkAssessmentKey)}
                     </td>
                   ))}
@@ -66,6 +66,33 @@ ReadingScheduleGrid.propTypes = {
   renderCellFn: PropTypes.func.isRequired
 };
 
+
+const styles = {
+  table: {
+    margin: 10,
+    fontSize: 12,
+    width: '100%',
+    borderCollapse: 'collapse'
+  },
+  labelCell: {
+    width: 80,
+    whiteSpace: 'normal',
+    paddingRight: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    verticalAlign: 'top',
+    marginwhiteSpace: 'normal'
+  },
+  cell: {
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  row: {
+    borderTop: '1px solid #ccc',
+    paddingBottom: 10,
+    paddingTop: 10
+  }
+};
 
 
 export function gridParams() {

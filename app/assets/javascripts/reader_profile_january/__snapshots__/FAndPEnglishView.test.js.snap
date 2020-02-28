@@ -1,0 +1,441 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="ExpandedLayout"
+  style={
+    Object {
+      "padding": 10,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "fontSize": 16,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      F&P English
+    </div>
+    <div
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "color": "#999",
+          "cursor": "pointer",
+        }
+      }
+    >
+      Close
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "flex": 5,
+          "marginRight": 20,
+        }
+      }
+    >
+      <div>
+        <div>
+          <div
+            className="MaterialsCarousel"
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <img
+              className="MaterialImage"
+              src="/img/reading/FP-B1-cover.jpg"
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                }
+              }
+              title="FP-B1-cover"
+              width="100%"
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "bottom": 0,
+                    "color": "white",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "fontSize": 12,
+                    "justifyContent": "center",
+                    "left": 0,
+                    "marginBottom": 15,
+                    "position": "absolute",
+                    "textShadow": "#999 0px 0px 1px",
+                    "top": 0,
+                    "width": 30,
+                  }
+                }
+              >
+                ◄
+              </div>
+              <div
+                onClick={[Function]}
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "bottom": 0,
+                    "color": "white",
+                    "cursor": "pointer",
+                    "display": "flex",
+                    "fontSize": 12,
+                    "justifyContent": "center",
+                    "marginBottom": 15,
+                    "position": "absolute",
+                    "right": 0,
+                    "textShadow": "#999 0px 0px 1px",
+                    "top": 0,
+                    "width": 30,
+                  }
+                }
+              >
+                ►
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Instructional level: 
+            B
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 3,
+          "marginRight": 20,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "color": "#333",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Instructional strategies
+      </div>
+      <div>
+        <div
+          className="Strategies"
+        >
+          <div />
+          <div
+            style={
+              Object {
+                "color": "#999",
+                "fontSize": 12,
+                "margin": 10,
+              }
+            }
+          >
+            Add suggestion
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 5,
+          "marginRight": 20,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "color": "#333",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Somerville benchmarks for 
+        Max
+      </div>
+      <div>
+        <div
+          className="Data"
+        >
+          <div
+            style={
+              Object {
+                "marginBottom": 40,
+              }
+            }
+          >
+            <div
+              className="BoxChart"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#f8f8f8",
+                        "color": "#95959580",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #c5c5c5",
+                      }
+                    }
+                    title={null}
+                  >
+                    fall
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#f8f8f8",
+                        "color": "#95959580",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #c5c5c5",
+                      }
+                    }
+                    title={null}
+                  >
+                    winter
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#f8f8f8",
+                        "color": "#95959580",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #c5c5c5",
+                      }
+                    }
+                    title={null}
+                  >
+                    spring
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Pre-K (PK)
+                  , 
+                  2016
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#ccc",
+                        "color": "#6d6d6d",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #9b9b9b",
+                      }
+                    }
+                    title="NR"
+                  >
+                    fall
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#ccc",
+                        "color": "#6d6d6d",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #9b9b9b",
+                      }
+                    }
+                    title="B"
+                  >
+                    winter
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "background": "#f8f8f8",
+                        "color": "#95959580",
+                        "cursor": "default",
+                        "display": "flex",
+                        "flex": 1,
+                        "height": 40,
+                        "justifyContent": "center",
+                        "outline": "1px solid #c5c5c5",
+                      }
+                    }
+                    title={null}
+                  >
+                    spring
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "marginTop": 5,
+                    }
+                  }
+                >
+                  Kindergarten
+                  , 
+                  2017
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={Object {}}
+          >
+            <div
+              className="Expandable"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "padding": 0,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Percentile in Kindergarten school cohort
+              </a>
+            </div>
+            <div
+              className="Expandable"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "padding": 0,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Raw scores
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

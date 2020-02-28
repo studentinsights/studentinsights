@@ -13,33 +13,58 @@ export const INSTRUCTIONAL_NEEDS = 'instructional_needs';
 
 
 // shared across english and spanish
+//
+// Last revised on 2/13/20, see also internal
+// doc: "Somerville F&P benchmarks (2/13/2020)"
+// although note that depending on the context these
+// levels are expressed as differently.  Here, the "benchmark"
+// means "if the student scores at this score or above, this area might not
+// be a top priority for focusing problem solving discussions."
 const F_AND_P_THRESHOLDS_SHARED = {
-  'KF:fall': {
-    benchmark: 'A'
-  },
-  'KF:winter': {
-    benchmark: 'C',
-    risk: 'A'
-  },
   'KF:spring': {
     benchmark: 'C'
   },
+  '1:fall': {
+    benchmark: 'C'
+  },
   '1:winter': {
-    benchmark: 'G',
-    risk: 'D'
+    benchmark: 'F'
   },
   '1:spring': {
-    benchmark: 'J'
+    benchmark: 'I'
+  },
+  '2:fall': {
+    benchmark: 'I'
+  },
+  '2:winter': {
+    benchmark: 'K'
   },
   '2:spring': {
     benchmark: 'M'
   },
+  '3:fall': {
+    benchmark: 'M'
+  },
   '3:winter': {
-    benchmark: 'O',
-    risk: 'M'
+    benchmark: 'O'
   },
   '3:spring': {
     benchmark: 'P'
+  },
+  '4:fall': {
+    benchmark: 'P'
+  },
+  '4:spring': {
+    benchmark: 'T'
+  },
+  '5:fall': {
+    benchmark: 'T'
+  },
+  '5:winter': {
+    benchmark: 'T'
+  },
+  '5:spring': {
+    benchmark: 'T'
   }
 };
 

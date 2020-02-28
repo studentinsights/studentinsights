@@ -63,8 +63,7 @@ function renderCellFn(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
   return (
     <div key={[grade, benchmarkAssessmentKey].join('-')} style={styles.cell}>
       {thresholds && thresholds.benchmark !== undefined ? <div style={{backgroundColor: aboveBenchmark}}>{thresholds.benchmark}</div> : missingEl}
-      {midHigh ? <div style={{backgroundColor: medium}}>{midHigh}</div> : missingEl}
-      {midLow ? <div style={{backgroundColor: medium}}>{midLow}</div> : missingEl}
+      {midHigh && midLow ? <div style={{color: '#666', backgroundColor: medium}}>{midLow}..{midHigh}</div> : missingEl}
       {thresholds && thresholds.risk !== undefined ? <div style={{backgroundColor: belowRisk}}>{thresholds.risk}</div> : missingEl}
     </div>
   );
