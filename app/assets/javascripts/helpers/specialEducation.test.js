@@ -184,7 +184,7 @@ describe('#prettyIepTextForSpecialEducationStudent', () => {
 
 
 describe('Bedford test cases', () => {
-  it('works for test case a', () => {
+  it('works for test case A', () => {
     const a = {
       program_assigned: 'Not Enrolled',
       sped_placement: 'Not special ed',
@@ -196,7 +196,7 @@ describe('Bedford test cases', () => {
     expect(prettyIepTextForSpecialEducationStudent(a)).toEqual('IEP for Developmental Delay');
   });
 
-  it('works for test case b', () => {
+  it('works for test case B', () => {
     const b = {
       program_assigned: 'Not Enrolled',
       sped_placement: 'Exited this year',
