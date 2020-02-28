@@ -4573,31 +4573,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              >
-                <div
-                  className="Tab"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#ccc",
-                      "border": "1px solid #f8f8f8",
-                      "borderRadius": 1,
-                      "cursor": "pointer",
-                      "display": "flex",
-                      "height": "3em",
-                      "justifyContent": "flex-start",
-                      "margin": 5,
-                      "marginLeft": 0,
-                      "marginRight": 10,
-                      "padding": 5,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  F&P English
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div
@@ -35080,31 +35056,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              >
-                <div
-                  className="Tab"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#ccc",
-                      "border": "1px solid #f8f8f8",
-                      "borderRadius": 1,
-                      "cursor": "pointer",
-                      "display": "flex",
-                      "height": "3em",
-                      "justifyContent": "flex-start",
-                      "margin": 5,
-                      "marginLeft": 0,
-                      "marginRight": 10,
-                      "padding": 5,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  F&P English
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div
@@ -92480,31 +92432,7 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              >
-                <div
-                  className="Tab"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#ccc",
-                      "border": "1px solid #f8f8f8",
-                      "borderRadius": 1,
-                      "cursor": "pointer",
-                      "display": "flex",
-                      "height": "3em",
-                      "justifyContent": "flex-start",
-                      "margin": 5,
-                      "marginLeft": 0,
-                      "marginRight": 10,
-                      "padding": 5,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  F&P English
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div
@@ -95264,31 +95192,7 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              >
-                <div
-                  className="Tab"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#ccc",
-                      "border": "1px solid #f8f8f8",
-                      "borderRadius": 1,
-                      "cursor": "pointer",
-                      "display": "flex",
-                      "height": "3em",
-                      "justifyContent": "flex-start",
-                      "margin": 5,
-                      "marginLeft": 0,
-                      "marginRight": 10,
-                      "padding": 5,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  F&P English
-                </div>
-              </div>
+              />
             </div>
           </div>
           <div

@@ -7,6 +7,7 @@ exports[`snapshots 1`] = `
   <table
     style={
       Object {
+        "borderCollapse": "collapse",
         "fontSize": 12,
         "margin": 10,
         "width": "100%",
@@ -511,21 +512,38 @@ exports[`snapshots 1`] = `
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           First Sound Fluency
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -538,7 +556,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -551,7 +576,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -564,7 +596,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -577,7 +616,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -590,7 +636,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -603,7 +656,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -616,7 +676,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -629,7 +696,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -642,7 +716,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -655,7 +736,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -668,7 +756,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -681,7 +776,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -694,7 +796,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -707,7 +816,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -720,7 +836,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -733,7 +856,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -746,7 +876,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -760,21 +897,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           Letter Naming Fluency
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -787,7 +941,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -800,7 +961,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -813,7 +981,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -826,7 +1001,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -839,7 +1021,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -852,7 +1041,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -865,7 +1061,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -878,7 +1081,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -891,7 +1101,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -904,7 +1121,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -917,7 +1141,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -930,7 +1161,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -943,7 +1181,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -956,7 +1201,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -969,7 +1221,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -982,7 +1241,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -995,7 +1261,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1009,21 +1282,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           Phoneme Segmentation Fluency
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1036,7 +1326,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1049,7 +1346,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1062,7 +1366,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1075,7 +1386,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1088,7 +1406,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1101,7 +1426,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1114,7 +1446,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1127,7 +1466,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1140,7 +1486,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1153,7 +1506,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1166,7 +1526,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1179,7 +1546,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1192,7 +1566,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1205,7 +1586,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1218,7 +1606,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1231,7 +1626,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1244,7 +1646,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1258,21 +1667,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           Nonsense Word Fluency Correct Letter Sounds
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1285,7 +1711,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1298,7 +1731,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1311,7 +1751,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1324,7 +1771,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1337,7 +1791,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1350,7 +1811,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1363,7 +1831,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1376,7 +1851,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1389,7 +1871,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1402,7 +1891,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1415,7 +1911,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1428,7 +1931,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1441,7 +1951,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1454,7 +1971,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1467,7 +1991,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1480,7 +2011,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1493,7 +2031,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1507,21 +2052,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           Nonsense Word Fluency Whole Words Read
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1534,7 +2096,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1547,7 +2116,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1560,7 +2136,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1573,7 +2156,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1586,7 +2176,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1599,7 +2196,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1612,7 +2216,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1625,7 +2236,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1638,7 +2256,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1651,7 +2276,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1664,7 +2296,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1677,7 +2316,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1690,7 +2336,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1703,7 +2356,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1716,7 +2376,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1729,7 +2396,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1742,7 +2416,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1756,21 +2437,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           Oral Reading Fluency
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1783,7 +2481,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1796,7 +2501,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1809,7 +2521,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1822,7 +2541,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1835,7 +2561,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1848,7 +2581,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1861,7 +2601,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1874,7 +2621,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1887,7 +2641,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1900,7 +2661,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1913,7 +2681,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1926,7 +2701,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1939,7 +2721,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1952,7 +2741,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1965,7 +2761,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1978,7 +2781,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -1991,7 +2801,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2005,21 +2822,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
         >
           Oral Reading Accuracy
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2032,7 +2866,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2045,7 +2886,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2058,7 +2906,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2071,7 +2926,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2084,7 +2946,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2097,7 +2966,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2110,7 +2986,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2123,7 +3006,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2136,7 +3026,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2149,7 +3046,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2162,7 +3066,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2175,7 +3086,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2188,7 +3106,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2201,7 +3126,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2214,7 +3146,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2227,7 +3166,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2240,7 +3186,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2254,19 +3207,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
-        />
-        <td>
+        >
+          F&P English
+        </td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2282,13 +3254,13 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "rgb(147, 196, 125)",
-                  "color": "#366525",
+                  "background": "#ccc",
+                  "color": "#6d6d6d",
                   "cursor": "default",
                   "display": "flex",
                   "height": "2em",
                   "justifyContent": "center",
-                  "outline": "1px solid #649350",
+                  "outline": "1px solid #9b9b9b",
                   "width": "2em",
                 }
               }
@@ -2297,7 +3269,14 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2313,13 +3292,13 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "orange",
-                  "color": "#904a00",
+                  "background": "#ccc",
+                  "color": "#6d6d6d",
                   "cursor": "default",
                   "display": "flex",
                   "height": "2em",
                   "justifyContent": "center",
-                  "outline": "1px solid #c67600",
+                  "outline": "1px solid #9b9b9b",
                   "width": "2em",
                 }
               }
@@ -2328,7 +3307,14 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2359,7 +3345,14 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2375,13 +3368,13 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "#ccc",
-                  "color": "#6d6d6d",
+                  "background": "rgb(147, 196, 125)",
+                  "color": "#366525",
                   "cursor": "default",
                   "display": "flex",
                   "height": "2em",
                   "justifyContent": "center",
-                  "outline": "1px solid #9b9b9b",
+                  "outline": "1px solid #649350",
                   "width": "2em",
                 }
               }
@@ -2390,7 +3383,14 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2421,7 +3421,14 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2434,7 +3441,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2447,7 +3461,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2460,7 +3481,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2473,7 +3501,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2486,7 +3521,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2499,7 +3541,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2512,7 +3561,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2525,7 +3581,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2538,7 +3601,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2551,7 +3621,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2564,7 +3641,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2577,7 +3661,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2591,19 +3682,38 @@ exports[`snapshots 1`] = `
           />
         </td>
       </tr>
-      <tr>
+      <tr
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
+            "paddingBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
         <td
           style={
             Object {
               "marginwhiteSpace": "normal",
-              "paddingBottom": 20,
-              "paddingRight": 10,
+              "paddingBottom": 10,
+              "paddingRight": 5,
+              "paddingTop": 10,
               "verticalAlign": "top",
+              "whiteSpace": "normal",
               "width": 80,
             }
           }
-        />
-        <td>
+        >
+          F&P Spanish
+        </td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2616,7 +3726,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2629,7 +3746,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2642,7 +3766,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2655,7 +3786,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2668,7 +3806,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2681,7 +3826,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2694,7 +3846,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2707,7 +3866,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2720,7 +3886,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2733,7 +3906,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2746,7 +3926,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2759,7 +3946,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2772,7 +3966,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2785,7 +3986,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2798,7 +4006,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2811,7 +4026,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
@@ -2824,7 +4046,14 @@ exports[`snapshots 1`] = `
             }
           />
         </td>
-        <td>
+        <td
+          style={
+            Object {
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
           <div
             style={
               Object {
