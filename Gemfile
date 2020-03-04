@@ -38,7 +38,7 @@ gem 'net-ssh'
 gem 'nokogiri', '~> 1.10.5' # https://github.com/sparklemotion/nokogiri/issues/1943
 gem 'openssl'
 gem 'pg'
-gem 'puma'
+gem 'puma', '~> 4.3.3'
 gem 'rollbar'
 gem 'twilio-ruby'
 
