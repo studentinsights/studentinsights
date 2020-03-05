@@ -111,8 +111,5 @@ const styles = {
 
 // Check env to see if this is running in dev mode in Storybook.
 function isStorybookDev() {
-  if (!window.process || !window.process.env) return false;
-  if (window.process.env.NODE_ENV !== 'development') return false;
-  if (window.process.env.STORYBOOK_RUNNING !== 'true') return false;
-  return true;
+  return (window.STORYBOOK_IS_RUNNING === 'yes_storybook_is_running');
 }
