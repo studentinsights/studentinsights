@@ -350,7 +350,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -4573,7 +4598,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -8859,7 +8909,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -13296,7 +13346,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -17762,7 +17812,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -22228,7 +22278,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -26501,7 +26551,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -30835,7 +30885,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -35056,7 +35131,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -39375,7 +39475,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -43885,7 +43985,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -48351,7 +48451,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -52817,7 +52917,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -57090,7 +57190,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -61424,7 +61524,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -65652,7 +65777,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -69988,7 +70113,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -74498,7 +74623,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -78964,7 +79089,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -83430,7 +83555,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -87703,7 +87828,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -92050,7 +92175,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -92432,7 +92582,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -92843,7 +93018,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -93269,7 +93444,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -93651,7 +93826,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -94033,7 +94208,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -94392,7 +94567,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -94812,7 +94987,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -95192,7 +95392,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -95602,7 +95827,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -96028,7 +96253,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -96410,7 +96635,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -96792,7 +97017,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -97151,7 +97376,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -97571,7 +97796,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -97958,7 +98208,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -98385,7 +98635,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -98811,7 +99061,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -99193,7 +99443,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -99575,7 +99825,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -99934,7 +100184,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
