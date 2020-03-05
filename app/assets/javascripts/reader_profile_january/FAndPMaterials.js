@@ -34,5 +34,6 @@ const MATERIAL_URLS = {
   'B': ['FP-B1-page', 'FP-B2-page'],
   'C': ['FP-C1-page', 'FP-C2-page'],
   'D': ['FP-D1-page', 'FP-D2-page'],
-  'E': ['FP-E1-page', 'FP-E2-page']
+  'E': ['FP-E1-page', 'FP-E2-page'],
+  'F': ['FP-F1-page', 'FP-F2-page']
 };

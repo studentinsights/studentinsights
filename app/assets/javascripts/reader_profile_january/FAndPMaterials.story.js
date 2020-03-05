@@ -3,14 +3,19 @@ import {storiesOf} from '@storybook/react';
 import FAndPMaterials from './FAndPMaterials';
 
 
+function renderLevel(rawLevelText) {
+  return <div style={styles.container}><FAndPMaterials rawLevelText={rawLevelText} /></div>;
+}
+
 storiesOf('reader_profile_january/FAndPMaterials', module) // eslint-disable-line no-undef
   .add('default', () => (
     <div>
-      <div style={styles.container}><FAndPMaterials rawLevelText="A" /></div>
-      <div style={styles.container}><FAndPMaterials rawLevelText="B" /></div>
-      <div style={styles.container}><FAndPMaterials rawLevelText="C" /></div>
-      <div style={styles.container}><FAndPMaterials rawLevelText="D" /></div>
-      <div style={styles.container}><FAndPMaterials rawLevelText="E" /></div>
+      {renderLevel("A")}
+      {renderLevel("B")}
+      {renderLevel("C")}
+      {renderLevel("D")}
+      {renderLevel("E")}
+      {renderLevel("F")}
     </div>
   ));
 
