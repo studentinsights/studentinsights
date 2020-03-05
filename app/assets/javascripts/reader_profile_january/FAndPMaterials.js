@@ -30,6 +30,9 @@ const styles = {
 
 
 const MATERIAL_URLS = {
-  'A': ['FP-A1-cover', 'FP-A1-page', 'FP-A2-cover', 'FP-A2-page'],
-  'B': ['FP-B1-cover', 'FP-B1-page', 'FP-B2-cover', 'FP-B2-page']
+  'A': ['FP-A1-page', 'FP-A2-page'],
+  'B': ['FP-B1-page', 'FP-B2-page'],
+  'C': ['FP-C1-page', 'FP-C2-page'],
+  'D': ['FP-D1-page', 'FP-D2-page'],
+  'E': ['FP-E1-page', 'FP-E2-page']
 };

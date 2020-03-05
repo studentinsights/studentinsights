@@ -10,6 +10,7 @@ storiesOf('reader_profile_january/FAndPMaterials', module) // eslint-disable-lin
       <div style={styles.container}><FAndPMaterials rawLevelText="B" /></div>
       <div style={styles.container}><FAndPMaterials rawLevelText="C" /></div>
       <div style={styles.container}><FAndPMaterials rawLevelText="D" /></div>
+      <div style={styles.container}><FAndPMaterials rawLevelText="E" /></div>
     </div>
   ));
 
