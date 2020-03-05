@@ -1,13 +1,15 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import FAndPMaterials from './FAndPMaterials';
+import FAndPMaterials, {UnrolledForTest} from './FAndPMaterials';
 
 
 function renderLevel(rawLevelText) {
   return <div style={styles.container}><FAndPMaterials rawLevelText={rawLevelText} /></div>;
 }
 
+console.log('remove unrolled');
 storiesOf('reader_profile_january/FAndPMaterials', module) // eslint-disable-line no-undef
+  .add('unrolled', () => <UnrolledForTest levelStyle={styles.container} />)
   .add('default', () => (
     <div>
       {renderLevel("A")}
@@ -28,6 +30,14 @@ storiesOf('reader_profile_january/FAndPMaterials', module) // eslint-disable-lin
       {renderLevel("P")}
       {renderLevel("Q")}
       {renderLevel("R")}
+      {renderLevel("S")}
+      {renderLevel("T")}
+      {renderLevel("U")}
+      {renderLevel("V")}
+      {renderLevel("W")}
+      {renderLevel("X")}
+      {renderLevel("Y")}
+      {renderLevel("Z")}
     </div>
   ));
 

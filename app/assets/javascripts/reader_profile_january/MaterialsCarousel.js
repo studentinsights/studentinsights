@@ -58,7 +58,7 @@ MaterialsCarousel.propTypes = {
   fileKeys: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-function MaterialImage({fileKey}) {
+export function MaterialImage({fileKey}) {
   // fileKey values are checked into source, but be defensive anyway
   const safeFileKey = fileKey.replace(/[^a-zA-Z0-9-]/g,'');
   const domain = (isStorybookDev()) ? 'http://localhost:3000' : '';
