@@ -18,6 +18,7 @@ storiesOf('reader_profile_january/FAndPMaterials', module) // eslint-disable-lin
       {renderLevel("F")}
       {renderLevel("G")}
       {renderLevel("H")}
+      {renderLevel("I")}
     </div>
   ));
 
