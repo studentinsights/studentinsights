@@ -8,10 +8,9 @@ export const PRESENT = '#ccc';
 export const BLANK = '#f8f8f8';
 
 
-
-export function boxStyle(dataPoint, gradeThen, style = {}) {
+export function pureBoxStyle(maybeShouldHighlight, style = {}) {
   // no data
-  if (!dataPoint) {
+  if (maybeShouldHighlight === null || maybeShouldHighlight === undefined) {
     return createBoxStyle(BLANK, {
       ...style,
       color: muchDarkerColor(BLANK).alpha(0.5).hex()
@@ -19,16 +18,22 @@ export function boxStyle(dataPoint, gradeThen, style = {}) {
   }
 
   // data, but how should we color it?
-  const isOrange = shouldHighlight(dataPoint, gradeThen);
-  if (isOrange === true) {
+  if (maybeShouldHighlight === true) {
     return createBoxStyle(ORANGE, style);
   }
-  if (isOrange === false) {
+  if (maybeShouldHighlight === false) {
     return createBoxStyle(GREEN, style);
   }
 
   // value, but no thresholds
   return createBoxStyle(PRESENT, style);
+}
+
+export function boxStyle(dataPoint, gradeThen, style = {}) {
+  const maybeShouldHighlight = (dataPoint)
+    ? shouldHighlight(dataPoint, gradeThen)
+    : null;
+  return pureBoxStyle(maybeShouldHighlight, style);
 }
 
 

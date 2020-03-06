@@ -14,7 +14,7 @@ export default class Data extends React.Component {
         <div style={styles.mainBox}>
           {this.renderBoxChart()}
         </div>
-        <div style={styles.expansions}>
+        <div>
           {this.renderCohort()}
           {this.renderExpandableRawScores()}
         </div>
@@ -88,6 +88,5 @@ Data.contextTypes = {
 const styles = {
   mainBox: {
     marginBottom: 40
-  },
-  expansions: {}
+  }
 };

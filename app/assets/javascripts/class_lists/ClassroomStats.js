@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import qs from 'query-string';
+import {previousGrade} from '../helpers/gradeText';
+import {starBucket} from '../helpers/star';
 import Hover from '../components/Hover';
 import Stack from '../components/Stack';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
@@ -17,7 +19,6 @@ import {
   female,
   nonBinary
 } from '../helpers/colors';
-import {previousGrade} from '../helpers/gradeText';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
   DIVERSITY_GROUPS,
@@ -28,7 +29,6 @@ import {
   isIepOr504,
   isLowIncome,
   isHighDiscipline,
-  starBucket,
   HighlightKeys
 } from './studentFilters';
 

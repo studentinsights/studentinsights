@@ -27,11 +27,18 @@ class ReaderProfile
       access: @student.access.as_json,
       iep_contents: iep_contents_json,
       feed_cards: feed_cards,
-      services: services_json
+      services: services_json,
+      reading_chart_data: reading_chart_data_json
     }
   end
 
   private
+  # Re-uses query and shape from main profile page
+  def reading_chart_data_json
+    profile_chart = StudentProfileChart.new(@student)
+    { star_series_reading_percentile: profile_chart.star_series_reading_percentile }
+  end
+
   def iep_contents_json
     iep_document = @student.latest_iep_document
     return nil if iep_document.nil?

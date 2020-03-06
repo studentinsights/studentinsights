@@ -5,6 +5,7 @@ import {previousGrade, gradeText} from '../helpers/gradeText';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
 import {boxStyle} from './colors';
+import {BoxChartContainer, YearBoxContainer, boxStructureStyle} from './BoxChartElements';
 
 
 export default class BoxChart extends React.Component {
@@ -18,7 +19,7 @@ export default class BoxChart extends React.Component {
     const schoolYear = toSchoolYear(nowFn());
 
     return (
-      <div className="BoxChart" style={styles.years}>
+      <BoxChartContainer>
         <YearBox
           gradeThen={previousGrade(gradeNow)}
           schoolYear={schoolYear-1}
@@ -34,7 +35,7 @@ export default class BoxChart extends React.Component {
           renderRaw={renderRaw}
           renderCellFn={renderCellFn}
         />
-      </div>
+      </BoxChartContainer>
     );
   }
 }
@@ -57,29 +58,31 @@ function YearBox(props) {
   const ds = benchmarkPeriodKeys.map(benchmarkPeriodKey => {
     return _.find(sortedDataPoints, d => d.benchmark_school_year === schoolYear && d.benchmark_period_key == benchmarkPeriodKey);
   });
+
+  const periodEls = benchmarkPeriodKeys.map((benchmarkPeriodKey, index) => {
+    const dataPoint = ds[index];
+    const value = dataPoint ? dataPoint.json.value : null;
+    const styled = boxStyle(dataPoint, gradeThen, boxStructureStyle);
+    const el = renderCellFn({
+      styled,
+      boxStyle: boxStructureStyle,
+      schoolYear,
+      gradeThen,
+      benchmarkPeriodKey,
+      dataPoint,
+      value
+    });
+    return (renderRaw)
+      ? el
+      : <div key={benchmarkPeriodKey} style={styled} title={value}>{el}</div>;
+  });
+
   return (
-    <div style={{...styles.yearBox, ...style}}>
-      <div style={styles.yearCells}>
-        {benchmarkPeriodKeys.map((benchmarkPeriodKey, index) => {
-          const dataPoint = ds[index];
-          const value = dataPoint ? dataPoint.json.value : null;
-          const styled = boxStyle(dataPoint, gradeThen, styles.box);
-          const el = renderCellFn({
-            styled,
-            boxStyle: styles.box,
-            schoolYear,
-            gradeThen,
-            benchmarkPeriodKey,
-            dataPoint,
-            value
-          });
-          return (renderRaw)
-            ? el
-            : <div key={benchmarkPeriodKey} style={styled} title={value}>{el}</div>;
-        })}
-      </div>
-      <div style={styles.yearWhen}>{gradeText(gradeThen)}, {schoolYear}</div>
-    </div>
+    <YearBoxContainer
+      periodEls={periodEls}
+      captionEl={`${gradeText(gradeThen)}, ${schoolYear}`}
+      style={style}
+    />
   );
 }
 YearBox.propTypes = {
@@ -91,28 +94,3 @@ YearBox.propTypes = {
   style: PropTypes.object
 };
 
-const styles = {
-  years: {
-    display: 'flex',
-    flexDirection: 'row',
-    fontSize: 12
-  },
-  yearBox: {
-    flex: 1
-  },
-  yearCells: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  yearWhen: {
-    marginTop: 5
-  },
-  box: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 40,
-    cursor: 'default'
-  }
-};
