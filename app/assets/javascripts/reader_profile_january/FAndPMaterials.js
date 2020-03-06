@@ -1,25 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {interpretFAndPEnglish} from '../reading/fAndPInterpreter';
-import MaterialsCarousel, {MaterialImage} from './MaterialsCarousel';
+import MaterialsCarousel from './MaterialsCarousel';
 
-console.log('remove this');
-export function UnrolledForTest({levelStyle = {}}) {
-  return (
-    <div>
-      {Object.keys(MATERIAL_URLS).map(level => {
-        const fileKeys = MATERIAL_URLS[level];
-        if (!fileKeys) return null;
-        return (
-          <div key={level} style={levelStyle}>
-            <h2>{level}</h2>
-            {fileKeys.map(fileKey => <MaterialImage key={fileKey} fileKey={fileKey} />)}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 export default function FAndPMaterials({rawLevelText}) {
   const level = interpretFAndPEnglish(rawLevelText);
@@ -46,7 +29,7 @@ const styles = {
 };
 
 
-const MATERIAL_URLS = {
+export const MATERIAL_URLS = {
   'A': ['FP-A1-page', 'FP-A2-page'],
   'B': ['FP-B1-page', 'FP-B2-page'],
   'C': ['FP-C1-page', 'FP-C2-page'],

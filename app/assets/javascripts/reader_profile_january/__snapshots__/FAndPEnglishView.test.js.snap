@@ -72,13 +72,13 @@ exports[`snapshots 1`] = `
           >
             <img
               className="MaterialImage"
-              src="/img/reading/FP-B1-cover.jpg"
+              src="/img/reading/FP-B1-page.jpg"
               style={
                 Object {
                   "border": "1px solid #ccc",
                 }
               }
-              title="FP-B1-cover"
+              title="FP-B1-page"
               width="100%"
             />
             <div
