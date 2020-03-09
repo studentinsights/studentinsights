@@ -3,6 +3,8 @@ import '../sprockets-shims';
 
 /* eslint-disable no-undef */
 function loadStories() {
+  global.STORYBOOK_IS_RUNNING = 'yes_storybook_is_running';
+
   mockJestFns();
 
   // components
@@ -42,6 +44,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/reader_profile_january/ReaderProfileJanuary.story');
   require('../../../app/assets/javascripts/reader_profile_january/FirstSoundFluencyView.story');
   require('../../../app/assets/javascripts/reader_profile_january/FAndPEnglishView.story');
+  require('../../../app/assets/javascripts/reader_profile_january/FAndPMaterials.story');
   require('../../../app/assets/javascripts/reader_profile_january/BoxChart.story');
   require('../../../app/assets/javascripts/reader_profile_january/CohortChart.story');
 
