@@ -90,6 +90,8 @@
   },
   "resolutions": {
     "auditjs/**/bin-links": "^1.1.7",
+    "eslint/**/acorn": "^7.1.1",
+    "jest/**/acorn": "^7.1.1",
     "jest/**/mixin-deep": "^2.0.1",
     "jest/**/set-value": "^3.0.1",
     "mem": "^4.3.0",
