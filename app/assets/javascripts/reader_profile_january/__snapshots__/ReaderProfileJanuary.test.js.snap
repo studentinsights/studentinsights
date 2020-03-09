@@ -350,7 +350,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -4573,7 +4598,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -8859,7 +8909,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -12815,7 +12865,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -13296,7 +13432,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -17325,7 +17461,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -17762,7 +17984,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -21791,7 +22013,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -22228,7 +22536,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -26087,7 +26395,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -26501,7 +26895,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -30360,7 +30754,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -30835,7 +31315,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -35056,7 +35561,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -39375,7 +39905,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -43404,7 +43934,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -43885,7 +44501,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -47914,7 +48530,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -48351,7 +49053,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -52380,7 +53082,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -52817,7 +53605,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -56676,7 +57464,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -57090,7 +57964,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -60949,7 +61823,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -61424,7 +62384,32 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -65652,7 +66637,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -69506,7 +70491,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -69988,7 +71059,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -74017,7 +75088,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74498,7 +75655,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -78527,7 +79684,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -78964,7 +80207,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -82993,7 +84236,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83430,7 +84759,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -87289,7 +88618,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -87703,7 +89118,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -91562,7 +92977,93 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                 >
                   <div>
                     <div>
-                      None
+                      <div
+                        className="MaterialsCarousel"
+                        style={
+                          Object {
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <img
+                          className="MaterialImage"
+                          src="/img/reading/FP-D1-page.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                            }
+                          }
+                          title="FP-D1-page"
+                          width="100%"
+                        />
+                        <div
+                          style={
+                            Object {
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        >
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "left": 0,
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ◄
+                          </div>
+                          <div
+                            onClick={[Function]}
+                            style={
+                              Object {
+                                "alignItems": "flex-end",
+                                "bottom": 0,
+                                "color": "white",
+                                "cursor": "pointer",
+                                "display": "flex",
+                                "fontSize": 12,
+                                "justifyContent": "center",
+                                "marginBottom": 15,
+                                "position": "absolute",
+                                "right": 0,
+                                "textShadow": "#999 0px 0px 1px",
+                                "top": 0,
+                                "width": 30,
+                              }
+                            }
+                          >
+                            ►
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "paddingLeft": 5,
+                          }
+                        }
+                      >
+                        Instructional level: 
+                        D
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -92050,7 +93551,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -92432,7 +93958,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -92843,7 +94394,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -93269,7 +94820,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -93651,7 +95202,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -94033,7 +95584,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -94392,7 +95943,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -94812,7 +96363,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -95192,7 +96768,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -95602,7 +97203,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -96028,7 +97629,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -96410,7 +98011,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -96792,7 +98393,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -97151,7 +98752,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -97571,7 +99172,32 @@ exports[`snapshots views across all testRuns 1`] = `
               </div>
               <div
                 style={Object {}}
-              />
+              >
+                <div
+                  className="Tab"
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#f8f8f8",
+                      "border": "1px solid #f8f8f8",
+                      "borderRadius": 1,
+                      "color": "#999",
+                      "cursor": "default",
+                      "display": "flex",
+                      "height": "3em",
+                      "justifyContent": "flex-start",
+                      "margin": 5,
+                      "marginLeft": 0,
+                      "marginRight": 10,
+                      "opacity": 0.5,
+                      "padding": 5,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Ask teacher
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -97958,7 +99584,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "rgb(147, 196, 125)",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -98385,7 +100011,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -98811,7 +100437,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -99193,7 +100819,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -99575,7 +101201,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
@@ -99934,7 +101560,7 @@ exports[`snapshots views across all testRuns 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#ccc",
+                      "backgroundColor": "orange",
                       "border": "1px solid #f8f8f8",
                       "borderRadius": 1,
                       "cursor": "pointer",
