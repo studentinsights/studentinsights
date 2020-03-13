@@ -6,6 +6,7 @@ import {adjustedGrade, gradeText} from '../helpers/gradeText';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {shouldHighlight} from '../helpers/star';
+import {percentileWithSuffix} from '../helpers/percentiles';
 import {benchmarkPeriodKeyFor} from '../reading/readingData';
 import expandedViewPropTypes from './expandedViewPropTypes';
 import {pureBoxStyle} from './colors';
@@ -93,7 +94,7 @@ export default class StarReadingView extends React.Component {
       const maybePercentile = maybeStar ? maybeStar.percentile_rank : null;
       const isOrange = shouldHighlight(maybePercentile);
       const boxStyle = pureBoxStyle(isOrange, boxStructureStyle);
-      const text = maybePercentile ? maybePercentile : 'none';
+      const text = maybePercentile ? percentileWithSuffix(maybePercentile) : 'none';
       return (
         <div key={index} style={boxStyle} title={text}>
           {text}
