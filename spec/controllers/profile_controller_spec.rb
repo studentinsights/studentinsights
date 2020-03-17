@@ -774,6 +774,9 @@ describe ProfileController, :type => :controller do
             "writing"=>nil
           },
           "benchmark_data_points" => [],
+          "reading_chart_data" => {
+            "star_series_reading_percentile"=>[]
+          },
           "feed_cards" => [],
           "iep_contents" => nil,
           "services" => []
