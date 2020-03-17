@@ -9,7 +9,7 @@ ruby '2.6.5'
 gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '6.0.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sprockets'
 gem 'thor'
@@ -45,7 +45,7 @@ gem 'twilio-ruby'
 ### standalone libraries
 # security
 gem 'ipcat'
-gem 'rbnacl'
+gem 'rbnacl', '~> 7.1.1'
 gem 'rotp'
 gem 'rqrcode'
 gem 'zxcvbn-js', require: 'zxcvbn'
