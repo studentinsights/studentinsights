@@ -45,7 +45,7 @@ gem 'twilio-ruby'
 ### standalone libraries
 # security
 gem 'ipcat'
-gem 'rbnacl'
+gem 'rbnacl', '~> 7.1.1'
 gem 'rotp'
 gem 'rqrcode'
 gem 'zxcvbn-js', require: 'zxcvbn'

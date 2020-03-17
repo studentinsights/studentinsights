@@ -298,7 +298,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    rbnacl (7.1.0)
+    rbnacl (7.1.1)
       ffi
     regexp_parser (1.6.0)
     representable (3.0.4)
@@ -459,7 +459,7 @@ DEPENDENCIES
   rails (~> 6.0.0)
   rails-controller-testing
   rails_best_practices
-  rbnacl
+  rbnacl (~> 7.1.1)
   rollbar
   rotp
   rqrcode
