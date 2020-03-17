@@ -9,7 +9,7 @@ ruby '2.6.5'
 gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '6.0.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sprockets'
 gem 'thor'
