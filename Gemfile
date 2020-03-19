@@ -10,7 +10,6 @@ gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'rails', '6.0.1'
-gem 'sass-rails', '~> 5.0'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
@@ -74,7 +73,6 @@ end
 # local development or test-only tools
 group :development, :test do
   gem 'better_errors'
-  gem 'bourbon', '~> 4.3.2'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'listen'
