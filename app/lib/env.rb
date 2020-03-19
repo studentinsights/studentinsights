@@ -19,6 +19,9 @@ class Env
     default_env['USE_MOCK_LDAP'] = 'true'
     default_env['MOCK_LDAP_PASSWORD'] = 'demo-password'
     default_env['AWS_REGION'] = 'us-west-2'
+    default_env['AWS_ACCESS_KEY_ID'] = 'fake-dev-aws-access-key-id'
+    default_env['AWS_SECRET_ACCESS_KEY'] = 'fake-dev-aws-secret-access-key'
+    default_env['AWS_SDK_CONFIG_OPT_OUT'] = 'true' # don't ever read config from disk (read it only from ENV variables)
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
     default_env['ROLLBAR_ACCESS_TOKEN'] = 'fake_rollbar_access_token';
     default_env['TWILIO_CONFIG_JSON'] = '{"account_sid":"fake-twilio-sid-foo","auth_token":"fake-twilio-auth-token-foo","sending_number":"+15555551234"}'
