@@ -43,7 +43,20 @@ module.exports = merge(common, {
           kep_fnames: true
         }
       })
-    ]
+    ],
+
+    // These are all based off of https://webpack.js.org/guides/caching/
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    }
   }
 });
 /* eslint-disable no-undef */
