@@ -55,6 +55,22 @@ module SomervilleTeacherTool
         config.autoload_paths << class_path
       end
 
+      # hack to workaround bug between i18n and zeitwork in Rails 6.0.2.2
+      # see https://github.com/rails/rails/blob/master/railties/lib/rails/tasks/zeitwerk.rake#L58
+      # can remove after https://github.com/rails/rails/issues/37966
+      #
+      # This monkey-patches any config namespace object that defines
+      # config but not config#eager_load_paths (eg, i18n)
+      Rails.configuration.eager_load_namespaces.each do |ns|
+        config_object = ns.try(:config)
+        next if config_object.nil?
+        if not config_object.respond_to?(:eager_load_paths)
+          def config_object.eager_load_paths
+            nil
+          end
+        end
+      end
+
       # see rack_attack.md and https://github.com/kickstarter/rack-attack and 
       config.middleware.use Rack::Attack
 
