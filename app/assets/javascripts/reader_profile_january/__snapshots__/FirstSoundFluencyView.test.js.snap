@@ -69,17 +69,22 @@ exports[`snapshots 1`] = `
             }
           }
         >
-          <img
+          <div
             className="MaterialImage"
-            src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-            style={
-              Object {
-                "border": "1px solid #ccc",
+            onClick={[Function]}
+          >
+            <img
+              src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "cursor": "zoom-in",
+                }
               }
-            }
-            title="FirstSoundFluency-KF-winter"
-            width="100%"
-          />
+              title="FirstSoundFluency-KF-winter"
+              width="100%"
+            />
+          </div>
         </div>
       </div>
     </div>

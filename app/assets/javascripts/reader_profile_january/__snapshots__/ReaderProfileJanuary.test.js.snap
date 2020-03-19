@@ -7374,17 +7374,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-fall"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -7801,17 +7806,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-KF-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-KF-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-KF-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-KF-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -11677,17 +11687,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -11899,17 +11914,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -12121,17 +12141,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -12377,17 +12402,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-1-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -12873,22 +12903,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -12908,6 +12944,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -12929,6 +12966,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -16200,17 +16238,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -16422,17 +16465,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -16644,17 +16692,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -16900,17 +16953,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -17156,22 +17214,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-2-fall-11.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-2-fall-11.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-2-fall-11"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-2-fall-11"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -17191,6 +17255,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -17212,6 +17277,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -17469,22 +17535,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -17504,6 +17576,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -17525,6 +17598,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -20752,17 +20826,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -20974,17 +21053,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -21196,17 +21280,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -21452,17 +21541,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -21708,22 +21802,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-fall-11.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-fall-11.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-fall-11"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-fall-11"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -21743,6 +21843,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -21764,6 +21865,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -22021,22 +22123,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -22056,6 +22164,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -22077,6 +22186,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -25304,17 +25414,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -25492,17 +25607,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -25680,17 +25800,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -25902,17 +26027,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -26124,22 +26254,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -26159,6 +26295,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -26180,6 +26317,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -26403,22 +26541,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -26438,6 +26582,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -26459,6 +26604,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -29663,17 +29809,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -29851,17 +30002,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -30039,17 +30195,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -30261,17 +30422,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -30483,22 +30649,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -30518,6 +30690,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -30539,6 +30712,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -30762,22 +30936,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -30797,6 +30977,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -30818,6 +30999,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -38337,17 +38519,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -38559,17 +38746,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -38781,17 +38973,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -39003,17 +39200,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -42673,17 +42875,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -42895,17 +43102,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -43117,17 +43329,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -43373,17 +43590,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-1-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-1-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-1-winter"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-1-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -43629,22 +43851,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-1-winter-21.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-1-winter-21.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title=" OralReadingFluency-1-winter-21"
-                        width="100%"
-                      />
+                          title=" OralReadingFluency-1-winter-21"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -43664,6 +43892,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -43685,6 +43914,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -43942,22 +44172,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -43977,6 +44213,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -43998,6 +44235,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -47269,17 +47507,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -47491,17 +47734,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -47713,17 +47961,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -47969,17 +48222,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -48225,22 +48483,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-2-winter-21.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-2-winter-21.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-2-winter-21"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-2-winter-21"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -48260,6 +48524,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -48281,6 +48546,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -48538,22 +48804,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -48573,6 +48845,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -48594,6 +48867,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -51821,17 +52095,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -52043,17 +52322,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -52265,17 +52549,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -52521,17 +52810,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -52777,22 +53071,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-winter-21.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-winter-21.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-winter-21"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-winter-21"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -52812,6 +53112,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -52833,6 +53134,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -53090,22 +53392,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -53125,6 +53433,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -53146,6 +53455,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -56373,17 +56683,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56561,17 +56876,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56749,17 +57069,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56971,17 +57296,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -57193,22 +57523,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -57228,6 +57564,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -57249,6 +57586,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -57472,22 +57810,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -57507,6 +57851,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -57528,6 +57873,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -60732,17 +61078,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -60920,17 +61271,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -61108,17 +61464,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -61330,17 +61691,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -61552,22 +61918,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -61587,6 +61959,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -61608,6 +61981,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -61831,22 +62205,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -61866,6 +62246,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -61887,6 +62268,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -69405,17 +69787,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -69627,17 +70014,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-KF-spring.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-KF-spring.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-KF-spring"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-KF-spring"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -69849,17 +70241,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-KF-spring.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-KF-spring.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-KF-spring"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-KF-spring"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -70071,17 +70468,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-KF-spring.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-KF-spring.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-KF-spring"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-KF-spring"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -70499,22 +70901,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -70534,6 +70942,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -70555,6 +70964,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -73827,17 +74237,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74049,17 +74464,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74271,17 +74691,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74527,17 +74952,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-1-spring.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-1-spring.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-1-spring"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-1-spring"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74783,22 +75213,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-1-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-1-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title=" OralReadingFluency-1-spring-31"
-                        width="100%"
-                      />
+                          title=" OralReadingFluency-1-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -74818,6 +75254,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -74839,6 +75276,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -75096,22 +75534,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -75131,6 +75575,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -75152,6 +75597,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -78423,17 +78869,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -78645,17 +79096,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -78867,17 +79323,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -79123,17 +79584,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -79379,22 +79845,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-2-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-2-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-2-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-2-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -79414,6 +79886,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -79435,6 +79908,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -79692,22 +80166,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -79727,6 +80207,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -79748,6 +80229,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -82975,17 +83457,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83197,17 +83684,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83419,17 +83911,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83675,17 +84172,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83931,22 +84433,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -83966,6 +84474,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -83987,6 +84496,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -84244,22 +84754,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -84279,6 +84795,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -84300,6 +84817,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -87527,17 +88045,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -87715,17 +88238,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -87903,17 +88431,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -88125,17 +88658,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -88347,22 +88885,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -88382,6 +88926,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -88403,6 +88948,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -88626,22 +89172,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -88661,6 +89213,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -88682,6 +89235,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
@@ -91886,17 +92440,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/FirstSoundFluency-KF-winter.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/FirstSoundFluency-KF-winter.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="FirstSoundFluency-KF-winter"
-                        width="100%"
-                      />
+                          title="FirstSoundFluency-KF-winter"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -92074,17 +92633,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/PhonemeSegmentationFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="PhonemeSegmentationFluency-1-fall"
-                        width="100%"
-                      />
+                          title="PhonemeSegmentationFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -92262,17 +92826,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/LetterNamingFluency-1-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/LetterNamingFluency-1-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="LetterNamingFluency-1-fall"
-                        width="100%"
-                      />
+                          title="LetterNamingFluency-1-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -92484,17 +93053,22 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/NonsenseWordFluency-2-fall.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/NonsenseWordFluency-2-fall.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="NonsenseWordFluency-2-fall"
-                        width="100%"
-                      />
+                          title="NonsenseWordFluency-2-fall"
+                          width="100%"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -92706,22 +93280,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                         }
                       }
                     >
-                      <img
+                      <div
                         className="MaterialImage"
-                        src="/img/reading/OralReadingFluency-3-spring-31.jpg"
-                        style={
-                          Object {
-                            "border": "1px solid #ccc",
+                        onClick={[Function]}
+                      >
+                        <img
+                          src="/img/reading/OralReadingFluency-3-spring-31.jpg"
+                          style={
+                            Object {
+                              "border": "1px solid #ccc",
+                              "cursor": "zoom-in",
+                            }
                           }
-                        }
-                        title="OralReadingFluency-3-spring-31"
-                        width="100%"
-                      />
+                          title="OralReadingFluency-3-spring-31"
+                          width="100%"
+                        />
+                      </div>
                       <div
                         style={
                           Object {
                             "bottom": 0,
                             "left": 0,
+                            "pointerEvents": "none",
                             "position": "absolute",
                             "right": 0,
                             "top": 0,
@@ -92741,6 +93321,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "justifyContent": "center",
                               "left": 0,
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "textShadow": "#999 0px 0px 1px",
                               "top": 0,
@@ -92762,6 +93343,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                               "fontSize": 12,
                               "justifyContent": "center",
                               "marginBottom": 15,
+                              "pointerEvents": "auto",
                               "position": "absolute",
                               "right": 0,
                               "textShadow": "#999 0px 0px 1px",
@@ -92985,22 +93567,28 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                           }
                         }
                       >
-                        <img
+                        <div
                           className="MaterialImage"
-                          src="/img/reading/FP-D1-page.jpg"
-                          style={
-                            Object {
-                              "border": "1px solid #ccc",
+                          onClick={[Function]}
+                        >
+                          <img
+                            src="/img/reading/FP-D1-page.jpg"
+                            style={
+                              Object {
+                                "border": "1px solid #ccc",
+                                "cursor": "zoom-in",
+                              }
                             }
-                          }
-                          title="FP-D1-page"
-                          width="100%"
-                        />
+                            title="FP-D1-page"
+                            width="100%"
+                          />
+                        </div>
                         <div
                           style={
                             Object {
                               "bottom": 0,
                               "left": 0,
+                              "pointerEvents": "none",
                               "position": "absolute",
                               "right": 0,
                               "top": 0,
@@ -93020,6 +93608,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "justifyContent": "center",
                                 "left": 0,
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "textShadow": "#999 0px 0px 1px",
                                 "top": 0,
@@ -93041,6 +93630,7 @@ exports[`snapshots across all testRuns, even when all views are expanded 1`] = `
                                 "fontSize": 12,
                                 "justifyContent": "center",
                                 "marginBottom": 15,
+                                "pointerEvents": "auto",
                                 "position": "absolute",
                                 "right": 0,
                                 "textShadow": "#999 0px 0px 1px",
