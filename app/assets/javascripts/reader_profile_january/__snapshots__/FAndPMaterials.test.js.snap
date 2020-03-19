@@ -10,22 +10,28 @@ exports[`snapshots 1`] = `
       }
     }
   >
-    <img
+    <div
       className="MaterialImage"
-      src="/img/reading/FP-A1-page.jpg"
-      style={
-        Object {
-          "border": "1px solid #ccc",
+      onClick={[Function]}
+    >
+      <img
+        src="/img/reading/FP-A1-page.jpg"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "cursor": "zoom-in",
+          }
         }
-      }
-      title="FP-A1-page"
-      width="100%"
-    />
+        title="FP-A1-page"
+        width="100%"
+      />
+    </div>
     <div
       style={
         Object {
           "bottom": 0,
           "left": 0,
+          "pointerEvents": "none",
           "position": "absolute",
           "right": 0,
           "top": 0,
@@ -45,6 +51,7 @@ exports[`snapshots 1`] = `
             "justifyContent": "center",
             "left": 0,
             "marginBottom": 15,
+            "pointerEvents": "auto",
             "position": "absolute",
             "textShadow": "#999 0px 0px 1px",
             "top": 0,
@@ -66,6 +73,7 @@ exports[`snapshots 1`] = `
             "fontSize": 12,
             "justifyContent": "center",
             "marginBottom": 15,
+            "pointerEvents": "auto",
             "position": "absolute",
             "right": 0,
             "textShadow": "#999 0px 0px 1px",
@@ -108,17 +116,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-A1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-A1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-A1-page"
-        width="100%"
-      />
+          title="FP-A1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -128,17 +141,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-A2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-A2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-A2-page"
-        width="100%"
-      />
+          title="FP-A2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -155,17 +173,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-B1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-B1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-B1-page"
-        width="100%"
-      />
+          title="FP-B1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -175,17 +198,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-B2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-B2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-B2-page"
-        width="100%"
-      />
+          title="FP-B2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -202,17 +230,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-C1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-C1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-C1-page"
-        width="100%"
-      />
+          title="FP-C1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -222,17 +255,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-C2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-C2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-C2-page"
-        width="100%"
-      />
+          title="FP-C2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -249,17 +287,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-D1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-D1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-D1-page"
-        width="100%"
-      />
+          title="FP-D1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -269,17 +312,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-D2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-D2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-D2-page"
-        width="100%"
-      />
+          title="FP-D2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -296,17 +344,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-E1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-E1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-E1-page"
-        width="100%"
-      />
+          title="FP-E1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -316,17 +369,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-E2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-E2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-E2-page"
-        width="100%"
-      />
+          title="FP-E2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -343,17 +401,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-F1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-F1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-F1-page"
-        width="100%"
-      />
+          title="FP-F1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -363,17 +426,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-F2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-F2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-F2-page"
-        width="100%"
-      />
+          title="FP-F2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -390,17 +458,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-G1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-G1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-G1-page"
-        width="100%"
-      />
+          title="FP-G1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -410,17 +483,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-G2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-G2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-G2-page"
-        width="100%"
-      />
+          title="FP-G2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -437,17 +515,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-H1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-H1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-H1-page"
-        width="100%"
-      />
+          title="FP-H1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -457,17 +540,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-H2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-H2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-H2-page"
-        width="100%"
-      />
+          title="FP-H2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -484,17 +572,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-I1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-I1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-I1-page"
-        width="100%"
-      />
+          title="FP-I1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -504,17 +597,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-I2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-I2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-I2-page"
-        width="100%"
-      />
+          title="FP-I2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -531,17 +629,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-J1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-J1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-J1-page"
-        width="100%"
-      />
+          title="FP-J1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -551,17 +654,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-J2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-J2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-J2-page"
-        width="100%"
-      />
+          title="FP-J2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -578,17 +686,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-K1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-K1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-K1-page"
-        width="100%"
-      />
+          title="FP-K1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -598,17 +711,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-K2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-K2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-K2-page"
-        width="100%"
-      />
+          title="FP-K2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -625,17 +743,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-L1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-L1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-L1-page"
-        width="100%"
-      />
+          title="FP-L1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -645,17 +768,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-L2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-L2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-L2-page"
-        width="100%"
-      />
+          title="FP-L2-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -665,17 +793,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-L3-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-L3-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-L3-page"
-        width="100%"
-      />
+          title="FP-L3-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -685,17 +818,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-L4-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-L4-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-L4-page"
-        width="100%"
-      />
+          title="FP-L4-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -712,17 +850,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-M1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-M1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-M1-page"
-        width="100%"
-      />
+          title="FP-M1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -732,17 +875,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-M2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-M2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-M2-page"
-        width="100%"
-      />
+          title="FP-M2-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -752,17 +900,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-M3-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-M3-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-M3-page"
-        width="100%"
-      />
+          title="FP-M3-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -772,17 +925,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-M4-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-M4-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-M4-page"
-        width="100%"
-      />
+          title="FP-M4-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -792,17 +950,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-M5-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-M5-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-M5-page"
-        width="100%"
-      />
+          title="FP-M5-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -819,17 +982,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-N1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-N1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-N1-page"
-        width="100%"
-      />
+          title="FP-N1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -839,17 +1007,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-N2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-N2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-N2-page"
-        width="100%"
-      />
+          title="FP-N2-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -859,17 +1032,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-N3-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-N3-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-N3-page"
-        width="100%"
-      />
+          title="FP-N3-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -879,17 +1057,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-N4-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-N4-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-N4-page"
-        width="100%"
-      />
+          title="FP-N4-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -906,17 +1089,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-O1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-O1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-O1-page"
-        width="100%"
-      />
+          title="FP-O1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -926,17 +1114,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-O2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-O2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-O2-page"
-        width="100%"
-      />
+          title="FP-O2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -953,17 +1146,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-P1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-P1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-P1-page"
-        width="100%"
-      />
+          title="FP-P1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -973,17 +1171,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-P2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-P2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-P2-page"
-        width="100%"
-      />
+          title="FP-P2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1000,17 +1203,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-Q1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-Q1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-Q1-page"
-        width="100%"
-      />
+          title="FP-Q1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1020,17 +1228,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-Q2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-Q2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-Q2-page"
-        width="100%"
-      />
+          title="FP-Q2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1047,17 +1260,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-R1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-R1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-R1-page"
-        width="100%"
-      />
+          title="FP-R1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1067,17 +1285,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-R2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-R2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-R2-page"
-        width="100%"
-      />
+          title="FP-R2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1094,17 +1317,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-S1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-S1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-S1-page"
-        width="100%"
-      />
+          title="FP-S1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1114,17 +1342,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-S2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-S2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-S2-page"
-        width="100%"
-      />
+          title="FP-S2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1141,17 +1374,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-T1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-T1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-T1-page"
-        width="100%"
-      />
+          title="FP-T1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1161,17 +1399,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-T2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-T2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-T2-page"
-        width="100%"
-      />
+          title="FP-T2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1188,17 +1431,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-U1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-U1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-U1-page"
-        width="100%"
-      />
+          title="FP-U1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1208,17 +1456,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-U2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-U2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-U2-page"
-        width="100%"
-      />
+          title="FP-U2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1235,17 +1488,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-V1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-V1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-V1-page"
-        width="100%"
-      />
+          title="FP-V1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1255,17 +1513,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-V2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-V2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-V2-page"
-        width="100%"
-      />
+          title="FP-V2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1282,17 +1545,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-W1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-W1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-W1-page"
-        width="100%"
-      />
+          title="FP-W1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1302,17 +1570,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-W2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-W2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-W2-page"
-        width="100%"
-      />
+          title="FP-W2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1329,17 +1602,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-X1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-X1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-X1-page"
-        width="100%"
-      />
+          title="FP-X1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1349,17 +1627,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-X2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-X2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-X2-page"
-        width="100%"
-      />
+          title="FP-X2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1376,17 +1659,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-Y1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-Y1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-Y1-page"
-        width="100%"
-      />
+          title="FP-Y1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1396,17 +1684,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-Y2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-Y2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-Y2-page"
-        width="100%"
-      />
+          title="FP-Y2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -1423,17 +1716,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-Z1-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-Z1-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-Z1-page"
-        width="100%"
-      />
+          title="FP-Z1-page"
+          width="100%"
+        />
+      </div>
     </div>
     <div
       className="MaterialsCarousel"
@@ -1443,17 +1741,22 @@ exports[`snapshots unrolled 1`] = `
         }
       }
     >
-      <img
+      <div
         className="MaterialImage"
-        src="/img/reading/FP-Z2-page.jpg"
-        style={
-          Object {
-            "border": "1px solid #ccc",
+        onClick={[Function]}
+      >
+        <img
+          src="/img/reading/FP-Z2-page.jpg"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "cursor": "zoom-in",
+            }
           }
-        }
-        title="FP-Z2-page"
-        width="100%"
-      />
+          title="FP-Z2-page"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
 </div>
