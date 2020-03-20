@@ -93,4 +93,3 @@ YearBox.propTypes = {
   renderRaw: PropTypes.bool,
   style: PropTypes.object
 };
-

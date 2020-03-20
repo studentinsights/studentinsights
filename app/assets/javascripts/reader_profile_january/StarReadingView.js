@@ -9,13 +9,13 @@ import {shouldHighlight} from '../helpers/star';
 import {percentileWithSuffix} from '../helpers/percentiles';
 import {benchmarkPeriodKeyFor} from '../reading/readingData';
 import expandedViewPropTypes from './expandedViewPropTypes';
-import {pureBoxStyle} from './colors';
+import {pickBoxColor} from './colors';
 import {COMPREHENSION} from './instructionalStrategies';
 import {matchStrategies} from './instructionalStrategies';
 import ExpandedLayout from './ExpandedLayout';
 import Strategies from './Strategies';
 import Expandable from './Expandable';
-import {BoxChartContainer, YearBoxContainer, boxStructureStyle} from './BoxChartElements';
+import {BoxChartContainer, YearBoxContainer, Box} from './BoxChartElements';
 
 
 export default class StarReadingView extends React.Component {
@@ -93,12 +93,12 @@ export default class StarReadingView extends React.Component {
 
       const maybePercentile = maybeStar ? maybeStar.percentile_rank : null;
       const isOrange = shouldHighlight(maybePercentile);
-      const boxStyle = pureBoxStyle(isOrange, boxStructureStyle);
+      const boxColor = pickBoxColor(maybePercentile, isOrange);
       const text = maybePercentile ? percentileWithSuffix(maybePercentile) : 'none';
       return (
-        <div key={index} style={boxStyle} title={text}>
+        <Box key={index} color={boxColor} title={text}>
           {text}
-        </div>
+        </Box>
       );
     });
     return (

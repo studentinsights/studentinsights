@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import chroma from 'chroma-js';
+import {BLANK} from './colors';
 
 
 export function BoxChartContainer({children}) {
@@ -27,15 +29,39 @@ YearBoxContainer.propTypes = {
 };
 
 
-export const boxStructureStyle = {
-  flex: 1,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: 40,
-  cursor: 'default'
+export function Box({color, title, children}) {
+  return <div title={title} style={boxStyle(color)}>{children}</div>;
+}
+Box.propTypes = {
+  color: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired
 };
 
+
+function boxStyle(color, style = {}) {
+  const boxStyle = {
+    background: color,
+    outline: `1px solid ${chroma(color).darken().hex()}`,
+    color: muchDarkerColor(color).hex(),
+    ...styles.boxStructure,
+    ...style
+  };
+
+  // darken outline if blank
+  if (color === BLANK) {
+    return {
+      ...boxStyle,
+      color: muchDarkerColor(color).alpha(0.5).hex()
+    };
+  }
+
+  return boxStyle;
+}
+
+function muchDarkerColor(color) {
+  return chroma(color).darken().darken();
+}
 
 
 const styles = {
@@ -53,5 +79,13 @@ const styles = {
   },
   yearWhen: {
     marginTop: 5
+  },
+  boxStructure: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    cursor: 'default'
   }
 };
