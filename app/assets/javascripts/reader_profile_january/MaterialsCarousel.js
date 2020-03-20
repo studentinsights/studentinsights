@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactModal from 'react-modal';
 
 
 export default class MaterialsCarousel extends React.Component {
@@ -58,20 +59,56 @@ MaterialsCarousel.propTypes = {
   fileKeys: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-function MaterialImage({fileKey}) {
-  // fileKey values are checked into source, but be defensive anyway
-  const safeFileKey = fileKey.replace(/[^a-zA-Z0-9-]/g,'');
-  const domain = (isStorybookDev()) ? 'http://localhost:3000' : '';
-  const path = `${domain}/img/reading/${safeFileKey}.jpg`;
-  return (
-    <img
-      className="MaterialImage"
-      title={fileKey}
-      width="100%"
-      style={styles.image}
-      src={path}
-    />
-  );
+class MaterialImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isExpanded: false
+    };
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(e) {
+    const {isExpanded} = this.state;
+    this.setState({isExpanded: !isExpanded});
+  }
+
+  render() {
+    const {isExpanded} = this.state;
+    return (
+      <div className="MaterialImage" onClick={this.onClick}>
+        {!isExpanded ? this.renderImage() : (
+          <ReactModal
+            isOpen={true}
+            style={{cursor: 'zoom-out'}}
+            onRequestClose={e => this.setState({isExpanded: false})}>
+            {this.renderImage()}
+          </ReactModal>
+        )}
+      </div>
+    );
+  }
+
+  renderImage() {
+    const {isExpanded} = this.state;
+    const zoomStyles = {
+      cursor: (isExpanded) ? 'zoom-out' : 'zoom-in'
+    };
+    
+    // fileKey values are checked into source, but be defensive anyway
+    const {fileKey} = this.props;
+    const safeFileKey = fileKey.replace(/[^a-zA-Z0-9-]/g,'');
+    const domain = (isStorybookDev()) ? 'http://localhost:3000' : '';
+    const path = `${domain}/img/reading/${safeFileKey}.jpg`;
+    return (
+      <img
+        title={fileKey}
+        width="100%"
+        style={{...styles.image, ...zoomStyles}}
+        src={path}
+      />
+    );
+  }
 }
 MaterialImage.propTypes = {
   fileKey: PropTypes.string.isRequired
@@ -87,9 +124,11 @@ const styles = {
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
+    pointerEvents: 'none'
   },
   arrow: {
+    pointerEvents: 'auto',
     color: 'white',
     textShadow: '#999 0px 0px 1px',
     fontSize: 12,

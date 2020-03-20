@@ -70,22 +70,28 @@ exports[`snapshots 1`] = `
               }
             }
           >
-            <img
+            <div
               className="MaterialImage"
-              src="/img/reading/FP-B1-page.jpg"
-              style={
-                Object {
-                  "border": "1px solid #ccc",
+              onClick={[Function]}
+            >
+              <img
+                src="/img/reading/FP-B1-page.jpg"
+                style={
+                  Object {
+                    "border": "1px solid #ccc",
+                    "cursor": "zoom-in",
+                  }
                 }
-              }
-              title="FP-B1-page"
-              width="100%"
-            />
+                title="FP-B1-page"
+                width="100%"
+              />
+            </div>
             <div
               style={
                 Object {
                   "bottom": 0,
                   "left": 0,
+                  "pointerEvents": "none",
                   "position": "absolute",
                   "right": 0,
                   "top": 0,
@@ -105,6 +111,7 @@ exports[`snapshots 1`] = `
                     "justifyContent": "center",
                     "left": 0,
                     "marginBottom": 15,
+                    "pointerEvents": "auto",
                     "position": "absolute",
                     "textShadow": "#999 0px 0px 1px",
                     "top": 0,
@@ -126,6 +133,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "justifyContent": "center",
                     "marginBottom": 15,
+                    "pointerEvents": "auto",
                     "position": "absolute",
                     "right": 0,
                     "textShadow": "#999 0px 0px 1px",

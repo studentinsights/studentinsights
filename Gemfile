@@ -9,8 +9,7 @@ ruby '2.6.5'
 gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.0.1'
-gem 'sass-rails', '~> 5.0'
+gem 'rails', '6.0.2.2'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
@@ -29,7 +28,7 @@ gem 'rack-attack'
 gem 'secure_headers'
 
 # services
-gem 'aws-sdk', '~> 2'
+gem 'aws-sdk-s3', '~> 1'
 gem 'dalli' # memcached for rack::attack
 gem 'google-api-client', "~> 0.28.7"
 gem 'net-ldap'
@@ -74,7 +73,6 @@ end
 # local development or test-only tools
 group :development, :test do
   gem 'better_errors'
-  gem 'bourbon', '~> 4.3.2'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'listen'
