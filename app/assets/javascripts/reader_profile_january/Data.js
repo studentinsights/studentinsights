@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {gradeText} from '../helpers/gradeText';
-import BoxChart, {renderDibelsBoxFn, renderRawDibelsScoreBoxFn} from './BoxChart';
+import BenchmarkBoxChart, {renderDibelsBoxFn, renderRawDibelsScoreBoxFn} from './BenchmarkBoxChart';
 import Expandable from './Expandable';
-import CohortChart from './CohortChart';
+import BenchmarkCohortChart from './BenchmarkCohortChart';
 
 
 export default class Data extends React.Component {
@@ -24,7 +24,7 @@ export default class Data extends React.Component {
   renderBoxChart() {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
-      <BoxChart
+      <BenchmarkBoxChart
         gradeNow={gradeNow}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}
@@ -37,7 +37,7 @@ export default class Data extends React.Component {
     const {studentId, gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
       <Expandable text={`Percentile in ${gradeText(gradeNow)} school cohort`}>
-        <CohortChart
+        <BenchmarkCohortChart
           studentId={studentId}
           gradeNow={gradeNow}
           readerJson={readerJson}
@@ -51,7 +51,7 @@ export default class Data extends React.Component {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
       <Expandable text="Raw scores">
-        <BoxChart
+        <BenchmarkBoxChart
           gradeNow={gradeNow}
           readerJson={readerJson}
           benchmarkAssessmentKey={benchmarkAssessmentKey}

@@ -5,8 +5,9 @@ import {toSchoolYear} from '../helpers/schoolYear';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {percentileWithSuffix} from '../helpers/percentiles';
 import GenericLoader from '../components/GenericLoader';
-import {BLANK, PRESENT} from './colors';
 import BenchmarkBoxChart from './BenchmarkBoxChart';
+import {Box} from './BoxChartElements';
+import {BLANK} from './colors';
 
 
 export default class BenchmarkCohortChart extends React.Component {
@@ -43,36 +44,37 @@ export default class BenchmarkCohortChart extends React.Component {
   renderBoxChartFromJson(json) {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
-      <DibelsBoxChart
+      <BenchmarkBoxChart
         gradeNow={gradeNow}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}
         renderRaw={true}
-        renderCellFn={({schoolYear, benchmarkPeriodKey, boxStyle}) => {
-          const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
-          const cell = json.cells[whenKey];
-          const pText = cell && cell.stats.p ? percentileWithSuffix(cell.stats.p) : null;
-          const tooltipText = (cell && cell.stats.p) ? [
-            'Within the school, at that grade level:',
-            `  ${padFormatStudentsHave(cell.stats.n_higher, 3)} a higher score`,
-            `  ${padFormatStudentsHave(cell.stats.n_equal, 3)} the same score`,
-            `  ${padFormatStudentsHave(cell.stats.n_lower, 3)} a lower score`,
-            '',
-            `A score of "${cell.value}" is in the ${pText} percentile`
-          ].join("\n") : null;
-          const cellStyle = {
-            ...boxStyle,
-            outline: `1px solid ${PRESENT}`,
-            backgroundColor: BLANK,
-            zIndex: pText ? 1 : 0 // for outline overlapping
-          };
-          return (
-            <div key={benchmarkPeriodKey} title={tooltipText} style={cellStyle}>
-              {pText}
-            </div>
-          );
-        }}
+        renderBoxFn={this.renderCohortBoxFn.bind(this, json)}
       />
+    );
+  }
+
+  renderCohortBoxFn(json, boxParams) {
+    const {schoolYear, benchmarkPeriodKey} = boxParams;
+    const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
+    const cell = json.cells[whenKey];
+    const pText = cell && cell.stats.p ? percentileWithSuffix(cell.stats.p) : null;
+    const tooltipText = (cell && cell.stats.p) ? [
+      'Within the school, at that grade level:',
+      `  ${padFormatStudentsHave(cell.stats.n_higher, 3)} a higher score`,
+      `  ${padFormatStudentsHave(cell.stats.n_equal, 3)} the same score`,
+      `  ${padFormatStudentsHave(cell.stats.n_lower, 3)} a lower score`,
+      '',
+      `A score of "${cell.value}" is in the ${pText} percentile`
+    ].join("\n") : null;
+    return (
+      <Box
+        key={benchmarkPeriodKey}
+        title={tooltipText}
+        color={BLANK}
+        style={{color: '#666'}}>
+        {pText}
+      </Box>
     );
   }
 }

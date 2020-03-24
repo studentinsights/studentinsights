@@ -6,7 +6,7 @@ exports[`snapshots 1`] = `
 >
   <div>
     <div
-      className="BoxChart"
+      className="BoxChartContainer"
       style={
         Object {
           "display": "flex",
@@ -16,6 +16,7 @@ exports[`snapshots 1`] = `
       }
     >
       <div
+        className="YearBoxContainer"
         style={
           Object {
             "flex": 1,
@@ -34,13 +35,14 @@ exports[`snapshots 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#f8f8f8",
+                "background": "#f8f8f8",
+                "color": "#666",
                 "cursor": "default",
                 "display": "flex",
                 "flex": 1,
                 "height": 40,
                 "justifyContent": "center",
-                "outline": "1px solid #ccc",
+                "outline": "1px solid #c5c5c5",
                 "zIndex": 0,
               }
             }
@@ -50,14 +52,15 @@ exports[`snapshots 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#f8f8f8",
+                "background": "#f8f8f8",
+                "color": "#666",
                 "cursor": "default",
                 "display": "flex",
                 "flex": 1,
                 "height": 40,
                 "justifyContent": "center",
-                "outline": "1px solid #ccc",
-                "zIndex": 1,
+                "outline": "1px solid #c5c5c5",
+                "zIndex": 0,
               }
             }
             title="Within the school, at that grade level:
@@ -73,14 +76,15 @@ A score of \\"101\\" is in the 20th percentile"
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#f8f8f8",
+                "background": "#f8f8f8",
+                "color": "#666",
                 "cursor": "default",
                 "display": "flex",
                 "flex": 1,
                 "height": 40,
                 "justifyContent": "center",
-                "outline": "1px solid #ccc",
-                "zIndex": 1,
+                "outline": "1px solid #c5c5c5",
+                "zIndex": 0,
               }
             }
             title="Within the school, at that grade level:
@@ -100,12 +104,11 @@ A score of \\"101\\" is in the 40th percentile"
             }
           }
         >
-          Kindergarten
-          , 
-          2018
+          Kindergarten, 2018
         </div>
       </div>
       <div
+        className="YearBoxContainer"
         style={
           Object {
             "flex": 1,
@@ -125,14 +128,15 @@ A score of \\"101\\" is in the 40th percentile"
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#f8f8f8",
+                "background": "#f8f8f8",
+                "color": "#666",
                 "cursor": "default",
                 "display": "flex",
                 "flex": 1,
                 "height": 40,
                 "justifyContent": "center",
-                "outline": "1px solid #ccc",
-                "zIndex": 1,
+                "outline": "1px solid #c5c5c5",
+                "zIndex": 0,
               }
             }
             title="Within the school, at that grade level:
@@ -148,14 +152,15 @@ A score of \\"132\\" is in the 60th percentile"
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#f8f8f8",
+                "background": "#f8f8f8",
+                "color": "#666",
                 "cursor": "default",
                 "display": "flex",
                 "flex": 1,
                 "height": 40,
                 "justifyContent": "center",
-                "outline": "1px solid #ccc",
-                "zIndex": 1,
+                "outline": "1px solid #c5c5c5",
+                "zIndex": 0,
               }
             }
             title="Within the school, at that grade level:
@@ -171,13 +176,14 @@ A score of \\"132\\" is in the 40th percentile"
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#f8f8f8",
+                "background": "#f8f8f8",
+                "color": "#666",
                 "cursor": "default",
                 "display": "flex",
                 "flex": 1,
                 "height": 40,
                 "justifyContent": "center",
-                "outline": "1px solid #ccc",
+                "outline": "1px solid #c5c5c5",
                 "zIndex": 0,
               }
             }
@@ -191,9 +197,7 @@ A score of \\"132\\" is in the 40th percentile"
             }
           }
         >
-          1st grade
-          , 
-          2019
+          1st grade, 2019
         </div>
       </div>
     </div>

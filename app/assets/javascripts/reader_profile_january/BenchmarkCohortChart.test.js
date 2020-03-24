@@ -4,7 +4,7 @@ import {withNowContext} from '../testing/NowContainer';
 import {expectSnapshotToMatchAfterTick} from '../testing/snapshotAsync';
 import fetchMock from 'fetch-mock/es5/client';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import {firstGradeWinter} from './BoxChart.fixture.js';
+import {firstGradeWinter} from './BenchmarkBoxChart.fixture.js';
 import BenchmarkCohortChart from './BenchmarkCohortChart';
 
 beforeEach(mockFetch);

@@ -95,5 +95,13 @@ export function renderDibelsBoxFn(params) {
 
 export function renderRawDibelsScoreBoxFn(params) {
   const {benchmarkPeriodKey, value} = params;
-  return <Box key={benchmarkPeriodKey} color={BLANK} title={value}>{value}</Box>;
+  return (
+    <Box
+      key={benchmarkPeriodKey}
+      title={value}
+      color={BLANK}
+      style={{color: '#666'}}>
+      {value}
+    </Box>
+  );
 }
