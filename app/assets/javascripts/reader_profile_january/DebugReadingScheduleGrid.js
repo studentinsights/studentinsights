@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {adjustedGrade} from '../helpers/gradeText';
 import ReadingScheduleGrid from '../reading/ReadingScheduleGrid';
-import {boxStyle} from './colors';
+import {renderBenchmarkValueBoxFn} from './BenchmarkBoxChart';
 
 
 export default class DebugReadingScheduleGrid extends React.Component {
@@ -34,8 +34,12 @@ function renderCellFn(readerJson, gradeNow, nowMoment, benchmarkAssessmentKey, g
         if (d.benchmark_period_key !== benchmarkPeriodKey) return null;
         const gradeThen = adjustedGrade(d.benchmark_school_year, gradeNow, nowMoment);
         if (gradeThen !== grade) return null;
-        const style = boxStyle(d, gradeThen, styles.box);
-        return <div key={index} style={style}>{d.json.value}</div>;
+        return renderBenchmarkValueBoxFn({
+          gradeThen,
+          dataPoint: d,
+          benchmarkPeriodKey: d.benchmark_period_key,
+          value: d.json.value
+        });
       })}
     </div>
   );
