@@ -34,12 +34,16 @@ function renderCellFn(readerJson, gradeNow, nowMoment, benchmarkAssessmentKey, g
         if (d.benchmark_period_key !== benchmarkPeriodKey) return null;
         const gradeThen = adjustedGrade(d.benchmark_school_year, gradeNow, nowMoment);
         if (gradeThen !== grade) return null;
-        return renderBenchmarkValueBoxFn({
-          gradeThen,
-          dataPoint: d,
-          benchmarkPeriodKey: d.benchmark_period_key,
-          value: d.json.value
-        });
+        return (
+          <div key={index} style={styles.box}>
+            {renderBenchmarkValueBoxFn({
+              gradeThen,
+              dataPoint: d,
+              benchmarkPeriodKey: d.benchmark_period_key,
+              value: d.json.value
+            })}
+          </div>
+        );
       })}
     </div>
   );
@@ -57,8 +61,8 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '2em',
-    height: '2em',
+    width: 40,
+    height: 40,
     cursor: 'default'
   }
 };

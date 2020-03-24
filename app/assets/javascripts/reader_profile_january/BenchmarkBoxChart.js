@@ -86,24 +86,24 @@ YearBox.propTypes = {
 };
 
 
-export function renderDibelsBoxFn(params) {
-  return renderColoredBox(params, params.benchmarkPeriodKey);
+export function renderDibelsBoxFn(boxParams) {
+  return renderColoredBox(boxParams, boxParams.benchmarkPeriodKey);
 }
 
-export function renderBenchmarkValueBoxFn(params) {
-  return renderColoredBox(params, params.value);
+export function renderBenchmarkValueBoxFn(boxParams, style = {}) {
+  return renderColoredBox(boxParams, boxParams.value, style);
 }
 
-function renderColoredBox(params, contentEl) {
-  const {benchmarkPeriodKey, dataPoint, gradeThen, value} = params;
+function renderColoredBox(boxParams, contentEl, style = {}) {
+  const {benchmarkPeriodKey, dataPoint, gradeThen, value} = boxParams;
   const maybeShouldHighlight = (!dataPoint) ? null : shouldHighlight(dataPoint, gradeThen);
   const color = pickBoxColor(dataPoint, maybeShouldHighlight);
   const title = (value) ? value.toString() : null;
-  return <Box key={benchmarkPeriodKey} title={title} color={color}>{contentEl}</Box>;
+  return <Box key={benchmarkPeriodKey} title={title} color={color} style={style}>{contentEl}</Box>;
 }
 
-export function renderRawDibelsScoreBoxFn(params) {
-  const {benchmarkPeriodKey, value} = params;
+export function renderRawDibelsScoreBoxFn(boxParams) {
+  const {benchmarkPeriodKey, value} = boxParams;
   return (
     <Box
       key={benchmarkPeriodKey}
