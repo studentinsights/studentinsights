@@ -30,12 +30,16 @@ YearBoxContainer.propTypes = {
 
 
 export function Box({color, title, children}) {
-  return <div title={title} style={boxStyle(color)}>{children}</div>;
+  const computedStyle = {
+    ...boxStyle(color),
+    zIndex: color === BLANK ? 0 : 1 // for outlines that overlap
+  };
+  return <div title={title} style={computedStyle}>{children}</div>;
 }
 Box.propTypes = {
   color: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node,
+  title: PropTypes.string
 };
 
 

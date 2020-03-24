@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {gradeText} from '../helpers/gradeText';
-import BoxChart from './BoxChart';
+import BoxChart, {renderDibelsBoxFn, renderRawDibelsScoreBoxFn} from './BoxChart';
 import Expandable from './Expandable';
 import CohortChart from './CohortChart';
-import {BLANK, PRESENT} from './colors';
 
 
 export default class Data extends React.Component {
@@ -29,7 +28,7 @@ export default class Data extends React.Component {
         gradeNow={gradeNow}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}
-        renderCellFn={({benchmarkPeriodKey}) => benchmarkPeriodKey}
+        renderBoxFn={renderDibelsBoxFn}
       />
     );
   }
@@ -56,19 +55,7 @@ export default class Data extends React.Component {
           gradeNow={gradeNow}
           readerJson={readerJson}
           benchmarkAssessmentKey={benchmarkAssessmentKey}
-          renderCellFn={({value, benchmarkPeriodKey, boxStyle}) => {
-            const cellStyle = {
-              ...boxStyle,
-              outline: `1px solid ${PRESENT}`,
-              backgroundColor: BLANK,
-              zIndex: value ? 1 : 0 // for outline overlapping
-            };
-            return (
-              <div key={benchmarkPeriodKey} style={cellStyle}>
-                {value}
-              </div>
-            );
-          }}
+          renderBoxFn={renderRawDibelsScoreBoxFn}
         />
       </Expandable>
     );

@@ -42,6 +42,7 @@ function loadStories() {
   // reader profile (june, january)
   require('../../../app/assets/javascripts/reader_profile/ReaderProfileJune.story');
   require('../../../app/assets/javascripts/reader_profile_january/ReaderProfileJanuary.story');
+  require('../../../app/assets/javascripts/reader_profile_january/StarReadingView.story');
   require('../../../app/assets/javascripts/reader_profile_january/FirstSoundFluencyView.story');
   require('../../../app/assets/javascripts/reader_profile_january/FAndPEnglishView.story');
   require('../../../app/assets/javascripts/reader_profile_january/FAndPMaterials.story');

@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import {withNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {firstGradeWinter} from './BoxChart.fixture.js';
-import BoxChart from './BoxChart';
+import BoxChart, {renderDibelsBoxFn, renderRawDibelsScoreBoxFn} from './BoxChart';
 
 
 // this test data is only correct shape, but not semantically meaningful
@@ -20,7 +20,7 @@ export function testProps(props = {}) {
       "current_school_year": 2019,
       "benchmark_data_points": firstGradeWinter
     },
-    renderCellFn: params => params.benchmarkPeriodKey,
+    renderBoxFn: renderDibelsBoxFn,
     ...props
   };
 }
@@ -39,7 +39,12 @@ it('renders without crashing', () => {
 });
 
 
-it('snapshots', () => {
+it('snapshots renderDibelsBoxFn', () => {
   const tree = renderer.create(testRender(testProps())).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots renderRawDibelsScoreBoxFn', () => {
+  const tree = renderer.create(testRender(testProps({renderBoxFn: renderRawDibelsScoreBoxFn}))).toJSON();
   expect(tree).toMatchSnapshot();
 });
