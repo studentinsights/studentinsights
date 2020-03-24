@@ -4,6 +4,8 @@ RSpec.describe FAndPInterpreter do
   describe '#interpret_f_and_p_english' do
     it 'works' do
       f_and_p = FAndPInterpreter.new
+      expect(f_and_p.interpret_f_and_p_english(nil)).to eq nil
+      expect(f_and_p.interpret_f_and_p_english('')).to eq nil
       expect(f_and_p.interpret_f_and_p_english('aa')).to eq 'AA'
       expect(f_and_p.interpret_f_and_p_english('a')).to eq 'A'
       expect(f_and_p.interpret_f_and_p_english('A')).to eq 'A'
@@ -29,6 +31,8 @@ RSpec.describe FAndPInterpreter do
     it 'works' do
       f_and_p = FAndPInterpreter.new
       manually_ordered = [
+        f_and_p.ordering(nil),
+        f_and_p.ordering(''),
         f_and_p.ordering('B(independent), instructional(C)'),
         f_and_p.ordering('C(instructional), independent(B)'),
         f_and_p.ordering('C(instructional), B (independent)'),

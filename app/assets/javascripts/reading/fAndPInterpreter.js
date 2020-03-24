@@ -9,6 +9,10 @@ import {
 // for each, round down (latest independent 'mastery' level)
 // if not found in list of levels and can't understand, return null
 export function interpretFAndPEnglish(text) {
+  if (text === null || text === undefined) {
+    return null;
+  }
+  
   // always trim whitespace
   if (text.length !== text.trim().length) return interpretFAndPEnglish(text.trim());
 

@@ -8,6 +8,8 @@ import {
 
 
 it('#interpretFAndPEnglish', () => {
+  expect(interpretFAndPEnglish(null)).toEqual(null);
+  expect(interpretFAndPEnglish('')).toEqual(null);
   expect(interpretFAndPEnglish('aa')).toEqual('AA');
   expect(interpretFAndPEnglish('a')).toEqual('A');
   expect(interpretFAndPEnglish('A')).toEqual('A');
@@ -68,6 +70,8 @@ describe('#classifyFAndPEnglish', () => {
 describe('#fAndPOrdering', () => {
   it('works', () => {
     const manuallyOrdered = [
+      fAndPOrdering(null),
+      fAndPOrdering(''),
       fAndPOrdering('B(independent), instructional(C)'),
       fAndPOrdering('C(instructional), independent(B)'),
       fAndPOrdering('C(instructional), B (independent)'),
