@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {withNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import {firstGradeWinter} from './BoxChart.fixture.js';
-import BoxChart, {renderDibelsBoxFn, renderRawDibelsScoreBoxFn} from './BoxChart';
+import {firstGradeWinter} from './BenchmarkBoxChart.fixture.js';
+import BenchmarkBoxChart, {renderDibelsBoxFn, renderRawDibelsScoreBoxFn} from './BenchmarkBoxChart';
 
 
 // this test data is only correct shape, but not semantically meaningful
@@ -28,7 +28,7 @@ export function testProps(props = {}) {
 export function testRender(props = {}) {
   return withNowContext('2020-01-03T14:36:34.501Z',
     <PerDistrictContainer districtKey="somerville">
-      <BoxChart {...props} />
+      <BenchmarkBoxChart {...props} />
     </PerDistrictContainer>
   );
 }

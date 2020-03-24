@@ -5,7 +5,7 @@ import {expectSnapshotToMatchAfterTick} from '../testing/snapshotAsync';
 import fetchMock from 'fetch-mock/es5/client';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {firstGradeWinter} from './BoxChart.fixture.js';
-import CohortChart from './CohortChart';
+import BenchmarkCohortChart from './BenchmarkCohortChart';
 
 beforeEach(mockFetch);
 
@@ -41,7 +41,7 @@ export function testProps(props = {}) {
 export function testRender(props = {}) {
   return withNowContext('2020-01-03T14:36:34.501Z',
     <PerDistrictContainer districtKey="somerville">
-      <CohortChart {...props} />
+      <BenchmarkCohortChart {...props} />
     </PerDistrictContainer>
   );
 }

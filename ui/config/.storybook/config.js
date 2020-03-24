@@ -46,8 +46,8 @@ function loadStories() {
   require('../../../app/assets/javascripts/reader_profile_january/FirstSoundFluencyView.story');
   require('../../../app/assets/javascripts/reader_profile_january/FAndPEnglishView.story');
   require('../../../app/assets/javascripts/reader_profile_january/FAndPMaterials.story');
-  require('../../../app/assets/javascripts/reader_profile_january/BoxChart.story');
-  require('../../../app/assets/javascripts/reader_profile_january/CohortChart.story');
+  require('../../../app/assets/javascripts/reader_profile_january/BenchmarkBoxChart.story');
+  require('../../../app/assets/javascripts/reader_profile_january/BenchmarkBoxChart.story');
 
   //reading (grouping, data entry, debug)
   require('../../../app/assets/javascripts/reading/ChooseTeam.story');

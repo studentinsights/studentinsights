@@ -1,9 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {testProps, testRender} from './BoxChart.test';
-import {renderRawDibelsScoreBoxFn} from './BoxChart';
+import {testProps, testRender} from './BenchmarkBoxChart.test';
+import {renderRawDibelsScoreBoxFn} from './BenchmarkBoxChart';
 
-storiesOf('reader_profile_january/BoxChart', module) // eslint-disable-line no-undef
+storiesOf('reader_profile_january/BenchmarkBoxChart', module) // eslint-disable-line no-undef
   .add('default', () => (
     <div style={{width: 600, margin: 10}}>
       <div style={{padding: 20}}>

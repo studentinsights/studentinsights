@@ -1,9 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {mockFetch, testProps, testRender} from './CohortChart.test';
+import {mockFetch, testProps, testRender} from './BenchmarkCohortChart.test';
 
 
-storiesOf('reader_profile_january/CohortChart', module) // eslint-disable-line no-undef
+storiesOf('reader_profile_january/BenchmarkCohortChart', module) // eslint-disable-line no-undef
   .add('default', () => {
     mockFetch();
     return (

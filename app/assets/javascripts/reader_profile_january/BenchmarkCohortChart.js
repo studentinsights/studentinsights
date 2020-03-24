@@ -6,10 +6,10 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import {percentileWithSuffix} from '../helpers/percentiles';
 import GenericLoader from '../components/GenericLoader';
 import {BLANK, PRESENT} from './colors';
-import BoxChart from './BoxChart';
+import BenchmarkBoxChart from './BenchmarkBoxChart';
 
 
-export default class CohortChart extends React.Component {
+export default class BenchmarkCohortChart extends React.Component {
   constructor(props) {
     super(props);
 
@@ -43,7 +43,7 @@ export default class CohortChart extends React.Component {
   renderBoxChartFromJson(json) {
     const {gradeNow, readerJson, benchmarkAssessmentKey} = this.props;
     return (
-      <BoxChart
+      <DibelsBoxChart
         gradeNow={gradeNow}
         readerJson={readerJson}
         benchmarkAssessmentKey={benchmarkAssessmentKey}
@@ -76,10 +76,10 @@ export default class CohortChart extends React.Component {
     );
   }
 }
-CohortChart.contextTypes = {
+BenchmarkCohortChart.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
-CohortChart.propTypes = {
+BenchmarkCohortChart.propTypes = {
   studentId: PropTypes.number.isRequired,
   gradeNow: PropTypes.string.isRequired,
   benchmarkAssessmentKey: PropTypes.string.isRequired,

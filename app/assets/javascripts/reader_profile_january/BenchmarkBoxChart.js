@@ -9,7 +9,7 @@ import {BLANK, pickBoxColor} from './colors';
 import {BoxChartContainer, YearBoxContainer, Box} from './BoxChartElements';
 
 
-export default class BoxChart extends React.Component {
+export default class BenchmarkBoxChart extends React.Component {
   render() {
     const {nowFn} = this.context;
     const {gradeNow, readerJson, benchmarkAssessmentKey, renderBoxFn} = this.props;
@@ -38,13 +38,13 @@ export default class BoxChart extends React.Component {
     );
   }
 }
-BoxChart.propTypes = {
+BenchmarkBoxChart.propTypes = {
   readerJson: PropTypes.object.isRequired,
   benchmarkAssessmentKey: PropTypes.string.isRequired,
   gradeNow: PropTypes.string.isRequired,
   renderBoxFn: PropTypes.func.isRequired
 };
-BoxChart.contextTypes = {
+BenchmarkBoxChart.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 
