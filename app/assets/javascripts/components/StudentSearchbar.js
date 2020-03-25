@@ -31,8 +31,22 @@ export default class StudentSearchbar extends React.Component {
       .catch(err => reportToRollbar('StudentSearchbar#catch', err));
   }
 
+  // Accessing this property at all can throw if storage (eg, if blocking
+  // all cookies in Safari).  We don't want to support that anyway, but
+  // here we should ignore and not try to use the cache, rather than
+  // raising all the way up.
+  getSessionStorageOrNull() {
+    try {
+      return this.props.sessionStorage || window.sessionStorage;
+    } catch (err) {
+      return null;
+    }
+  }
+
   fetchStudentsJson() {
-    const {sessionStorage, cacheKey} = this.props;
+    const {cacheKey} = this.props;
+    const sessionStorage = this.getSessionStorageOrNull();
+
     // If no sessionStorage, always have to fetch
     if (!sessionStorage) return this.fetchStudentsJsonFromServer();
 
@@ -46,10 +60,13 @@ export default class StudentSearchbar extends React.Component {
 
   // Fetch and also update the sessionStorage cache
   fetchStudentsJsonFromServer() {
-    const {sessionStorage, cacheKey} = this.props;
+    const {cacheKey} = this.props;
     const url = '/api/educators/student_searchbar_json';
     return apiFetchJson(url).then(json => {
-      sessionStorage.setItem(cacheKey, JSON.stringify(json));
+      const sessionStorage = this.getSessionStorageOrNull();
+      if (sessionStorage) {
+        sessionStorage.setItem(cacheKey, JSON.stringify(json));
+      }
       return json;
     });
   }
@@ -182,8 +199,7 @@ StudentSearchbar.propTypes = {
 };
 StudentSearchbar.defaultProps = {
   matchesLimit: 500,
-  cacheKey: 'studentInsights.studentSearchbar.studentNamesCacheKey',
-  sessionStorage: window.sessionStorage
+  cacheKey: 'studentInsights.studentSearchbar.studentNamesCacheKey'
 };
 
 const styles = {
