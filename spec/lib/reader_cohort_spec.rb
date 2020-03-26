@@ -24,7 +24,6 @@ RSpec.describe ReaderCohort do
     end
   end
 
-
   describe '#interpret_f_and_p_english' do
     let!(:pals) { TestPals.create! }
 
@@ -105,7 +104,7 @@ RSpec.describe ReaderCohort do
     it 'returns nil if no values' do
       expect(test_stats('f_and_p_english', 'C', [nil, nil])).to eq nil
     end
-    
+
     it 'filters out nils' do
       with_nils = test_stats('f_and_p_english', 'C', [nil, nil, 'F', nil])
       without_nils = test_stats('f_and_p_english', 'C', ['F'])
