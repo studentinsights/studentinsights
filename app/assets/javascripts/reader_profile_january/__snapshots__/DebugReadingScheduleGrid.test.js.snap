@@ -3254,18 +3254,33 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "#ccc",
-                  "color": "#6d6d6d",
                   "cursor": "default",
                   "display": "flex",
-                  "height": "2em",
+                  "height": 40,
                   "justifyContent": "center",
-                  "outline": "1px solid #9b9b9b",
-                  "width": "2em",
+                  "width": 40,
                 }
               }
             >
-              AA
+              <div
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "background": "#ccc",
+                    "color": "#6d6d6d",
+                    "cursor": "default",
+                    "display": "flex",
+                    "flex": 1,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "outline": "1px solid #9b9b9b",
+                    "zIndex": 1,
+                  }
+                }
+                title="AA"
+              >
+                AA
+              </div>
             </div>
           </div>
         </td>
@@ -3292,18 +3307,33 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "#ccc",
-                  "color": "#6d6d6d",
                   "cursor": "default",
                   "display": "flex",
-                  "height": "2em",
+                  "height": 40,
                   "justifyContent": "center",
-                  "outline": "1px solid #9b9b9b",
-                  "width": "2em",
+                  "width": 40,
                 }
               }
             >
-              B
+              <div
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "background": "#ccc",
+                    "color": "#6d6d6d",
+                    "cursor": "default",
+                    "display": "flex",
+                    "flex": 1,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "outline": "1px solid #9b9b9b",
+                    "zIndex": 1,
+                  }
+                }
+                title="B"
+              >
+                B
+              </div>
             </div>
           </div>
         </td>
@@ -3330,18 +3360,33 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "rgb(147, 196, 125)",
-                  "color": "#366525",
                   "cursor": "default",
                   "display": "flex",
-                  "height": "2em",
+                  "height": 40,
                   "justifyContent": "center",
-                  "outline": "1px solid #649350",
-                  "width": "2em",
+                  "width": 40,
                 }
               }
             >
-              E
+              <div
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "background": "rgb(147, 196, 125)",
+                    "color": "#366525",
+                    "cursor": "default",
+                    "display": "flex",
+                    "flex": 1,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "outline": "1px solid #649350",
+                    "zIndex": 1,
+                  }
+                }
+                title="E"
+              >
+                E
+              </div>
             </div>
           </div>
         </td>
@@ -3368,18 +3413,33 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "rgb(147, 196, 125)",
-                  "color": "#366525",
                   "cursor": "default",
                   "display": "flex",
-                  "height": "2em",
+                  "height": 40,
                   "justifyContent": "center",
-                  "outline": "1px solid #649350",
-                  "width": "2em",
+                  "width": 40,
                 }
               }
             >
-              F
+              <div
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "background": "rgb(147, 196, 125)",
+                    "color": "#366525",
+                    "cursor": "default",
+                    "display": "flex",
+                    "flex": 1,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "outline": "1px solid #649350",
+                    "zIndex": 1,
+                  }
+                }
+                title="F"
+              >
+                F
+              </div>
             </div>
           </div>
         </td>
@@ -3406,18 +3466,33 @@ exports[`snapshots 1`] = `
               style={
                 Object {
                   "alignItems": "center",
-                  "background": "rgb(147, 196, 125)",
-                  "color": "#366525",
                   "cursor": "default",
                   "display": "flex",
-                  "height": "2em",
+                  "height": 40,
                   "justifyContent": "center",
-                  "outline": "1px solid #649350",
-                  "width": "2em",
+                  "width": 40,
                 }
               }
             >
-              L
+              <div
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "background": "rgb(147, 196, 125)",
+                    "color": "#366525",
+                    "cursor": "default",
+                    "display": "flex",
+                    "flex": 1,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "outline": "1px solid #649350",
+                    "zIndex": 1,
+                  }
+                }
+                title="L"
+              >
+                L
+              </div>
             </div>
           </div>
         </td>

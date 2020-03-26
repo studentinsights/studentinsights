@@ -1,14 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import chroma from 'chroma-js';
+import {starBucketThresholds, starBucket} from '../helpers/star';
 import {
   isLimitedOrFlep,
   isIepOr504,
   isLowIncome,
   isHighDiscipline,
-  starBucketThresholds,
   HighlightKeys,
-  starBucket
 } from './studentFilters';
 import {
   DIVERSITY_GROUPS,

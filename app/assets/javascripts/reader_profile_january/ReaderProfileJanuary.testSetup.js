@@ -70,7 +70,10 @@ function createDefaultProps(props = {}) {
       iep_contents: null,
       feed_cards: [],
       current_school_year: 2019,
-      benchmark_data_points: []
+      benchmark_data_points: [],
+      reading_chart_data: {
+        star_series_reading_percentile: []
+      }
     },
     instructionalStrategies: readInstructionalStrategies(),
     ...props
@@ -117,6 +120,17 @@ function testAccess(beforeNowString, options = {}) {
   };
 }
 
+function testStarReading(nowString, gradeNow) {
+  const dateTaken = toMomentFromTimestamp(nowString).clone().subtract(20, 'days').format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+  return [{
+    id: 42,
+    date_taken: dateTaken,
+    percentile_rank: 32,
+    grade_equivalent: parseInt(gradeNow) - 0.4,
+    total_time: 40
+  }];
+}
+
 
 function benchmark(params = {}) {
   const dataPoint = {
@@ -151,7 +165,15 @@ function studentCases(nowString, props = {}) {
     }),
     deterministicSampleFor('Amir', '3', nowString, defaultProps),
     deterministicSampleFor('Matt', '4', nowString, defaultProps),
-    deterministicSampleFor('Meena', '5', nowString, defaultProps),
+    deterministicSampleFor('Meena', '5', nowString, {
+      ...defaultProps,
+      readerJson: {
+        ...defaultProps.readerJson,
+        reading_chart_data: {
+          star_series_reading_percentile: testStarReading(nowString, '5')
+        }
+      }
+    }),
   ];
 }
 

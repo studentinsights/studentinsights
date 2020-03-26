@@ -16,6 +16,7 @@ import BoxAndWhisker from '../components/BoxAndWhisker';
 import {classifyFAndPEnglish, interpretFAndPEnglish} from '../reading/fAndPInterpreter';
 import {benchmarkPeriodKeyFor} from '../reading/readingData';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {starBucket} from '../helpers/star';
 import {
   high,
   medium,
@@ -23,7 +24,6 @@ import {
   missing
 } from '../helpers/colors';
 import GradeTimeGrid from './GradeTimeGrid';
-import {starBucket} from '../class_lists/studentFilters';
 
 // For reviewing, debugging and developing new ways to make use of
 // or revise reading data.

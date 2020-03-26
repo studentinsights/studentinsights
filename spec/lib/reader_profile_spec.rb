@@ -65,7 +65,8 @@ RSpec.describe ReaderProfile do
         'benchmark_data_points',
         'feed_cards',
         'services',
-        'iep_contents'
+        'iep_contents',
+        'reading_chart_data'
       ])
       expect(json['iep_contents']).to match({
         'iep_document'=>{

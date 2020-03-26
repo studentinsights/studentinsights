@@ -1,0 +1,365 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots renderDibelsBoxFn 1`] = `
+<div
+  className="BoxChartContainer"
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "row",
+      "fontSize": 12,
+    }
+  }
+>
+  <div
+    className="YearBoxContainer"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#ccc",
+            "color": "#6d6d6d",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #9b9b9b",
+            "zIndex": 1,
+          }
+        }
+        title="AA"
+      >
+        fall
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#ccc",
+            "color": "#6d6d6d",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #9b9b9b",
+            "zIndex": 1,
+          }
+        }
+        title="B"
+      >
+        winter
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "rgb(147, 196, 125)",
+            "color": "#366525",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #649350",
+            "zIndex": 1,
+          }
+        }
+        title="E"
+      >
+        spring
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 5,
+        }
+      }
+    >
+      Kindergarten, 2018
+    </div>
+  </div>
+  <div
+    className="YearBoxContainer"
+    style={
+      Object {
+        "flex": 1,
+        "paddingLeft": 20,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "rgb(147, 196, 125)",
+            "color": "#366525",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #649350",
+            "zIndex": 1,
+          }
+        }
+        title="F"
+      >
+        fall
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "rgb(147, 196, 125)",
+            "color": "#366525",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #649350",
+            "zIndex": 1,
+          }
+        }
+        title="L"
+      >
+        winter
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#95959580",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title={null}
+      >
+        spring
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 5,
+        }
+      }
+    >
+      1st grade, 2019
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
+<div
+  className="BoxChartContainer"
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "row",
+      "fontSize": 12,
+    }
+  }
+>
+  <div
+    className="YearBoxContainer"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#666",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title="AA"
+      >
+        AA
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#666",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title="B"
+      >
+        B
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#666",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title="E"
+      >
+        E
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 5,
+        }
+      }
+    >
+      Kindergarten, 2018
+    </div>
+  </div>
+  <div
+    className="YearBoxContainer"
+    style={
+      Object {
+        "flex": 1,
+        "paddingLeft": 20,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#666",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title="F"
+      >
+        F
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#666",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title="L"
+      >
+        L
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f8f8f8",
+            "color": "#666",
+            "cursor": "default",
+            "display": "flex",
+            "flex": 1,
+            "height": 40,
+            "justifyContent": "center",
+            "outline": "1px solid #c5c5c5",
+            "zIndex": 0,
+          }
+        }
+        title={null}
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 5,
+        }
+      }
+    >
+      1st grade, 2019
+    </div>
+  </div>
+</div>
+`;
