@@ -8,7 +8,7 @@ class StudentProfileChart < Struct.new :student
 
     {
       star_series_math_percentile: percentile_ranks_to_highcharts(student.star_math_results),
-      star_series_reading_percentile: percentile_ranks_to_highcharts(student.star_reading_results),
+      star_series_reading_percentile: star_series_reading_percentile,
       next_gen_mcas_mathematics_scaled: scale_scores_to_highcharts(next_gen_mcas_mathematics_results),
       next_gen_mcas_ela_scaled: scale_scores_to_highcharts(next_gen_mcas_ela_results),
       mcas_series_math_scaled: scale_scores_to_highcharts(mcas_mathematics_results),
@@ -17,6 +17,11 @@ class StudentProfileChart < Struct.new :student
       mcas_series_ela_growth: growth_percentiles_to_highcharts(mcas_ela_results + next_gen_mcas_ela_results),
       interventions: interventions_to_highcharts
     }
+  end
+
+  # Factored out for re-use in reader profile (January)
+  def star_series_reading_percentile
+    percentile_ranks_to_highcharts(student.star_reading_results)
   end
 
   private

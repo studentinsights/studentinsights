@@ -226,7 +226,7 @@ exports[`snapshots 1`] = `
             }
           >
             <div
-              className="BoxChart"
+              className="BoxChartContainer"
               style={
                 Object {
                   "display": "flex",
@@ -236,6 +236,7 @@ exports[`snapshots 1`] = `
               }
             >
               <div
+                className="YearBoxContainer"
                 style={
                   Object {
                     "flex": 1,
@@ -262,6 +263,7 @@ exports[`snapshots 1`] = `
                         "height": 40,
                         "justifyContent": "center",
                         "outline": "1px solid #c5c5c5",
+                        "zIndex": 0,
                       }
                     }
                     title={null}
@@ -280,6 +282,7 @@ exports[`snapshots 1`] = `
                         "height": 40,
                         "justifyContent": "center",
                         "outline": "1px solid #c5c5c5",
+                        "zIndex": 0,
                       }
                     }
                     title={null}
@@ -298,6 +301,7 @@ exports[`snapshots 1`] = `
                         "height": 40,
                         "justifyContent": "center",
                         "outline": "1px solid #c5c5c5",
+                        "zIndex": 0,
                       }
                     }
                     title={null}
@@ -312,12 +316,11 @@ exports[`snapshots 1`] = `
                     }
                   }
                 >
-                  Pre-K (PK)
-                  , 
-                  2016
+                  Pre-K (PK), 2016
                 </div>
               </div>
               <div
+                className="YearBoxContainer"
                 style={
                   Object {
                     "flex": 1,
@@ -345,9 +348,10 @@ exports[`snapshots 1`] = `
                         "height": 40,
                         "justifyContent": "center",
                         "outline": "1px solid #c67600",
+                        "zIndex": 1,
                       }
                     }
-                    title={12}
+                    title="12"
                   >
                     fall
                   </div>
@@ -363,9 +367,10 @@ exports[`snapshots 1`] = `
                         "height": 40,
                         "justifyContent": "center",
                         "outline": "1px solid #c67600",
+                        "zIndex": 1,
                       }
                     }
-                    title={36}
+                    title="36"
                   >
                     winter
                   </div>
@@ -381,6 +386,7 @@ exports[`snapshots 1`] = `
                         "height": 40,
                         "justifyContent": "center",
                         "outline": "1px solid #c5c5c5",
+                        "zIndex": 0,
                       }
                     }
                     title={null}
@@ -395,16 +401,12 @@ exports[`snapshots 1`] = `
                     }
                   }
                 >
-                  Kindergarten
-                  , 
-                  2017
+                  Kindergarten, 2017
                 </div>
               </div>
             </div>
           </div>
-          <div
-            style={Object {}}
-          >
+          <div>
             <div
               className="Expandable"
             >

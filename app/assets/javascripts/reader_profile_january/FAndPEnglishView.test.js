@@ -24,6 +24,9 @@ export function testProps(props = {}) {
       iep_contents: null,
       feed_cards: [],
       current_school_year: 2017,
+      reading_chart_data: {
+        star_series_reading_percentile: []
+      },
       benchmark_data_points: [{
         "id": 1001,
         "student_id": 123,

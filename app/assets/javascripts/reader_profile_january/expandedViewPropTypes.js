@@ -12,7 +12,10 @@ export default {
     iep_contents: PropTypes.object,
     feed_cards: PropTypes.arrayOf(PropTypes.object).isRequired,
     current_school_year: PropTypes.number.isRequired,
-    benchmark_data_points: PropTypes.arrayOf(PropTypes.object).isRequired
+    benchmark_data_points: PropTypes.arrayOf(PropTypes.object).isRequired,
+    reading_chart_data: PropTypes.shape({
+      star_series_reading_percentile: PropTypes.array.isRequired
+    }).isRequired
   }).isRequired,
   instructionalStrategies: PropTypes.array.isRequired,
   onClose: PropTypes.func.isRequired
