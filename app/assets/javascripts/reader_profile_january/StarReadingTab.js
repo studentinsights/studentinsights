@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {shouldHighlight} from '../helpers/star';
 import tabProptypes from './tabPropTypes';
 import {Tab, NoInformation} from './Tabs';
@@ -13,7 +14,8 @@ export default class StarReadingTab extends React.Component {
       return <NoInformation />;
     }
     
-    const mostRecent = _.last(starPercentiles);
+    const sortedPercentiles = _.sortBy(starPercentiles, starJson => toMomentFromTimestamp(starJson.date_taken).valueOf());
+    const mostRecent = _.last(sortedPercentiles);
     const isOrange = shouldHighlight(mostRecent.percentile_rank);
     return (
       <Tab

@@ -90,7 +90,6 @@ export default class StarReadingView extends React.Component {
     const gradeThen = adjustedGrade(schoolYear, student.grade, nowFn());
     const captionEl = `${gradeText(gradeThen)}, ${schoolYear}`;
     const periodEls = mostRecentStarForPeriods.map((maybeStar, index) => {
-
       const maybePercentile = maybeStar ? maybeStar.percentile_rank : null;
       const isOrange = shouldHighlight(maybePercentile);
       const boxColor = pickBoxColor(maybePercentile, isOrange);
