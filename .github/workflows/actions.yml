@@ -56,7 +56,8 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         env:
-          POSTGRES_PASSWORD: ''
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: student_insights_test_ci_password
         ports:
           - 5432:5432
 
@@ -96,7 +97,7 @@ jobs:
         ps aux | grep postgres
         lsof -i tcp:5432
         bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://localhost
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
