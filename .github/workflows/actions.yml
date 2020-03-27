@@ -7,11 +7,9 @@ on:
     branches: [ master ]
 
 jobs:
-  # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
   # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
   js_build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2    
     - name: Setup node.js
@@ -32,7 +30,9 @@ jobs:
         export TZ=UTC
         yarn test-cli
 
+  # Based on Ruby starter action
   ruby_build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup Ruby
