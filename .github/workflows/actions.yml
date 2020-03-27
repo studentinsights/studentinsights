@@ -59,6 +59,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: student_insights_test_ci_password
+          POSTGRES_DB: student_insights_test_ci_db
         ports:
           - 5432:5432
 
