@@ -1,6 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe ReaderCohort do
+  def create_data_point_for(benchmark_assessment_key, values)
+    values.each_with_index.map do |value, index|
+      key = [index, Time.now.nsec].join('-')
+      other_student =  Student.create!(
+        first_name: "test_student_first:#{key}",
+        last_name: "test_student_last:#{key}",
+        local_id: "test_student_local_id:#{key}",
+        school: pals.healey,
+        homeroom: pals.healey_kindergarten_homeroom,
+        grade: 'KF',
+        enrollment_status: 'Active'
+      )
+      ReadingBenchmarkDataPoint.create!({
+        student: other_student,
+        educator: pals.uri,
+        benchmark_school_year: 2018,
+        benchmark_period_key: :fall,
+        benchmark_assessment_key: benchmark_assessment_key,
+        json: { value: value }
+      })
+    end
+  end
+
   describe '#interpret_f_and_p_english' do
     let!(:pals) { TestPals.create! }
 
@@ -68,29 +91,40 @@ RSpec.describe ReaderCohort do
     end
   end
 
+  describe '#stats' do
+    let!(:pals) { TestPals.create! }
+
+    def test_stats(benchmark_assessment_key, value, values)
+      cohort = ReaderCohort.new(pals.healey_kindergarten_student, time_now: pals.time_now)
+      data_point = create_data_point_for(benchmark_assessment_key, [value]).first
+      shuffled_comparison_data_points = create_data_point_for(benchmark_assessment_key, values).shuffle # enforce that order doesn't matter
+      cohort.send(:stats, data_point, shuffled_comparison_data_points)
+    end
+
+    it 'returns nil if no values' do
+      expect(test_stats('f_and_p_english', 'C', [nil, nil])).to eq nil
+    end
+
+    it 'filters out nils' do
+      with_nils = test_stats('f_and_p_english', 'C', [nil, nil, 'F', nil])
+      without_nils = test_stats('f_and_p_english', 'C', ['F'])
+      expected_stats = {
+        :n_lower => 0,
+        :n_equal => 0,
+        :n_higher => 1,
+        :p => 0
+      }
+      expect(with_nils).to eq(expected_stats)
+      expect(without_nils).to eq(expected_stats)
+    end
+  end
+
   describe '#stats_percentiles' do
     let!(:pals) { TestPals.create! }
 
     def create_for(benchmark_assessment_key, values)
-      values.each_with_index.map do |value, index|
-        key = [index, Time.now.nsec].join('-')
-        other_student =  Student.create!(
-          first_name: "test_student_first:#{key}",
-          last_name: "test_student_last:#{key}",
-          local_id: "test_student_local_id:#{key}",
-          school: pals.healey,
-          homeroom: pals.healey_kindergarten_homeroom,
-          grade: 'KF',
-          enrollment_status: 'Active'
-        )
-        data_point = ReadingBenchmarkDataPoint.create!({
-          student: other_student,
-          educator: pals.uri,
-          benchmark_school_year: 2018,
-          benchmark_period_key: :fall,
-          benchmark_assessment_key: benchmark_assessment_key,
-          json: { value: value }
-        })
+      data_points = create_data_point_for(benchmark_assessment_key, values)
+      data_points.map do |data_point|
         ComparableReadingBenchmarkDataPoint.new(data_point)
       end
     end

@@ -5,6 +5,11 @@ class FAndPInterpreter
   # if not found in list of levels and can't understand, return null
   # See also fAndPInterpreter.js
   def interpret_f_and_p_english(text)
+    # null
+    if text.nil?
+      return nil
+    end
+
     # always trim whitespace
     if text.length != text.strip().length
       return interpret_f_and_p_english(text.strip())
@@ -44,14 +49,14 @@ class FAndPInterpreter
 
   def ordering(text)
     level = interpret_f_and_p_english(text)
-    ORDERED_F_AND_P_ENGLISH_LEVELS.fetch(level, 0)
+    ORDERED_F_AND_P_ENGLISH_LEVELS.fetch(level, -1)
   end
 
   private
   # See also fAndPInterpreter.js
   # Only letters and whitespace, no other characters
   def strict_match_for_f_and_p_level(text)
-    normalized = text.strip().upcase
+    normalized = text.try(:strip).try(:upcase)
     if ORDERED_F_AND_P_ENGLISH_LEVELS.has_key?(normalized)
       normalized
     else

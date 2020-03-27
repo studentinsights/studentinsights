@@ -77,7 +77,11 @@ class ReaderCohort
   end
 
   # returns a map including percentile and rank
-  def stats(data_point, comparison_data_points)
+  def stats(data_point, comparison_data_points_with_nils)
+    # filter nils
+    return nil if data_point.json['value'].nil?
+    comparison_data_points = comparison_data_points_with_nils.select {|d| d.json['value'].present? }
+
     # Use ComparableReadingBenchmarkDataPoint to be able
     # to interpret and directly compare and sort different types
     # of data (eg, text describing F&P levels).
@@ -92,6 +96,7 @@ class ReaderCohort
   # https://dibels.uoregon.edu/docs/techreports/DIBELS_6th_Ed_2009-10_Percentile_Ranks.pdf
   def stats_percentiles(anchor_comparable, others)
     return nil if others.size == 0
+
     n_lower = others.select {|v| v < anchor_comparable }.size
     equal = others.select {|v| v == anchor_comparable }.size
     n_higher = others.size - (n_lower + equal)

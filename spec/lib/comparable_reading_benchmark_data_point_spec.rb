@@ -21,6 +21,22 @@ RSpec.describe ComparableReadingBenchmarkDataPoint do
     expect(b.ordering < c.ordering).to eq true
   end
 
+  it 'handles nil F&P values' do
+    a = create_comparable({
+      benchmark_assessment_key: 'f_and_p_english',
+      json: { value: 'A' }
+    })
+    b = create_comparable({
+      benchmark_assessment_key: 'f_and_p_english',
+      json: { value: 'B'}
+    })
+    n = create_comparable({
+      benchmark_assessment_key: 'f_and_p_english',
+      json: { value: nil }
+    })
+    expect_ordering(n, a, b)
+  end
+
   it 'works for f_and_p_english' do
     a = create_comparable({
       benchmark_assessment_key: 'f_and_p_english',
