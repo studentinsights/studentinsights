@@ -27,7 +27,7 @@ jobs:
 
     # Student Insights: steps start here
     - run: export TZ=UTC
-
+    - run: yarn install
     # It's okay that the lockfile is linted after `yarn install` since the point
     # is to protect the production environment, not the CI environment.
     - run: yarn lockfile-lint-cli
