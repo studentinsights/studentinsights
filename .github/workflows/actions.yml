@@ -45,8 +45,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_DB: student_insights_test_ci
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: student_insights_test_ci_password
+          POSTGRES_DB: student_insights_test_ci_db
 
     steps:
     - uses: actions/checkout@v2
@@ -68,7 +69,7 @@ jobs:
 
     - name: Setup Postgres
       run: |
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres://localhost/student_insights_test_ci
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres://postgres:student_insights_test_ci_password@localhost/student_insights_test_ci_db
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
