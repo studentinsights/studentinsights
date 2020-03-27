@@ -1,7 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: GitHub Actions CI (js only)
+name: Student Insights CI, via GitHub Actions
 
 on:
   push:
@@ -10,26 +7,46 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+  # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+  js_build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - uses: actions/checkout@v2    
+    - name: Setup node.js
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 12.15.0
 
-    # Student Insights: steps start here
-    - run: export TZ=UTC
-    - run: yarn install
     # It's okay that the lockfile is linted after `yarn install` since the point
     # is to protect the production environment, not the CI environment.
-    - run: yarn lockfile-lint-cli
-    - run: ./scripts/ci/detect_package_lock.sh
-    - run: yarn test-cli
+    - name: Install packages
+      run: |
+        yarn install
+        yarn lockfile-lint-cli
+        ./scripts/ci/detect_package_lock.sh
+
+    - name: Run tests
+      run: |
+        export TZ=UTC
+        yarn test-cli
+
+  ruby_build:
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.5
+
+    - name: Install gems
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3 --deployment # 4 parallel jobs recommended by GitHub template
+
+    - name: Audit
+      run: |
+        bundle exec ruby-audit check
+        bundle exec bundle-audit check --update
+        bundle exec rails_best_practices -c config/rails_best_practices.yml
