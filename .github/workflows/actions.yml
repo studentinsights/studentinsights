@@ -33,6 +33,16 @@ jobs:
   # Based on Ruby starter action
   ruby_build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: ci_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ''
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup Ruby
@@ -45,8 +55,24 @@ jobs:
         gem install bundler
         bundle install --jobs 4 --retry 3 --deployment # 4 parallel jobs recommended by GitHub template
 
-    - name: Audit
+    - name: Audits
       run: |
         bundle exec ruby-audit check
         bundle exec bundle-audit check --update
         bundle exec rails_best_practices -c config/rails_best_practices.yml
+
+    - name: Setup Postgres
+      run: |
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres:///student_insights_test
+        bundle exec rake immigrant:check_keys
+
+    - name: Code checks
+      run: |
+        bin/rails zeitwerk:check
+        bundle exec rubocop
+        bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
+
+    - name: Tests and coverage check
+      run: |
+        ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
+        
