@@ -56,8 +56,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: student_insights_test_ci_password
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
 
@@ -94,7 +93,7 @@ jobs:
 
     - name: Setup Postgres
       run: |
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:postgres@localhost/postgres
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
