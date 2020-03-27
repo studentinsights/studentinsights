@@ -31,17 +31,22 @@ jobs:
         yarn test-cli
 
   # Based on Ruby starter action
+  # Postgres setup based on https://help.github.com/en/actions/configuring-and-managing-workflows/creating-postgresql-service-containers
   ruby_build:
     runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:11
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - 5432:5432
         env:
-          POSTGRES_DB: ci_test
+          POSTGRES_DB: student_insights_test_ci
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ''
 
     steps:
     - uses: actions/checkout@v2
@@ -63,7 +68,7 @@ jobs:
 
     - name: Setup Postgres
       run: |
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres:///student_insights_test
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres://localhost/student_insights_test_ci
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
@@ -75,4 +80,3 @@ jobs:
     - name: Tests and coverage check
       run: |
         ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
-        
