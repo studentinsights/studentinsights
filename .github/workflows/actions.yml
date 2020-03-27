@@ -59,7 +59,8 @@ jobs:
     - name: Install gems
       run: |
         gem install bundler
-        bundle install --jobs 4 --retry 3 --deployment # 4 parallel jobs recommended by GitHub template
+        bundle config set deployment 'true'
+        bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
 
     - name: Audits
       run: |
