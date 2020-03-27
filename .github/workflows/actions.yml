@@ -93,6 +93,8 @@ jobs:
 
     - name: Setup Postgres
       run: |
+        ps aux | grep postgres
+        lsof -i tcp:5432
         bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
         bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://localhost
         bundle exec rake immigrant:check_keys
