@@ -1,0 +1,35 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: GitHub Actions CI (js only)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Student Insights: steps start here
+    - run: export TZ=UTC
+
+    # It's okay that the lockfile is linted after `yarn install` since the point
+    # is to protect the production environment, not the CI environment.
+    - run: yarn lockfile-lint-cli
+    - run: ./scripts/ci/detect_package_lock.sh
+    - run: yarn test-cli
