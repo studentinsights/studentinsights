@@ -93,7 +93,7 @@ jobs:
 
     - name: Setup Postgres
       run: |
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:postgres@localhost/postgres
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:postgres@localhost
         bundle exec rake immigrant:check_keys
 
     - name: Code checks

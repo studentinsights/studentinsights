@@ -5,14 +5,12 @@ development:
   encoding: unicode
   pool: 5
   database: student_insights_development
-  host: '' # for travis, see https://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied
 
 test:
   adapter: postgresql
   encoding: unicode
   pool: 5
   database: student_insights_test
-  host: '' # for travis, see https://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
