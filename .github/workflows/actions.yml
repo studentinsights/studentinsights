@@ -47,8 +47,8 @@ jobs:
   # Postgres setup based on https://help.github.com/en/actions/configuring-and-managing-workflows/creating-postgresql-service-containers
   ruby_build:
     runs-on: ubuntu-latest
-    container: heroku:18
-    
+    container: heroku/heroku:18
+
     services:
       postgres:
         image: postgres:11
@@ -105,7 +105,7 @@ jobs:
         echo START LSOF...
         lsof -i tcp:5432
         echo START db...
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost
+        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@postgres
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
