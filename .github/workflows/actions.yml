@@ -63,6 +63,17 @@ jobs:
           - 5432:5432
 
     steps:
+    - uses: actions/checkout@v2    
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.15.0
+    - name: Install
+      run: yarn install
+    - name: Test script
+      run: POSTGRES_HOST=localhost POSTGRES_PORT=5432 node scripts/ci/client.js
+
+
     - uses: actions/checkout@v2
     - name: Setup Ruby
       uses: actions/setup-ruby@v1
