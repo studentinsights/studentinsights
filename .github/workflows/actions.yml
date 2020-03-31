@@ -108,7 +108,7 @@ jobs:
         echo PQSL...
         PGPASSWORD=student_insights_test_ci_password psql -h localhost -p 5432 -d postgres -U postgres -c 'SELECT * from educators LIMIT 3;' || true
         echo START db...
-        bundle exec rake db:create db:migrate db:test:prepare DATABASE_URL=postgres://postgres:student_insights_test_ci_password@localhost:5432
+        DATABASE_URL=postgres://postgres:student_insights_test_ci_password@localhost:5432 bundle exec rake db:create db:migrate db:test:prepare
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
