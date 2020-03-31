@@ -69,9 +69,9 @@ jobs:
       with:
         node-version: 12.15.0
     - name: Install
-      run: yarn install --cwd scripts/ci
+      run: yarn install
     - name: Test script
-      run: cd scripts/ci && POSTGRES_HOST=localhost POSTGRES_PORT=5432 node client.js
+      run: POSTGRES_HOST=localhost POSTGRES_PORT=5432 node client.js
 
 
     - uses: actions/checkout@v2
