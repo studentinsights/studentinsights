@@ -48,6 +48,11 @@ jobs:
   ruby_build:
     runs-on: ubuntu-latest
 
+    # This is for Rails steps below, and has to match the Postgres service config below
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
+
     services:
       postgres:
         image: postgres:11
@@ -93,14 +98,17 @@ jobs:
         bundle exec bundle-audit check --update
         bundle exec rails_best_practices -c config/rails_best_practices.yml
 
-    - name: Prepare database, run code checks and tests
-      env:
-        RAILS_ENV: test
-        DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
+    - name: Setup Postgres
       run: |
         bundle exec rake db:create db:migrate db:test:prepare
         bundle exec rake immigrant:check_keys
+
+    - name: Code checks
+      run: |
         bin/rails zeitwerk:check
         bundle exec rubocop
         bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
+
+    - name: Tests and coverage check
+      run: |
         ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
