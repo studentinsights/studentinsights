@@ -117,9 +117,9 @@ jobs:
         echo START LS /var/run/postgresql...
         ls /var/run/postgresql || true
         echo START rails runner...
-        bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
+        RAILS_ENV=test bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
         echo START rails runner with config...
-        DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost:5432 bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
+        RAILS_ENV=test DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost:5432 bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
         echo PSQL list
         PGPASSWORD=student_insights_test_ci_password psql -h localhost -p 5432 -U postgres -l || true
         echo PQSL dt
@@ -127,7 +127,7 @@ jobs:
         echo PQSL query
         PGPASSWORD=student_insights_test_ci_password psql -h localhost -p 5432 -d postgres -U postgres -c 'SELECT * from student LIMIT 3;' || true
         echo START db...
-        DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost:5432 bundle exec rake db:create db:migrate db:test:prepare
+        RAILS_ENV=test DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost:5432 bundle exec rake db:create db:migrate db:test:prepare
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
