@@ -1,0 +1,114 @@
+name: Student Insights CI, via GitHub Actions
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+  js_build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2    
+    - name: Setup node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.15.0
+
+    # Based on https://github.com/actions/cache/blob/master/examples.md#node---yarn
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Setup node_modules caching
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    # It's okay that the lockfile is linted after `yarn install` since the point
+    # is to protect the production environment, not the CI environment.
+    - name: Install packages
+      run: |
+        yarn install
+        yarn lockfile-lint-cli
+        ./scripts/ci/detect_package_lock.sh
+
+    - name: Run tests
+      run: |
+        export TZ=UTC
+        yarn test-cli
+
+  # Based on Ruby starter action
+  # Postgres setup based on https://help.github.com/en/actions/configuring-and-managing-workflows/creating-postgresql-service-containers
+  ruby_build:
+    runs-on: ubuntu-latest
+
+    # This is for Rails steps below, and has to match the Postgres service config below
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
+
+    services:
+      postgres:
+        image: postgres:11
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: student_insights_test_ci_password
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.5
+
+    # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
+    - name: Setup gem caching
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-cache-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-cache-
+
+    # There's a bug in sassc, and the workaround below is from https://github.com/sass/sassc-ruby/issues/146#issuecomment-603280723
+    - name: Install gems
+      run: |
+        gem install bundler
+        bundle config path vendor/bundle # to find cache
+        bundle config set deployment 'true'
+        bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
+        bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
+
+    - name: Audits
+      run: |
+        bundle exec ruby-audit check
+        bundle exec bundle-audit check --update
+        bundle exec rails_best_practices -c config/rails_best_practices.yml
+
+    - name: Setup Postgres
+      run: |
+        bundle exec rake db:create db:migrate db:test:prepare
+        bundle exec rake immigrant:check_keys
+
+    - name: Code checks
+      run: |
+        bin/rails zeitwerk:check
+        bundle exec rubocop
+        bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
+
+    - name: Tests and coverage check
+      run: |
+        ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
