@@ -105,6 +105,9 @@ jobs:
         bundle exec rails_best_practices -c config/rails_best_practices.yml
 
     - name: Setup Postgres
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
       run: |
         echo WHICH...
         which psql || true
@@ -117,7 +120,7 @@ jobs:
         echo START LS /var/run/postgresql...
         ls /var/run/postgresql || true
         echo START rails runner...
-        RAILS_ENV=test bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
+        bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
         echo START rails runner with config...
         RAILS_ENV=test DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost:5432 bin/rails runner 'puts ActiveRecord::Base.configurations.inspect'
         echo PSQL list
@@ -127,15 +130,21 @@ jobs:
         echo PQSL query
         PGPASSWORD=student_insights_test_ci_password psql -h localhost -p 5432 -d postgres -U postgres -c 'SELECT * from student LIMIT 3;' || true
         echo START db...
-        RAILS_ENV=test DATABASE_URL=postgresql://postgres:student_insights_test_ci_password@localhost:5432 bundle exec rake db:create db:migrate db:test:prepare
+        bundle exec rake db:create db:migrate db:test:prepare
         bundle exec rake immigrant:check_keys
 
     - name: Code checks
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
       run: |
         bin/rails zeitwerk:check
         bundle exec rubocop
         bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
 
     - name: Tests and coverage check
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
       run: |
         ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
