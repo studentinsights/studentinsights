@@ -163,4 +163,4 @@ jobs:
       - name: Collate shards and run coverage check
         run: |
           ls -alt coverage/shards
-          bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'
+          bin/rails runner 'require "./spec/support/coverage_checker"; CoverageChecker.new.check_collated!'
