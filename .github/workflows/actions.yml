@@ -155,9 +155,10 @@ jobs:
 
     steps:
       - name: Fetch test coverage resultsets
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: coverage-check-resultset
+          path: coverage/shards
 
       - name: Coverage check
         run: bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'
