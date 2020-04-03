@@ -140,7 +140,8 @@ jobs:
 
     - name: Name coverage resultset
       run: |
-        mkdir coverage/shards
+        ls -alt coverage
+        mkdir -p coverage/shards/${{ matrix.rspec_slot }}
         mv coverage/.resultset.json coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
 
     - name: Publish partial coverage results
@@ -160,5 +161,5 @@ jobs:
           name: coverage-check-resultset
           path: coverage/shards
 
-      - name: Coverage check
+      - name: Collate and run coverage check
         run: bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'
