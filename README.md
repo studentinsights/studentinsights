@@ -2,7 +2,7 @@
 
 <div>
   <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://github.com/studentinsights/studentinsights/actions">
-    <img height="24" src="https://github.com/studentinsights/studentinsights/workflows/Student%20Insights%20CI,%20via%20GitHub%20Actions/badge.svg" alt="Build Status">
+    <img height="24" src="https://github.com/studentinsights/studentinsights/workflows/Student%20Insights%20CI/badge.svg" alt="Build Status">
   </a>
   <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://heroku.com/deploy">
     <img height="24" src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku">
