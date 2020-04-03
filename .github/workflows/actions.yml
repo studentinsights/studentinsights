@@ -149,7 +149,7 @@ jobs:
 
     steps:
       - name: Fetch test coverage resultsets
-      - uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v1
         with:
           name: coverage-check-resultset
 
