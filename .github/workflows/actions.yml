@@ -86,7 +86,6 @@ jobs:
       RSPEC_SLOT: ${{ matrix.rspec_slot }}
       RSPEC_TOTAL_SLOTS: 4
 
-
     steps:
     - uses: actions/checkout@v2
 
@@ -154,13 +153,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Fetch test coverage resultset for shards
-        uses: actions/download-artifact@v2-preview
-        with:
-          name: coverage-check-resultset
-          path: coverage/shards
+    - uses: actions/checkout@v2
 
-      - name: Collate shards and run coverage check
-        run: |
-          ls -alt coverage/shards
-          bin/rails runner 'require "./spec/support/coverage_checker"; CoverageChecker.new.check_collated!'
+    # Uses https://github.com/ruby/setup-ruby since it's more responsive compared to
+    # GitHub's action, which hadn't released 2.6.6 support a week later.
+    - name: Read .ruby-version
+      run: echo "::set-output name=file-contents::$(cat .ruby-version)"
+      id: ruby-version
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
+
+    # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
+    - name: Setup gem caching
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-cache-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-cache-
+
+    # There's a bug in sassc, and the workaround below is from https://github.com/sass/sassc-ruby/issues/146#issuecomment-603280723
+    - name: Install gems
+      run: |
+        gem install bundler
+        bundle config path vendor/bundle # to find cache
+        bundle config set deployment 'true'
+        bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
+        bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
+
+    - name: Fetch test coverage resultset for shards
+      uses: actions/download-artifact@v2-preview
+      with:
+        name: coverage-check-resultset
+        path: coverage/shards
+
+    - name: Collate shards and run coverage check
+      run: |
+        ls -alt coverage/shards
+        bin/rails runner 'require "./spec/support/coverage_checker"; CoverageChecker.new.check_collated!'
