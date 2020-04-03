@@ -138,28 +138,27 @@ jobs:
       run: |
         ENABLE_RSPEC_COVERAGE_CHECKER=true scripts/ci/sharded_rspec.sh $RSPEC_SLOT $RSPEC_TOTAL_SLOTS
 
-    - name: Name coverage resultset
+    - name: Name coverage resultset for shard
       run: |
-        ls -alt coverage
         mkdir -p coverage/shards/${{ matrix.rspec_slot }}
         mv coverage/.resultset.json coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
 
-    - name: Publish partial coverage results
+    - name: Publish coverage results for shard
       uses: actions/upload-artifact@v1
       with:
         name: coverage-check-resultset
         path: coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
 
-  ruby_test_coverage:
+  ruby_test_coverage_across_shards:
     needs: ruby_build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Fetch test coverage resultsets
+      - name: Fetch test coverage resultset for shards
         uses: actions/download-artifact@v2
         with:
           name: coverage-check-resultset
           path: coverage/shards
 
-      - name: Collate and run coverage check
+      - name: Collate shards and run coverage check
         run: bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'
