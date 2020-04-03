@@ -145,6 +145,7 @@ jobs:
         path: coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
 
   ruby_test_coverage:
+    needs: ruby_build
     runs-on: ubuntu-latest
 
     steps:
