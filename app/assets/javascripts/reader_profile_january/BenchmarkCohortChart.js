@@ -58,8 +58,9 @@ export default class BenchmarkCohortChart extends React.Component {
     const {schoolYear, benchmarkPeriodKey} = boxParams;
     const whenKey = [schoolYear, benchmarkPeriodKey].join('-');
     const cell = json.cells[whenKey];
-    const pText = cell && cell.stats.p ? percentileWithSuffix(cell.stats.p) : null;
-    const tooltipText = (cell && cell.stats.p) ? [
+    const hasValue = (cell && cell.stats.p !== null && cell.stats.p !== undefined);
+    const pText =  (hasValue) ? percentileWithSuffix(cell.stats.p) : null;
+    const tooltipText = (hasValue) ? [
       'Within the school, at that grade level:',
       `  ${padFormatStudentsHave(cell.stats.n_higher, 3)} a higher score`,
       `  ${padFormatStudentsHave(cell.stats.n_equal, 3)} the same score`,

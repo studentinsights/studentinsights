@@ -16,7 +16,7 @@ export function mockFetch() {
       '2018-winter': { value: 101, stats: { p: 20, n_lower: 1, n_equal: 0, n_higher: 4 } },
       '2018-spring': { value: 101, stats: { p: 40, n_lower: 2, n_equal: 0, n_higher: 3 } },
       '2019-fall':   { value: 132, stats: { p: 60, n_lower: 2, n_equal: 2, n_higher: 1 } },
-      '2019-winter': { value: 132, stats: { p: 40, n_lower: 2, n_equal: 0, n_higher: 3 } },
+      '2019-winter': { value: 132, stats: { p: 40, n_lower: 0, n_equal: 0, n_higher: 5 } }, // 0th percentile edge case
     }
   });
 }
