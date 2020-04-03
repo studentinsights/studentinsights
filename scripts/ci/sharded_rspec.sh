@@ -12,7 +12,7 @@ fi
 
 
 PATTERN=_spec.rb
-FILES=$(find -L . | sort | grep $PATTERN | awk "(NR-1)%$TOTAL_SLOTS==$SLOT")
+FILES=$(find -L spec | grep $PATTERN | sort | awk "(NR-1)%$TOTAL_SLOTS==$SLOT")
 FILES_COUNT=$(echo $FILES | wc -w | xargs)
 
 
