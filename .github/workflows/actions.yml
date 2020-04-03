@@ -1,4 +1,4 @@
-name: Student Insights CI, via GitHub Actions
+name: Student Insights CI
 
 on:
   push:
