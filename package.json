@@ -23,7 +23,7 @@
     "audits-cli": "yarn audit && yarn auditjs-cli",
     "auditjs-cli": "yarn auditjs --package yarn.lock",
     "storybook-cli": "yarn storybook --smoke-test",
-    "yarn-checks-cli": "yarn install --check-files && yarn check --integrity"
+    "yarn-checks-cli": "yarn check --integrity"
   },
   "heroku-run-build-script": true,
   "dependencies": {
