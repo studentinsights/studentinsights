@@ -34,10 +34,10 @@ jobs:
     # is to protect the production environment, not the CI environment.
     - name: Install packages
       run: |
-        yarn install
-        yarn lockfile-lint-cli
         ./scripts/ci/detect_package_lock.sh
+        yarn install
         yarn yarn-checks-cli
+        yarn lockfile-lint-cli
 
     - name: Audits
       run: yarn audits-cli
