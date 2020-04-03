@@ -155,10 +155,12 @@ jobs:
 
     steps:
       - name: Fetch test coverage resultset for shards
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v2-preview
         with:
           name: coverage-check-resultset
           path: coverage/shards
 
       - name: Collate shards and run coverage check
-        run: bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'
+        run: |
+          ls -alt coverage/shards
+          bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'
