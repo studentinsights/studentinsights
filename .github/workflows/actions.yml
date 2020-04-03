@@ -38,10 +38,22 @@ jobs:
         yarn lockfile-lint-cli
         ./scripts/ci/detect_package_lock.sh
 
-    - name: Run tests
+    - name: Yarn checks
+      run: yarn yarn-checks-cli
+
+    - name: Audits
+      run: yarn audits-cli
+
+    - name: Lint
+      run: yarn lint-cli
+
+    - name: Jest
       run: |
         export TZ=UTC
-        yarn test-cli
+        yarn jest
+
+    - name: Storybook
+      run: yarn storybook-cli
 
   # Based on Ruby starter action
   # Postgres setup based on https://help.github.com/en/actions/configuring-and-managing-workflows/creating-postgresql-service-containers
