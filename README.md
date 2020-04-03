@@ -1,8 +1,8 @@
 # Student Insights
 
 <div>
-  <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://travis-ci.org/studentinsights/studentinsights">
-    <img height="24" src="https://travis-ci.org/studentinsights/studentinsights.svg?branch=master" alt="Build Statu">
+  <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://github.com/studentinsights/studentinsights/actions">
+    <img height="24" src="https://github.com/studentinsights/studentinsights/workflows/Student%20Insights%20CI,%20via%20GitHub%20Actions/badge.svg" alt="Build Status">
   </a>
   <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://heroku.com/deploy">
     <img height="24" src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku">
@@ -153,6 +153,9 @@ For educator-facing document, see also:
 
 
 # Deployment
+
+### Continuous integration
+We use GitHub Actions to run a set of tests on each pull request and merge to master.  See the `actions.yml` file for more, and view test runs it GitHub at https://github.com/studentinsights/studentinsights/actions.
 
 ### Deploying new code to Insights
 

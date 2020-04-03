@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe 'Rollbar scrubs properly', type: :feature do
+  # This is for debugging issues in CI, so is commented out for now.
   def log(msg)
-    puts "RollbarScrubbing: #{msg}"
+    # puts "RollbarScrubbing: #{msg}"
   end
 
   def rollbar_filepath
