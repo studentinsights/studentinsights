@@ -46,7 +46,7 @@ jobs:
   # Based on Ruby starter action
   # Postgres setup based on https://help.github.com/en/actions/configuring-and-managing-workflows/creating-postgresql-service-containers
   ruby_build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
 
     # This is for Rails steps below, and has to match the Postgres service config below
     env:
@@ -67,15 +67,12 @@ jobs:
         ports:
           - 5432:5432
 
+    # Run this in a Ruby container, since GitHub actions Ruby releases lag
+    container:
+      image: ruby:2.6.6
+
     steps:
     - uses: actions/checkout@v2
-    - name: Read .ruby-version
-      run: echo "::set-output name=file-contents::$(cat .ruby-version)"
-      id: ruby-version
-    - name: Setup Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
 
     # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
     - name: Setup gem caching
