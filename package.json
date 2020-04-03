@@ -97,6 +97,7 @@
     "mem": "^4.3.0",
     "minimist":"^1.2.3",
     "serialize-javascript": "^2.1.1",
-    "@storybook/react/**/lodash-es": "^4.17.15"
+    "@storybook/react/**/lodash-es": "^4.17.15",
+    "yargs": "^15.3.1"
   }
 }
