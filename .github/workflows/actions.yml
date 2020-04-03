@@ -69,10 +69,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Read .ruby-version
+        run: echo "::set-output name=file-contents::$(cat .ruby-version)"
+        id: ruby-version
     - name: Setup Ruby
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.6
+        ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
 
     # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
     - name: Setup gem caching
