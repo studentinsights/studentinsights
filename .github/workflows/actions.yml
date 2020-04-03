@@ -137,3 +137,21 @@ jobs:
     - name: Tests and coverage check (sharded)
       run: |
         ENABLE_RSPEC_COVERAGE_CHECKER=true scripts/ci/sharded_rspec.sh $RSPEC_SLOT $RSPEC_TOTAL_SLOTS
+
+    - name: Publish partial coverage results
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage-check-resultset
+        path: coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
+
+  ruby_test_coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch test coverage resultsets
+      - uses: actions/download-artifact@v1
+        with:
+          name: coverage-check-resultset
+
+      - name: Coverage check
+        run: bin/rails runner 'require './spec/support/coverage_checker; CoverageChecker.new.check_collated!'

@@ -2,15 +2,24 @@ class CoverageChecker
   ERROR_STATUS_CODE = 172
   MISSING_FILES_STATUS_CODE = 173
 
+  def check_collated!
+    SimpleCov.formatter SimpleCov::Formatter::HTMLFormatter
+    SimpleCov.collate Dir["coverage/shards/*/.resultset.json"]
+    fail_if_uncovered!(SimpleCov.result.files)
+  end
+
   # By default, only run this on full test runs (eg, in Travis) or when explicitly asked.
   # In the common development case where you only run a subset of tests, this will have
   # frequent false positive failures (since only some of the tests were run).
   def setup!
     return unless EnvironmentVariable.is_true('ENABLE_RSPEC_COVERAGE_CHECKER')
-    SimpleCov.at_exit do
-      SimpleCov.result.format!
-      fail_if_uncovered!(SimpleCov.result.files)
-    end
+
+    SimpleCov.command_name [
+      'shard_key',
+      ENV['RSPEC_SLOT'] || 0,
+      ENV['RSPEC_TOTAL_SLOTS'] || 0
+    ].join(':')
+    SimpleCov.formatter SimpleCov::Formatter::SimpleFormatter
   end
 
   private
