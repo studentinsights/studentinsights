@@ -4,7 +4,7 @@ class CoverageChecker
 
   def check_collated!
     SimpleCov.formatter SimpleCov::Formatter::HTMLFormatter
-    SimpleCov.collate Dir["coverage/shards/*/.resultset.json"]
+    SimpleCov.collate Dir["coverage/shards/resultset-*.json"]
     fail_if_uncovered!(SimpleCov.result.files)
   end
 

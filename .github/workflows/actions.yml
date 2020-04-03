@@ -140,13 +140,13 @@ jobs:
     - name: Name coverage resultset for shard
       run: |
         mkdir -p coverage/shards/${{ matrix.rspec_slot }}
-        mv coverage/.resultset.json coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
+        mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_slot }}.json
 
     - name: Publish coverage results for shard
       uses: actions/upload-artifact@v1
       with:
         name: coverage-check-resultset
-        path: coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
+        path: coverage/shards/resultset-${{ matrix.rspec_slot }}.json
 
   ruby_test_coverage_across_shards:
     needs: ruby_build
