@@ -138,6 +138,11 @@ jobs:
       run: |
         ENABLE_RSPEC_COVERAGE_CHECKER=true scripts/ci/sharded_rspec.sh $RSPEC_SLOT $RSPEC_TOTAL_SLOTS
 
+    - name: Name coverage resultset
+      run: |
+        mkdir coverage/shards
+        mv coverage/.resultset.json coverage/shards/${{ matrix.rspec_slot }}/.resultset.json
+
     - name: Publish partial coverage results
       uses: actions/upload-artifact@v1
       with:
