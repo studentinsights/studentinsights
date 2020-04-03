@@ -35,7 +35,7 @@ jobs:
     - name: Install packages
       run: |
         ./scripts/ci/detect_package_lock.sh
-        yarn install
+        yarn install --check-files
         yarn yarn-checks-cli
         yarn lockfile-lint-cli
 
