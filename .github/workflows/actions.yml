@@ -134,11 +134,11 @@ jobs:
         bundle exec rubocop
         bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
 
-    - name: Tests and coverage check (sharded)
+    - name: Tests, sharded
       run: |
-        ENABLE_RSPEC_COVERAGE_CHECKER=true scripts/ci/sharded_rspec.sh $RSPEC_SHARD $RSPEC_TOTAL_SHARDS
+        scripts/ci/sharded_rspec.sh $RSPEC_SHARD $RSPEC_TOTAL_SHARDS
 
-    - name: Name coverage resultset for shard
+    - name: Name coverage results for shard
       run: |
         mkdir -p coverage/shards/${{ matrix.rspec_shard }}
         mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_shard }}.json

@@ -111,7 +111,7 @@ class CoverageEnforcer
   end
 
   def filtered_files(files_with_coverage)
-    config_file = File.open('spec/coverage_bot.yml')
+    config_file = File.open('spec/support/coverage_enforcer.yml')
     files_to_check = YAML.load(config_file)['check_test_coverage_for_files']
     files_matching_filter = files_with_coverage.select do |file_with_coverage|
       files_to_check.any? {|file_to_check| file_with_coverage['filename'].end_with?(file_to_check)}
