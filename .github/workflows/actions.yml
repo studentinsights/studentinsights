@@ -78,7 +78,7 @@ jobs:
       fail-fast: false
       matrix:
         rspec_shard: [0,1,2,3,4,5]
-        rspec_total_shards: 6
+        rspec_total_shards: [6]
 
     # This is for Rails steps below, and has to match the Postgres service config above
     env:
