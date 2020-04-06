@@ -149,7 +149,7 @@ jobs:
         name: coverage-check-resultset
         path: coverage/shards/resultset-${{ matrix.rspec_shard }}.json
 
-  ruby_test_coverage_across_shards:
+  rspec_coverage_enforcer:
     needs: ruby_build
     runs-on: ubuntu-latest
 
@@ -194,12 +194,12 @@ jobs:
     #     ls -alt coverage/shards
     #     bin/rails runner 'require "./spec/support/coverage_checker"; CoverageChecker.new.check_collated!'
 
+    # The unzip step is from an upstream bug in download-artifact
+    # see https://github.com/actions/download-artifact/issues/23#issuecomment-609884201
     - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
+        unzip -o coverage/shards/results*.json
         cat coverage/shards/*-0.json
-        cat coverage/shards/*-1.json
-        cat coverage/shards/*-2.json
-        cat coverage/shards/*-3.json
         ruby spec/coverage_enforcer_runner.rb
       
