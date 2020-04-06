@@ -34,8 +34,7 @@ class CoverageEnforcer
     # process each result
     puts "CoverageEnforcer: Merging #{coverage_results.size} result shards..."
     coverage_results.each_with_index do |result, result_index|
-      filenames = result.keys.select {|filename| filename.end_with?('app/lib/multifactor_authenticator.rb')}
-      filenames.each do |filename|
+      result.keys.each do |filename|
         lines = result[filename]['lines']
         if !final_result.has_key?(filename)
           final_result[filename] = { 'lines' => lines }
