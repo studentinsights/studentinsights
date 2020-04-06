@@ -1,6 +1,5 @@
 require './spec/support/coverage_enforcer.rb'
 
-
 FILES_TO_ENFORCE = [
   'app/models/educator.rb',
 

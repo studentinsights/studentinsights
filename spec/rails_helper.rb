@@ -1,6 +1,6 @@
 # This can't be moved and has to be run first.
 # See https://github.com/colszowka/simplecov#troubleshooting
-# 
+#
 # This does two things; it creates an HTML artifact that developers
 # can inspect manually if they want.  But it's also used in CI
 # to create an artifact about test coverage that can be inspected
