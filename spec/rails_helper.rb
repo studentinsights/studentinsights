@@ -1,6 +1,19 @@
-# This can't be moved and has to be run first.  See https://github.com/colszowka/simplecov#troubleshooting
+# This can't be moved and has to be run first.
+# See https://github.com/colszowka/simplecov#troubleshooting
+#
+# This does two things; it creates an HTML artifact that developers
+# can inspect manually if they want.  But it's also used in CI
+# to create an artifact about test coverage that can be inspected
+# to enforce coverage for particular files.  Because tests are sharded
+# in CI, we name the artficact based on the shard number.
+# See coverage_enforcer.rb, coverage_bot.yml and actions.yml.
 require 'simplecov'
 SimpleCov.start
+SimpleCov.command_name [
+  'shard_key',
+  ENV['RSPEC_SLOT'] || 0,
+  ENV['RSPEC_TOTAL_SLOTS'] || 0
+].join(':')
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
@@ -76,6 +89,3 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
 end
-
-# Test coverage checker
-CoverageChecker.new.setup!

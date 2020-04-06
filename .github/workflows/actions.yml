@@ -2,9 +2,9 @@ name: Student Insights CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
@@ -12,10 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2    
-    - name: Setup node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.15.0
+
+    # During service outage, ignore specific node version
+    # see https://github.com/actions/setup-node/issues/132#issuecomment-609877619
+    # and https://github.com/nodejs/node/issues/32683
+    # - name: Setup node.js
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: 12.15.0
 
     # Based on https://github.com/actions/cache/blob/master/examples.md#node---yarn
     - name: Get yarn cache directory path
@@ -59,24 +63,33 @@ jobs:
   ruby_build:
     runs-on: ubuntu-latest
 
-    # This is for Rails steps below, and has to match the Postgres service config below
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
-
     services:
       postgres:
         image: postgres:11
         options: >-
           --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
+          --health-interval 1s
+          --health-timeout 1s
           --health-retries 5
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: student_insights_test_ci_password
         ports:
           - 5432:5432
+
+    # RSpec dominates the test run, so shard and parallelize
+    strategy:
+      fail-fast: false
+      matrix:
+        rspec_shard: [0,1,2,3,4,5,6,7]
+        rspec_total_shards: [8]
+
+    # This is for Rails steps below, and has to match the Postgres service config above
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
+      RSPEC_SHARD: ${{ matrix.rspec_shard }}
+      RSPEC_TOTAL_SHARDS: ${{ matrix.rspec_total_shards }}
 
     steps:
     - uses: actions/checkout@v2
@@ -108,16 +121,16 @@ jobs:
         bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
         bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
 
+    - name: Setup Postgres
+      run: |
+        bundle exec rake db:create db:migrate db:test:prepare
+        bundle exec rake immigrant:check_keys
+
     - name: Audits
       run: |
         bundle exec ruby-audit check
         bundle exec bundle-audit check --update
         bundle exec rails_best_practices -c config/rails_best_practices.yml
-
-    - name: Setup Postgres
-      run: |
-        bundle exec rake db:create db:migrate db:test:prepare
-        bundle exec rake immigrant:check_keys
 
     - name: Code checks
       run: |
@@ -125,6 +138,51 @@ jobs:
         bundle exec rubocop
         bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
 
-    - name: Tests and coverage check
+    - name: Tests, sharded
       run: |
-        ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
+        scripts/ci/sharded_rspec.sh $RSPEC_SHARD $RSPEC_TOTAL_SHARDS
+
+    - name: Name coverage results for shard
+      run: |
+        mkdir -p coverage/shards/${{ matrix.rspec_shard }}
+        mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_shard }}.json
+
+    - name: Publish coverage results for shard
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage-check-resultset
+        path: coverage/shards/resultset-${{ matrix.rspec_shard }}.json
+
+  rspec_coverage_enforcer:
+    needs: ruby_build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # This mirrors the main ruby_build step
+    - name: Read .ruby-version
+      run: echo "::set-output name=file-contents::$(cat .ruby-version)"
+      id: ruby-version
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
+
+    - name: Fetch test coverage resultset for shards
+      uses: actions/download-artifact@v2-preview
+      with:
+        name: coverage-check-resultset
+        path: coverage/shards
+
+    # The unzip step is from an upstream bug in download-artifact
+    # see https://github.com/actions/download-artifact/issues/23#issuecomment-609884201
+    - name: Collate shards
+      run: |
+        ls -alt coverage/shards
+        gunzip --suffix .json -f coverage/shards/results*.json
+        for FILENAME in coverage/shards/results*; do mv $FILENAME $FILENAME.json; done 
+        ls -alt coverage/shards
+
+    - name: Enforce test coverage
+      run: ruby spec/coverage_enforcer_runner.rb
+      
