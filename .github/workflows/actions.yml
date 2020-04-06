@@ -77,14 +77,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rspec_slot: [0,1,2,3]
+        rspec_shard: [0,1,2,3,4,5]
+        rspec_total_shards: 6
 
     # This is for Rails steps below, and has to match the Postgres service config above
     env:
       RAILS_ENV: test
       DATABASE_URL: postgresql://postgres:student_insights_test_ci_password@localhost:5432
-      RSPEC_SLOT: ${{ matrix.rspec_slot }}
-      RSPEC_TOTAL_SLOTS: 4
+      RSPEC_SHARD: ${{ matrix.rspec_shard }}
+      RSPEC_TOTAL_SHARDS: ${{ matrix.rspec_total_shards }}
 
     steps:
     - uses: actions/checkout@v2
@@ -135,18 +136,18 @@ jobs:
 
     - name: Tests and coverage check (sharded)
       run: |
-        ENABLE_RSPEC_COVERAGE_CHECKER=true scripts/ci/sharded_rspec.sh $RSPEC_SLOT $RSPEC_TOTAL_SLOTS
+        ENABLE_RSPEC_COVERAGE_CHECKER=true scripts/ci/sharded_rspec.sh $RSPEC_SHARD $RSPEC_TOTAL_SHARDS
 
     - name: Name coverage resultset for shard
       run: |
-        mkdir -p coverage/shards/${{ matrix.rspec_slot }}
-        mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_slot }}.json
+        mkdir -p coverage/shards/${{ matrix.rspec_shard }}
+        mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_shard }}.json
 
     - name: Publish coverage results for shard
       uses: actions/upload-artifact@v1
       with:
         name: coverage-check-resultset
-        path: coverage/shards/resultset-${{ matrix.rspec_slot }}.json
+        path: coverage/shards/resultset-${{ matrix.rspec_shard }}.json
 
   ruby_test_coverage_across_shards:
     needs: ruby_build
@@ -164,23 +165,23 @@ jobs:
       with:
         ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
 
-    # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
-    - name: Setup gem caching
-      uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gem-cache-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gem-cache-
+    # # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
+    # - name: Setup gem caching
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: vendor/bundle
+    #     key: ${{ runner.os }}-gem-cache-${{ hashFiles('**/Gemfile.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gem-cache-
 
-    # There's a bug in sassc, and the workaround below is from https://github.com/sass/sassc-ruby/issues/146#issuecomment-603280723
-    - name: Install gems
-      run: |
-        gem install bundler
-        bundle config path vendor/bundle # to find cache
-        bundle config set deployment 'true'
-        bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
-        bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
+    # # There's a bug in sassc, and the workaround below is from https://github.com/sass/sassc-ruby/issues/146#issuecomment-603280723
+    # - name: Install gems
+    #   run: |
+    #     gem install bundler
+    #     bundle config path vendor/bundle # to find cache
+    #     bundle config set deployment 'true'
+    #     bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
+    #     bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
 
     - name: Fetch test coverage resultset for shards
       uses: actions/download-artifact@v2-preview
@@ -188,7 +189,13 @@ jobs:
         name: coverage-check-resultset
         path: coverage/shards
 
-    - name: Collate shards and run coverage check
+    # - name: Collate shards and run coverage check
+    #   run: |
+    #     ls -alt coverage/shards
+    #     bin/rails runner 'require "./spec/support/coverage_checker"; CoverageChecker.new.check_collated!'
+
+    - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
-        bin/rails runner 'require "./spec/support/coverage_checker"; CoverageChecker.new.check_collated!'
+        ruby -e require "./spec/support/coverage_enforcer"; CoverageEnforcer.merge_and_enforce!("coverage/shards/*")'
+      
