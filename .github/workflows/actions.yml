@@ -197,5 +197,9 @@ jobs:
     - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
+        cat coverage/shards/*-0.json
+        cat coverage/shards/*-1.json
+        cat coverage/shards/*-2.json
+        cat coverage/shards/*-3.json
         ruby spec/coverage_enforcer_runner.rb
       
