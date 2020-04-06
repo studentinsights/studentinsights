@@ -100,7 +100,7 @@ class CoverageEnforcer
         "#{file_with_coverage['filename']} - #{file_with_coverage['covered_percentage'].round}%"
       end
       puts " - " + file_lines.join("\n - ")
-      puts "\n\nERROR from CoverageChecker\n\n"
+      puts "\n\nERROR from CoverageEnforcer\n\n"
       puts "CoverageEnforcer: Exiting with error status #{ERROR_STATUS_CODE}"
       Kernel.exit ERROR_STATUS_CODE
     end
@@ -115,7 +115,7 @@ class CoverageEnforcer
       filenames_to_check.any? {|file_to_check| file_with_coverage['filename'].end_with?(file_to_check)}
     end
     if files_matching_filter.length < filenames_to_check.size
-      puts "\n\nERROR from CoverageChecker\n\n"
+      puts "\n\nERROR from CoverageEnforcer\n\n"
       puts "CoverageEnforcer: Only found #{files_matching_filter.size} files, but there were #{filenames_to_check.length} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
       Kernel.exit MISSING_FILES_STATUS_CODE
     end

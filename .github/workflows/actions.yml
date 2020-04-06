@@ -197,5 +197,5 @@ jobs:
     - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
-        ruby -e require "./spec/support/coverage_enforcer"; CoverageEnforcer.merge_and_enforce!("coverage/shards/*")'
+        ruby spec/coverage_enforcer_runner.rb
       
