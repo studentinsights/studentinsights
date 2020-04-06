@@ -26,15 +26,16 @@ class CoverageEnforcer
     final_result = {}
 
     # collapse results from each shard in each file
-    coverage_results = coverage_result_filenames.flat_map do |result_filename|
+    coverage_results = coverage_result_filenames.sort.flat_map do |result_filename|
       result_file = JSON.parse(IO.read(result_filename))
       result_file.values.map {|shard| shard['coverage'] }
     end
 
     # process each result
     puts "CoverageEnforcer: Merging #{coverage_results.size} result shards..."
-    coverage_results.each do |result|
-      result.keys.each do |filename|
+    coverage_results.each_with_index do |result, result_index|
+      filenames = result.keys.select {|filename| filename.end_with?('app/lib/multifactor_authenticator.rb')}
+      filenames.each do |filename|
         lines = result[filename]['lines']
         if !final_result.has_key?(filename)
           final_result[filename] = { 'lines' => lines }
@@ -51,7 +52,8 @@ class CoverageEnforcer
             puts "CoverageEnforcer: WARNING, one line is nil but the other is not for #{filename}"
           end
           if !lines[line_index].nil?
-            existing_line += lines[line_index]
+            debug "    L#{line_index+1}  += #{lines[line_index]}"
+            final_result[filename]['lines'][line_index] += lines[line_index]
           end
         end
       end
@@ -60,6 +62,10 @@ class CoverageEnforcer
   end
 
   private
+  def debug(msg)
+    # puts msg
+  end
+
   # Takes Coverage.result, returns list of hashes
   # with {'filename'=>'/User/foo.rb', 'covered_percentage'=>87.12}
   def compute_covered_percentage(coverage_result)
