@@ -17,6 +17,6 @@ FILES_TO_ENFORCE = [
 ]
 
 enforcer = CoverageEnforcer.new(FILES_TO_ENFORCE)
-coverage_shards = Dir.glob('coverage/shards/*')
+coverage_shards = Dir.glob('coverage/shards/resultset-*.json')
 merged_results = enforcer.merge_shards(coverage_shards)
 enforcer.enforce!(merged_results)
