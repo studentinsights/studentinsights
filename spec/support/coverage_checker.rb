@@ -3,7 +3,6 @@ class CoverageChecker
   MISSING_FILES_STATUS_CODE = 173
 
   def check_collated!
-    SimpleCov.formatter SimpleCov::Formatter::HTMLFormatter
     SimpleCov.collate Dir["coverage/shards/resultset-*.json"]
     fail_if_uncovered!(SimpleCov.result.files)
   end
@@ -19,7 +18,6 @@ class CoverageChecker
       ENV['RSPEC_SLOT'] || 0,
       ENV['RSPEC_TOTAL_SLOTS'] || 0
     ].join(':')
-    SimpleCov.formatter SimpleCov::Formatter::SimpleFormatter
   end
 
   private
