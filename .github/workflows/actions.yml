@@ -199,7 +199,7 @@ jobs:
     - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
-        unzip -o coverage/shards/results*.json
+        gunzip -f coverage/shards/results*.json
         cat coverage/shards/*-0.json
         ruby spec/coverage_enforcer_runner.rb
       
