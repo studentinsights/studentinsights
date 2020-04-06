@@ -1,21 +1,18 @@
 require 'json'
-require 'yaml'
 
 # Example usage:
 #
+# filenames_to_check = [...]
 # coverage_files = Dir.glob('coverage/shards/*')
-# enforcer = CoverageEnforcer.new
+# enforcer = CoverageEnforcer.new(filenames_to_check)
 # merged_results = enforcer.merge_shards(coverage_files)
 # enforcer.enforce!(merged_results)
 class CoverageEnforcer
   ERROR_STATUS_CODE = 172
   MISSING_FILES_STATUS_CODE = 173
 
-  def self.merge_and_enforce!(glob)
-    coverage_files = Dir.glob(glob)
-    enforcer = CoverageEnforcer.new
-    merged_results = enforcer.merge_shards(coverage_files)
-    enforcer.enforce!(merged_results)
+  def initialize(filenames_to_check)
+    @filenames_to_check = filenames_to_check || []
   end
 
   def enforce!(coverage_result)
@@ -29,14 +26,13 @@ class CoverageEnforcer
     final_result = {}
 
     # collapse results from each shard in each file
-    puts "CoverageEnforcer: Reading #{coverage_result_filenames.size} files..."
     coverage_results = coverage_result_filenames.flat_map do |result_filename|
       result_file = JSON.parse(IO.read(result_filename))
       result_file.values.map {|shard| shard['coverage'] }
     end
 
     # process each result
-    puts "CoverageEnforcer: Processing #{coverage_results.size} results..."
+    puts "CoverageEnforcer: Merging #{coverage_results.size} result shards..."
     coverage_results.each do |result|
       result.keys.each do |filename|
         lines = result[filename]['lines']
@@ -110,15 +106,17 @@ class CoverageEnforcer
     end
   end
 
+  def filenames_to_check
+    @filenames_to_check
+  end
+
   def filtered_files(files_with_coverage)
-    config_file = File.open('spec/support/coverage_enforcer.yml')
-    files_to_check = YAML.load(config_file)['check_test_coverage_for_files']
     files_matching_filter = files_with_coverage.select do |file_with_coverage|
-      files_to_check.any? {|file_to_check| file_with_coverage['filename'].end_with?(file_to_check)}
+      filenames_to_check.any? {|file_to_check| file_with_coverage['filename'].end_with?(file_to_check)}
     end
-    if files_matching_filter.length < files_to_check.size
+    if files_matching_filter.length < filenames_to_check.size
       puts "\n\nERROR from CoverageChecker\n\n"
-      puts "CoverageEnforcer: Only found #{files_matching_filter.size} files, but there were #{files_to_check.length} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
+      puts "CoverageEnforcer: Only found #{files_matching_filter.size} files, but there were #{filenames_to_check.length} patterns listed in the config.  Exiting with error status #{MISSING_FILES_STATUS_CODE}"
       Kernel.exit MISSING_FILES_STATUS_CODE
     end
     files_matching_filter
