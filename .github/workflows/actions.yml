@@ -77,6 +77,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        run_rspec: [0, 1]
         rspec_shard: [0,1,2,3,4,5,6,7]
         rspec_total_shards: [8]
 
@@ -117,33 +118,38 @@ jobs:
         bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
         bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
 
-    - name: Audits
-      run: |
-        bundle exec ruby-audit check
-        bundle exec bundle-audit check --update
-        bundle exec rails_best_practices -c config/rails_best_practices.yml
-
     - name: Setup Postgres
       run: |
         bundle exec rake db:create db:migrate db:test:prepare
         bundle exec rake immigrant:check_keys
 
+    - name: Audits
+      if: {{matrix.run_rspec == 0}}
+      run: |
+        bundle exec ruby-audit check
+        bundle exec bundle-audit check --update
+        bundle exec rails_best_practices -c config/rails_best_practices.yml
+
     - name: Code checks
+      if: {{matrix.run_rspec == 0}}
       run: |
         bin/rails zeitwerk:check
         bundle exec rubocop
         bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest
 
     - name: Tests, sharded
+      if: {{matrix.run_rspec == 1}}
       run: |
         scripts/ci/sharded_rspec.sh $RSPEC_SHARD $RSPEC_TOTAL_SHARDS
 
     - name: Name coverage results for shard
+      if: {{matrix.run_rspec == 1}}
       run: |
         mkdir -p coverage/shards/${{ matrix.rspec_shard }}
         mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_shard }}.json
 
     - name: Publish coverage results for shard
+      if: {{matrix.run_rspec == 1}}
       uses: actions/upload-artifact@v1
       with:
         name: coverage-check-resultset
@@ -199,7 +205,7 @@ jobs:
     - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
-        gunzip -f coverage/shards/results*.json
+        gunzip --suffix .json -f coverage/shards/results*.json
         cat coverage/shards/*-0.json
         ruby spec/coverage_enforcer_runner.rb
       
