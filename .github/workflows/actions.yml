@@ -200,6 +200,6 @@ jobs:
       run: |
         ls -alt coverage/shards
         gunzip --suffix .json -f coverage/shards/results*.json
-        cat coverage/shards/*-0.json
+        ls -alt coverage/shards
         ruby spec/coverage_enforcer_runner.rb
       
