@@ -199,9 +199,7 @@ jobs:
     - name: Collate shards and run CoverageEnforcer
       run: |
         ls -alt coverage/shards
-        gunzip --suffix .json -f coverage/shards/results*.json
-        ls -alt coverage/shards
-        for FILENAME in coverage/shards/results-*; do mv $FILENAME $FILENAME.json; done 
+        gunzip --name --suffix .json -f coverage/shards/results*.json
         ls -alt coverage/shards
         ruby spec/coverage_enforcer_runner.rb
       
