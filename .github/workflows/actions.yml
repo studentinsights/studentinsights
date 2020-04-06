@@ -12,10 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2    
-    - name: Setup node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.15.0
+
+    # During service outage
+    # see https://github.com/actions/setup-node/issues/132#issuecomment-609877619
+    # and https://github.com/nodejs/node/issues/32683
+    # - name: Setup node.js
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: 12.15.0
 
     # Based on https://github.com/actions/cache/blob/master/examples.md#node---yarn
     - name: Get yarn cache directory path
