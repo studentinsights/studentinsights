@@ -6,6 +6,13 @@
 # authenticator is more secure, SMS is lower barrier to entry for users, email
 # requires no setup step but the second 'factor' is very weak).
 class MultifactorAuthenticator
+  def UNSAFE_testing_this
+    a = 1 + 3
+    b = 3 + 5
+    c = a + b
+    c
+  end
+
   def initialize(educator, options = {})
     @educator = educator
     @logger = options.fetch(:logger, Rails.logger)
