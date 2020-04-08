@@ -58,24 +58,27 @@ export default class ReaderProfileJanuary extends React.Component {
 
   renderHistoryAndThresholds() {
     const {readerJson, student} = this.props;
+    const gradeNow = student.grade;
     return (
       <div style={styles.debug}>
         <HelpBubble
           teaser='history'
+          modalStyle={styles.modalStyle}
           linkStyle={styles.debugLink}
           title="Debug Reading Schedule Grid"
           content={
             <DebugReadingScheduleGrid
               readerJson={readerJson}
-              gradeNow={student.grade}
+              gradeNow={gradeNow}
             />
           }
         />
         <HelpBubble
           teaser='thresholds'
+          modalStyle={styles.modalStyle}
           linkStyle={styles.debugLink}
           title="Reading: Thresholds and Benchmarks"
-          content={<ReadingThresholdsGrid />}
+          content={<ReadingThresholdsGrid gradeNow={gradeNow} />}
         />
       </div>
     );
@@ -211,6 +214,11 @@ const styles = {
   debugLink: {
     color: '#ccc',
     paddingRight: 10
+  },
+  modalStyle: {
+    overlay: {
+      zIndex: 10
+    }
   }
 };
 

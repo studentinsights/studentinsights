@@ -11,6 +11,7 @@ export default class DebugReadingScheduleGrid extends React.Component {
     const {readerJson, gradeNow} = this.props;
     return (
       <ReadingScheduleGrid
+        gradeNow={gradeNow}
         renderCellFn={(...params) => renderCellFn(readerJson, gradeNow, nowFn(), ...params)}
       />
     );
