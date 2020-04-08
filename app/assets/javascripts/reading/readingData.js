@@ -215,8 +215,8 @@ export function shouldHighlightBenchmarkDataPoint(dataPoint, gradeThen) {
   // No threshold
   if (!thresholds || thresholds.benchmark === undefined) return null;
 
-  // For Dibels, we can compare numerically, but for F&P we have to compare
-  // differently.
+  // // For Dibels, we can compare numerically, but for F&P we have to compare
+  // // differently.
   if ([F_AND_P_ENGLISH, F_AND_P_SPANISH].indexOf(dataPoint.benchmark_assessment_key) !== -1) {
     const allLevels = orderedFAndPLevels();
     const benchmarkIndex = allLevels.indexOf(thresholds.benchmark);
