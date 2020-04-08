@@ -54,6 +54,9 @@ const F_AND_P_THRESHOLDS_SHARED = {
   '4:fall': {
     benchmark: 'P'
   },
+  '4:winter': {
+    benchmark: 'R'
+  },
   '4:spring': {
     benchmark: 'T'
   },

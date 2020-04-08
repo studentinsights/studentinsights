@@ -53,5 +53,11 @@ describe('#shouldHighlightBenchmarkDataPoint', () => {
       benchmark_assessment_key: "f_and_p_english",
       json: { value: "c" }
     }, 'KF')).toEqual(false);
+    expect(shouldHighlightBenchmarkDataPoint({
+      benchmark_school_year: 2018,
+      benchmark_period_key: "winter",
+      benchmark_assessment_key: "f_and_p_english",
+      json: { value: "T" }
+    }, '4')).toEqual(false);
   });
 });
