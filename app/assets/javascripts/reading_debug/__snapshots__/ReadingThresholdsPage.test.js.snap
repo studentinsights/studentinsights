@@ -6824,12 +6824,14 @@ exports[`snapshots 1`] = `
                 }
               }
             >
-              <div>
-                <span
-                  style={Object {}}
-                >
-                   
-                </span>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "#B7E1CD",
+                  }
+                }
+              >
+                R
               </div>
               <div>
                 <span
@@ -7617,12 +7619,14 @@ exports[`snapshots 1`] = `
                 }
               }
             >
-              <div>
-                <span
-                  style={Object {}}
-                >
-                   
-                </span>
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "#B7E1CD",
+                  }
+                }
+              >
+                R
               </div>
               <div>
                 <span
