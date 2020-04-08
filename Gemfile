@@ -51,6 +51,7 @@ gem 'zxcvbn-js', require: 'zxcvbn'
 
 # generating pdfs
 # See https://github.com/zakird/wkhtmltopdf_binary_gem/issues/55#issuecomment-552930066
+# Driven by https://help.heroku.com/KUFMEES1/my-slug-size-is-too-large-how-can-i-make-it-smaller
 gem 'wkhtmltopdf-binary', :git => 'https://github.com/studentinsights/wkhtmltopdf_binary_gem.git'
 gem 'wicked_pdf'
 
