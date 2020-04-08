@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {previousGrade, gradeText} from '../helpers/gradeText';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {benchmarkPeriodToMoment} from '../reading/readingData';
-import {shouldHighlight} from './dibelsParsing';
+import {shouldHighlightBenchmarkDataPoint} from '../reading/readingData';
 import {BLANK, pickBoxColor} from './colors';
 import {BoxChartContainer, YearBoxContainer, Box} from './BoxChartElements';
 
@@ -96,7 +96,7 @@ export function renderBenchmarkValueBoxFn(boxParams, style = {}) {
 
 function renderColoredBox(boxParams, contentEl, style = {}) {
   const {benchmarkPeriodKey, dataPoint, gradeThen, value} = boxParams;
-  const maybeShouldHighlight = (!dataPoint) ? null : shouldHighlight(dataPoint, gradeThen);
+  const maybeShouldHighlight = (!dataPoint) ? null : shouldHighlightBenchmarkDataPoint(dataPoint, gradeThen);
   const color = pickBoxColor(dataPoint, maybeShouldHighlight);
   const title = (value) ? value.toString() : null;
   return <Box key={benchmarkPeriodKey} title={title} color={color} style={style}>{contentEl}</Box>;

@@ -3,6 +3,7 @@ import {DIBELS_LNF} from './thresholds';
 import {
   bucketForDibels,
   rankBenchmarkDataPoint,
+  shouldHighlightBenchmarkDataPoint,
   DIBELS_RED
 } from './readingData';
 
@@ -28,5 +29,29 @@ describe('#rankBenchmarkDataPoint', () => {
       'A',
       'Z'
     ]);
+  });
+});
+
+
+describe('#shouldHighlightBenchmarkDataPoint', () => {
+  it('handles F&P level comparisons correctly', () => {
+    expect(shouldHighlightBenchmarkDataPoint({
+      benchmark_school_year: 2018,
+      benchmark_period_key: "fall",
+      benchmark_assessment_key: "f_and_p_english",
+      json: { value: "b" } // note the lowercase
+    }, 'KF')).toEqual(null);
+    expect(shouldHighlightBenchmarkDataPoint({
+      benchmark_school_year: 2018,
+      benchmark_period_key: "spring",
+      benchmark_assessment_key: "f_and_p_english",
+      json: { value: "b" }
+    }, 'KF')).toEqual(true);
+    expect(shouldHighlightBenchmarkDataPoint({
+      benchmark_school_year: 2018,
+      benchmark_period_key: "spring",
+      benchmark_assessment_key: "f_and_p_english",
+      json: { value: "c" }
+    }, 'KF')).toEqual(false);
   });
 });

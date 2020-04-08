@@ -69,18 +69,18 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "background": "rgb(147, 196, 125)",
-            "color": "#366525",
+            "background": "orange",
+            "color": "#904a00",
             "cursor": "default",
             "display": "flex",
             "flex": 1,
             "height": 40,
             "justifyContent": "center",
-            "outline": "1px solid #649350",
+            "outline": "1px solid #c67600",
             "zIndex": 1,
           }
         }
-        title="E"
+        title="B"
       >
         spring
       </div>
@@ -263,9 +263,9 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
             "zIndex": 0,
           }
         }
-        title="E"
+        title="B"
       >
-        E
+        B
       </div>
     </div>
     <div
