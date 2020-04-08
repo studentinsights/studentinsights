@@ -32,7 +32,7 @@ export const firstGradeWinter = [
     "benchmark_period_key": "spring",
     "benchmark_assessment_key": "f_and_p_english",
     "json": {
-      "value": "E"
+      "value": "B"
     },
     "educator_id": 1,
     "created_at": "2019-12-02T14:36:34.514Z",

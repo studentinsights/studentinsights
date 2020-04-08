@@ -25,7 +25,11 @@ import {
   DIBELS_NWF_WWR,
   somervilleReadingThresholdsFor
 } from './thresholds';
-import {fAndPOrdering, orderedFAndPLevels} from './fAndPInterpreter';
+import {
+  interpretFAndPEnglish,
+  fAndPOrdering,
+  orderedFAndPLevels
+} from './fAndPInterpreter';
 
 
 // benchmark_assessment_key values:
@@ -171,7 +175,7 @@ export function rankBenchmarkDataPoint(d) {
     return text || -1;
   }
 
-  if (benchmarkAssessmentKey === F_AND_P_ENGLISH || benchmarkAssessmentKey === F_AND_P_SPANISH) {
+  if ([F_AND_P_ENGLISH, F_AND_P_SPANISH].indexOf(benchmarkAssessmentKey) !== -1) {
     return fAndPOrdering(text) || -1;
   }
 
@@ -216,7 +220,7 @@ export function shouldHighlightBenchmarkDataPoint(dataPoint, gradeThen) {
   if ([F_AND_P_ENGLISH, F_AND_P_SPANISH].indexOf(dataPoint.benchmark_assessment_key) !== -1) {
     const allLevels = orderedFAndPLevels();
     const benchmarkIndex = allLevels.indexOf(thresholds.benchmark);
-    const level = fAndPOrdering(dataPoint.json.value);
+    const level = interpretFAndPEnglish(dataPoint.json.value);
     const levelIndex = allLevels.indexOf(level);
     return (levelIndex < benchmarkIndex);
   }
