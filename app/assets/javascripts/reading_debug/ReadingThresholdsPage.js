@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Nbsp from '../components/Nbsp';
 import SectionHeading from '../components/SectionHeading';
 import {computeMids} from '../reading/readingData';
@@ -50,9 +51,12 @@ const styles = {
 };
 
 
-export function ReadingThresholdsGrid() {
-  return <ReadingScheduleGrid renderCellFn={renderCellFn} />;
+export function ReadingThresholdsGrid({gradeNow}) {
+  return <ReadingScheduleGrid renderCellFn={renderCellFn} gradeNow={gradeNow} />;
 }
+ReadingThresholdsGrid.propTypes = {
+  gradeNow: PropTypes.string.isRequired
+};
 
 
 function renderCellFn(benchmarkAssessmentKey, grade, benchmarkPeriodKey) {
