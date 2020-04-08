@@ -1,8 +1,8 @@
 import React from 'react';
 import {F_AND_P_ENGLISH} from '../reading/thresholds';
+import {mostRecentDataPointFor} from '../reading/readingData';
 import {COMPREHENSION} from './instructionalStrategies';
 import {matchStrategies} from './instructionalStrategies';
-import {mostRecentDataPoint} from './dibelsParsing';
 import expandedViewPropTypes from './expandedViewPropTypes';
 import ExpandedLayout from './ExpandedLayout';
 import Strategies from './Strategies';
@@ -38,7 +38,7 @@ export default class FAndPEnglishView extends React.Component {
   // the materials of the students' instructional level.
   renderMaterials() {
     const {readerJson} = this.props;
-    const dataPoint = mostRecentDataPoint(readerJson, benchmarkAssessmentKey);
+    const dataPoint = mostRecentDataPointFor(readerJson.benchmark_data_points, benchmarkAssessmentKey);
     if (!dataPoint) return null;
     return <FAndPMaterials rawLevelText={dataPoint.json.value} />;
   }

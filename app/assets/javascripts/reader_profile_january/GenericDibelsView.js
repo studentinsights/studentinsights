@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {adjustedGrade} from '../helpers/gradeText';
+import {mostRecentDataPointFor} from '../reading/readingData';
 import expandedViewPropTypes from './expandedViewPropTypes';
 import {matchStrategies} from './instructionalStrategies';
-import {mostRecentDataPoint} from './dibelsParsing';
 import ExpandedLayout from './ExpandedLayout';
 import MaterialsCarousel from './MaterialsCarousel';
 import Strategies from './Strategies';
@@ -37,7 +37,7 @@ export default class GenericDibelsView extends React.Component {
   renderMaterials() {
     const {nowFn} = this.context;
     const {student, readerJson, benchmarkAssessmentKey, urls} = this.props;
-    const dataPoint = mostRecentDataPoint(readerJson, benchmarkAssessmentKey);
+    const dataPoint = mostRecentDataPointFor(readerJson.benchmark_data_points, benchmarkAssessmentKey);
     if (!dataPoint) return null;
 
     const gradeThen = adjustedGrade(dataPoint.benchmark_school_year, student.grade, nowFn());

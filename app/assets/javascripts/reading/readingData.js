@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 import {
   high,
@@ -196,4 +197,38 @@ export function computeMids(thresholds, benchmarkAssessmentKey, grade, benchmark
     thresholds.risk + 1,
     thresholds.benchmark - 1
   ];
+}
+
+
+// Decide whether to highlight based on thresholds; returns true|false|null.
+export function shouldHighlightBenchmarkDataPoint(dataPoint, gradeThen) {
+  const thresholds = somervilleReadingThresholdsFor(...[
+    dataPoint.benchmark_assessment_key,
+    gradeThen,
+    dataPoint.benchmark_period_key
+  ]);
+
+  // No threshold
+  if (!thresholds || thresholds.benchmark === undefined) return null;
+
+  // For Dibels, we can compare numerically, but for F&P we have to compare
+  // differently.
+  if ([F_AND_P_ENGLISH, F_AND_P_SPANISH].indexOf(dataPoint.benchmark_assessment_key) !== -1) {
+    const allLevels = orderedFAndPLevels();
+    const benchmarkIndex = allLevels.indexOf(thresholds.benchmark);
+    const level = fAndPOrdering(dataPoint.json.value);
+    const levelIndex = allLevels.indexOf(level);
+    return (levelIndex < benchmarkIndex);
+  }
+
+  return (dataPoint.json.value < thresholds.benchmark);
+}
+
+
+// Get most recent data point, regardless of time.
+export function mostRecentDataPointFor(dataPoints, benchmarkAssessmentKey) {
+  const benchmarkDataPoints = dataPoints.filter(d => d.benchmark_assessment_key === benchmarkAssessmentKey);
+  return _.last(_.sortBy(benchmarkDataPoints, dataPoint => {
+    return benchmarkPeriodToMoment(dataPoint.benchmark_period_key, dataPoint.benchmark_school_year).unix();
+  }));
 }
