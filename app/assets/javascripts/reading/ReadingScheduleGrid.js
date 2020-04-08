@@ -21,6 +21,7 @@ export default class ReadingScheduleGrid extends React.Component {
   cellForNow() {
     const {gradeNow} = this.props;
     const {nowFn} = this.context;
+    if (!gradeNow || !nowFn) return null;
     const nowMoment = nowFn();
     const benchmarkPeriodKeyNow = benchmarkPeriodKeyFor(nowMoment);
     return [gradeNow, benchmarkPeriodKeyNow];
@@ -85,11 +86,11 @@ export default class ReadingScheduleGrid extends React.Component {
   }
 }
 ReadingScheduleGrid.propTypes = {
-  gradeNow: PropTypes.string.isRequired,
-  renderCellFn: PropTypes.func.isRequired
+  renderCellFn: PropTypes.func.isRequired,
+  gradeNow: PropTypes.string
 };
 ReadingScheduleGrid.contextTypes = {
-  nowFn: PropTypes.func.isRequired
+  nowFn: PropTypes.func
 };
 
 

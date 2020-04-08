@@ -134,6 +134,10 @@ exports[`snapshots 1`] = `
         <th
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
+              "borderTop": "1px solid #ccc",
               "textAlign": "center",
               "width": 40,
             }
@@ -619,6 +623,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -1004,6 +1011,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -1389,6 +1399,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -1774,6 +1787,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -2159,6 +2175,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -2544,6 +2563,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -2929,6 +2951,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -3446,6 +3471,9 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }
@@ -3864,6 +3892,10 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "background": "#f8f8f8",
+              "borderBottom": "1px solid #ccc",
+              "borderLeft": "1px solid #ccc",
+              "borderRight": "1px solid #ccc",
               "paddingBottom": 10,
               "paddingTop": 10,
             }

@@ -55,7 +55,7 @@ export function ReadingThresholdsGrid({gradeNow}) {
   return <ReadingScheduleGrid renderCellFn={renderCellFn} gradeNow={gradeNow} />;
 }
 ReadingThresholdsGrid.propTypes = {
-  gradeNow: PropTypes.string.isRequired
+  gradeNow: PropTypes.string
 };
 
 
