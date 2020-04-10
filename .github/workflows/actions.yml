@@ -182,6 +182,7 @@ jobs:
       run: |
         ls -alt coverage/shards
         wc coverage/shards/*0.json
+        cat coverage/shards/*0.json | head -n50
 
     - name: Enforce test coverage
       run: ruby spec/coverage_enforcer_runner.rb
