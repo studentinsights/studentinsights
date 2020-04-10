@@ -178,14 +178,10 @@ jobs:
         name: coverage-check-resultset
         path: coverage/shards
 
-    # The unzip step is from an upstream bug in download-artifact
-    # see https://github.com/actions/download-artifact/issues/23#issuecomment-609884201
     - name: Collate shards
       run: |
         ls -alt coverage/shards
-        gunzip --suffix .json -f coverage/shards/results*.json
-        for FILENAME in coverage/shards/results*; do mv $FILENAME $FILENAME.json; done 
-        ls -alt coverage/shards
+        wc coverage/shards/*0.json
 
     - name: Enforce test coverage
       run: ruby spec/coverage_enforcer_runner.rb
