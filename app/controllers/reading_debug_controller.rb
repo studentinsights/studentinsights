@@ -22,8 +22,7 @@ class ReadingDebugController < ApplicationController
     render json: {
       students: students_json,
       schools: schools_json,
-      groups: groups,
-      student_counts_by_grade: student_counts_by_grade(students)
+      groups: groups
     }
   end
 
@@ -115,15 +114,6 @@ class ReadingDebugController < ApplicationController
     end
     groups = ReadingQueries.new.groups_for_grid(students)
     [students, groups]
-  end
-
-  def student_counts_by_grade(students)
-    counts_by_grade = {}
-    students.each do |student|
-      next if student.grade.nil?
-      counts_by_grade[student.grade] = counts_by_grade.fetch(student.grade, 0) + 1
-    end
-    counts_by_grade
   end
 
   # Use time from value or fall back to Time.now

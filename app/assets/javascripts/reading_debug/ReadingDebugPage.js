@@ -18,7 +18,6 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
-import SelectGrade from '../components/SelectGrade';
 import SelectSchool from '../components/SelectSchool';
 import DownloadIcon from '../components/DownloadIcon';
 import ExperimentalBanner from '../components/ExperimentalBanner';
@@ -73,10 +72,10 @@ export default class ReadingDebugPage extends React.Component {
 
   url() {
     const {schoolIdNow} = this.state;
-    const queryString = qs.stringify({
-      school_id_now: schoolIdNow == ALL ? null : schoolIdNow
-    });
-    return `/api/reading_debug/reading_debug_json?${queryString}`;
+    const queryString = schoolIdNow === ALL
+      ? ''
+      : '?' + qs.stringify({school_id_now: schoolIdNow});
+    return `/api/reading_debug/reading_debug_json${queryString}`;
   }
 
   onSchoolIdNowChanged(schoolIdNow) {
@@ -85,6 +84,7 @@ export default class ReadingDebugPage extends React.Component {
 
   render() {
     const url = this.url();
+    console.log('url', url);
     return (
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
@@ -103,12 +103,18 @@ export default class ReadingDebugPage extends React.Component {
 
   renderJson(json) {
     const {schoolIdNow} = this.state;
+    const studentCountsByGrade = {};
+    json.students.forEach(student => {
+      if (!student.grade) return;
+      studentCountsByGrade[student.grade] = (studentCountsByGrade[student.grade] || 0) + 1;
+    });
+
     return (
       <ReadingDebugView
         students={json.students}
         groups={json.groups}
         schools={json.schools}
-        studentCountsByGrade={json.student_counts_by_grade}
+        studentCountsByGrade={studentCountsByGrade}
         schoolIdNow={schoolIdNow}
         onSchoolIdNowChanged={this.onSchoolIdNowChanged}
       />
@@ -551,7 +557,7 @@ ReadingDebugView.propTypes = {
     id: PropTypes.number.isRequired,
     local_id: PropTypes.string.isRequired
   })).isRequired,
-  schoolIdNow: PropTypes.string,
+  schoolIdNow: PropTypes.any,
   onSchoolIdNowChanged: PropTypes.func.isRequired
 };
 
