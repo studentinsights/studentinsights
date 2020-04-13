@@ -7,7 +7,7 @@ import SimpleFilterSelect, {ALL} from './SimpleFilterSelect';
 
 
 // For selecting a grade
-export default function SelectGrade({grade, onChange, grades, style = undefined}) {
+export default function SelectGrade({grade, onChange, grades, placeholder = undefined, style = undefined}) {
   const availableGrades = grades || allGrades();
   const sortedGrades = _.sortBy(availableGrades, rankedByGradeLevel);
   const gradeOptions = [{value: ALL, label: 'All'}].concat(sortedGrades.map(grade => {
@@ -16,7 +16,7 @@ export default function SelectGrade({grade, onChange, grades, style = undefined}
   return (
     <SimpleFilterSelect
       style={style}
-      placeholder="Grade..."
+      placeholder={placeholder || "Grade..."}
       value={grade}
       onChange={onChange}
       options={gradeOptions} />
@@ -26,5 +26,6 @@ SelectGrade.propTypes = {
   grade: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   grades: PropTypes.arrayOf(PropTypes.string),
+  placeholder: PropTypes.string,
   style: PropTypes.object
 };

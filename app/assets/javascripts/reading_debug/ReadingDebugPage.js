@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import qs from 'query-string';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import ReactModal from 'react-modal';
+import {shortSchoolName} from '../helpers/PerDistrict';
 import {adjustedGrade, gradeText} from '../helpers/gradeText';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
@@ -16,6 +18,8 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import SelectGrade from '../components/SelectGrade';
+import SelectSchool from '../components/SelectSchool';
 import DownloadIcon from '../components/DownloadIcon';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
@@ -54,6 +58,11 @@ import {
 export default class ReadingDebugPage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      gradeNow: null,
+      schoolIdNow: null
+    };
     this.fetchJson = this.fetchJson.bind(this);
     this.renderJson = this.renderJson.bind(this);
   }
@@ -63,7 +72,12 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   fetchJson() {
-    return apiFetchJson('/api/reading_debug/reading_debug_json');
+    const {gradeNow, schoolIdNow} = this.state;
+    const queryString = qs.stringify({
+      grade_now: gradeNow,
+      school_id_now: schoolIdNow
+    });
+    return apiFetchJson('/api/reading_debug/reading_debug_json?' + queryString);
   }
 
   render() {
@@ -83,11 +97,17 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   renderJson(json) {
+    const {gradeNow, schoolIdNow} = this.state;
     return (
       <ReadingDebugView
         students={json.students}
         groups={json.groups}
+        schools={json.schools}
         studentCountsByGrade={json.student_counts_by_grade}
+        gradeNow={gradeNow}
+        onGradeNowChanged={this.onGradeNowChanged}
+        schoolIdNow={schoolIdNow}
+        onSchoolIdChanged={this.onSchoolIdChanged}
       />
     );
   }
@@ -151,9 +171,11 @@ export class ReadingDebugView extends React.Component {
         <div style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <div style={{display: 'flex', alignItems: 'center'}}>
             {this.renderAssessmentSelect()}
+            {this.renderGradeNowSelect()}
+            {this.renderSchoolIdNowSelect()}
             <SimpleFilterSelect
               placeholder="Visualization..."
-              style={{width: '16em'}}
+              style={{width: '9em'}}
               value={visualization}
               onChange={this.onVisualizationChanged}
               options={[
@@ -202,6 +224,33 @@ export class ReadingDebugView extends React.Component {
         value={benchmarkAssessmentKey}
         onChange={this.onBenchmarkAssessmentKeyChanged}
         options={options} />
+    );
+  }
+
+  renderGradeNowSelect() {
+    const {gradeNow, onGradeNowChanged} = this.props;
+    return (
+      <SelectGrade
+        style={styles.select}
+        grade={gradeNow}
+        onChange={onGradeNowChanged} />
+    );
+  }
+
+  renderSchoolIdNowSelect() {
+    const {districtKey} = this.context;
+    const {schools, schoolIdNow, onSchoolIdNowChanged} = this.props;
+    return (
+      <SelectSchool
+        style={styles.select}
+        schoolId={schoolIdNow}
+        schools={schools.map(school => {
+          return {
+            id: school.id,
+            label: shortSchoolName(districtKey, school.local_id)
+          };
+        })}
+        onChange={onSchoolIdNowChanged} />
     );
   }
 
@@ -482,6 +531,7 @@ export class ReadingDebugView extends React.Component {
   }
 }
 ReadingDebugView.contextTypes = {
+  districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
 };
 ReadingDebugView.propTypes = {
@@ -499,6 +549,14 @@ ReadingDebugView.propTypes = {
     limited_english_proficiency: PropTypes.string,
     homeroom: PropTypes.object,
   })).isRequired,
+  gradeNow: PropTypes.string,
+  onGradeNowChanged: PropTypes.func.isRequired,
+  schools: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    local_id: PropTypes.string.isRequired
+  })).isRequired,
+  schoolIdNow: PropTypes.string,
+  onSchoolIdNowChanged: PropTypes.func.isRequired
 };
 
 
