@@ -60,11 +60,9 @@ export default class ReadingDebugPage extends React.Component {
     super(props);
 
     this.state = {
-      gradeNow: ALL,
       schoolIdNow: ALL
     };
     this.url = this.url.bind(this);
-    this.onGradeNowChanged = this.onGradeNowChanged.bind(this);
     this.onSchoolIdNowChanged = this.onSchoolIdNowChanged.bind(this);
     this.renderJson = this.renderJson.bind(this);
   }
@@ -74,16 +72,11 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   url() {
-    const {gradeNow, schoolIdNow} = this.state;
+    const {schoolIdNow} = this.state;
     const queryString = qs.stringify({
-      grade_now: gradeNow == ALL ? null : gradeNow,
       school_id_now: schoolIdNow == ALL ? null : schoolIdNow
     });
     return `/api/reading_debug/reading_debug_json?${queryString}`;
-  }
-
-  onGradeNowChanged(gradeNow) {
-    this.setState({gradeNow});
   }
 
   onSchoolIdNowChanged(schoolIdNow) {
@@ -109,15 +102,13 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   renderJson(json) {
-    const {gradeNow, schoolIdNow} = this.state;
+    const {schoolIdNow} = this.state;
     return (
       <ReadingDebugView
         students={json.students}
         groups={json.groups}
         schools={json.schools}
         studentCountsByGrade={json.student_counts_by_grade}
-        gradeNow={gradeNow}
-        onGradeNowChanged={this.onGradeNowChanged}
         schoolIdNow={schoolIdNow}
         onSchoolIdNowChanged={this.onSchoolIdNowChanged}
       />
@@ -183,11 +174,10 @@ export class ReadingDebugView extends React.Component {
         <div style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <div style={{display: 'flex', alignItems: 'center'}}>
             {this.renderAssessmentSelect()}
-            {this.renderGradeNowSelect()}
             {this.renderSchoolIdNowSelect()}
             <SimpleFilterSelect
               placeholder="Visualization..."
-              style={{width: '9em'}}
+              style={{width: '10em'}}
               value={visualization}
               onChange={this.onVisualizationChanged}
               options={[
@@ -195,7 +185,13 @@ export class ReadingDebugView extends React.Component {
                 {value: 'BOX_AND_WHISKER', label: 'Box and whisker'}
               ]} />
             <div
-              style={{paddingLeft: 10, cursor: 'pointer', fontWeight: isFlipped ? 'bold' : 'normal'}}
+              style={{
+                paddingLeft: 10,
+                cursor: 'pointer',
+                color: '#333',
+                fontSize: 14,
+                fontWeight: isFlipped ? 'bold' : 'normal'
+              }}
               onClick={this.onFlippedClicked}>Flip table</div>
           </div>
           <div>
@@ -239,22 +235,12 @@ export class ReadingDebugView extends React.Component {
     );
   }
 
-  renderGradeNowSelect() {
-    const {gradeNow, onGradeNowChanged} = this.props;
-    return (
-      <SelectGrade
-        style={styles.select}
-        grade={gradeNow}
-        onChange={onGradeNowChanged} />
-    );
-  }
-
   renderSchoolIdNowSelect() {
     const {districtKey} = this.context;
     const {schools, schoolIdNow, onSchoolIdNowChanged} = this.props;
     return (
       <SelectSchool
-        style={styles.select}
+        style={{width: '10em'}}
         schoolId={schoolIdNow}
         schools={schools.map(school => {
           return {
@@ -561,8 +547,6 @@ ReadingDebugView.propTypes = {
     limited_english_proficiency: PropTypes.string,
     homeroom: PropTypes.object,
   })).isRequired,
-  gradeNow: PropTypes.string,
-  onGradeNowChanged: PropTypes.func.isRequired,
   schools: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     local_id: PropTypes.string.isRequired
