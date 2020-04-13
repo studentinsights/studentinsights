@@ -60,10 +60,12 @@ export default class ReadingDebugPage extends React.Component {
     super(props);
 
     this.state = {
-      gradeNow: null,
-      schoolIdNow: null
+      gradeNow: ALL,
+      schoolIdNow: ALL
     };
-    this.fetchJson = this.fetchJson.bind(this);
+    this.url = this.url.bind(this);
+    this.onGradeNowChanged = this.onGradeNowChanged.bind(this);
+    this.onSchoolIdNowChanged = this.onSchoolIdNowChanged.bind(this);
     this.renderJson = this.renderJson.bind(this);
   }
 
@@ -71,16 +73,25 @@ export default class ReadingDebugPage extends React.Component {
     updateGlobalStylesToTakeFullHeight();
   }
 
-  fetchJson() {
+  url() {
     const {gradeNow, schoolIdNow} = this.state;
     const queryString = qs.stringify({
-      grade_now: gradeNow,
-      school_id_now: schoolIdNow
+      grade_now: gradeNow == ALL ? null : gradeNow,
+      school_id_now: schoolIdNow == ALL ? null : schoolIdNow
     });
-    return apiFetchJson('/api/reading_debug/reading_debug_json?' + queryString);
+    return `/api/reading_debug/reading_debug_json?${queryString}`;
+  }
+
+  onGradeNowChanged(gradeNow) {
+    this.setState({gradeNow});
+  }
+
+  onSchoolIdNowChanged(schoolIdNow) {
+    this.setState({schoolIdNow});
   }
 
   render() {
+    const url = this.url();
     return (
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
@@ -89,7 +100,8 @@ export default class ReadingDebugPage extends React.Component {
           <a href="/reading/debug_csv"><DownloadIcon /></a>
         </SectionHeading>
         <GenericLoader
-          promiseFn={this.fetchJson}
+          key={url}
+          promiseFn={() => apiFetchJson(url)}
           style={styles.flexVertical}
           render={this.renderJson} />
       </div>
@@ -107,7 +119,7 @@ export default class ReadingDebugPage extends React.Component {
         gradeNow={gradeNow}
         onGradeNowChanged={this.onGradeNowChanged}
         schoolIdNow={schoolIdNow}
-        onSchoolIdChanged={this.onSchoolIdChanged}
+        onSchoolIdNowChanged={this.onSchoolIdNowChanged}
       />
     );
   }

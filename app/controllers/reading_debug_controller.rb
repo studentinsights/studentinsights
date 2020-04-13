@@ -111,7 +111,7 @@ class ReadingDebugController < ApplicationController
       cohort_students = Student.active
       cohort_students = cohort_students.where(grade: grade_now) if grade_now.present?
       cohort_students = cohort_students.where(school_id: school_id_now) if school_id_now.present?
-      cohort_students
+      cohort_students.to_a
     end
     groups = ReadingQueries.new.groups_for_grid(students)
     [students, groups]
