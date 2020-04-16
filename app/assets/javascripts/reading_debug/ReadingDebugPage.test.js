@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock/es5/client';
 import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import ReadingDebugPage, {ReadingDebugView} from './ReadingDebugPage';
+import ReadingDebugPage, {viewPropsFromJson, ReadingDebugView} from './ReadingDebugPage';
 import readingDebugJson from './reading_debug_json.fixture';
 
 beforeEach(() => {
@@ -13,33 +13,28 @@ beforeEach(() => {
   fetchMock.get('express:/api/reading_debug/reading_debug_json', readingDebugJson);
 });
 
-export function testProps(props = {}) {
-  return {
-    ...props
-  };
+export function withTestContext(children) {
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey="somerville">
+      {children}
+    </PerDistrictContainer>
+  );
 }
 
-it('renders without crashing', done => {
+
+it('renders without crashing', () => {
   const el = document.createElement('div');
-  const props = testProps();
-  ReactDOM.render(withDefaultNowContext(
-    <PerDistrictContainer districtKey="somerville">
-      <ReadingDebugPage {...props} />)
-    </PerDistrictContainer>
-  ), el);
-  setTimeout(done, 1000);
+  ReactDOM.render(withTestContext(<ReadingDebugPage />), el);
 });
 
 
-// it('snapshots view', () => {
-//   const json = readingDebugJson;
-//   const props = testProps({
-//     students: json.students,
-//     groups: json.groups,
-//     studentCountsByGrade: json.students_count_by_grade
-//   });
-//   const tree = renderer
-//     .create(withDefaultNowContext(<ReadingDebugView {...props} />))
-//     .toJSON();
-//   expect(tree).toMatchSnapshot();
-// });
+it('snapshots view', () => {
+  const props = viewPropsFromJson({
+    json: readingDebugJson,
+    onSchoolIdNowChanged: jest.fn()
+  });
+  const tree = renderer
+    .create(withTestContext(<ReadingDebugView {...props} />))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});

@@ -23,14 +23,12 @@ class PromiseLoader extends React.Component {
 
   componentDidMount() {
     const {promiseFn} = this.props;
-    console.log('promiseFn...');
     promiseFn()
       .then(this.onResolved)
       .catch(this.onRejected);
   }
 
   onResolved(resolve) {
-    console.log('onResolved');
     const {promiseData} = this.state;
     this.setState({ promiseData: {
       ...promiseData,
@@ -40,7 +38,6 @@ class PromiseLoader extends React.Component {
   }
 
   onRejected(reject) {
-    console.log('onRejected');
     const {promiseData} = this.state;
     this.setState({ promiseData: {
       ...promiseData,

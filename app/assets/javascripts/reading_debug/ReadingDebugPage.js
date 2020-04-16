@@ -84,7 +84,6 @@ export default class ReadingDebugPage extends React.Component {
 
   render() {
     const url = this.url();
-    console.log('url', url);
     return (
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
@@ -103,25 +102,33 @@ export default class ReadingDebugPage extends React.Component {
 
   renderJson(json) {
     const {schoolIdNow} = this.state;
-    const studentCountsByGrade = {};
-    json.students.forEach(student => {
-      if (!student.grade) return;
-      studentCountsByGrade[student.grade] = (studentCountsByGrade[student.grade] || 0) + 1;
+    const props = viewPropsFromJson({
+      json,
+      schoolIdNow,
+      onSchoolIdNowChanged: this.onSchoolIdNowChanged
     });
-
-    return (
-      <ReadingDebugView
-        students={json.students}
-        groups={json.groups}
-        schools={json.schools}
-        studentCountsByGrade={studentCountsByGrade}
-        schoolIdNow={schoolIdNow}
-        onSchoolIdNowChanged={this.onSchoolIdNowChanged}
-      />
-    );
+    return <ReadingDebugView {...props} />;
   }
 }
 
+
+// Only exported for test
+export function viewPropsFromJson({json, schoolIdNow, onSchoolIdNowChanged}) {
+  const studentCountsByGrade = {};
+  json.students.forEach(student => {
+    if (!student.grade) return;
+    studentCountsByGrade[student.grade] = (studentCountsByGrade[student.grade] || 0) + 1;
+  });
+
+  return {
+    studentCountsByGrade,
+    onSchoolIdNowChanged,
+    schoolIdNow: schoolIdNow || ALL,
+    students: json.students,
+    groups: json.groups,
+    schools: json.schools
+  };
+}
 
 export class ReadingDebugView extends React.Component {
   constructor(props) {

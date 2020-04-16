@@ -30,7 +30,6 @@ export default class GenericLoader extends React.Component {
     const {isPending, reject, resolve} = promiseState;
     const {render, style} = this.props;
 
-    console.log('renderGeneric', promiseState);
     if (isPending) return <Loading style={{padding: 10}} />;
 
     // Throw and provide the original stack trace if a global flag is set for test mode.
