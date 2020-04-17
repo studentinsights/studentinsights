@@ -11,15 +11,15 @@
   }
 
   .SCREENS-WINDOW {
-    outline: 1px solid blue;
+    /*outline: 1px solid blue;*/
     width: 350px;
-    height: 150px;
+    height: 120px;
     overflow: hidden;
     position: relative;
   }
   .SCREENS-CONTAINER {
-    outline: 1px solid red;
-    background: yellow;
+    /*outline: 1px solid red;*/
+    /*background: yellow;*/
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -30,16 +30,16 @@
   }
   .SCREEN {
     width: 350px;
-    height: 150px;
+    height: 120px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 20px;
   }
   .SignInPage-item {
-    margin-left: 20px;
-    margin-right: 20px;
     width: 100%;
+    text-align: center;
   }
 
   .SLIDE-ONE {
@@ -175,17 +175,7 @@
     margin-top: 5px;
   }
 
-  .SignInPage-change-coming {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    & > div {
-      padding: 10px;
-      background: #94e38f66;
-      border-radius: 3px;
-      margin-bottom: 20px;
-    }
+  .SignInPage-multifactor-prompt {
+    color: #666;
   }
 }

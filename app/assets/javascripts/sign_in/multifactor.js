@@ -7,36 +7,85 @@
 // - the form, rendered by Rails
 // - jQuery and jQuery UJS, for submitting the form and for listening to form submit events
 
+
+/*
+- flow
+- submit steps
+- validation
+- focus
+- enter keystrokes
+- error handling
+*/
 export function multifactorMain(options = {}) {
   const el = options.el || document.querySelector('.SignInPage');
 
   const screensContainer = el.querySelector('.SCREENS-CONTAINER');
   const signInForm = el.querySelector('.SignInPage-form');
+  const loginText = el.querySelector('.SignInPage-input-login');
+  const passwordText = el.querySelector('.SignInPage-input-password');
+  const loginCodeText = el.querySelector('.SignInPage-input-login-code');
+  const multifactorForm = el.querySelector('.SignInPage-multifactor-form');
+  const multifactorLoginText = el.querySelector('.SignInPage-multifactor-login-text');
 
-  // validate username, then slide
+  // initial
+  loginText.focus();
+
+  // username
   el.querySelector('.SignInPage-username-next-button').addEventListener('click', e => {
     e.preventDefault();
+    el.querySelector('.SignInPage-username-next-button').classList.add('hidden');
+    el.querySelector('.SignInPage-password-next-button').classList.remove('hidden');
 
-    // check validation first, and if it fails do the submit
-    // to show the user validation feedback
-     // TODO not sure about blank password
-    // if (!isUsernameValid(el.querySelector('.SignInPage-input-login').value)) {
-    //   alert('invalid');
-    //   signInForm.querySelector('input[type=submit]').click();
-    //   return;
-    // }
+    // TODO validation
 
-    // slide animation
+    // transition
     screensContainer.classList.add('SLIDE-TWO');
-    // screensContainer.classList.remove('SLIDE-ONE');
+    setTimeout(() => passwordText.focus(), 400);
+    console.log('username done');
   });
 
+
+  // password
+  el.querySelector('.SignInPage-password-next-button').addEventListener('click', e => {
+    e.preventDefault();
+    el.querySelector('.SignInPage-password-next-button').classList.add('hidden');
+    el.querySelector('.SignInPage-multifactor-next-button').classList.remove('hidden');
+
+    // TODO validation 
+
+    // Submit multifactor form separately
+    multifactorLoginText.value = loginText.value;
+    // if (!signInForm.checkValidity()) {
+    //   console.log('signInForm not valid', signInForm);
+    // }
+    // if (!multifactorForm.checkValidity()) {
+    //  console.log('multifactorForm not valid', multifactorForm); 
+    // }
+    // multifactorForm.submit();
+    // console.log('submitted...', multifactorForm.querySelector('input[type=submit]'));
+
+    // slide animation
+    screensContainer.classList.add('SLIDE-THREE');
+    setTimeout(() => loginCodeText.focus(), 400);
+
+    // signInForm.querySelector('input[type=submit]').click();
+
+    // Enable multifactor form separately
+    // multifactorLoginText.value = loginText.value;
+    console.log('password done', loginText.value, multifactorForm.querySelector('input[type=submit]'));
+    return false;
+  });
+
+  // el.querySelector('.SignInPage-multifactor-next-button').addEventListener('click', e => {
+  //   alert('go!')
+  //   // multifactorForm.querySelector('input[type=submit]').click();
+  // });
 }
 
 
-function isUsernameValid(text) {
-  return (text !== '');
-}
+// function isUsernameValid(text) {
+//   return (text !== '');
+// }
 // export function DEPRECATEDmultifactorMain(options = {}) {
 //   const el = options.el || document.querySelector('.SignInPage');
 
