@@ -56,6 +56,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/reading/CreateGroups.story');
   require('../../../app/assets/javascripts/reading/SidebarDialog.story');
   require('../../../app/assets/javascripts/reading_debug/ReadingThresholdsPage.story');
+  require('../../../app/assets/javascripts/reading_debug/ReadingDebugPage.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');

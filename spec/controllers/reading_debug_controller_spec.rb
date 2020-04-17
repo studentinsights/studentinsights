@@ -22,21 +22,46 @@ describe ReadingDebugController, :type => :controller do
       expect(json.keys).to contain_exactly(*[
         'students',
         'groups',
-        'student_counts_by_grade'
+        'schools'
       ])
-      expect(json['students'].size).to eq 5
       expect(json['students'].first.keys).to contain_exactly(*[
         'id',
         'first_name',
         'last_name',
-        'grade'
+        'grade',
+        'school_id'
       ])
-      expect(json['student_counts_by_grade']).to eq({
-        'KF' => 1,
-        '8' => 1,
-        '9' => 2,
-        '12' => 1
-      })
+      expect(json['students'].size).to eq Student.active.size
+      expect(json['students'].map {|s| s['grade'] }.uniq).to contain_exactly(*[
+        'KF',
+        '8',
+        '9',
+        '12'
+      ])
+    end
+
+    it 'respect school_id_now param and response is scoped by school' do
+      sign_in(pals.uri)
+      get :reading_debug_json, params: {
+        format: :json,
+        school_id_now: pals.west.id
+      }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to contain_exactly(*[
+        'students',
+        'groups',
+        'schools'
+      ])
+      expect(json['students'].first.keys).to contain_exactly(*[
+        'id',
+        'first_name',
+        'last_name',
+        'grade',
+        'school_id'
+      ])
+      expect(json['students'].size).to eq 1
+      expect(json['students'].map {|s| s['grade'] }.uniq).to contain_exactly('8')
     end
   end
 end

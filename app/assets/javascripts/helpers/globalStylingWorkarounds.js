@@ -1,3 +1,5 @@
+import {isStorybookDev} from '../helpers/storybook';
+
 // This class is related to styling rules in application.html that we don't
 // not all pages want as global.  This works around until we refactor and migrate
 // away from those global styles being set globally in the HTML template.
@@ -6,6 +8,7 @@
 // the entire vertical height.
 export function updateGlobalStylesToTakeFullHeight() {
   if (window.process && window.process.env.NODE_ENV === 'test') return;
+  if (isStorybookDev()) return;
 
   window.document.documentElement.style.height = '100%';
   window.document.body.style.height = '100%';

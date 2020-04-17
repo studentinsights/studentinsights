@@ -4,18 +4,25 @@ class ReadingDebugController < ApplicationController
   before_action :ensure_authorized_for_feature!
 
   def reading_debug_json
-    students, groups = reading_debug()
+    safe_params = params.permit(:grade_now, :school_id_now)
+    cohort_options = {
+      grade_now: safe_params.fetch(:grade_now, nil),
+      school_id_now: safe_params.fetch(:school_id_now, nil)
+    }
+    students, groups = reading_debug(cohort_options)
     students_json = students.as_json(only: [
       :id,
       :first_name,
       :last_name,
       :grade,
+      :school_id,
       :has_photo
     ])
+    schools_json = School.all.as_json
     render json: {
       students: students_json,
-      groups: groups,
-      student_counts_by_grade: student_counts_by_grade(students)
+      schools: schools_json,
+      groups: groups
     }
   end
 
@@ -95,19 +102,18 @@ class ReadingDebugController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_debug')
   end
 
-  def reading_debug
-    students = authorized { Student.active.to_a }
+  # Allow futher limiting cohort by current grade and current school.
+  def reading_debug(cohort_options = {})
+    grade_now = cohort_options.fetch(:grade_now, nil)
+    school_id_now = cohort_options.fetch(:school_id_now, nil)
+    students = authorized do
+      cohort_students = Student.active
+      cohort_students = cohort_students.where(grade: grade_now) if grade_now.present?
+      cohort_students = cohort_students.where(school_id: school_id_now) if school_id_now.present?
+      cohort_students.to_a
+    end
     groups = ReadingQueries.new.groups_for_grid(students)
     [students, groups]
-  end
-
-  def student_counts_by_grade(students)
-    counts_by_grade = {}
-    students.each do |student|
-      next if student.grade.nil?
-      counts_by_grade[student.grade] = counts_by_grade.fetch(student.grade, 0) + 1
-    end
-    counts_by_grade
   end
 
   # Use time from value or fall back to Time.now

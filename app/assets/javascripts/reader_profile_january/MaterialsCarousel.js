@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
+import {isStorybookDev} from '../helpers/storybook';
 
 
 export default class MaterialsCarousel extends React.Component {
@@ -148,7 +149,3 @@ const styles = {
 };
 
 
-// Check env to see if this is running in dev mode in Storybook.
-function isStorybookDev() {
-  return (window.STORYBOOK_IS_RUNNING === 'yes_storybook_is_running');
-}

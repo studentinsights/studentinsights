@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import qs from 'query-string';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import ReactModal from 'react-modal';
+import {shortSchoolName} from '../helpers/PerDistrict';
 import {adjustedGrade, gradeText} from '../helpers/gradeText';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
@@ -16,6 +18,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import SelectSchool from '../components/SelectSchool';
 import DownloadIcon from '../components/DownloadIcon';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
@@ -54,7 +57,12 @@ import {
 export default class ReadingDebugPage extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchJson = this.fetchJson.bind(this);
+
+    this.state = {
+      schoolIdNow: ALL
+    };
+    this.url = this.url.bind(this);
+    this.onSchoolIdNowChanged = this.onSchoolIdNowChanged.bind(this);
     this.renderJson = this.renderJson.bind(this);
   }
 
@@ -62,11 +70,20 @@ export default class ReadingDebugPage extends React.Component {
     updateGlobalStylesToTakeFullHeight();
   }
 
-  fetchJson() {
-    return apiFetchJson('/api/reading_debug/reading_debug_json');
+  url() {
+    const {schoolIdNow} = this.state;
+    const queryString = schoolIdNow === ALL
+      ? ''
+      : '?' + qs.stringify({school_id_now: schoolIdNow});
+    return `/api/reading_debug/reading_debug_json${queryString}`;
+  }
+
+  onSchoolIdNowChanged(schoolIdNow) {
+    this.setState({schoolIdNow});
   }
 
   render() {
+    const url = this.url();
     return (
       <div className="ReadingDebugPage" style={styles.flexVertical}>
         <ExperimentalBanner />
@@ -75,7 +92,8 @@ export default class ReadingDebugPage extends React.Component {
           <a href="/reading/debug_csv"><DownloadIcon /></a>
         </SectionHeading>
         <GenericLoader
-          promiseFn={this.fetchJson}
+          key={url}
+          promiseFn={() => apiFetchJson(url)}
           style={styles.flexVertical}
           render={this.renderJson} />
       </div>
@@ -83,16 +101,34 @@ export default class ReadingDebugPage extends React.Component {
   }
 
   renderJson(json) {
-    return (
-      <ReadingDebugView
-        students={json.students}
-        groups={json.groups}
-        studentCountsByGrade={json.student_counts_by_grade}
-      />
-    );
+    const {schoolIdNow} = this.state;
+    const props = viewPropsFromJson({
+      json,
+      schoolIdNow,
+      onSchoolIdNowChanged: this.onSchoolIdNowChanged
+    });
+    return <ReadingDebugView {...props} />;
   }
 }
 
+
+// Only exported for test
+export function viewPropsFromJson({json, schoolIdNow, onSchoolIdNowChanged}) {
+  const studentCountsByGrade = {};
+  json.students.forEach(student => {
+    if (!student.grade) return;
+    studentCountsByGrade[student.grade] = (studentCountsByGrade[student.grade] || 0) + 1;
+  });
+
+  return {
+    studentCountsByGrade,
+    onSchoolIdNowChanged,
+    schoolIdNow: schoolIdNow || ALL,
+    students: json.students,
+    groups: json.groups,
+    schools: json.schools
+  };
+}
 
 export class ReadingDebugView extends React.Component {
   constructor(props) {
@@ -151,9 +187,10 @@ export class ReadingDebugView extends React.Component {
         <div style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <div style={{display: 'flex', alignItems: 'center'}}>
             {this.renderAssessmentSelect()}
+            {this.renderSchoolIdNowSelect()}
             <SimpleFilterSelect
               placeholder="Visualization..."
-              style={{width: '16em'}}
+              style={{width: '10em'}}
               value={visualization}
               onChange={this.onVisualizationChanged}
               options={[
@@ -161,7 +198,13 @@ export class ReadingDebugView extends React.Component {
                 {value: 'BOX_AND_WHISKER', label: 'Box and whisker'}
               ]} />
             <div
-              style={{paddingLeft: 10, cursor: 'pointer', fontWeight: isFlipped ? 'bold' : 'normal'}}
+              style={{
+                paddingLeft: 10,
+                cursor: 'pointer',
+                color: '#333',
+                fontSize: 14,
+                fontWeight: isFlipped ? 'bold' : 'normal'
+              }}
               onClick={this.onFlippedClicked}>Flip table</div>
           </div>
           <div>
@@ -202,6 +245,23 @@ export class ReadingDebugView extends React.Component {
         value={benchmarkAssessmentKey}
         onChange={this.onBenchmarkAssessmentKeyChanged}
         options={options} />
+    );
+  }
+
+  renderSchoolIdNowSelect() {
+    const {districtKey} = this.context;
+    const {schools, schoolIdNow, onSchoolIdNowChanged} = this.props;
+    return (
+      <SelectSchool
+        style={{width: '10em'}}
+        schoolId={schoolIdNow}
+        schools={schools.map(school => {
+          return {
+            id: school.id,
+            label: shortSchoolName(districtKey, school.local_id)
+          };
+        })}
+        onChange={onSchoolIdNowChanged} />
     );
   }
 
@@ -482,6 +542,7 @@ export class ReadingDebugView extends React.Component {
   }
 }
 ReadingDebugView.contextTypes = {
+  districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
 };
 ReadingDebugView.propTypes = {
@@ -499,6 +560,12 @@ ReadingDebugView.propTypes = {
     limited_english_proficiency: PropTypes.string,
     homeroom: PropTypes.object,
   })).isRequired,
+  schools: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    local_id: PropTypes.string.isRequired
+  })).isRequired,
+  schoolIdNow: PropTypes.any,
+  onSchoolIdNowChanged: PropTypes.func.isRequired
 };
 
 
