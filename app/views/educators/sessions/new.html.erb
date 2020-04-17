@@ -21,45 +21,63 @@
         <%= image_tag PerDistrict.new.sign_in_params[:district_logo_src], alt: PerDistrict.new.sign_in_params[:district_logo_alt], class:"SignInPage-district-logo" %>
       </a>
       <div class="SignInPage-flash-alert"><%= alert %></div>
-      <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
-        <div class="SignInPage-item">
-          <%= text_field_tag('educator[login_text]', nil, {
-            class: 'SignInPage-input-text SignInPage-input-login',
-            autocomplete: 'off',
-            required: true,
-            autofocus: true,
-            placeholder: 'Login, username only',
-            'data-disable' => true, # rails-ujs
-          }) %>
-        </div>
-        <div class="SignInPage-item">
-          <%= password_field_tag('educator[password]', nil, {
-            class: 'SignInPage-input-text SignInPage-input-password',
-            autocomplete: 'off',
-            required: true,
-            placeholder: 'Password',
-            'data-disable' => true, # rails-ujs
-          }) %>
-        </div>
-        <div class="SignInPage-login-buttons">
-          <%= submit_tag('Sign in', {
-            class: "btn btn-primary SignInPage-login-button",
-              name: nil,
-              'data-disable-with' => 'Signing in...' # rails-ujs
-          }) %>
-          <div class="SignInPage-multifactor">
-            <%= link_to('Use multifactor login', "#multifactor", class: 'SignInPage-authentication-type-link') %>
-            <%= text_field_tag('educator[login_code]', nil, {
-              class: 'SignInPage-input-text SignInPage-input-login-code hidden',
-              placeholder: 'Sign in code',
-              autocomplete: 'off',
-              required: true,
-              value: 'NO_CODE', # Devise requires a value
-              'data-disable' => true, # rails-ujs
-            }) %>
+
+
+      <div class="SCREENS-WINDOW">
+        <div class="SCREENS-CONTAINER SLIDE-ONE">
+          <div class="SCREEN">
+            <div class="SignInPage-item">
+              <%= text_field_tag('educator[login_text]', nil, {
+                class: 'SignInPage-input-text SignInPage-input-login',
+                autocomplete: 'off',
+                required: true,
+                autofocus: true,
+                placeholder: 'Login, username only',
+                'data-disable' => true, # rails-ujs
+              }) %>
+              <%= button_tag('Next', {
+                class: "btn btn-primary SignInPage-button SignInPage-username-next-button",
+                name: nil,
+              }) %>
+            </div>
+          </div>
+          <div class="SCREEN">
+            <div class="SignInPage-item">
+              <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
+                <%= password_field_tag('educator[password]', nil, {
+                  class: 'SignInPage-input-text SignInPage-input-password',
+                  autocomplete: 'off',
+                  required: true,
+                  placeholder: 'Password',
+                  'data-disable' => true, # rails-ujs
+                }) %>
+                <%= submit_tag('Next', {
+                  class: "btn btn-primary SignInPage-button SignInPage-password-next-button",
+                  name: nil,
+                }) %>
+              <% end %>
+            </div>
+          </div>
+          <div class="SCREEN">
+            <div class="SignInPage-item">
+              <%= form_tag educators_multifactor_path, remote: true %>
+                <%= text_field_tag('educator[login_code]', nil, {
+                  class: 'SignInPage-input-text SignInPage-input-login-code',
+                  placeholder: 'Sign in code',
+                  autocomplete: 'off',
+                  required: true,
+                  value: 'NO_CODE', # Devise requires a value
+                  'data-disable' => true, # rails-ujs
+                }) %>
+              <%= submit_tag('Next', {
+                class: "btn btn-primary SignInPage-button SignInPage-multifactor-next-button",
+                  name: nil,
+              }) %>
+            </div>
           </div>
         </div>
-      <% end %>
+      </div>
+      
       <div class="SignInPage-email">
         <p>Need help? <a href="mailto:help@studentinsights.org">help@studentinsights.org</a></p>
       </div> 
@@ -69,12 +87,5 @@
       </div>
     </div>
   </div>
-  <%= form_tag educators_multifactor_path, remote: true, class: 'hidden SignInPage-multifactor-form' do %>
-    <%= text_field_tag('multifactor[login_text]', nil, {
-      class: 'hidden SignInPage-multifactor-login-text',
-      required: true
-    }) %>
-    <%= submit_tag 'Use multifactor button', class: 'hidden', name: nil %>
-  <% end %>
   <%= javascript_include_tag Webpack.bundle('sign_in.js') %>
 </div>

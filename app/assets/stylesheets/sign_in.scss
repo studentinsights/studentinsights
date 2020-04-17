@@ -10,6 +10,48 @@
     height: 50px;
   }
 
+  .SCREENS-WINDOW {
+    outline: 1px solid blue;
+    width: 350px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+  }
+  .SCREENS-CONTAINER {
+    outline: 1px solid red;
+    background: yellow;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+
+    transition-property: transform;
+    transition-duration: 400ms;
+    transition-timing-function: ease;
+  }
+  .SCREEN {
+    width: 350px;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .SignInPage-item {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 100%;
+  }
+
+  .SLIDE-ONE {
+    transform: translateX(0px);
+  }
+  .SLIDE-TWO {
+    transform: translateX(-350px);
+  }
+  .SLIDE-THREE {
+    transform: translateX(-700px);
+  }
+
   .Logo {
     width: 35px;
     height: auto;
@@ -23,10 +65,6 @@
     align-self: flex-end;
   }
 
-  .SignInPage-item {
-    padding-top: 15px;
-  }
-
   .SignInPage-input-text {
     font-size: 14px;
     padding: 6px;
@@ -35,6 +73,8 @@
     height: 45px;
     border-radius: 28px;
     background-color: #FAFAFA;
+    width: 100%;
+    margin-bottom: 15px;
 
     &:invalid, &:required {
       box-shadow: 0 0 1px 1px #eee;
@@ -51,12 +91,6 @@
     }
   }
 
-  .SignInPage-input-login,
-  .SignInPage-input-password {
-    width: 350px;
-    margin-bottom: 15px;
-  }
-
   .SignInPage-multifactor {
     flex: 1;
     display: flex;
@@ -69,6 +103,7 @@
     overflow: hidden;
     height: 100%;
     position: relative;
+    z-index: 100;
   }
 
   .SignInPage-share-photo {
@@ -94,6 +129,7 @@
     align-items: center;
     height: 100%;
     background-color: white;
+    z-index: 10;
   }
 
   .SignInPage-right-box-content {
@@ -111,16 +147,13 @@
 
   .SignInPage-login-buttons {
     display: flex;
+    justify-content: flex-end;
     padding-top: 15px;
   }
 
-  .SignInPage-login-button {
+  .SignInPage-button {
     padding: 15px;
-    width: 200px;
-  }
-
-  .SignInPage-input-login-code {
-    width: 130px;
+    width: 160px;
   }
 
   .SignInPage-district-logo {
