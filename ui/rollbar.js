@@ -22,6 +22,7 @@ function reportToMockRollbar(type, ...params) {
 // Minimal reporting API for local development.
 function writeToConsoleInsteadOfRollbar() {
   window.Rollbar = {
+    isRollbarMocked: true,
     info: reportToMockRollbar.bind('info'),
     warn: reportToMockRollbar.bind('warn'),
     error: reportToMockRollbar.bind('error')
