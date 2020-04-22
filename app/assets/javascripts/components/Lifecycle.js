@@ -16,6 +16,11 @@ export default class Lifecycle extends React.Component {
     if (componentWillMount) componentWillMount(nextProps, nextState);
   }
 
+  componentWillUnmount(nextProps, nextState) {
+    const {componentWillUnmount} = this.props;
+    if (componentWillUnmount) componentWillUnmount(nextProps, nextState);
+  }
+
   render() {
     const {children} = this.props;
     return children;
@@ -24,5 +29,6 @@ export default class Lifecycle extends React.Component {
 
 Lifecycle.propTypes = {
   children: PropTypes.node.isRequired,
-  componentWillMount: PropTypes.func
+  componentWillMount: PropTypes.func,
+  componentWillUnmount: PropTypes.func
 };
