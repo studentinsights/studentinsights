@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {apiFetch, apiFetchJson} from '../helpers/apiFetchJson';
+import Lifecycle from '../components/Lifecycle';
 
 
 // Show a warning that the user's session is likely to timeout shortly.
@@ -22,7 +23,7 @@ export default class SessionRenewal extends React.Component {
     this.onRenewClicked = this.onRenewClicked.bind(this);
     this.onRenewCompleted = this.onRenewCompleted.bind(this);
     this.onRenewFailed = this.onRenewFailed.bind(this);
-    
+    this.showAggressiveWarningIfNotVisible = this.showAggressiveWarningIfNotVisible.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +64,27 @@ export default class SessionRenewal extends React.Component {
     if (!probeJson) return false;
 
     return shouldWarn(probeJson.remaining_seconds, probeIntervalInSeconds, warningDurationInSeconds);
+  }
+
+  showAggressiveWarningIfNotVisible() {
+    // if (!window.document || window.document.hidden !== false) return;
+    // if (window.alert) {
+    //   window.alert('Student Insights will sign out shortly, to protect student data when there is no activity.'); // eslint-disable-line no-alert
+    // }
+    if (window.document.title.indexOf('DRAFT: ') !== 0) {
+      window.document.title = 'DRAFT: ' + window.document.title;
+    }
+
+    // favicon
+    const faviconEl = document.getElementById('favicon');
+    faviconEl.href = '/favicon-alert-orange-white.ico';
+    // const existingEl = document.getElementById('favicon');
+    // const faviconEl = document.createElement('link');
+    // faviconEl.id = existingEl.id;
+    // faviconEl.rel = existingEl.ref;
+    // faviconEl.href = '/favicon-alert.ico'
+    // document.head.removeChild(existingEl);
+    // document.head.appendChild(link);
   }
 
   // At this point, any transient data in the browser will be rejected by the server.
@@ -148,7 +170,9 @@ export default class SessionRenewal extends React.Component {
     if (this.shouldWarn()) {
       return (
         <div style={styles.root}>
-          Please click <a href="#" style={styles.link} onClick={this.onRenewClicked}>this link</a> or your session will timeout due to inactivity.
+          <Lifecycle componentWillMount={this.showAggressiveWarningIfNotVisible}>
+            Please click <a href="#" style={styles.link} onClick={this.onRenewClicked}>this link</a> or your session will timeout due to inactivity.
+          </Lifecycle>
         </div>
       );
     }
