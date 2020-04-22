@@ -71,7 +71,6 @@ export default class SessionRenewal extends React.Component {
   doUpdateAggressiveWarning(shouldWarn) {
     const {updateAgressiveWarningFn} = this.props;
     if (updateAgressiveWarningFn) {
-      console.log('calling...', shouldWarn);
       updateAgressiveWarningFn(shouldWarn);
     } else {
       updateFaviconAndDocumentTitle(shouldWarn);
