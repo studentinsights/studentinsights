@@ -47,8 +47,14 @@ export default class SessionRenewal extends React.Component {
     const {warnFn} = this.props;
     if (warnFn) return warnFn(msg, err);
 
-    console.info && console.info(msg, err); // eslint-disable-line
-    window.Rollbar.info && window.Rollbar.info(msg, err);
+    if (window.Rollbar && window.Rollbar.info) {
+      window.Rollbar.info(msg, err);
+    } else {
+      // This fallback shouldn't happen, since the Rollbar reporting API should be mocked in 
+      // local development.  But in case that fails or the lib fails to load, at least log t
+      // the console so we know.
+      console.log('window.Rollbar not found', msg, err); // eslint-disable-line
+    }
   }
 
   shouldWarn() {

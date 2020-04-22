@@ -8,8 +8,26 @@ const {
   shouldReportErrors,
   rollbarJsAccessToken,
 } = readEnv();
-if (shouldReportErrors && rollbarJsAccessToken) loadRollbar();
+if (shouldReportErrors && rollbarJsAccessToken) {
+  loadRollbar();
+} else {
+  writeToConsoleInsteadOfRollbar();
+}
 
+function reportToMockRollbar(type, ...params) {
+  console.log('Rollbar disabled.', type, ...params); // eslint-disable-line no-console
+}
+
+
+// Minimal reporting API for local development.
+function writeToConsoleInsteadOfRollbar() {
+  window.Rollbar = {
+    isRollbarMocked: true,
+    info: reportToMockRollbar.bind('info'),
+    warn: reportToMockRollbar.bind('warn'),
+    error: reportToMockRollbar.bind('error')
+  };
+}
 
 // Load and configure the library.  Exports it as a global as well.
 // Example at https://github.com/rollbar/rollbar.js/blob/master/examples/webpack/src/index.js
