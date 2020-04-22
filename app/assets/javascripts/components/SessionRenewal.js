@@ -65,7 +65,9 @@ export default class SessionRenewal extends React.Component {
     return shouldWarn(probeJson.remaining_seconds, probeIntervalInSeconds, warningDurationInSeconds);
   }
 
-  // Side-effecting
+  // Side-effecting.  The intention is to help users who are in another tab see that
+  // this tab is close to timing out.  It change the color of the favicon and the
+  // document title to indicate there's a kind of notification.
   doUpdateAggressiveWarning(shouldWarn) {
     const actualTitle = window.document.title.replace(/^\(1\) /, '');
     const updatedDocumentTitle = (shouldWarn)
