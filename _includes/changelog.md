@@ -1,3 +1,61 @@
+Friday 4/24 updates:
+- **Notes**: Design work on MTSS notes with remote videochat
+- **Security**: Patch for OpenSSL vulnerability ([advisory](https://www.openssl.org/news/secadv/20200421.txt), [Heroku changelog](https://devcenter.heroku.com/changelog-items/1761))
+- **Maintenance**: Update Rollbar handling in local dev, for manual testing [#2809](https://github.com/studentinsights/studentinsights/pull/2809)
+
+Friday 4/17 updates:
+- **Reading**: Update benchmark assessment breakdown to allow debugging by school cohort [#2808](https://github.com/studentinsights/studentinsights/pull/2808)
+- **Security**: Design work on additional login security
+
+Friday 4/10 updates:
+- **Reading**: Highlight current time in reading grids [#2803](https://github.com/studentinsights/studentinsights/pull/2803)
+- **Reading**: Fix bug with supporting comparison to benchmark for F&P [#2805](https://github.com/studentinsights/studentinsights/pull/2805)
+- **Reading**: Add in 4th grade winter threshold for F&P [#2806](https://github.com/studentinsights/studentinsights/pull/2806)
+- **Maintenance**: Sharding and parallelizing RSpec tests in CI [#2801](https://github.com/studentinsights/studentinsights/pull/2801) [#2807](https://github.com/studentinsights/studentinsights/pull/2807)
+- **Maintenance**: Fork wkhtmltopdf to remove unneeded binaries and reduce slug size [#2804](https://github.com/studentinsights/studentinsights/pull/2804)
+
+Friday 4/3 updates:
+- **Reading**: Fix UI bug with edge case for lowest score in cohort [#2800](https://github.com/studentinsights/studentinsights/pull/2800)
+- **Security**: Scrub config information from deprecated studentinsights-pinger monitoring
+- **Security**: Patch and ping yargs across project [#2797](https://github.com/studentinsights/studentinsights/pull/2797)
+- **Maintenance**: Add GitHub Actions for CI [#2794](https://github.com/studentinsights/studentinsights/pull/2794) [#2798](https://github.com/studentinsights/studentinsights/pull/2798) [#2799](https://github.com/studentinsights/studentinsights/pull/2799)
+
+Friday 3/27 updates:
+- **Reading**: Add STAR reading to comprehension, with box and line chart (v2) [#2791](https://github.com/studentinsights/studentinsights/pull/2791)
+- **Reading**: Fix bug in STAR highlighting for reading tab only [#2793](https://github.com/studentinsights/studentinsights/pull/2793)
+- **Reading**: More handling of nil or uninterpretable values for F&P ordering and percentiles [#2792](https://github.com/studentinsights/studentinsights/pull/2792)
+- **Maintenance**: Guard check for sessionStorage even more [#2790](https://github.com/studentinsights/studentinsights/pull/2790)
+
+Friday 3/20 updates:
+- **Security**: Bump administrate from 0.12.0 to 0.13.0 [#2781](https://github.com/studentinsights/studentinsights/pull/2781)
+- **Security**: Update minimist [2f3892](https://github.com/studentinsights/studentinsights/commit/2f3892)
+- **Security**: Update Rails, Sprockets [#2788](https://github.com/studentinsights/studentinsights/pull/2788)
+- **Maintenance**: Update rbnacl to resolve ffi deprecation warning [#2782](https://github.com/studentinsights/studentinsights/pull/2782)
+- **Maintenance**: Ruby gem updates [#2783](https://github.com/studentinsights/studentinsights/pull/2783)
+- **Maintenance**: Update i18n fallback [#2786](https://github.com/studentinsights/studentinsights/pull/2786)
+- **Maintenance**: Update AWS SDK to v3, limit to only S3 client [#2785](https://github.com/studentinsights/studentinsights/pull/2785)
+- **Maintenance**: Remove sass and bourbon [#2784](https://github.com/studentinsights/studentinsights/pull/2784)
+- **Reading**: Compress images from png to jpg, allow click to enlarge [#2787](https://github.com/studentinsights/studentinsights/pull/2787)
+
+Friday 3/15 updates:
+- **Reading**: Add STAR reading to comprehension, with box and line chart [#2778](https://github.com/studentinsights/studentinsights/pull/2778)
+- **Security**: Update version of acorn dependency e14a8e
+
+Friday 3/6 updates:
+- **Reading**: Fix highlighting on F&P tab [#2779](https://github.com/studentinsights/studentinsights/pull/2779)
+- **Reading**: Add F&P materials [#2780](https://github.com/studentinsights/studentinsights/pull/2780)
+- **Maintenance**: Update Puma web server [b3d0af](https://github.com/studentinsights/studentinsights/commit/b3d0af)
+
+Friday 2/28 updates:
+- **Student** photos: Update freshness check to yearly [#2768](https://github.com/studentinsights/studentinsights/pull/2768)
+- **STAR**: Update freshness check by district [#2769](https://github.com/studentinsights/studentinsights/pull/2769)
+- **Reading**: Update F&P thresholds [#2775](https://github.com/studentinsights/studentinsights/pull/2775)
+- **Reading**: Add materials for F&P levels A and B [#2774](https://github.com/studentinsights/studentinsights/pull/2774)
+- **Special** education: Add tests cases for current Bedford edge cases [#2776](https://github.com/studentinsights/studentinsights/pull/2776)
+- **Maintenance**: Update Brakeman [#2770](https://github.com/studentinsights/studentinsights/pull/2770)
+- **Maintenance**: Add comment about font setup [#2771](https://github.com/studentinsights/studentinsights/pull/2771)
+- **Maintenance**: Simplify SFTP client params after bug [#2772](https://github.com/studentinsights/studentinsights/pull/2772)
+
 Friday 2/21 updates:
 - No updates, school vacation week.
 
