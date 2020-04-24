@@ -96,6 +96,7 @@ export default class PageContainer extends React.Component {
 
   // single request at a time
   onCreateNewNote(eventNoteParams) {
+    console.log('onCreateNewNote', eventNoteParams);
     this.setRequestState({createNote: PENDING});
     
     const {student} = this.props.profileJson;

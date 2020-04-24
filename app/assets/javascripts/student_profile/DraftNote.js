@@ -68,12 +68,13 @@ export default class DraftNote extends React.Component {
 
   onClickSave(event) {
     const {onSave, showRestrictedCheckbox} = this.props;
-    const {isRestricted, text, eventNoteTypeId} = this.state;
+    const {draftKey, isRestricted, text, eventNoteTypeId} = this.state;
 
     const params = {
       eventNoteTypeId,
       text,
       ...(showRestrictedCheckbox ? {isRestricted} : {}),
+      draftKey: draftKey,
       eventNoteAttachments: []
     };
 
