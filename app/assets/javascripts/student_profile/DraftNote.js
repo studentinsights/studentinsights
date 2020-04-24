@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import {PENDING, ERROR} from '../helpers/requestStates';
@@ -18,13 +20,27 @@ export default class DraftNote extends React.Component {
     this.state = {
       isRestricted: false,
       text: '',
-      eventNoteTypeId: null
+      eventNoteTypeId: null,
+      draftKey: uuidv4()
     };
+    this.debouncedOnChange = _.debounce(this.debouncedOnChange, 500);
     this.onRestrictedToggled = this.onRestrictedToggled.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onClickNoteType = this.onClickNoteType.bind(this);
+  }
+
+  componentDidUpdate(prepProps, prevState) {
+    if (!this.props.onChange) return;
+    if (_.isEqual(prevState, this.state)) return;
+
+    const stateNow = {...this.state};
+    this.debouncedOnChange(stateNow);
+  }
+
+  debouncedOnChange(stateThen) {
+    this.props.onChange(stateThen);
   }
 
   disabledSaveButton() {
@@ -224,6 +240,7 @@ DraftNote.propTypes = {
   style: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   currentEducator: PropTypes.object.isRequired,
   requestState: PropTypes.string, // or null
   showRestrictedCheckbox: PropTypes.bool

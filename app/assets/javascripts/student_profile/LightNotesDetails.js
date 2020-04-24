@@ -45,6 +45,10 @@ export default class LightNotesDetails extends React.Component {
     this.props.onTakingNotesChanged(false);
   }
 
+  onDraftChanged(draft) {
+    console.log('onDraftChanged', draft);
+  }
+
   onCreateNewNote(eventNoteParams, event) {
     this.props.actions.onCreateNewNote(eventNoteParams);
     this.props.onTakingNotesChanged(false);
@@ -150,6 +154,7 @@ export default class LightNotesDetails extends React.Component {
         student={student}
         currentEducator={currentEducator}
         onSave={this.onCreateNewNote}
+        onChange={this.onDraftChanged}
         onCancel={this.onCancelNotes}
         requestState={requests.createNote}
         showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
