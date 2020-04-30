@@ -11,7 +11,7 @@ class TransitionNotesController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless transition_note.is_restricted
 
     json = transition_note.as_json({
-      dangerously_include_restricted_note_text: true,
+      dangerously_include_restricted_text: true,
       only: [:text]
     })
     render json: json

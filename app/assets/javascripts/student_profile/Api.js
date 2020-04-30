@@ -1,8 +1,21 @@
 import {
   apiPatchJson,
+  apiPutJson,
   apiPostJson,
   apiDeleteJson
 } from '../helpers/apiFetchJson';
+
+
+// Used by component, not lifted all the way up
+export function autosaveDraft(studentId, draft) {
+  const {draftKey, eventNoteTypeId, isRestricted, text} = draft;
+  return apiPutJson(`/api/students/${studentId}/event_note_drafts/${draftKey}`, {
+    text,
+    event_note_type_id: eventNoteTypeId,
+    is_restricted: isRestricted
+  });
+}
+
 
 export default class Api {
 

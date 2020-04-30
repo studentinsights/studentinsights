@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import SectionHeading from '../components/SectionHeading';
+import {autosaveDraft} from './Api';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import DraftNote from './DraftNote';
@@ -23,6 +24,7 @@ export default class LightNotesDetails extends React.Component {
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
     this.onUpdateExistingNote = this.onUpdateExistingNote.bind(this);
+    this.onDraftChanged = this.onDraftChanged.bind(this);
   }
 
   isTakingNotes() {
@@ -45,8 +47,10 @@ export default class LightNotesDetails extends React.Component {
     this.props.onTakingNotesChanged(false);
   }
 
+  // Fire and forget optimistically
   onDraftChanged(draft) {
-    console.log('onDraftChanged', draft);
+    const {student} = this.props;
+    autosaveDraft(student.id, draft);
   }
 
   onCreateNewNote(eventNoteParams, event) {

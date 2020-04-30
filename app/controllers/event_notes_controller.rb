@@ -5,7 +5,7 @@ class EventNotesController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless event_note.is_restricted
 
     json = event_note.as_json({
-      dangerously_include_restricted_note_text: true,
+      dangerously_include_restricted_text: true,
       only: [:text],
       include: {
         event_note_attachments: {
@@ -29,13 +29,13 @@ class EventNotesController < ApplicationController
     authorized_or_raise! { Student.find(safe_params[:student_id]) }
 
     event_note = EventNote.new(safe_params.merge({
-      is_restricted: safe_is_restricted_value_for_create(safe_params),
+      is_restricted: safe_is_restricted_value(safe_params[:is_restricted]),
       educator_id: current_educator.id,
       recorded_at: Time.now
     }))
 
     if event_note.save
-      serializer = EventNoteSerializer.dangerously_include_restricted_note_text(event_note)
+      serializer = EventNoteSerializer.dangerously_include_restricted_text(event_note)
       render json: serializer.serialize_event_note
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
@@ -59,7 +59,7 @@ class EventNotesController < ApplicationController
     elsif !update_succeeded
       render json: { errors: event_note.errors.full_messages }, status: 422
     else
-      serializer = EventNoteSerializer.dangerously_include_restricted_note_text(event_note)
+      serializer = EventNoteSerializer.dangerously_include_restricted_text(event_note)
       render json: serializer.serialize_event_note
     end
   end
@@ -96,11 +96,35 @@ class EventNotesController < ApplicationController
     end
   end
 
+  # PUT
+  def event_note_drafts
+    safe_params = params.permit(:student_id, :draft_key, draft: [
+      :event_note_type_id,
+      :is_restricted,
+      :text
+    ])
+    authorized_or_raise! { Student.find(safe_params[:student_id]) }
+
+    EventNoteDraft.transaction do
+      draft = EventNoteDraft.find_or_initialize_by!({
+        draft_key: safe_params[:draft_key],
+        student_id: safe_params[:student_id],
+        educator_id: current_educator.id
+      })
+      draft.update!({
+        event_note_type_id: safe_params[:draft][:event_note_type_id],
+        is_restricted: safe_is_restricted_value(safe_params[:draft][:is_restricted]),
+        text: safe_params[:draft][:text],
+        updated_at: Time.now
+      })
+    end
+  end
+
   private
   # Guard what values can be set by the current educator
-  def safe_is_restricted_value_for_create(safe_params)
+  def safe_is_restricted_value(unsafe_is_restricted)
     if current_educator.can_view_restricted_notes?
-      safe_params[:is_restricted]
+      unsafe_is_restricted
     else
       false
     end

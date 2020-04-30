@@ -3,10 +3,10 @@ class EventNoteSerializer < Struct.new :event_note, :options
     EventNoteSerializer.new(event_note, {})
   end
 
-  def self.dangerously_include_restricted_note_text(event_note)
+  def self.dangerously_include_restricted_text(event_note)
     EventNoteSerializer.new(event_note, {
       event_note_as_json_options: {
-        dangerously_include_restricted_note_text: true
+        dangerously_include_restricted_text: true
       }
     })
   end

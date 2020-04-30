@@ -21,7 +21,7 @@ RSpec.describe BedfordDavisSocialEmotionalProcessor do
       expect(log.output).to include('processed_rows_count=>4')
       expect(records.size).to eq(3)
       expect(records.as_json({
-        dangerously_include_restricted_note_text: true,
+        dangerously_include_restricted_text: true,
         except: [:id, :created_at, :updated_at]
       })).to eq([{
         "student_id"=>pals.shs_senior_kylo.id,

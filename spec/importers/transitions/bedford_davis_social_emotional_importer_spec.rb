@@ -60,7 +60,7 @@ RSpec.describe BedfordDavisSocialEmotionalImporter do
     expect(event_notes.size).to eq(3)
     expect(event_notes.pluck(:is_restricted).uniq).to eq([true])
     expect(event_notes.as_json({
-      dangerously_include_restricted_note_text: true,
+      dangerously_include_restricted_text: true,
       except: [:id, :created_at, :updated_at]
     })).to contain_exactly(*[{
       "student_id"=>pals.shs_senior_kylo.id,
