@@ -7,7 +7,6 @@ class EventNoteDraft < ApplicationRecord
   validates :educator, :student, :event_note_type, presence: true
   validates :is_restricted, inclusion: { in: [true, false] }
 
-
   # override, ensure that restricted text isn't accidentally serialized
   def as_json(options = {})
     json = super(options)

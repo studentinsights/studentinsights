@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :event_note_draft do
-    sequence :draft_key do 
+    sequence :draft_key do
       |n| "fake-draft-key-#{n}"
     end
     association :educator

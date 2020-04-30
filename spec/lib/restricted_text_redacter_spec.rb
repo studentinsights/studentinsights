@@ -4,7 +4,7 @@ RSpec.describe RestrictedTextRedacter do
   let!(:text_when_redacted) { RestrictedTextRedacter::TEXT_WHEN_REDACTED }
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
-  
+
   def redacted_as_json(params)
     RestrictedTextRedacter.new.redacted_as_json(params.merge({
       super_json: params[:super_json].as_json(params[:as_json_options])
