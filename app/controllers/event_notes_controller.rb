@@ -106,7 +106,7 @@ class EventNotesController < ApplicationController
     authorized_or_raise! { Student.find(safe_params[:student_id]) }
 
     EventNoteDraft.transaction do
-      draft = EventNoteDraft.find_or_initialize_by!({
+      draft = EventNoteDraft.find_or_initialize_by({
         draft_key: safe_params[:draft_key],
         student_id: safe_params[:student_id],
         educator_id: current_educator.id
@@ -118,6 +118,7 @@ class EventNotesController < ApplicationController
         updated_at: Time.now
       })
     end
+    render json: {}, status: 201
   end
 
   private
