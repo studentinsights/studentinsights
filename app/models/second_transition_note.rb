@@ -33,7 +33,7 @@ class SecondTransitionNote < ApplicationRecord
     RestrictedTextRedacter.new.redacted_as_json({
       super_json: json,
       restricted_key: 'restricted_text',
-      is_restricted: self.is_restricted,
+      is_restricted: true,
       as_json_options: options
     })
   end
