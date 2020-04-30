@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe EventNote, type: :model do
   TEXT_WHEN_REDACTED = RestrictedTextRedacter::TEXT_WHEN_REDACTED
-  
+
   context 'is_restricted defined' do
     let(:note) { FactoryBot.build(:event_note) }
     it 'is valid' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe EventNoteRevision, type: :model do
   TEXT_WHEN_REDACTED = RestrictedTextRedacter::TEXT_WHEN_REDACTED
-  
+
   # This mirrors tests for EventNote#as_json - it's the same but is modified to
   # applied to EventNoteRevision.
   describe '#as_json' do

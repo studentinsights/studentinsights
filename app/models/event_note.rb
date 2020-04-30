@@ -20,7 +20,7 @@ class EventNote < ApplicationRecord
       as_json_options: options
     })
   end
-  
+
   def latest_revision_at
     event_note_revisions.order(created_at: :desc).limit(1).last.try(:created_at)
   end

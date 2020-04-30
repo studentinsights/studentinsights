@@ -101,8 +101,9 @@ RSpec.describe TransitionNote do
       end
 
       it 'does not serialize :text by default' do
-        expect(create_note('bar-RESTRICTED', true).as_json['text']).to 
-_TEXT      end
+        expect(create_note('bar-RESTRICTED', true).as_json['text']).to
+_TEXT
+end
 
       it 'does not serialize :text even when asked explicitly' do
         expect(create_note('bar-RESTRICTED', true).as_json(only: [:text])['text']).to eq TEXT_WHEN_REDACTED
