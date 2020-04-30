@@ -524,4 +524,8 @@ describe EventNotesController, :type => :controller do
       expect(note_from_jodi.reload.is_restricted).to eq false
     end
   end
+
+  describe '#event_note_draft_json' do
+    pending
+  end
 end

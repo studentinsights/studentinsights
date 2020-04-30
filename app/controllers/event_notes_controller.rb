@@ -97,7 +97,7 @@ class EventNotesController < ApplicationController
   end
 
   # PUT
-  def event_note_drafts
+  def event_note_draft_json
     safe_params = params.permit(:student_id, :draft_key, draft: [
       :event_note_type_id,
       :is_restricted,
