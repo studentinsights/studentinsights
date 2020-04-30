@@ -8,17 +8,17 @@ class RestrictedTextRedacter
   # This is shown in place of restricted text, when redacting.
   TEXT_WHEN_REDACTED = '<redacted>'
 
-  def redacted_as_json(json, restricted_json_key, is_restricted, as_json_options)
+  def redacted_as_json(super_json:, restricted_key:, is_restricted:, as_json_options:)
     # unrestricted notes are safe to serialize
-    return json unless is_restricted
+    return super_json unless is_restricted
 
-    # if a restricted note isn't serializing the text content it's okay
-    return json unless json.has_key?(restricted_json_key)
+    # if the caller isn't serializing the text content it's okay
+    return super_json unless super_json.has_key?(restricted_key)
 
     # allow a dangerous manual override
-    return json if as_json_options[:dangerously_include_restricted_text]
+    return super_json if as_json_options[:dangerously_include_restricted_text]
 
     # redact text content
-    json.merge([restricted_json_key] => TEXT_WHEN_REDACTED)
+    super_json.merge(restricted_key => TEXT_WHEN_REDACTED)
   end
 end
