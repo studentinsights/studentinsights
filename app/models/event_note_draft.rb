@@ -1,10 +1,10 @@
 class EventNoteDraft < ApplicationRecord
   belongs_to :educator
   belongs_to :student
-  belongs_to :event_note_type
+  belongs_to :event_note_type # nullable
 
   validates :draft_key, presence: true, uniqueness: { scope: [:student_id, :educator_id] }
-  validates :educator, :student, :event_note_type, presence: true
+  validates :educator, :student, presence: true
   validates :is_restricted, inclusion: { in: [true, false] }
 
   # override, ensure that restricted text isn't accidentally serialized

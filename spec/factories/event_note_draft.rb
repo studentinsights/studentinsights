@@ -5,7 +5,7 @@ FactoryBot.define do
     end
     association :educator
     association :student
-    event_note_type { EventNoteType.all.sample }
+    event_note_type { rand() < 0.2 ? nil : EventNoteType.all.sample }
     is_restricted { rand() < 0.2 }
     sequence :text do |n|
       "This is a draft note, ##{n} in the factory."

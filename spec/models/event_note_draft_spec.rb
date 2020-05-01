@@ -3,6 +3,14 @@ require 'rails_helper'
 RSpec.describe EventNoteDraft, type: :model do
   let!(:text_when_redacted) { RestrictedTextRedacter::TEXT_WHEN_REDACTED }
 
+  it 'allows nil event_note_type_id' do
+    draft = FactoryBot.create(:event_note_draft, {
+      text: 'foo',
+      event_note_type_id: nil
+    })
+    expect(draft.valid?).to eq true
+  end
+
   describe '#as_json' do
     def create_draft(text, is_restricted)
       FactoryBot.create(:event_note_draft, text: text, is_restricted: is_restricted)
