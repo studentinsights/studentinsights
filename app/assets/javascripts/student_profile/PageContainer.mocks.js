@@ -3,6 +3,7 @@ import {IDLE} from '../helpers/requestStates';
 export function createSpyActions() {
   return {
     onColumnClicked: jest.fn(),
+    onDraftChanged: jest.fn(),
     onUpdateExistingNote: jest.fn(),
     onCreateNewNote: jest.fn(),
     onDeleteEventNoteAttachment: jest.fn(),
@@ -14,6 +15,7 @@ export function createSpyActions() {
 
 export function createSpyApi() {
   return {
+    autosaveDraft: jest.fn(),
     saveNotes: jest.fn(),
     deleteEventNoteAttachment: jest.fn(),
     saveService: jest.fn(),

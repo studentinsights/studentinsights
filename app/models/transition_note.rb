@@ -9,25 +9,15 @@ class TransitionNote < ApplicationRecord
   validate :only_one_regular_note, on: :create
   validate :cannot_change_is_restricted, on: :update
 
-  # override
-  # Ensures that text for restricted notes don't get accidentally serialized
-  # without explicitly asking for them.  The text for restricted notes will always be
-  # redacted, regardless of the user, unless it is explicitly asked for.
-  # See also EventNote#as_json and EventNoteRevision#as_json.
+  # override, ensure that restricted text isn't accidentally serialized
   def as_json(options = {})
     json = super(options)
-
-    # unrestricted notes are safe to serialize
-    return json unless self.is_restricted
-
-    # if a restricted note isn't serializing the text content it's okay
-    return json unless json.has_key?('text')
-
-    # allow a dangerous manual override
-    return json if options[:dangerously_include_restricted_note_text]
-
-    # redact text content
-    json.merge('text' => '<redacted>')
+    RestrictedTextRedacter.new.redacted_as_json({
+      super_json: json,
+      restricted_key: 'text',
+      is_restricted: self.is_restricted,
+      as_json_options: options
+    })
   end
 
   private

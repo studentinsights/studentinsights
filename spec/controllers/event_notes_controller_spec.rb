@@ -60,6 +60,7 @@ describe EventNotesController, :type => :controller do
       post :create, params: {
         format: :json,
         student_id: student.id,
+        draft_key: "fake-draft-key:#{SecureRandom.hex(16)}",
         event_note: event_note_params
       }
     end
@@ -522,6 +523,116 @@ describe EventNotesController, :type => :controller do
       mark_as_restricted(note_from_jodi.id)
       expect(response.status).to eq 401
       expect(note_from_jodi.reload.is_restricted).to eq false
+    end
+  end
+
+  describe '#event_note_draft_json' do
+    def make_draft(attrs = {})
+      {
+        event_note_type_id: EventNoteType.all.sample.id,
+        is_restricted: false,
+        text: 'foo-safe'
+      }.merge(attrs)
+    end
+
+    def put_event_note_draft_json(params)
+      request.env['HTTPS'] = 'on'
+      put :event_note_draft_json, params: {
+        format: :json,
+      }.merge(params)
+    end
+
+    it 'works on happy path' do
+      sign_in(pals.shs_jodi)
+      draft = make_draft()
+      response = put_event_note_draft_json({
+        educator_id: pals.shs_jodi.id,
+        student_id: pals.shs_freshman_mari.id,
+        draft_key: 'abc',
+        draft: draft
+      })
+      expect(response.status).to eq 201
+      expect(response.body).to eq '{}'
+      expect(EventNoteDraft.all.size).to eq 1
+      expect(EventNoteDraft.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        "student_id"=>pals.shs_freshman_mari.id,
+        "educator_id"=>pals.shs_jodi.id,
+        "event_note_type_id"=>draft[:event_note_type_id],
+        "is_restricted"=>draft[:is_restricted],
+        "draft_key"=>'abc',
+        "text"=>"foo-safe"
+      }])
+    end
+
+    it 'guards authorization, using Healey KF student as an example' do
+      not_authorized_educators = Educator.all - [
+        pals.uri,
+        pals.rich_districtwide,
+        pals.healey_laura_principal,
+        pals.healey_vivian_teacher
+      ]
+      not_authorized_educators.each do |not_authorized_educator|
+        sign_in(not_authorized_educator)
+        draft = make_draft()
+        response = put_event_note_draft_json({
+          educator_id: not_authorized_educator.id,
+          student_id: pals.healey_kindergarten_student.id,
+          draft_key: 'abc',
+          draft: draft
+        })
+        expect(response.status).to eq 403
+        sign_out(not_authorized_educator)
+      end
+    end
+
+    it 'updates existing record' do
+      sign_in(pals.shs_jodi)
+      draft = make_draft(text: 'first-version-of-text')
+      response = put_event_note_draft_json({
+        educator_id: pals.shs_jodi.id,
+        student_id: pals.shs_freshman_mari.id,
+        draft_key: 'abc',
+        draft: draft
+      })
+      expect(response.status).to eq 201
+      expect(EventNoteDraft.all.size).to eq 1
+      expect(EventNoteDraft.first.text).to eq 'first-version-of-text'
+
+      response = put_event_note_draft_json({
+        educator_id: pals.shs_jodi.id,
+        student_id: pals.shs_freshman_mari.id,
+        draft_key: 'abc',
+        draft: draft.merge(text: 'second-version-of-text')
+      })
+      expect(response.status).to eq 201
+      expect(EventNoteDraft.all.size).to eq 1
+      expect(EventNoteDraft.first.text).to eq 'second-version-of-text'
+    end
+
+    it 'does not trust all values for is_restricted: true' do
+      sign_in(pals.healey_vivian_teacher)
+      draft = make_draft(is_restricted: true)
+      put_event_note_draft_json({
+        educator_id: pals.healey_vivian_teacher.id,
+        student_id: pals.healey_kindergarten_student.id,
+        draft_key: 'abc',
+        draft: draft
+      })
+      expect(EventNoteDraft.all.size).to eq 1
+      expect(EventNoteDraft.first.is_restricted).to eq false
+    end
+
+    it 'allows educators with access to set is_restricted: true' do
+      sign_in(pals.uri)
+      draft = make_draft(is_restricted: true)
+      put_event_note_draft_json({
+        educator_id: pals.uri.id,
+        student_id: pals.healey_kindergarten_student.id,
+        draft_key: 'abc',
+        draft: draft
+      })
+      expect(EventNoteDraft.all.size).to eq 1
+      expect(EventNoteDraft.first.is_restricted).to eq true
     end
   end
 end

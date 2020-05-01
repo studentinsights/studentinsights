@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe TransitionNote do
+  let!(:text_when_redacted) { RestrictedTextRedacter::TEXT_WHEN_REDACTED }
   let!(:pals) { TestPals.create! }
 
   def create_transition_note(params = {})
@@ -77,8 +78,8 @@ RSpec.describe TransitionNote do
         expect(json).to eq({'student_id' => note.student_id})
       end
 
-      it 'works normally regardless of :dangerously_include_restricted_note_text' do
-        json = create_note('foo-safe', false).as_json(dangerously_include_restricted_note_text: true)
+      it 'works normally regardless of :dangerously_include_restricted_text' do
+        json = create_note('foo-safe', false).as_json(dangerously_include_restricted_text: true)
         expect(json['text']).to eq 'foo-safe'
       end
 
@@ -99,20 +100,20 @@ RSpec.describe TransitionNote do
       end
 
       it 'does not serialize :text by default' do
-        expect(create_note('bar-RESTRICTED', true).as_json['text']).to eq EventNote::REDACTED
+        expect(create_note('bar-RESTRICTED', true).as_json['text']).to eq text_when_redacted
       end
 
       it 'does not serialize :text even when asked explicitly' do
-        expect(create_note('bar-RESTRICTED', true).as_json(only: [:text])['text']).to eq EventNote::REDACTED
+        expect(create_note('bar-RESTRICTED', true).as_json(only: [:text])['text']).to eq text_when_redacted
       end
 
-      it 'does not serializes :text just based on :dangerously_include_restricted_note_text key' do
-        json = create_note('bar-RESTRICTED', true).as_json(dangerously_include_restricted_note_text: false)
-        expect(json['text']).to eq EventNote::REDACTED
+      it 'does not serializes :text just based on :dangerously_include_restricted_text key' do
+        json = create_note('bar-RESTRICTED', true).as_json(dangerously_include_restricted_text: false)
+        expect(json['text']).to eq text_when_redacted
       end
 
-      it 'serializes :text only when given :dangerously_include_restricted_note_text: true' do
-        json = create_note('bar-RESTRICTED', true).as_json(dangerously_include_restricted_note_text: true)
+      it 'serializes :text only when given :dangerously_include_restricted_text: true' do
+        json = create_note('bar-RESTRICTED', true).as_json(dangerously_include_restricted_text: true)
         expect(json['text']).to eq 'bar-RESTRICTED'
       end
     end
@@ -130,21 +131,21 @@ RSpec.describe TransitionNote do
 
       it 'does not serialize :text for restricted notes by default' do
         json = test_relation.as_json
-        expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
+        expect(note_texts(json)).to eq(['foo-safe', text_when_redacted, 'whatever-safe'])
       end
 
       it 'does not serialize :text even when asked explicitly' do
         json = test_relation.as_json(only: [:text])
-        expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
+        expect(note_texts(json)).to eq(['foo-safe', text_when_redacted, 'whatever-safe'])
       end
 
-      it 'does not serializes :text just based on :dangerously_include_restricted_note_text key' do
-        json = test_relation.as_json(dangerously_include_restricted_note_text: false)
-        expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
+      it 'does not serializes :text just based on :dangerously_include_restricted_text key' do
+        json = test_relation.as_json(dangerously_include_restricted_text: false)
+        expect(note_texts(json)).to eq(['foo-safe', text_when_redacted, 'whatever-safe'])
       end
 
-      it 'serializes :text only when given :dangerously_include_restricted_note_text: true' do
-        json = test_relation.as_json(dangerously_include_restricted_note_text: true)
+      it 'serializes :text only when given :dangerously_include_restricted_text: true' do
+        json = test_relation.as_json(dangerously_include_restricted_text: true)
         expect(note_texts(json)).to eq(['foo-safe', 'bar-RESTRICTED', 'whatever-safe'])
       end
     end
@@ -162,21 +163,21 @@ RSpec.describe TransitionNote do
 
       it 'does not serialize :text for restricted notes by default' do
         json = test_relation.to_a.as_json
-        expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
+        expect(note_texts(json)).to eq(['foo-safe', text_when_redacted, 'whatever-safe'])
       end
 
       it 'does not serialize :text even when asked explicitly' do
         json = test_relation.to_a.as_json(only: [:text])
-        expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
+        expect(note_texts(json)).to eq(['foo-safe', text_when_redacted, 'whatever-safe'])
       end
 
-      it 'does not serializes :text just based on :dangerously_include_restricted_note_text key' do
-        json = test_relation.to_a.as_json(dangerously_include_restricted_note_text: false)
-        expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
+      it 'does not serializes :text just based on :dangerously_include_restricted_text key' do
+        json = test_relation.to_a.as_json(dangerously_include_restricted_text: false)
+        expect(note_texts(json)).to eq(['foo-safe', text_when_redacted, 'whatever-safe'])
       end
 
-      it 'serializes :text only when given :dangerously_include_restricted_note_text: true' do
-        json = test_relation.to_a.as_json(dangerously_include_restricted_note_text: true)
+      it 'serializes :text only when given :dangerously_include_restricted_text: true' do
+        json = test_relation.to_a.as_json(dangerously_include_restricted_text: true)
         expect(note_texts(json)).to eq(['foo-safe', 'bar-RESTRICTED', 'whatever-safe'])
       end
     end

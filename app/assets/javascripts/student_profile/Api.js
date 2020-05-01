@@ -1,10 +1,22 @@
 import {
   apiPatchJson,
+  apiPutJson,
   apiPostJson,
   apiDeleteJson
 } from '../helpers/apiFetchJson';
 
+
 export default class Api {
+  autosaveDraft(studentId, draft) {
+    const {draftKey, eventNoteTypeId, isRestricted, text} = draft;
+    return apiPutJson(`/api/students/${studentId}/event_note_drafts/${draftKey}`, {
+      draft: {
+        text,
+        event_note_type_id: eventNoteTypeId,
+        is_restricted: isRestricted
+      }
+    });
+  }
 
   saveNotes(studentId, eventNoteParams) {
     if (eventNoteParams.id) {
@@ -17,11 +29,12 @@ export default class Api {
 
   _createNote(studentId, eventNoteParams) {
     return apiPostJson('/api/event_notes', {
+      draft_key: eventNoteParams.draftKey,
       event_note: {
-        event_note_type_id: eventNoteParams.eventNoteTypeId,
-        text: eventNoteParams.text,
         student_id: studentId,
+        event_note_type_id: eventNoteParams.eventNoteTypeId,
         is_restricted: eventNoteParams.isRestricted || false,
+        text: eventNoteParams.text,
         event_note_attachments_attributes: eventNoteParams.eventNoteAttachments
       }
     });

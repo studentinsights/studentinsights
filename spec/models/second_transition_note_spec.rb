@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe SecondTransitionNote, type: :model do
+  let!(:text_when_redacted) { RestrictedTextRedacter::TEXT_WHEN_REDACTED }
+
   let!(:pals) { TestPals.create! }
 
   def test_second_transition_note
@@ -36,16 +38,16 @@ RSpec.describe SecondTransitionNote, type: :model do
     end
 
     it 'redacts :restricted_text by default' do
-      expect(test_second_transition_note().as_json['restricted_text']).to eq EventNote::REDACTED
+      expect(test_second_transition_note().as_json['restricted_text']).to eq text_when_redacted
     end
 
     it 'redacts :restricted_text when explicit asked for field' do
-      expect(test_second_transition_note().as_json(only: [:restricted_text])['restricted_text']).to eq EventNote::REDACTED
+      expect(test_second_transition_note().as_json(only: [:restricted_text])['restricted_text']).to eq text_when_redacted
     end
 
     it 'does not serializes just based on presence of :dangerously_include_restricted_text key' do
       json = test_second_transition_note().as_json(dangerously_include_restricted_text: false)
-      expect(json['restricted_text']).to eq EventNote::REDACTED
+      expect(json['restricted_text']).to eq text_when_redacted
     end
 
     it 'serializes :restricted_text only when given :dangerously_include_restricted_text: true' do

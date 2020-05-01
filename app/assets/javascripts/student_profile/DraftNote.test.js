@@ -17,6 +17,8 @@ export function testProps(props = {}) {
     currentEducator: currentEducator,
     onSave: jest.fn(),
     onCancel: jest.fn(),
+    onChange: jest.fn(),
+    onChangeDebounceIntervalMs: 10,
     requestState: null,
     ...props
   };
@@ -73,6 +75,7 @@ it('calls onSave with the correct shape', () => {
   ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   
   expect(props.onSave).toHaveBeenCalledWith({
+    "draftKey": expect.any(String),
     "text": "hello!",
     "eventNoteTypeId": 301,
     "eventNoteAttachments": []
@@ -89,6 +92,7 @@ it('calls onSave with isRestricted', () => {
   ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   
   expect(props.onSave).toHaveBeenCalledWith({
+    "draftKey": expect.any(String),
     "text": "hello!",
     "eventNoteTypeId": 301,
     "isRestricted": true,
@@ -139,6 +143,30 @@ it('showRestrictedCheckbox', () => {
   expect(el.textContent).toContain('Yes, note contains private or sensitive personal information');
   const $checkboxEl = $(el).find('input[type=checkbox]');
   expect($checkboxEl.length).toEqual(1);
+});
+
+
+it('tracks changes with onChange', done => {
+  const props = testProps();
+  const {el} = renderTestEl(props);
+
+  changeTextValue($(el).find('textarea').get(0), 'hello!');
+  setTimeout(() => {
+    expect(props.onChange).toHaveBeenCalledWith({
+      draftKey: expect.any(String),
+      eventNoteTypeId: null,
+      isRestricted: false,
+      text: 'hello!'
+    });
+    done();
+  }, 20);
+});
+
+it('works normally and does not raise when onChange is not provided', done => {
+  const props = testProps({ onChange: undefined });
+  const {el} = renderTestEl(props);
+  changeTextValue($(el).find('textarea').get(0), 'hello!');
+  setTimeout(done, 20);
 });
 
 it('snapshots across scenarios', () => {

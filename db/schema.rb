@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_175034) do
+ActiveRecord::Schema.define(version: 2020_05_01_164111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -245,6 +245,18 @@ ActiveRecord::Schema.define(version: 2019_12_04_175034) do
     t.integer "event_note_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_note_drafts", force: :cascade do |t|
+    t.string "draft_key", null: false
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.integer "event_note_type_id"
+    t.boolean "is_restricted", default: false, null: false
+    t.text "text", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_id", "educator_id", "draft_key"], name: "event_note_drafts_unique_index", unique: true
   end
 
   create_table "event_note_revisions", id: :serial, force: :cascade do |t|

@@ -27,23 +27,15 @@ class SecondTransitionNote < ApplicationRecord
     self.restricted_text.try(:strip).present?
   end
 
-  # override
-  # Ensures that restricted information doesn't accidentally serialized
-  # without explicitly asking for it.  The text for restricted info will
-  # always be redacted, regardless of the user, unless it is explicitly
-  # asked for.
-  # See also EventNote#as_json and EventNoteRevision#as_json.
+  # override, ensure that restricted text isn't accidentally serialized
   def as_json(options = {})
     json = super(options)
-
-    # if not serializing the text content it's okay
-    return json unless json.has_key?('restricted_text')
-
-    # allow a dangerous manual override
-    return json if options[:dangerously_include_restricted_text]
-
-    # silently redact
-    json.merge('restricted_text' => EventNote::REDACTED)
+    RestrictedTextRedacter.new.redacted_as_json({
+      super_json: json,
+      restricted_key: 'restricted_text',
+      is_restricted: true,
+      as_json_options: options
+    })
   end
 
   private

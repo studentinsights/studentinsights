@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import {PENDING, ERROR} from '../helpers/requestStates';
@@ -18,8 +20,10 @@ export default class DraftNote extends React.Component {
     this.state = {
       isRestricted: false,
       text: '',
-      eventNoteTypeId: null
+      eventNoteTypeId: null,
+      draftKey: uuidv4()
     };
+    this.debouncedOnChange = _.debounce(this.debouncedOnChange, props.onChangeDebounceIntervalMs);
     this.onRestrictedToggled = this.onRestrictedToggled.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
@@ -27,10 +31,31 @@ export default class DraftNote extends React.Component {
     this.onClickNoteType = this.onClickNoteType.bind(this);
   }
 
+  // If there's an onChange prop: track all state changes, 
+  // debounce them, and then call onChange as an effecct.
+  componentDidUpdate(prepProps, prevState) {
+    if (!this.props.onChange) return;
+    if (_.isEqual(prevState, this.state)) return;
+
+    const stateNow = {...this.state};
+    this.debouncedOnChange(stateNow);
+  }
+
+  // Abort autosave if since the debouncing, actual saving has started.
+  debouncedOnChange(stateThen) {
+    if (this.isSavingPendingOrFailed()) return;
+    this.props.onChange(stateThen);
+  }
+
   disabledSaveButton() {
     const {text, eventNoteTypeId} = this.state;
 
     return (text === '' || eventNoteTypeId === null);
+  }
+
+  isSavingPendingOrFailed() {
+    const {requestState} = this.props;
+    return (requestState === PENDING || requestState === ERROR);
   }
 
   onChangeText(e) {
@@ -52,12 +77,13 @@ export default class DraftNote extends React.Component {
 
   onClickSave(event) {
     const {onSave, showRestrictedCheckbox} = this.props;
-    const {isRestricted, text, eventNoteTypeId} = this.state;
+    const {draftKey, isRestricted, text, eventNoteTypeId} = this.state;
 
     const params = {
       eventNoteTypeId,
       text,
       ...(showRestrictedCheckbox ? {isRestricted} : {}),
+      draftKey: draftKey,
       eventNoteAttachments: []
     };
 
@@ -120,7 +146,6 @@ export default class DraftNote extends React.Component {
   renderTypeNote() {
     const {showRestrictedCheckbox} = this.props;
     const {text} = this.state;
-
     return (
       <div>
         <textarea
@@ -129,6 +154,7 @@ export default class DraftNote extends React.Component {
           style={styles.textarea}
           autoFocus={true}
           value={text}
+          disabled={this.isSavingPendingOrFailed()}
           onChange={this.onChangeText} />
         {showRestrictedCheckbox &&
           <div>
@@ -221,15 +247,18 @@ DraftNote.contextTypes = {
 };
 DraftNote.propTypes = {
   student: PropTypes.object.isRequired,
-  style: PropTypes.object,
+  currentEducator: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
+  onChangeDebounceIntervalMs: PropTypes.number,
   requestState: PropTypes.string, // or null
-  showRestrictedCheckbox: PropTypes.bool
+  showRestrictedCheckbox: PropTypes.bool,
+  style: PropTypes.object
 };
 DraftNote.defaultProps = {
-  showRestrictedCheckbox: false
+  showRestrictedCheckbox: false,
+  onChangeDebounceIntervalMs: 500
 };
 
 

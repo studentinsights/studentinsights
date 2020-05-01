@@ -23,6 +23,7 @@ export default class LightNotesDetails extends React.Component {
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
     this.onUpdateExistingNote = this.onUpdateExistingNote.bind(this);
+    this.onDraftChanged = this.onDraftChanged.bind(this);
   }
 
   isTakingNotes() {
@@ -43,6 +44,10 @@ export default class LightNotesDetails extends React.Component {
 
   onCancelNotes(event) {
     this.props.onTakingNotesChanged(false);
+  }
+
+  onDraftChanged(draft) {
+    this.props.actions.onDraftChanged(draft);
   }
 
   onCreateNewNote(eventNoteParams, event) {
@@ -150,6 +155,7 @@ export default class LightNotesDetails extends React.Component {
         student={student}
         currentEducator={currentEducator}
         onSave={this.onCreateNewNote}
+        onChange={this.onDraftChanged}
         onCancel={this.onCancelNotes}
         requestState={requests.createNote}
         showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
@@ -167,10 +173,11 @@ LightNotesDetails.propTypes = {
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   actions: PropTypes.shape({
+    onDraftChanged: PropTypes.func.isRequired,
     onCreateNewNote: PropTypes.func.isRequired,
     onSecondTransitionNoteAdded: PropTypes.func.isRequired,
     onUpdateExistingNote: PropTypes.func.isRequired,
-    onDeleteEventNoteAttachment: PropTypes.func,
+    onDeleteEventNoteAttachment: PropTypes.func
   }),
   feed: InsightsPropTypes.feed.isRequired,
   requests: PropTypes.object.isRequired,
