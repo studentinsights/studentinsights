@@ -31,10 +31,10 @@ export default class Api {
     return apiPostJson('/api/event_notes', {
       draft_key: eventNoteParams.draftKey,
       event_note: {
-        event_note_type_id: eventNoteParams.eventNoteTypeId,
-        text: eventNoteParams.text,
         student_id: studentId,
+        event_note_type_id: eventNoteParams.eventNoteTypeId,
         is_restricted: eventNoteParams.isRestricted || false,
+        text: eventNoteParams.text,
         event_note_attachments_attributes: eventNoteParams.eventNoteAttachments
       }
     });
