@@ -16,6 +16,8 @@ function storyProps(props = {}) {
     onClickNoteType: action('onClickNoteType'),
     onChangeNoteInProgressText: action('onChangeNoteInProgressText'),
     onChangeAttachmentUrl: action('onChangeAttachmentUrl'),
+    onChange: action('onChange'),
+    onChangeDebounceIntervalMs: DraftNote.defaultProps.onChangeDebounceIntervalMs, // tests speed this up; undo that for testing ux
     ...props
   };
 }

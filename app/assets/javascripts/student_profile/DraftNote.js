@@ -23,7 +23,7 @@ export default class DraftNote extends React.Component {
       eventNoteTypeId: null,
       draftKey: uuidv4()
     };
-    this.debouncedOnChange = _.debounce(this.debouncedOnChange, 500);
+    this.debouncedOnChange = _.debounce(this.debouncedOnChange, props.onChangeDebounceIntervalMs);
     this.onRestrictedToggled = this.onRestrictedToggled.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
@@ -31,6 +31,8 @@ export default class DraftNote extends React.Component {
     this.onClickNoteType = this.onClickNoteType.bind(this);
   }
 
+  // If there's an onChange prop: track all state changes, 
+  // debounce them, and then call onChange as an effecct.
   componentDidUpdate(prepProps, prevState) {
     if (!this.props.onChange) return;
     if (_.isEqual(prevState, this.state)) return;
@@ -238,16 +240,18 @@ DraftNote.contextTypes = {
 };
 DraftNote.propTypes = {
   student: PropTypes.object.isRequired,
-  style: PropTypes.object,
+  currentEducator: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onChange: PropTypes.func,
-  currentEducator: PropTypes.object.isRequired,
+  onChangeDebounceIntervalMs: PropTypes.number,
   requestState: PropTypes.string, // or null
-  showRestrictedCheckbox: PropTypes.bool
+  showRestrictedCheckbox: PropTypes.bool,
+  style: PropTypes.object
 };
 DraftNote.defaultProps = {
-  showRestrictedCheckbox: false
+  showRestrictedCheckbox: false,
+  onChangeDebounceIntervalMs: 500
 };
 
 
