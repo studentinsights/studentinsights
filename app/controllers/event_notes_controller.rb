@@ -19,6 +19,7 @@ class EventNotesController < ApplicationController
   # post
   # for restricted or unrestricted notes
   def create
+    # ignore draft_key param for now
     safe_params = params.require(:event_note).permit(
       :student_id,
       :event_note_type_id,

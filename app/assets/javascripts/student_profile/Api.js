@@ -29,8 +29,8 @@ export default class Api {
 
   _createNote(studentId, eventNoteParams) {
     return apiPostJson('/api/event_notes', {
+      draft_key: eventNoteParams.draftKey,
       event_note: {
-        draft_key: eventNoteParams.draftKey,
         event_note_type_id: eventNoteParams.eventNoteTypeId,
         text: eventNoteParams.text,
         student_id: studentId,

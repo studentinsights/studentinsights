@@ -60,13 +60,13 @@ describe EventNotesController, :type => :controller do
       post :create, params: {
         format: :json,
         student_id: student.id,
+        draft_key: "fake-draft-key:#{SecureRandom.hex(16)}",
         event_note: event_note_params
       }
     end
 
     def post_params(event_note_params = {})
       {
-        draft_key: 'fake-draft-key-abc',
         student_id: student.id,
         event_note_type_id: EventNoteType.all.sample.id,
         text: 'foo',

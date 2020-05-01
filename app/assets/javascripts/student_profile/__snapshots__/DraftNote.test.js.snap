@@ -134,6 +134,7 @@ Array [
               <textarea
                 autoFocus={true}
                 className="DraftNote-textarea"
+                disabled={false}
                 onChange={[Function]}
                 rows={10}
                 style={
@@ -467,6 +468,7 @@ Array [
               <textarea
                 autoFocus={true}
                 className="DraftNote-textarea"
+                disabled={false}
                 onChange={[Function]}
                 rows={10}
                 style={
@@ -880,6 +882,7 @@ Array [
               <textarea
                 autoFocus={true}
                 className="DraftNote-textarea"
+                disabled={false}
                 onChange={[Function]}
                 rows={10}
                 style={
@@ -1192,6 +1195,7 @@ Array [
               <textarea
                 autoFocus={true}
                 className="DraftNote-textarea"
+                disabled={false}
                 onChange={[Function]}
                 rows={10}
                 style={
@@ -1605,6 +1609,7 @@ Array [
               <textarea
                 autoFocus={true}
                 className="DraftNote-textarea"
+                disabled={false}
                 onChange={[Function]}
                 rows={10}
                 style={

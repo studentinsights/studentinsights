@@ -362,8 +362,8 @@ describe('end-to-end through the network', () => {
         expect(calls.length).toEqual(1);
         expect(calls[0][0]).toEqual('/api/event_notes');
         expect(JSON.parse(calls[0][1].body)).toEqual({
+          "draft_key": expect.any(String),
           "event_note":{
-            "draft_key": expect.any(String),
             "student_id": 8,
             "text":"hello world!",
             "is_restricted": false,
