@@ -2,7 +2,7 @@
 <meta name="description" content="We work within school communities to make open, secure, student-centered data systems.  Say hello@studentinsights.org!"/>
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
 <link rel="apple-touch-icon" href="/icon.png" />
-<link rel="shortcut icon" href="/favicon.ico" />
+<link id="favicon" rel="shortcut icon" href="/favicon.ico" />
 <%= content_tag('div', '', id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
 <%= javascript_include_tag Webpack.bundle('rollbar.js') %>
 <%= csrf_meta_tags %>

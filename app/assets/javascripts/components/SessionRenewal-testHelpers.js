@@ -11,6 +11,7 @@ export function testProps(props = {}) {
     warningDurationInSeconds: 5,
     forciblyClearPage: jest.fn(),
     warnFn: jest.fn(),
+    updateAgressiveWarningFn: jest.fn(),
     ...props
   };
 }

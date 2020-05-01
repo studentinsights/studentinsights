@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {apiFetch, apiFetchJson} from '../helpers/apiFetchJson';
+import Lifecycle from '../components/Lifecycle';
 
 
 // Show a warning that the user's session is likely to timeout shortly.
@@ -22,7 +23,6 @@ export default class SessionRenewal extends React.Component {
     this.onRenewClicked = this.onRenewClicked.bind(this);
     this.onRenewCompleted = this.onRenewCompleted.bind(this);
     this.onRenewFailed = this.onRenewFailed.bind(this);
-    
   }
 
   componentDidMount() {
@@ -63,6 +63,18 @@ export default class SessionRenewal extends React.Component {
     if (!probeJson) return false;
 
     return shouldWarn(probeJson.remaining_seconds, probeIntervalInSeconds, warningDurationInSeconds);
+  }
+
+  // Side-effecting.  The intention is to help users who are in another tab see that
+  // this tab is close to timing out.  It change the color of the favicon and the
+  // document title to indicate there's a kind of notification.
+  doUpdateAggressiveWarning(shouldWarn) {
+    const {updateAgressiveWarningFn} = this.props;
+    if (updateAgressiveWarningFn) {
+      updateAgressiveWarningFn(shouldWarn);
+    } else {
+      updateFaviconAndDocumentTitle(shouldWarn);
+    }
   }
 
   // At this point, any transient data in the browser will be rejected by the server.
@@ -148,7 +160,11 @@ export default class SessionRenewal extends React.Component {
     if (this.shouldWarn()) {
       return (
         <div style={styles.root}>
-          Please click <a href="#" style={styles.link} onClick={this.onRenewClicked}>this link</a> or your session will timeout due to inactivity.
+          <Lifecycle
+            componentWillMount={this.doUpdateAggressiveWarning.bind(this, true)}
+            componentWillUnmount={this.doUpdateAggressiveWarning.bind(this, false)}>
+            Please click <a href="#" style={styles.link} onClick={this.onRenewClicked}>this link</a> or your session will timeout due to inactivity.
+          </Lifecycle>
         </div>
       );
     }
@@ -160,7 +176,8 @@ SessionRenewal.propTypes = {
   probeIntervalInSeconds: PropTypes.number.isRequired,
   warningDurationInSeconds: PropTypes.number.isRequired,
   forciblyClearPage: PropTypes.func,
-  warnFn: PropTypes.func
+  warnFn: PropTypes.func,
+  updateAgressiveWarningFn: PropTypes.func
 };
 
 const styles = {
@@ -187,4 +204,21 @@ const styles = {
 // `warningDurationInSeconds` to respond (or more, depending on probeInterval).
 export function shouldWarn(remainingSeconds, probeIntervalInSeconds, warningDurationInSeconds) {
   return (remainingSeconds - probeIntervalInSeconds <= warningDurationInSeconds);
+}
+
+
+function updateFaviconAndDocumentTitle(shouldWarn) {
+  // title
+  const actualTitle = window.document.title.replace(/^\(1\) /, '');
+  const updatedDocumentTitle = (shouldWarn)
+    ? '(1) ' + actualTitle
+    : actualTitle;
+  window.document.title = updatedDocumentTitle;
+
+  // favicon
+  const faviconEl = document.getElementById('favicon');
+  const faviconHref = (shouldWarn)
+    ? '/favicon-alert-orange-white.ico'
+    : '/favicon.ico';
+  faviconEl.href = faviconHref;
 }
