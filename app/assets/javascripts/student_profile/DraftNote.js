@@ -41,7 +41,9 @@ export default class DraftNote extends React.Component {
     this.debouncedOnChange(stateNow);
   }
 
+  // Abort autosave if since the debouncing, actual saving has started.
   debouncedOnChange(stateThen) {
+    if (this.isSavingPendingOrFailed()) return;
     this.props.onChange(stateThen);
   }
 
@@ -49,6 +51,11 @@ export default class DraftNote extends React.Component {
     const {text, eventNoteTypeId} = this.state;
 
     return (text === '' || eventNoteTypeId === null);
+  }
+
+  isSavingPendingOrFailed() {
+    const {requestState} = this.props;
+    return (requestState === PENDING || requestState === ERROR);
   }
 
   onChangeText(e) {
@@ -139,7 +146,6 @@ export default class DraftNote extends React.Component {
   renderTypeNote() {
     const {showRestrictedCheckbox} = this.props;
     const {text} = this.state;
-
     return (
       <div>
         <textarea
@@ -148,6 +154,7 @@ export default class DraftNote extends React.Component {
           style={styles.textarea}
           autoFocus={true}
           value={text}
+          disabled={this.isSavingPendingOrFailed()}
           onChange={this.onChangeText} />
         {showRestrictedCheckbox &&
           <div>

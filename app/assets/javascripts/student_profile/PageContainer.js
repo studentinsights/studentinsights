@@ -20,6 +20,7 @@ export default class PageContainer extends React.Component {
 
     this.onColumnClicked = this.onColumnClicked.bind(this);
     this.onCreateNewNote = this.onCreateNewNote.bind(this);
+    this.onDraftChanged = this.onDraftChanged.bind(this);
     this.onCreateNewNoteDone = this.onCreateNewNoteDone.bind(this);
     this.onCreateNewNoteFail = this.onCreateNewNoteFail.bind(this);
     this.onUpdateExistingNote = this.onUpdateExistingNote.bind(this);
@@ -92,6 +93,12 @@ export default class PageContainer extends React.Component {
 
   onColumnClicked(columnKey) {
     this.setState({ selectedColumnKey: columnKey });
+  }
+
+  // Fire and forget
+  onDraftChanged(draft) {
+    const {student} = this.props.profileJson;
+    this.api.autosaveDraft(student.id, draft);
   }
 
   // single request at a time
@@ -262,6 +269,7 @@ export default class PageContainer extends React.Component {
       onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
       onSaveService: this.onSaveService,
       onDiscontinueService: this.onDiscontinueService,
+      onDraftChanged: this.onDraftChanged,
       ...(this.props.actions || {}) // for test
     };
 

@@ -66,6 +66,7 @@ describe EventNotesController, :type => :controller do
 
     def post_params(event_note_params = {})
       {
+        draft_key: 'fake-draft-key-abc',
         student_id: student.id,
         event_note_type_id: EventNoteType.all.sample.id,
         text: 'foo',

@@ -5,6 +5,7 @@ import _ from 'lodash';
 // UI actions, stepping stone to Flux
 export const actions = PropTypes.shape({
   onColumnClicked: PropTypes.func.isRequired,
+  onDraftChanged: PropTypes.func.isRequired,
   onUpdateExistingNote: PropTypes.func.isRequired,
   onCreateNewNote: PropTypes.func.isRequired,
   onDeleteEventNoteAttachment: PropTypes.func.isRequired,
@@ -21,7 +22,11 @@ export const requests = PropTypes.shape({
 });
 
 export const api = PropTypes.shape({
-  saveNotes: PropTypes.func.isRequired
+  autosaveDraft: PropTypes.func.isRequired,
+  saveNotes: PropTypes.func.isRequired,
+  deleteEventNoteAttachment: PropTypes.func.isRequired,
+  saveService: PropTypes.func.isRequired,
+  discontinueService: PropTypes.func.isRequired
 });
 
 

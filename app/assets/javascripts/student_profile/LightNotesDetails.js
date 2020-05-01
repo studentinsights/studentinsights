@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import SectionHeading from '../components/SectionHeading';
-import {autosaveDraft} from './Api';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import DraftNote from './DraftNote';
@@ -47,10 +46,8 @@ export default class LightNotesDetails extends React.Component {
     this.props.onTakingNotesChanged(false);
   }
 
-  // Fire and forget optimistically
   onDraftChanged(draft) {
-    const {student} = this.props;
-    autosaveDraft(student.id, draft);
+    this.props.actions.onDraftChanged(draft);
   }
 
   onCreateNewNote(eventNoteParams, event) {
@@ -176,10 +173,11 @@ LightNotesDetails.propTypes = {
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   actions: PropTypes.shape({
+    onDraftChanged: PropTypes.func.isRequired,
     onCreateNewNote: PropTypes.func.isRequired,
     onSecondTransitionNoteAdded: PropTypes.func.isRequired,
     onUpdateExistingNote: PropTypes.func.isRequired,
-    onDeleteEventNoteAttachment: PropTypes.func,
+    onDeleteEventNoteAttachment: PropTypes.func
   }),
   feed: InsightsPropTypes.feed.isRequired,
   requests: PropTypes.object.isRequired,

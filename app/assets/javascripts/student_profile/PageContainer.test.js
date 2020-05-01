@@ -92,10 +92,16 @@ const helpers = {
     return {el, instance};
   },
 
-  takeNotesAndSave(el, uiParams) {
+  takeNoteWithoutSaving(el, uiParams) {
     ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
     changeTextValue($(el).find('textarea').get(0), uiParams.text);
-    ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
+    if (uiParams.eventNoteTypeText) {
+      ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
+    }
+  },
+
+  takeNotesAndSave(el, uiParams) {
+    helpers.takeNoteWithoutSaving(el, uiParams);
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   },
 
@@ -156,11 +162,30 @@ describe('integration tests', () => {
     });
 
     expect(props.actions.onCreateNewNote).toHaveBeenCalledWith({
+      draftKey: expect.any(String),
       eventNoteTypeId: 300,
       text: 'hello!',
       isRestricted: false,
       eventNoteAttachments: []
     });
+  });
+
+  it('autosaves draft notes before they are saved, mocking the action handlers', () => {
+    const props = testProps();
+    const {el} = helpers.renderInto(props);
+    helpers.takeNoteWithoutSaving(el, {
+      text: 'hello!'
+    });
+
+    // wait for debounce
+    setTimeout(() => {
+      expect(props.actions.onDraftChanged).toHaveBeenCalledWith({
+        draftKey: expect.any(String),
+        eventNoteTypeId: null,
+        text: 'hello!',
+        isRestricted: false
+      });
+    }, 600);
   });
 
   it('can edit own notes for SST meetings, mocking the action handlers', done => {
@@ -306,7 +331,7 @@ describe('end-to-end through the network', () => {
     });
   });
 
-  describe('when creating a new note succeeds', () => {
+  describe('when creating a new note instantaneously, before autosave draft interval', () => {
     beforeEach(() => {
       fetchMock.restore();
       fetchMock.post('express:/api/event_notes', {
@@ -331,14 +356,14 @@ describe('end-to-end through the network', () => {
         text: 'hello world!'
       });
 
-      // wait for debounce
+      // wait for tick
       setTimeout(() => {
-        // expect network
         const calls = fetchMock.calls();
         expect(calls.length).toEqual(1);
         expect(calls[0][0]).toEqual('/api/event_notes');
         expect(JSON.parse(calls[0][1].body)).toEqual({
           "event_note":{
+            "draft_key": expect.any(String),
             "student_id": 8,
             "text":"hello world!",
             "is_restricted": false,
@@ -354,7 +379,42 @@ describe('end-to-end through the network', () => {
         expect($(el).text()).toContain('hello world!');
 
         done();
-      }, 800);
+      }, 10);
+    });
+  });
+
+  describe('when working on a new note', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.put('express:/api/students/:student_id/event_note_drafts/:drafts', {}, 201);
+    });
+
+    it('autosaves', done => {
+      const {el} = renderForEndToEnd();
+
+      helpers.takeNoteWithoutSaving(el, {
+        eventNoteTypeText: 'SST Meeting',
+        text: 'hello world!'
+      });
+
+      // wait for autosave draft debouncing
+      setTimeout(() => {
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0].indexOf('/api/students/8/event_note_drafts/')).toEqual(0);
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "draft": {
+            "text":"hello world!",
+            "is_restricted": false,
+            "event_note_type_id": 300,
+          }
+        });
+        
+        // UI indicator about draft saving
+        expect($(el).text()).not.toContain('Draft saved.');
+
+        done();
+      }, 600);
     });
   });
 });
