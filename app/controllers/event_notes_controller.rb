@@ -115,8 +115,7 @@ class EventNotesController < ApplicationController
       draft.update!({
         event_note_type_id: safe_params[:draft][:event_note_type_id],
         is_restricted: safe_is_restricted_value(safe_params[:draft][:is_restricted]),
-        text: safe_params[:draft][:text],
-        updated_at: Time.now
+        text: safe_params[:draft][:text]
       })
     end
     render json: {}, status: 201
