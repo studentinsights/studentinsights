@@ -28,6 +28,7 @@ it('shows warning message', done => {
 
   setTimeout(() => {
     expect($(el).text()).toEqual('Please click this link or your session will timeout due to inactivity.');
+    expect(props.updateAgressiveWarningFn).toHaveBeenCalledWith(true);
     done();
   }, TEST_DELAY);
 });
@@ -39,6 +40,7 @@ it('does not show warning message', done => {
 
   setTimeout(() => {
     expect($(el).text()).toEqual('');
+    expect(props.updateAgressiveWarningFn).not.toHaveBeenCalled();
     done();
   }, TEST_DELAY);
 });

@@ -69,18 +69,12 @@ export default class SessionRenewal extends React.Component {
   // this tab is close to timing out.  It change the color of the favicon and the
   // document title to indicate there's a kind of notification.
   doUpdateAggressiveWarning(shouldWarn) {
-    const actualTitle = window.document.title.replace(/^\(1\) /, '');
-    const updatedDocumentTitle = (shouldWarn)
-      ? '(1) ' + actualTitle
-      : actualTitle;
-    window.document.title = updatedDocumentTitle;
-
-    // favicon
-    const faviconEl = document.getElementById('favicon');
-    const faviconHref = (shouldWarn)
-      ? '/favicon-alert-orange-white.ico'
-      : '/favicon.ico';
-    faviconEl.href = faviconHref;
+    const {updateAgressiveWarningFn} = this.props;
+    if (updateAgressiveWarningFn) {
+      updateAgressiveWarningFn(shouldWarn);
+    } else {
+      updateFaviconAndDocumentTitle(shouldWarn);
+    }
   }
 
   // At this point, any transient data in the browser will be rejected by the server.
@@ -182,7 +176,8 @@ SessionRenewal.propTypes = {
   probeIntervalInSeconds: PropTypes.number.isRequired,
   warningDurationInSeconds: PropTypes.number.isRequired,
   forciblyClearPage: PropTypes.func,
-  warnFn: PropTypes.func
+  warnFn: PropTypes.func,
+  updateAgressiveWarningFn: PropTypes.func
 };
 
 const styles = {
@@ -209,4 +204,21 @@ const styles = {
 // `warningDurationInSeconds` to respond (or more, depending on probeInterval).
 export function shouldWarn(remainingSeconds, probeIntervalInSeconds, warningDurationInSeconds) {
   return (remainingSeconds - probeIntervalInSeconds <= warningDurationInSeconds);
+}
+
+
+function updateFaviconAndDocumentTitle(shouldWarn) {
+  // title
+  const actualTitle = window.document.title.replace(/^\(1\) /, '');
+  const updatedDocumentTitle = (shouldWarn)
+    ? '(1) ' + actualTitle
+    : actualTitle;
+  window.document.title = updatedDocumentTitle;
+
+  // favicon
+  const faviconEl = document.getElementById('favicon');
+  const faviconHref = (shouldWarn)
+    ? '/favicon-alert-orange-white.ico'
+    : '/favicon.ico';
+  faviconEl.href = faviconHref;
 }
