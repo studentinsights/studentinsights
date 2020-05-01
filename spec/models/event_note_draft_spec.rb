@@ -2,13 +2,51 @@ require 'rails_helper'
 
 RSpec.describe EventNoteDraft, type: :model do
   let!(:text_when_redacted) { RestrictedTextRedacter::TEXT_WHEN_REDACTED }
+  let!(:pals) { TestPals.create! }
 
-  it 'allows nil event_note_type_id' do
-    draft = FactoryBot.create(:event_note_draft, {
-      text: 'foo',
-      event_note_type_id: nil
-    })
-    expect(draft.valid?).to eq true
+  describe 'validations' do
+    it 'allows nil event_note_type_id' do
+      draft = FactoryBot.create(:event_note_draft, {
+        text: 'foo',
+        event_note_type_id: nil
+      })
+      expect(draft.valid?).to eq true
+    end
+
+    it 'enforces unique (draft_key, educator_id, student_id) at model layer' do
+      attrs = {
+        draft_key: 'abc',
+        student_id: pals.shs_freshman_mari.id,
+        educator_id: pals.uri.id,
+        text: 'foo',
+        event_note_type_id: 300
+      }
+      first_draft = FactoryBot.create(:event_note_draft, attrs.merge(text: 'first'))
+      expect(first_draft.valid?).to eq true
+
+      second_draft = FactoryBot.build(:event_note_draft, attrs.merge(text: 'second'))
+      expect(second_draft.valid?).to eq false
+      expect(second_draft.errors.details).to eq(draft_key: [{:error=>:taken, :value=>"abc"}])
+    end
+
+    it 'does not collide if same (draft_key, student_id) for different educators ' do
+      uri_draft = FactoryBot.create(:event_note_draft, {
+        draft_key: 'abc',
+        student_id: pals.shs_freshman_mari.id,
+        educator_id: pals.uri.id,
+        text: 'foo',
+        event_note_type_id: 300
+      })
+      jodi_draft = FactoryBot.create(:event_note_draft, {
+        draft_key: 'abc',
+        student_id: pals.shs_freshman_mari.id,
+        educator_id: pals.shs_jodi.id,
+        text: 'bar',
+        event_note_type_id: 301
+      })
+      expect(uri_draft.valid?).to eq true
+      expect(jodi_draft.valid?).to eq true
+    end
   end
 
   describe '#as_json' do
