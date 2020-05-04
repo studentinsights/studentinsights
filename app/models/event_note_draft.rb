@@ -2,10 +2,15 @@ class EventNoteDraft < ApplicationRecord
   belongs_to :educator
   belongs_to :student
   belongs_to :event_note_type # nullable
+  belongs_to :completed_event_note, class_name: 'EventNote' # nullable
 
   validates :draft_key, presence: true, uniqueness: { scope: [:student_id, :educator_id] }
   validates :educator, :student, presence: true
   validates :is_restricted, inclusion: { in: [true, false] }
+
+  # def unfinished
+  #   EventNoteCompleteDraft.where(draft_keY: )
+  # end
 
   # override, ensure that restricted text isn't accidentally serialized
   def as_json(options = {})

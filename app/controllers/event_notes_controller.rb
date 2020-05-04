@@ -19,7 +19,7 @@ class EventNotesController < ApplicationController
   # post
   # for restricted or unrestricted notes
   def create
-    # ignore draft_key param for now
+    draft_key = params.require(:draft_key)
     safe_params = params.require(:event_note).permit(
       :student_id,
       :event_note_type_id,
@@ -29,17 +29,27 @@ class EventNotesController < ApplicationController
     )
     authorized_or_raise! { Student.find(safe_params[:student_id]) }
 
-    event_note = EventNote.new(safe_params.merge({
-      is_restricted: safe_is_restricted_value(safe_params[:is_restricted]),
-      educator_id: current_educator.id,
-      recorded_at: Time.now
-    }))
+    # In the transaction we save the note and also record that the
+    # draft_key has been completed.
+    EventNote.transaction do
+      event_note = EventNote.create!(safe_params.merge({
+        is_restricted: safe_is_restricted_value(safe_params[:is_restricted]),
+        educator_id: current_educator.id,
+        recorded_at: Time.now
+      }))
 
-    if event_note.save
+      # Recording this separately avoids potential racing between the
+      # draft / note save processes (ie, this doesn't need a draft
+      # record to have been created previously).
+      EventNoteCompletedDraft.create!({
+        draft_key: draft_key,
+        educator_id: current_educator.id,
+        student_id: safe_params[:student_id],
+        event_note_id: event_note.id
+      }).limit(1)
+      
       serializer = EventNoteSerializer.dangerously_include_restricted_text(event_note)
       render json: serializer.serialize_event_note
-    else
-      render json: { errors: event_note.errors.full_messages }, status: 422
     end
   end
 
@@ -95,6 +105,15 @@ class EventNotesController < ApplicationController
     else
       render json: {}
     end
+  end
+
+  def drafts_json
+    safe_params = params.permit(:student_id)
+    student = authorized_or_raise! { Student.find(safe_params[:student_id]) }
+    
+    queries_for_educator = DraftQueries.new(current_educator)
+    drafts_json = queries_for_educator.student_drafts_json(student)
+    render json: drafts_json
   end
 
   # PUT
