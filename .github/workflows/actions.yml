@@ -106,20 +106,21 @@ jobs:
       with:
         ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
 
+    # Disabled since service is unreliable, see https://github.com/actions/cache/issues/207#issuecomment-625399526
     # Based on https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
-    - name: Setup gem caching
-      uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gem-cache-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gem-cache-
+    # - name: Setup gem caching
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: vendor/bundle
+    #     key: ${{ runner.os }}-gem-cache-${{ hashFiles('**/Gemfile.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gem-cache-
 
     # There's a bug in sassc, and the workaround below is from https://github.com/sass/sassc-ruby/issues/146#issuecomment-603280723
     - name: Install gems
       run: |
         gem install bundler
-        bundle config path vendor/bundle # to find cache
+        # bundle config path vendor/bundle # to find cache, disabled see # Disabled since service is unreliable, see https://github.com/actions/cache/issues/207#issuecomment-625399526
         bundle config set deployment 'true'
         bundle config build.sassc --disable-march-tune-native # https://github.com/sass/sassc-ruby/issues/146
         bundle install --jobs 4 --retry 3 # 4 parallel jobs recommended by GitHub template
