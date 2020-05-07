@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_180316) do
+ActiveRecord::Schema.define(version: 2020_05_06_203035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -295,6 +295,8 @@ ActiveRecord::Schema.define(version: 2020_05_04_180316) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_restricted", default: false, null: false
+    t.text "draft_key"
+    t.index ["educator_id", "student_id", "draft_key"], name: "event_note_draft_keyindex"
     t.index ["is_restricted"], name: "index_event_notes_on_is_restricted"
     t.index ["recorded_at"], name: "index_event_notes_on_recorded_at"
     t.index ["student_id"], name: "index_event_notes_on_student_id"

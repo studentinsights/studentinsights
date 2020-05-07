@@ -29,28 +29,14 @@ class EventNotesController < ApplicationController
     )
     authorized_or_raise! { Student.find(safe_params[:student_id]) }
 
-    # In the transaction we save the note and also record that the
-    # draft_key has been completed.
-    EventNote.transaction do
-      event_note = EventNote.create!(safe_params.merge({
-        is_restricted: safe_is_restricted_value(safe_params[:is_restricted]),
-        educator_id: current_educator.id,
-        recorded_at: Time.now
-      }))
-
-      # Recording this separately avoids potential racing between the
-      # draft / note save processes (ie, this doesn't need a draft
-      # record to have been created previously).
-      EventNoteCompletedDraft.create!({
-        draft_key: draft_key,
-        educator_id: current_educator.id,
-        student_id: safe_params[:student_id],
-        event_note_id: event_note.id
-      }).limit(1)
-      
-      serializer = EventNoteSerializer.dangerously_include_restricted_text(event_note)
-      render json: serializer.serialize_event_note
-    end
+    event_note = EventNote.create!(safe_params.merge({
+      draft_key: draft_key,
+      is_restricted: safe_is_restricted_value(safe_params[:is_restricted]),
+      educator_id: current_educator.id,
+      recorded_at: Time.now
+    }))
+    serializer = EventNoteSerializer.dangerously_include_restricted_text(event_note)
+    render json: serializer.serialize_event_note
   end
 
   # patch

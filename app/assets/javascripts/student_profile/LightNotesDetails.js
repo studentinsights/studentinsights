@@ -4,6 +4,7 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
+import UnfinishedDrafts from './UnfinishedDrafts';
 import DraftNote from './DraftNote';
 import SecondTransitionNoteDialog, {enableTransitionNoteDialog} from './SecondTransitionNoteDialog';
 
@@ -85,6 +86,7 @@ export default class LightNotesDetails extends React.Component {
         </SectionHeading>}
         <div>
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
+          <UnfinishedDrafts />
           <NotesList
             student={student}
             currentEducator={currentEducator}
