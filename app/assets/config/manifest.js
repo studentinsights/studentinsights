@@ -10,5 +10,6 @@
 
 // This is required for the `administrate` gem to work correctly, which
 // provides some of the `admin` routes, controllers and views.`
+// See https://github.com/thoughtbot/administrate/pull/1452
 //= link administrate/application.js
 //= link administrate/application.css
