@@ -7329,6 +7329,70 @@ exports[`snapshots works for olaf reading 1`] = `
     <div
       className="ElaDetails"
     >
+      <div>
+        <div>
+          <mocked-reader-profile-january-page
+            student={
+              Object {
+                "absences_count": 2,
+                "counselor": null,
+                "created_at": "2018-06-14T14:18:24.281Z",
+                "date_of_birth": "2009-02-27T00:00:00.000Z",
+                "disability": null,
+                "discipline_incidents_count": 1,
+                "enrollment_status": "Active",
+                "first_name": "Olaf",
+                "free_reduced_lunch": "Free Lunch",
+                "gender": "M",
+                "grade": "5",
+                "has_photo": true,
+                "hispanic_latino": false,
+                "home_language": "Haitian-Creole",
+                "homeroom": Object {
+                  "educator": Object {
+                    "email": "sarah@demo.studentinsights.org",
+                    "full_name": "Teacher, Sarah",
+                    "id": 6,
+                  },
+                  "id": 2,
+                  "name": "HEA 500",
+                },
+                "homeroom_id": 2,
+                "house": null,
+                "id": 16,
+                "last_name": "White",
+                "limited_english_proficiency": "Limited",
+                "local_id": "000556",
+                "most_recent_mcas_ela_growth": 77,
+                "most_recent_mcas_ela_performance": "Meeting Expectations",
+                "most_recent_mcas_ela_scaled": 526,
+                "most_recent_mcas_math_growth": 11,
+                "most_recent_mcas_math_performance": "Partially Meeting",
+                "most_recent_mcas_math_scaled": 549,
+                "most_recent_star_math_percentile": 34,
+                "most_recent_star_reading_percentile": 60,
+                "plan_504": "Not 504",
+                "primary_email": "student@example.com",
+                "primary_phone": "999-999-9999 C-Mom",
+                "program_assigned": "Reg Ed",
+                "race": "White",
+                "registration_date": null,
+                "restricted_notes_count": 0,
+                "school_id": 2,
+                "school_name": "Arthur D Healey",
+                "school_type": "ESMS",
+                "sped_level_of_need": null,
+                "sped_liaison": null,
+                "sped_placement": null,
+                "state_id": null,
+                "student_address": null,
+                "tardies_count": 1,
+                "updated_at": "2018-06-14T14:19:23.112Z",
+              }
+            }
+          />
+        </div>
+      </div>
       <div
         className="DetailsSection"
         style={
