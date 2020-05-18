@@ -29,6 +29,8 @@ class Env
     default_env['MAILGUN_DOMAIN'] = 'fake-mailgun-domain'
 
     # feature switches
+    ENV['ENABLE_CLASS_LISTS'] = 'true'
+    ENV['SHOW_LINK_FOR_CLASS_LISTS'] = 'true'
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
     default_env['ENABLE_HOUSEMASTER_BASED_FEED'] = 'true'
     default_env['ENABLE_SECTION_BASED_FEED'] = 'true'

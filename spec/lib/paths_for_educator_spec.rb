@@ -14,6 +14,19 @@ RSpec.describe PathsForEducator do
   end
 
   describe '#navbar_links' do
+    context 'when SHOW_LINK_FOR_CLASS_LISTS disabled' do
+      before { @show_link_for_class_lists = ENV['SHOW_LINK_FOR_CLASS_LISTS'] }
+      before { ENV['SHOW_LINK_FOR_CLASS_LISTS'] = nil }
+      after { ENV['SHOW_LINK_FOR_CLASS_LISTS'] = @show_link_for_class_lists }
+
+      it 'does not show link to /classlists' do
+        expect(navbar_links(pals.uri)).to eq({
+          district: '/district',
+          levels_shs: '/levels/shs'
+        })
+      end
+    end
+
     context 'when ENABLE_CLASS_LISTS disabled' do
       before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
       before { ENV['ENABLE_CLASS_LISTS'] = nil }

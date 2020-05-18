@@ -2,7 +2,6 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   # Set env variables
   Env.set_for_development_and_test!
-  ENV['ENABLE_CLASS_LISTS'] = 'true'
 
   config.secret_key_base = SecureRandom.hex(64)
 
