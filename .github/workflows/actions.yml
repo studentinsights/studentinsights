@@ -129,9 +129,9 @@ jobs:
       run: |
         echo 'ps aux | grep postgres'
         ps aux | grep postgres
-        echo 'ps -u postgres -o pid'
-        ps -u postgres -o pid
-        bundle exec rake db:create db:migrate db:test:prepare
+        bundle exec rake db:create
+        bundle exec rake db:migrate
+        bundle exec db:test:prepare
         bundle exec rake immigrant:check_keys
 
     - name: Audits
