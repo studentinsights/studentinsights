@@ -131,7 +131,7 @@ jobs:
         ps aux | grep postgres
         bundle exec rake db:create
         bundle exec rake db:migrate
-        bundle exec db:test:prepare
+        bundle exec rake db:test:prepare
         bundle exec rake immigrant:check_keys
 
     - name: Audits
