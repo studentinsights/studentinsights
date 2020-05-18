@@ -15,7 +15,6 @@ gem 'thor'
 gem 'uglifier', '>= 1.3.0'
 
 # rails plugins or patches
-gem 'minitest', '~> 5.13.0' # see https://github.com/rails/rails/issues/38279#issuecomment-609864754
 gem 'administrate', '~> 0.13.0'
 gem 'authtrail'
 gem 'devise', '~> 4.7.1'
