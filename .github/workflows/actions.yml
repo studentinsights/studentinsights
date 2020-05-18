@@ -84,7 +84,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rspec_shard: [0]
+        rspec_shard: [0]3
         rspec_total_shards: [8]
 
     # This is for Rails steps below, and has to match the Postgres service config above
@@ -127,6 +127,10 @@ jobs:
 
     - name: Setup Postgres
       run: |
+        echo 'ps aux | grep postgres'
+        ps aux | grep postgres
+        echo 'ps -u postgres -o pid'
+        ps -u postgres -o pid
         bundle exec rake db:create db:migrate db:test:prepare
         bundle exec rake immigrant:check_keys
 
