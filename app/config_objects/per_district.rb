@@ -199,6 +199,16 @@ class PerDistrict
     end
   end
 
+  # Controls whether link is visible
+  def show_link_for_class_lists?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('SHOW_LINK_FOR_CLASS_LISTS')
+    else
+      false
+    end
+  end
+
+  # Controls authorization
   def enabled_class_lists?
     if @district_key == SOMERVILLE || @district_key == DEMO
       EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
