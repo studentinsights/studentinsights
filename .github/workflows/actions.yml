@@ -127,7 +127,9 @@ jobs:
 
     - name: Setup Postgres
       run: |
-        bundle exec rake db:create db:migrate db:test:prepare
+        bundle exec rake db:create
+        bundle exec rake db:migrate
+        bundle exec rake db:test:prepare
         bundle exec rake immigrant:check_keys
 
     - name: Audits
