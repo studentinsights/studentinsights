@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_203035) do
+ActiveRecord::Schema.define(version: 2020_05_18_203942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -762,6 +762,9 @@ ActiveRecord::Schema.define(version: 2020_05_06_203035) do
   add_foreign_key "educator_section_assignments", "sections"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
   add_foreign_key "event_note_attachments", "event_notes", name: "event_note_attachments_event_note_id_fk"
+  add_foreign_key "event_note_drafts", "educators", name: "event_note_drafts_educator_id_fk"
+  add_foreign_key "event_note_drafts", "event_note_types", name: "event_note_drafts_event_note_type_id_fk"
+  add_foreign_key "event_note_drafts", "students", name: "event_note_drafts_student_id_fk"
   add_foreign_key "event_note_revisions", "educators", name: "event_note_revisions_educator_id_fk"
   add_foreign_key "event_note_revisions", "event_note_types"
   add_foreign_key "event_note_revisions", "event_notes"

@@ -274,7 +274,7 @@ describe('reader profile', () => {
     });
   });
 
-  it('shows nothing for 3rd grade student without labels', () => {
+  it('shows January profile for 3rd grade student without labels', () => {
     let props = testPropsForAladdinMouse();
     props = mergeAtPath(props, ['profileJson', 'student'], {grade: '3'});
     props = {...props, selectedColumnKey: 'reading'};
@@ -283,15 +283,12 @@ describe('reader profile', () => {
     expect(findReaderProfiles(el)).toEqual({
       deprecated: false,
       june: false,
-      january: false
+      january: true
     });
   });
   
-  it('shows January profile when label set, PK grade student', () => {
+  it('shows January profile without label being set, PK grade student', () => {
     let props = testPropsForAladdinMouse();
-    props = mergeAtPath(props, ['profileJson', 'currentEducator'], {
-      labels: ['enable_reader_profile_january']
-    });
     props = mergeAtPath(props, ['profileJson', 'student'], {grade: 'PK'});
     props = {...props, selectedColumnKey: 'reading'};
 
@@ -303,13 +300,12 @@ describe('reader profile', () => {
     });
   });
 
-  it('shows both profiles when both labels set, 5th grade student', () => {
+  it('shows both profiles when June label is set, 5th grade student', () => {
     let props = testPropsForAladdinMouse();
     props = mergeAtPath(props, ['profileJson', 'currentEducator'], {
       labels: [
         'profile_enable_minimal_reading_data',
-        'enable_reader_profile_june',
-        'enable_reader_profile_january'
+        'enable_reader_profile_june'
       ]
     });
     props = mergeAtPath(props, ['profileJson', 'student'], {grade: '5'});

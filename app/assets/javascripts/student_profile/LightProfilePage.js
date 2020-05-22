@@ -533,7 +533,7 @@ export default class LightProfilePage extends React.Component {
     const allowReaderProfile = (allGradeLevels.indexOf(student.grade) <= allGradeLevels.indexOf('5'));
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
     const showReaderProfileJune = currentEducator.labels.indexOf('enable_reader_profile_june') !== -1;
-    const showReaderProfileJanuary = currentEducator.labels.indexOf('enable_reader_profile_january') !== -1;
+    const showReaderProfileJanuary = true; // see https://github.com/studentinsights/studentinsights/pull/2814
     const showReaderProfileSection = (allowReaderProfile && (showMinimalReadingData || showReaderProfileJune || showReaderProfileJanuary));
     return (!showReaderProfileSection) ? null : (
       <div>

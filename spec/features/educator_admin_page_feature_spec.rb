@@ -9,16 +9,29 @@ describe 'educator sign in', type: :feature do
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   def grants_access?(educator)
+    run_checks_for(educator).any? # fail if any check passes
+  end
+
+  def run_checks_for(educator)
     feature_sign_in(educator)
     visit admin_root_url
 
+    # raise if it's a Rails error page
+    # (ie, https://github.com/thoughtbot/administrate/pull/1452)
+    # also, sadly page.has_text? does not actually work here :(
+    if page.html.include?('backtrace') || page.html.include?('lib/rspec/core')
+      raise 'rails error page!'
+    end
+
     checks = []
-    checks << true if current_path == '/admin'
-    checks << true if page.has_content?('Educator permissions: Overview')
-    checks.any?
+    checks << (current_path == '/admin')
+    checks << (page.html.include?('Adjust permissions for educators'))
+    checks
   end
 
-  it 'works for Uri' do expect(grants_access?(pals.uri)).to eq true end
+  it 'grants project lead access and passes smoke test' do
+    expect(run_checks_for(pals.uri).all?).to eq true
+  end
 
   describe 'blocks all other TestPals' do
     it 'rich_districtwide' do expect(grants_access?(pals.rich_districtwide)).to eq false end
