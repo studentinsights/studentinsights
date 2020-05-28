@@ -491,7 +491,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
                   }
                 }
               >
-                Educator permissions: overview
+                Educators: Permissions overview
               </a>
             </li>
             <li>
@@ -503,7 +503,19 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
                   }
                 }
               >
-                Adjust educator permissions
+                Educators: Adjust permissions
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/authorization"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Educators: Review labels
               </a>
             </li>
           </ul>
@@ -1429,7 +1441,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
                   }
                 }
               >
-                Educator permissions: overview
+                Educators: Permissions overview
               </a>
             </li>
             <li>
@@ -1441,7 +1453,19 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
                   }
                 }
               >
-                Adjust educator permissions
+                Educators: Adjust permissions
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/authorization"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Educators: Review labels
               </a>
             </li>
           </ul>
@@ -2216,7 +2240,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                   }
                 }
               >
-                Educator permissions: overview
+                Educators: Permissions overview
               </a>
             </li>
             <li>
@@ -2228,7 +2252,19 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
                   }
                 }
               >
-                Adjust educator permissions
+                Educators: Adjust permissions
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/authorization"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Educators: Review labels
               </a>
             </li>
           </ul>

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :educators, only: [:index, :show, :edit, :update] # administrate
     get '/authorization' => 'educators#authorization'
+    get '/labels' => 'educators#labels'
     post '/masquerade/become' => 'masquerade#become'
     post '/masquerade/clear' => 'masquerade#clear'
     root to: "educators#index"

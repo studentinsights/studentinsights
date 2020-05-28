@@ -100,12 +100,17 @@ export class DistrictOverviewPageView extends React.Component {
           <ul style={styles.plainList}>
             <li>
               <a href="/admin/authorization" style={styles.link}>
-               Educator permissions: overview
+               Educators: Permissions overview
               </a>
             </li>
             <li>
               <a href="/admin" style={styles.link}>
-               Adjust educator permissions
+               Educators: Adjust permissions
+              </a>
+            </li>
+            <li>
+              <a href="/admin/authorization" style={styles.link}>
+               Educators: Review labels
               </a>
             </li>
           </ul>
