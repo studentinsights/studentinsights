@@ -508,7 +508,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             </li>
             <li>
               <a
-                href="/admin/authorization"
+                href="/admin/labels"
                 style={
                   Object {
                     "fontSize": 14,
@@ -1458,7 +1458,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
             </li>
             <li>
               <a
-                href="/admin/authorization"
+                href="/admin/labels"
                 style={
                   Object {
                     "fontSize": 14,
@@ -2257,7 +2257,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             </li>
             <li>
               <a
-                href="/admin/authorization"
+                href="/admin/labels"
                 style={
                   Object {
                     "fontSize": 14,
