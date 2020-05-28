@@ -52,13 +52,13 @@ module Admin
 
     # Unrelated to adminstrate
     def labels
-      @sorted_labels = EducatorLabel.all.sort_by(&:label_key)
+      @sorted_label_keys = EducatorLabel.all.map(&:label_key).uniq
 
       @educators_by_label_key = {}
       educators_with_includes = Educator.all.includes(:educator_labels, :school, :sections, {homeroom: [:school, :students]})
       educators_with_includes.each do |educator|
-        educator.educator_labels.each do |label|
-          @educators_by_label_key[label] = @educators_by_label_key.fetch(label, []) + [educator]
+        educator.educator_labels.map(&:label_key).each do |label_key|
+          @educators_by_label_key[label_key] = @educators_by_label_key.fetch(label_key, []) + [educator]
         end
       end
     end

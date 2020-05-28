@@ -8,7 +8,7 @@
   </p>
   <div>
     <div style="padding-top: 10px">
-      <table style="text-align: left; max-width: 1000px;">
+      <table class="admin-educator-labels-table-styles" style="text-align: left; max-width: 1000px;">
         <thead>
           <tr>
             <th style="padding: 5px; text-align: left; background: #eee;">Label key</th>
@@ -17,16 +17,17 @@
           </tr>
         </thead>
         <tbody>
-          <% @sorted_labels.map do |label| %>
+          <% @sorted_label_keys.map do |label_key| %>
+            <% educators_for_label = @educators_by_label_key.fetch(label_key, []).sort_by(&:login_name) %>
             <tr>
-              <td style="padding: 10px; padding-left: 5px;"><%= label.label_key %></td>
-              <td style="padding: 10px; padding-left: 5px;">
-                <% @educators_by_label_key.fetch(label.label_key, []).map do |educator| %>
+              <td style="vertical-align: top; padding: 10px; padding-left: 5px;"><%= label_key %></td>
+              <td style="vertical-align: top; padding: 10px; padding-left: 5px;">
+                <% educators_for_label.map do |educator| %>
                   <div><%= educator.login_name %></div>
                 <% end %>
               </td>
-              <td style="padding: 10px; padding-left: 5px;">
-                <% @educators_by_label_key.fetch(label.label_key, []).map do |educator| %>
+              <td style="vertical-align: top; padding: 10px; padding-left: 5px;">
+                <% educators_for_label.map do |educator| %>
                   <div><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></div>
                 <% end %>
               </td>

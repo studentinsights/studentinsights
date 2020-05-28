@@ -4,3 +4,11 @@
     color: white !important;
   }
 }
+
+/* override administrate theming; these aren't clickable */
+table.admin-educator-labels-table-styles {
+  tr:hover {
+    background-color: white;
+    cursor: default;
+  }
+}

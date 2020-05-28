@@ -9,12 +9,11 @@ describe 'educator sign in', type: :feature do
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   def grants_access?(educator)
-    run_checks_for(educator).any? # fail if any check passes
+    run_all_checks_for(educator).any? # fail if any check passes
   end
 
-  def run_checks_for(educator)
-    feature_sign_in(educator)
-    visit admin_root_url
+  def run_checks_for(path, title, educator)
+    visit path
 
     # raise if it's a Rails error page
     # (ie, https://github.com/thoughtbot/administrate/pull/1452)
@@ -24,13 +23,25 @@ describe 'educator sign in', type: :feature do
     end
 
     checks = []
-    checks << (current_path == '/admin')
-    checks << (page.html.include?('Adjust permissions for educators'))
+    checks << (current_path == path)
+    checks << (page.html.include?(title))
+    checks
+  end
+
+  def run_all_checks_for(educator)
+    checks = []
+
+    feature_sign_in(educator, multifactor_cheating: true)
+    checks += run_checks_for('/admin', 'Adjust permissions for educators', educator)
+    checks += run_checks_for('/admin/authorization', 'Sensitive access', educator)
+    checks += run_checks_for('/admin/labels', 'control access to particular features', educator)
+    feature_sign_out
+
     checks
   end
 
   it 'grants project lead access and passes smoke test' do
-    expect(run_checks_for(pals.uri).all?).to eq true
+    expect(run_all_checks_for(pals.uri).all?).to eq true
   end
 
   describe 'blocks all other TestPals' do
@@ -46,5 +57,14 @@ describe 'educator sign in', type: :feature do
     it 'shs_sofia_counselor' do expect(grants_access?(pals.shs_sofia_counselor)).to eq false end
     it 'shs_hugo_art_teacher' do expect(grants_access?(pals.shs_hugo_art_teacher)).to eq false end
     it 'shs_fatima_science_teacher' do expect(grants_access?(pals.shs_fatima_science_teacher)).to eq false end
+  end
+
+  it 'passes smoke test for /labels' do
+    feature_sign_in(pals.uri, multifactor_cheating: true)
+    visit '/admin/labels'
+    label_keys = EducatorLabel.all.map(&:label_key).uniq
+    label_keys_on_page = label_keys.select {|labe_key| page.html.include?(labe_key) }
+    expect(label_keys_on_page).to match_array(label_keys)
+    feature_sign_out
   end
 end
