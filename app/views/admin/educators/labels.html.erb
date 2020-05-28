@@ -1,0 +1,38 @@
+<%= render 'navbar_for_admin_educator_permissions' %>
+
+<div style="margin: 20px;">
+  <h4 style="color: black; font-size: 24px; border-bottom: 1px solid #333; margin-bottom: 20px; padding-bottom: 10px;">
+    Review labels
+  </h4>
+  <p>Educator <b>'labels'</b> are controlled within Student Insights, and control access to particular features (eg, only 8th grade counselors can write transition notes for students, only principals can finalize class lists).
+  </p>
+  <div>
+    <div style="padding-top: 10px">
+      <table style="text-align: left; max-width: 1000px;">
+        <thead>
+          <tr>
+            <th style="padding: 5px; text-align: left; background: #eee;">Label key</th>
+            <th style="padding: 5px; text-align: left; background: #eee;">Logins</th>
+            <th style="padding: 5px; text-align: left; background: #eee;">Names</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sorted_labels.map do |label| %>
+            <tr>
+              <td style="padding: 10px; padding-left: 5px;"><%= label.label_key %></td>
+              <td style="padding: 10px; padding-left: 5px;">
+                <% @educators_by_label_key.fetch(label.label_key, []).map do |educator| %>
+                  <div><%= educator.login_name %></div>
+                <% end %>
+              </td>
+              <td style="padding: 10px; padding-left: 5px;">
+                <% @educators_by_label_key.fetch(label.label_key, []).map do |educator| %>
+                  <div><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></div>
+                <% end %>
+              </td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

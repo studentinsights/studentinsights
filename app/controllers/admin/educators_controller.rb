@@ -50,6 +50,19 @@ module Admin
       nil
     end
 
+    # Unrelated to adminstrate
+    def labels
+      @sorted_labels = EducatorLabel.all.sort_by(&:label_key)
+
+      @educators_by_label_key = {}
+      educators_with_includes = Educator.all.includes(:educator_labels, :school, :sections, {homeroom: [:school, :students]})
+      educators_with_includes.each do |educator|
+        educator.educator_labels.each do |label|
+          educators_by_label_key[label] = educators_by_label_key.fetch(label, []) + [educator]
+        end
+      end
+    end
+
     private
     # override
     def resource_params
