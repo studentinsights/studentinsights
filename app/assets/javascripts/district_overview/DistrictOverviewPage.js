@@ -109,7 +109,7 @@ export class DistrictOverviewPageView extends React.Component {
               </a>
             </li>
             <li>
-              <a href="/admin/authorization" style={styles.link}>
+              <a href="/admin/labels" style={styles.link}>
                Educators: Review labels
               </a>
             </li>
