@@ -34,7 +34,7 @@ We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for m
 
 This is a Ruby on Rails app that uses a PostgreSQL database as the primary data store, and relies on React for much of the UI code.
 
-### 1. Install dependencies
+#### 1. Install dependencies
 
 You'll need Ruby, Postgres and yarn. See our [local installation on OSX or Linux](docs/technical/local_installation_notes.md) guide.
 
@@ -45,7 +45,7 @@ $ bundle install
 $ yarn install
 ```
 
-### 2. Create database tables and seed them with demo data
+#### 2. Create database tables and seed them with demo data
 
 ```
 bundle exec rake db:create db:migrate db:seed
@@ -55,10 +55,10 @@ This will create demo students with fake student information.  See the demo site
 
 If you are willing to run a longer (~10 minute) task that will generate ~600 students to more closely approximate one of our pilot schools, set `ENV["MORE_DEMO_STUDENTS"] = 'true'` before running the seed task.
 
-### 3. Start the app
+#### 3. Start the app
 Once you've created the data, start the app by running `yarn start` from the root of your project.  This runs two processes in parallel: the Rails server and a Webpack process that watches and rebuilds JavaScript files.  When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.  You can stop both processes with `command+c` like normal, and look at `package.json` if you want to run them in individual terminals.
 
-### 4. Run the tests
+#### 4. Run the tests
 This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests and [Jest](https://facebook.github.io/jest/) for JavaScript tests.
 
 For Ruby code, to lint and run the tests do:
@@ -85,7 +85,7 @@ Or add them into Sublime with [SublimeLinter-eslint](https://github.com/SublimeL
 
 If you miss something, tests will run on any pull request you submit, and after merging to master as well.
 
-### 5. Write code!
+#### 5. Write code!
 This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).  The only difference is that JavaScript code is not managed by the Rails asset pipeline, and is built separately by Webpack.
 
 It also uses React for much the user interface code.  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
@@ -96,7 +96,7 @@ If you use **Sublime Text Editor**, we include the `studentinsights.sublime-proj
 
 We also recommend [Sublime Package Control](https://packagecontrol.io/) and these packages [Babel](https://packagecontrol.io/packages/Babel), [Sublime Linter](http://www.sublimelinter.com/en/latest/) and [SublimeLinter-contrib-eslint](https://github.com/roadhump/SublimeLinter-eslint).  These will give you nice syntax highlighting and show you linter errors right in Sublime!
 
-### 6. Use the product locally
+#### 6. Use the product locally
 Users use IE11, so if you're trying to manually test locally or the production site, you should too!  If you have a Mac or Linux box, you can use free VMs designed for just this purpose and run them on VirtualBox: https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/.
 
 Useful tidbits:
@@ -106,10 +106,10 @@ Useful tidbits:
 - Disable the "Host Capture" key
 - Point to http://10.0.2.2:3000/ to access the host instance of Student Insights
 
-7. Use Storybook
+#### 7. Use Storybook
 Running `yarn storybook` will start a storybook server on port 6006. You can use this to create "stories" iterate on UI features or components in particular states, separate from how they exist within the product.  To add new stories, write a new `.story.js` file and update `ui/config/.storybook/config.js`.
 
-8. Add guardrails
+#### 8. Add guardrails
 - Install [git-secrets](https://github.com/awslabs/git-secrets#installing-git-secrets) and ensure the hook is set for the repo
 - Update your terminal to show when your git working copy is dirty, to prevent accidentally checking in anything sensitive or that shouldn't be checked in.  One approach is to put this in `~/.bashrc`:
 
