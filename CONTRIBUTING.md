@@ -34,13 +34,12 @@ If you need help with how to submit a pull request, check out the awesome [GitHu
 
 ---
 
-# Production access
+# Levels of access
 
 Student Insights uses student data. Student data is private. So how does contributing to Student Insights work?!?
 
 Below are four levels of access — from new folks who walk in the door at Code for Boston (no student data access), to signing a contract to build out the project (full student data access).
 
-----
 
 ### 1. Contributor
 
