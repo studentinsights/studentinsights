@@ -9,7 +9,7 @@
   </a>
 </div>
 
-## We work with educators to make student-centered data systems
+## We work within communities to make student-centered data systems
 It’s people closest to the work, **within school communities** - teachers, young people, families - who will be able to build the next generation of school data systems that they need.
 
 We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle **what matters for our students**.
@@ -131,7 +131,7 @@ The project is a Rails app with a Postgres database.  There are background tasks
 
 District project leads have access administrative tools for adjusting educator permissions and roles, for doing data quality checks, reviewing health of import tasks, and exporting data.
 
-Understanding the human pieces of how data flows through the system, which is critical for understanding accuracy and representativeness, is quite complex and varies within and across districts.  This is important to keep in mind when making product and engineering decisions.  With that caveat, here's an abstracted engineering-centric view on the pieces of the system and kinds of data flow:
+Understanding the human pieces of how data flows through the system, which is critical for understanding accuracy and representativeness, is quite complex and varies within and across districts.  This is important to keep in mind when making product and engineering decisions.  With that caveat, here's an abstracted engineering-centric view on the pieces of the system and kinds of data flow (from "Student Insights - How it works" internal doc):
 
 ![systems overview](docs/readme_images/systems-overview.png)
 ![data systems](docs/readme_images/data-systems.png)
@@ -154,26 +154,21 @@ For educator-facing document, see also:
 
 # Deployment
 
-### Continuous integration
-We use GitHub Actions to run a set of tests on each pull request and merge to master.  See the `actions.yml` file for more, and view test runs it GitHub at https://github.com/studentinsights/studentinsights/actions.
+#### Continuous integration
+We use GitHub Actions to run a set of tests on each pull request and merge to master.  See the `actions.yml` file for more, and view test runs it GitHub at https://github.com/studentinsights/studentinsights/actions.  There's no automatic deployment set up, so nothing will go into production until someone takes action to deploy it.
 
-### Deploying new code to Insights
+#### Production access
+Access to production environments is tightly controlled.  If you work in a particular district or have been granted access to production systems, talk to someone on the team.
 
-See our guide:
+To create an entirely new Student Insights deployment, ask someone for the "New Student Insights deployment" doc.
 
-[Merging and deploying new code to Heroku](docs/technical/merging_and_deploying_to_heroku.md).
+#### Static IPs
 
-### Creating a new Insights instance
-[Creating a new Insights instance](docs/technical/new_instance.md).
-
-
-### Heroku notes
-
-[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with district LDAP servers which are firewalled.  The `QUOTAGUARDSTATIC_MASK` environment variable is a subnet mask for routing only certain outbound requests through the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
+[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides static IP addresses when needed to connect to firewalled district servers.  The `QUOTAGUARDSTATIC_MASK` environment variable is a subnet mask for routing only certain outbound requests through those proxy servers. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup).  See the [Procfile](Procfile) for how this is enabled; the socksify wrapper makes routing through the proxy transparent to Ruby application code.
 
 
 # Ops
-Here are some notes on maintaining, troubleshooting and performance.
+Here are some notes on maintaining, troubleshooting and performance.  Talk to someone on the team for access to more tools and docs.
 
 ## Response latency
 Look in the Heroku metrics panel.
@@ -184,8 +179,4 @@ You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to ge
 Heroku Postgres supports a maintenance window for standard database operations that require minutes of downtime.  See `heroku pg:maintenance`.
 
 # More information
-
-- [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
-- Connect with [Kevin](https://twitter.com/krob) on Twitter or on Code for Boston Slack
-- More docs in the `docs` folder!
-- Learn more at [studentinsights.org](https://www.studentinsights.org).
+- Learn more at [studentinsights.org](https://www.studentinsights.org) or say hello@studentinsights.org!
