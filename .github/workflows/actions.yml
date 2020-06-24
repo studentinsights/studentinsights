@@ -154,7 +154,7 @@ jobs:
         mv coverage/.resultset.json coverage/shards/resultset-${{ matrix.rspec_shard }}.json
 
     - name: Publish coverage results for shard
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v1 # see https://github.com/actions/upload-artifact/issues/11
       with:
         name: coverage-check-resultset
         path: coverage/shards/resultset-${{ matrix.rspec_shard }}.json
@@ -176,7 +176,7 @@ jobs:
         ruby-version: "${{ steps.ruby-version.outputs.file-contents }}"
 
     - name: Fetch test coverage resultset for shards
-      uses: actions/download-artifact@v2-preview
+      uses: actions/download-artifact@v2 # see https://github.com/actions/download-artifact/issues/6
       with:
         name: coverage-check-resultset
         path: coverage/shards
