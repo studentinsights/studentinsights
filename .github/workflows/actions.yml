@@ -21,7 +21,7 @@ jobs:
     # - name: Setup node.js
     #   uses: actions/setup-node@v1
     #   with:
-    #     node-version: 12.15.0
+    #     node-version: 12.18.0
 
     # Based on https://github.com/actions/cache/blob/master/examples.md#node---yarn
     - name: Get yarn cache directory path
