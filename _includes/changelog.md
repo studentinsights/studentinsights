@@ -1,3 +1,25 @@
+June 2020 updates:
+- **Maintenance**: Update Rails and Rack patch releases [#2827](https://github.com/studentinsights/studentinsights/pull/2827)
+- **Maintenance**: Update to Highcharts 8 [#2826](https://github.com/studentinsights/studentinsights/pull/2826)
+- **Maintenance**: Update node version [#2828](https://github.com/studentinsights/studentinsights/pull/2828)
+- **Maintenance**: Update upload/download tasks for build process [#2829](https://github.com/studentinsights/studentinsights/pull/2829)
+- **Security**: Patch websocket-extensions [#2824](https://github.com/studentinsights/studentinsights/pull/2824) [#2823](https://github.com/studentinsights/studentinsights/pull/2823)
+- **Docs**: Updates to README [#2825](https://github.com/studentinsights/studentinsights/pull/2825)
+
+May 2020 updates:
+- **Security**: Update puma web server [#2818](https://github.com/studentinsights/studentinsights/pull/2818)
+- **Security**: Bump kaminari from 1.2.0 to 1.2.1 [#2822](https://github.com/studentinsights/studentinsights/pull/2822)
+- **Maintenance**: Update markdown-to-jsx [#2820](https://github.com/studentinsights/studentinsights/pull/2820)
+- **Project** leads: Add page for reviewing educator labels [#2819](https://github.com/studentinsights/studentinsights/pull/2819)
+- **Class** lists: Allow enabling authorization but hiding link for all [#2816](https://github.com/studentinsights/studentinsights/pull/2816)    
+- **Maintenance**: Remove workaround for zeitwerk eager loading bug [#2817](https://github.com/studentinsights/studentinsights/pull/2817)
+- **Maintenance**: Disable GitHub Actions cache, since it is unreliable [#2815](https://github.com/studentinsights/studentinsights/pull/2815)
+- **Maintenance**: Fix administrate pages from config bug [#2813](https://github.com/studentinsights/studentinsights/pull/2813)
+- **Reading**: Soft-release reader profile, with framing copy in front [#2814](https://github.com/studentinsights/studentinsights/pull/2814)
+- **Security**: Updates jQuery [#2811](https://github.com/studentinsights/studentinsights/pull/2811)
+- **Maintenance**: Update favicon and document title when session is close to expiring [#2810](https://github.com/studentinsights/studentinsights/pull/2810)
+- **Notes**: Add autosaving drafts and extending session (no UX changes yet) [#2812](https://github.com/studentinsights/studentinsights/pull/2812)
+
 Friday 4/24 updates:
 - **Notes**: Design work on MTSS notes with remote videochat
 - **Security**: Patch for OpenSSL vulnerability ([advisory](https://www.openssl.org/news/secadv/20200421.txt), [Heroku changelog](https://devcenter.heroku.com/changelog-items/1761))
