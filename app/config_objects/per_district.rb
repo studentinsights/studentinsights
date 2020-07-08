@@ -75,7 +75,7 @@ class PerDistrict
     if @district_key == SOMERVILLE
       SftpClient.for_star # assuming daily updates
     elsif @district_key == NEW_BEDFORD
-      SftpClient.for_x2(modified_within_n_days: 90) # assuming regular quarterly updates
+      SftpClient.for_x2(modified_within_n_days: 180) # assuming regular quarterly updates - temporarily disabled for summer 2020
     else
       raise_not_handled!
     end
