@@ -26,7 +26,11 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
         stacking: stacking,
         dataLabels: {
           enabled: true,
-          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          // Since highcharts 8.1.0 we have a problem rendering the pdf with wkhtmltopdf that gets can be resolved by setting
+          // this to render as html. At some point we can come back to this for a workaround or fix. We can reenable the color option
+          // then as well.
+          // color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          useHTML: true,
           formatter() {
             // Sets the number of each type of incident occurences per day
             // If no occurences, displays nothing
