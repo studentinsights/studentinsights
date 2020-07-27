@@ -5977,10 +5977,10 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-highcharts@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.0.2.tgz#e3c4c998a21ce6bfa79458fa2c87d967e9234abe"
-  integrity sha1-48TJmKIc5r+nlFj6LIfZZ+kjSr4=
+highcharts@^8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-8.1.2.tgz#a4e7d74a6140028e676a3a54f5fd0ea6ccbcc90e"
+  integrity sha512-Q124Lj+2+bVY2MKMd7d8uSVAmhZVzWgknUUzUBEC27S94dCyK6PBgahuwiMP/ET4w7qSFBBi4OC77ZUb0Vnuyg==
 
 highlight.js@~9.12.0:
   version "9.12.0"
