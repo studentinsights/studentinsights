@@ -26,7 +26,7 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
         stacking: stacking,
         dataLabels: {
           enabled: true,
-          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+          useHTML: true,
           formatter() {
             // Sets the number of each type of incident occurences per day
             // If no occurences, displays nothing
