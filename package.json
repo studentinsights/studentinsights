@@ -90,6 +90,7 @@
   },
   "resolutions": {
     "auditjs/**/bin-links": "^1.1.7",
+    "auditjs/**/dot-prop": "^5.1.1",
     "auditjs/**/npm": "^6.14.6",
     "auditjs/**/npm-registry-fetch": "^8.1.1",
     "acorn": "^7.1.1",
@@ -99,6 +100,7 @@
     "mem": "^4.3.0",
     "markdown-to-jsx": "^6.11.4",
     "minimist": "^1.2.3",
+    "npm/**/dot-prop": "^5.1.1",
     "npm/**/npm-registry-fetch": "^8.1.1",
     "serialize-javascript": "^2.1.1",
     "@storybook/react/**/lodash-es": "^4.17.15",
