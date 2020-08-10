@@ -102,6 +102,7 @@
     "minimist": "^1.2.3",
     "npm/**/dot-prop": "^5.1.1",
     "npm/**/npm-registry-fetch": "^8.1.1",
+    "prismjs": "^1.21.0",
     "serialize-javascript": "^2.1.1",
     "@storybook/react/**/lodash-es": "^4.17.15",
     "yargs": "^15.3.1"
