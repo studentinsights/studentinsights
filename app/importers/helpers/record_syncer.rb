@@ -191,7 +191,7 @@ class RecordSyncer
       next if count == 0
 
       #percentage of record sync calls isn't meaningful for destroyed records
-      percentage = (key === "destroyed_records_count")? "N/A" : (count.to_f / @total_sync_calls_count)
+      percentage = (key == "destroyed_records_count")? "N/A" : (count.to_f / @total_sync_calls_count)
       next unless @alert_tuning.should_alert?(key, count, percentage)
 
       alerts << {
