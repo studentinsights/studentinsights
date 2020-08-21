@@ -573,10 +573,10 @@ class PerDistrict
       # See https://docs.google.com/document/d/1HCWMlbzw1KzniitW24aeo_IgjzNDSR-U9Rx_md1Qto8/edit
       year = SchoolYear.to_school_year(date_time)
       return 'SUMMER' if date_time < DateTime.new(year, 8, 29)
-      return 'Q1' if date_time < DateTime.new(year, 11, 5)
-      return 'Q2' if date_time < DateTime.new(year + 1, 1, 23)
-      return 'Q3' if date_time < DateTime.new(year + 1, 4, 3)
-      return 'Q4' if date_time < DateTime.new(year + 1, 6, 12)
+      return 'Q1' if date_time < DateTime.new(year, 11, 9)
+      return 'Q2' if date_time < DateTime.new(year + 1, 1, 26)
+      return 'Q3' if date_time < DateTime.new(year + 1, 4, 7)
+      return 'Q4' if date_time < DateTime.new(year + 1, 6, 9)
       'SUMMER'
     else
       raise_not_handled!
