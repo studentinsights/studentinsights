@@ -10,16 +10,13 @@ class ReadingBenchmarkSheetsImporter
       touches: [
         ReadingBenchmarkDataPoint.name
       ],
-      description: 'Import reading benchmark data for the specific school year 2019-2020, by reading all sheets within a Google Drive folder'
+      description: 'Import reading benchmark data for the current school year, by reading all sheets within a Google Drive folder'
     })
   end
 
   def initialize(options:)
     @explicit_folder_id = options.fetch(:folder_id, nil)
     @school_year = options.fetch(:school_year, SchoolYear.to_school_year(Time.now))
-    if @school_year != 2019
-      raise "aborting because of unexpected school_year; review the syncer scoping closely before running on another year"
-    end
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::FakeLog.new : STDOUT)
     @dry_run = options.fetch(:dry_run, false)
     @fetcher = options.fetch(:fetcher, GoogleSheetsFetcher.new(log: @log))
@@ -121,17 +118,14 @@ class ReadingBenchmarkSheetsImporter
     folder_id
   end
 
-  # Explicitly scope to specific school year.  Dates are specific and intentional, and
-  # slightly different than the actual school year calendar because of timing differences,
-  # and the dates when this import process first started up, and other older ones were
-  # stopped.
+  # Explicitly scope to current school year. Data from previous years was not
+  # always imported with the same mechanism and might not match records despite
+  # being valid, so we won't "correct" previous years' records.
   def records_within_scope
-    if @school_year != 2019
-      raise "aborting because of unexpected school_year; review the syncer scoping closely before running on another year"
-    end
+    year = SchoolYear.to_school_year(Time.now)
     ReadingBenchmarkDataPoint.all
-      .where('created_at > ?', DateTime.new(@school_year, 9, 15))
-      .where('created_at < ?', DateTime.new(@school_year+1, 8, 15))
+      .where('created_at > ?', SchoolYear.first_day_of_school_for_year(year))
+      .where('created_at < ?', SchoolYear.last_day_of_school_for_year(year))
   end
 
   def import_row(row, index)
