@@ -100,6 +100,7 @@
     "mem": "^4.3.0",
     "markdown-to-jsx": "^6.11.4",
     "minimist": "^1.2.3",
+    "node-fetch": "^2.6.1",
     "npm/**/dot-prop": "^5.1.1",
     "npm/**/npm-registry-fetch": "^8.1.1",
     "prismjs": "^1.21.0",
