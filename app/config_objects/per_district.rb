@@ -535,7 +535,7 @@ class PerDistrict
 
   # Should this run as part of import jobs?
   def reading_benchmark_sheets_importer_enabled?
-    # @district_key == SOMERVILLE Temporarily disabling for Fall 2020 until we have a meaningful import. 
+    # @district_key == SOMERVILLE Temporarily disabling for Fall 2020 until we have a meaningful import.
     # **Re-enable the spec as well when this is turned onn**
     false
   end

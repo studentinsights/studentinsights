@@ -1,4 +1,4 @@
-# This feature is disabled as of Fall 2020 until meaningful assessments resume. 
+# This feature is disabled as of Fall 2020 until meaningful assessments resume.
 
 # require 'rails_helper'
 
