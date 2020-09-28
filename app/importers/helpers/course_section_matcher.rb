@@ -20,7 +20,6 @@ class CourseSectionMatcher
 
     section = find_section(row, course)
     if section.nil?
-      log("Nil section for row: #{row[:section_number]}")
       return [course, nil, nil]
     end
 
@@ -58,10 +57,4 @@ class CourseSectionMatcher
       district_school_year: row[:district_school_year]
     })
   end
-
-  def log(msg)
-    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "EducatorSectionAssignmentsImporter: #{text}"
-  end
-
 end
