@@ -20,7 +20,7 @@ class CourseSectionMatcher
 
     section = find_section(row, course)
     if section.nil?
-      log("Nil section for row: #{row}")
+      log("Nil section for row: #{row[:section_number]}")
       return [course, nil, nil]
     end
 
