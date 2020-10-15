@@ -3,7 +3,7 @@
 class StudentVoiceSurveyUpload < ApplicationRecord
   belongs_to :uploaded_by_educator, class_name: 'Educator'
   has_many :student_voice_completed_surveys, dependent: :destroy
-  has_many :student_voice_completed_2020_surveys, dependent: :destroy
+  has_many :student_voice_completed2020_surveys, dependent: :destroy
   has_many :students, -> { distinct }, through: :student_voice_completed_surveys
   has_many :students, -> { distinct }, through: :student_voice_completed_2020_surveys
 

@@ -191,9 +191,10 @@ class ProfileController < ApplicationController
 
   # For Fall 2020 we have a special surey that differs from previous years and will show that if available. 
   def fall_student_voice_surveys_json(student_id)
-    most_recent_2020_survey = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(student_id)
-    most_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
-    return [] if most_recent_2020_survey.nil? && most_recent_survey.nil?
+    maybe_2020_survey = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(student_id)
+    maybe_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
+    most_recent_survey = maybe_2020_survey ? maybe_2020_survey : maybe_recent_survey
+    return [] if most_recent_survey.nil?
     [most_recent_survey].as_json(methods: [:flat_text])
   end
 

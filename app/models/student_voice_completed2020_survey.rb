@@ -51,7 +51,7 @@ class StudentVoiceCompleted2020Survey < ApplicationRecord
       .first
     return nil if most_recent_upload.nil?
 
-    most_recent_survey = most_recent_upload.student_voice_completed_surveys
+    most_recent_survey = most_recent_upload.student_voice_completed2020_surveys
       .where(student_id: student_id)
       .order(form_timestamp: :desc)
       .limit(1)
@@ -63,7 +63,7 @@ class StudentVoiceCompleted2020Survey < ApplicationRecord
 
   # Flatten into text, for displaying to the user
   def flat_text(options = {})
-    columns = options.fetch(:columns, StudentVoiceCompletedSurvey.columns_for_form_2020)
+    columns = options.fetch(:columns, StudentVoiceCompleted2020Survey.columns_for_form_2020)
     prompt_keys_to_include = options.fetch(:prompt_keys_to_include, [
       :learning_style,
       :outside_school_activity,
