@@ -23,11 +23,11 @@ class StudentVoiceSurveyUploader
     })
 
     completed_surveys = []
-    columns = StudentVoiceCompletedSurvey.columns_for_form_v2
+    columns = StudentVoiceCompleted2020Survey.columns_for_form_2020
     create_streaming_csv.each_with_index do |row, index|
       maybe_row_attrs = process_row_or_nil(columns, row, index)
       next if maybe_row_attrs.nil?
-      completed_surveys << StudentVoiceCompletedSurvey.create!(maybe_row_attrs.merge({
+      completed_surveys << StudentVoiceCompleted2020Survey.create!(maybe_row_attrs.merge({
         student_voice_survey_upload: student_voice_survey_upload
       }))
       @created_records_count += 1
@@ -60,6 +60,7 @@ class StudentVoiceSurveyUploader
 
   def process_row_or_nil(columns_map, raw_row, index)
     missing_column_keys = (columns_map.values - raw_row.to_h.keys)
+    puts missing_column_keys
     if missing_column_keys.size > 0
       @invalid_row_columns_count += 1
       return nil
