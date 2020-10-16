@@ -5,7 +5,7 @@ class StudentVoiceSurveyUpload < ApplicationRecord
   has_many :student_voice_completed_surveys, dependent: :destroy
   has_many :student_voice_completed2020_surveys, dependent: :destroy
   has_many :students, -> { distinct }, through: :student_voice_completed_surveys
-  has_many :students, -> { distinct }, through: :student_voice_completed_2020_surveys
+  has_many :students, -> { distinct }, through: :student_voice_completed2020_surveys
 
   validates :uploaded_by_educator, presence: true
   validates :file_name, presence: true

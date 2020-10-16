@@ -79,5 +79,34 @@ class StudentVoiceCompleted2020Survey < ApplicationRecord
     end
     lines.join("\n").strip
   end
+
+  # workaround to send remote learning columns using as_jason since we can't send
+  # params with the flat_text method
+  def flat_text_remote
+    remote_keys = [
+      :guardian_email,
+      :guardian_numbers,
+      :home_language,
+      :pronouns,
+      :share_pronouns_with_family,
+      :job,
+      :job_hours,
+      :sibling_care,
+      :sibling_care_time,
+      :remote_learning_difficulties,
+      :reliable_internet,
+      :devices,
+      :sharing_space,
+      :remote_learning_likes,
+      :remote_learning_struggles,
+      :camera_comfort,
+      :camera_comfort_reasons,
+      :mic_comfort,
+      :mic_comfort_reasons
+    ]
+
+    flat_text(prompt_keys_to_include: remote_keys)
+  end
+
 end
 

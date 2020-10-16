@@ -62,6 +62,16 @@ export function mergedNotes(feed) {
     };
   });
 
+  // SHS only. Remote learning responses
+  const remoteLearningInsights = (feed.remote_learning_surveys || []).map(completedRemoteLearningSurvey => {
+    return {
+      ...completedRemoteLearningSurvey,
+      type: 'fall_remote_learning_surveys',
+      sort_timestamp: completedRemoteLearningSurvey.form_timestamp
+
+    };
+  });
+
   // flattened form (from ImportedForm)
   const flattenedForms = (feed.flattened_forms || []).map(flattenedForm => {
     return {
@@ -86,6 +96,7 @@ export function mergedNotes(feed) {
     ...transitionNotes,
     ...secondTransitionNotes,
     ...homeworkHelpSessions,
+    ...remoteLearningInsights,
     ...fallStudentVoiceInsights,
     ...flattenedForms,
     ...bedfordEndOfYearTransitions
