@@ -622,6 +622,8 @@ ActiveRecord::Schema.define(version: 2020_10_15_140144) do
     t.integer "student_id", null: false
     t.datetime "form_timestamp", null: false
     t.text "student_lasid", null: false
+    t.text "shs_adult", null: false
+    t.text "mentor_schedule", null: false
     t.text "guardian_email", null: false
     t.text "guardian_numbers", null: false
     t.text "home_language", null: false
@@ -645,7 +647,7 @@ ActiveRecord::Schema.define(version: 2020_10_15_140144) do
     t.text "outside_school_activity", null: false
     t.text "personal_characteristics", null: false
     t.text "three_words", null: false
-    t.text "other_share", null: false
+    t.text "other_share"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

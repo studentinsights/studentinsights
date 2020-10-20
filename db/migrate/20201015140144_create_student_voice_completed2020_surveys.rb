@@ -6,6 +6,8 @@ class CreateStudentVoiceCompleted2020Surveys < ActiveRecord::Migration[6.0]
 
       t.datetime :form_timestamp, null: false
       t.text :student_lasid, null: false
+      t.text :shs_adult, null: false
+      t.text :mentor_schedule, null: false
       t.text :guardian_email, null: false
       t.text :guardian_numbers, null: false
       t.text :home_language, null: false
@@ -29,7 +31,7 @@ class CreateStudentVoiceCompleted2020Surveys < ActiveRecord::Migration[6.0]
       t.text :outside_school_activity, null: false
       t.text :personal_characteristics, null: false
       t.text :three_words, null: false
-      t.text :other_share, null: false
+      t.text :other_share
       
       t.timestamps
     end

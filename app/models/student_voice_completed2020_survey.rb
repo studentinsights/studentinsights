@@ -12,7 +12,9 @@ class StudentVoiceCompleted2020Survey < ApplicationRecord
   def self.columns_for_form_2020
     {
       form_timestamp: "Timestamp",
-      student_lasid: "ID Number",
+      student_lasid: "Your Student ID Number (the 111....number)",
+      shs_adult: "Is there an adult at SHS you can reach out to if there are any issues? (ex. If you were having an issue with your schoolwork or something else happening at school, who would you feel comfortable reaching out to....) ",
+      mentor_schedule: "I would like to meet with my mentor...",
       guardian_email: "What is your parent/guardian's email? (can provide multiple)",
       guardian_numbers: "What is your parent/guardian's phone number? (can provide multiple) For example, mom 617-542-4257 and uncle 617-542-7542",
       home_language: "What is the preferred language for at home communication?",

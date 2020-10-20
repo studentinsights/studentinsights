@@ -60,7 +60,6 @@ class StudentVoiceSurveyUploader
 
   def process_row_or_nil(columns_map, raw_row, index)
     missing_column_keys = (columns_map.values - raw_row.to_h.keys)
-    puts missing_column_keys
     if missing_column_keys.size > 0
       @invalid_row_columns_count += 1
       return nil
