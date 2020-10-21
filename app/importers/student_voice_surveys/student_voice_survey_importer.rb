@@ -8,7 +8,7 @@ class StudentVoiceSurveyImporter
       merge: DataFlow::MERGE_APPEND_ONLY,
       touches: [
         StudentVoiceSurveyUpload.name,
-        StudentVoiceCompletedSurvey.name
+        StudentVoiceCompleted2020Survey.name
       ],
       description: 'Import student voice surveys, append-only style, by reading sheet generated from Google Form'
     })

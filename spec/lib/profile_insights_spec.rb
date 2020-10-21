@@ -11,22 +11,43 @@ RSpec.describe ProfileInsights do
         "What are this student's strengths?\neverything!\n\nWhat is this student's involvement in the school community like?\nreally good\n\nHow does this student relate to their peers?\nnot sure\n\nWho is the student's primary guardian?\nokay\n\nAny additional comments or good things to know about this student?\nnope :)"
       end
       let!(:transition_note) { FactoryBot.create(:transition_note, student: student, text: transition_note_text) }
-      let!(:survey) { FactoryBot.create(:student_voice_completed_survey, student: student) }
+      let!(:survey) { FactoryBot.create(:student_voice_completed2020_survey, student: student) }
 
       it 'works' do
-        expect(ProfileInsights.new(student).as_json.size).to eq 6
+        expect(ProfileInsights.new(student).as_json.size).to eq 5
       end
     end
 
     describe 'with survey responses that have empty text' do
       let!(:survey) do
-        FactoryBot.create(:student_voice_completed_survey, {
+        FactoryBot.create(:student_voice_completed2020_survey, {
           student: student,
-          proud: '',
-          best_qualities: '',
-          activities_and_interests: '',
-          nervous_or_stressed: '',
-          learn_best: 'When I am motivated and in a good mood'
+          shs_adult: "",
+          mentor_schedule: "",
+          guardian_email: "",
+          guardian_numbers: "",
+          home_language: "",
+          pronouns: "",
+          share_pronouns_with_family: "",
+          job: "",
+          job_hours: "",
+          sibling_care: "",
+          sibling_care_time: "",
+          remote_learning_difficulties: "",
+          reliable_internet: "",
+          devices: "",
+          sharing_space: "",
+          remote_learning_likes: "",
+          remote_learning_struggles: "",
+          camera_comfort: "",
+          camera_comfort_reasons: "",
+          mic_comfort: "",
+          mic_comfort_reasons: "",
+          learning_style: "",
+          outside_school_activity: "",
+          personal_characteristics: "",
+          three_words: "If you could describe yourself in 3 words, what would they be?",
+          other_share: ""
         })
       end
 

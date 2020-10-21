@@ -20,7 +20,7 @@ RSpec.describe StudentVoiceSurveyImporter do
         spreadsheet_url: 'https://example.com/student-voice-fall',
         tab_id: '123456',
         tab_name: 'Form responses',
-        tab_csv: IO.read("#{Rails.root}/spec/fixtures/student_voice_survey_v2.csv")
+        tab_csv: IO.read("#{Rails.root}/spec/fixtures/student_voice_survey_2020.csv")
       })]
     })
   end
@@ -56,7 +56,7 @@ RSpec.describe StudentVoiceSurveyImporter do
 
     expect(log.output).to include('Aborting')
     expect(StudentVoiceSurveyUpload.all.size).to eq 0
-    expect(StudentVoiceCompletedSurvey.all.size).to eq 0
+    expect(StudentVoiceCompleted2020Survey.all.size).to eq 0
   end
 
   context 'with empty db, and env setup for test' do
@@ -91,29 +91,49 @@ RSpec.describe StudentVoiceSurveyImporter do
       importer, log = create_importer_with_fetcher_mocked(sheet_id: 'mock_sheet_id_A')
 
       expect(StudentVoiceSurveyUpload.all.size).to eq 0
-      expect(StudentVoiceCompletedSurvey.all.size).to eq 0
+      expect(StudentVoiceCompleted2020Survey.all.size).to eq 0
       importer.import
       expect(log.output).to include(':created_records_count=>1')
       expect(StudentVoiceSurveyUpload.all.size).to eq 1
-      expect(StudentVoiceCompletedSurvey.all.size).to eq 1
-      expect(StudentVoiceCompletedSurvey.pluck(:student_id)).to eq [pals.shs_freshman_mari.id]
+      expect(StudentVoiceCompleted2020Survey.all.size).to eq 1
+      expect(StudentVoiceCompleted2020Survey.pluck(:student_id)).to eq [pals.shs_freshman_mari.id]
       expect(StudentVoiceSurveyUpload.pluck(:uploaded_by_educator_id)).to eq [pals.shs_jodi.id]
-      most_recent_survey_json = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(pals.shs_freshman_mari.id).as_json(except: [
+      most_recent_survey_json = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(pals.shs_freshman_mari.id).as_json(except: [
         :id,
         :student_voice_survey_upload_id,
         :created_at,
         :updated_at
       ])
       expect(most_recent_survey_json).to eq({
-        "student_id"=> pals.shs_freshman_mari.id,
-        "form_timestamp" => '2018-08-12T10:28:23.000Z',
-        "first_name" => "Mari",
-        "student_lasid" => pals.shs_freshman_mari.local_id,
-        "proud" => "Stole the most bases in the league this year",
-        "best_qualities" => "Thoughtful and think before I just open my mouth",
-        "activities_and_interests" => "Making podcasts, teaching my sister songs",
-        "nervous_or_stressed" => "when there is too much work and I don't know what to do",
-        "learn_best" => "are kind and explain what we need to do to get good grades"
+        "student_id"=>pals.shs_freshman_mari.id,
+        "form_timestamp"=>"2020-08-12T10:28:23.000Z",
+        "student_lasid"=>pals.shs_freshman_mari.local_id,
+        "shs_adult"=>"Yes",
+        "mentor_schedule"=>"The Current Schedule Meets My Needs",
+        "guardian_email"=>"parent@guardian.com",
+        "guardian_numbers"=>"Mom: 555-555-5555, Uncle: 666-666-6666",
+        "home_language"=>"Spanish",
+        "pronouns"=>"they/them",
+        "share_pronouns_with_family"=>"no",
+        "job"=>"yes",
+        "job_hours"=>"Monday, Wednesday 5-8",
+        "sibling_care"=>"Yes",
+        "sibling_care_time"=>"Monday-Friday 3-4",
+        "remote_learning_difficulties"=>"Yes",
+        "reliable_internet"=>"No",
+        "devices"=>"chromebook;additional laptop/desktop;cell phone",
+        "sharing_space"=>"Yes",
+        "remote_learning_likes"=>"Easy to be on time",
+        "remote_learning_struggles"=>"Internet",
+        "camera_comfort"=>"No",
+        "camera_comfort_reasons"=>"I share a room with too many people",
+        "mic_comfort"=>"No",
+        "mic_comfort_reasons"=>"I share a room with too many people",
+        "learning_style"=>"visual",
+        "outside_school_activity"=>"Play Basketball",
+        "personal_characteristics"=>"Honesty",
+        "three_words"=>"Funny, Strong, Kind",
+        "other_share"=>"I hope to be back in school soon"
       })
     end
   end

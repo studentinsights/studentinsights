@@ -33,7 +33,7 @@ class ProfileInsights
     insights = []
 
     # include fall survey insights if there are any
-    most_recent_fall_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(@student.id)
+    most_recent_fall_survey = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(@student.id)
     if most_recent_fall_survey.present?
       insights += profile_insights_from_survey(most_recent_fall_survey)
     end
@@ -142,11 +142,10 @@ class ProfileInsights
     survey_insights = []
 
     prompt_keys_to_include = [
-      :proud,
-      :best_qualities,
-      :activities_and_interests,
-      :nervous_or_stressed,
-      :learn_best
+      :learning_style,
+      :outside_school_activity,
+      :personal_characteristics,
+      :three_words
     ]
     prompt_keys_to_include.each do |prompt_key|
       survey_response_text = most_recent_survey[prompt_key].strip
@@ -158,7 +157,7 @@ class ProfileInsights
       }).merge(survey_text: survey_text)
       survey_insights << ProfileInsight.new(FROM_FIRST_STUDENT_VOICE_SURVEY, {
         prompt_key: prompt_key,
-        prompt_text: StudentVoiceCompletedSurvey.columns_for_form_v2[prompt_key],
+        prompt_text: StudentVoiceCompleted2020Survey.columns_for_form_2020[prompt_key],
         survey_response_text: survey_response_text,
         student_voice_completed_survey: student_voice_completed_survey_json
       })

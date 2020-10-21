@@ -176,7 +176,7 @@
     "merge": "merge_append_only",
     "touches": [
       "StudentVoiceSurveyUpload",
-      "StudentVoiceCompletedSurvey"
+      "StudentVoiceCompleted2020Survey"
     ],
     "options": [],
     "description": "Import student voice surveys, append-only style, by reading sheet generated from Google Form"

@@ -59,6 +59,7 @@ export default class NotesList extends React.Component {
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'second_transition_notes': return this.renderSecondTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+            case 'fall_remote_learning_surveys': return this.renderRemoteLearningSurvey(mergedNote);
             case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
             case 'flattened_forms': return this.renderFlattenedForm(mergedNote);
@@ -174,6 +175,19 @@ export default class NotesList extends React.Component {
             json={secondTransitionNote}
           />
         }
+      />
+    );
+  }
+
+  renderRemoteLearningSurvey(remoteLearningSurvey) {
+    const text = remoteLearningSurvey.flat_text_remote;
+    return (
+      <NoteShell
+        key={['remote_learning_survey', remoteLearningSurvey.id].join()}
+        whenEl={whenText(remoteLearningSurvey.form_timestamp)}
+        badgeEl="Remote Learning Information"
+        educatorEl={null}
+        substanceEl={<NoteText text={text} />}
       />
     );
   }

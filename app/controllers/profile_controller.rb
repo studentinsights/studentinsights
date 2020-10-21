@@ -139,6 +139,7 @@ class ProfileController < ApplicationController
         except: [:restricted_text],
         methods: [:has_restricted_text]
       }),
+      remote_learning_surveys: remote_learning_surveys_json(student.id),
       fall_student_voice_surveys: fall_student_voice_surveys_json(student.id),
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       flattened_forms: flattened_forms_json(student.id),
@@ -189,10 +190,20 @@ class ProfileController < ApplicationController
     imported_forms.compact.map(&:as_flattened_form)
   end
 
+  # For Fall 2020 we have a special survey that differs from previous years and will show that if available.
   def fall_student_voice_surveys_json(student_id)
-    most_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
+    maybe_2020_survey = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(student_id)
+    maybe_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
+    most_recent_survey = maybe_2020_survey ? maybe_2020_survey : maybe_recent_survey
     return [] if most_recent_survey.nil?
     [most_recent_survey].as_json(methods: [:flat_text])
+  end
+
+  # Student voice responses relelvant to remote learning from 2020 survey
+  def remote_learning_surveys_json(student_id)
+    current_remote_survey = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(student_id)
+    return [] if current_remote_survey.nil?
+    [current_remote_survey].as_json(methods: [:flat_text_remote])
   end
 
   def bedford_end_of_year_transitions(student_id)

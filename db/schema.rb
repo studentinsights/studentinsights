@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_203942) do
+ActiveRecord::Schema.define(version: 2020_10_15_140144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -617,6 +617,41 @@ ActiveRecord::Schema.define(version: 2020_05_18_203942) do
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
 
+  create_table "student_voice_completed2020_surveys", force: :cascade do |t|
+    t.integer "student_voice_survey_upload_id", null: false
+    t.integer "student_id", null: false
+    t.datetime "form_timestamp", null: false
+    t.text "student_lasid", null: false
+    t.text "shs_adult", null: false
+    t.text "mentor_schedule", null: false
+    t.text "guardian_email", null: false
+    t.text "guardian_numbers", null: false
+    t.text "home_language", null: false
+    t.text "pronouns", null: false
+    t.text "share_pronouns_with_family", null: false
+    t.text "job", null: false
+    t.text "job_hours", null: false
+    t.text "sibling_care", null: false
+    t.text "sibling_care_time", null: false
+    t.text "remote_learning_difficulties", null: false
+    t.text "reliable_internet", null: false
+    t.text "devices", null: false
+    t.text "sharing_space", null: false
+    t.text "remote_learning_likes", null: false
+    t.text "remote_learning_struggles", null: false
+    t.text "camera_comfort", null: false
+    t.text "camera_comfort_reasons", null: false
+    t.text "mic_comfort", null: false
+    t.text "mic_comfort_reasons", null: false
+    t.text "learning_style", null: false
+    t.text "outside_school_activity", null: false
+    t.text "personal_characteristics", null: false
+    t.text "three_words", null: false
+    t.text "other_share"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "student_voice_completed_surveys", force: :cascade do |t|
     t.integer "student_voice_survey_upload_id", null: false
     t.integer "student_id", null: false
@@ -803,6 +838,8 @@ ActiveRecord::Schema.define(version: 2020_05_18_203942) do
   add_foreign_key "student_section_assignments", "sections", name: "student_section_assignments_section_id_fk"
   add_foreign_key "student_section_assignments", "students"
   add_foreign_key "student_section_assignments", "students", name: "student_section_assignments_student_id_fk"
+  add_foreign_key "student_voice_completed2020_surveys", "student_voice_survey_uploads", name: "student_voice_completed_surveys_for_student_voice_survey_upload"
+  add_foreign_key "student_voice_completed2020_surveys", "students", name: "student_voice_completed_surveys_for_student_id_fk"
   add_foreign_key "student_voice_completed_surveys", "student_voice_survey_uploads", name: "student_voice_completed_surveys_for_student_voice_survey_upload"
   add_foreign_key "student_voice_completed_surveys", "students", name: "student_voice_completed_surveys_for_student_id_fk"
   add_foreign_key "student_voice_survey_uploads", "educators", column: "uploaded_by_educator_id", name: "student_voice_survey_uploads_for_uploaded_by_educator_id_fk"

@@ -176,16 +176,15 @@ describe ProfileController, :type => :controller do
         "What are this student's strengths?\neverything!\n\nWhat is this student's involvement in the school community like?\nreally good\n\nHow does this student relate to their peers?\nnot sure\n\nWho is the student's primary guardian?\nokay\n\nAny additional comments or good things to know about this student?\nnope :)"
       end
       let!(:transition_note) { FactoryBot.create(:transition_note, student: student, text: transition_note_text) }
-      let!(:survey) { FactoryBot.create(:student_voice_completed_survey, student: student) }
+      let!(:survey) { FactoryBot.create(:student_voice_completed2020_survey, student: student) }
 
       it 'returns the right shape' do
         sign_in(educator)
         make_request(educator, student.id)
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
-        expect(json['profile_insights'].size).to eq 6
+        expect(json['profile_insights'].size).to eq 5
         expect(json['profile_insights'].map {|insight| insight['type'] }).to contain_exactly(*[
-          'from_first_student_voice_survey',
           'from_first_student_voice_survey',
           'from_first_student_voice_survey',
           'from_first_student_voice_survey',
@@ -211,9 +210,9 @@ describe ProfileController, :type => :controller do
         expect(json['profile_insights']).to include({
           "type"=>"from_first_student_voice_survey",
           "json"=>{
-            "prompt_key"=>"proud",
-            "prompt_text"=>"I am proud that I....",
-            "survey_response_text"=>survey.proud,
+            "prompt_key"=>"learning_style",
+            "prompt_text"=>"What is your preferred learning style? (check all that apply)",
+            "survey_response_text"=>survey.learning_style,
             "student_voice_completed_survey"=>{
               "id"=>survey.id,
               "form_timestamp"=>a_kind_of(String),
@@ -278,6 +277,7 @@ describe ProfileController, :type => :controller do
             'event_notes' => [],
             'transition_notes' => [],
             'second_transition_notes' => [],
+            'remote_learning_surveys' => [],
             'fall_student_voice_surveys' => [],
             'homework_help_sessions' => [],
             'flattened_forms' => [],
@@ -609,6 +609,7 @@ describe ProfileController, :type => :controller do
         :transition_notes,
         :second_transition_notes,
         :bedford_end_of_year_transitions,
+        :remote_learning_surveys,
         :fall_student_voice_surveys,
         :homework_help_sessions,
         :flattened_forms
