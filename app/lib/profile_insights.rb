@@ -34,7 +34,6 @@ class ProfileInsights
 
     # include fall survey insights if there are any
     most_recent_fall_survey = StudentVoiceCompleted2020Survey.most_recent_fall_student_voice_survey(@student.id)
-    puts most_recent_fall_survey.present?
     if most_recent_fall_survey.present?
       insights += profile_insights_from_survey(most_recent_fall_survey)
     end

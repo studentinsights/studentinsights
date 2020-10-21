@@ -111,4 +111,3 @@ class StudentVoiceCompleted2020Survey < ApplicationRecord
   end
 
 end
-

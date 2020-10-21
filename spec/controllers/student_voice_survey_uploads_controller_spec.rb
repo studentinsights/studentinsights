@@ -16,8 +16,8 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
     request.env['HTTPS'] = 'on'
     post :upload, params: {
       format: :json,
-      file_name: 'student_voice_survey_v2.csv',
-      file_text: IO.read("#{Rails.root}/spec/fixtures/student_voice_survey_v2.csv")
+      file_name: 'student_voice_survey_2020.csv',
+      file_text: IO.read("#{Rails.root}/spec/fixtures/student_voice_survey_2020.csv")
     }.merge(params)
   end
 
@@ -34,9 +34,9 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       expect(json).to include({
         "student_voice_survey_uploads"=>[{
           "id"=>a_kind_of(Integer),
-          "file_name"=>"student_voice_survey_v2.csv",
-          "file_size"=>534,
-          "file_digest"=>"944dd188a9ade53c95115f33d7fe2920cced21ffb6f7c42ba94b798bbf89b8b2",
+          "file_name"=>"student_voice_survey_2020.csv",
+          "file_size"=>2112,
+          "file_digest"=>"2e6fb2eeaa641e7594cd32cfc61d2acfdc4d3842c3ebc8e39a792ed7bb678246",
           "completed"=>true,
           "stats"=>{
             "created_records_count"=>1,
@@ -109,9 +109,9 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       upload = StudentVoiceSurveyUpload.first
       expect(upload.as_json).to include({
         "id"=>a_kind_of(Integer),
-        "file_name"=>"student_voice_survey_v2.csv",
-        "file_size"=>534,
-        "file_digest"=> "944dd188a9ade53c95115f33d7fe2920cced21ffb6f7c42ba94b798bbf89b8b2",
+        "file_name"=>"student_voice_survey_2020.csv",
+        "file_size"=>2112,
+        "file_digest"=> "2e6fb2eeaa641e7594cd32cfc61d2acfdc4d3842c3ebc8e39a792ed7bb678246",
         "created_at"=>a_kind_of(String),
         "updated_at"=>a_kind_of(String),
         "uploaded_by_educator_id"=>pals.uri.id,
@@ -125,20 +125,39 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         }
       })
 
-      surveys = upload.student_voice_completed_surveys
+      surveys = upload.student_voice_completed2020_surveys
       expect(surveys.size).to eq 1
       expect(surveys.first.as_json).to include({
         "id"=>a_kind_of(Integer),
         "student_voice_survey_upload_id"=>a_kind_of(Integer),
         "student_id"=>pals.shs_freshman_mari.id,
         "form_timestamp"=>a_kind_of(String),
-        "first_name"=>"Mari",
-        "student_lasid"=>"111222222",
-        "proud"=>"Stole the most bases in the league this year",
-        "best_qualities"=>"Thoughtful and think before I just open my mouth",
-        "activities_and_interests"=>"Making podcasts, teaching my sister songs",
-        "nervous_or_stressed"=>"when there is too much work and I don't know what to do",
-        "learn_best"=>"are kind and explain what we need to do to get good grades",
+        "shs_adult"=>"Yes",
+        "mentor_schedule"=>"The Current Schedule Meets My Needs",
+        "guardian_email"=>"parent@guardian.com",
+        "guardian_numbers"=>"Mom: 555-555-5555, Uncle: 666-666-6666",
+        "home_language"=>"Spanish",
+        "pronouns"=>"they/them",
+        "share_pronouns_with_family"=>"no",
+        "job"=>"yes",
+        "job_hours"=>"Monday, Wednesday 5-8",
+        "sibling_care"=>"Yes",
+        "sibling_care_time"=>"Monday-Friday 3-4",
+        "remote_learning_difficulties"=>"Yes",
+        "reliable_internet"=>"No",
+        "devices"=>"chromebook;additional laptop/desktop;cell phone",
+        "sharing_space"=>"Yes",
+        "remote_learning_likes"=>"Easy to be on time",
+        "remote_learning_struggles"=>"Internet",
+        "camera_comfort"=>"No",
+        "camera_comfort_reasons"=>"I share a room with too many people",
+        "mic_comfort"=>"No",
+        "mic_comfort_reasons"=>"I share a room with too many people",
+        "learning_style"=>"visual",
+        "outside_school_activity"=>"Play Basketball",
+        "personal_characteristics"=>"Honesty",
+        "three_words"=>"Funny, Strong, Kind",
+        "other_share"=>"I hope to be back in school soon",
         "created_at"=>a_kind_of(String),
         "updated_at"=>a_kind_of(String)
       })
