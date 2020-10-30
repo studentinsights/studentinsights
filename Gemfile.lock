@@ -101,6 +101,9 @@ GEM
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
+    barnes (0.0.8)
+      multi_json (~> 1)
+      statsd-ruby (~> 1.1)
     bcrypt (3.1.13)
     better_errors (2.6.0)
       coderay (>= 1.0.0)
@@ -383,6 +386,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    statsd-ruby (1.4.0)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -419,6 +423,7 @@ DEPENDENCIES
   administrate (~> 0.13.0)
   authtrail
   aws-sdk-s3 (~> 1)
+  barnes
   better_errors
   bootsnap
   brakeman

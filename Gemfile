@@ -26,6 +26,7 @@ gem 'oj'
 gem 'oj_mimic_json'
 gem 'rack-attack'
 gem 'secure_headers'
+gem 'barnes' # heroku language metrics for ruby
 
 # services
 gem 'aws-sdk-s3', '~> 1'
