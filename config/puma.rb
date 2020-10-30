@@ -35,10 +35,14 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 # If you are preloading your application and using Active Record, it's
 # recommended that you close any connections to the database before workers
 # are forked to prevent connection leakage.
-#
-# before_fork do
-#   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
-# end
+
+# engabling barnes gem for language metrics in Heroku
+require 'barnes'
+
+before_fork do
+  # worker configuration
+  Barnes.start
+end
 
 # The code in the `on_worker_boot` will be called if you are using
 # clustered mode by specifying a number of `workers`. After each worker
