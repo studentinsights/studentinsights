@@ -122,6 +122,9 @@ Rails.application.routes.draw do
   # HS levels
   get '/api/levels/:school_id/show_json' => 'levels#show_json'
 
+  # Connections with SHS adult
+  get '/api/connections/:school_id/show_json' => 'connections#show_json'
+
   # shs counselor meetings
   get '/api/counselor_meetings/meetings_json' => 'counselor_meetings#meetings_json'
   post '/api/counselor_meetings' => 'counselor_meetings#create'
@@ -169,6 +172,9 @@ Rails.application.routes.draw do
 
   # SHS levels
   get '/levels/:school_id' => 'ui#ui'
+
+  # SHS connections
+  get '/connections/:school_id' => 'ui#ui'
 
   # K8 homeroom page
   get '/homerooms/:id' => 'ui#ui', as: :homeroom
