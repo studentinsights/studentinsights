@@ -41,6 +41,7 @@ export default class GenericLoader extends React.Component {
       }
       return <div style={{padding: 10, ...style}}>There was an error loading this data.</div>;
     }
+    console.log(resolve);
     return <div style={style}>{render(resolve)}</div>;
   }
 }

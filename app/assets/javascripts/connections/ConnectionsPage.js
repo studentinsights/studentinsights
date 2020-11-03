@@ -24,7 +24,7 @@ export default class ConnectionsPage extends React.Component {
   fetchJson() {
     const {schoolId} = this.props;
     const url = `/api/connections/${schoolId}/show_json`;
-    return apiFetchJson(url).then(json => json.students_with_2020_surveys);
+    return apiFetchJson(url).then(json => json.students_with_2020_survey_data);
   }
 
   render() {

@@ -4,14 +4,12 @@ class ConnectionsController < ApplicationController
   def show_json
     params.require(:school_id)
     params.permit(:time_now)
-    school = School.find_by_slug(params[:school_id]) || School.find_by_id(params[:school_id])
     time_now = time_now_or_param(params[:time_now])
+    school_id = (School.find_by_slug(params[:school_id]) || School.find_by_id(params[:school_id])).id
 
-    # Authorization
-    authorizer = Authorizer.new(current_educator)
-    authorized_students = authorizer.authorized { school.students.active }
+    students_with_2020_survey_data_json = students_with_2020_survey_data(current_educator, school_id, time_now)
     render json: {
-      students_with_2020_survey_data: students_with_2020_survey_data_json(authorized_students, time_now)
+      students_with_2020_survey_data: students_with_2020_survey_data_json
     }
   end
 
@@ -29,11 +27,33 @@ class ConnectionsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_high_school_levels?
   end
 
+  def students_with_2020_survey_data(educator, school_id, time_now)
+    # query for students, enforce authorization
+    students = Authorizer.new(educator).authorized do
+      Student.active
+        .where(school_id: school_id)
+
+        # .to_a # because of AuthorizedDispatcher#filter_relation
+    end
+    unsafe_students_with_2020_survey_data_json(students, time_now)
+  end
+
   # At present, similar to the data needed for the levels page, without the level
   # calculation itself. Inlcudes specific answer to 2020 survey
-  def students_with_2020_survey_data_json(students, time_now)
-    student_ids = students.map(&:id)
+  # These queries have no auth checks, so authorization must be established when
+  # getting the students list
+  def unsafe_students_with_2020_survey_data_json(students, time_now)
     cutoff_time = time_now - 45.days
+
+    # Only include relevant survey answer
+    survey_responses = StudentVoiceCompleted2020Survey
+      .where('created_at >= ?', cutoff_time)
+      .select(:id, :student_id, :shs_adult)
+      .group_by(&:student_id)
+
+      puts "*****************"
+      puts survey_responses
+    student_ids = survey_responses.keys #Only students with completed surveys
 
     # query for absences and discipline events in batch
     absence_counts_by_student_id = Absence
@@ -60,15 +80,10 @@ class ConnectionsController < ApplicationController
     # Optimized batch query for latest event_notes
     notes_by_student_id = most_recent_event_notes_by_student_id(student_ids, cutoff_time, notes_query_map)
 
-    # Only include relevant survey answer
-    survey_response_by_student_id = StudentVoiceCompleted2020Survey
-      .only(:shs_adult, :student_id)
-      .where(student_id: student_ids)
-      .where('created_at >= ?', cutoff_time)
-      .group_by(&:student_id)
+    students_with_surveys = Student.where(id: student_ids)
 
     # Serialize student fields
-    students_json = students.as_json(only: [
+    students_json = students_with_surveys.as_json(only: [
       :id,
       :first_name,
       :last_name,
@@ -85,7 +100,7 @@ class ConnectionsController < ApplicationController
       student_id = student_json['id']
       student_section_assignments_right_now = student_section_assignments_by_student_id.fetch(student_id, [])
       student_json.merge({
-        survey_response: survey_response_by_student_id[student_id],
+        survey_response: survey_responses[student_id],
         absences_count_in_period: absence_counts_by_student_id.fetch(student_id, 0),
         discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student_id, 0),
         section_assignments_right_now: student_section_assignments_by_student_id.fetch(student_id, []),
@@ -101,7 +116,7 @@ class ConnectionsController < ApplicationController
         })
       })
     end
-    students_with_2020_survey_data.as_json
+    puts students_with_2020_survey_data.as_json
     end
 
     def notes_query_map

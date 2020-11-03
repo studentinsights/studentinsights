@@ -41,7 +41,7 @@ export default class StudentConnectionsTable extends React.Component {
   render() {
     const {nowFn} = this.context;
     const nowMoment = nowFn();
-    const {orderedStudentsWithLevels, sortBy, sortDirection} = this.props;
+    const {orderedStudentsWith2020Surveys, sortBy, sortDirection} = this.props;
     const columns = describeColumns(nowMoment);
     const rowHeight = 40;
 
@@ -55,8 +55,8 @@ export default class StudentConnectionsTable extends React.Component {
               height={height || 768} /* for test, since sizing doesn't work in jsdom */
               headerHeight={rowHeight}
               headerStyle={styles.tableHeaderStyle}
-              rowCount={orderedStudentsWithLevels.length}
-              rowGetter={({index}) => orderedStudentsWithLevels[index]}
+              rowCount={orderedStudentsWith2020Surveys.length}
+              rowGetter={({index}) => orderedStudentsWith2020Surveys[index]}
               rowHeight={rowHeight}
               rowStyle={{display: 'flex', alignItems: 'center'}}
               sort={this.onTableSort}
@@ -361,13 +361,12 @@ function renderNotes(nowMoment, key, {rowData}) {
 // This is used both for react-virtualized and interpreted to make the CSV export.
 // It's not called in this component, but is defined here since it's so coupled to the implementation
 // of the columns.
-export function orderedStudents(studentsWithLevels, sortBy, sortDirection) {
+export function orderedStudents(studentsWith2020Surveys, sortBy, sortDirection) {
   // map dataKey to an accessor/sort function
   const sortFns = {
     student(student) { return `${student.last_name}, ${student.first_name}`; },
-    level(student) { return student.level.level_number; },
-    absence(student) { return student.level.data.recent_absence_rate; },
-    discipline(student) { return student.level.data.recent_discipline_actions; },
+    absence(student) { return student.absences_count_in_period; },
+    discipline(student) { return student.discipline_incident_count_in_period; },
     english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
     social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
     math(student) { return sortByGrade(MATH, student); },
@@ -385,11 +384,8 @@ export function orderedStudents(studentsWithLevels, sortBy, sortDirection) {
 
   // "Natural" sort order, before table sorting
   const sortFn = sortFns[sortBy] || sortFns.fallback;
-  const sortedRows = _.sortBy(studentsWithLevels, [
+  const sortedRows = _.sortBy(studentsWith2020Surveys, [
     (s => sortFn(s)),
-    (s => s.level.level_number),
-    (s => s.level.triggers.length),
-    (s => s.level.triggers.sort()),
     (s => s.last_name),
     (s => s.first_name)
   ]);
