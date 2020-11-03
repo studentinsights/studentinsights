@@ -136,7 +136,7 @@ export default class App extends React.Component {
         <Route exact path="/internal/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
         <Route exact path='/internal/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route exact path='/service_uploads' render={this.renderServiceUploads.bind(this)}/>
-        <Route exact path='/service_uploads' render={this.renderConnectionsPage.bind(this)}/>
+        <Route exact path='/connections/:school_id' render={this.renderConnectionsPage.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );

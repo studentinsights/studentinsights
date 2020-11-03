@@ -9,9 +9,9 @@ class ConnectionsController < ApplicationController
 
     # Authorization
     authorizer = Authorizer.new(current_educator)
-    authorized_student_ids = authorizer.authorized { school.students.active }.map(&:id)
+    authorized_students = authorizer.authorized { school.students.active }
     render json: {
-      students_with_2020_survey_data: students_with_2020_survey_data_json(authorized_student_ids)
+      students_with_2020_survey_data: students_with_2020_survey_data_json(authorized_students, time_now)
     }
   end
 
@@ -31,8 +31,9 @@ class ConnectionsController < ApplicationController
 
   # At present, similar to the data needed for the levels page, without the level
   # calculation itself. Inlcudes specific answer to 2020 survey
-  def students_with_2020_survey_data_json(student_ids)
-    cutoff_time = time_now - @time_interval
+  def students_with_2020_survey_data_json(students, time_now)
+    student_ids = students.map(&:id)
+    cutoff_time = time_now - 45.days
 
     # query for absences and discipline events in batch
     absence_counts_by_student_id = Absence
@@ -85,9 +86,9 @@ class ConnectionsController < ApplicationController
       student_section_assignments_right_now = student_section_assignments_by_student_id.fetch(student_id, [])
       student_json.merge({
         survey_response: survey_response_by_student_id[student_id],
-        absences_count_in_period: absence_counts_by_student_id.fetch(student.id, 0),
-        discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student.id, 0),
-        section_assignments_right_now: student_section_assignments_by_student_id.fetch(student.id, []),
+        absences_count_in_period: absence_counts_by_student_id.fetch(student_id, 0),
+        discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student_id, 0),
+        section_assignments_right_now: student_section_assignments_by_student_id.fetch(student_id, []),
         notes: notes_by_student_id[student_id],
         student_section_assignments_right_now: student_section_assignments_right_now.as_json({
           only: [:id, :grade_letter, :grade_numeric],
@@ -102,5 +103,59 @@ class ConnectionsController < ApplicationController
     end
     students_with_2020_survey_data.as_json
     end
+
+    def notes_query_map
+    sst_event_note_type_ids = [300]
+    experience_event_note_type_ids = [305, 306, 307]
+    counselor_event_note_type_ids = [308]
+    other_event_note_type_ids = EventNoteType.all.pluck(:id) - sst_event_note_type_ids - experience_event_note_type_ids
+    {
+      last_sst_note: sst_event_note_type_ids,
+      last_experience_note: experience_event_note_type_ids,
+      last_counselor_note: counselor_event_note_type_ids,
+      last_other_note: other_event_note_type_ids
+    }
+  end
+
+  # query_map is {:result_key => [event_note_type_id]}
+  def most_recent_event_notes_by_student_id(student_ids, cutoff_time, query_map)
+    notes_by_student_id = {}
+
+    # query across all students and note types
+    all_event_note_type_ids = query_map.values.flatten.uniq
+    partial_event_notes = EventNote
+      .where(student_id: student_ids)
+      .where('recorded_at >= ?', cutoff_time)
+      .where(event_note_type_id: all_event_note_type_ids)
+      .where(is_restricted: false)
+      .select('student_id, event_note_type_id, max(recorded_at) as most_recent_recorded_at')
+      .group(:student_id, :event_note_type_id)
+
+    # merge them together and serialize
+    sorted_partial_event_notes = partial_event_notes.sort_by(&:most_recent_recorded_at).reverse
+    student_ids.each do |student_id|
+      notes_for_student = {}
+      query_map.each do |key, event_note_type_ids|
+        # find the most recent note for this kind, we can use find because the list is sorted
+        matching_partial_note = sorted_partial_event_notes.find do |partial_event_note|
+          matches_student_id = partial_event_note.student_id == student_id
+          matches_event_note_type_id = event_note_type_ids.include?(partial_event_note.event_note_type_id)
+          matches_student_id && matches_event_note_type_id
+        end
+
+        # serialize notes for a student
+        if matching_partial_note.nil?
+          notes_for_student[key] = {}
+        else
+          notes_for_student[key] = {
+            event_note_type_id: matching_partial_note.event_note_type_id,
+            recorded_at: matching_partial_note.most_recent_recorded_at
+          }
+        end
+      end
+      notes_by_student_id[student_id] = notes_for_student
+    end
+    notes_by_student_id
+  end
 
 end

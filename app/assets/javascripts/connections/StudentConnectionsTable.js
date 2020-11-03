@@ -18,7 +18,7 @@ import {
   ACADEMIC_SUPPORT,
   REDIRECT,
   STUDY_SKILLS
-} from './Courses';
+} from '../levels/Courses';
 
 // Render a virtualized table based on the student levels table
 // Information and triggers on the left columns and supports on the right.
@@ -98,7 +98,7 @@ StudentConnectionsTable.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 StudentConnectionsTable.propTypes = {
-  orderedStudentsWithLevels: PropTypes.array.isRequired,
+  orderedStudentsWith2020Surveys: PropTypes.array.isRequired,
   sortBy: PropTypes.string.isRequired,
   sortDirection: PropTypes.oneOf([
     SortDirection.ASC,

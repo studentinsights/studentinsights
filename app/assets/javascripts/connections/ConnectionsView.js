@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {SortDirection} from 'react-virtualized';
 import ReactModal from 'react-modal';
-import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
-import DownloadCsvLink from '../components/DownloadCsvLink';
 import EscapeListener from '../components/EscapeListener';
 import DownloadIcon from '../components/DownloadIcon';
 import FilterBar from '../components/FilterBar';
@@ -13,12 +11,10 @@ import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectCounselor from '../components/SelectCounselor';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
-import HelpBubble, {modalFromRight} from '../components/HelpBubble';
-import LevelsBreakdown from './LevelsBreakdown';
-import StudentLevelsTable, {
+import StudentConnectionsTable, {
   orderedStudents,
   describeColumns
-} from './StudentLevelsTable';
+} from './StudentConnectionsTable';
 
 // UI for Connections page. This is taken from the Levels Page as a baseline
 // and may change depending on feedback. Contains filter and button bar as
@@ -43,21 +39,19 @@ export default class ConnectionsView extends React.Component {
   }
 
   areFiltersApplied() {
-    const {studentsWithLevels} = this.props;
-    return (this.filteredStudents().length !== studentsWithLevels.length);
+    const {studentsWith2020Surveys} = this.props;
+    return (this.filteredStudents().length !== studentsWith2020Surveys.length);
   }
 
   filteredStudents() {
-    const {studentsWithLevels} = this.props;
-    const {grade, counselor, house, level, trigger, englishProficiency, search} = this.state;
-    return studentsWithLevels.filter(s => {
+    const {studentsWith2020Surveys} = this.props;
+    const {grade, counselor, house, englishProficiency, search} = this.state;
+    return studentsWith2020Surveys.filter(s => {
       if (grade !== ALL && s.grade !== grade) return false;
       if (englishProficiency !== ALL && s.limited_english_proficiency !== englishProficiency) return false;
       if (house !== ALL && s.house !== house) return false;
       if (counselor !== ALL && s.counselor !== counselor) return false;
-      if (level !== ALL && s.level.level_number !== parseInt(level, 0)) return false;
-      if (trigger !== ALL && s.level.triggers.indexOf(trigger) === -1) return false;
-      
+
       if (search !== '') {
         const tokens = search.toLowerCase().split(' ');
         const matchesAllTokens = _.every(tokens, token => {
@@ -74,8 +68,8 @@ export default class ConnectionsView extends React.Component {
 
   // So that this list doesn't change with filtering
   allCounselorsSorted() {
-    const {studentsWithLevels} = this.props;
-    return _.sortBy(_.uniq(_.compact(studentsWithLevels.map(student => student.counselor))));
+    const {studentsWith2020Surveys} = this.props;
+    return _.sortBy(_.uniq(_.compact(studentsWith2020Surveys.map(student => student.counselor))));
   }
 
   orderedStudents(filteredStudents) {
@@ -136,10 +130,9 @@ export default class ConnectionsView extends React.Component {
   }
 
   renderSelection(filteredStudents) {
-    const {grade, house, counselor, englishProficiency, level, trigger, search} = this.state;
+    const {grade, house, counselor, englishProficiency, trigger, search} = this.state;
 
     const nullOption = [{ value: ALL, label: 'All' }];
-    const possibleLevelNumbers = ['0', '1', '2', '3', '4'];
     const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
       <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
@@ -167,14 +160,6 @@ export default class ConnectionsView extends React.Component {
           counselors={this.allCounselorsSorted()}
           onChange={this.onCounselorChanged} />
         <SimpleFilterSelect
-          style={{...styles.select, width: '7em'}}
-          placeholder="Level..."
-          value={level}
-          onChange={this.onLevelChanged}
-          options={nullOption.concat(possibleLevelNumbers.map(value => {
-            return { value, label: `Level ${value}` };
-          }))} />
-        <SimpleFilterSelect
           style={{...styles.select, width: '9em'}}
           placeholder="Trigger..."
           value={trigger}
@@ -185,7 +170,6 @@ export default class ConnectionsView extends React.Component {
         <div style={styles.textBar}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={styles.timePeriodText}>Last 45 days</div>
-            {this.renderBreakdownLink(filteredStudents)}
           </div>
           <div style={{display: 'flex', flexDirection: 'column', paddingLeft: 10}}>
             {this.renderDownloadLink(filteredStudents)}
@@ -210,25 +194,6 @@ export default class ConnectionsView extends React.Component {
         </div>
       );
     }
-  }
-
-  renderBreakdownLink(filteredStudents) {
-    return (
-      <HelpBubble
-        modalStyle={modalFromRight}
-        style={{display: 'inline-block', margin: 0}}
-        linkStyle={{...styles.summary, padding: 0}}
-        teaser="Breakdown"
-        title="Breakdown"
-        content={
-          <LevelsBreakdown
-            studentsWithLevels={filteredStudents}
-            messageEl={this.renderFilterWarningMessage(filteredStudents)}
-            levelsLinksEl={this.renderLevelsLinks()}
-          />
-        }
-      />
-    );
   }
 
 
@@ -256,34 +221,34 @@ export default class ConnectionsView extends React.Component {
     );
   }
   
-  // This is expensive to render, since it unrolls the whole spreadsheet into a string
-  // and writes it inline to the link.
-  renderLinkWithCsvDataInline(columns, students) {
-    const csvText = toCsvTextFromTable(columns, students);
-    const {nowFn} = this.context;
-    const now = nowFn();
-    const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
-    return (
-      <div style={{fontSize: 14}}>
-        <h1 style={{
-          borderBottom: '1px solid #333',
-          paddingBottom: 10,
-          marginBottom: 20
-        }}>Export as spreadsheet</h1>
-        {this.renderFilterWarningMessage(students)}
-        <DownloadCsvLink filename={filename} style={styles.downloadButton} csvText={csvText}>
-          Download CSV
-        </DownloadCsvLink>
-      </div>
-    );
-  }
+  // // This is expensive to render, since it unrolls the whole spreadsheet into a string
+  // // and writes it inline to the link.
+  // renderLinkWithCsvDataInline(columns, students) {
+  //   const csvText = toCsvTextFromTable(columns, students);
+  //   const {nowFn} = this.context;
+  //   const now = nowFn();
+  //   const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
+  //   return (
+  //     <div style={{fontSize: 14}}>
+  //       <h1 style={{
+  //         borderBottom: '1px solid #333',
+  //         paddingBottom: 10,
+  //         marginBottom: 20
+  //       }}>Export as spreadsheet</h1>
+  //       {this.renderFilterWarningMessage(students)}
+  //       <DownloadCsvLink filename={filename} style={styles.downloadButton} csvText={csvText}>
+  //         Download CSV
+  //       </DownloadCsvLink>
+  //     </div>
+  //   );
+  // }
 
-  renderTable(orderedStudentsWithLevels) {
+  renderTable(orderedStudentsWith2020Surveys) {
     const {sortBy, sortDirection} = this.state;
     return (
       <div style={{...styles.tableContainer, ...styles.flexVertical}}>
-        <StudentLevelsTable
-          orderedStudentsWithLevels={orderedStudentsWithLevels}
+        <StudentConnectionsTable
+          orderedStudentsWith2020Surveys={orderedStudentsWith2020Surveys}
           sortBy={sortBy}
           sortDirection={sortDirection}
           onTableSort={this.onTableSort}
@@ -296,7 +261,7 @@ ConnectionsView.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 ConnectionsView.propTypes = {
-  studentsWithLevels: PropTypes.arrayOf(PropTypes.shape({
+  studentsWith2020Surveys: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
