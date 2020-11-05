@@ -5,6 +5,7 @@ import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import ConnectionsView from './ConnectionsView';
+import ExperimentalBanner from '../components/ExperimentalBanner';
 
 
 // Page for looking at students who indicated they had no adult they felt
@@ -35,6 +36,7 @@ export default class ConnectionsPage extends React.Component {
             <div>Students who need adults to connect to in SHS</div>
           </SectionHeading>
         </div>
+        <ExperimentalBanner />
         <GenericLoader
           promiseFn={this.fetchJson}
           style={styles.flexVertical}

@@ -32,7 +32,6 @@ export default class ConnectionsView extends React.Component {
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onCounselorChanged = this.onCounselorChanged.bind(this);
     this.onLevelChanged = this.onLevelChanged.bind(this);
-    this.onTriggerChanged = this.onTriggerChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
@@ -115,10 +114,6 @@ export default class ConnectionsView extends React.Component {
     this.setState({level});
   }
 
-  onTriggerChanged(trigger) {
-    this.setState({trigger});
-  }
-
   render() {
     const filteredStudents = this.orderedStudents(this.filteredStudents());
     return (
@@ -130,10 +125,9 @@ export default class ConnectionsView extends React.Component {
   }
 
   renderSelection(filteredStudents) {
-    const {grade, house, counselor, englishProficiency, trigger, search} = this.state;
+    const {grade, house, counselor, englishProficiency, search} = this.state;
 
     const nullOption = [{ value: ALL, label: 'All' }];
-    const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
       <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
         <input
@@ -159,14 +153,6 @@ export default class ConnectionsView extends React.Component {
           counselor={counselor}
           counselors={this.allCounselorsSorted()}
           onChange={this.onCounselorChanged} />
-        <SimpleFilterSelect
-          style={{...styles.select, width: '9em'}}
-          placeholder="Trigger..."
-          value={trigger}
-          onChange={this.onTriggerChanged}
-          options={nullOption.concat(possibleTriggers.map(value => {
-            return { value, label: `${value}` };
-          }))} />
         <div style={styles.textBar}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={styles.timePeriodText}>Last 45 days</div>
@@ -359,7 +345,6 @@ function initialState() {
     house: ALL,
     counselor: ALL,
     level: ALL,
-    trigger: ALL,
     sortBy: 'level',
     sortDirection: SortDirection.ASC,
     isDownloadOpen: false

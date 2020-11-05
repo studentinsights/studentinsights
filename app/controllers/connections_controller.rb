@@ -32,8 +32,6 @@ class ConnectionsController < ApplicationController
     students = Authorizer.new(educator).authorized do
       Student.active
         .where(school_id: school_id)
-
-        # .to_a # because of AuthorizedDispatcher#filter_relation
     end
     unsafe_students_with_2020_survey_data_json(students, time_now)
   end
@@ -48,12 +46,10 @@ class ConnectionsController < ApplicationController
     # Only include relevant survey answer
     survey_responses = StudentVoiceCompleted2020Survey
       .where('created_at >= ?', cutoff_time)
-      .select(:id, :student_id, :shs_adult)
+      .select(:id, :student_id, :shs_adult, :created_at)
       .group_by(&:student_id)
 
-      puts "*****************"
-      puts survey_responses
-    student_ids = survey_responses.keys #Only students with completed surveys
+    student_ids = survey_responses.keys & students.map(&:id) #Only authorized students with completed surveys
 
     # query for absences and discipline events in batch
     absence_counts_by_student_id = Absence
@@ -99,8 +95,9 @@ class ConnectionsController < ApplicationController
     students_with_2020_survey_data = students_json.map do |student_json|
       student_id = student_json['id']
       student_section_assignments_right_now = student_section_assignments_by_student_id.fetch(student_id, [])
+      surveys = survey_responses.fetch(student_id, "") # Should always find this
       student_json.merge({
-        survey_response: survey_responses[student_id],
+        survey_response: surveys.max_by {|survey| survey[:created_at]},
         absences_count_in_period: absence_counts_by_student_id.fetch(student_id, 0),
         discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student_id, 0),
         section_assignments_right_now: student_section_assignments_by_student_id.fetch(student_id, []),
@@ -116,10 +113,10 @@ class ConnectionsController < ApplicationController
         })
       })
     end
-    puts students_with_2020_survey_data.as_json
-    end
+    students_with_2020_survey_data.as_json
+  end
 
-    def notes_query_map
+  def notes_query_map
     sst_event_note_type_ids = [300]
     experience_event_note_type_ids = [305, 306, 307]
     counselor_event_note_type_ids = [308]

@@ -19,6 +19,7 @@ import {
   REDIRECT,
   STUDY_SKILLS
 } from '../levels/Courses';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 
 // Render a virtualized table based on the student levels table
 // Information and triggers on the left columns and supports on the right.
@@ -186,7 +187,7 @@ export function describeColumns(nowMoment, options = {}) {
     cellRenderer: renderSurveyResponse
   }, {
     dataKey: 'absence',
-    label: 'Attendance Rate',
+    label: 'Absences',
     width: numericCellWidth,
     cellRenderer: renderAbsenceRate
   }, {
@@ -262,7 +263,12 @@ export function describeColumns(nowMoment, options = {}) {
 /* eslint-disable react/prop-types */
 function renderStudent({rowData}) {
   const student = rowData;
-  return <a style={styles.person} target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
+  return(
+    <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
+      <StudentPhotoCropped studentId={student.id} />
+      <a style={styles.person} target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+    </div>
+  );
 }
 
 // This assumes when we generate an actual CSV that the comma will be
@@ -277,21 +283,19 @@ function renderSurveyResponse({rowData}) {
 }
 
 function renderDisciplineIncidents({rowData}) {
-  const {level} = rowData;
-  const count = level.data.recent_discipline_actions;
-  const style = (level.triggers.indexOf('discipline') !== -1)
+  const {discipline_incident_count_in_period} = rowData;
+  const style = (discipline_incident_count_in_period !== 0)
     ? styles.warn
     : styles.plain;
-  return <span style={style}>{count}</span>; 
+  return <span style={style}>{discipline_incident_count_in_period}</span>;
 }
 
 function renderAbsenceRate({rowData}) {
-  const {level} = rowData;
-  const percentage = Math.round(level.data.recent_absence_rate * 100);
-  const style = (level.triggers.indexOf('absence') !== -1)
+  const {absences_count_in_period} = rowData;
+  const style = (absences_count_in_period !== 0)
     ? styles.warn
     : styles.plain;
-  return <span style={style}>{percentage}%</span>; 
+  return <span style={style}>{absences_count_in_period}</span>;
 }
 
 function renderGradeFor(patterns, {rowData}) {
