@@ -183,6 +183,8 @@ export function describeColumns(nowMoment, options = {}) {
   }, {
     dataKey: 'survey_response',
     label: 'Survey Response',
+    width: 70,
+    flexGrow:1,
     width: gradeCellWidth,
     cellRenderer: renderSurveyResponse
   }, {
