@@ -47,7 +47,7 @@ export default class StudentConnectionsTable extends React.Component {
     const rowHeight = 40;
 
     return (
-      <div className="StudentConnectonsTable" style={styles.root}>
+      <div className="StudentConnectionsTable" style={styles.root}>
         <AutoSizer>
           {({height, width}) => (
             <Table
@@ -182,7 +182,7 @@ export function describeColumns(nowMoment, options = {}) {
     cellRenderer: renderStudent
   }, {
     dataKey: 'survey_response',
-    label: 'Survey Response',
+    label: 'Is there an adult at SHS you can reach out to if there are any issues?',
     width: 70,
     flexGrow:1,
     width: gradeCellWidth,

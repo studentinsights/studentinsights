@@ -31,7 +31,6 @@ export default class ConnectionsView extends React.Component {
     this.onEnglishProficiencyChanged = this.onEnglishProficiencyChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onCounselorChanged = this.onCounselorChanged.bind(this);
-    this.onLevelChanged = this.onLevelChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
@@ -110,14 +109,10 @@ export default class ConnectionsView extends React.Component {
     this.setState({counselor}); 
   }
 
-  onLevelChanged(level) {
-    this.setState({level});
-  }
-
   render() {
     const filteredStudents = this.orderedStudents(this.filteredStudents());
     return (
-      <EscapeListener className="LevelsView" style={{...styles.root, ...styles.flexVertical}} onEscape={this.onEscape}>
+      <EscapeListener className="ConnectionsView" style={{...styles.root, ...styles.flexVertical}} onEscape={this.onEscape}>
         {this.renderSelection(filteredStudents)}
         {this.renderTable(filteredStudents)}
       </EscapeListener>
@@ -206,28 +201,6 @@ export default class ConnectionsView extends React.Component {
       </div>
     );
   }
-  
-  // // This is expensive to render, since it unrolls the whole spreadsheet into a string
-  // // and writes it inline to the link.
-  // renderLinkWithCsvDataInline(columns, students) {
-  //   const csvText = toCsvTextFromTable(columns, students);
-  //   const {nowFn} = this.context;
-  //   const now = nowFn();
-  //   const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
-  //   return (
-  //     <div style={{fontSize: 14}}>
-  //       <h1 style={{
-  //         borderBottom: '1px solid #333',
-  //         paddingBottom: 10,
-  //         marginBottom: 20
-  //       }}>Export as spreadsheet</h1>
-  //       {this.renderFilterWarningMessage(students)}
-  //       <DownloadCsvLink filename={filename} style={styles.downloadButton} csvText={csvText}>
-  //         Download CSV
-  //       </DownloadCsvLink>
-  //     </div>
-  //   );
-  // }
 
   renderTable(orderedStudentsWith2020Surveys) {
     const {sortBy, sortDirection} = this.state;
@@ -344,8 +317,7 @@ function initialState() {
     englishProficiency: ALL,
     house: ALL,
     counselor: ALL,
-    level: ALL,
-    sortBy: 'level',
+    sortBy: 'grade',
     sortDirection: SortDirection.ASC,
     isDownloadOpen: false
   };
