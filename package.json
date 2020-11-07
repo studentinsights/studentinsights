@@ -2,7 +2,7 @@
   "name": "studentinsights",
   "version": "0.1.0",
   "engines": {
-    "node": "^12.18.0"
+    "node": "^14.15.0"
   },
   "repository": {
     "type": "git",
