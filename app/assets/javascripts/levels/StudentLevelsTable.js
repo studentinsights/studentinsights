@@ -279,7 +279,6 @@ function renderLevel({rowData}) {
 
 function renderDisciplineIncidents({rowData}) {
   const {level} = rowData;
-  console.log(rowData);
   const count = level.data.recent_discipline_actions;
   const style = (level.triggers.indexOf('discipline') !== -1)
     ? styles.warn
