@@ -59,7 +59,7 @@ it('snapshots with unvirtualized render', () => {
   const tree = renderer
     .create(withDefaultNowContext(
       <PerDistrictContainer districtKey="somerville">
-      <StudentConnectionsTable {...props} />
+        <StudentConnectionsTable {...props} />
       </PerDistrictContainer>))
     .toJSON();
   expect(tree).toMatchSnapshot();

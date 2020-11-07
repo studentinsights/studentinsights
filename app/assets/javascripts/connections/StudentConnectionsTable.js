@@ -185,7 +185,6 @@ export function describeColumns(nowMoment, options = {}) {
     label: 'Is there an adult at SHS you can reach out to if there are any issues?',
     width: 70,
     flexGrow:1,
-    width: gradeCellWidth,
     cellRenderer: renderSurveyResponse
   }, {
     dataKey: 'absence',

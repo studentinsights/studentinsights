@@ -6,11 +6,12 @@ import ReactModal from 'react-modal';
 import EscapeListener from '../components/EscapeListener';
 import DownloadIcon from '../components/DownloadIcon';
 import FilterBar from '../components/FilterBar';
-import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import {ALL} from '../components/SimpleFilterSelect';
 import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectCounselor from '../components/SelectCounselor';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
+import {modalFromRight} from '../components/HelpBubble';
 import StudentConnectionsTable, {
   orderedStudents,
   describeColumns
@@ -121,8 +122,6 @@ export default class ConnectionsView extends React.Component {
 
   renderSelection(filteredStudents) {
     const {grade, house, counselor, englishProficiency, search} = this.state;
-
-    const nullOption = [{ value: ALL, label: 'All' }];
     return (
       <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
         <input
