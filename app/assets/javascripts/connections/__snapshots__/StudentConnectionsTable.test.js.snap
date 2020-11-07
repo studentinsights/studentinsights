@@ -1,0 +1,940 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots with unvirtualized render 1`] = `
+<div
+  className="StudentConnectionsTable"
+  style={
+    Object {
+      "display": "block",
+      "flex": 1,
+      "flexDirection": "column",
+      "overflow": "hidden",
+    }
+  }
+>
+  <div
+    className="Mock-AutoSizer"
+  >
+    <table
+      className="MockReactVirtualized"
+    >
+      <thead>
+        <tr>
+          <td>
+            Student
+          </td>
+          <td>
+            Is there an adult at SHS you can reach out to if there are any issues?
+          </td>
+          <td>
+            Absences
+          </td>
+          <td>
+            Discipline Incidents
+          </td>
+          <td>
+            EN or ELL
+          </td>
+          <td>
+            Social Studies
+          </td>
+          <td>
+            Math
+          </td>
+          <td>
+            Science
+          </td>
+          <td>
+            Last xGE or NEST
+          </td>
+          <td>
+            Last SST
+          </td>
+          <td>
+            Last Counselor
+          </td>
+          <td>
+            Study skills
+          </td>
+          <td>
+            Academic Support
+          </td>
+          <td>
+            Redirect
+          </td>
+          <td>
+            Credit Recovery
+          </td>
+          <td>
+            Program or SPED
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/22/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/22"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Snow
+                 
+                Kenobi
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              no
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/25/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/25"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Winnie
+                 
+                Kenobi
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              no,
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/26/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/26"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Pluto
+                 
+                White
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              no, I don't feel comfortable with anyone
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/28/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/28"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Rapunzel
+                 
+                Mouse
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              Yes. Mrs. Teacher
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/31/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/31"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Winnie
+                 
+                Kenobi
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              Yes
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/33/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/33"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Winnie
+                 
+                Poppins
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              No
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/34/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/34"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Olaf
+                 
+                White
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              No
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              D
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div
+                className="StudentPhotoCropped"
+                style={
+                  Object {
+                    "backgroundColor": "#ddd",
+                    "backgroundImage": "url(/students/41/photo)",
+                    "backgroundPosition": "center top",
+                    "backgroundPositionY": -10,
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundSize": "150%",
+                    "border": "1px solid #ddd",
+                    "borderRadius": 3,
+                    "height": 58,
+                    "marginRight": 10,
+                    "overflow": "hidden",
+                    "width": 58,
+                  }
+                }
+              />
+              <a
+                href="/students/41"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+                target="_blank"
+              >
+                Mowgli
+                 
+                Kenobi
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              Yes
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
