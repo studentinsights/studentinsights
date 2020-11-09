@@ -10,7 +10,7 @@ class ReadingBenchmarkSheetsImporter
       touches: [
         ReadingBenchmarkDataPoint.name
       ],
-      description: 'Import reading benchmark data for the specific school year 2019-2020, by reading all sheets within a Google Drive folder'
+      description: 'Import reading benchmark data, by reading all sheets within a Google Drive folder'
     })
   end
 
