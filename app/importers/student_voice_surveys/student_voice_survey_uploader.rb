@@ -59,16 +59,26 @@ class StudentVoiceSurveyUploader
   end
 
   def process_row_or_nil(columns_map, raw_row, index)
-    missing_column_keys = (columns_map.values - raw_row.to_h.keys)
-    if missing_column_keys.size > 0
+    # We're adding translations to these, but we don't want to update the column
+    # names each time, so we'll check for the first part of each string"
+    row_headers = raw_row.to_h.keys.compact
+
+    # We can't check for the complete row headers, but this at least checks that
+    # we have the expected number
+    if columns_map.size - 1 != row_headers.size
       @invalid_row_columns_count += 1
       return nil
+    end
+
+    complete_columns = columns_map.transform_values do |value|
+      header = row_headers.select {|header| header.include?(value)}
+      header[0]
     end
 
     # whitelist attributes for the row, translate to short symbol keys
     # no nils here, empty strings are ok
     row_attrs = {}
-    columns_map.each do |record_field_name, csv_column_text|
+    complete_columns.each do |record_field_name, csv_column_text|
       row_attrs[record_field_name] = raw_row[csv_column_text] || ''
     end
 
