@@ -5,7 +5,11 @@ class ProfileController < ApplicationController
 
   def json
     student = authorized { Student.find(params[:id]) }
-    authorized_sections = authorized { Section.all }
+    #This unfortunately duplicates code in the authorizer, but it prevents us from having to
+    #iterate through every section for users who can only view their assigned sections
+    special_access = current_educator.districtwide_access? || current_educator.schoolwide_access? || current_educator.admin?
+    sections = special_access ? Section.all : current_educator.sections
+    authorized_sections = authorized { sections }
     chart_data = StudentProfileChart.new(student).chart_data
 
     render json: {
