@@ -5,7 +5,8 @@ class ProfileController < ApplicationController
 
   def json
     student = authorized { Student.find(params[:id]) }
-    authorized_sections = authorized { Section.all }
+    sections = current_educator.schoolwide_access? ? Section.all : current_educator.sections
+    authorized_sections = authorized { sections }
     chart_data = StudentProfileChart.new(student).chart_data
 
     render json: {
