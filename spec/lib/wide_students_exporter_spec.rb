@@ -90,6 +90,8 @@ RSpec.describe WideStudentsExporter do
           'Calculus Project (active_service_date_started)',
           'Focused Math Intervention (active_service_date_started)',
           'Summer Explore (active_service_date_started)',
+          'Enroot Program (active_service_date_started)',
+          'Goal Program Pathway (active_service_date_started)',
 
           'BBST Meeting (last_event_note_recorded_at)',
           'SST Meeting (last_event_note_recorded_at)',

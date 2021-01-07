@@ -341,6 +341,8 @@ describe ProfileController, :type => :controller do
             '516',
             '517',
             '518',
+            '519',
+            '520',
             '601',
             '602',
             '603',
