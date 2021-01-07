@@ -17,5 +17,6 @@ class DatabaseConstants
     ServiceType.add_bedford_service_types
     ServiceType.add_somerville_heggerty_service_types
     ServiceType.update_somerville_descriptions
+    ServiceType.add_somerville_winter_2021_service_types
   end
 end

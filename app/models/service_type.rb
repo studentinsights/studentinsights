@@ -40,6 +40,23 @@ class ServiceType < ApplicationRecord
     ])
   end
 
+  # This is a separate method because of migrations
+  def self.add_somerville_winter_2021_service_types
+    ServiceType.create!([{
+      id: 519,
+      name: "Goal Program Pathway",
+      description: nil,
+      intensity: nil,
+      data_owner: nil
+    }, {
+      id: 520,
+      name: "Enroot Program",
+      description: nil,
+      intensity: nil,
+      data_owner: nil
+    }])
+  end
+
   def self.add_somerville_heggerty_service_types
     ServiceType.create!([
       { id: 601, name: 'SPS Heggerty, week 1' },
