@@ -35,7 +35,7 @@ gem 'google-api-client', "~> 0.28.7"
 gem 'net-ldap'
 gem 'net-sftp'
 gem 'net-ssh'
-gem 'nokogiri', '~> 1.10.5' # https://github.com/sparklemotion/nokogiri/issues/1943
+gem 'nokogiri', '~> 1.11.1' # https://github.com/sparklemotion/nokogiri/issues/1943
 gem 'openssl'
 gem 'pg'
 gem 'puma', '~> 4.3.5'
