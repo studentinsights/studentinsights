@@ -224,7 +224,7 @@ GEM
     mime-types-data (3.2019.1009)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.0)
     minitest (5.14.2)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
@@ -236,8 +236,9 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (5.2.0)
     nio4r (2.5.4)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.1)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     oj (3.10.5)
     oj_mimic_json (1.0.1)
     openssl (2.1.2)
@@ -262,6 +263,7 @@ GEM
     public_suffix (4.0.3)
     puma (4.3.5)
       nio4r (~> 2.0)
+    racc (1.5.2)
     rack (2.2.3)
     rack-attack (6.2.2)
       rack (>= 1.0, < 3)
@@ -445,7 +447,7 @@ DEPENDENCIES
   net-ldap
   net-sftp
   net-ssh
-  nokogiri (~> 1.10.5)
+  nokogiri (~> 1.11.1)
   oj
   oj_mimic_json
   openssl
