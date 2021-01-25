@@ -107,6 +107,7 @@
     "prismjs": "^1.21.0",
     "serialize-javascript": "^3.1.0",
     "@storybook/react/**/lodash-es": "^4.17.15",
+    "@storybook/react/**/immer": "^8.0.1",
     "yargs": "^15.3.1"
   }
 }
