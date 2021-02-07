@@ -121,6 +121,16 @@ class PerfTest
       nil
     end
 
+    # for returning only a hash of percentile stats. Used in automated testing
+    def p_hash(timer_reports_map, percentile)
+      p_hash = {}
+      tuples.group_by {|t| t[0]}.each do |key, ts|
+        values = ts.map {|t| t[1] } #array of relevant values, becomes a percentage
+        p_hash[key] = percentile(values, percentile)
+      end
+      p_hash
+    end
+
     private
     # copied from https://stackoverflow.com/questions/11784843/calculate-95th-percentile-in-ruby
     def percentile(values, percentile)
@@ -135,6 +145,20 @@ class PerfTest
       @log.puts msg
     end
   end
+
+  #Temp notes for me
+  #Timer.measurements each one gives you
+  #tag = name of type of measurement
+  #timing = Benchmark.measure for the thing
+  #value = the thing being measured
+  #
+  #Timer.report gives you array of [tag, ms] tuples sorted by tag then ms
+  #
+  #percentage takes array of ms values and returns the p
+  #
+  #so Timer.report.group_by {|tuple| tuple[0] }
+  #or Reporter.CUSTOM(Timer.report.group_by {|tuple| tuple[0] })
+  
 
   # Helper class to hold timing data
   class Timer
