@@ -33,7 +33,7 @@ class PerfTest
     percentile = options.fetch(:percentile, 0.95)
     reporter = PerfTest::Reporter.new(log: @log)
     reports_map = timer.report.group_by {|tuple| tuple[0]}
-    reporter.p_hash(reports_map, percentile)
+    reporter.median_and_p95(reports_map)
   end
 
   # Generic perftest usage:
@@ -129,17 +129,16 @@ class PerfTest
       nil
     end
 
-    # for returning only a hash of percentile stats. Used in automated testing
-    # essentially the report without logging and returning a hash giving the p95 values
-    def p_hash(timer_reports_map, percentile)
-      p_hash = {}
+    # for returning only percentile stats. Used in automated testing.
+    def median_and_p95(timer_reports_map)
+      median_and_p95 = {}
       timer_reports_map.each do |report_key, tuples|
         tuples.group_by {|t| t[0]}.each do |key, ts|
           values = ts.map {|t| t[1] } #array of relevant values, becomes a percentage
-          p_hash[key] = percentile(values, percentile)
+          median_and_p95[key] = [percentile(values, 0.5), percentile(values, 0.95)]
         end
       end
-      p_hash
+      median_and_p95
     end
 
     private
@@ -156,20 +155,6 @@ class PerfTest
       @log.puts msg
     end
   end
-
-  #Temp notes for me
-  #Timer.measurements each one gives you
-  #tag = name of type of measurement
-  #timing = Benchmark.measure for the thing
-  #value = the thing being measured
-  #
-  #Timer.report gives you array of [tag, ms] tuples sorted by tag then ms
-  #
-  #percentage takes array of ms values and returns the p
-  #
-  #so Timer.report.group_by {|tuple| tuple[0] }
-  #or Reporter.p_hash(Timer.report.group_by {|tuple| tuple[0] })
-  
 
   # Helper class to hold timing data
   class Timer

@@ -163,7 +163,7 @@ class PerfTester
     end
     perf_test.print_timer_and_report timer
     timer
-    perf_test.results_for_spec(result)
+    perf_test.results_for_spec(timer)
   end
 
   private
