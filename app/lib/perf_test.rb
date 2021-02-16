@@ -28,6 +28,14 @@ class PerfTest
     nil
   end
 
+  # Used in automated performance tests
+  def results_for_spec(timer, options = {})
+    percentile = options.fetch(:percentile, 0.95)
+    reporter = PerfTest::Reporter.new(log: @log)
+    reports_map = timer.report.group_by {|tuple| tuple[0]}
+    reporter.median_and_p95(reports_map)
+  end
+
   # Generic perftest usage:
   # timer = perf_test.run_with_tags(0.10) do |t, educator|
   #   t.measure('whatever') { do_something_for(educator) }
@@ -119,6 +127,18 @@ class PerfTest
         end
       end
       nil
+    end
+
+    # for returning only percentile stats. Used in automated testing.
+    def median_and_p95(timer_reports_map)
+      median_and_p95 = {}
+      timer_reports_map.each do |report_key, tuples|
+        tuples.group_by {|t| t[0]}.each do |key, ts|
+          values = ts.map {|t| t[1] } #array of relevant values, becomes a percentage
+          median_and_p95[key] = [percentile(values, 0.5), percentile(values, 0.95)]
+        end
+      end
+      median_and_p95
     end
 
     private

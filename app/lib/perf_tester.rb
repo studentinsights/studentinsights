@@ -8,56 +8,63 @@ class PerfTester
     school_id = options[:school_id] || School.all.first.id
     school = School.find(school_id)
     time_now = Time.at(1536589824)
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       queries = DashboardQueries.new(educator, time_now: time_now)
       queries.absence_dashboard_data(school)
     end
+    new_perf_test.results_for_spec(result)
   end
 
   def levels_shs(percentage, options = {})
     time_now = options.fetch(:time_now, Time.at(1529067553))
     school_id = 9
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       levels = SomervilleHighLevels.new
       levels.students_with_levels_json(educator, [school_id], time_now)
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # May be used in critical path authorization code (see #authorized).
   def labels(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       educator.labels
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # Critical path authorization code (may call #labels).
   def authorized(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       Authorizer.new(educator).authorized { Student.active }
     end
+    new_perf_test.results_for_spec(result)
   end
 
   def navbar_links(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       PathsForEducator.new(educator).navbar_links
     end
+    new_perf_test.results_for_spec(result)
   end
 
   def authorized_homerooms(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       Authorizer.new(educator).homerooms
     end
+    new_perf_test.results_for_spec(result)
   end
 
   def authorized_homerooms_DEPRECATED(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       Authorizer.new(educator).allowed_homerooms_DEPRECATED(acknowledge_deprecation: true)
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # See educators_controller#my_students_json
   def my_students(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       students = Authorizer.new(educator).authorized { Student.active.includes(:school).to_a }
       students.as_json({
         only: [:id, :first_name, :last_name, :house, :counselor, :grade],
@@ -68,40 +75,44 @@ class PerfTester
         }
       })
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # See ClassListQueries.  This was driven by the view in admin/authorization, running this
   # across all educators.
   def is_relevant_for_educator?(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       ClassListQueries.new(educator).is_relevant_for_educator?
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # For testing the high absences insight
   def high_absences(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       time_now = options[:time_now] || Time.at(1522779136)
       time_threshold = time_now - 45.days
       absences_threshold = 4
       insight = InsightStudentsWithHighAbsences.new(educator)
       insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
     end
+    new_perf_test.results_for_spec(result)
   end
 
   def low_grades(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       time_now = options[:time_now] || Time.at(1522779136)
       time_threshold = time_now - 45.days
       grade_threshold = 69
       insight = InsightStudentsWithLowGrades.new(educator)
       insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # Part of Section controller, influenced heavily by Authorizer.
   def section_authorization_pattern(percentage, options = {})
-    new_perf_test.simple(percentage, options) do |educator|
+    result = new_perf_test.simple(percentage, options) do |educator|
       authorizer = Authorizer.new(educator)
       section = educator.sections.sample
       if section.nil?
@@ -112,6 +123,7 @@ class PerfTester
         [section_students, authorized_sections]
       end
     end
+    new_perf_test.results_for_spec(result)
   end
 
   # Usage for testing the feed (may call #authorized)
@@ -151,6 +163,7 @@ class PerfTester
     end
     perf_test.print_timer_and_report timer
     timer
+    perf_test.results_for_spec(timer)
   end
 
   private
