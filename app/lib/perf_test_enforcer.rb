@@ -11,9 +11,7 @@ class PerfTestEnforcer
       p95 = result[1]
       log("  Perfomance check for #{key}. Median: #{median}, P95: #{p95}  ")
       if median > 7000 || p95 > 25000
-        log("Sending Rollbar Alert")
         Rollbar.warn("High response time in #{key}. Median: #{median}, P95: #{p95}")
-        log("rollbar alert sent!")
       end
     end
   end
