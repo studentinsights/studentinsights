@@ -6,7 +6,7 @@ RSpec.describe PerfTestEnforcer do
     it "executes all listed checks" do
       all_tests = PerfTestEnforcer.new.run_all_tests(1.0)
       expect(all_tests.size).to eq 12
-      expect(all_tests.all? { |x| x.size === 2 }).to eq true
+      expect(all_tests.all? { |x| x.size == 2 }).to eq true
     end
   end
 
