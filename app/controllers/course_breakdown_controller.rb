@@ -18,6 +18,22 @@ class CourseBreakdownController < ApplicationController
       .includes(sections: { student_section_assignments: :student})
       .where(school_id: school_ids)
 
+    # # returns array of snapshots, most recent per school year
+    # historical_snapshot = HistoricalLevelsSnapshot.all.map do |snapshot|
+    #   snapshots_by_year = snapshot.group_by {SchoolYear.to_school_year(snapshot.time_now)}
+    #   snapshots_by_year.map do |snapshots|
+    #     sorted_snapshots snapshots.sort_by &:created_at
+    #     return sorted_snapshots.last
+    #   end
+    # end
+
+    # historical_snapshot.map do |snapshot|
+    #   levels = snapshot.students_with_levels_json
+    #   # {student
+    #   # student_section_assignments_right_now
+    #   #   course_description}
+    # end
+
     course_breakdown = courses.map do |course|
       {
         course_name: course.course_description,
