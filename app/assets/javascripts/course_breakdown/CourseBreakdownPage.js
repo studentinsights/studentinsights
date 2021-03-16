@@ -37,6 +37,8 @@ export default class CourseBreakdownPage extends React.Component {
   renderJson(json) {
     const coursesWithBreakdown = json.course_breakdown;
     const studentProportions = json.student_proportions;
+    console.log(coursesWithBreakdown);
+    console.log(studentProportions);
     return (
       <CourseBreakdownView
         coursesWithBreakdown={coursesWithBreakdown}

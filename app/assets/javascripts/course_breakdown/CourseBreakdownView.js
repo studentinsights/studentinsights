@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import FilterBar from '../components/FilterBar';
 import EscapeListener from '../components/EscapeListener';
-import SimpleFilterSelect from '../components/SimpleFilterSelect';
+import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import {firstDayOfSchool} from '../helpers/schoolYear';
 import CoursesTable from './CoursesTable';
 
 export default class CourseBreakdownView extends React.Component {
@@ -12,6 +13,7 @@ export default class CourseBreakdownView extends React.Component {
     this.state = initialState();
     this.onRaceClicked = this.onRaceClicked.bind(this);
     this.onGenderClicked = this.onGenderClicked.bind(this);
+    this.onYearChanged = this.onYearChanged.bind(this);
     this.onEscape = this.onEscape.bind(this);
   }
 
@@ -72,6 +74,8 @@ export default class CourseBreakdownView extends React.Component {
   renderSelection() {
     const yearList = this.yearList();
     const {year} = this.state;
+    const nullOption = [{ value: ALL, label: 'All' }];
+
     return(
       <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
         <label style={styles.label}>
@@ -97,7 +101,9 @@ export default class CourseBreakdownView extends React.Component {
           placeholder="School Year"
           value={year}
           onChange={this.onYearChanged}
-          options={yearList} />
+          options={nullOption.concat(yearList.map(value => {
+            return { value, label: `${value}` };
+          }))} />
       </FilterBar>
     );
   }
@@ -170,6 +176,6 @@ function initialState() {
   return {
     checkedRace: true,
     checkedGender: false,
-    year: "20221"
+    year: ALL
   };
 }

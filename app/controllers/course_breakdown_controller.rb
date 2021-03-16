@@ -95,15 +95,15 @@ class CourseBreakdownController < ApplicationController
   def student_proportions
     student_proportions = {}
     students = Student.all.active
-    race_groups = students.group_by(&:race).each do |key, value|
+    students.group_by(&:race).each do |key, value|
       name = key ? "race_#{key.downcase}_total" : "race_not_specified_total"
       student_proportions[name] = value.count
     end
-    gender_groups = students.group_by(&:gender).each do |key, value|
+    students.group_by(&:gender).each do |key, value|
       name = key ? "gender_#{key.downcase}_total" : "gender_not_specified_total"
       student_proportions[name] = value.count
     end
-    {"total": students.count}.merge(race_groups, gender_groups)
+    {total: students.count}.merge(student_proportions).as_json
   end
 
   # We aren't performing auth checks on the data accessed here since none of it is
