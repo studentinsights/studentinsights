@@ -51,6 +51,7 @@ import ExploreSchoolEquityPage from '../app/assets/javascripts/equity/ExploreSch
 import QuiltsPage from '../app/assets/javascripts/equity/QuiltsPage';
 import ClassListsEquityIndexPage from '../app/assets/javascripts/equity/ClassListsEquityIndexPage';
 import ConnectionsPage from '../app/assets/javascripts/connections/ConnectionsPage';
+import CourseBreakdownPage from '../app/assets/javascripts/course_breakdown/CourseBreakdownPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -137,6 +138,7 @@ export default class App extends React.Component {
         <Route exact path='/internal/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route exact path='/service_uploads' render={this.renderServiceUploads.bind(this)}/>
         <Route exact path='/connections/:school_id' render={this.renderConnectionsPage.bind(this)}/>
+        <Route exact path='/course_breakdown/:school_id' render={this.renderCourseBreakdownPage.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -352,6 +354,11 @@ export default class App extends React.Component {
   renderConnectionsPage(routeProps) {
     const schoolId = routeProps.match.params.school_id;
     return <ConnectionsPage schoolId={schoolId} />;
+  }
+
+  renderCourseBreakdownPage(routeProps) {
+    const schoolId = routeProps.match.params.school_id;
+    return <CourseBreakdownPage schoolId={schoolId} />;
   }
 
   renderIsServiceWorking(routeProps) {
