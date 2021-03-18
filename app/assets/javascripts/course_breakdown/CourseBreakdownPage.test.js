@@ -4,7 +4,7 @@ import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import CourseBreakdownPage from './CourseBreakdownPage';
-import levelsShowJson from './levelsShowJson.fixture';
+import courseBreakdownShowJson from './courseBreakdownShowJson.fixture.js';
 
 function testProps(props = {}) {
   return {
@@ -23,7 +23,7 @@ function testRender(props) {
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/api/levels/shs/show_json', levelsShowJson);
+  fetchMock.get('/api/course_breakdown/shs/show_json', courseBreakdownShowJson);
 });
 
 it('renders without crashing', () => {
@@ -33,11 +33,11 @@ it('renders without crashing', () => {
 it('renders everything after fetch', done => {
   const props = testProps();
   const el = testRender(props);
-  expect($(el).text()).toContain('Levels for SHS Systems and Supports');
+  expect($(el).text()).toContain('Course demographic breakdown');
 
   setTimeout(() => {
-    expect($(el).find('.LevelsView').length).toEqual(1);
-    expect($(el).find('.ReactVirtualized__Table__row').length).toEqual(29); // tied to the dimensions used in test
+    expect($(el).find('.CourseBreakdownView').length).toEqual(1);
+    expect($(el).find('.ReactVirtualized__Table__row').length).toEqual(3); // tied to the dimensions used in test
     done();
   }, 0);
 });

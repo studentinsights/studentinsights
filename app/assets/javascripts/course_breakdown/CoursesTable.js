@@ -63,11 +63,9 @@ export default class CoursesTable extends React.Component {
     const {filteredCoursesWithBreakdown, columnList} = this.props;
     const columns = this.filteredColumns(columnList);
     const rowHeight = 40;
-    console.log(filteredCoursesWithBreakdown);
-    console.log(columns);
 
     return (
-      <div className="CourseTable" style={styles.root}>
+      <div className="CoursesTable" style={styles.root}>
         <AutoSizer>
           {({height, width}) => (
             <Table

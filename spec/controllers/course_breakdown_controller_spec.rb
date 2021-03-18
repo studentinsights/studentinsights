@@ -29,6 +29,10 @@ describe CourseBreakdownController, :type => :controller do
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
 
+        File.open('courseBreakdownShowJson.fixture', 'w') do |fo|
+          fo.puts json
+        end
+
         # check shape of data
         expect(json.keys).to eq ['course_breakdown', 'student_proportions']
         expect(json['course_breakdown'].size).to eq 3
