@@ -3,6 +3,7 @@ class CourseBreakdownController < ApplicationController
 
   def show_json
     params.require(:school_id)
+    puts params[:school_id]
     school_id = (School.find_by_slug(params[:school_id]) || School.find_by_id(params[:school_id])).id
 
     render json: {
@@ -46,44 +47,44 @@ class CourseBreakdownController < ApplicationController
     # all_courses_breakdown.as_json
   end
 
-  def historical_course_breakdown
-    # Note this relies on HistoricalLevelsSnapshot only existing for Somerville High
-    # students. We will want to make this relationship explicit if this feature continues
-    # to get use
-    historical_snapshots = HistoricalLevelsSnapshot.all
+  # def historical_course_breakdown
+  #   # Note this relies on HistoricalLevelsSnapshot only existing for Somerville High
+  #   # students. We will want to make this relationship explicit if this feature continues
+  #   # to get use
+  #   historical_snapshots = HistoricalLevelsSnapshot.all
 
-    # Assign a school year to each
-    historical_snapshots.each do |snapshot|
-      year = SchoolYear.to_school_year(snapshot.time_now)
-      snapshot[school_year] = year
-    end
+  #   # Assign a school year to each
+  #   historical_snapshots.each do |snapshot|
+  #     year = SchoolYear.to_school_year(snapshot.time_now)
+  #     snapshot[school_year] = year
+  #   end
 
-    # one snapshot for each school year
-    historical_snapshots_each_year = historical_snapshots.group_by(&:school_year).map do |snapshots|
-      sorted_snapshots snapshots.sort_by &:created_at
-      return sorted_snapshots.last
-    end
+  #   # one snapshot for each school year
+  #   historical_snapshots_each_year = historical_snapshots.group_by(&:school_year).map do |snapshots|
+  #     sorted_snapshots snapshots.sort_by &:created_at
+  #     return sorted_snapshots.last
+  #   end
 
-    # This recreates some features of the section assignments we need
-    historical_courses = historical_snapshots_each_year.map do |snapshot|
-      school_year = snapshot.school_year
-      unmerged_sections = snapshot.students_with_levels_json.map do |student|
-        unmerged_student_sections = student.student_section_assignments_right_now.each do |section_assignment|
-          section_assignment[district_school_year] = school_year
-          section_assignment[student] = student
-        end
-      end
-      unmerged_sections.flatten.group_by(course_description)
-    end
+  #   # This recreates some features of the section assignments we need
+  #   historical_courses = historical_snapshots_each_year.map do |snapshot|
+  #     school_year = snapshot.school_year
+  #     unmerged_sections = snapshot.students_with_levels_json.map do |student|
+  #       unmerged_student_sections = student.student_section_assignments_right_now.each do |section_assignment|
+  #         section_assignment[district_school_year] = school_year
+  #         section_assignment[student] = student
+  #       end
+  #     end
+  #     unmerged_sections.flatten.group_by(course_description)
+  #   end
 
-    historical_course_breakown = historical_courses.map do |course|
-      {
-      course_name: course.course_description,
-      course_year_data: course_year_data(course)
-    }
-    end
-    historical_course_breakdown.as_json
-  end
+  #   historical_course_breakown = historical_courses.map do |course|
+  #     {
+  #     course_name: course.course_description,
+  #     course_year_data: course_year_data(course)
+  #   }
+  #   end
+  #   historical_course_breakdown.as_json
+  # end
 
   # hash with course breakdown data keyed to the district school year
   def course_year_data(course)
@@ -97,6 +98,7 @@ class CourseBreakdownController < ApplicationController
 
   def category_breakdown(sections)
     assignments = sections.map(&:student_section_assignments).flatten
+    return {} if assignments.empty?
     assignments_by_race = assignments.group_by {|assignment| assignment.student.race}
     assignments_by_gender = assignments.group_by {|assignment| assignment.student.gender}
     race_data_hash = group_data(assignments_by_race, "race").inject(:merge)
@@ -118,14 +120,21 @@ class CourseBreakdownController < ApplicationController
     end
   end
 
+  # Both these have to reckon with unassigned grades in the future. For now we
+  # ignore them, but potentially the impact is significant
   def group_mean(student_assignments)
-    grades = student_assignments.map(&:grade_numeric)
+    grades = student_assignments.map(&:grade_numeric).compact
+    return "No current grades" if grades.empty?
+    return grades[0] if grades.size === 1
     sum = grades.reduce(0) { |a, b| a + b }
     sum.to_f / grades.count.to_f
   end
 
   def group_median(student_assignments)
-    sorted_grades = student_assignments.map(&:grade_numeric).sort
+    grades = student_assignments.map(&:grade_numeric).compact
+    return "No current grades" if grades.empty?
+    return grades[0] if grades.size === 1
+    sorted_grades = student_assignments.map(&:grade_numeric).compact.sort
     median = (sorted_grades[(sorted_grades.length - 1) / 2] + sorted_grades[sorted_grades.length / 2]) / 2.0
     median.to_f
   end
@@ -144,9 +153,6 @@ class CourseBreakdownController < ApplicationController
     {total: students.count}.merge(student_proportions).as_json
   end
 
-  # We aren't performing auth checks on the data accessed here since none of it is
-  # individualized student information, but we still want to restrict this feature
-  # to those who should be looking at high level information.
   def ensure_authorized_for_districtwide!
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
   end
