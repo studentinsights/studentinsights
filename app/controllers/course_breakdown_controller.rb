@@ -18,22 +18,6 @@ class CourseBreakdownController < ApplicationController
       .includes(sections: { student_section_assignments: :student})
       .where(school_id: school_ids)
 
-    # # returns array of snapshots, most recent per school year
-    # historical_snapshot = HistoricalLevelsSnapshot.all.map do |snapshot|
-    #   snapshots_by_year = snapshot.group_by {SchoolYear.to_school_year(snapshot.time_now)}
-    #   snapshots_by_year.map do |snapshots|
-    #     sorted_snapshots snapshots.sort_by &:created_at
-    #     return sorted_snapshots.last
-    #   end
-    # end
-
-    # historical_snapshot.map do |snapshot|
-    #   levels = snapshot.students_with_levels_json
-    #   # {student
-    #   # student_section_assignments_right_now
-    #   #   course_description}
-    # end
-
     course_breakdown = courses.map do |course|
       {
         course_name: course.course_description,
@@ -45,6 +29,60 @@ class CourseBreakdownController < ApplicationController
       }
     end
     course_breakdown.as_json
+    # # Merge the historical and current courses together
+    # all_courses_breakdown = [course_breakdown + historical_course_breakdown].group_by(course_name).map do |course_group|
+    #   new_course = {}
+    #   course_group.each do |course|
+    #     new_course.merge(course) do  |key, v1, v2|
+    #       if key === :course_year_data then
+    #         v1.merge(v2)
+    #       else
+    #         v2
+    #       end
+    #     end
+    #   end
+    #   new_course
+    # end
+    # all_courses_breakdown.as_json
+  end
+
+  def historical_course_breakdown
+    # Note this relies on HistoricalLevelsSnapshot only existing for Somerville High
+    # students. We will want to make this relationship explicit if this feature continues
+    # to get use
+    historical_snapshots = HistoricalLevelsSnapshot.all
+
+    # Assign a school year to each
+    historical_snapshots.each do |snapshot|
+      year = SchoolYear.to_school_year(snapshot.time_now)
+      snapshot[school_year] = year
+    end
+
+    # one snapshot for each school year
+    historical_snapshots_each_year = historical_snapshots.group_by(&:school_year).map do |snapshots|
+      sorted_snapshots snapshots.sort_by &:created_at
+      return sorted_snapshots.last
+    end
+
+    # This recreates some features of the section assignments we need
+    historical_courses = historical_snapshots_each_year.map do |snapshot|
+      school_year = snapshot.school_year
+      unmerged_sections = snapshot.students_with_levels_json.map do |student|
+        unmerged_student_sections = student.student_section_assignments_right_now.each do |section_assignment|
+          section_assignment[district_school_year] = school_year
+          section_assignment[student] = student
+        end
+      end
+      unmerged_sections.flatten.group_by(course_description)
+    end
+
+    historical_course_breakown = historical_courses.map do |course|
+      {
+      course_name: course.course_description,
+      course_year_data: course_year_data(course)
+    }
+    end
+    historical_course_breakdown.as_json
   end
 
   # hash with course breakdown data keyed to the district school year
