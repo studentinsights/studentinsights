@@ -28,11 +28,11 @@ export default class CoursesTable extends React.Component {
 
   describeVariableColumns(columnList) {
     return columnList.map(column => {
-      const label = column.replace('_count','').replace('_',' ');
+      const label = column.replace('_count','').replace(/_/g,' ');
       return {
         dataKey: column,
         label: label,
-        width: 100,
+        width: 150,
         cellRenderer: this.renderDemographic.bind(null, column)
       };
     });

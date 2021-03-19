@@ -124,7 +124,7 @@ class CourseBreakdownController < ApplicationController
   # ignore them, but potentially the impact is significant
   def group_mean(student_assignments)
     grades = student_assignments.map(&:grade_numeric).compact
-    return "No current grades" if grades.empty?
+    return "-" if grades.empty?
     return grades[0] if grades.size === 1
     sum = grades.reduce(0) { |a, b| a + b }
     sum.to_f / grades.count.to_f
@@ -132,7 +132,7 @@ class CourseBreakdownController < ApplicationController
 
   def group_median(student_assignments)
     grades = student_assignments.map(&:grade_numeric).compact
-    return "No current grades" if grades.empty?
+    return "-" if grades.empty?
     return grades[0] if grades.size === 1
     sorted_grades = student_assignments.map(&:grade_numeric).compact.sort
     median = (sorted_grades[(sorted_grades.length - 1) / 2] + sorted_grades[sorted_grades.length / 2]) / 2.0
