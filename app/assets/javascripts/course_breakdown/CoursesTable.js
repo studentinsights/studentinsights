@@ -4,12 +4,6 @@ import {Table, Column, AutoSizer} from 'react-virtualized';
 
 export default class CoursesTable extends React.Component {
 
-  coursesWithData(filteredCoursesWithBreakdown) {
-    filteredCoursesWithBreakdown.filter(course => {
-      Object.keys(course) > 3;
-    });
-  }
-
   describeColumns(options = {}) {
     const numericCellWidth = 100;
     const textCellWidth = 200;
@@ -39,15 +33,14 @@ export default class CoursesTable extends React.Component {
         dataKey: column,
         label: label,
         width: 100,
-        cellRenderer: this.renderDemographic(column)
+        cellRenderer: this.renderDemographic.bind(null, column)
       };
     });
   }
 
   render() {
     const {filteredCoursesWithBreakdown} = this.props;
-    const coursesWithData = this.coursesWithData(filteredCoursesWithBreakdown);
-    const columns = this.describeColumns;
+    const columns = this.describeColumns();
     const rowHeight = 40;
 
     return (
@@ -60,8 +53,8 @@ export default class CoursesTable extends React.Component {
               height={height || 768} /* for test, since sizing doesn't work in jsdom */
               headerHeight={rowHeight}
               headerStyle={styles.tableHeaderStyle}
-              rowCount={coursesWithData.length}
-              rowGetter={({index}) => coursesWithData[index]}
+              rowCount={filteredCoursesWithBreakdown.length}
+              rowGetter={({index}) => filteredCoursesWithBreakdown[index]}
               rowHeight={rowHeight}
               rowStyle={{display: 'flex', alignItems: 'center'}}
             >{columns.map(column => <Column key={column.dataKey} {...column} />)}
@@ -78,7 +71,7 @@ export default class CoursesTable extends React.Component {
   }
   renderDemographic(column, {rowData}) {
     const median = `${column.replace('_count','')}_median_grade`;
-    return <span style={{textAlign: 'center'}}>{rowData[column]} | Mean grade: {rowData[median]}</span>;
+    return <span style={{textAlign: 'center'}}>{rowData[column]} | {rowData[median]}</span>;
   }
 }
 

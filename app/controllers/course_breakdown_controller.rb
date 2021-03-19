@@ -144,11 +144,11 @@ class CourseBreakdownController < ApplicationController
     student_gender_proportions = {}
     students = Student.all.active
     students.group_by(&:race).each do |key, value|
-      name = key ? "race_#{key.downcase}_total" : "race_not_specified_total"
+      name = key ? "race_#{key.downcase}_count" : "race_not_specified_count"
       student_race_proportions[name] = value.count
     end
     students.group_by(&:gender).each do |key, value|
-      name = key ? "gender_#{key.downcase}_total" : "gender_not_specified_total"
+      name = key ? "gender_#{key.downcase}_count" : "gender_not_specified_count"
       student_gender_proportions[name] = value.count
     end
     {

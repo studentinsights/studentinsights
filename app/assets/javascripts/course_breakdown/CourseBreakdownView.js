@@ -19,7 +19,8 @@ export default class CourseBreakdownView extends React.Component {
   filteredCoursesWithBreakdown() {
     const {coursesWithBreakdown} = this.props;
     const {year} = this.state;
-    const filteredCoursesWithBreakdown = coursesWithBreakdown.map(course => {
+    const filteredCourses = coursesWithBreakdown.filter(course => Object.keys(course.course_year_data).includes(year));
+    const filteredCoursesWithBreakdown = filteredCourses.map(course => {
       const course_fields = {
         course_name: course.course_name,
         is_honors: course.is_honors,
@@ -34,10 +35,9 @@ export default class CourseBreakdownView extends React.Component {
   columnList() {
     const {checkedRace, checkedGender} = this.state;
     const {studentProportions} = this.props;
-    const permentantColumns = ["course_name", "total_students"];
-    const raceColumns = checkedRace ? Object.keys(studentProportions.race) : []
-    const genderColumns = checkedGender ? Object.keys(studentProportions.gender) : []
-    return permentantColumns.concat(raceColumns, genderColumns);
+    const raceColumns = checkedRace ? Object.keys(studentProportions.race) : [];
+    const genderColumns = checkedGender ? Object.keys(studentProportions.gender) : [];
+    return raceColumns.concat(genderColumns);
   }
 
   yearList() {
@@ -111,7 +111,6 @@ export default class CourseBreakdownView extends React.Component {
   }
 
   renderTable() {
-    console.log(this.props.studentProportions);
     const filteredCoursesWithBreakdown = this.filteredCoursesWithBreakdown();
     const columnList = this.columnList();
     const {year} = this.state;
