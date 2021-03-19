@@ -4,7 +4,6 @@ import _ from 'lodash';
 import FilterBar from '../components/FilterBar';
 import EscapeListener from '../components/EscapeListener';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
-import {firstDayOfSchool} from '../helpers/schoolYear';
 import CoursesTable from './CoursesTable';
 
 export default class CourseBreakdownView extends React.Component {
@@ -34,9 +33,10 @@ export default class CourseBreakdownView extends React.Component {
 
   columnList() {
     const {checkedRace, checkedGender} = this.state;
+    const {studentProportions} = this.props;
     const permentantColumns = ["course_name", "total_students"];
-    const raceColumns = checkedRace ? ["race_asian_count", "race_black_count", "race_latinx_count", "race_white_count"] : [];
-    const genderColumns = checkedGender ? ["gender_f_count", "gender_m_count"] : [];
+    const raceColumns = checkedRace ? Object.keys(studentProportions.race) : []
+    const genderColumns = checkedGender ? Object.keys(studentProportions.gender) : []
     return permentantColumns.concat(raceColumns, genderColumns);
   }
 
@@ -78,8 +78,9 @@ export default class CourseBreakdownView extends React.Component {
 
     return(
       <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
-        <label style={styles.label}>
+        <label style={styles.checkbox}>
           <input
+            style={{marginRight: 5}}
             type="checkbox"
             name={'Show Race Columns'}
             checked={this.state.checkedRace}
@@ -87,8 +88,9 @@ export default class CourseBreakdownView extends React.Component {
           />
         Show Race Columns
         </label>
-        <label style={styles.label}>
+        <label style={styles.checkbox}>
           <input
+            style={{marginRight: 5}}
             type="checkbox"
             name={'Show Gender Columns'}
             checked={this.state.checkedGender}
@@ -109,14 +111,17 @@ export default class CourseBreakdownView extends React.Component {
   }
 
   renderTable() {
+    console.log(this.props.studentProportions);
     const filteredCoursesWithBreakdown = this.filteredCoursesWithBreakdown();
     const columnList = this.columnList();
     const {year} = this.state;
     return (
-      <CoursesTable
-        filteredCoursesWithBreakdown={filteredCoursesWithBreakdown}
-        columnList={columnList}
-        year={year}/>
+      <div style={{...styles.tableContainer, ...styles.flexVertical}}>
+        <CoursesTable
+          filteredCoursesWithBreakdown={filteredCoursesWithBreakdown}
+          columnList={columnList}
+          year={year}/>
+      </div>
     );
   }
 }
@@ -149,6 +154,10 @@ const styles = {
     padding: 10,
     paddingLeft: 20,
     paddingRight: 10
+  },
+  checkbox: {
+    marginLeft: 10,
+    alignItems: 'center'
   },
   select: {
     width: '8em',

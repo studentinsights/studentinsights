@@ -4,64 +4,50 @@ import {Table, Column, AutoSizer} from 'react-virtualized';
 
 export default class CoursesTable extends React.Component {
 
-  filteredColumns(dataKeys) {
-    const columns = this.describeColumns();
-    return columns.filter(column => dataKeys.includes(column.dataKey));
+  coursesWithData(filteredCoursesWithBreakdown) {
+    filteredCoursesWithBreakdown.filter(course => {
+      Object.keys(course) > 3;
+    });
   }
 
   describeColumns(options = {}) {
-    const gradeCellWidth = 200;
-    const numericCellWidth = 200;
+    const numericCellWidth = 100;
     const textCellWidth = 200;
-    //
-    return [{
+    const {columnList} = this.props;
+
+    const courseNameCell = [{
       dataKey: 'course_name',
       label: 'Course',
       width: textCellWidth,
       // cellRenderer: this.renderCourse
-    },
-    {
-      dataKey: 'race_asian_count',
-      label: 'Asian/Pacific Islander',
-      width: gradeCellWidth,
-      // cellRenderer: this.renderAsianPacificIslander
-    }, {
-      dataKey: 'race_black_count',
-      label: 'Black',
-      width: gradeCellWidth,
-      // cellRenderer: this.renderBlack
-    }, {
-      dataKey: 'race_latinx_count',
-      label: 'Latinx',
-      width: gradeCellWidth,
-      // cellRenderer: this.renderLatinx
-    }, {
-      dataKey: 'race_white_count',
-      label: 'White',
-      width: gradeCellWidth,
-      // cellRenderer: this.renderWhite
-    }, {
-      dataKey: 'gender_f_count',
-      label: 'Female',
-      width: gradeCellWidth,
-      // cellRenderer: this.renderFemale
-    }, {
-      dataKey: 'gender_m_count',
-      label: 'Male',
-      width: gradeCellWidth,
-      // cellRenderer: this.renderMale
-    },
-    {
+    }];
+    const totalCell = [{
       dataKey: 'total_students',
       label: 'Total',
       width: numericCellWidth,
       // cellRenderer: this.renderDefault
     }];
+
+    const variableColumns = this.describeVariableColumns(columnList);
+    return courseNameCell.concat(variableColumns).concat(totalCell);
+  }
+
+  describeVariableColumns(columnList) {
+    return columnList.map(column => {
+      const label = column.replace('_count','').replace('_',' ');
+      return {
+        dataKey: column,
+        label: label,
+        width: 100,
+        cellRenderer: this.renderDemographic(column)
+      };
+    });
   }
 
   render() {
-    const {filteredCoursesWithBreakdown, columnList} = this.props;
-    const columns = this.filteredColumns(columnList);
+    const {filteredCoursesWithBreakdown} = this.props;
+    const coursesWithData = this.coursesWithData(filteredCoursesWithBreakdown);
+    const columns = this.describeColumns;
     const rowHeight = 40;
 
     return (
@@ -74,8 +60,8 @@ export default class CoursesTable extends React.Component {
               height={height || 768} /* for test, since sizing doesn't work in jsdom */
               headerHeight={rowHeight}
               headerStyle={styles.tableHeaderStyle}
-              rowCount={filteredCoursesWithBreakdown.length}
-              rowGetter={({index}) => filteredCoursesWithBreakdown[index]}
+              rowCount={coursesWithData.length}
+              rowGetter={({index}) => coursesWithData[index]}
               rowHeight={rowHeight}
               rowStyle={{display: 'flex', alignItems: 'center'}}
             >{columns.map(column => <Column key={column.dataKey} {...column} />)}
@@ -90,26 +76,9 @@ export default class CoursesTable extends React.Component {
   renderCourse({rowData}) {
     return <span style={{textAlign: 'center'}}>{rowData.course_name}</span>;
   }
-  // renderHouse({rowData}) {
-  //   return <span style={{textAlign: 'center'}}>{rowData.data.house_data.house}</span>;
-  // }
-  renderFemale({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.gender_f_count}</span>;
-  }
-  renderMale({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.gender_m_count}</span>;
-  }
-  renderAsianPacificIslander({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.race_asian_count}</span>;
-  }
-  renderBlack({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.race_black_count}</span>;
-  }
-  renderLatinx({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.race_latinx_count}</span>;
-  }
-  renderWhite({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.race_white_count}</span>;
+  renderDemographic(column, {rowData}) {
+    const median = `${column.replace('_count','')}_median_grade`;
+    return <span style={{textAlign: 'center'}}>{rowData[column]} | Mean grade: {rowData[median]}</span>;
   }
 }
 

@@ -140,17 +140,22 @@ class CourseBreakdownController < ApplicationController
   end
 
   def student_proportions
-    student_proportions = {}
+    student_race_proportions = {}
+    student_gender_proportions = {}
     students = Student.all.active
     students.group_by(&:race).each do |key, value|
       name = key ? "race_#{key.downcase}_total" : "race_not_specified_total"
-      student_proportions[name] = value.count
+      student_race_proportions[name] = value.count
     end
     students.group_by(&:gender).each do |key, value|
       name = key ? "gender_#{key.downcase}_total" : "gender_not_specified_total"
-      student_proportions[name] = value.count
+      student_gender_proportions[name] = value.count
     end
-    {total: students.count}.merge(student_proportions).as_json
+    {
+      total: students.count,
+      race: student_race_proportions,
+      gender: student_gender_proportions
+    }
   end
 
   def ensure_authorized_for_districtwide!
