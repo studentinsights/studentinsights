@@ -6,6 +6,19 @@ import {Table, Column, AutoSizer, SortDirection, SortIndicator} from 'react-virt
 import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {rankedByLetterGrade} from '../helpers/SortHelpers';
+import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
+import {
+  firstMatch,
+  firstMatchWithGrades,
+  ENGLISH_OR_CORE_ELL,
+  MATH,
+  SOCIAL_STUDIES,
+  SCIENCE,
+  CREDIT_RECOVERY,
+  ACADEMIC_SUPPORT,
+  REDIRECT,
+  STUDY_SKILLS
+} from './Courses';
 
 // Render a virtualized table, with information and triggers on the
 // left columns and supports on the right.  Exports the description

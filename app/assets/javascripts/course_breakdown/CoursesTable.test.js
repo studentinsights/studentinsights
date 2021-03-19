@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import renderer from 'react-test-renderer';
-import _ from 'lodash';
 import * as Virtualized from 'react-virtualized';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import unvirtualize from '../testing/unvirtualize';
