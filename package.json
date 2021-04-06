@@ -31,6 +31,7 @@
     "chroma-js": "^2.1.0",
     "csv-stringify": "^5.3.6",
     "d3": "3.5.12",
+    "fsevents": "^2.1.2",
     "highcharts": "^8.1.2",
     "jquery": "^3.5.0",
     "lodash": "^4.17.19",
@@ -53,7 +54,9 @@
     "rollbar": "^2.14.0",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^3.0.0",
-    "wordcloud": "^1.1.0"
+    "wordcloud": "^1.1.0",
+    "xmldom": "0.5.0",
+    "y18n": "4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
