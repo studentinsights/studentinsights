@@ -31,7 +31,6 @@
     "chroma-js": "^2.1.0",
     "csv-stringify": "^5.3.6",
     "d3": "3.5.12",
-    "fsevents": "^2.1.2",
     "highcharts": "^8.1.2",
     "jquery": "^3.5.0",
     "lodash": "^4.17.19",
