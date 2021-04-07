@@ -63,7 +63,7 @@ jobs:
   # Based on Ruby starter action
   # Postgres setup based on https://help.github.com/en/actions/configuring-and-managing-workflows/creating-postgresql-service-containers
   ruby_build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     timeout-minutes: 10
 
     services:
