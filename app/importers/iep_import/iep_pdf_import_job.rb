@@ -105,7 +105,8 @@ class IepPdfImportJob
         log "  unzipping #{zip_basename}..."
         Zip::File.open(zip_file) do |zip_object|
           zip_object.each do |entry|
-            unzipped_pdf_filename = File.join(folder_for_unzipped_files, entry.name)
+            sanitized_name = File.basename(entry.name)
+            unzipped_pdf_filename = File.join(folder_for_unzipped_files, sanitized_name)
             entry.extract(unzipped_pdf_filename)
             unzipped_count_for_file += 1
             pdf_filenames << unzipped_pdf_filename
