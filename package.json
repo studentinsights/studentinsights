@@ -96,6 +96,7 @@
     "auditjs/**/npm-registry-fetch": "^8.1.1",
     "auditjs/**/xmldom": "^0.5.0",
     "acorn": "^7.1.1",
+    "handlebars": "^4.7.7",
     "jest/**/mixin-deep": "^2.0.1",
     "jest/**/set-value": "^3.0.1",
     "kind-of": "^6.0.3",
@@ -110,6 +111,7 @@
     "serialize-javascript": "^3.1.0",
     "@storybook/react/**/lodash-es": "^4.17.15",
     "@storybook/react/**/immer": "^8.0.1",
+    "ua-parser-js": "^0.7.24",
     "yargs": "^15.3.1"
   }
 }
