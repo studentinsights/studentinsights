@@ -32,6 +32,7 @@
     "csv-stringify": "^5.3.6",
     "d3": "3.5.12",
     "highcharts": "^9.0.0",
+    "hosted-git-info": "^2.8.9",
     "jquery": "^3.5.0",
     "lodash": "^4.17.21",
     "lunr": "^2.3.6",
