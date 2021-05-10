@@ -40,11 +40,6 @@ describe Admin::EducatorsController do
 
     def make_request(params)
       request.env['HTTPS'] = 'on'
-      puts ""
-      puts "here are the params"
-      puts params
-      puts ""
-      puts ""
       post :update, params: params
     end
 
@@ -68,11 +63,8 @@ describe Admin::EducatorsController do
 
       it 'succeeds' do
         sign_in(admin)
-        puts "did the admin sign in"
         make_request(params)
-        puts "made the request"
         educator.reload
-        puts "did the realod"
         expect(educator.schoolwide_access).to eq(true)
         expect(educator.grade_level_access).to match_array(["1", "2"])
       end
