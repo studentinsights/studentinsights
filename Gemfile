@@ -9,13 +9,13 @@ ruby '2.6.6'
 gem 'bootsnap', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.0.3.6'
+gem 'rails', '6.0.3.7'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
 
 # rails plugins or patches
-gem 'administrate', '~> 0.13.0'
+gem 'administrate', '~> 0.16.0'
 gem 'authtrail'
 gem 'devise', '~> 4.7.1'
 gem 'factory_bot_rails' # seeding (for demo site in production)
