@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const common = require('./webpack.common.js');
 const {merge} = require('webpack-merge');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const {ManifestPlugin} = require('webpack-manifest-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
