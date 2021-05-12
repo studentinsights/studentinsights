@@ -116,7 +116,7 @@
     "@storybook/react/**/lodash-es": "^4.17.15",
     "@storybook/react/**/immer": "^8.0.1",
     "@storybook/**/ssri": "^8.0.1",
-    "@storybook/**/webpack/**/ssri": "^6.0.2",
+    "ssri": "^6.0.2",
     "ua-parser-js": "^0.7.24",
     "yargs": "^15.3.1"
   }
