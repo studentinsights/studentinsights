@@ -61,6 +61,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@storybook/addon-actions": "6.1.9",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "6.1.9",
     "auditjs": "^3.2.4",
     "babel-eslint": "^10.0.2",
@@ -113,6 +114,7 @@
     "npm/**/ssri": "^8.0.1",
     "prismjs": "^1.21.0",
     "serialize-javascript": "^3.1.0",
+    "@storybook/**/postcss": "^8.2.10",
     "@storybook/react/**/lodash-es": "^4.17.15",
     "@storybook/react/**/immer": "^8.0.1",
     "@storybook/**/ssri": "^8.0.1",
