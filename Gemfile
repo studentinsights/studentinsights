@@ -7,7 +7,7 @@ ruby '2.6.6'
 
 # build, deploy
 gem 'bootsnap', require: false
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.5'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'rails', '6.0.3.7'
 gem 'sprockets'
