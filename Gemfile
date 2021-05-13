@@ -7,6 +7,7 @@ ruby '2.6.6'
 
 # build, deploy
 gem 'bootsnap', require: false
+gem 'execjs', '~>2.7.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'rails', '6.0.3.7'
