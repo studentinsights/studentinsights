@@ -115,6 +115,7 @@
     "prismjs": "^1.21.0",
     "serialize-javascript": "^3.1.0",
     "@storybook/**/postcss": "^8.2.10",
+    "@storybook/react/**/browserslist": "^4.16.5",
     "@storybook/react/**/lodash-es": "^4.17.15",
     "@storybook/react/**/immer": "^8.0.1",
     "@storybook/**/ssri": "^8.0.1",
