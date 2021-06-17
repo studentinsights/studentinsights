@@ -45,9 +45,6 @@ jobs:
         yarn yarn-checks-cli
         yarn lockfile-lint-cli
 
-    - name: Audits
-      run: yarn audits-cli
-
     - name: Lint
       run: yarn lint-cli
 
@@ -58,6 +55,9 @@ jobs:
 
     - name: Storybook
       run: yarn storybook-cli
+
+    - name: Audits
+      run: yarn audits-cli
 
 
   # Based on Ruby starter action
