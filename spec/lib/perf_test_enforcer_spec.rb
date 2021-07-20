@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe PerfTestEnforcer do
-  
+
   describe "run all tests" do
     let!(:pals) { TestPals.create! }
     it "executes all listed checks" do
