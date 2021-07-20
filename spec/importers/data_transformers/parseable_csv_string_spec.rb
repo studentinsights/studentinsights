@@ -9,8 +9,7 @@ RSpec.describe ParseableCsvString do
   def parse(parseable_string)
     rows = []
     CSV.new(parseable_string, {
-      header_converters: :symbol,
-      encoding: 'binary:UTF-8'
+      header_converters: :symbol
     }).each.with_index do |row, index|
       rows << row
     end
