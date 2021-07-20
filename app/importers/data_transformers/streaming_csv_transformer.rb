@@ -40,7 +40,6 @@ class StreamingCsvTransformer
     csv_options = {
       headers: @headers,
       header_converters: :symbol,
-      encoding: 'binary:UTF-8',
       converters: lambda { |h| nil_converter(h) }
     }.merge(@csv_options)
     CSV.new(@csv_string, csv_options).each.with_index do |row, index|

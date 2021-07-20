@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.6.6'
+ruby '2.7.3'
 
 # forced patches
 # (none)
@@ -40,7 +40,7 @@ gem 'nokogiri', '~> 1.11.4' # https://github.com/sparklemotion/nokogiri/issues/1
 gem 'openssl'
 gem 'pg'
 gem 'puma', '~> 4.3.8'
-gem 'rollbar'
+gem 'rollbar', '~> 2.27.1'
 gem 'twilio-ruby'
 
 ### standalone libraries

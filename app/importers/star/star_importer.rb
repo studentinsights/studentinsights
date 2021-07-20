@@ -24,7 +24,7 @@ class StarImporter
     Zip::File.open(downloaded_zip) do |zipfile|
       log("\nImporting #{@remote_file_name}...")
 
-      data_string = zipfile.read(@remote_file_name).encode('UTF-8', 'binary', {
+      data_string = zipfile.read(@remote_file_name).encode('UTF-8', 'binary', **{
         invalid: :replace,
         undef: :replace,
         replace: ''
