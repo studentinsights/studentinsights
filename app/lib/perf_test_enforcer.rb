@@ -17,7 +17,7 @@ class PerfTestEnforcer
   end
 
   def run_all_tests(percentage)
-    perf_tester = PerfTester.new
+    perf_tester = PerfTester.new(log: @log)
     all_checks = {}
     all_checks["absences_dashboard"] = perf_tester.absences_dashboard(percentage)["all_for_educator"]
     all_checks["levels_shs"] = perf_tester.levels_shs(percentage)["all_for_educator"]
