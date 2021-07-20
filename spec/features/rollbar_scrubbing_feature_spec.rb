@@ -91,7 +91,6 @@ describe 'Rollbar scrubs properly', type: :feature do
       feature_sign_in(educator)
       _, rollbar_json = visit_test_page
       expect(rollbar_json.keys).to contain_exactly(*[
-        'access_token',
         'data'
       ])
       expect(rollbar_json['data'].keys).to contain_exactly(*[

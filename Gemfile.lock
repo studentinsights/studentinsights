@@ -319,7 +319,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     retriable (3.1.2)
-    rollbar (2.24.0)
+    rollbar (2.27.1)
     rotp (5.1.0)
       addressable (~> 2.5)
     rqrcode (1.1.2)
@@ -458,7 +458,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_best_practices
   rbnacl (~> 7.1.1)
-  rollbar
+  rollbar (~> 2.27.1)
   rotp
   rqrcode
   rspec-rails (~> 4.0.0.beta3)
