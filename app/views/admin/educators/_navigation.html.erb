@@ -13,7 +13,7 @@ as defined by the routes in the `admin/` namespace
       <% next unless resource.name == :educators %>
       <%= link_to(
         display_resource_name(resource),
-        [namespace, resource.path],
+        resource_index_route(resource),
         class: "navigation__link navigation__link--#{nav_link_state(resource)}"
       ) %>
     <% end %>
