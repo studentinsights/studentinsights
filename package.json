@@ -64,7 +64,7 @@
     "@storybook/addon-actions": "6.1.9",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "6.1.9",
-    "auditjs": "^3.2.4",
+    "auditjs": "^4.0.28",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.5",
@@ -94,11 +94,6 @@
     "webpack-merge": "^4.1.0"
   },
   "resolutions": {
-    "auditjs/**/bin-links": "^1.1.7",
-    "auditjs/**/dot-prop": "^5.1.1",
-    "auditjs/**/npm": "^6.14.6",
-    "auditjs/**/npm-registry-fetch": "^8.1.1",
-    "auditjs/**/xmldom": "^0.5.0",
     "acorn": "^7.1.1",
     "css-what": ">=5.0.1",
     "eslint-plugin-compat/**/browserslist": "^4.16.5",
