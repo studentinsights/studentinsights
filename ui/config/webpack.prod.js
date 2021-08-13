@@ -26,7 +26,6 @@ module.exports = merge(common, {
       dangerouslyAllowCleanPatternsOutsideProject: true,
       cleanOnceBeforeBuildPatterns: path.join(process.cwd(), '../../public/build')
     }),
-    new webpack.HashedModuleIdsPlugin(),
     new WebpackManifestPlugin({fileName: 'manifest.json' }),
     new CompressionPlugin({
       filename: '[path].gz[query]'
@@ -34,6 +33,7 @@ module.exports = merge(common, {
   ],
 
   optimization: {
+    moduleIds: 'deterministic',
     minimizer: [
       new TerserPlugin({
         terserOptions: {
