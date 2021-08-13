@@ -40,7 +40,7 @@ module.exports = merge(common, {
           // This config is to preserve React components' names from
           // being compiled away, so we can see them in Rollbar alerts.
           keep_classnames: true,
-          kep_fnames: true
+          keep_fnames: true
         }
       })
     ]
