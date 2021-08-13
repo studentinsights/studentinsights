@@ -28,7 +28,7 @@ module.exports = merge(common, {
     }),
     new WebpackManifestPlugin({fileName: 'manifest.json' }),
     new CompressionPlugin({
-      filename: '[path].gz[query]'
+      filename: '[path][base].gz'
     })
   ],
 
