@@ -27,7 +27,7 @@
   },
   "heroku-run-build-script": true,
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
+    "@babel/runtime": "^7.15.3",
     "chroma-js": "^2.1.0",
     "csv-stringify": "^5.6.2",
     "d3": "3.5.12",
@@ -61,13 +61,13 @@
     "y18n": "4.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
+    "@babel/core": "^7.15.0",
     "@storybook/addon-actions": "6.1.9",
     "@storybook/react": "6.3.7",
     "auditjs": "^4.0.30",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^25.1.0",
-    "babel-loader": "^8.0.5",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^27.0.6",
+    "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^8.0.1",
