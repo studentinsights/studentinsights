@@ -2864,11 +2864,6 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@xmldom/xmldom@^0.7.2":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.7.4.tgz#93b2f9486c88b6464e97f76c9ab49b0a548fbe57"
-  integrity sha512-wdxC79cvO7PjSM34jATd/RYZuYWQ8y/R7MidZl1NYYlbpFn1+spfjkiR3ZsJfcaTs2IyslBN7VwBBJwrYKM+zw==
-
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
@@ -3339,10 +3334,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-auditjs@^4.0.30:
-  version "4.0.30"
-  resolved "https://registry.yarnpkg.com/auditjs/-/auditjs-4.0.30.tgz#50b6219a788bc5687361e300160d2ac3b59fd8c8"
-  integrity sha512-N4/+1m90nT1BPIuyPzbYRCvTBEdR3xWjIf9w+kkMLqUBtw7y/sWGNmDl00I/Zw+dS/r/kHBmsDoBFtELjDrHig==
+auditjs@4.0.28:
+  version "4.0.28"
+  resolved "https://registry.yarnpkg.com/auditjs/-/auditjs-4.0.28.tgz#f0f66044c0dd775e0ab27e3d7238b2069849369b"
+  integrity sha512-SsyS7fqDvdRLb6YJC8Vpt+RuVMi1CGVCYeP0Jqzc9rb9GIBOH0Wn3izmXrHCIot7i8fCbp/DViWcY9MdeqKW9Q==
   dependencies:
     chalk "^3.0.0"
     colors "^1.3.1"
@@ -3358,7 +3353,7 @@ auditjs@^4.0.30:
     ssri "^8.0.1"
     uuid "^3.3.2"
     xmlbuilder "^13.0.2"
-    xmldom "github:xmldom/xmldom#0.7.0"
+    xmldom "^0.5.0"
     yargs "^16.1.0"
 
 autoprefixer@^9.7.2:
@@ -13530,6 +13525,11 @@ xmlchars@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
+
+xmldom@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.5.0.tgz#193cb96b84aa3486127ea6272c4596354cb4962e"
+  integrity sha512-Foaj5FXVzgn7xFzsKeNIde9g6aFBxTPi37iwsno8QvApmtg7KYrr+OPyRHcJF7dud2a5nGRBXK3n0dL62Gf7PA==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
