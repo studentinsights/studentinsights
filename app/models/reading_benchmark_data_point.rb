@@ -16,7 +16,8 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     'las_links_listening',
     'las_links_reading',
     'las_links_writing',
-    'las_links_overall'
+    'las_links_overall',
+    'other'
   ]
 
   belongs_to :student

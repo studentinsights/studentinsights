@@ -32,6 +32,8 @@ RSpec.describe MegaReadingProcessor do
       pluto, donald = create_students!
       processor = MegaReadingProcessor.new(pals.uri.id, 2018, include_benchmark_grade: true)
       rows, stats = processor.process(fixture_file_text)
+      puts "****************"
+      puts rows
       expect(rows.size).to eq 28
 
       expect(rows.as_json).to contain_exactly(*[

@@ -139,6 +139,13 @@ class MegaReadingProcessor
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, import_column_key = tuple
 
+      if import_column_key === "K / FALL / PSF"
+      puts "*******************"
+      puts row
+      puts import_column_key
+      puts row.has_key?(import_column_key)
+      puts "*******************"
+      end
       # If the key isn't there, skip it silently.  This treats
       # each row as if it were really wide with only some columns present.
       if !row.has_key?(import_column_key)
@@ -148,6 +155,9 @@ class MegaReadingProcessor
       # This isn't necessarily a problem, for many templates there are fields
       # that are filled out as the year progresses.
       data_point = row[import_column_key]
+      puts "******"
+      puts import_column_key
+      puts data_point
       if data_point.nil? || ['?', 'n/a', 'absent', ''].include?(data_point.downcase)
         @blank_data_points_count += 1
         next
@@ -224,6 +234,7 @@ class MegaReadingProcessor
       default_tuple('KF', :winter, :instructional_needs),
       default_tuple('KF', :winter, :f_and_p_english),
       default_tuple('KF', :winter, :f_and_p_spanish),
+      default_tuple('KF', :winter, :other),
       default_tuple('KF', :spring, :dibels_lnf),
       default_tuple('KF', :spring, :dibels_psf),
       default_tuple('KF', :spring, :dibels_nwf_cls),
@@ -233,6 +244,7 @@ class MegaReadingProcessor
       default_tuple('KF', :spring, :f_and_p_spanish),
       default_tuple('KF', :spring, :las_links_speaking),
       default_tuple('KF', :spring, :las_links_listening),
+      default_tuple('KF', :winter, :other),
     ]
   end
 
@@ -383,7 +395,8 @@ class MegaReadingProcessor
       las_links_listening: 'LAS Links Listening',
       las_links_reading: 'LAS Links Reading',
       las_links_writing: 'LAS Links Writing',
-      las_links_overall: 'LAS Links Overall'
+      las_links_overall: 'LAS Links Overall',
+      other: 'Other Assessments'
     }.fetch(benchmark_assessment_key, nil)
     raise "could not find import_key for benchmark_assessment_key:#{benchmark_assessment_key}" if import_key.nil?
     import_key
