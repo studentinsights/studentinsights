@@ -52,7 +52,6 @@
     "react-select": "^1.3.0",
     "react-virtualized": "9.20",
     "rollbar": "^2.14.0",
-    "url-parse": "^1.5.0",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^3.0.0",
     "wordcloud": "^1.1.0",
@@ -63,7 +62,7 @@
     "@storybook/addon-actions": "6.1.9",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "6.1.9",
-    "auditjs": "^4.0.28",
+    "auditjs": "^4.0.30",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.5",
@@ -108,6 +107,7 @@
     "minimist": "^1.2.3",
     "node-fetch": "^2.6.1",
     "node-gyp/**/tar": "^4.4.15",
+    "path-parse": "^1.0.7",
     "prismjs": "^1.21.0",
     "serialize-javascript": "^3.1.0",
     "@storybook/**/postcss": "^8.2.10",
@@ -119,6 +119,7 @@
     "ssri": "^6.0.2",
     "tar": "^6.1.11",
     "ua-parser-js": "^0.7.24",
+    "url-parse": "^1.5.2",
     "yargs": "^15.3.1"
   }
 }
