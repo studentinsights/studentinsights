@@ -59,7 +59,7 @@
     "y18n": "4.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/core": "^7.15.4",
     "@storybook/addon-actions": "6.3.7",
     "@storybook/react": "6.3.7",
     "auditjs": "^4.0.30",
