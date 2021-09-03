@@ -47,6 +47,7 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
       },
       stackLabels: {
         enabled: true,
+        useHTML: true,
         style: {
           fontWeight: 'bold',
           color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
