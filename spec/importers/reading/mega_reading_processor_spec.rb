@@ -32,13 +32,10 @@ RSpec.describe MegaReadingProcessor do
       pluto, donald = create_students!
       processor = MegaReadingProcessor.new(pals.uri.id, 2018, include_benchmark_grade: true)
       rows, stats = processor.process(fixture_file_text)
-      puts "****************"
-      puts rows
-      expect(rows.size).to eq 28
+      expect(rows.size).to eq 22
 
       expect(rows.as_json).to contain_exactly(*[
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"fall", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "1" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_fsf", "json"=>{"value" => "25" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "18" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_psf", "json"=>{"value" => "9" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"f_and_p_english", "json"=>{"value" => "AA" }},
@@ -49,11 +46,8 @@ RSpec.describe MegaReadingProcessor do
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"dibels_nwf_wwr", "json"=>{"value" => "0" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"f_and_p_english", "json"=>{"value" => "AA" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"f_and_p_spanish", "json"=>{"value" => "AA" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_speaking", "json"=>{"value" => "1" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => pluto.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_listening", "json"=>{"value" => "1" }},
 
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"fall", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "5" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_fsf", "json"=>{"value" => "26" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_lnf", "json"=>{"value" => "19" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"dibels_psf", "json"=>{"value" => "10" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"winter", "benchmark_assessment_key"=>"f_and_p_english", "json"=>{"value" => "A" }},
@@ -63,13 +57,11 @@ RSpec.describe MegaReadingProcessor do
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"dibels_nwf_cls", "json"=>{"value" => "26" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"dibels_nwf_wwr", "json"=>{"value" => "1" }},
         {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"f_and_p_english", "json"=>{"value" => "A" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"f_and_p_spanish", "json"=>{"value" => "A" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_speaking", "json"=>{"value" => "2" }},
-        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"las_links_listening", "json"=>{"value" => "2" }}
+        {"educator_id" => pals.uri.id, "benchmark_school_year" => 2018, "student_id" => donald.id, "benchmark_grade"=>"KF", "benchmark_period_key"=>"spring", "benchmark_assessment_key"=>"f_and_p_spanish", "json"=>{"value" => "A" }}
       ])
       expect(stats).to eq({
-        :valid_rows_count => 28,
-        :valid_data_points_count => 28,
+        :valid_rows_count => 22,
+        :valid_data_points_count => 22,
         :valid_student_names_count => 2,
         :blank_student_name_count => 0,
         :invalid_student_name_count => 0,
@@ -117,7 +109,8 @@ RSpec.describe MegaReadingProcessor do
         :dibels_dorf_errors,
         :las_links_reading,
         :las_links_writing,
-        :las_links_overall
+        :las_links_overall,
+        :other
       ])
       expect(tuples.map {|t| t[3].split(' / ').last }.uniq).to contain_exactly(*[
         "FSF",
@@ -135,7 +128,8 @@ RSpec.describe MegaReadingProcessor do
         "LAS Links Writing",
         "LAS Links Overall",
         "LAS Links Reading",
-        "LAS Links Speaking"
+        "LAS Links Speaking",
+        "Other Assessments"
       ])
     end
   end

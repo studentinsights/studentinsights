@@ -140,11 +140,6 @@ class MegaReadingProcessor
       grade, assessment_period, assessment_key, import_column_key = tuple
 
       if import_column_key === "K / FALL / PSF"
-      puts "*******************"
-      puts row
-      puts import_column_key
-      puts row.has_key?(import_column_key)
-      puts "*******************"
       end
       # If the key isn't there, skip it silently.  This treats
       # each row as if it were really wide with only some columns present.
@@ -155,9 +150,6 @@ class MegaReadingProcessor
       # This isn't necessarily a problem, for many templates there are fields
       # that are filled out as the year progresses.
       data_point = row[import_column_key]
-      puts "******"
-      puts import_column_key
-      puts data_point
       if data_point.nil? || ['?', 'n/a', 'absent', ''].include?(data_point.downcase)
         @blank_data_points_count += 1
         next
