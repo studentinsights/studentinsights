@@ -384,6 +384,7 @@ class MegaReadingProcessor
       dibels_lnf: 'LNF',
       dibels_psf: 'PSF',
       instructional_needs: 'Instructional needs',
+      other: "Other Assessments",
       f_and_p_english: 'F&P Level English',
       f_and_p_spanish: 'F&P Level Spanish',
       dibels_dorf_wpm: 'DORF WPM',
@@ -391,11 +392,7 @@ class MegaReadingProcessor
       dibels_dorf_errors: 'DORF Errors',
       dibels_nwf_cls: 'NWF CLS',
       dibels_nwf_wwr: 'NWF WWR',
-      las_links_speaking: 'LAS Links Speaking',
-      las_links_listening: 'LAS Links Listening',
-      las_links_reading: 'LAS Links Reading',
-      las_links_writing: 'LAS Links Writing',
-      las_links_overall: 'LAS Links Overall',
+      dibels_wrf: 'WRF',
       other: 'Other Assessments'
     }.fetch(benchmark_assessment_key, nil)
     raise "could not find import_key for benchmark_assessment_key:#{benchmark_assessment_key}" if import_key.nil?
