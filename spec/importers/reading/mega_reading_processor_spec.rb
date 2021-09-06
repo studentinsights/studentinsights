@@ -102,14 +102,10 @@ RSpec.describe MegaReadingProcessor do
         :f_and_p_spanish,
         :dibels_nwf_cls,
         :dibels_nwf_wwr,
-        :las_links_speaking,
-        :las_links_listening,
         :dibels_dorf_wpm,
         :dibels_dorf_acc,
         :dibels_dorf_errors,
-        :las_links_reading,
-        :las_links_writing,
-        :las_links_overall,
+        :dibels_wrf,
         :other
       ])
       expect(tuples.map {|t| t[3].split(' / ').last }.uniq).to contain_exactly(*[
@@ -124,12 +120,8 @@ RSpec.describe MegaReadingProcessor do
         "DORF ACC",
         "DORF Errors",
         "DORF WPM",
-        "LAS Links Listening",
-        "LAS Links Writing",
-        "LAS Links Overall",
-        "LAS Links Reading",
-        "LAS Links Speaking",
-        "Other Assessments"
+        "Other Assessments",
+        "WRF"
       ])
     end
   end

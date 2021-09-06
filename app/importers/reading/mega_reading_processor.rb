@@ -233,8 +233,6 @@ class MegaReadingProcessor
       default_tuple('KF', :spring, :instructional_needs),
       default_tuple('KF', :spring, :f_and_p_english),
       default_tuple('KF', :spring, :f_and_p_spanish),
-      default_tuple('KF', :spring, :las_links_speaking),
-      default_tuple('KF', :spring, :las_links_listening),
       default_tuple('KF', :winter, :other),
     ]
   end
