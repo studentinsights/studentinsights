@@ -15,9 +15,11 @@ class ReadingValidator
       when :dibels_dorf_wpm then positive_integer_within(key, value, 0, 500)
       when :dibels_dorf_errors then positive_integer_within(key, value, 0, 100)
       when :dibels_dorf_acc then percentage_as_integer(key, value)
+      when :dibels_wrf then positive_integer_within(key, value, 0, 100)
       when :f_and_p_english then f_and_p_level_strict(key, value)
       when :f_and_p_spanish then f_and_p_level_strict(key, value)
       when :instructional_needs then nil
+      when :other then nil
       when :las_links_speaking then positive_integer_within(key, value, 1, 6)
       when :las_links_listening then positive_integer_within(key, value, 1, 6)
       when :las_links_reading then positive_integer_within(key, value, 1, 6)
