@@ -269,11 +269,6 @@ class MegaReadingProcessor
       default_tuple('1', :spring, :instructional_needs),
       default_tuple('1', :spring, :f_and_p_english),
       default_tuple('1', :spring, :f_and_p_spanish),
-      default_tuple('1', :spring, :las_links_speaking),
-      default_tuple('1', :spring, :las_links_listening),
-      default_tuple('1', :spring, :las_links_reading),
-      default_tuple('1', :spring, :las_links_writing),
-      default_tuple('1', :spring, :las_links_overall),
       default_tuple('1', :spring, :other),
     ]
   end
@@ -282,68 +277,73 @@ class MegaReadingProcessor
     [
       default_tuple('2', :fall, :dibels_nwf_cls),
       default_tuple('2', :fall, :dibels_nwf_wwr),
+      default_tuple('2', :fall, :dibels_wrf),
       default_tuple('2', :fall, :dibels_dorf_wpm),
       default_tuple('2', :fall, :dibels_dorf_acc),
       default_tuple('2', :fall, :dibels_dorf_errors),
       default_tuple('2', :fall, :instructional_needs),
       default_tuple('2', :fall, :f_and_p_english),
       default_tuple('2', :fall, :f_and_p_spanish),
+      default_tuple('2', :fall, :other),
+      default_tuple('2', :winter, :dibels_wrf),
       default_tuple('2', :winter, :dibels_dorf_wpm),
       default_tuple('2', :winter, :dibels_dorf_acc),
       default_tuple('2', :winter, :dibels_dorf_errors),
       default_tuple('2', :winter, :instructional_needs),
       default_tuple('2', :winter, :f_and_p_english),
       default_tuple('2', :winter, :f_and_p_spanish),
+      default_tuple('2', :winter, :other),
+      default_tuple('2', :spring, :dibels_wrf),
       default_tuple('2', :spring, :dibels_dorf_wpm),
       default_tuple('2', :spring, :dibels_dorf_acc),
       default_tuple('2', :spring, :dibels_dorf_errors),
       default_tuple('2', :spring, :instructional_needs),
       default_tuple('2', :spring, :f_and_p_english),
       default_tuple('2', :spring, :f_and_p_spanish),
-      default_tuple('2', :spring, :las_links_speaking),
-      default_tuple('2', :spring, :las_links_listening),
-      default_tuple('2', :spring, :las_links_reading),
-      default_tuple('2', :spring, :las_links_writing),
-      default_tuple('2', :spring, :las_links_overall)
+      default_tuple('2', :spring, :other),
     ]
   end
 
   def tuples_for_third()
     [
+      default_tuple('3', :fall, :dibels_wrf),
       default_tuple('3', :fall, :dibels_dorf_wpm),
       default_tuple('3', :fall, :dibels_dorf_acc),
       default_tuple('3', :fall, :dibels_dorf_errors),
       default_tuple('3', :fall, :instructional_needs),
       default_tuple('3', :fall, :f_and_p_english),
       default_tuple('3', :fall, :f_and_p_spanish),
+      default_tuple('3', :fall, :other),
+      default_tuple('3', :winter, :dibels_wrf),
       default_tuple('3', :winter, :dibels_dorf_wpm),
       default_tuple('3', :winter, :dibels_dorf_acc),
       default_tuple('3', :winter, :dibels_dorf_errors),
       default_tuple('3', :winter, :instructional_needs),
       default_tuple('3', :winter, :f_and_p_english),
       default_tuple('3', :winter, :f_and_p_spanish),
+      default_tuple('3', :winter, :other),
+      default_tuple('3', :spring, :dibels_wrf),
       default_tuple('3', :spring, :dibels_dorf_wpm),
       default_tuple('3', :spring, :dibels_dorf_acc),
       default_tuple('3', :spring, :dibels_dorf_errors),
       default_tuple('3', :spring, :instructional_needs),
       default_tuple('3', :spring, :f_and_p_english),
       default_tuple('3', :spring, :f_and_p_spanish),
-      default_tuple('3', :spring, :las_links_speaking),
-      default_tuple('3', :spring, :las_links_listening),
-      default_tuple('3', :spring, :las_links_reading),
-      default_tuple('3', :spring, :las_links_writing),
-      default_tuple('3', :spring, :las_links_overall)
+      default_tuple('3', :spring, :other),
     ]
   end
 
   def tuples_for_fourth()
     [
+      default_tuple('4', :fall, :other),
       default_tuple('4', :fall, :instructional_needs),
       default_tuple('4', :fall, :f_and_p_english),
       default_tuple('4', :fall, :f_and_p_spanish),
+      default_tuple('4', :winter, :other),
       default_tuple('4', :winter, :instructional_needs),
       default_tuple('4', :winter, :f_and_p_english),
       default_tuple('4', :winter, :f_and_p_spanish),
+      default_tuple('4', :spring, :other),
       default_tuple('4', :spring, :instructional_needs),
       default_tuple('4', :spring, :f_and_p_english),
       default_tuple('4', :spring, :f_and_p_spanish)
@@ -352,12 +352,15 @@ class MegaReadingProcessor
 
   def tuples_for_fifth()
     [
+      default_tuple('5', :fall, :other),
       default_tuple('5', :fall, :instructional_needs),
       default_tuple('5', :fall, :f_and_p_english),
       default_tuple('5', :fall, :f_and_p_spanish),
+      default_tuple('5', :winter, :other),
       default_tuple('5', :winter, :instructional_needs),
       default_tuple('5', :winter, :f_and_p_english),
       default_tuple('5', :winter, :f_and_p_spanish),
+      default_tuple('5', :winter, :other),
       default_tuple('5', :spring, :instructional_needs),
       default_tuple('5', :spring, :f_and_p_english),
       default_tuple('5', :spring, :f_and_p_spanish)
