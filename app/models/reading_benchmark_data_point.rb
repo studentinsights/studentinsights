@@ -6,6 +6,7 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     'dibels_psf',
     'dibels_nwf_cls',
     'dibels_nwf_wwr',
+    'dibels_wrf',
     'dibels_dorf_wpm',
     'dibels_dorf_errors',
     'dibels_dorf_acc',
