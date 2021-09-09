@@ -139,8 +139,6 @@ class MegaReadingProcessor
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, import_column_key = tuple
 
-      if import_column_key === "K / FALL / PSF"
-      end
       # If the key isn't there, skip it silently.  This treats
       # each row as if it were really wide with only some columns present.
       if !row.has_key?(import_column_key)
