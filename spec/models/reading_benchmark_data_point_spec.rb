@@ -11,7 +11,7 @@ RSpec.describe ReadingBenchmarkDataPoint do
       expect(ReadingBenchmarkDataPoint.benchmark_period_key_at(DateTime.new(2019, 4, 30))).to eq :winter
       expect(ReadingBenchmarkDataPoint.benchmark_period_key_at(DateTime.new(2019, 5, 1))).to eq :spring
       expect(ReadingBenchmarkDataPoint.benchmark_period_key_at(DateTime.new(2019, 7, 1))).to eq :summer
-    end 
+    end
   end
 
   describe '#doc_for' do
