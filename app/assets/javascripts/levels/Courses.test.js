@@ -12,7 +12,7 @@ function testAssignments() {
     { grade_letter: 'B-', section: { course_description: 'ESL' } },
     { grade_letter: 'B+', section: { course_description: 'ESL - Semester SS' } },
     { grade_letter: 'A-', section: { course_description: 'SAFE - Pre-Algebra' } },
-    { grade_letter: 'B', section: { course_description: 'CHEMISTRY HONORS' } }
+    { grade_letter: 'B', section: { course_description: 'CHEMISTRY HONORS' } },
   ];
 }
 it('#firstMatchWithGrades', () => {

@@ -92,7 +92,8 @@ export const MATH = [
   'PRECALCULUS',
   'STATISTICS',
   'CALCULUS',
-  'DATA ANALYSIS'
+  'DATA ANALYSIS',
+  'QUANTITATIVE REASONING'
 ];
 
 export const SCIENCE = [
