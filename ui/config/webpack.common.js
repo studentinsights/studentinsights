@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 module.exports = {
+  target: ['web', 'es5'],
   entry: {
     bundle: ['./ui/polyfills.js', './ui/index.js'], // force polyfills to be first
     student_report_pdf: './ui/student_report_pdf.js',
