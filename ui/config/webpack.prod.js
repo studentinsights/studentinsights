@@ -16,7 +16,8 @@ module.exports = merge(common, {
   // See application.html.erb and Webpack#bundle
   output: {
     filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, '../../public/build')
+    path: path.resolve(__dirname, '../../public/build'),
+    publicPath: '', //Output files are relative to the html page. Without this it adds an 'auto' prefix to the bundles and the app can't locate them.
   },
 
   plugins: [
