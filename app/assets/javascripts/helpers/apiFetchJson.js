@@ -12,8 +12,25 @@ export function apiFetch(url, options = {}) {
 }
 
 
+// Return JSON either way, but fail the Promise on
+// an unexpected status code.  This is optimized for
+// the happy path.
+//
+// Requests can fail because authorization expires (eg,
+// open the laptop hours later, click a link before the probe
+// check runs).
+const ACCEPTABLE_STATUS_CODES = [200, 201];
+function parseJson(response) {
+  return response.json().then(json => {
+    if (ACCEPTABLE_STATUS_CODES.indexOf(response.status) === -1) {
+      return Promise.reject(json);
+    }
+    return json;
+  });
+}
+
 export function apiFetchJson(url) {
-  return apiFetch(url).then(response => response.json());
+  return apiFetch(url).then(parseJson);
 }
 
 // This relies on a Rails CSRF token being rendered on the page
