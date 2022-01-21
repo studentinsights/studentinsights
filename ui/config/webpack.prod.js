@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
 const path = require('path');
-const webpack = require('webpack');
 const common = require('./webpack.common.js');
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -17,7 +16,8 @@ module.exports = merge(common, {
   // See application.html.erb and Webpack#bundle
   output: {
     filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, '../../public/build')
+    path: path.resolve(__dirname, '../../public/build'),
+    publicPath: '', //Output files are relative to the html page. Without this it adds an 'auto' prefix to the bundles and the app can't locate them.
   },
 
   plugins: [
@@ -26,21 +26,21 @@ module.exports = merge(common, {
       dangerouslyAllowCleanPatternsOutsideProject: true,
       cleanOnceBeforeBuildPatterns: path.join(process.cwd(), '../../public/build')
     }),
-    new webpack.HashedModuleIdsPlugin(),
-    new ManifestPlugin({fileName: 'manifest.json' }),
+    new WebpackManifestPlugin({fileName: 'manifest.json' }),
     new CompressionPlugin({
-      filename: '[path].gz[query]'
+      filename: '[path][base].gz[query]'
     })
   ],
 
   optimization: {
+    moduleIds: 'deterministic',
     minimizer: [
       new TerserPlugin({
         terserOptions: {
           // This config is to preserve React components' names from
           // being compiled away, so we can see them in Rollbar alerts.
           keep_classnames: true,
-          kep_fnames: true
+          keep_fnames: true
         }
       })
     ]
