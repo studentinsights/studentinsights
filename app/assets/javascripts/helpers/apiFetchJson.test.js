@@ -42,7 +42,7 @@ it('#apiFetchJson parses non-20x responses, rejecting Promise', done => {
   });
 
   apiFetchJson('/test-url', { queryFoo: 'bar' }).catch(json => {
-    expect(fetchMock.calls()).toEqual([[
+    expect(fetchMock.calls()).toEqual(JSON.stringify([[
       '/test-url',
       {
         "credentials": "same-origin",
@@ -51,7 +51,7 @@ it('#apiFetchJson parses non-20x responses, rejecting Promise', done => {
         },
         "method": "GET"
       }
-    ]]);
+    ]]));
     expect(json).toEqual({json_error: 'msg'});
     done();
   });
