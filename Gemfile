@@ -10,7 +10,7 @@ gem 'bootsnap', require: false
 gem 'execjs', '~>2.7.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.0.4.1'
+gem 'rails', '6.0.4.6'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
@@ -39,7 +39,7 @@ gem 'net-ssh'
 gem 'nokogiri', '~> 1.12.5' # https://github.com/sparklemotion/nokogiri/issues/1943
 gem 'openssl'
 gem 'pg'
-gem 'puma', '~> 4.3.9'
+gem 'puma', '~> 4.3.11'
 gem 'rollbar', '~> 2.27.1'
 gem 'twilio-ruby'
 

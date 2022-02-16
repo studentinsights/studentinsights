@@ -2,7 +2,7 @@
   "name": "studentinsights",
   "version": "0.1.0",
   "engines": {
-    "node": "^14.15.0"
+    "node": "^16.13.2"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
     "lodash": "^4.17.21",
     "lunr": "^2.3.6",
     "moment": "2.19.3",
-    "npm": "^7.21.1",
+    "npm": "^7.24.2",
     "object-hash": "^2.0.1",
     "percentile": "^1.2.0",
     "query-string": "^5",
@@ -62,7 +62,7 @@
     "@babel/core": "^7.14.3",
     "@storybook/addon-actions": "6.1.9",
     "@storybook/react": "^6.4.0-beta.26",
-    "auditjs": "4.0.31",
+    "auditjs": "4.0.36",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.5",
@@ -95,9 +95,11 @@
     "ansi-regex": "^5.0.1",
     "css-what": ">=5.0.1",
     "glob-parent": "^5.1.2",
+    "node-fetch": "^2.6.7",
     "path-parse": "^1.0.7",
     "prismjs": "^1.24.0",
     "@storybook/react/**/browserslist": "^4.16.5",
+    "@storybook/react/**/postcss": "^8.2.13",
     "@storybook/react/**/lodash-es": "^4.17.15",
     "@storybook/react/**/immer": "^9.0.6",
     "@storybook/react/**/nth-check": "^2.0.1",
