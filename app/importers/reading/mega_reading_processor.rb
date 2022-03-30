@@ -388,8 +388,7 @@ class MegaReadingProcessor
       dibels_dorf_errors: 'DORF Errors',
       dibels_nwf_cls: 'NWF CLS',
       dibels_nwf_wwr: 'NWF WWR',
-      dibels_wrf: 'WRF',
-      other: 'Other Assessments'
+      dibels_wrf: 'WRF'
     }.fetch(benchmark_assessment_key, nil)
     raise "could not find import_key for benchmark_assessment_key:#{benchmark_assessment_key}" if import_key.nil?
     import_key
