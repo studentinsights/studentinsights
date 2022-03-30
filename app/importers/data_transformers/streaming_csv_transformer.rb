@@ -4,7 +4,7 @@ require 'csv'
 #   the Transformer interface {transform}
 #   our ad-hoc CSV data interface {each_with_index}
 class StreamingCsvTransformer
-  NIL_CODE = '\N'
+  NIL_CODE = 'NULL'
 
   # Sugar for the common "just give me parsed rows" use case
   # Note that this uses different options that the default.
