@@ -37,7 +37,7 @@
     "jquery": "^3.5.0",
     "lodash": "^4.17.21",
     "lunr": "^2.3.6",
-    "moment": "2.19.3",
+    "moment": "2.29.2",
     "npm": "^7.24.2",
     "object-hash": "^2.0.1",
     "percentile": "^1.2.0",
