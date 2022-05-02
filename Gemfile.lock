@@ -478,7 +478,7 @@ DEPENDENCIES
   zxcvbn-js
 
 RUBY VERSION
-   ruby 2.7.4p191
+   ruby 2.7.6p219
 
 BUNDLED WITH
    2.1.4
