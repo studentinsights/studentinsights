@@ -10,7 +10,7 @@ gem 'bootsnap', require: false
 gem 'execjs', '~>2.7.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.0.4.8'
+gem 'rails', '6.0.5.1'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
