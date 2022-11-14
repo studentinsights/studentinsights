@@ -61,8 +61,8 @@
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@storybook/addon-actions": "6.1.9",
-    "@storybook/react": "^6.5.10",
-    "auditjs": "4.0.36",
+    "@storybook/react": "^6.5.13",
+    "auditjs": "4.0.39",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.5",
@@ -95,6 +95,7 @@
     "ansi-regex": "^5.0.1",
     "css-what": ">=5.0.1",
     "glob-parent": "^5.1.2",
+    "minimatch": "^5.1.0",
     "node-fetch": "^2.6.7",
     "path-parse": "^1.0.7",
     "prismjs": "^1.24.0",
