@@ -132,7 +132,7 @@
   }
 
   .SignInPage-email {
-    margin-top: 35px;
+    margin-top: 50px;
   }
 
   .SignInPage-links {
@@ -142,17 +142,15 @@
     margin-top: 5px;
   }
 
-  .SignInPage-change-coming {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .SignInPage-password-managers {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
 
-    & > div {
-      padding: 10px;
-      background: #94e38f66;
-      border-radius: 3px;
-      margin-bottom: 20px;
+    & > a {
+      font-size: 12px;
+      color: #666;
+      text-decoration: underline;
     }
   }
 }

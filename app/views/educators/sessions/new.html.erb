@@ -41,6 +41,11 @@
             'data-disable' => true, # rails-ujs
           }) %>
         </div>
+        <div class="SignInPage-password-managers">
+          Protect your district login with 
+          <a href="https://www.lastpass.com/" target="_blank" rel="noopener noreferrer">LastPass</a> or
+          <a href="https://1password.com/" target="_blank" rel="noopener noreferrer">1Password</a>
+        </div>
         <div class="SignInPage-login-buttons">
           <%= submit_tag('Sign in', {
             class: "btn btn-primary SignInPage-login-button",
@@ -60,6 +65,7 @@
           </div>
         </div>
       <% end %>
+      
       <div class="SignInPage-email">
         <p>Need help? <a href="mailto:help@studentinsights.org">help@studentinsights.org</a></p>
       </div> 
