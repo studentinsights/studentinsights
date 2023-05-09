@@ -8,7 +8,7 @@ exports[`snapshots view 1`] = `
     Varsity Competitive Cheerleading
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -24,7 +24,7 @@ exports[`snapshots view 1`] = `
     Varsity Cross Country
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -40,7 +40,7 @@ exports[`snapshots view 1`] = `
     Varsity Cross Country
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -56,7 +56,7 @@ exports[`snapshots view 1`] = `
     Varsity Football
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -72,7 +72,7 @@ exports[`snapshots view 1`] = `
     Varsity Golf
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -88,7 +88,7 @@ exports[`snapshots view 1`] = `
     Freshman Soccer
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -104,7 +104,7 @@ exports[`snapshots view 1`] = `
     JV Soccer
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -120,7 +120,7 @@ exports[`snapshots view 1`] = `
     Varsity Soccer
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -136,7 +136,7 @@ exports[`snapshots view 1`] = `
     JV Soccer
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -152,7 +152,7 @@ exports[`snapshots view 1`] = `
     Varsity Soccer
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -168,7 +168,7 @@ exports[`snapshots view 1`] = `
     Freshman Volleyball
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -184,7 +184,7 @@ exports[`snapshots view 1`] = `
     JV Volleyball
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }
@@ -200,7 +200,7 @@ exports[`snapshots view 1`] = `
     Varsity Volleyball
     <span
       style={
-        Object {
+        {
           "cursor": "default",
           "paddingLeft": 5,
         }

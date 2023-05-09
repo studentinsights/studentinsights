@@ -3,7 +3,7 @@
 exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
 <div
   style={
-    Object {
+    {
       "padding": 10,
     }
   }
@@ -11,7 +11,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -19,7 +19,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -30,7 +30,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         className="School"
         href="/schools/9"
         style={
-          Object {
+          {
             "fontSize": 24,
             "fontWeight": 300,
           }
@@ -42,7 +42,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
   </div>
   <table
     style={
-      Object {
+      {
         "border": "1px solid #eee",
         "borderCollapse": "collapse",
         "margin": 10,
@@ -53,7 +53,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
       <tr>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -67,7 +67,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -81,7 +81,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -95,7 +95,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -109,7 +109,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -123,7 +123,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -141,7 +141,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -155,7 +155,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -167,7 +167,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="Section"
             href="/sections/3"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -181,7 +181,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="Section"
             href="/sections/4"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -194,7 +194,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -206,7 +206,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -218,7 +218,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -232,7 +232,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -244,7 +244,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="School"
             href="/schools/9"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -256,7 +256,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -270,7 +270,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -282,7 +282,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="Section"
             href="/sections/2"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -296,7 +296,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="Section"
             href="/sections/1"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -309,7 +309,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -321,7 +321,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -337,7 +337,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -351,7 +351,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -363,7 +363,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="School"
             href="/schools/9"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -375,7 +375,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -389,7 +389,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -401,7 +401,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="Section"
             href="/sections/5"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -415,7 +415,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="Section"
             href="/sections/6"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }
@@ -428,7 +428,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -440,7 +440,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -452,7 +452,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "right",
@@ -466,7 +466,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -478,7 +478,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             className="School"
             href="/schools/9"
             style={
-              Object {
+              {
                 "display": "block",
               }
             }

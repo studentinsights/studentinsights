@@ -7,7 +7,7 @@ exports[`snapshots 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginTop": 20,
         }
       }
@@ -50,7 +50,7 @@ exports[`snapshots 1`] = `
           <div
             className="Select-input"
             style={
-              Object {
+              {
                 "display": "inline-block",
               }
             }
@@ -66,7 +66,7 @@ exports[`snapshots 1`] = `
               required={false}
               role="combobox"
               style={
-                Object {
+                {
                   "boxSizing": "content-box",
                   "width": "5px",
                 }
@@ -75,7 +75,7 @@ exports[`snapshots 1`] = `
             />
             <div
               style={
-                Object {
+                {
                   "height": 0,
                   "left": 0,
                   "overflow": "scroll",
@@ -102,7 +102,7 @@ exports[`snapshots 1`] = `
           <span
             className="Select-clear"
             dangerouslySetInnerHTML={
-              Object {
+              {
                 "__html": "&times;",
               }
             }
@@ -123,7 +123,7 @@ exports[`snapshots 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginTop": 20,
         }
       }
@@ -166,7 +166,7 @@ exports[`snapshots 1`] = `
           <div
             className="Select-input"
             style={
-              Object {
+              {
                 "display": "inline-block",
               }
             }
@@ -182,7 +182,7 @@ exports[`snapshots 1`] = `
               required={false}
               role="combobox"
               style={
-                Object {
+                {
                   "boxSizing": "content-box",
                   "width": "5px",
                 }
@@ -191,7 +191,7 @@ exports[`snapshots 1`] = `
             />
             <div
               style={
-                Object {
+                {
                   "height": 0,
                   "left": 0,
                   "overflow": "scroll",
@@ -218,7 +218,7 @@ exports[`snapshots 1`] = `
           <span
             className="Select-clear"
             dangerouslySetInnerHTML={
-              Object {
+              {
                 "__html": "&times;",
               }
             }
@@ -239,7 +239,7 @@ exports[`snapshots 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginTop": 20,
         }
       }
@@ -282,7 +282,7 @@ exports[`snapshots 1`] = `
           <div
             className="Select-input"
             style={
-              Object {
+              {
                 "display": "inline-block",
               }
             }
@@ -298,7 +298,7 @@ exports[`snapshots 1`] = `
               required={false}
               role="combobox"
               style={
-                Object {
+                {
                   "boxSizing": "content-box",
                   "width": "5px",
                 }
@@ -307,7 +307,7 @@ exports[`snapshots 1`] = `
             />
             <div
               style={
-                Object {
+                {
                   "height": 0,
                   "left": 0,
                   "overflow": "scroll",
@@ -334,7 +334,7 @@ exports[`snapshots 1`] = `
           <span
             className="Select-clear"
             dangerouslySetInnerHTML={
-              Object {
+              {
                 "__html": "&times;",
               }
             }
@@ -354,7 +354,7 @@ exports[`snapshots 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "marginTop": 20,
       }
     }
@@ -366,12 +366,12 @@ exports[`snapshots 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[MockFunction]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,
@@ -398,7 +398,7 @@ exports[`snapshots when not isEditable 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginTop": 20,
         }
       }
@@ -448,7 +448,7 @@ exports[`snapshots when not isEditable 1`] = `
             onFocus={[Function]}
             role="combobox"
             style={
-              Object {
+              {
                 "border": 0,
                 "display": "inline-block",
                 "width": 1,
@@ -472,7 +472,7 @@ exports[`snapshots when not isEditable 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginTop": 20,
         }
       }
@@ -522,7 +522,7 @@ exports[`snapshots when not isEditable 1`] = `
             onFocus={[Function]}
             role="combobox"
             style={
-              Object {
+              {
                 "border": 0,
                 "display": "inline-block",
                 "width": 1,
@@ -546,7 +546,7 @@ exports[`snapshots when not isEditable 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginTop": 20,
         }
       }
@@ -596,7 +596,7 @@ exports[`snapshots when not isEditable 1`] = `
             onFocus={[Function]}
             role="combobox"
             style={
-              Object {
+              {
                 "border": 0,
                 "display": "inline-block",
                 "width": 1,
@@ -619,7 +619,7 @@ exports[`snapshots when not isEditable 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "marginTop": 20,
       }
     }
@@ -631,12 +631,12 @@ exports[`snapshots when not isEditable 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[MockFunction]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,

@@ -3,7 +3,7 @@
 exports[`snapshots view 1`] = `
 <div
   style={
-    Object {
+    {
       "display": "inline",
       "marginLeft": 10,
     }
@@ -13,7 +13,7 @@ exports[`snapshots view 1`] = `
     href="#"
     onClick={[Function]}
     style={
-      Object {
+      {
         "display": "flex",
         "fontSize": 12,
         "outline": "none",
@@ -24,7 +24,7 @@ exports[`snapshots view 1`] = `
       className="LightHelpBubble-question-mark"
       height={20}
       style={
-        Object {
+        {
           "fill": "#ddd",
         }
       }

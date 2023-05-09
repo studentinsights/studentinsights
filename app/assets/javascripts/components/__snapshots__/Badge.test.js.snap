@@ -4,7 +4,7 @@ exports[`snapshots view 1`] = `
 <span
   className="Badge"
   style={
-    Object {
+    {
       "backgroundColor": "black",
       "color": "white",
       "opacity": 0.5,

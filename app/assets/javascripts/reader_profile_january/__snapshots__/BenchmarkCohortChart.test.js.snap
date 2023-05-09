@@ -8,7 +8,7 @@ exports[`snapshots 1`] = `
     <div
       className="BoxChartContainer"
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
           "fontSize": 12,
@@ -18,14 +18,14 @@ exports[`snapshots 1`] = `
       <div
         className="YearBoxContainer"
         style={
-          Object {
+          {
             "flex": 1,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flexDirection": "row",
             }
@@ -33,7 +33,7 @@ exports[`snapshots 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "background": "#f8f8f8",
                 "color": "#666",
@@ -50,7 +50,7 @@ exports[`snapshots 1`] = `
           />
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "background": "#f8f8f8",
                 "color": "#666",
@@ -68,13 +68,13 @@ exports[`snapshots 1`] = `
   0	 students have the same score
   1	 student has a lower score
 
-A score of \\"101\\" is in the 20th percentile"
+A score of "101" is in the 20th percentile"
           >
             20th
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "background": "#f8f8f8",
                 "color": "#666",
@@ -92,14 +92,14 @@ A score of \\"101\\" is in the 20th percentile"
   0	 students have the same score
   2	 students have a lower score
 
-A score of \\"101\\" is in the 40th percentile"
+A score of "101" is in the 40th percentile"
           >
             40th
           </div>
         </div>
         <div
           style={
-            Object {
+            {
               "marginTop": 5,
             }
           }
@@ -110,7 +110,7 @@ A score of \\"101\\" is in the 40th percentile"
       <div
         className="YearBoxContainer"
         style={
-          Object {
+          {
             "flex": 1,
             "paddingLeft": 20,
           }
@@ -118,7 +118,7 @@ A score of \\"101\\" is in the 40th percentile"
       >
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flexDirection": "row",
             }
@@ -126,7 +126,7 @@ A score of \\"101\\" is in the 40th percentile"
         >
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "background": "#f8f8f8",
                 "color": "#666",
@@ -144,13 +144,13 @@ A score of \\"101\\" is in the 40th percentile"
   2	 students have the same score
   2	 students have a lower score
 
-A score of \\"132\\" is in the 60th percentile"
+A score of "132" is in the 60th percentile"
           >
             60th
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "background": "#f8f8f8",
                 "color": "#666",
@@ -168,13 +168,13 @@ A score of \\"132\\" is in the 60th percentile"
   0	 students have the same score
   0	 students have a lower score
 
-A score of \\"132\\" is in the 40th percentile"
+A score of "132" is in the 40th percentile"
           >
             40th
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "background": "#f8f8f8",
                 "color": "#666",
@@ -192,7 +192,7 @@ A score of \\"132\\" is in the 40th percentile"
         </div>
         <div
           style={
-            Object {
+            {
               "marginTop": 5,
             }
           }

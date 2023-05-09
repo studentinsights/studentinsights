@@ -5,7 +5,7 @@ exports[`snapshots 1`] = `
   className="DisciplineScatterPlot"
   id="string"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "padding": 10,
@@ -15,9 +15,9 @@ exports[`snapshots 1`] = `
 >
   <highcharts-wrapper
     chart={
-      Object {
+      {
         "alignTicks": false,
-        "events": Object {
+        "events": {
           "selection": undefined,
         },
         "type": "scatter",
@@ -26,10 +26,10 @@ exports[`snapshots 1`] = `
     }
     credits={false}
     plotOptions={
-      Object {
-        "series": Object {
+      {
+        "series": {
           "animation": false,
-          "marker": Object {
+          "marker": {
             "fillColor": "rgba(124, 181, 236, 0.5)",
             "radius": 12,
           },
@@ -37,10 +37,10 @@ exports[`snapshots 1`] = `
       }
     }
     series={
-      Array [
-        Object {
-          "data": Array [
-            Object {
+      [
+        {
+          "data": [
+            {
               "date": "03/02/2018",
               "type": "ABC",
               "x": 4,
@@ -52,23 +52,23 @@ exports[`snapshots 1`] = `
       ]
     }
     style={
-      Object {
+      {
         "flex": 1,
       }
     }
     title={
-      Object {
+      {
         "text": "Incidents by Day and Time [School Year]",
       }
     }
     tooltip={
-      Object {
+      {
         "formatter": [Function],
       }
     }
     xAxis={
-      Object {
-        "categories": Array [
+      {
+        "categories": [
           "Mon",
           "Tue",
           "Wed",
@@ -84,15 +84,15 @@ exports[`snapshots 1`] = `
       }
     }
     yAxis={
-      Array [
-        Object {
-          "labels": Object {
+      [
+        {
+          "labels": {
             "formatter": [Function],
           },
           "max": 960,
           "min": 420,
-          "plotBands": Array [
-            Object {
+          "plotBands": [
+            {
               "color": "rgba(241, 254, 198, 0.5)",
               "from": 900,
               "to": 960,
@@ -101,13 +101,13 @@ exports[`snapshots 1`] = `
           "reversed": true,
           "showLastLabel": false,
           "tickInterval": 60,
-          "title": Object {
+          "title": {
             "text": "Time of Incident",
           },
         },
-        Object {
+        {
           "gridLineWidth": 0,
-          "labels": Object {
+          "labels": {
             "formatter": [Function],
           },
           "linkedTo": 0,
@@ -115,10 +115,10 @@ exports[`snapshots 1`] = `
           "min": 420,
           "opposite": true,
           "reversed": true,
-          "tickPositions": Array [
+          "tickPositions": [
             930,
           ],
-          "title": Object {
+          "title": {
             "text": undefined,
           },
         },

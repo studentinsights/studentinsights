@@ -3,7 +3,7 @@
 exports[`snapshots 1`] = `
 <div
   style={
-    Object {
+    {
       "color": "black",
       "cursor": "default",
       "display": "inline-block",
@@ -15,14 +15,14 @@ exports[`snapshots 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "width": "100%",
       }
     }
   >
     <div
       style={
-        Object {
+        {
           "backgroundColor": "red",
           "height": "100%",
           "left": "0%",
@@ -33,7 +33,7 @@ exports[`snapshots 1`] = `
     />
     <div
       style={
-        Object {
+        {
           "height": "100%",
           "left": "0%",
           "position": "absolute",
@@ -46,14 +46,14 @@ exports[`snapshots 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "width": "100%",
       }
     }
   >
     <div
       style={
-        Object {
+        {
           "backgroundColor": "orange",
           "height": "100%",
           "left": "69%",
@@ -64,7 +64,7 @@ exports[`snapshots 1`] = `
     />
     <div
       style={
-        Object {
+        {
           "height": "100%",
           "left": "69%",
           "position": "absolute",

@@ -6,7 +6,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "backgroundColor": "#eee",
         "borderBottom": "1px solid #ccc",
         "color": "black",
@@ -19,7 +19,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
     Students missing school
     <div
       style={
-        Object {
+        {
           "display": "inline",
           "marginLeft": 10,
         }
@@ -29,7 +29,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
         href="#"
         onClick={[Function]}
         style={
-          Object {
+          {
             "fontSize": 12,
             "outline": "none",
           }
@@ -37,7 +37,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
       >
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
               "paddingRight": 5,
@@ -52,7 +52,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
   <div
     className="Card "
     style={
-      Object {
+      {
         "border": "none",
         "borderRadius": 3,
         "padding": 10,
@@ -76,7 +76,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "paddingBottom": 10,
           "paddingTop": 10,
         }
@@ -84,7 +84,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "overflow": "hidden",
             "paddingLeft": 10,
             "paddingRight": 10,
@@ -97,7 +97,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
           <a
             href="/students/2?column=attendance#absences"
             style={
-              Object {
+              {
                 "fontWeight": "bold",
               }
             }
@@ -129,7 +129,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
 >
   <div
     style={
-      Object {
+      {
         "backgroundColor": "#eee",
         "borderBottom": "1px solid #ccc",
         "color": "black",
@@ -142,7 +142,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
     Students missing school
     <div
       style={
-        Object {
+        {
           "display": "inline",
           "marginLeft": 10,
         }
@@ -152,7 +152,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
         href="#"
         onClick={[Function]}
         style={
-          Object {
+          {
             "fontSize": 12,
             "outline": "none",
           }
@@ -160,7 +160,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
       >
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
               "paddingRight": 5,
@@ -175,7 +175,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
   <div
     className="Card "
     style={
-      Object {
+      {
         "border": "none",
         "borderRadius": 3,
         "padding": 10,
@@ -198,7 +198,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
     </div>
     <div
       style={
-        Object {
+        {
           "paddingBottom": 10,
           "paddingTop": 10,
         }
@@ -206,7 +206,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
     >
       <div
         style={
-          Object {
+          {
             "overflow": "hidden",
             "paddingLeft": 10,
             "paddingRight": 10,
@@ -219,7 +219,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
           <a
             href="/students/2?column=attendance#absences"
             style={
-              Object {
+              {
                 "fontWeight": "bold",
               }
             }

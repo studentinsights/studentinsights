@@ -7,7 +7,7 @@ exports[`snapshots 1`] = `
   <svg
     height="24"
     style={
-      Object {
+      {
         "cursor": "pointer",
         "fill": "#3177c9",
         "opacity": 0.5,

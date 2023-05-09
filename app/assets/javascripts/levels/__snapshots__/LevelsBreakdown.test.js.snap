@@ -7,7 +7,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "fontSize": 14,
         "margin": 10,
@@ -16,7 +16,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 10,
         }
@@ -24,7 +24,7 @@ exports[`snapshots view 1`] = `
     >
       <h4
         style={
-          Object {
+          {
             "marginBottom": 10,
           }
         }
@@ -40,7 +40,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -61,7 +61,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -82,7 +82,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -103,7 +103,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -124,7 +124,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -139,7 +139,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 10,
         }
@@ -147,7 +147,7 @@ exports[`snapshots view 1`] = `
     >
       <h4
         style={
-          Object {
+          {
             "marginBottom": 10,
           }
         }
@@ -158,7 +158,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 10,
         }
@@ -166,7 +166,7 @@ exports[`snapshots view 1`] = `
     >
       <h4
         style={
-          Object {
+          {
             "marginBottom": 10,
           }
         }
@@ -182,7 +182,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -203,7 +203,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -224,7 +224,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }
@@ -245,7 +245,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 5,
               "marginLeft": 10,
             }

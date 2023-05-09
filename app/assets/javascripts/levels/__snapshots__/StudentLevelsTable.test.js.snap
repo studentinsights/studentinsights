@@ -4,7 +4,7 @@ exports[`snapshots with unvirtualized render 1`] = `
 <div
   className="StudentLevelsTable"
   style={
-    Object {
+    {
       "display": "block",
       "flex": 1,
       "flexDirection": "column",
@@ -77,7 +77,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/3"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -92,7 +92,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -103,7 +103,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -116,7 +116,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -144,7 +144,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/4"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -159,7 +159,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -170,7 +170,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -183,7 +183,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -198,7 +198,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -228,7 +228,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/5"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -243,7 +243,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -254,7 +254,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -267,7 +267,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -295,7 +295,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/24"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -310,7 +310,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -321,7 +321,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -334,7 +334,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -362,7 +362,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/25"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -377,7 +377,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -388,7 +388,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -401,7 +401,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -424,7 +424,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -446,7 +446,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/26"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -461,7 +461,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -472,7 +472,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -485,7 +485,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -508,7 +508,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -530,7 +530,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/29"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -545,7 +545,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -556,7 +556,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -569,7 +569,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -592,7 +592,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -614,7 +614,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/30"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -629,7 +629,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -640,7 +640,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -653,7 +653,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -676,7 +676,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -698,7 +698,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/32"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -713,7 +713,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -724,7 +724,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -737,7 +737,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -760,7 +760,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -782,7 +782,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/33"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -797,7 +797,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -808,7 +808,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -821,7 +821,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -844,7 +844,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -866,7 +866,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/34"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -881,7 +881,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -892,7 +892,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -905,7 +905,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -928,7 +928,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -950,7 +950,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/37"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -965,7 +965,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -976,7 +976,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -989,7 +989,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1012,7 +1012,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1034,7 +1034,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/39"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1049,7 +1049,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1060,7 +1060,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1073,7 +1073,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1101,7 +1101,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/40"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1116,7 +1116,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1127,7 +1127,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1140,7 +1140,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1163,7 +1163,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1185,7 +1185,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/42"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1200,7 +1200,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1211,7 +1211,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1224,7 +1224,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1252,7 +1252,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/43"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1267,7 +1267,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1278,7 +1278,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1291,7 +1291,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1314,7 +1314,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1336,7 +1336,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/44"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1351,7 +1351,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1362,7 +1362,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1375,7 +1375,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1398,7 +1398,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1420,7 +1420,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/46"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1435,7 +1435,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1446,7 +1446,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1459,7 +1459,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1482,7 +1482,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1504,7 +1504,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/47"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1519,7 +1519,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1530,7 +1530,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1543,7 +1543,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1566,7 +1566,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1588,7 +1588,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/48"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1603,7 +1603,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1614,7 +1614,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1627,7 +1627,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1650,7 +1650,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1672,7 +1672,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/50"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1687,7 +1687,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1698,7 +1698,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1711,7 +1711,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1734,7 +1734,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1756,7 +1756,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/101"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1771,7 +1771,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1782,7 +1782,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1795,7 +1795,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1818,7 +1818,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1840,7 +1840,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/70"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1855,7 +1855,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1866,7 +1866,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1879,7 +1879,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1907,7 +1907,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/72"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -1922,7 +1922,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -1933,7 +1933,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1946,7 +1946,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -1969,7 +1969,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -1991,7 +1991,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/73"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2006,7 +2006,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2017,7 +2017,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2030,7 +2030,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2058,7 +2058,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/75"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2073,7 +2073,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2084,7 +2084,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2097,7 +2097,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2120,7 +2120,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2142,7 +2142,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/76"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2157,7 +2157,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2168,7 +2168,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2181,7 +2181,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2204,7 +2204,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2226,7 +2226,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/77"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2241,7 +2241,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2252,7 +2252,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2265,7 +2265,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2288,7 +2288,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2310,7 +2310,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/78"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2325,7 +2325,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2336,7 +2336,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2349,7 +2349,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2372,7 +2372,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2394,7 +2394,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/81"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2409,7 +2409,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2420,7 +2420,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2433,7 +2433,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2456,7 +2456,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2478,7 +2478,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/82"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2493,7 +2493,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2504,7 +2504,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2517,7 +2517,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2540,7 +2540,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2562,7 +2562,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/83"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2577,7 +2577,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2588,7 +2588,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2601,7 +2601,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2629,7 +2629,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/85"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2644,7 +2644,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2655,7 +2655,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2668,7 +2668,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2691,7 +2691,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2713,7 +2713,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/86"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2728,7 +2728,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2739,7 +2739,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2752,7 +2752,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2775,7 +2775,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2797,7 +2797,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/87"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2812,7 +2812,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2823,7 +2823,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2836,7 +2836,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2859,7 +2859,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -2881,7 +2881,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/89"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2896,7 +2896,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2907,7 +2907,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2920,7 +2920,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2948,7 +2948,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/90"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -2963,7 +2963,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -2974,7 +2974,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -2987,7 +2987,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3010,7 +3010,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3032,7 +3032,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/93"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3047,7 +3047,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3058,7 +3058,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3071,7 +3071,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3094,7 +3094,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3116,7 +3116,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/94"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3131,7 +3131,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3142,7 +3142,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3155,7 +3155,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3178,7 +3178,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3200,7 +3200,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/97"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3215,7 +3215,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3226,7 +3226,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3239,7 +3239,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3267,7 +3267,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/98"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3282,7 +3282,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3293,7 +3293,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3306,7 +3306,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3334,7 +3334,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/99"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3349,7 +3349,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3360,7 +3360,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3373,7 +3373,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3396,7 +3396,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3418,7 +3418,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/100"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3433,7 +3433,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3444,7 +3444,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3457,7 +3457,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3485,7 +3485,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/104"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3500,7 +3500,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3511,7 +3511,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3524,7 +3524,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3552,7 +3552,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/105"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3567,7 +3567,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3578,7 +3578,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3591,7 +3591,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3606,7 +3606,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -3631,7 +3631,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3653,7 +3653,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/106"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3668,7 +3668,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3679,7 +3679,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3692,7 +3692,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3707,7 +3707,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "cursor": "default",
                   "display": "inline-block",
                   "padding": 8,
@@ -3730,7 +3730,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3752,7 +3752,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/107"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3767,7 +3767,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3778,7 +3778,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3791,7 +3791,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3806,7 +3806,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -3831,7 +3831,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3853,7 +3853,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/108"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3868,7 +3868,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3879,7 +3879,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3892,7 +3892,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3907,7 +3907,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "cursor": "default",
                   "display": "inline-block",
                   "padding": 8,
@@ -3930,7 +3930,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -3952,7 +3952,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/109"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -3967,7 +3967,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -3978,7 +3978,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -3991,7 +3991,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4006,7 +4006,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -4031,7 +4031,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -4053,7 +4053,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/110"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4068,7 +4068,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4079,7 +4079,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4092,7 +4092,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4107,7 +4107,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -4137,7 +4137,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/111"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4152,7 +4152,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4163,7 +4163,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4176,7 +4176,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4191,7 +4191,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -4216,7 +4216,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -4238,7 +4238,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/112"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4253,7 +4253,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4264,7 +4264,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4277,7 +4277,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4292,7 +4292,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -4322,7 +4322,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/113"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4337,7 +4337,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4348,7 +4348,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4361,7 +4361,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4376,7 +4376,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -4401,7 +4401,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -4423,7 +4423,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/114"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4438,7 +4438,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4449,7 +4449,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4462,7 +4462,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4477,7 +4477,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -4507,7 +4507,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/115"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4522,7 +4522,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4533,7 +4533,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4546,7 +4546,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4561,7 +4561,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -4591,7 +4591,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/116"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4606,7 +4606,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4617,7 +4617,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4630,7 +4630,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4645,7 +4645,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(77, 136, 77, 0.9)",
                   "color": "white",
                   "cursor": "default",
@@ -4670,7 +4670,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -4692,7 +4692,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/117"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4707,7 +4707,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4718,7 +4718,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4731,7 +4731,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4746,7 +4746,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "cursor": "default",
                   "display": "inline-block",
                   "padding": 8,
@@ -4769,7 +4769,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -4791,7 +4791,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/118"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4806,7 +4806,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4817,7 +4817,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4830,7 +4830,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4845,7 +4845,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -4875,7 +4875,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/119"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4890,7 +4890,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -4901,7 +4901,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4914,7 +4914,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -4929,7 +4929,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -4954,7 +4954,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -4976,7 +4976,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/120"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -4991,7 +4991,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5002,7 +5002,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5015,7 +5015,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5030,7 +5030,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -5060,7 +5060,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/121"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5075,7 +5075,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5086,7 +5086,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5099,7 +5099,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5114,7 +5114,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "cursor": "default",
                   "display": "inline-block",
                   "padding": 8,
@@ -5137,7 +5137,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5159,7 +5159,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/27"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5174,7 +5174,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5185,7 +5185,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5198,7 +5198,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5226,7 +5226,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/31"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5241,7 +5241,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5252,7 +5252,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5265,7 +5265,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5293,7 +5293,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/35"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5308,7 +5308,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5319,7 +5319,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5332,7 +5332,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5355,7 +5355,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5377,7 +5377,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/41"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5392,7 +5392,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5403,7 +5403,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5416,7 +5416,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5439,7 +5439,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5461,7 +5461,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/45"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5476,7 +5476,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5487,7 +5487,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5500,7 +5500,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5523,7 +5523,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5545,7 +5545,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/49"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5560,7 +5560,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5571,7 +5571,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5584,7 +5584,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5607,7 +5607,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5629,7 +5629,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/69"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5644,7 +5644,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5655,7 +5655,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5668,7 +5668,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5691,7 +5691,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5713,7 +5713,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/80"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5728,7 +5728,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5739,7 +5739,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5752,7 +5752,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5780,7 +5780,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/84"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5795,7 +5795,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5806,7 +5806,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5819,7 +5819,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5842,7 +5842,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5864,7 +5864,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/88"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5879,7 +5879,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5890,7 +5890,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5903,7 +5903,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5926,7 +5926,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -5948,7 +5948,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/92"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -5963,7 +5963,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -5974,7 +5974,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -5987,7 +5987,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -6015,7 +6015,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/96"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -6030,7 +6030,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -6041,7 +6041,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -6054,7 +6054,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -6077,7 +6077,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -6099,7 +6099,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               href="/students/122"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "fontSize": 14,
                   "fontWeight": "bold",
                 }
@@ -6114,7 +6114,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -6125,7 +6125,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -6138,7 +6138,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -6153,7 +6153,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "cursor": "default",
                   "display": "inline-block",
                   "padding": 8,
@@ -6176,7 +6176,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",

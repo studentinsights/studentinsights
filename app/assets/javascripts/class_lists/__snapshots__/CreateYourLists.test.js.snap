@@ -4,7 +4,7 @@ exports[`snapshots empty, readonly 1`] = `
 <div
   className="CreateYourListsView"
   style={
-    Object {
+    {
       "display": "flex",
       "flexDirection": "column",
       "height": "100%",
@@ -17,7 +17,7 @@ exports[`snapshots empty, readonly 1`] = `
   <div
     onClick={[MockFunction]}
     style={
-      Object {
+      {
         "bottom": -20,
         "cursor": "pointer",
         "left": 0,
@@ -34,7 +34,7 @@ exports[`snapshots empty, readonly 1`] = `
     className="ClassroomStats"
     onKeyPress={[Function]}
     style={
-      Object {
+      {
         "borderBottom": "1px solid #eee",
         "fontSize": 14,
         "padding": 20,
@@ -45,7 +45,7 @@ exports[`snapshots empty, readonly 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "overflow": "hidden",
           "paddingBottom": 5,
           "paddingTop": 10,
@@ -54,7 +54,7 @@ exports[`snapshots empty, readonly 1`] = `
     >
       <table
         style={
-          Object {
+          {
             "borderCollapse": "collapse",
             "tableLayout": "fixed",
             "textAlign": "left",
@@ -66,7 +66,7 @@ exports[`snapshots empty, readonly 1`] = `
           <tr>
             <th
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -77,7 +77,7 @@ exports[`snapshots empty, readonly 1`] = `
             <th
               onClick={[Function]}
               style={
-                Object {
+                {
                   "cursor": "help",
                   "fontWeight": "normal",
                   "overflow": "visible",
@@ -97,7 +97,7 @@ exports[`snapshots empty, readonly 1`] = `
               >
                 <div
                   style={
-                    Object {
+                    {
                       "borderRadius": 3,
                       "bottom": "-10em",
                       "left": -5,
@@ -114,7 +114,7 @@ exports[`snapshots empty, readonly 1`] = `
             <th
               onClick={[Function]}
               style={
-                Object {
+                {
                   "cursor": "help",
                   "fontWeight": "normal",
                   "overflow": "visible",
@@ -134,7 +134,7 @@ exports[`snapshots empty, readonly 1`] = `
               >
                 <div
                   style={
-                    Object {
+                    {
                       "borderRadius": 3,
                       "bottom": "-10em",
                       "left": -5,
@@ -151,7 +151,7 @@ exports[`snapshots empty, readonly 1`] = `
             <th
               onClick={[Function]}
               style={
-                Object {
+                {
                   "cursor": "help",
                   "fontWeight": "normal",
                   "overflow": "visible",
@@ -171,7 +171,7 @@ exports[`snapshots empty, readonly 1`] = `
               >
                 <div
                   style={
-                    Object {
+                    {
                       "borderRadius": 3,
                       "bottom": "-10em",
                       "left": -5,
@@ -188,7 +188,7 @@ exports[`snapshots empty, readonly 1`] = `
             <th
               onClick={[Function]}
               style={
-                Object {
+                {
                   "cursor": "help",
                   "fontWeight": "normal",
                   "overflow": "visible",
@@ -208,7 +208,7 @@ exports[`snapshots empty, readonly 1`] = `
               >
                 <div
                   style={
-                    Object {
+                    {
                       "borderRadius": 3,
                       "bottom": "-10em",
                       "left": -5,
@@ -225,7 +225,7 @@ exports[`snapshots empty, readonly 1`] = `
             <th
               onClick={[Function]}
               style={
-                Object {
+                {
                   "cursor": "help",
                   "fontWeight": "normal",
                   "overflow": "visible",
@@ -261,7 +261,7 @@ shown as purple"
               >
                 <div
                   style={
-                    Object {
+                    {
                       "borderRadius": 3,
                       "bottom": "-10em",
                       "left": -5,
@@ -278,7 +278,7 @@ shown as purple"
             <th
               onClick={[Function]}
               style={
-                Object {
+                {
                   "cursor": "help",
                   "fontWeight": "normal",
                   "overflow": "visible",
@@ -308,7 +308,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "borderRadius": 3,
                       "bottom": "-10em",
                       "left": -5,
@@ -324,7 +324,7 @@ Kindergarten:
             </th>
             <th
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -341,7 +341,7 @@ Kindergarten:
           <tr>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -353,7 +353,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -363,7 +363,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -377,14 +377,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -395,7 +395,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -415,7 +415,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -425,7 +425,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -439,14 +439,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -457,7 +457,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -477,7 +477,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -488,7 +488,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -497,7 +497,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -508,7 +508,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -518,7 +518,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -532,14 +532,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -550,7 +550,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -570,7 +570,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -581,7 +581,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -590,7 +590,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -601,7 +601,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -612,7 +612,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -621,7 +621,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -632,7 +632,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -644,7 +644,7 @@ Kindergarten:
           <tr>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -656,7 +656,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -666,7 +666,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -680,14 +680,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -698,7 +698,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -718,7 +718,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -728,7 +728,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -742,14 +742,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -760,7 +760,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -780,7 +780,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -791,7 +791,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -800,7 +800,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -811,7 +811,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -821,7 +821,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -835,14 +835,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -853,7 +853,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -873,7 +873,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -884,7 +884,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -893,7 +893,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -904,7 +904,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -915,7 +915,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -924,7 +924,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -935,7 +935,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -947,7 +947,7 @@ Kindergarten:
           <tr>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -959,7 +959,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -969,7 +969,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -983,14 +983,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -1001,7 +1001,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -1021,7 +1021,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -1031,7 +1031,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -1045,14 +1045,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -1063,7 +1063,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -1083,7 +1083,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -1094,7 +1094,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -1103,7 +1103,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -1114,7 +1114,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -1124,7 +1124,7 @@ Kindergarten:
             >
               <div
                 style={
-                  Object {
+                  {
                     "color": "black",
                     "cursor": "default",
                     "display": "inline-block",
@@ -1138,14 +1138,14 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "width": "100%",
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "backgroundColor": "rgb(137, 175, 202)",
                         "height": 3,
                         "left": "0%",
@@ -1156,7 +1156,7 @@ Kindergarten:
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "flex-end",
                         "display": "flex",
                         "fontSize": 12,
@@ -1176,7 +1176,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -1187,7 +1187,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -1196,7 +1196,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -1207,7 +1207,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -1218,7 +1218,7 @@ Kindergarten:
               <div
                 className="BreakdownBar"
                 style={
-                  Object {
+                  {
                     "height": 5,
                     "paddingRight": 10,
                     "paddingTop": 4,
@@ -1227,7 +1227,7 @@ Kindergarten:
               >
                 <div
                   style={
-                    Object {
+                    {
                       "height": 5,
                       "position": "relative",
                       "width": "100%",
@@ -1238,7 +1238,7 @@ Kindergarten:
             </td>
             <td
               style={
-                Object {
+                {
                   "fontWeight": "normal",
                   "overflow": "hidden",
                   "textAlign": "left",
@@ -1253,7 +1253,7 @@ Kindergarten:
   </div>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flex": 1,
       }
@@ -1261,7 +1261,7 @@ Kindergarten:
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -1274,7 +1274,7 @@ Kindergarten:
       <div>
         <div
           style={
-            Object {
+            {
               "background": "#aaa",
               "border": "1px solid #aaa",
               "borderBottom": 0,
@@ -1288,7 +1288,7 @@ Kindergarten:
         >
           <span
             style={
-              Object {
+              {
                 "fontWeight": "bold",
               }
             }
@@ -1298,7 +1298,7 @@ Kindergarten:
           <span
             onClick={[Function]}
             style={
-              Object {
+              {
                 "color": "#666",
                 "cursor": "pointer",
                 "fontSize": 12,
@@ -1310,7 +1310,7 @@ Kindergarten:
           </span>
           <span
             style={
-              Object {
+              {
                 "color": "#666",
                 "float": "right",
                 "fontSize": 12,
@@ -1325,14 +1325,14 @@ Kindergarten:
       </div>
       <div
         style={
-          Object {
+          {
             "flex": 1,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "height": 0,
               "overflow": "visible",
             }
@@ -1340,7 +1340,7 @@ Kindergarten:
         >
           <div
             style={
-              Object {
+              {
                 "background": "#eee",
                 "border": "1px solid #ccc",
                 "borderRadius": 3,
@@ -1361,7 +1361,7 @@ Kindergarten:
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -1374,7 +1374,7 @@ Kindergarten:
       <div>
         <div
           style={
-            Object {
+            {
               "background": "#aaa",
               "border": "1px solid #aaa",
               "borderBottom": 0,
@@ -1388,7 +1388,7 @@ Kindergarten:
         >
           <span
             style={
-              Object {
+              {
                 "fontWeight": "bold",
               }
             }
@@ -1398,7 +1398,7 @@ Kindergarten:
           <span
             onClick={[Function]}
             style={
-              Object {
+              {
                 "color": "#666",
                 "cursor": "pointer",
                 "fontSize": 12,
@@ -1410,7 +1410,7 @@ Kindergarten:
           </span>
           <span
             style={
-              Object {
+              {
                 "color": "#666",
                 "float": "right",
                 "fontSize": 12,
@@ -1425,14 +1425,14 @@ Kindergarten:
       </div>
       <div
         style={
-          Object {
+          {
             "flex": 1,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "height": 0,
               "overflow": "visible",
             }
@@ -1440,7 +1440,7 @@ Kindergarten:
         >
           <div
             style={
-              Object {
+              {
                 "background": "#eee",
                 "border": "1px solid #ccc",
                 "borderRadius": 3,
@@ -1461,7 +1461,7 @@ Kindergarten:
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -1474,7 +1474,7 @@ Kindergarten:
       <div>
         <div
           style={
-            Object {
+            {
               "background": "#aaa",
               "border": "1px solid #aaa",
               "borderBottom": 0,
@@ -1488,7 +1488,7 @@ Kindergarten:
         >
           <span
             style={
-              Object {
+              {
                 "fontWeight": "bold",
               }
             }
@@ -1498,7 +1498,7 @@ Kindergarten:
           <span
             onClick={[Function]}
             style={
-              Object {
+              {
                 "color": "#666",
                 "cursor": "pointer",
                 "fontSize": 12,
@@ -1510,7 +1510,7 @@ Kindergarten:
           </span>
           <span
             style={
-              Object {
+              {
                 "color": "#666",
                 "float": "right",
                 "fontSize": 12,
@@ -1525,14 +1525,14 @@ Kindergarten:
       </div>
       <div
         style={
-          Object {
+          {
             "flex": 1,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "height": 0,
               "overflow": "visible",
             }
@@ -1540,7 +1540,7 @@ Kindergarten:
         >
           <div
             style={
-              Object {
+              {
                 "background": "#eee",
                 "border": "1px solid #ccc",
                 "borderRadius": 3,
@@ -1561,7 +1561,7 @@ Kindergarten:
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -1574,7 +1574,7 @@ Kindergarten:
       <div>
         <div
           style={
-            Object {
+            {
               "background": "#aaa",
               "border": "1px solid #aaa",
               "borderBottom": 0,
@@ -1588,7 +1588,7 @@ Kindergarten:
         >
           <span
             style={
-              Object {
+              {
                 "fontWeight": "bold",
               }
             }
@@ -1598,7 +1598,7 @@ Kindergarten:
           <span
             onClick={[Function]}
             style={
-              Object {
+              {
                 "color": "#666",
                 "cursor": "pointer",
                 "fontSize": 12,
@@ -1610,7 +1610,7 @@ Kindergarten:
           </span>
           <span
             style={
-              Object {
+              {
                 "color": "#666",
                 "float": "right",
                 "fontSize": 12,
@@ -1625,14 +1625,14 @@ Kindergarten:
       </div>
       <div
         style={
-          Object {
+          {
             "flex": 1,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "height": 0,
               "overflow": "visible",
             }
@@ -1640,7 +1640,7 @@ Kindergarten:
         >
           <div
             style={
-              Object {
+              {
                 "background": "#eee",
                 "border": "1px solid #ccc",
                 "borderRadius": 3,

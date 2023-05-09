@@ -4,14 +4,14 @@ exports[`snapshots 1`] = `
 <div
   className="BreakdownBar"
   style={
-    Object {
+    {
       "height": 50,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "height": 50,
         "position": "relative",
         "width": "100%",
@@ -21,7 +21,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "rgba(0,128,0,0.5)",
             "height": 50,
             "left": "0%",
@@ -34,7 +34,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "rgba(0,128,0,0.5)",
             "left": "0%",
             "paddingRight": 1,
@@ -51,7 +51,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "rgba(255,140,0,0.6)",
             "height": 50,
             "left": "59%",
@@ -64,7 +64,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "rgba(255,140,0,0.6)",
             "left": "59%",
             "paddingRight": 1,
@@ -81,7 +81,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "rgba(255,0,0,0.5)",
             "height": 50,
             "left": "84%",
@@ -94,7 +94,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "rgba(255,0,0,0.5)",
             "left": "84%",
             "paddingRight": 1,
@@ -116,14 +116,14 @@ exports[`snapshots when isFlipped 1`] = `
 <div
   className="BreakdownBar"
   style={
-    Object {
+    {
       "height": 50,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "height": 50,
         "position": "relative",
         "width": "100%",
@@ -133,7 +133,7 @@ exports[`snapshots when isFlipped 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "rgba(255,0,0,0.5)",
             "height": 50,
             "left": "0%",
@@ -146,7 +146,7 @@ exports[`snapshots when isFlipped 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "rgba(255,0,0,0.5)",
             "left": "0%",
             "paddingRight": 1,
@@ -163,7 +163,7 @@ exports[`snapshots when isFlipped 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "rgba(255,140,0,0.6)",
             "height": 50,
             "left": "17%",
@@ -176,7 +176,7 @@ exports[`snapshots when isFlipped 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "rgba(255,140,0,0.6)",
             "left": "17%",
             "paddingRight": 1,
@@ -193,7 +193,7 @@ exports[`snapshots when isFlipped 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "rgba(0,128,0,0.5)",
             "height": 50,
             "left": "42%",
@@ -206,7 +206,7 @@ exports[`snapshots when isFlipped 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "rgba(0,128,0,0.5)",
             "left": "42%",
             "paddingRight": 1,

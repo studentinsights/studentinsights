@@ -8,7 +8,7 @@ exports[`snapshots matches defaults 1`] = `
     className="roster-table"
     id="roster-table"
     style={
-      Object {
+      {
         "width": "100%",
       }
     }
@@ -69,7 +69,7 @@ exports[`snapshots matches defaults 1`] = `
     >
       <tr
         style={
-          Object {
+          {
             "backgroundColor": "#FFFFFF",
           }
         }
@@ -102,7 +102,7 @@ exports[`snapshots matches defaults 1`] = `
       </tr>
       <tr
         style={
-          Object {
+          {
             "backgroundColor": "#F7F7F7",
           }
         }
@@ -148,7 +148,7 @@ exports[`snapshots matches includeGrade: false 1`] = `
     className="roster-table"
     id="roster-table"
     style={
-      Object {
+      {
         "width": "100%",
       }
     }
@@ -203,7 +203,7 @@ exports[`snapshots matches includeGrade: false 1`] = `
     >
       <tr
         style={
-          Object {
+          {
             "backgroundColor": "#FFFFFF",
           }
         }
@@ -233,7 +233,7 @@ exports[`snapshots matches includeGrade: false 1`] = `
       </tr>
       <tr
         style={
-          Object {
+          {
             "backgroundColor": "#F7F7F7",
           }
         }
@@ -276,7 +276,7 @@ exports[`snapshots matches when no linkableSections 1`] = `
     className="roster-table"
     id="roster-table"
     style={
-      Object {
+      {
         "width": "100%",
       }
     }
@@ -337,7 +337,7 @@ exports[`snapshots matches when no linkableSections 1`] = `
     >
       <tr
         style={
-          Object {
+          {
             "backgroundColor": "#FFFFFF",
           }
         }
@@ -370,7 +370,7 @@ exports[`snapshots matches when no linkableSections 1`] = `
       </tr>
       <tr
         style={
-          Object {
+          {
             "backgroundColor": "#F7F7F7",
           }
         }

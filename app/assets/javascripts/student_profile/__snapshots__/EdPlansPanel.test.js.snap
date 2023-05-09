@@ -6,7 +6,7 @@ exports[`snapshots 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "backgroundColor": "#f8f8f8",
         "border": "1px solid #ccc",
         "marginBottom": 20,
@@ -16,7 +16,7 @@ exports[`snapshots 1`] = `
   >
     <h2
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -29,7 +29,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "#ccc",
             "paddingLeft": 10,
           }
@@ -42,7 +42,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "paddingTop": 10,
           }
         }
@@ -66,7 +66,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "borderTop": "1px solid #ccc",
             "marginTop": 20,
             "paddingTop": 10,
@@ -75,7 +75,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "marginBottom": 10,
             }
           }
@@ -85,7 +85,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "borderTop": "1px solid #ccc",
             "marginTop": 20,
             "paddingTop": 10,
@@ -97,7 +97,7 @@ exports[`snapshots 1`] = `
         </h6>
         <ul
           style={
-            Object {
+            {
               "listStyleType": "circle",
               "paddingLeft": 15,
             }
@@ -113,7 +113,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "borderTop": "1px solid #ccc",
             "marginTop": 20,
             "paddingTop": 10,
@@ -125,7 +125,7 @@ exports[`snapshots 1`] = `
         </h6>
         <ul
           style={
-            Object {
+            {
               "paddingLeft": 15,
             }
           }
@@ -144,7 +144,7 @@ exports[`snapshots 1`] = `
     href="#"
     onClick={[Function]}
     style={
-      Object {
+      {
         "display": "block",
         "fontSize": 14,
         "marginBottom": 10,

@@ -4,7 +4,7 @@ exports[`snapshots view 1`] = `
 <div
   className="InsightQuote InsightFromStudent "
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -13,7 +13,7 @@ exports[`snapshots view 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flex": 1,
         "margin": 20,
@@ -24,7 +24,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -34,7 +34,7 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -43,7 +43,7 @@ exports[`snapshots view 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "fontSize": 12,
             }
           }
@@ -52,7 +52,7 @@ exports[`snapshots view 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flex": 1,
               "flexDirection": "column",
@@ -72,7 +72,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "alignItems": "flex-end",
         "display": "flex",
         "flexDirection": "row",
@@ -92,7 +92,7 @@ exports[`snapshots view 1`] = `
             href="/students/42"
             rel="noopener noreferrer"
             style={
-              Object {
+              {
                 "fontSize": 12,
               }
             }
