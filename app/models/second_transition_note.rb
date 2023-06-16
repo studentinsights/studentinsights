@@ -30,12 +30,12 @@ class SecondTransitionNote < ApplicationRecord
   # override, ensure that restricted text isn't accidentally serialized
   def as_json(options = {})
     json = super(options)
-    RestrictedTextRedacter.new.redacted_as_json({
+    RestrictedTextRedacter.new.redacted_as_json(
       super_json: json,
       restricted_key: 'restricted_text',
       is_restricted: true,
       as_json_options: options
-    })
+    )
   end
 
   private

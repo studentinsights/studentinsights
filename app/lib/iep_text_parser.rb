@@ -60,11 +60,11 @@ class IepTextParser
   end
 
   def segments
-    PragmaticSegmenter::Segmenter.new({
+    PragmaticSegmenter::Segmenter.new(
       text: cleaned_text,
       language: 'en',
       doc_type: 'pdf'
-    }).segment
+    ).segment
   end
 
   private

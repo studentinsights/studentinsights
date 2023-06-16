@@ -13,12 +13,12 @@ class EventNote < ApplicationRecord
   # override, ensure that restricted text isn't accidentally serialized
   def as_json(options = {})
     json = super(options)
-    RestrictedTextRedacter.new.redacted_as_json({
+    RestrictedTextRedacter.new.redacted_as_json(
       super_json: json,
       restricted_key: 'text',
       is_restricted: self.is_restricted,
       as_json_options: options
-    })
+    )
   end
 
   def latest_revision_at

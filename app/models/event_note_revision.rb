@@ -9,11 +9,11 @@ class EventNoteRevision < ApplicationRecord
   # override
   def as_json(options = {})
     json = super(options)
-    RestrictedTextRedacter.new.redacted_as_json({
+    RestrictedTextRedacter.new.redacted_as_json(
       super_json: json,
       restricted_key: 'text',
       is_restricted: self.event_note.is_restricted,
       as_json_options: options
-    })
+    )
   end
 end

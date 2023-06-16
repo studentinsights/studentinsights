@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.6'
+ruby '3.1.4'
 
 # forced patches
 # (none)
@@ -10,13 +10,13 @@ gem 'bootsnap', require: false
 gem 'execjs', '~>2.7.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.0.5.1'
+gem 'rails', '6.1.7.3'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
 
 # rails plugins or patches
-gem 'administrate', '~> 0.16.0'
+gem 'administrate', '~> 0.17.0'
 gem 'authtrail'
 gem 'devise', '~> 4.7.1'
 gem 'factory_bot_rails' # seeding (for demo site in production)
@@ -32,11 +32,11 @@ gem 'barnes' # heroku language metrics for ruby
 # services
 gem 'aws-sdk-s3', '~> 1'
 gem 'dalli' # memcached for rack::attack
-gem 'google-api-client', "~> 0.28.7"
+gem 'google-api-client'
 gem 'net-ldap'
 gem 'net-sftp'
 gem 'net-ssh'
-gem 'nokogiri', '~> 1.13.9' # https://github.com/sparklemotion/nokogiri/issues/1943
+gem 'nokogiri', '~> 1.14.3'
 gem 'openssl'
 gem 'pg'
 gem 'puma', '~> 4.3.12'
@@ -71,7 +71,7 @@ group :development do
   gem 'bundler-audit'
   gem 'rails_best_practices'
   gem 'ruby_audit'
-  gem 'rubocop', '~> 0.75.0', require: false
+  gem 'rubocop', require: false
 end
 
 # local development or test-only tools

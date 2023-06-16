@@ -34,6 +34,7 @@ RSpec.describe SftpClient do
 
   class MockLstatResponse < Struct.new :data
   end
+
   class MockLstatAttrs < Struct.new :mtime
   end
 

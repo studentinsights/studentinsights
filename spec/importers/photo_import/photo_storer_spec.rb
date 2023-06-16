@@ -30,7 +30,7 @@ RSpec.describe PhotoStorer do
       logger: LogHelper::RailsLogger.new,
       time_now: Time.new(2017, 5, 11)
     }
-    PhotoStorer.new(default_attributes.merge(attributes))
+    PhotoStorer.new(**default_attributes.merge(attributes))
   end
 
   describe '#store_only_new' do

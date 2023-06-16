@@ -47,7 +47,7 @@ StudentProfilePage.propTypes = {
   queryParams: PropTypes.object.isRequired,
   history: PropTypes.shape({
     pushState: PropTypes.func.isRequired,
-    replaceState: PropTypes.func.isRequired.isRequired
+    replaceState: PropTypes.func.isRequired
   }).isRequired
 };
 

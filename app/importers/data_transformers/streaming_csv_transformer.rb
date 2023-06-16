@@ -42,7 +42,7 @@ class StreamingCsvTransformer
       header_converters: :symbol,
       converters: lambda { |h| nil_converter(h) }
     }.merge(@csv_options)
-    CSV.new(@csv_string, csv_options).each.with_index do |row, index|
+    CSV.new(@csv_string, **csv_options).each_with_index do |row, index|
       cleaner = CsvRowCleaner.new(row)
       if cleaner.dirty_data?
         @skipped_dirty_rows_count = @skipped_dirty_rows_count + 1

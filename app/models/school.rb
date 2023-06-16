@@ -16,10 +16,10 @@ class School < ApplicationRecord
   has_many :educators
   has_many :homerooms
 
-  validates :local_id, presence: true, uniqueness: true, case_sensitive: false
+  validates :local_id, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true, uniqueness: true
   validates :school_type, inclusion: { in: ORDERED_SCHOOL_TYPES }
-  validates :slug, presence: true, uniqueness: true, case_sensitive: false
+  validates :slug, presence: true, uniqueness: { case_sensitive: false }
 
   def is_high_school?
     school_type == 'HS'

@@ -8,9 +8,9 @@ RSpec.describe ParseableCsvString do
   # verify we can actually parse without raising
   def parse(parseable_string)
     rows = []
-    CSV.new(parseable_string, {
+    CSV.new(parseable_string, **{
       header_converters: :symbol
-    }).each.with_index do |row, index|
+    }).each_with_index do |row, index|
       rows << row
     end
     rows

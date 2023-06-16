@@ -2,7 +2,7 @@
   "name": "studentinsights",
   "version": "0.1.0",
   "engines": {
-    "node": "^16.13.2"
+    "node": "^18.16.0"
   },
   "repository": {
     "type": "git",
@@ -13,22 +13,21 @@
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
     "test": "yarn jest --watch",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
-    "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook --quiet --ci",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
-    "test-all-cli": "yarn yarn-checks-cli && yarn lint-cli && yarn jest && yarn audits-cli && yarn storybook-cli",
+    "test-all-cli": "yarn yarn-checks-cli && yarn lint-cli && yarn jest && yarn audits-cli",
     "jest": "TZ='America/New_York' jest --config jest.json",
     "lint": "yarn lint-cli; exit 0",
     "lint-cli": "yarn eslint --ext js -c .eslintrc app/assets/javascripts ui",
     "lockfile-lint-cli": "lockfile-lint -t yarn --path yarn.lock --allowed-hosts registry.yarnpkg.com --validate-https",
     "audits-cli": "yarn audit && yarn auditjs-cli",
     "auditjs-cli": "yarn auditjs --package yarn.lock",
-    "storybook-cli": "yarn storybook --smoke-test",
     "yarn-checks-cli": "yarn check --integrity"
   },
   "heroku-run-build-script": true,
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "chroma-js": "^2.1.0",
+    "css-what": ">=5.0.1",
     "csv-stringify": "^5.3.6",
     "d3": "3.5.12",
     "es5-shim": "^4.5.15",
@@ -37,10 +36,13 @@
     "jquery": "^3.5.0",
     "lodash": "^4.17.21",
     "lunr": "^2.3.6",
+    "minimatch": "^5.1.0",
     "moment": "2.29.4",
-    "npm": "^8.11.0",
+    "node-fetch": "^2.6.7",
+    "npm": "^9.7.1",
     "object-hash": "^2.0.1",
     "percentile": "^1.2.0",
+    "prismjs": "^1.24.0",
     "query-string": "^5",
     "react": "~16.8.6",
     "react-app-polyfill": "^1.0.6",
@@ -53,6 +55,7 @@
     "react-select": "^1.3.0",
     "react-virtualized": "9.20",
     "rollbar": "^2.25.0",
+    "tar": "^6.1.11",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^3.0.0",
     "wordcloud": "^1.1.0",
@@ -60,8 +63,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
-    "@storybook/addon-actions": "6.1.9",
-    "@storybook/react": "^6.5.13",
     "auditjs": "4.0.39",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^25.1.0",
@@ -99,15 +100,6 @@
     "node-fetch": "^2.6.7",
     "path-parse": "^1.0.7",
     "prismjs": "^1.24.0",
-    "@storybook/react/**/browserslist": "^4.16.5",
-    "@storybook/react/**/postcss": "^8.2.13",
-    "@storybook/react/**/lodash-es": "^4.17.15",
-    "@storybook/react/**/immer": "^9.0.6",
-    "@storybook/react/**/nth-check": "^2.0.1",
-    "@storybook/react/**/set-value": "^4.0.1",
-    "@storybook/react/**/terser": "^4.8.1",
-    "@storybook/react/**/trim-newlines": "^3.0.1",
-    "@storybook/**/trim": "^0.0.3",
     "tar": "^6.1.11"
   }
 }
