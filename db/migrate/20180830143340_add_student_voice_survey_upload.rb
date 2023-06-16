@@ -30,11 +30,10 @@ class AddStudentVoiceSurveyUpload < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_foreign_key :student_voice_completed_surveys, :students, {
+    add_foreign_key :student_voice_completed_surveys, :students,
       name: 'student_voice_completed_surveys_for_student_id_fk'
-    }
-    add_foreign_key :student_voice_completed_surveys, :student_voice_survey_uploads, {
+
+    add_foreign_key :student_voice_completed_surveys, :student_voice_survey_uploads,
       name: 'student_voice_completed_surveys_for_student_voice_survey_upload'
-    }
   end
 end
