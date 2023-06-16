@@ -13,8 +13,8 @@ class Educator < ApplicationRecord
   has_many    :educator_labels
   has_many    :login_activities, as: :user
 
-  validates :email, presence: true, uniqueness: true, case_sensitive: false
-  validates :login_name, presence: true, uniqueness: true, case_sensitive: false
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :login_name, presence: true, uniqueness: { case_sensitive: false }
 
   validate :validate_admin_gets_access_to_all_students
   validate :validate_grade_level
