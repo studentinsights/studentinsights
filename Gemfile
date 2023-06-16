@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.6'
+ruby '3.1.4'
 
 # forced patches
 # (none)
@@ -32,7 +32,7 @@ gem 'barnes' # heroku language metrics for ruby
 # services
 gem 'aws-sdk-s3', '~> 1'
 gem 'dalli' # memcached for rack::attack
-gem 'google-api-client', "~> 0.28.7"
+gem 'google-api-client'
 gem 'net-ldap'
 gem 'net-sftp'
 gem 'net-ssh'

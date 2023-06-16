@@ -10,10 +10,10 @@ class IepStorer
     end
 
     s3_filename = iep_document.s3_filename
-    object = s3_client.get_object({
+    object = s3_client.get_object(
       key: s3_filename,
       bucket: IepStorer.bucket_name
-    })
+    )
     object.body.read
   end
 

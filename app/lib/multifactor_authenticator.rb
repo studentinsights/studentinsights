@@ -26,7 +26,7 @@ class MultifactorAuthenticator
     # allowing n seconds of drift if the code hasn't been used yet.
     drift_behind = 30 # check tests to see impact of tuning this
     totp = create_totp!
-    verified_password_timestamp = totp.verify(login_code, {
+    verified_password_timestamp = totp.verify(login_code, **{
       after: multifactor_config.last_verification_at,
       drift_behind: drift_behind
     })
