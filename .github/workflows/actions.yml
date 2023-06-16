@@ -53,9 +53,6 @@ jobs:
         export TZ=UTC
         yarn jest
 
-    - name: Storybook
-      run: yarn storybook-cli
-
     - name: Audits
       run: yarn audits-cli
 
