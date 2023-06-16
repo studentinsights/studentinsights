@@ -71,7 +71,7 @@ group :development do
   gem 'bundler-audit'
   gem 'rails_best_practices'
   gem 'ruby_audit'
-  gem 'rubocop', '~> 0.75.0', require: false
+  gem 'rubocop', require: false
 end
 
 # local development or test-only tools
