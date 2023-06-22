@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/studentinsights/wkhtmltopdf_binary_gem.git
-  revision: 940d708fdafa4d7ef6c6338ed7aaf44e8e0157fc
+  remote: https://github.com/edavidsonsawyer/wkhtmltopdf_binary_gem.git
+  revision: ffa697f54b075d02f7974f0512429615f5c9973b
   specs:
-    wkhtmltopdf-binary (0.12.5.4)
+    wkhtmltopdf-binary (0.12.6.6)
 
 GEM
   remote: https://rubygems.org/
