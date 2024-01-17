@@ -68,7 +68,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "auditjs": "4.0.39",
-    "babel-eslint": "^10.0.2",
+    "@babel/eslint-parser": "^7.23.3",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^4.0.0",

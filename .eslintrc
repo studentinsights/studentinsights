@@ -7,7 +7,7 @@
     "$": true,
     "Promise": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "plugins": [
     "react",
     "no-unsanitized"
