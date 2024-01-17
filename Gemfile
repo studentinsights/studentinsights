@@ -87,5 +87,5 @@ group :development, :test do
   gem 'simplecov'
   gem 'spring'
   gem 'timecop'
-  gem 'wkhtml2pdf_binary'
+  gem 'wkhtmltopdf-binary'
 end
