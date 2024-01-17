@@ -17,12 +17,13 @@ class ProfilePdfController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        render(wait_for_js.merge({
+        render({
           pdf: 'student_report',
           title: 'Student Report',
           footer: { center: footer_text_template, font_name: 'Open Sans', font_size: 9},
+          wait_for_js: 10000,
           show_as_html: params.key?('debug')
-        }))
+        })
       end
     end
   end
