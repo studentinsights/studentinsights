@@ -10,7 +10,7 @@ gem 'bootsnap', require: false
 gem 'execjs', '~>2.7.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.1.7.3'
+gem 'rails', '6.1.7.6'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
@@ -39,7 +39,7 @@ gem 'net-ssh'
 gem 'nokogiri', '~> 1.14.3'
 gem 'openssl'
 gem 'pg'
-gem 'puma', '~> 4.3.12'
+gem 'puma', '~> 5.6.8'
 gem 'rollbar', '~> 2.27.1'
 gem 'twilio-ruby'
 
@@ -54,7 +54,7 @@ gem 'zxcvbn-js', require: 'zxcvbn'
 # generating pdfs
 # See https://github.com/zakird/wkhtmltopdf_binary_gem/issues/55#issuecomment-552930066
 # Driven by https://help.heroku.com/KUFMEES1/my-slug-size-is-too-large-how-can-i-make-it-smaller
-gem 'wkhtmltopdf-binary', :git => 'https://github.com/edavidsonsawyer/wkhtmltopdf_binary_gem.git'
+gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy'
 gem 'wicked_pdf'
 
 # text processing (eg, IEP PDFs)
@@ -87,4 +87,5 @@ group :development, :test do
   gem 'simplecov'
   gem 'spring'
   gem 'timecop'
+  gem 'wkhtmltopdf-binary'
 end
