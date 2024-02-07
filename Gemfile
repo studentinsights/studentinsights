@@ -12,7 +12,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'rails', '6.1.7.6'
 gem 'sprockets'
-gem 'thor'
+gem 'thor', '1.2.2'
 gem 'uglifier', '>= 1.3.0'
 
 # rails plugins or patches
