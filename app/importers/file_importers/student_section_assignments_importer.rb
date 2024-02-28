@@ -79,12 +79,12 @@ class StudentSectionAssignmentsImporter
   def download_csv
     client = SftpClient.for_x2
     data_transformer = StreamingCsvTransformer.new(@log)
-    CsvDownloader.new({
+    CsvDownloader.new(
       log: @log,
       remote_file_name: remote_file_name,
       client: client,
       transformer: data_transformer
-    }).get_data
+    ).get_data
   end
 
   def remote_file_name
