@@ -4,14 +4,14 @@ exports[`snapshots 1`] = `
 <div
   className="HorizontalStepper"
   style={
-    Object {
+    {
       "paddingTop": 15,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "fontSize": 12,
@@ -25,7 +25,7 @@ exports[`snapshots 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -39,7 +39,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -47,7 +47,7 @@ exports[`snapshots 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -78,7 +78,7 @@ exports[`snapshots 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -89,7 +89,7 @@ exports[`snapshots 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -103,7 +103,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -111,7 +111,7 @@ exports[`snapshots 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -142,7 +142,7 @@ exports[`snapshots 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -153,7 +153,7 @@ exports[`snapshots 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "backgroundColor": "rgba(49, 119, 201, 0.25)",
             "border": "1px solid white",
             "borderColor": "#3177c9",
@@ -168,7 +168,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -176,7 +176,7 @@ exports[`snapshots 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -207,7 +207,7 @@ exports[`snapshots 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -218,7 +218,7 @@ exports[`snapshots 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -232,7 +232,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -240,7 +240,7 @@ exports[`snapshots 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -271,7 +271,7 @@ exports[`snapshots 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -282,7 +282,7 @@ exports[`snapshots 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -296,7 +296,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -304,7 +304,7 @@ exports[`snapshots 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -335,7 +335,7 @@ exports[`snapshots 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -346,7 +346,7 @@ exports[`snapshots 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -360,7 +360,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -368,7 +368,7 @@ exports[`snapshots 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -399,7 +399,7 @@ exports[`snapshots 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -411,7 +411,7 @@ exports[`snapshots 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "borderTop": "1px solid #ccc",
         "flex": 1,
         "marginTop": 10,
@@ -420,7 +420,7 @@ exports[`snapshots 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "padding": 20,
         }
@@ -432,7 +432,7 @@ exports[`snapshots 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "justifyContent": "space-between",
         "margin": 10,
@@ -443,12 +443,12 @@ exports[`snapshots 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[Function]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,
@@ -468,12 +468,12 @@ exports[`snapshots 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[Function]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,
@@ -497,14 +497,14 @@ exports[`snapshots when isRevisable 1`] = `
 <div
   className="HorizontalStepper"
   style={
-    Object {
+    {
       "paddingTop": 15,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "fontSize": 12,
@@ -518,7 +518,7 @@ exports[`snapshots when isRevisable 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -532,7 +532,7 @@ exports[`snapshots when isRevisable 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -540,7 +540,7 @@ exports[`snapshots when isRevisable 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -571,7 +571,7 @@ exports[`snapshots when isRevisable 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -582,7 +582,7 @@ exports[`snapshots when isRevisable 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -596,7 +596,7 @@ exports[`snapshots when isRevisable 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -604,7 +604,7 @@ exports[`snapshots when isRevisable 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -635,7 +635,7 @@ exports[`snapshots when isRevisable 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -646,7 +646,7 @@ exports[`snapshots when isRevisable 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "backgroundColor": "rgba(49, 119, 201, 0.25)",
             "border": "1px solid white",
             "borderColor": "#3177c9",
@@ -661,7 +661,7 @@ exports[`snapshots when isRevisable 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -669,7 +669,7 @@ exports[`snapshots when isRevisable 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -700,7 +700,7 @@ exports[`snapshots when isRevisable 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -711,7 +711,7 @@ exports[`snapshots when isRevisable 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -725,7 +725,7 @@ exports[`snapshots when isRevisable 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -733,7 +733,7 @@ exports[`snapshots when isRevisable 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -764,7 +764,7 @@ exports[`snapshots when isRevisable 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -775,7 +775,7 @@ exports[`snapshots when isRevisable 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -789,7 +789,7 @@ exports[`snapshots when isRevisable 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -797,7 +797,7 @@ exports[`snapshots when isRevisable 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -828,7 +828,7 @@ exports[`snapshots when isRevisable 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -839,7 +839,7 @@ exports[`snapshots when isRevisable 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -853,7 +853,7 @@ exports[`snapshots when isRevisable 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -861,7 +861,7 @@ exports[`snapshots when isRevisable 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -892,7 +892,7 @@ exports[`snapshots when isRevisable 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -903,7 +903,7 @@ exports[`snapshots when isRevisable 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "background": "rgb(209, 231, 210)",
           "borderRadius": 3,
           "color": "green",
@@ -921,7 +921,7 @@ exports[`snapshots when isRevisable 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "borderTop": "1px solid #ccc",
         "flex": 1,
         "marginTop": 10,
@@ -930,7 +930,7 @@ exports[`snapshots when isRevisable 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "padding": 20,
         }
@@ -942,7 +942,7 @@ exports[`snapshots when isRevisable 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "justifyContent": "space-between",
         "margin": 10,
@@ -953,12 +953,12 @@ exports[`snapshots when isRevisable 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[Function]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,
@@ -978,12 +978,12 @@ exports[`snapshots when isRevisable 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[Function]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,
@@ -1007,14 +1007,14 @@ exports[`snapshots when readonly 1`] = `
 <div
   className="HorizontalStepper"
   style={
-    Object {
+    {
       "paddingTop": 15,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "fontSize": 12,
@@ -1028,7 +1028,7 @@ exports[`snapshots when readonly 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -1042,7 +1042,7 @@ exports[`snapshots when readonly 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -1050,7 +1050,7 @@ exports[`snapshots when readonly 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -1081,7 +1081,7 @@ exports[`snapshots when readonly 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -1092,7 +1092,7 @@ exports[`snapshots when readonly 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -1106,7 +1106,7 @@ exports[`snapshots when readonly 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -1114,7 +1114,7 @@ exports[`snapshots when readonly 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -1145,7 +1145,7 @@ exports[`snapshots when readonly 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -1156,7 +1156,7 @@ exports[`snapshots when readonly 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "backgroundColor": "rgba(49, 119, 201, 0.25)",
             "border": "1px solid white",
             "borderColor": "#3177c9",
@@ -1171,7 +1171,7 @@ exports[`snapshots when readonly 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -1179,7 +1179,7 @@ exports[`snapshots when readonly 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -1210,7 +1210,7 @@ exports[`snapshots when readonly 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -1221,7 +1221,7 @@ exports[`snapshots when readonly 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -1235,7 +1235,7 @@ exports[`snapshots when readonly 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -1243,7 +1243,7 @@ exports[`snapshots when readonly 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -1274,7 +1274,7 @@ exports[`snapshots when readonly 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -1285,7 +1285,7 @@ exports[`snapshots when readonly 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -1299,7 +1299,7 @@ exports[`snapshots when readonly 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -1307,7 +1307,7 @@ exports[`snapshots when readonly 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -1338,7 +1338,7 @@ exports[`snapshots when readonly 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -1349,7 +1349,7 @@ exports[`snapshots when readonly 1`] = `
       <span
         onClick={[Function]}
         style={
-          Object {
+          {
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
@@ -1363,7 +1363,7 @@ exports[`snapshots when readonly 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "verticalAlign": "middle",
             }
@@ -1371,7 +1371,7 @@ exports[`snapshots when readonly 1`] = `
         >
           <svg
             style={
-              Object {
+              {
                 "color": "#3177c9",
                 "display": "inline-block",
                 "fill": "#3177c9",
@@ -1402,7 +1402,7 @@ exports[`snapshots when readonly 1`] = `
         </div>
         <span
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
@@ -1413,7 +1413,7 @@ exports[`snapshots when readonly 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "background": "#666",
           "borderRadius": 3,
           "color": "#eee",
@@ -1430,7 +1430,7 @@ exports[`snapshots when readonly 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "borderTop": "1px solid #ccc",
         "flex": 1,
         "marginTop": 10,
@@ -1439,7 +1439,7 @@ exports[`snapshots when readonly 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "padding": 20,
         }
@@ -1451,7 +1451,7 @@ exports[`snapshots when readonly 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "justifyContent": "space-between",
         "margin": 10,
@@ -1462,12 +1462,12 @@ exports[`snapshots when readonly 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[Function]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,
@@ -1487,12 +1487,12 @@ exports[`snapshots when readonly 1`] = `
       className="Hover"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={Object {}}
+      style={{}}
     >
       <button
         onClick={[Function]}
         style={
-          Object {
+          {
             "background": "#4A90E2",
             "border": "none",
             "borderRadius": 28,

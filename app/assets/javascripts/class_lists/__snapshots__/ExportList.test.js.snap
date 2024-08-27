@@ -10,12 +10,12 @@ exports[`snapshots 1`] = `
     ?
   </div>
   <div
-    style={Object {}}
+    style={{}}
   >
     <span
       className="SuccessLabel"
       style={
-        Object {
+        {
           "backgroundColor": "rgb(209, 231, 210)",
           "border": "1px solid rgb(149, 198, 150)",
           "borderRadius": 3,
@@ -35,12 +35,12 @@ exports[`snapshots 1`] = `
     Have you reviewed the team’s plan and notes before making changes?
   </div>
   <div
-    style={Object {}}
+    style={{}}
   >
     <span
       className="SuccessLabel"
       style={
-        Object {
+        {
           "backgroundColor": "rgb(209, 231, 210)",
           "border": "1px solid rgb(149, 198, 150)",
           "borderRadius": 3,
@@ -64,7 +64,7 @@ exports[`snapshots 1`] = `
   <div>
     <table
       style={
-        Object {
+        {
           "borderCollapse": "collapse",
           "marginTop": 5,
         }
@@ -74,7 +74,7 @@ exports[`snapshots 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "padding": "2px 8px",
               }
             }
@@ -83,7 +83,7 @@ exports[`snapshots 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "padding": "2px 8px",
               }
             }
@@ -99,7 +99,7 @@ exports[`snapshots 1`] = `
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 style={
-                  Object {
+                  {
                     "width": "20em",
                   }
                 }
@@ -130,7 +130,7 @@ exports[`snapshots 1`] = `
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -155,7 +155,7 @@ exports[`snapshots 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "padding": "2px 8px",
               }
             }
@@ -164,7 +164,7 @@ exports[`snapshots 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "padding": "2px 8px",
               }
             }
@@ -180,7 +180,7 @@ exports[`snapshots 1`] = `
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 style={
-                  Object {
+                  {
                     "width": "20em",
                   }
                 }
@@ -211,7 +211,7 @@ exports[`snapshots 1`] = `
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -236,7 +236,7 @@ exports[`snapshots 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "padding": "2px 8px",
               }
             }
@@ -245,7 +245,7 @@ exports[`snapshots 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "padding": "2px 8px",
               }
             }
@@ -261,7 +261,7 @@ exports[`snapshots 1`] = `
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 style={
-                  Object {
+                  {
                     "width": "20em",
                   }
                 }
@@ -292,7 +292,7 @@ exports[`snapshots 1`] = `
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -325,7 +325,7 @@ exports[`snapshots 1`] = `
         href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Kevin%22"
         onClick={[Function]}
         style={
-          Object {
+          {
             "color": "white",
             "display": "inline-block",
             "marginTop": 20,

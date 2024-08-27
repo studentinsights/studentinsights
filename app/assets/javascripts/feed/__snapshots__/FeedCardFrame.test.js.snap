@@ -5,7 +5,7 @@ exports[`matches all snapshots 1`] = `
   <div
     className="Card FeedCardFrame"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "borderRadius": 3,
         "padding": 10,
@@ -15,7 +15,7 @@ exports[`matches all snapshots 1`] = `
     <div
       className="FeedCardFrame-FrameHeader"
       style={
-        Object {
+        {
           "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
@@ -25,14 +25,14 @@ exports[`matches all snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "column",
@@ -44,7 +44,7 @@ exports[`matches all snapshots 1`] = `
             <a
               href="/students/55"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -62,7 +62,7 @@ exports[`matches all snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
@@ -89,7 +89,7 @@ exports[`matches all snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 20,
           "marginTop": 20,
         }
@@ -100,7 +100,7 @@ exports[`matches all snapshots 1`] = `
     <div
       className="FeedCardFrame-footer"
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "marginBottom": 5,
@@ -116,7 +116,7 @@ exports[`matches all snapshots 1`] = `
   <div
     className="Card FeedCardFrame"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "borderRadius": 3,
         "padding": 10,
@@ -126,7 +126,7 @@ exports[`matches all snapshots 1`] = `
     <div
       className="FeedCardFrame-FrameHeader"
       style={
-        Object {
+        {
           "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
@@ -136,14 +136,14 @@ exports[`matches all snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "column",
@@ -155,7 +155,7 @@ exports[`matches all snapshots 1`] = `
             <a
               href="/students/32"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -171,7 +171,7 @@ exports[`matches all snapshots 1`] = `
           <div>
             <span
               className="Homeroom"
-              style={Object {}}
+              style={{}}
             >
               <a
                 href="/homerooms/32"
@@ -186,7 +186,7 @@ exports[`matches all snapshots 1`] = `
                 <a
                   className="Educator"
                   href="mailto:alex@demo.studentinsights.org"
-                  style={Object {}}
+                  style={{}}
                 >
                   Alex Teacher
                 </a>
@@ -197,7 +197,7 @@ exports[`matches all snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
@@ -224,7 +224,7 @@ exports[`matches all snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 20,
           "marginTop": 20,
         }
@@ -235,7 +235,7 @@ exports[`matches all snapshots 1`] = `
     <div
       className="FeedCardFrame-footer"
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "marginBottom": 5,
@@ -251,7 +251,7 @@ exports[`matches all snapshots 1`] = `
   <div
     className="Card FeedCardFrame"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "borderRadius": 3,
         "padding": 10,
@@ -261,7 +261,7 @@ exports[`matches all snapshots 1`] = `
     <div
       className="FeedCardFrame-FrameHeader"
       style={
-        Object {
+        {
           "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
@@ -271,14 +271,14 @@ exports[`matches all snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "column",
@@ -290,7 +290,7 @@ exports[`matches all snapshots 1`] = `
             <a
               href="/students/66"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -306,7 +306,7 @@ exports[`matches all snapshots 1`] = `
           <div>
             <span
               className="Homeroom"
-              style={Object {}}
+              style={{}}
             >
               <a
                 href="/homerooms/15"
@@ -321,7 +321,7 @@ exports[`matches all snapshots 1`] = `
                 <a
                   className="Educator"
                   href="mailto:dt@demo.studentinsights.org"
-                  style={Object {}}
+                  style={{}}
                 >
                   Darth Teacher
                 </a>
@@ -332,7 +332,7 @@ exports[`matches all snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
@@ -359,7 +359,7 @@ exports[`matches all snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 20,
           "marginTop": 20,
         }
@@ -370,7 +370,7 @@ exports[`matches all snapshots 1`] = `
     <div
       className="FeedCardFrame-footer"
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "marginBottom": 5,

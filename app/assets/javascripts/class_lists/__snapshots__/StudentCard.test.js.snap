@@ -6,7 +6,7 @@ exports[`snapshots 1`] = `
     <div
       onClick={[Function]}
       style={
-        Object {
+        {
           "alignItems": "center",
           "backgroundColor": "white",
           "border": "1px solid #eee",
@@ -20,7 +20,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flex": 1,
             "flexDirection": "row",
@@ -31,7 +31,7 @@ exports[`snapshots 1`] = `
         <div
           className="StudentPhotoCropped"
           style={
-            Object {
+            {
               "backgroundColor": "#ddd",
               "backgroundImage": "url(/classlists/foo-workspace-id/students/1/photo)",
               "backgroundPosition": "center top",
@@ -49,7 +49,7 @@ exports[`snapshots 1`] = `
         />
         <div
           style={
-            Object {
+            {
               "alignContent": "center",
               "display": "flex",
               "flex": 1,

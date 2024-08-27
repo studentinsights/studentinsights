@@ -4,14 +4,14 @@ exports[`snapshots 1`] = `
 <div
   className="BreakdownBar"
   style={
-    Object {
+    {
       "height": 50,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "height": 50,
         "position": "relative",
         "width": "100%",
@@ -21,7 +21,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "green",
             "height": 50,
             "left": "0%",
@@ -34,7 +34,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "green",
             "left": "0%",
             "paddingRight": 1,
@@ -51,7 +51,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "orange",
             "height": 50,
             "left": "59%",
@@ -64,7 +64,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "orange",
             "left": "59%",
             "paddingRight": 1,
@@ -81,7 +81,7 @@ exports[`snapshots 1`] = `
     <div>
       <div
         style={
-          Object {
+          {
             "background": "red",
             "height": 50,
             "left": "75%",
@@ -94,7 +94,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "color": "red",
             "left": "75%",
             "paddingRight": 1,

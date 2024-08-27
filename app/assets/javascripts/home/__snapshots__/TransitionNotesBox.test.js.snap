@@ -3,14 +3,14 @@
 exports[`snapshots if label is set 1`] = `
 <div
   style={
-    Object {
+    {
       "color": "red",
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "color": "purple",
       }
     }
@@ -21,7 +21,7 @@ exports[`snapshots if label is set 1`] = `
   <div
     className="Card "
     style={
-      Object {
+      {
         "border": "none",
         "borderRadius": 3,
         "padding": 10,
@@ -33,7 +33,7 @@ exports[`snapshots if label is set 1`] = `
       <a
         href="/counselors/transitions"
         style={
-          Object {
+          {
             "fontWeight": "bold",
           }
         }

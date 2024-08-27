@@ -5,7 +5,7 @@ exports[`snapshots 1`] = `
   className="Tab"
   onClick={[MockFunction]}
   style={
-    Object {
+    {
       "alignItems": "center",
       "backgroundColor": "rgb(147, 196, 125)",
       "border": "1px solid #f8f8f8",

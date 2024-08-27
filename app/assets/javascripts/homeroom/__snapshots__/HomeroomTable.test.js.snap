@@ -160,7 +160,7 @@ exports[`snapshots 1`] = `
       <tr
         className="student-row"
         style={
-          Object {
+          {
             "backgroundColor": "#FFFFFF",
           }
         }
@@ -178,7 +178,7 @@ exports[`snapshots 1`] = `
           <div
             className="StudentPhotoCropped"
             style={
-              Object {
+              {
                 "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/10/photo)",
                 "backgroundPosition": "center top",
@@ -230,7 +230,7 @@ exports[`snapshots 1`] = `
       <tr
         className="student-row"
         style={
-          Object {
+          {
             "backgroundColor": "#F7F7F7",
           }
         }
@@ -248,7 +248,7 @@ exports[`snapshots 1`] = `
           <div
             className="StudentPhotoCropped"
             style={
-              Object {
+              {
                 "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/3/photo)",
                 "backgroundPosition": "center top",
@@ -300,7 +300,7 @@ exports[`snapshots 1`] = `
       <tr
         className="student-row"
         style={
-          Object {
+          {
             "backgroundColor": "#FFFFFF",
           }
         }
@@ -318,7 +318,7 @@ exports[`snapshots 1`] = `
           <div
             className="StudentPhotoCropped"
             style={
-              Object {
+              {
                 "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/6/photo)",
                 "backgroundPosition": "center top",
@@ -370,7 +370,7 @@ exports[`snapshots 1`] = `
       <tr
         className="student-row"
         style={
-          Object {
+          {
             "backgroundColor": "#F7F7F7",
           }
         }
@@ -388,7 +388,7 @@ exports[`snapshots 1`] = `
           <div
             className="StudentPhotoCropped"
             style={
-              Object {
+              {
                 "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/7/photo)",
                 "backgroundPosition": "center top",
@@ -440,7 +440,7 @@ exports[`snapshots 1`] = `
       <tr
         className="student-row"
         style={
-          Object {
+          {
             "backgroundColor": "#FFFFFF",
           }
         }
@@ -458,7 +458,7 @@ exports[`snapshots 1`] = `
           <div
             className="StudentPhotoCropped"
             style={
-              Object {
+              {
                 "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/9/photo)",
                 "backgroundPosition": "center top",
@@ -510,7 +510,7 @@ exports[`snapshots 1`] = `
       <tr
         className="student-row"
         style={
-          Object {
+          {
             "backgroundColor": "#F7F7F7",
           }
         }

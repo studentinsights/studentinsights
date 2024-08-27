@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshots across scenarios 1`] = `
-Array [
+[
   <div>
     <h3>
       New Bedford
@@ -9,7 +9,7 @@ Array [
     <div
       className="DraftNote"
       style={
-        Object {
+        {
           "marginTop": 10,
         }
       }
@@ -17,7 +17,7 @@ Array [
       <div
         className="Card FeedCardFrame"
         style={
-          Object {
+          {
             "border": "1px solid #ccc",
             "borderRadius": 3,
             "padding": 10,
@@ -27,7 +27,7 @@ Array [
         <div
           className="FeedCardFrame-FrameHeader"
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "row",
@@ -37,7 +37,7 @@ Array [
         >
           <div
             style={
-              Object {
+              {
                 "display": "flex",
               }
             }
@@ -45,7 +45,7 @@ Array [
             <div
               className="StudentPhotoCropped"
               style={
-                Object {
+                {
                   "backgroundColor": "#ddd",
                   "backgroundImage": "url(/students/2/photo)",
                   "backgroundPosition": "center top",
@@ -63,7 +63,7 @@ Array [
             />
             <div
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "flexDirection": "column",
@@ -75,7 +75,7 @@ Array [
                 <a
                   href="/students/2"
                   style={
-                    Object {
+                    {
                       "fontWeight": "bold",
                     }
                   }
@@ -93,7 +93,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
@@ -109,7 +109,7 @@ Array [
                 <a
                   className="Educator"
                   href="mailto:demo@example.com"
-                  style={Object {}}
+                  style={{}}
                 >
                   demo@
                 </a>
@@ -123,7 +123,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 20,
               "marginTop": 20,
             }
@@ -138,7 +138,7 @@ Array [
                 onChange={[Function]}
                 rows={10}
                 style={
-                  Object {
+                  {
                     "border": "1px solid #eee",
                     "fontSize": 14,
                     "resize": "none",
@@ -150,14 +150,14 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "margin": 10,
                 }
               }
             >
               <div
                 style={
-                  Object {
+                  {
                     "marginBottom": 5,
                     "marginTop": 20,
                   }
@@ -167,14 +167,14 @@ Array [
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "display": "flex",
                   }
                 }
               >
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -184,7 +184,7 @@ Array [
                     name={400}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -204,7 +204,7 @@ Array [
                     name={300}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -222,7 +222,7 @@ Array [
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -232,7 +232,7 @@ Array [
                     name={302}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -252,7 +252,7 @@ Array [
                     name={304}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -272,7 +272,7 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "space-between",
@@ -286,7 +286,7 @@ Array [
                   disabled={true}
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#ccc",
                       "marginTop": 20,
                     }
@@ -298,7 +298,7 @@ Array [
                   className="btn cancel"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#eee",
                       "color": "black",
                       "marginLeft": 10,
@@ -311,7 +311,7 @@ Array [
               </div>
               <span
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 12,
                   }
@@ -323,7 +323,7 @@ Array [
         <div
           className="FeedCardFrame-footer"
           style={
-            Object {
+            {
               "display": "flex",
               "justifyContent": "space-between",
               "marginBottom": 5,
@@ -343,7 +343,7 @@ Array [
     <div
       className="DraftNote"
       style={
-        Object {
+        {
           "marginTop": 10,
         }
       }
@@ -351,7 +351,7 @@ Array [
       <div
         className="Card FeedCardFrame"
         style={
-          Object {
+          {
             "border": "1px solid #ccc",
             "borderRadius": 3,
             "padding": 10,
@@ -361,7 +361,7 @@ Array [
         <div
           className="FeedCardFrame-FrameHeader"
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "row",
@@ -371,7 +371,7 @@ Array [
         >
           <div
             style={
-              Object {
+              {
                 "display": "flex",
               }
             }
@@ -379,7 +379,7 @@ Array [
             <div
               className="StudentPhotoCropped"
               style={
-                Object {
+                {
                   "backgroundColor": "#ddd",
                   "backgroundImage": "url(/students/2/photo)",
                   "backgroundPosition": "center top",
@@ -397,7 +397,7 @@ Array [
             />
             <div
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "flexDirection": "column",
@@ -409,7 +409,7 @@ Array [
                 <a
                   href="/students/2"
                   style={
-                    Object {
+                    {
                       "fontWeight": "bold",
                     }
                   }
@@ -427,7 +427,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
@@ -443,7 +443,7 @@ Array [
                 <a
                   className="Educator"
                   href="mailto:demo@example.com"
-                  style={Object {}}
+                  style={{}}
                 >
                   demo@
                 </a>
@@ -457,7 +457,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 20,
               "marginTop": 20,
             }
@@ -472,7 +472,7 @@ Array [
                 onChange={[Function]}
                 rows={10}
                 style={
-                  Object {
+                  {
                     "border": "1px solid #eee",
                     "fontSize": 14,
                     "resize": "none",
@@ -484,14 +484,14 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "margin": 10,
                 }
               }
             >
               <div
                 style={
-                  Object {
+                  {
                     "marginBottom": 5,
                     "marginTop": 20,
                   }
@@ -501,14 +501,14 @@ Array [
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "display": "flex",
                   }
                 }
               >
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -518,7 +518,7 @@ Array [
                     name={300}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -538,7 +538,7 @@ Array [
                     name={301}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -558,7 +558,7 @@ Array [
                     name={302}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -578,7 +578,7 @@ Array [
                     name={304}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -596,7 +596,7 @@ Array [
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -606,7 +606,7 @@ Array [
                     name={305}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -626,7 +626,7 @@ Array [
                     name={306}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -646,7 +646,7 @@ Array [
                     name={307}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -666,7 +666,7 @@ Array [
                     name={308}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -686,7 +686,7 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "space-between",
@@ -700,7 +700,7 @@ Array [
                   disabled={true}
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#ccc",
                       "marginTop": 20,
                     }
@@ -712,7 +712,7 @@ Array [
                   className="btn cancel"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#eee",
                       "color": "black",
                       "marginLeft": 10,
@@ -725,7 +725,7 @@ Array [
               </div>
               <span
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 12,
                   }
@@ -737,7 +737,7 @@ Array [
         <div
           className="FeedCardFrame-footer"
           style={
-            Object {
+            {
               "display": "flex",
               "justifyContent": "space-between",
               "marginBottom": 5,
@@ -757,7 +757,7 @@ Array [
     <div
       className="DraftNote"
       style={
-        Object {
+        {
           "marginTop": 10,
         }
       }
@@ -765,7 +765,7 @@ Array [
       <div
         className="Card FeedCardFrame"
         style={
-          Object {
+          {
             "border": "1px solid #ccc",
             "borderRadius": 3,
             "padding": 10,
@@ -775,7 +775,7 @@ Array [
         <div
           className="FeedCardFrame-FrameHeader"
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "row",
@@ -785,7 +785,7 @@ Array [
         >
           <div
             style={
-              Object {
+              {
                 "display": "flex",
               }
             }
@@ -793,7 +793,7 @@ Array [
             <div
               className="StudentPhotoCropped"
               style={
-                Object {
+                {
                   "backgroundColor": "#ddd",
                   "backgroundImage": "url(/students/2/photo)",
                   "backgroundPosition": "center top",
@@ -811,7 +811,7 @@ Array [
             />
             <div
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "flexDirection": "column",
@@ -823,7 +823,7 @@ Array [
                 <a
                   href="/students/2"
                   style={
-                    Object {
+                    {
                       "fontWeight": "bold",
                     }
                   }
@@ -841,7 +841,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
@@ -857,7 +857,7 @@ Array [
                 <a
                   className="Educator"
                   href="mailto:demo@example.com"
-                  style={Object {}}
+                  style={{}}
                 >
                   demo@
                 </a>
@@ -871,7 +871,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 20,
               "marginTop": 20,
             }
@@ -886,7 +886,7 @@ Array [
                 onChange={[Function]}
                 rows={10}
                 style={
-                  Object {
+                  {
                     "border": "1px solid #eee",
                     "fontSize": 14,
                     "resize": "none",
@@ -898,14 +898,14 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "margin": 10,
                 }
               }
             >
               <div
                 style={
-                  Object {
+                  {
                     "marginBottom": 5,
                     "marginTop": 20,
                   }
@@ -915,14 +915,14 @@ Array [
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "display": "flex",
                   }
                 }
               >
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -932,7 +932,7 @@ Array [
                     name={300}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -952,7 +952,7 @@ Array [
                     name={302}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -972,7 +972,7 @@ Array [
                     name={304}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -990,7 +990,7 @@ Array [
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -999,7 +999,7 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "space-between",
@@ -1013,7 +1013,7 @@ Array [
                   disabled={true}
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#ccc",
                       "marginTop": 20,
                     }
@@ -1025,7 +1025,7 @@ Array [
                   className="btn cancel"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#eee",
                       "color": "black",
                       "marginLeft": 10,
@@ -1038,7 +1038,7 @@ Array [
               </div>
               <span
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 12,
                   }
@@ -1050,7 +1050,7 @@ Array [
         <div
           className="FeedCardFrame-footer"
           style={
-            Object {
+            {
               "display": "flex",
               "justifyContent": "space-between",
               "marginBottom": 5,
@@ -1070,7 +1070,7 @@ Array [
     <div
       className="DraftNote"
       style={
-        Object {
+        {
           "marginTop": 10,
         }
       }
@@ -1078,7 +1078,7 @@ Array [
       <div
         className="Card FeedCardFrame"
         style={
-          Object {
+          {
             "border": "1px solid #ccc",
             "borderRadius": 3,
             "padding": 10,
@@ -1088,7 +1088,7 @@ Array [
         <div
           className="FeedCardFrame-FrameHeader"
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "row",
@@ -1098,7 +1098,7 @@ Array [
         >
           <div
             style={
-              Object {
+              {
                 "display": "flex",
               }
             }
@@ -1106,7 +1106,7 @@ Array [
             <div
               className="StudentPhotoCropped"
               style={
-                Object {
+                {
                   "backgroundColor": "#ddd",
                   "backgroundImage": "url(/students/2/photo)",
                   "backgroundPosition": "center top",
@@ -1124,7 +1124,7 @@ Array [
             />
             <div
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "flexDirection": "column",
@@ -1136,7 +1136,7 @@ Array [
                 <a
                   href="/students/2"
                   style={
-                    Object {
+                    {
                       "fontWeight": "bold",
                     }
                   }
@@ -1154,7 +1154,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
@@ -1170,7 +1170,7 @@ Array [
                 <a
                   className="Educator"
                   href="mailto:demo@example.com"
-                  style={Object {}}
+                  style={{}}
                 >
                   demo@
                 </a>
@@ -1184,7 +1184,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 20,
               "marginTop": 20,
             }
@@ -1199,7 +1199,7 @@ Array [
                 onChange={[Function]}
                 rows={10}
                 style={
-                  Object {
+                  {
                     "border": "1px solid #eee",
                     "fontSize": 14,
                     "resize": "none",
@@ -1211,14 +1211,14 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "margin": 10,
                 }
               }
             >
               <div
                 style={
-                  Object {
+                  {
                     "marginBottom": 5,
                     "marginTop": 20,
                   }
@@ -1228,14 +1228,14 @@ Array [
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "display": "flex",
                   }
                 }
               >
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -1245,7 +1245,7 @@ Array [
                     name={300}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1265,7 +1265,7 @@ Array [
                     name={301}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1285,7 +1285,7 @@ Array [
                     name={302}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1305,7 +1305,7 @@ Array [
                     name={304}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1323,7 +1323,7 @@ Array [
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -1333,7 +1333,7 @@ Array [
                     name={305}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1353,7 +1353,7 @@ Array [
                     name={306}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1373,7 +1373,7 @@ Array [
                     name={307}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1393,7 +1393,7 @@ Array [
                     name={308}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1413,7 +1413,7 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "space-between",
@@ -1427,7 +1427,7 @@ Array [
                   disabled={true}
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#ccc",
                       "marginTop": 20,
                     }
@@ -1439,7 +1439,7 @@ Array [
                   className="btn cancel"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#eee",
                       "color": "black",
                       "marginLeft": 10,
@@ -1452,7 +1452,7 @@ Array [
               </div>
               <span
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 12,
                   }
@@ -1464,7 +1464,7 @@ Array [
         <div
           className="FeedCardFrame-footer"
           style={
-            Object {
+            {
               "display": "flex",
               "justifyContent": "space-between",
               "marginBottom": 5,
@@ -1484,7 +1484,7 @@ Array [
     <div
       className="DraftNote"
       style={
-        Object {
+        {
           "marginTop": 10,
         }
       }
@@ -1492,7 +1492,7 @@ Array [
       <div
         className="Card FeedCardFrame"
         style={
-          Object {
+          {
             "border": "1px solid #ccc",
             "borderRadius": 3,
             "padding": 10,
@@ -1502,7 +1502,7 @@ Array [
         <div
           className="FeedCardFrame-FrameHeader"
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "row",
@@ -1512,7 +1512,7 @@ Array [
         >
           <div
             style={
-              Object {
+              {
                 "display": "flex",
               }
             }
@@ -1520,7 +1520,7 @@ Array [
             <div
               className="StudentPhotoCropped"
               style={
-                Object {
+                {
                   "backgroundColor": "#ddd",
                   "backgroundImage": "url(/students/2/photo)",
                   "backgroundPosition": "center top",
@@ -1538,7 +1538,7 @@ Array [
             />
             <div
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "flexDirection": "column",
@@ -1550,7 +1550,7 @@ Array [
                 <a
                   href="/students/2"
                   style={
-                    Object {
+                    {
                       "fontWeight": "bold",
                     }
                   }
@@ -1568,7 +1568,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "flex-end",
                 "display": "flex",
                 "flexDirection": "column",
@@ -1584,7 +1584,7 @@ Array [
                 <a
                   className="Educator"
                   href="mailto:demo@example.com"
-                  style={Object {}}
+                  style={{}}
                 >
                   demo@
                 </a>
@@ -1598,7 +1598,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "marginBottom": 20,
               "marginTop": 20,
             }
@@ -1613,7 +1613,7 @@ Array [
                 onChange={[Function]}
                 rows={10}
                 style={
-                  Object {
+                  {
                     "border": "1px solid #eee",
                     "fontSize": 14,
                     "resize": "none",
@@ -1625,7 +1625,7 @@ Array [
               <div>
                 <div
                   style={
-                    Object {
+                    {
                       "marginBottom": 5,
                       "marginTop": 20,
                     }
@@ -1635,7 +1635,7 @@ Array [
                 </div>
                 <label
                   style={
-                    Object {
+                    {
                       "color": "black",
                       "cursor": "pointer",
                       "marginLeft": 10,
@@ -1648,7 +1648,7 @@ Array [
                   />
                   <span
                     style={
-                      Object {
+                      {
                         "paddingLeft": 5,
                       }
                     }
@@ -1660,14 +1660,14 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "margin": 10,
                 }
               }
             >
               <div
                 style={
-                  Object {
+                  {
                     "marginBottom": 5,
                     "marginTop": 20,
                   }
@@ -1677,14 +1677,14 @@ Array [
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "display": "flex",
                   }
                 }
               >
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -1694,7 +1694,7 @@ Array [
                     name={300}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1714,7 +1714,7 @@ Array [
                     name={301}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1734,7 +1734,7 @@ Array [
                     name={302}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1754,7 +1754,7 @@ Array [
                     name={304}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1772,7 +1772,7 @@ Array [
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "flex": 1,
                     }
                   }
@@ -1782,7 +1782,7 @@ Array [
                     name={305}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1802,7 +1802,7 @@ Array [
                     name={306}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1822,7 +1822,7 @@ Array [
                     name={307}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1842,7 +1842,7 @@ Array [
                     name={308}
                     onClick={[Function]}
                     style={
-                      Object {
+                      {
                         "background": "#eee",
                         "border": "4px solid white",
                         "color": "black",
@@ -1862,7 +1862,7 @@ Array [
             </div>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "space-between",
@@ -1876,7 +1876,7 @@ Array [
                   disabled={true}
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#ccc",
                       "marginTop": 20,
                     }
@@ -1888,7 +1888,7 @@ Array [
                   className="btn cancel"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "background": "#eee",
                       "color": "black",
                       "marginLeft": 10,
@@ -1901,7 +1901,7 @@ Array [
               </div>
               <span
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 12,
                   }
@@ -1913,7 +1913,7 @@ Array [
         <div
           className="FeedCardFrame-footer"
           style={
-            Object {
+            {
               "display": "flex",
               "justifyContent": "space-between",
               "marginBottom": 5,

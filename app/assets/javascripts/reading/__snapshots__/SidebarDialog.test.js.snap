@@ -4,7 +4,7 @@ exports[`snapshots 1`] = `
 <div
   className="SidebarDialog"
   style={
-    Object {
+    {
       "fontSize": 12,
     }
   }
@@ -12,7 +12,7 @@ exports[`snapshots 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "borderBottom": "1px solid #ddd",
           "display": "flex",
@@ -29,7 +29,7 @@ exports[`snapshots 1`] = `
         onError={[Function]}
         src="/students/64/photo"
         style={
-          Object {
+          {
             "marginRight": 10,
             "maxHeight": 90,
             "maxWidth": 70,
@@ -38,7 +38,7 @@ exports[`snapshots 1`] = `
       />
       <div
         style={
-          Object {
+          {
             "flex": 1,
             "paddingRight": 10,
           }
@@ -51,7 +51,7 @@ exports[`snapshots 1`] = `
       <div
         onClick={[MockFunction]}
         style={
-          Object {
+          {
             "cursor": "pointer",
             "padding": 10,
           }
@@ -62,7 +62,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -70,7 +70,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -80,7 +80,7 @@ exports[`snapshots 1`] = `
       </div>
       <span
         style={
-          Object {
+          {
             "paddingLeft": 5,
           }
         }
@@ -90,7 +90,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -98,7 +98,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -108,7 +108,7 @@ exports[`snapshots 1`] = `
       </div>
       <span
         style={
-          Object {
+          {
             "paddingLeft": 5,
           }
         }
@@ -118,7 +118,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -126,7 +126,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -136,7 +136,7 @@ exports[`snapshots 1`] = `
       </div>
       <span
         style={
-          Object {
+          {
             "paddingLeft": 5,
           }
         }
@@ -146,7 +146,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -154,7 +154,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -164,7 +164,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flexDirection": "row",
             "paddingLeft": 5,
@@ -173,7 +173,7 @@ exports[`snapshots 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "display": "inline-block",
               "marginRight": 5,
             }
@@ -181,7 +181,7 @@ exports[`snapshots 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "backgroundColor": "rgba(255,0,0,0.5)",
                 "color": "white",
@@ -198,7 +198,7 @@ exports[`snapshots 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flex": 1,
               "flexDirection": "row",
@@ -209,7 +209,7 @@ exports[`snapshots 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "background": "rgba(255,140,0,0.6)",
                 "height": 2,
                 "left": 0,
@@ -221,7 +221,7 @@ exports[`snapshots 1`] = `
           />
           <div
             style={
-              Object {
+              {
                 "background": "rgba(0,128,0,0.5)",
                 "height": 2,
                 "left": "48%",
@@ -233,7 +233,7 @@ exports[`snapshots 1`] = `
           />
           <div
             style={
-              Object {
+              {
                 "background": "rgba(255,0,0,0.5)",
                 "height": 2,
                 "left": 0,
@@ -246,7 +246,7 @@ exports[`snapshots 1`] = `
           <div>
             <div
               style={
-                Object {
+                {
                   "background": "rgba(255,0,0,0.5)",
                   "height": 20,
                   "left": "0%",
@@ -262,7 +262,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -270,7 +270,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -281,14 +281,14 @@ exports[`snapshots 1`] = `
       <div>
         <div
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "marginRight": 5,
               }
@@ -296,7 +296,7 @@ exports[`snapshots 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "backgroundColor": "rgba(255,140,0,0.6)",
                   "color": "white",
@@ -319,7 +319,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -327,7 +327,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -338,14 +338,14 @@ exports[`snapshots 1`] = `
       <div>
         <div
           style={
-            Object {
+            {
               "paddingLeft": 5,
             }
           }
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "marginRight": 5,
               }
@@ -353,7 +353,7 @@ exports[`snapshots 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "backgroundColor": "rgba(0,128,0,0.5)",
                   "color": "white",
@@ -376,7 +376,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
           "marginLeft": 5,
         }
@@ -384,7 +384,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "fontWeight": "bold",
             "marginBottom": 5,
           }
@@ -394,7 +394,7 @@ exports[`snapshots 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "marginLeft": 5,
           }
         }

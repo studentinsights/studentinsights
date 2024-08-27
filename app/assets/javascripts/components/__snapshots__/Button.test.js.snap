@@ -6,12 +6,12 @@ exports[`snapshots view 1`] = `
     className="Hover"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    style={Object {}}
+    style={{}}
   >
     <button
       onClick={[MockFunction]}
       style={
-        Object {
+        {
           "background": "#4A90E2",
           "border": "none",
           "borderRadius": 28,
@@ -30,12 +30,12 @@ exports[`snapshots view 1`] = `
     className="Hover"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    style={Object {}}
+    style={{}}
   >
     <button
       onClick={[MockFunction]}
       style={
-        Object {
+        {
           "background": "#eee",
           "border": "none",
           "borderRadius": 28,
@@ -54,12 +54,12 @@ exports[`snapshots view 1`] = `
     className="Hover"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    style={Object {}}
+    style={{}}
   >
     <button
       onClick={[MockFunction]}
       style={
-        Object {
+        {
           "background": "#E5370E",
           "border": "none",
           "borderRadius": 28,

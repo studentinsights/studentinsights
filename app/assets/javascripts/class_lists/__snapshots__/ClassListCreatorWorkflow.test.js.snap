@@ -4,7 +4,7 @@ exports[`chooseYourGradeProps 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -16,7 +16,7 @@ exports[`chooseYourGradeProps 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -26,7 +26,7 @@ exports[`chooseYourGradeProps 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -40,7 +40,7 @@ exports[`chooseYourGradeProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -55,7 +55,7 @@ exports[`chooseYourGradeProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -63,7 +63,7 @@ exports[`chooseYourGradeProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -94,7 +94,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -105,7 +105,7 @@ exports[`chooseYourGradeProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -119,7 +119,7 @@ exports[`chooseYourGradeProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -127,7 +127,7 @@ exports[`chooseYourGradeProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -158,7 +158,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -169,7 +169,7 @@ exports[`chooseYourGradeProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -183,7 +183,7 @@ exports[`chooseYourGradeProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -191,7 +191,7 @@ exports[`chooseYourGradeProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -222,7 +222,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -233,7 +233,7 @@ exports[`chooseYourGradeProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -247,7 +247,7 @@ exports[`chooseYourGradeProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -255,7 +255,7 @@ exports[`chooseYourGradeProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -286,7 +286,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -297,7 +297,7 @@ exports[`chooseYourGradeProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -311,7 +311,7 @@ exports[`chooseYourGradeProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -319,7 +319,7 @@ exports[`chooseYourGradeProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -350,7 +350,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -361,7 +361,7 @@ exports[`chooseYourGradeProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -375,7 +375,7 @@ exports[`chooseYourGradeProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -383,7 +383,7 @@ exports[`chooseYourGradeProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -414,7 +414,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -426,7 +426,7 @@ exports[`chooseYourGradeProps 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -435,7 +435,7 @@ exports[`chooseYourGradeProps 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -443,7 +443,7 @@ exports[`chooseYourGradeProps 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 20,
                 "fontWeight": 300,
                 "marginBottom": 10,
@@ -455,7 +455,7 @@ exports[`chooseYourGradeProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 14,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -468,7 +468,7 @@ exports[`chooseYourGradeProps 1`] = `
 When Student Insights was being developed, some teachers started asking whether we could use it to make the class list creation process easier and more efficient.
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -497,7 +497,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -540,7 +540,7 @@ When Student Insights was being developed, some teachers started asking whether 
                   <div
                     className="Select-input"
                     style={
-                      Object {
+                      {
                         "display": "inline-block",
                       }
                     }
@@ -556,7 +556,7 @@ When Student Insights was being developed, some teachers started asking whether 
                       required={false}
                       role="combobox"
                       style={
-                        Object {
+                        {
                           "boxSizing": "content-box",
                           "width": "5px",
                         }
@@ -565,7 +565,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     />
                     <div
                       style={
-                        Object {
+                        {
                           "height": 0,
                           "left": 0,
                           "overflow": "scroll",
@@ -592,7 +592,7 @@ When Student Insights was being developed, some teachers started asking whether 
                   <span
                     className="Select-clear"
                     dangerouslySetInnerHTML={
-                      Object {
+                      {
                         "__html": "&times;",
                       }
                     }
@@ -613,7 +613,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -656,7 +656,7 @@ When Student Insights was being developed, some teachers started asking whether 
                   <div
                     className="Select-input"
                     style={
-                      Object {
+                      {
                         "display": "inline-block",
                       }
                     }
@@ -672,7 +672,7 @@ When Student Insights was being developed, some teachers started asking whether 
                       required={false}
                       role="combobox"
                       style={
-                        Object {
+                        {
                           "boxSizing": "content-box",
                           "width": "5px",
                         }
@@ -681,7 +681,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     />
                     <div
                       style={
-                        Object {
+                        {
                           "height": 0,
                           "left": 0,
                           "overflow": "scroll",
@@ -708,7 +708,7 @@ When Student Insights was being developed, some teachers started asking whether 
                   <span
                     className="Select-clear"
                     dangerouslySetInnerHTML={
-                      Object {
+                      {
                         "__html": "&times;",
                       }
                     }
@@ -729,7 +729,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -741,7 +741,7 @@ When Student Insights was being developed, some teachers started asking whether 
               placeholder="homerooms"
               readOnly={false}
               style={
-                Object {
+                {
                   "border": "1px solid #ccc",
                   "borderRadius": 3,
                   "fontSize": 14,
@@ -759,7 +759,7 @@ When Student Insights was being developed, some teachers started asking whether 
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -771,12 +771,12 @@ When Student Insights was being developed, some teachers started asking whether 
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -801,7 +801,7 @@ exports[`chooseYourGradeProps 2`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -813,7 +813,7 @@ exports[`chooseYourGradeProps 2`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -823,7 +823,7 @@ exports[`chooseYourGradeProps 2`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -837,7 +837,7 @@ exports[`chooseYourGradeProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -852,7 +852,7 @@ exports[`chooseYourGradeProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -860,7 +860,7 @@ exports[`chooseYourGradeProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -891,7 +891,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -902,7 +902,7 @@ exports[`chooseYourGradeProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -916,7 +916,7 @@ exports[`chooseYourGradeProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -924,7 +924,7 @@ exports[`chooseYourGradeProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -955,7 +955,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -966,7 +966,7 @@ exports[`chooseYourGradeProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -980,7 +980,7 @@ exports[`chooseYourGradeProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -988,7 +988,7 @@ exports[`chooseYourGradeProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1019,7 +1019,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1030,7 +1030,7 @@ exports[`chooseYourGradeProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1044,7 +1044,7 @@ exports[`chooseYourGradeProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1052,7 +1052,7 @@ exports[`chooseYourGradeProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1083,7 +1083,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1094,7 +1094,7 @@ exports[`chooseYourGradeProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1108,7 +1108,7 @@ exports[`chooseYourGradeProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1116,7 +1116,7 @@ exports[`chooseYourGradeProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1147,7 +1147,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1158,7 +1158,7 @@ exports[`chooseYourGradeProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1172,7 +1172,7 @@ exports[`chooseYourGradeProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1180,7 +1180,7 @@ exports[`chooseYourGradeProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1211,7 +1211,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1222,7 +1222,7 @@ exports[`chooseYourGradeProps 2`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "background": "#666",
             "borderRadius": 3,
             "color": "#eee",
@@ -1239,7 +1239,7 @@ exports[`chooseYourGradeProps 2`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -1248,7 +1248,7 @@ exports[`chooseYourGradeProps 2`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -1256,7 +1256,7 @@ exports[`chooseYourGradeProps 2`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 20,
                 "fontWeight": 300,
                 "marginBottom": 10,
@@ -1268,7 +1268,7 @@ exports[`chooseYourGradeProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 14,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -1281,7 +1281,7 @@ exports[`chooseYourGradeProps 2`] = `
 When Student Insights was being developed, some teachers started asking whether we could use it to make the class list creation process easier and more efficient.
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -1310,7 +1310,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -1360,7 +1360,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -1384,7 +1384,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -1434,7 +1434,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -1458,7 +1458,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -1470,7 +1470,7 @@ When Student Insights was being developed, some teachers started asking whether 
               placeholder="homerooms"
               readOnly={true}
               style={
-                Object {
+                {
                   "border": "1px solid #ccc",
                   "borderRadius": 3,
                   "fontSize": 14,
@@ -1488,7 +1488,7 @@ When Student Insights was being developed, some teachers started asking whether 
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -1500,12 +1500,12 @@ When Student Insights was being developed, some teachers started asking whether 
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -1530,7 +1530,7 @@ exports[`chooseYourGradeProps 3`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -1542,7 +1542,7 @@ exports[`chooseYourGradeProps 3`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -1552,7 +1552,7 @@ exports[`chooseYourGradeProps 3`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -1566,7 +1566,7 @@ exports[`chooseYourGradeProps 3`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -1581,7 +1581,7 @@ exports[`chooseYourGradeProps 3`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1589,7 +1589,7 @@ exports[`chooseYourGradeProps 3`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1620,7 +1620,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1631,7 +1631,7 @@ exports[`chooseYourGradeProps 3`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1645,7 +1645,7 @@ exports[`chooseYourGradeProps 3`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1653,7 +1653,7 @@ exports[`chooseYourGradeProps 3`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1684,7 +1684,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1695,7 +1695,7 @@ exports[`chooseYourGradeProps 3`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1709,7 +1709,7 @@ exports[`chooseYourGradeProps 3`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1717,7 +1717,7 @@ exports[`chooseYourGradeProps 3`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1748,7 +1748,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1759,7 +1759,7 @@ exports[`chooseYourGradeProps 3`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1773,7 +1773,7 @@ exports[`chooseYourGradeProps 3`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1781,7 +1781,7 @@ exports[`chooseYourGradeProps 3`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1812,7 +1812,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1823,7 +1823,7 @@ exports[`chooseYourGradeProps 3`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1837,7 +1837,7 @@ exports[`chooseYourGradeProps 3`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1845,7 +1845,7 @@ exports[`chooseYourGradeProps 3`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1876,7 +1876,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1887,7 +1887,7 @@ exports[`chooseYourGradeProps 3`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -1901,7 +1901,7 @@ exports[`chooseYourGradeProps 3`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -1909,7 +1909,7 @@ exports[`chooseYourGradeProps 3`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -1940,7 +1940,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -1952,7 +1952,7 @@ exports[`chooseYourGradeProps 3`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -1961,7 +1961,7 @@ exports[`chooseYourGradeProps 3`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -1969,7 +1969,7 @@ exports[`chooseYourGradeProps 3`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 20,
                 "fontWeight": 300,
                 "marginBottom": 10,
@@ -1981,7 +1981,7 @@ exports[`chooseYourGradeProps 3`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 14,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -1994,7 +1994,7 @@ exports[`chooseYourGradeProps 3`] = `
 When Student Insights was being developed, some teachers started asking whether we could use it to make the class list creation process easier and more efficient.
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -2023,7 +2023,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -2073,7 +2073,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -2097,7 +2097,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -2147,7 +2147,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     onFocus={[Function]}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "border": 0,
                         "display": "inline-block",
                         "width": 1,
@@ -2171,7 +2171,7 @@ When Student Insights was being developed, some teachers started asking whether 
           <div>
             <div
               style={
-                Object {
+                {
                   "marginTop": 20,
                 }
               }
@@ -2183,7 +2183,7 @@ When Student Insights was being developed, some teachers started asking whether 
               placeholder="homerooms"
               readOnly={true}
               style={
-                Object {
+                {
                   "border": "1px solid #ccc",
                   "borderRadius": 3,
                   "fontSize": 14,
@@ -2198,7 +2198,7 @@ When Student Insights was being developed, some teachers started asking whether 
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -2216,7 +2216,7 @@ When Student Insights was being developed, some teachers started asking whether 
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -2228,12 +2228,12 @@ When Student Insights was being developed, some teachers started asking whether 
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -2258,7 +2258,7 @@ exports[`exportProps snapshots all placed 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -2270,7 +2270,7 @@ exports[`exportProps snapshots all placed 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -2280,7 +2280,7 @@ exports[`exportProps snapshots all placed 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -2294,7 +2294,7 @@ exports[`exportProps snapshots all placed 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -2308,7 +2308,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -2316,7 +2316,7 @@ exports[`exportProps snapshots all placed 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -2347,7 +2347,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -2358,7 +2358,7 @@ exports[`exportProps snapshots all placed 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -2372,7 +2372,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -2380,7 +2380,7 @@ exports[`exportProps snapshots all placed 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -2411,7 +2411,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -2422,7 +2422,7 @@ exports[`exportProps snapshots all placed 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -2436,7 +2436,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -2444,7 +2444,7 @@ exports[`exportProps snapshots all placed 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -2475,7 +2475,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -2486,7 +2486,7 @@ exports[`exportProps snapshots all placed 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -2500,7 +2500,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -2508,7 +2508,7 @@ exports[`exportProps snapshots all placed 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -2539,7 +2539,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -2550,7 +2550,7 @@ exports[`exportProps snapshots all placed 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -2564,7 +2564,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -2572,7 +2572,7 @@ exports[`exportProps snapshots all placed 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -2603,7 +2603,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -2614,7 +2614,7 @@ exports[`exportProps snapshots all placed 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -2629,7 +2629,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -2637,7 +2637,7 @@ exports[`exportProps snapshots all placed 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -2668,7 +2668,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -2680,7 +2680,7 @@ exports[`exportProps snapshots all placed 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -2689,7 +2689,7 @@ exports[`exportProps snapshots all placed 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -2699,7 +2699,7 @@ exports[`exportProps snapshots all placed 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -2709,12 +2709,12 @@ exports[`exportProps snapshots all placed 1`] = `
             ?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -2732,7 +2732,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -2740,12 +2740,12 @@ exports[`exportProps snapshots all placed 1`] = `
             Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -2763,7 +2763,7 @@ exports[`exportProps snapshots all placed 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -2775,7 +2775,7 @@ exports[`exportProps snapshots all placed 1`] = `
           <div>
             <table
               style={
-                Object {
+                {
                   "borderCollapse": "collapse",
                   "marginTop": 5,
                 }
@@ -2785,7 +2785,7 @@ exports[`exportProps snapshots all placed 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -2794,7 +2794,7 @@ exports[`exportProps snapshots all placed 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -2810,7 +2810,7 @@ exports[`exportProps snapshots all placed 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -2834,7 +2834,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -2859,7 +2859,7 @@ exports[`exportProps snapshots all placed 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -2868,7 +2868,7 @@ exports[`exportProps snapshots all placed 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -2884,7 +2884,7 @@ exports[`exportProps snapshots all placed 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -2908,7 +2908,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -2933,7 +2933,7 @@ exports[`exportProps snapshots all placed 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -2942,7 +2942,7 @@ exports[`exportProps snapshots all placed 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -2958,7 +2958,7 @@ exports[`exportProps snapshots all placed 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -2982,7 +2982,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -3012,7 +3012,7 @@ exports[`exportProps snapshots all placed 1`] = `
               <span
                 className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
                 style={
-                  Object {
+                  {
                     "color": "white",
                     "display": "inline-block",
                     "marginTop": 20,
@@ -3024,7 +3024,7 @@ exports[`exportProps snapshots all placed 1`] = `
               </span>
               <div
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginLeft": 10,
                   }
@@ -3033,7 +3033,7 @@ exports[`exportProps snapshots all placed 1`] = `
                 <span
                   className="SuccessLabel"
                   style={
-                    Object {
+                    {
                       "background": "orange",
                       "backgroundColor": "rgb(209, 231, 210)",
                       "border": "1px solid rgb(149, 198, 150)",
@@ -3058,7 +3058,7 @@ exports[`exportProps snapshots all placed 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -3069,12 +3069,12 @@ exports[`exportProps snapshots all placed 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -3100,7 +3100,7 @@ exports[`exportProps snapshots moves 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -3112,7 +3112,7 @@ exports[`exportProps snapshots moves 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -3122,7 +3122,7 @@ exports[`exportProps snapshots moves 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -3136,7 +3136,7 @@ exports[`exportProps snapshots moves 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -3150,7 +3150,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -3158,7 +3158,7 @@ exports[`exportProps snapshots moves 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -3189,7 +3189,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -3200,7 +3200,7 @@ exports[`exportProps snapshots moves 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -3214,7 +3214,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -3222,7 +3222,7 @@ exports[`exportProps snapshots moves 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -3253,7 +3253,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -3264,7 +3264,7 @@ exports[`exportProps snapshots moves 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -3278,7 +3278,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -3286,7 +3286,7 @@ exports[`exportProps snapshots moves 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -3317,7 +3317,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -3328,7 +3328,7 @@ exports[`exportProps snapshots moves 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -3342,7 +3342,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -3350,7 +3350,7 @@ exports[`exportProps snapshots moves 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -3381,7 +3381,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -3392,7 +3392,7 @@ exports[`exportProps snapshots moves 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -3406,7 +3406,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -3414,7 +3414,7 @@ exports[`exportProps snapshots moves 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -3445,7 +3445,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -3456,7 +3456,7 @@ exports[`exportProps snapshots moves 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -3471,7 +3471,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -3479,7 +3479,7 @@ exports[`exportProps snapshots moves 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -3510,7 +3510,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -3521,7 +3521,7 @@ exports[`exportProps snapshots moves 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "background": "#666",
             "borderRadius": 3,
             "color": "#eee",
@@ -3538,7 +3538,7 @@ exports[`exportProps snapshots moves 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -3547,7 +3547,7 @@ exports[`exportProps snapshots moves 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -3557,7 +3557,7 @@ exports[`exportProps snapshots moves 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -3567,12 +3567,12 @@ exports[`exportProps snapshots moves 1`] = `
             ?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -3590,7 +3590,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -3598,12 +3598,12 @@ exports[`exportProps snapshots moves 1`] = `
             Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "background": "orange",
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
@@ -3623,7 +3623,7 @@ exports[`exportProps snapshots moves 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -3635,7 +3635,7 @@ exports[`exportProps snapshots moves 1`] = `
           <div>
             <table
               style={
-                Object {
+                {
                   "borderCollapse": "collapse",
                   "marginTop": 5,
                 }
@@ -3645,7 +3645,7 @@ exports[`exportProps snapshots moves 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -3654,7 +3654,7 @@ exports[`exportProps snapshots moves 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -3670,7 +3670,7 @@ exports[`exportProps snapshots moves 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -3694,7 +3694,7 @@ exports[`exportProps snapshots moves 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -3719,7 +3719,7 @@ exports[`exportProps snapshots moves 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -3728,7 +3728,7 @@ exports[`exportProps snapshots moves 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -3744,7 +3744,7 @@ exports[`exportProps snapshots moves 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -3768,7 +3768,7 @@ exports[`exportProps snapshots moves 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -3793,7 +3793,7 @@ exports[`exportProps snapshots moves 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -3802,7 +3802,7 @@ exports[`exportProps snapshots moves 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -3818,7 +3818,7 @@ exports[`exportProps snapshots moves 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -3842,7 +3842,7 @@ exports[`exportProps snapshots moves 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -3872,7 +3872,7 @@ exports[`exportProps snapshots moves 1`] = `
               <span
                 className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
                 style={
-                  Object {
+                  {
                     "color": "white",
                     "display": "inline-block",
                     "marginTop": 20,
@@ -3884,7 +3884,7 @@ exports[`exportProps snapshots moves 1`] = `
               </span>
               <div
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginLeft": 10,
                   }
@@ -3893,7 +3893,7 @@ exports[`exportProps snapshots moves 1`] = `
                 <span
                   className="SuccessLabel"
                   style={
-                    Object {
+                    {
                       "background": "orange",
                       "backgroundColor": "rgb(209, 231, 210)",
                       "border": "1px solid rgb(149, 198, 150)",
@@ -3918,7 +3918,7 @@ exports[`exportProps snapshots moves 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -3929,12 +3929,12 @@ exports[`exportProps snapshots moves 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -3960,7 +3960,7 @@ exports[`exportProps snapshots unplaced 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -3972,7 +3972,7 @@ exports[`exportProps snapshots unplaced 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -3982,7 +3982,7 @@ exports[`exportProps snapshots unplaced 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -3996,7 +3996,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4010,7 +4010,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4018,7 +4018,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4049,7 +4049,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4060,7 +4060,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4074,7 +4074,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4082,7 +4082,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4113,7 +4113,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4124,7 +4124,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4138,7 +4138,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4146,7 +4146,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4177,7 +4177,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4188,7 +4188,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4202,7 +4202,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4210,7 +4210,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4241,7 +4241,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4252,7 +4252,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4266,7 +4266,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4274,7 +4274,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4305,7 +4305,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4316,7 +4316,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -4331,7 +4331,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4339,7 +4339,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4370,7 +4370,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4382,7 +4382,7 @@ exports[`exportProps snapshots unplaced 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -4391,7 +4391,7 @@ exports[`exportProps snapshots unplaced 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -4401,7 +4401,7 @@ exports[`exportProps snapshots unplaced 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -4411,12 +4411,12 @@ exports[`exportProps snapshots unplaced 1`] = `
             ?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "background": "orange",
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
@@ -4436,7 +4436,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -4444,12 +4444,12 @@ exports[`exportProps snapshots unplaced 1`] = `
             Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -4467,7 +4467,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -4479,7 +4479,7 @@ exports[`exportProps snapshots unplaced 1`] = `
           <div>
             <table
               style={
-                Object {
+                {
                   "borderCollapse": "collapse",
                   "marginTop": 5,
                 }
@@ -4489,7 +4489,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -4498,7 +4498,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -4514,7 +4514,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -4538,7 +4538,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -4563,7 +4563,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -4572,7 +4572,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -4588,7 +4588,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -4612,7 +4612,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -4642,7 +4642,7 @@ exports[`exportProps snapshots unplaced 1`] = `
               <span
                 className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
                 style={
-                  Object {
+                  {
                     "color": "white",
                     "display": "inline-block",
                     "marginTop": 20,
@@ -4654,7 +4654,7 @@ exports[`exportProps snapshots unplaced 1`] = `
               </span>
               <div
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginLeft": 10,
                   }
@@ -4663,7 +4663,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                 <span
                   className="SuccessLabel"
                   style={
-                    Object {
+                    {
                       "background": "orange",
                       "backgroundColor": "rgb(209, 231, 210)",
                       "border": "1px solid rgb(149, 198, 150)",
@@ -4688,7 +4688,7 @@ exports[`exportProps snapshots unplaced 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -4699,12 +4699,12 @@ exports[`exportProps snapshots unplaced 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -4730,7 +4730,7 @@ exports[`exportProps snapshots with teachers 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -4742,7 +4742,7 @@ exports[`exportProps snapshots with teachers 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -4752,7 +4752,7 @@ exports[`exportProps snapshots with teachers 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -4766,7 +4766,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4780,7 +4780,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4788,7 +4788,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4819,7 +4819,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4830,7 +4830,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4844,7 +4844,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4852,7 +4852,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4883,7 +4883,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4894,7 +4894,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4908,7 +4908,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4916,7 +4916,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -4947,7 +4947,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -4958,7 +4958,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -4972,7 +4972,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -4980,7 +4980,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5011,7 +5011,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5022,7 +5022,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -5036,7 +5036,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5044,7 +5044,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5075,7 +5075,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5086,7 +5086,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -5101,7 +5101,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5109,7 +5109,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5140,7 +5140,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5151,7 +5151,7 @@ exports[`exportProps snapshots with teachers 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "background": "#666",
             "borderRadius": 3,
             "color": "#eee",
@@ -5168,7 +5168,7 @@ exports[`exportProps snapshots with teachers 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -5177,7 +5177,7 @@ exports[`exportProps snapshots with teachers 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -5187,7 +5187,7 @@ exports[`exportProps snapshots with teachers 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -5197,12 +5197,12 @@ exports[`exportProps snapshots with teachers 1`] = `
             ?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -5220,7 +5220,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -5228,12 +5228,12 @@ exports[`exportProps snapshots with teachers 1`] = `
             Have you reviewed the team’s plan and notes before making changes?
           </div>
           <div
-            style={Object {}}
+            style={{}}
           >
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -5251,7 +5251,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -5263,7 +5263,7 @@ exports[`exportProps snapshots with teachers 1`] = `
           <div>
             <table
               style={
-                Object {
+                {
                   "borderCollapse": "collapse",
                   "marginTop": 5,
                 }
@@ -5273,7 +5273,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -5282,7 +5282,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -5298,7 +5298,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -5329,7 +5329,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -5354,7 +5354,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -5363,7 +5363,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -5379,7 +5379,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -5410,7 +5410,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -5435,7 +5435,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                 <tr>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -5444,7 +5444,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                   </td>
                   <td
                     style={
-                      Object {
+                      {
                         "padding": "2px 8px",
                       }
                     }
@@ -5460,7 +5460,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
                         style={
-                          Object {
+                          {
                             "width": "20em",
                           }
                         }
@@ -5491,7 +5491,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                             onFocus={[Function]}
                             role="combobox"
                             style={
-                              Object {
+                              {
                                 "border": 0,
                                 "display": "inline-block",
                                 "width": 1,
@@ -5524,7 +5524,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                 href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Kevin%22"
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "color": "white",
                     "display": "inline-block",
                     "marginTop": 20,
@@ -5542,7 +5542,7 @@ exports[`exportProps snapshots with teachers 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -5553,12 +5553,12 @@ exports[`exportProps snapshots with teachers 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -5584,7 +5584,7 @@ exports[`makeAPlanProps 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -5596,7 +5596,7 @@ exports[`makeAPlanProps 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -5606,7 +5606,7 @@ exports[`makeAPlanProps 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -5620,7 +5620,7 @@ exports[`makeAPlanProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -5634,7 +5634,7 @@ exports[`makeAPlanProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5642,7 +5642,7 @@ exports[`makeAPlanProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5673,7 +5673,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5684,7 +5684,7 @@ exports[`makeAPlanProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -5699,7 +5699,7 @@ exports[`makeAPlanProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5707,7 +5707,7 @@ exports[`makeAPlanProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5738,7 +5738,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5749,7 +5749,7 @@ exports[`makeAPlanProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -5763,7 +5763,7 @@ exports[`makeAPlanProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5771,7 +5771,7 @@ exports[`makeAPlanProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5802,7 +5802,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5813,7 +5813,7 @@ exports[`makeAPlanProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -5827,7 +5827,7 @@ exports[`makeAPlanProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5835,7 +5835,7 @@ exports[`makeAPlanProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5866,7 +5866,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5877,7 +5877,7 @@ exports[`makeAPlanProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -5891,7 +5891,7 @@ exports[`makeAPlanProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5899,7 +5899,7 @@ exports[`makeAPlanProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5930,7 +5930,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -5941,7 +5941,7 @@ exports[`makeAPlanProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -5955,7 +5955,7 @@ exports[`makeAPlanProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -5963,7 +5963,7 @@ exports[`makeAPlanProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -5994,7 +5994,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6006,7 +6006,7 @@ exports[`makeAPlanProps 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -6015,7 +6015,7 @@ exports[`makeAPlanProps 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -6023,7 +6023,7 @@ exports[`makeAPlanProps 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -6081,7 +6081,7 @@ exports[`makeAPlanProps 1`] = `
                 <div
                   className="Select-input"
                   style={
-                    Object {
+                    {
                       "display": "inline-block",
                     }
                   }
@@ -6097,7 +6097,7 @@ exports[`makeAPlanProps 1`] = `
                     required={false}
                     role="combobox"
                     style={
-                      Object {
+                      {
                         "boxSizing": "content-box",
                         "width": "5px",
                       }
@@ -6106,7 +6106,7 @@ exports[`makeAPlanProps 1`] = `
                   />
                   <div
                     style={
-                      Object {
+                      {
                         "height": 0,
                         "left": 0,
                         "overflow": "scroll",
@@ -6133,7 +6133,7 @@ exports[`makeAPlanProps 1`] = `
                 <span
                   className="Select-clear"
                   dangerouslySetInnerHTML={
-                    Object {
+                    {
                       "__html": "&times;",
                     }
                   }
@@ -6154,7 +6154,7 @@ exports[`makeAPlanProps 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -6165,7 +6165,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "marginLeft": 5,
               }
@@ -6175,7 +6175,7 @@ exports[`makeAPlanProps 1`] = `
               disabled={false}
               onClick={[Function]}
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "fontSize": 16,
                   "padding": 1,
@@ -6188,7 +6188,7 @@ exports[`makeAPlanProps 1`] = `
             </button>
             <div
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 10,
                 }
@@ -6201,7 +6201,7 @@ exports[`makeAPlanProps 1`] = `
               disabled={false}
               onClick={[Function]}
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "fontSize": 16,
                   "padding": 1,
@@ -6215,7 +6215,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "fontSize": 12,
                 "marginLeft": 20,
@@ -6236,7 +6236,7 @@ exports[`makeAPlanProps 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -6245,7 +6245,7 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -6261,7 +6261,7 @@ exports[`makeAPlanProps 1`] = `
               onChange={[Function]}
               rows={8}
               style={
-                Object {
+                {
                   "border": "1px solid #ccc",
                   "width": "100%",
                 }
@@ -6274,7 +6274,7 @@ exports[`makeAPlanProps 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -6285,12 +6285,12 @@ exports[`makeAPlanProps 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -6310,12 +6310,12 @@ exports[`makeAPlanProps 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -6340,7 +6340,7 @@ exports[`makeAPlanProps 2`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -6352,7 +6352,7 @@ exports[`makeAPlanProps 2`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -6362,7 +6362,7 @@ exports[`makeAPlanProps 2`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -6376,7 +6376,7 @@ exports[`makeAPlanProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -6390,7 +6390,7 @@ exports[`makeAPlanProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -6398,7 +6398,7 @@ exports[`makeAPlanProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -6429,7 +6429,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6440,7 +6440,7 @@ exports[`makeAPlanProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -6455,7 +6455,7 @@ exports[`makeAPlanProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -6463,7 +6463,7 @@ exports[`makeAPlanProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -6494,7 +6494,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6505,7 +6505,7 @@ exports[`makeAPlanProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -6519,7 +6519,7 @@ exports[`makeAPlanProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -6527,7 +6527,7 @@ exports[`makeAPlanProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -6558,7 +6558,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6569,7 +6569,7 @@ exports[`makeAPlanProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -6583,7 +6583,7 @@ exports[`makeAPlanProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -6591,7 +6591,7 @@ exports[`makeAPlanProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -6622,7 +6622,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6633,7 +6633,7 @@ exports[`makeAPlanProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -6647,7 +6647,7 @@ exports[`makeAPlanProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -6655,7 +6655,7 @@ exports[`makeAPlanProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -6686,7 +6686,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6697,7 +6697,7 @@ exports[`makeAPlanProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -6711,7 +6711,7 @@ exports[`makeAPlanProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -6719,7 +6719,7 @@ exports[`makeAPlanProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -6750,7 +6750,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -6761,7 +6761,7 @@ exports[`makeAPlanProps 2`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "background": "#666",
             "borderRadius": 3,
             "color": "#eee",
@@ -6778,7 +6778,7 @@ exports[`makeAPlanProps 2`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -6787,7 +6787,7 @@ exports[`makeAPlanProps 2`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -6795,7 +6795,7 @@ exports[`makeAPlanProps 2`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -6850,7 +6850,7 @@ exports[`makeAPlanProps 2`] = `
                   onFocus={[Function]}
                   role="combobox"
                   style={
-                    Object {
+                    {
                       "border": 0,
                       "display": "inline-block",
                       "width": 1,
@@ -6874,7 +6874,7 @@ exports[`makeAPlanProps 2`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -6885,7 +6885,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "marginLeft": 5,
               }
@@ -6895,7 +6895,7 @@ exports[`makeAPlanProps 2`] = `
               disabled={true}
               onClick={[Function]}
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "fontSize": 16,
                   "padding": 1,
@@ -6908,7 +6908,7 @@ exports[`makeAPlanProps 2`] = `
             </button>
             <div
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 10,
                 }
@@ -6921,7 +6921,7 @@ exports[`makeAPlanProps 2`] = `
               disabled={true}
               onClick={[Function]}
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "fontSize": 16,
                   "padding": 1,
@@ -6935,7 +6935,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "fontSize": 12,
                 "marginLeft": 20,
@@ -6956,7 +6956,7 @@ exports[`makeAPlanProps 2`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "marginTop": 20,
               }
             }
@@ -6965,7 +6965,7 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -6981,7 +6981,7 @@ exports[`makeAPlanProps 2`] = `
               onChange={[Function]}
               rows={8}
               style={
-                Object {
+                {
                   "border": "1px solid #ccc",
                   "width": "100%",
                 }
@@ -6994,7 +6994,7 @@ exports[`makeAPlanProps 2`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -7005,12 +7005,12 @@ exports[`makeAPlanProps 2`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -7030,12 +7030,12 @@ exports[`makeAPlanProps 2`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -7060,7 +7060,7 @@ exports[`shareWithPrincipalProps 1`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -7072,7 +7072,7 @@ exports[`shareWithPrincipalProps 1`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -7082,7 +7082,7 @@ exports[`shareWithPrincipalProps 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -7096,7 +7096,7 @@ exports[`shareWithPrincipalProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7110,7 +7110,7 @@ exports[`shareWithPrincipalProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7118,7 +7118,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7149,7 +7149,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7160,7 +7160,7 @@ exports[`shareWithPrincipalProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7174,7 +7174,7 @@ exports[`shareWithPrincipalProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7182,7 +7182,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7213,7 +7213,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7224,7 +7224,7 @@ exports[`shareWithPrincipalProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7238,7 +7238,7 @@ exports[`shareWithPrincipalProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7246,7 +7246,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7277,7 +7277,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7288,7 +7288,7 @@ exports[`shareWithPrincipalProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -7303,7 +7303,7 @@ exports[`shareWithPrincipalProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7311,7 +7311,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7342,7 +7342,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7353,7 +7353,7 @@ exports[`shareWithPrincipalProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7367,7 +7367,7 @@ exports[`shareWithPrincipalProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7375,7 +7375,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7406,7 +7406,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7417,7 +7417,7 @@ exports[`shareWithPrincipalProps 1`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7431,7 +7431,7 @@ exports[`shareWithPrincipalProps 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7439,7 +7439,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7470,7 +7470,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7482,7 +7482,7 @@ exports[`shareWithPrincipalProps 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -7491,7 +7491,7 @@ exports[`shareWithPrincipalProps 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -7502,7 +7502,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -7517,7 +7517,7 @@ exports[`shareWithPrincipalProps 1`] = `
             onChange={[Function]}
             rows={5}
             style={
-              Object {
+              {
                 "border": "1px solid #ccc",
                 "width": "100%",
               }
@@ -7527,7 +7527,7 @@ exports[`shareWithPrincipalProps 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginTop": 20,
             }
           }
@@ -7537,7 +7537,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -7552,7 +7552,7 @@ exports[`shareWithPrincipalProps 1`] = `
             onChange={[Function]}
             rows={2}
             style={
-              Object {
+              {
                 "border": "1px solid #ccc",
                 "width": "100%",
               }
@@ -7562,7 +7562,7 @@ exports[`shareWithPrincipalProps 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginTop": 20,
             }
           }
@@ -7572,7 +7572,7 @@ exports[`shareWithPrincipalProps 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "space-between",
               }
@@ -7580,7 +7580,7 @@ exports[`shareWithPrincipalProps 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "fontSize": 12,
                   "padding": 10,
                   "paddingLeft": 0,
@@ -7594,12 +7594,12 @@ exports[`shareWithPrincipalProps 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[MockFunction]}
                 style={
-                  Object {
+                  {
                     "background": "#E5370E",
                     "border": "none",
                     "borderRadius": 28,
@@ -7620,7 +7620,7 @@ exports[`shareWithPrincipalProps 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -7631,12 +7631,12 @@ exports[`shareWithPrincipalProps 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -7656,12 +7656,12 @@ exports[`shareWithPrincipalProps 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -7686,7 +7686,7 @@ exports[`shareWithPrincipalProps 2`] = `
 <div
   className="ClassListCreatorView"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -7698,7 +7698,7 @@ exports[`shareWithPrincipalProps 2`] = `
   <div
     className="HorizontalStepper"
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "height": "100%",
@@ -7708,7 +7708,7 @@ exports[`shareWithPrincipalProps 2`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "fontSize": 12,
@@ -7722,7 +7722,7 @@ exports[`shareWithPrincipalProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7736,7 +7736,7 @@ exports[`shareWithPrincipalProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7744,7 +7744,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7775,7 +7775,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7786,7 +7786,7 @@ exports[`shareWithPrincipalProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7800,7 +7800,7 @@ exports[`shareWithPrincipalProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7808,7 +7808,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7839,7 +7839,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7850,7 +7850,7 @@ exports[`shareWithPrincipalProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7864,7 +7864,7 @@ exports[`shareWithPrincipalProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7872,7 +7872,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7903,7 +7903,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7914,7 +7914,7 @@ exports[`shareWithPrincipalProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(49, 119, 201, 0.25)",
               "border": "1px solid white",
               "borderColor": "#3177c9",
@@ -7929,7 +7929,7 @@ exports[`shareWithPrincipalProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -7937,7 +7937,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -7968,7 +7968,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -7979,7 +7979,7 @@ exports[`shareWithPrincipalProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -7993,7 +7993,7 @@ exports[`shareWithPrincipalProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -8001,7 +8001,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -8032,7 +8032,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -8043,7 +8043,7 @@ exports[`shareWithPrincipalProps 2`] = `
         <span
           onClick={[Function]}
           style={
-            Object {
+            {
               "border": "1px solid white",
               "borderColor": "white",
               "borderRadius": 3,
@@ -8057,7 +8057,7 @@ exports[`shareWithPrincipalProps 2`] = `
         >
           <div
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "verticalAlign": "middle",
               }
@@ -8065,7 +8065,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <svg
               style={
-                Object {
+                {
                   "color": "#3177c9",
                   "display": "inline-block",
                   "fill": "#3177c9",
@@ -8096,7 +8096,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <span
             style={
-              Object {
+              {
                 "paddingLeft": 5,
               }
             }
@@ -8107,7 +8107,7 @@ exports[`shareWithPrincipalProps 2`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "background": "#666",
             "borderRadius": 3,
             "color": "#eee",
@@ -8124,7 +8124,7 @@ exports[`shareWithPrincipalProps 2`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "borderTop": "1px solid #ccc",
           "flex": 1,
           "marginTop": 10,
@@ -8133,7 +8133,7 @@ exports[`shareWithPrincipalProps 2`] = `
     >
       <div
         style={
-          Object {
+          {
             "margin": 20,
           }
         }
@@ -8144,7 +8144,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -8159,7 +8159,7 @@ exports[`shareWithPrincipalProps 2`] = `
             onChange={[Function]}
             rows={5}
             style={
-              Object {
+              {
                 "border": "1px solid #ccc",
                 "width": "100%",
               }
@@ -8169,7 +8169,7 @@ exports[`shareWithPrincipalProps 2`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginTop": 20,
             }
           }
@@ -8179,7 +8179,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 0,
@@ -8194,7 +8194,7 @@ exports[`shareWithPrincipalProps 2`] = `
             onChange={[Function]}
             rows={2}
             style={
-              Object {
+              {
                 "border": "1px solid #ccc",
                 "width": "100%",
               }
@@ -8204,7 +8204,7 @@ exports[`shareWithPrincipalProps 2`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "marginTop": 20,
             }
           }
@@ -8214,7 +8214,7 @@ exports[`shareWithPrincipalProps 2`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "space-between",
               }
@@ -8222,7 +8222,7 @@ exports[`shareWithPrincipalProps 2`] = `
           >
             <div
               style={
-                Object {
+                {
                   "fontSize": 12,
                   "padding": 10,
                   "paddingLeft": 0,
@@ -8235,7 +8235,7 @@ exports[`shareWithPrincipalProps 2`] = `
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -8253,7 +8253,7 @@ exports[`shareWithPrincipalProps 2`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "margin": 10,
@@ -8264,12 +8264,12 @@ exports[`shareWithPrincipalProps 2`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -8289,12 +8289,12 @@ exports[`shareWithPrincipalProps 2`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,

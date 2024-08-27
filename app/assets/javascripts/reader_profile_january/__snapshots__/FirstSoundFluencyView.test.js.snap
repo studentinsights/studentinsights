@@ -4,14 +4,14 @@ exports[`snapshots 1`] = `
 <div
   className="ExpandedLayout"
   style={
-    Object {
+    {
       "padding": 10,
     }
   }
 >
   <div
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "flexDirection": "row",
@@ -22,7 +22,7 @@ exports[`snapshots 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "fontSize": 16,
           "fontWeight": "bold",
         }
@@ -33,7 +33,7 @@ exports[`snapshots 1`] = `
     <div
       onClick={[MockFunction]}
       style={
-        Object {
+        {
           "color": "#999",
           "cursor": "pointer",
         }
@@ -44,7 +44,7 @@ exports[`snapshots 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "alignItems": "flex-start",
         "display": "flex",
         "flexDirection": "row",
@@ -54,7 +54,7 @@ exports[`snapshots 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "flex": 5,
           "marginRight": 20,
         }
@@ -64,7 +64,7 @@ exports[`snapshots 1`] = `
         <div
           className="MaterialsCarousel"
           style={
-            Object {
+            {
               "position": "relative",
             }
           }
@@ -76,7 +76,7 @@ exports[`snapshots 1`] = `
             <img
               src="/img/reading/FirstSoundFluency-KF-winter.jpg"
               style={
-                Object {
+                {
                   "border": "1px solid #ccc",
                   "cursor": "zoom-in",
                 }
@@ -90,7 +90,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 3,
           "marginRight": 20,
           "overflow": "hidden",
@@ -99,7 +99,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "color": "#333",
             "marginBottom": 10,
           }
@@ -116,7 +116,7 @@ exports[`snapshots 1`] = `
               href="https://www.dropbox.com/sh/md15rd36xq81wwi/AAD-I9Eto1rG5wdgwN3bxOEwa/ELA%202019-2020/Kindergarten/PA%20Intervention"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "background": "#eee",
                   "border": "1px solid #ccc",
@@ -133,7 +133,7 @@ exports[`snapshots 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "fontWeight": "bold",
                     "whiteSpace": "nowrap",
                   }
@@ -150,7 +150,7 @@ exports[`snapshots 1`] = `
               href="https://www.dropbox.com/sh/md15rd36xq81wwi/AAD40J3eTcxj5khUtz5mpRKva/ELA%202019-2020/Kindergarten/PA%20Workbooks"
               rel="noopener noreferrer"
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "background": "#eee",
                   "border": "1px solid #ccc",
@@ -167,7 +167,7 @@ exports[`snapshots 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "fontWeight": "bold",
                     "whiteSpace": "nowrap",
                   }
@@ -183,7 +183,7 @@ exports[`snapshots 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "color": "#999",
                 "fontSize": 12,
                 "margin": 10,
@@ -197,7 +197,7 @@ exports[`snapshots 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 5,
           "marginRight": 20,
         }
@@ -205,7 +205,7 @@ exports[`snapshots 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "color": "#333",
             "marginBottom": 10,
           }
@@ -220,7 +220,7 @@ exports[`snapshots 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "marginBottom": 40,
               }
             }
@@ -228,7 +228,7 @@ exports[`snapshots 1`] = `
             <div
               className="BoxChartContainer"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flexDirection": "row",
                   "fontSize": 12,
@@ -238,14 +238,14 @@ exports[`snapshots 1`] = `
               <div
                 className="YearBoxContainer"
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
               >
                 <div
                   style={
-                    Object {
+                    {
                       "display": "flex",
                       "flexDirection": "row",
                     }
@@ -253,7 +253,7 @@ exports[`snapshots 1`] = `
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "center",
                         "background": "#f8f8f8",
                         "color": "#95959580",
@@ -272,7 +272,7 @@ exports[`snapshots 1`] = `
                   </div>
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "center",
                         "background": "#f8f8f8",
                         "color": "#95959580",
@@ -291,7 +291,7 @@ exports[`snapshots 1`] = `
                   </div>
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "center",
                         "background": "#f8f8f8",
                         "color": "#95959580",
@@ -311,7 +311,7 @@ exports[`snapshots 1`] = `
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "marginTop": 5,
                     }
                   }
@@ -322,7 +322,7 @@ exports[`snapshots 1`] = `
               <div
                 className="YearBoxContainer"
                 style={
-                  Object {
+                  {
                     "flex": 1,
                     "paddingLeft": 20,
                   }
@@ -330,7 +330,7 @@ exports[`snapshots 1`] = `
               >
                 <div
                   style={
-                    Object {
+                    {
                       "display": "flex",
                       "flexDirection": "row",
                     }
@@ -338,7 +338,7 @@ exports[`snapshots 1`] = `
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "center",
                         "background": "orange",
                         "color": "#904a00",
@@ -357,7 +357,7 @@ exports[`snapshots 1`] = `
                   </div>
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "center",
                         "background": "orange",
                         "color": "#904a00",
@@ -376,7 +376,7 @@ exports[`snapshots 1`] = `
                   </div>
                   <div
                     style={
-                      Object {
+                      {
                         "alignItems": "center",
                         "background": "#f8f8f8",
                         "color": "#95959580",
@@ -396,7 +396,7 @@ exports[`snapshots 1`] = `
                 </div>
                 <div
                   style={
-                    Object {
+                    {
                       "marginTop": 5,
                     }
                   }
@@ -414,7 +414,7 @@ exports[`snapshots 1`] = `
                 href="#"
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "padding": 0,
                     "paddingRight": 10,
                   }
@@ -430,7 +430,7 @@ exports[`snapshots 1`] = `
                 href="#"
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "padding": 0,
                     "paddingRight": 10,
                   }

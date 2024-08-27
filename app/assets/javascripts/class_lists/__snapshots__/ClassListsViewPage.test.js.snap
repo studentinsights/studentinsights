@@ -5,7 +5,7 @@ exports[`snapshots view 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -13,7 +13,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -25,7 +25,7 @@ exports[`snapshots view 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginLeft": 10,
         }
       }
@@ -34,12 +34,12 @@ exports[`snapshots view 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -59,7 +59,7 @@ exports[`snapshots view 1`] = `
     </div>
     <table
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderCollapse": "collapse",
           "margin": 10,
@@ -70,7 +70,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -84,7 +84,7 @@ exports[`snapshots view 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -98,7 +98,7 @@ exports[`snapshots view 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -112,7 +112,7 @@ exports[`snapshots view 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -126,7 +126,7 @@ exports[`snapshots view 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -140,7 +140,7 @@ exports[`snapshots view 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -154,7 +154,7 @@ exports[`snapshots view 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -170,7 +170,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -182,7 +182,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -194,7 +194,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -204,7 +204,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -214,7 +214,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -226,7 +226,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -236,7 +236,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -249,7 +249,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -261,7 +261,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -273,12 +273,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -298,7 +298,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -310,7 +310,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -322,7 +322,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -332,7 +332,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -342,7 +342,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -354,7 +354,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -364,7 +364,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -377,7 +377,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -389,7 +389,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -401,12 +401,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -426,7 +426,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -438,7 +438,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -450,7 +450,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -460,7 +460,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -470,7 +470,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -482,7 +482,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -492,7 +492,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -505,7 +505,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -517,7 +517,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -529,12 +529,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -554,7 +554,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -566,7 +566,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -578,7 +578,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -588,7 +588,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -598,7 +598,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -610,7 +610,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -620,7 +620,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -633,7 +633,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -644,7 +644,7 @@ exports[`snapshots view 1`] = `
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -659,7 +659,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -671,12 +671,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -696,7 +696,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -708,7 +708,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -720,7 +720,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -730,7 +730,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -740,7 +740,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -752,7 +752,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -762,7 +762,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -775,7 +775,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -786,7 +786,7 @@ exports[`snapshots view 1`] = `
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -801,7 +801,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -813,12 +813,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -838,7 +838,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -850,7 +850,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -862,7 +862,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -874,7 +874,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -886,7 +886,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -896,7 +896,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -909,7 +909,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -921,7 +921,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -933,12 +933,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -958,7 +958,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -970,7 +970,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -982,7 +982,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -992,7 +992,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1002,7 +1002,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1013,14 +1013,14 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:sarah@demo.studentinsights.org"
-              style={Object {}}
+              style={{}}
             >
               Sarah Teacher
             </a>
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1033,7 +1033,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1045,7 +1045,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -1057,12 +1057,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -1082,7 +1082,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1094,7 +1094,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1106,7 +1106,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1116,7 +1116,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1126,7 +1126,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1138,7 +1138,7 @@ exports[`snapshots view 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -1148,7 +1148,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1161,7 +1161,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1173,7 +1173,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -1185,12 +1185,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -1210,7 +1210,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1222,7 +1222,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1234,7 +1234,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1244,7 +1244,7 @@ exports[`snapshots view 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1254,7 +1254,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1265,14 +1265,14 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:sarah@demo.studentinsights.org"
-              style={Object {}}
+              style={{}}
             >
               Sarah Teacher
             </a>
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1285,7 +1285,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1297,7 +1297,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -1309,12 +1309,12 @@ exports[`snapshots view 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -1342,7 +1342,7 @@ exports[`snapshots view with text links 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -1350,7 +1350,7 @@ exports[`snapshots view with text links 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -1362,7 +1362,7 @@ exports[`snapshots view with text links 1`] = `
   <div>
     <div
       style={
-        Object {
+        {
           "marginLeft": 10,
         }
       }
@@ -1371,12 +1371,12 @@ exports[`snapshots view with text links 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={Object {}}
+        style={{}}
       >
         <button
           onClick={[Function]}
           style={
-            Object {
+            {
               "background": "#4A90E2",
               "border": "none",
               "borderRadius": 28,
@@ -1396,7 +1396,7 @@ exports[`snapshots view with text links 1`] = `
     </div>
     <table
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderCollapse": "collapse",
           "margin": 10,
@@ -1407,7 +1407,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1421,7 +1421,7 @@ exports[`snapshots view with text links 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1435,7 +1435,7 @@ exports[`snapshots view with text links 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1449,7 +1449,7 @@ exports[`snapshots view with text links 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1463,7 +1463,7 @@ exports[`snapshots view with text links 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1477,7 +1477,7 @@ exports[`snapshots view with text links 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1491,7 +1491,7 @@ exports[`snapshots view with text links 1`] = `
           </th>
           <th
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "border": "1px solid #eee",
                 "fontWeight": "bold",
@@ -1507,7 +1507,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1519,7 +1519,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1531,7 +1531,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1541,7 +1541,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1551,7 +1551,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1563,7 +1563,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -1573,7 +1573,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1586,7 +1586,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1598,7 +1598,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -1610,12 +1610,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -1635,7 +1635,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1647,7 +1647,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1659,7 +1659,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1669,7 +1669,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1679,7 +1679,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1691,7 +1691,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -1701,7 +1701,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1714,7 +1714,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1726,7 +1726,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -1738,12 +1738,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -1763,7 +1763,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1775,7 +1775,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1787,7 +1787,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1797,7 +1797,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1807,7 +1807,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1819,7 +1819,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -1829,7 +1829,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1842,7 +1842,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1854,7 +1854,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -1866,12 +1866,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -1891,7 +1891,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1903,7 +1903,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1915,7 +1915,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1925,7 +1925,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -1935,7 +1935,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1947,7 +1947,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -1957,7 +1957,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1970,7 +1970,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -1981,7 +1981,7 @@ exports[`snapshots view with text links 1`] = `
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -1996,7 +1996,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -2008,12 +2008,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -2033,7 +2033,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2045,7 +2045,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2057,7 +2057,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2067,7 +2067,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -2077,7 +2077,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2089,7 +2089,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -2099,7 +2099,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2112,7 +2112,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2123,7 +2123,7 @@ exports[`snapshots view with text links 1`] = `
             <span
               className="SuccessLabel"
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(209, 231, 210)",
                   "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
@@ -2138,7 +2138,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -2150,12 +2150,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -2175,7 +2175,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2187,7 +2187,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2199,7 +2199,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2211,7 +2211,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2223,7 +2223,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -2233,7 +2233,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2246,7 +2246,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2258,7 +2258,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -2270,12 +2270,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -2295,7 +2295,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2307,7 +2307,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2319,7 +2319,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2329,7 +2329,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -2339,7 +2339,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2350,14 +2350,14 @@ exports[`snapshots view with text links 1`] = `
             <a
               className="Educator"
               href="mailto:sarah@demo.studentinsights.org"
-              style={Object {}}
+              style={{}}
             >
               Sarah Teacher
             </a>
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2370,7 +2370,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2382,7 +2382,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -2394,12 +2394,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -2419,7 +2419,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2431,7 +2431,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2443,7 +2443,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2453,7 +2453,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -2463,7 +2463,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2475,7 +2475,7 @@ exports[`snapshots view with text links 1`] = `
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -2485,7 +2485,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2498,7 +2498,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2510,7 +2510,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -2522,12 +2522,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
@@ -2547,7 +2547,7 @@ exports[`snapshots view with text links 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2559,7 +2559,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2571,7 +2571,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2581,7 +2581,7 @@ exports[`snapshots view with text links 1`] = `
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                 }
               }
@@ -2591,7 +2591,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2602,14 +2602,14 @@ exports[`snapshots view with text links 1`] = `
             <a
               className="Educator"
               href="mailto:sarah@demo.studentinsights.org"
-              style={Object {}}
+              style={{}}
             >
               Sarah Teacher
             </a>
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2622,7 +2622,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 10,
                 "textAlign": "left",
@@ -2634,7 +2634,7 @@ exports[`snapshots view with text links 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "border": "1px solid #eee",
                 "padding": 5,
                 "textAlign": "left",
@@ -2646,12 +2646,12 @@ exports[`snapshots view with text links 1`] = `
               className="Hover"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              style={Object {}}
+              style={{}}
             >
               <button
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "background": "#4A90E2",
                     "border": "none",
                     "borderRadius": 28,
