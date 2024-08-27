@@ -105,7 +105,7 @@ GEM
       rouge (>= 1.0.0)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    brakeman (6.1.1)
+    brakeman (6.2.1)
       racc
     builder (3.3.0)
     bundler-audit (0.9.1)
