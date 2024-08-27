@@ -275,8 +275,7 @@ GEM
       ruby-rc4
       ttfunk
     pg (1.5.3)
-    pragmatic_segmenter (0.3.23)
-      unicode
+    pragmatic_segmenter (0.3.24)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -435,7 +434,6 @@ GEM
     uber (0.1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    unicode (0.4.4.4)
     unicode-display_width (2.4.2)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -519,7 +517,7 @@ DEPENDENCIES
   zxcvbn-js
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 3.1.5p252
 
 BUNDLED WITH
    2.1.4
