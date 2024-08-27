@@ -4,7 +4,7 @@ exports[`snapshots 1`] = `
 <div>
   <span
     style={
-      Object {
+      {
         "alignItems": "center",
         "color": "#333",
         "display": "flex",
@@ -21,7 +21,7 @@ exports[`snapshots 1`] = `
   </span>
   <span
     style={
-      Object {
+      {
         "alignItems": "center",
         "backgroundColor": "red",
         "color": "white",

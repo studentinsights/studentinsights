@@ -4,7 +4,7 @@ exports[`snapshots view 1`] = `
 <div
   className="ProfilePdfDialog"
   style={
-    Object {
+    {
       "display": "flex",
       "flexDirection": "column",
     }
@@ -12,7 +12,7 @@ exports[`snapshots view 1`] = `
 >
   <h4
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "color": "black",
         "marginBottom": 10,
@@ -25,7 +25,7 @@ exports[`snapshots view 1`] = `
   </h4>
   <span
     style={
-      Object {
+      {
         "fontWeight": "bold",
         "marginBottom": 10,
         "textAlign": "left",
@@ -36,7 +36,7 @@ exports[`snapshots view 1`] = `
   </span>
   <div
     style={
-      Object {
+      {
         "paddingBottom": 10,
         "paddingLeft": 10,
       }
@@ -44,7 +44,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "inline-block",
           "height": "1.8em",
           "verticalAlign": "middle",
@@ -54,7 +54,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }
@@ -63,7 +63,7 @@ exports[`snapshots view 1`] = `
           className="ProfilePdfDialog-include-restricted-notes"
           onChange={[Function]}
           style={
-            Object {
+            {
               "marginRight": 5,
             }
           }
@@ -76,7 +76,7 @@ exports[`snapshots view 1`] = `
   </div>
   <span
     style={
-      Object {
+      {
         "fontWeight": "bold",
         "marginBottom": 10,
         "textAlign": "left",
@@ -87,7 +87,7 @@ exports[`snapshots view 1`] = `
   </span>
   <div
     style={
-      Object {
+      {
         "paddingBottom": 10,
         "paddingLeft": 10,
       }
@@ -95,7 +95,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "inline-block",
           "height": "1.8em",
           "verticalAlign": "middle",
@@ -105,7 +105,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }
@@ -115,7 +115,7 @@ exports[`snapshots view 1`] = `
           defaultChecked={true}
           name="notes"
           style={
-            Object {
+            {
               "marginRight": 5,
             }
           }
@@ -127,7 +127,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "inline-block",
           "height": "1.8em",
           "verticalAlign": "middle",
@@ -137,7 +137,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }
@@ -147,7 +147,7 @@ exports[`snapshots view 1`] = `
           defaultChecked={true}
           name="services"
           style={
-            Object {
+            {
               "marginRight": 5,
             }
           }
@@ -159,7 +159,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "inline-block",
           "height": "1.8em",
           "verticalAlign": "middle",
@@ -169,7 +169,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }
@@ -179,7 +179,7 @@ exports[`snapshots view 1`] = `
           defaultChecked={true}
           name="attendance"
           style={
-            Object {
+            {
               "marginRight": 5,
             }
           }
@@ -191,7 +191,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "inline-block",
           "height": "1.8em",
           "verticalAlign": "middle",
@@ -201,7 +201,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }
@@ -211,7 +211,7 @@ exports[`snapshots view 1`] = `
           defaultChecked={true}
           name="discipline_incidents"
           style={
-            Object {
+            {
               "marginRight": 5,
             }
           }
@@ -223,7 +223,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "inline-block",
           "height": "1.8em",
           "verticalAlign": "middle",
@@ -233,7 +233,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "inline-block",
           }
         }
@@ -243,7 +243,7 @@ exports[`snapshots view 1`] = `
           defaultChecked={true}
           name="assessments"
           style={
-            Object {
+            {
               "marginRight": 5,
             }
           }
@@ -256,7 +256,7 @@ exports[`snapshots view 1`] = `
   </div>
   <span
     style={
-      Object {
+      {
         "fontWeight": "bold",
         "marginBottom": 10,
         "textAlign": "left",
@@ -267,7 +267,7 @@ exports[`snapshots view 1`] = `
   </span>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "column",
         "marginLeft": 10,
@@ -276,7 +276,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
         }
@@ -284,7 +284,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "block",
             "marginBottom": 0,
             "width": "4em",
@@ -296,7 +296,7 @@ exports[`snapshots view 1`] = `
       <div
         className="Datepicker"
         style={
-          Object {
+          {
             "display": "block",
           }
         }
@@ -305,7 +305,7 @@ exports[`snapshots view 1`] = `
           className="datepicker"
           onChange={[Function]}
           style={
-            Object {
+            {
               "fontSize": 14,
               "padding": 5,
               "width": "8em",
@@ -317,7 +317,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
         }
@@ -325,7 +325,7 @@ exports[`snapshots view 1`] = `
     >
       <label
         style={
-          Object {
+          {
             "display": "block",
             "marginBottom": 0,
             "width": "4em",
@@ -337,7 +337,7 @@ exports[`snapshots view 1`] = `
       <div
         className="Datepicker"
         style={
-          Object {
+          {
             "display": "block",
           }
         }
@@ -346,7 +346,7 @@ exports[`snapshots view 1`] = `
           className="datepicker"
           onChange={[Function]}
           style={
-            Object {
+            {
               "fontSize": 14,
               "padding": 5,
               "width": "8em",
@@ -358,7 +358,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "height": "2em",
         }
       }
@@ -366,7 +366,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "justifyContent": "flex-end",
       }
@@ -377,7 +377,7 @@ exports[`snapshots view 1`] = `
       disabled={false}
       onClick={[Function]}
       style={
-        Object {
+        {
           "background": undefined,
           "fontSize": 12,
           "margin": 0,

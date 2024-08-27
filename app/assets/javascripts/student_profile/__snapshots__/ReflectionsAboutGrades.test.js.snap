@@ -8,7 +8,7 @@ exports[`snapshots view 1`] = `
     className="DetailsSection"
     id="reflections-about-grades"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginLeft": "auto",
         "marginRight": "auto",
@@ -21,7 +21,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "bottom": 10,
           "display": "flex",
           "justifyContent": "space-between",
@@ -31,7 +31,7 @@ exports[`snapshots view 1`] = `
     >
       <h4
         style={
-          Object {
+          {
             "color": "black",
             "fontSize": 24,
             "paddingBottom": 20,
@@ -42,7 +42,7 @@ exports[`snapshots view 1`] = `
       </h4>
       <span
         style={
-          Object {
+          {
             "textAlign": "right",
             "verticalAlign": "text-top",
           }
@@ -57,7 +57,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
         }
       }
@@ -74,7 +74,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 15,
         }
       }

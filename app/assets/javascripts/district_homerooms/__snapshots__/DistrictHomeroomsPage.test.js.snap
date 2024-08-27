@@ -5,7 +5,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -13,7 +13,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -25,7 +25,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
   </div>
   <table
     style={
-      Object {
+      {
         "border": "1px solid #eee",
         "borderCollapse": "collapse",
         "margin": 10,
@@ -38,7 +38,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <th
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -50,7 +50,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -61,14 +61,14 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/1"
-            style={Object {}}
+            style={{}}
           >
             Brown
           </a>
         </th>
         <th
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -79,14 +79,14 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/6"
-            style={Object {}}
+            style={{}}
           >
             West
           </a>
         </th>
         <th
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -97,14 +97,14 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/2"
-            style={Object {}}
+            style={{}}
           >
             Healey
           </a>
         </th>
         <th
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -115,7 +115,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/9"
-            style={Object {}}
+            style={{}}
           >
             Somerville High
           </a>
@@ -126,7 +126,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -138,7 +138,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -151,7 +151,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -164,7 +164,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -177,261 +177,261 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/1"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 1,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Garfield\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": null,
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 1,
+    "grade": "KF",
+    "first_name": "Garfield",
+    "last_name": "Skywalker",
+    "program_assigned": null,
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 6,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 6,
+    "grade": "KF",
+    "first_name": "Aladdin",
+    "last_name": "Disney",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 7,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 7,
+    "grade": "KF",
+    "first_name": "Daisy",
+    "last_name": "Disney",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 8,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 8,
+    "grade": "KF",
+    "first_name": "Mowgli",
+    "last_name": "Disney",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 10,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 10,
+    "grade": "KF",
+    "first_name": "Mowgli",
+    "last_name": "Disney",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 11,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 11,
+    "grade": "KF",
+    "first_name": "Mowgli",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 12,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Partial Inclusion\\",
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": \\"MORENO\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 12,
+    "grade": "KF",
+    "first_name": "Mowgli",
+    "last_name": "Duck",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Partial Inclusion",
+    "house": null,
+    "counselor": null,
+    "sped_liaison": "MORENO",
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 9,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 9,
+    "grade": "KF",
+    "first_name": "Snow",
+    "last_name": "Pan",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 13,
-    \\"grade\\": \\"KF\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 1,
-      \\"name\\": \\"HEA 003\\",
-      \\"educator\\": {
-        \\"id\\": 2,
-        \\"email\\": \\"vivian@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Vivian\\"
+    "id": 13,
+    "grade": "KF",
+    "first_name": "Mowgli",
+    "last_name": "Skywalker",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 1,
+      "name": "HEA 003",
+      "educator": {
+        "id": 2,
+        "email": "vivian@demo.studentinsights.org",
+        "full_name": "Teacher, Vivian"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   }
 ]"
@@ -444,7 +444,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -459,7 +459,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -471,7 +471,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -484,7 +484,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -497,7 +497,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -510,7 +510,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -525,7 +525,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -537,7 +537,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -550,7 +550,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -563,7 +563,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -576,7 +576,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -591,7 +591,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -603,7 +603,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -616,37 +616,37 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/3"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 50,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Winnie\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 3,
-      \\"name\\": \\"WSNS 501\\",
-      \\"educator\\": {
-        \\"id\\": 7,
-        \\"email\\": \\"marcus@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Marcus\\"
+    "id": 50,
+    "grade": "5",
+    "first_name": "Winnie",
+    "last_name": "Pan",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 3,
+      "name": "WSNS 501",
+      "educator": {
+        "id": 7,
+        "email": "marcus@demo.studentinsights.org",
+        "full_name": "Teacher, Marcus"
       }
     },
-    \\"school\\": {
-      \\"id\\": 1,
-      \\"school_type\\": \\"ES\\",
-      \\"name\\": \\"Benjamin G Brown\\",
-      \\"local_id\\": \\"BRN\\",
-      \\"slug\\": \\"brn\\"
+    "school": {
+      "id": 1,
+      "school_type": "ES",
+      "name": "Benjamin G Brown",
+      "local_id": "BRN",
+      "slug": "brn"
     }
   }
 ]"
@@ -659,7 +659,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -672,149 +672,149 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/3"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 46,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Winnie\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Partial Inclusion\\",
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 3,
-      \\"name\\": \\"WSNS 501\\",
-      \\"educator\\": {
-        \\"id\\": 7,
-        \\"email\\": \\"marcus@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Marcus\\"
+    "id": 46,
+    "grade": "5",
+    "first_name": "Winnie",
+    "last_name": "White",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Partial Inclusion",
+    "house": null,
+    "counselor": null,
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 3,
+      "name": "WSNS 501",
+      "educator": {
+        "id": 7,
+        "email": "marcus@demo.studentinsights.org",
+        "full_name": "Teacher, Marcus"
       }
     },
-    \\"school\\": {
-      \\"id\\": 6,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"West Somerville Neighborhood\\",
-      \\"local_id\\": \\"WSNS\\",
-      \\"slug\\": \\"wsns\\"
+    "school": {
+      "id": 6,
+      "school_type": "ESMS",
+      "name": "West Somerville Neighborhood",
+      "local_id": "WSNS",
+      "slug": "wsns"
     }
   },
   {
-    \\"id\\": 47,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 3,
-      \\"name\\": \\"WSNS 501\\",
-      \\"educator\\": {
-        \\"id\\": 7,
-        \\"email\\": \\"marcus@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Marcus\\"
+    "id": 47,
+    "grade": "5",
+    "first_name": "Aladdin",
+    "last_name": "White",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 3,
+      "name": "WSNS 501",
+      "educator": {
+        "id": 7,
+        "email": "marcus@demo.studentinsights.org",
+        "full_name": "Teacher, Marcus"
       }
     },
-    \\"school\\": {
-      \\"id\\": 6,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"West Somerville Neighborhood\\",
-      \\"local_id\\": \\"WSNS\\",
-      \\"slug\\": \\"wsns\\"
+    "school": {
+      "id": 6,
+      "school_type": "ESMS",
+      "name": "West Somerville Neighborhood",
+      "local_id": "WSNS",
+      "slug": "wsns"
     }
   },
   {
-    \\"id\\": 51,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": \\"MORENO\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 3,
-      \\"name\\": \\"WSNS 501\\",
-      \\"educator\\": {
-        \\"id\\": 7,
-        \\"email\\": \\"marcus@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Marcus\\"
+    "id": 51,
+    "grade": "5",
+    "first_name": "Mowgli",
+    "last_name": "Skywalker",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": null,
+    "counselor": null,
+    "sped_liaison": "MORENO",
+    "has_photo": true,
+    "homeroom": {
+      "id": 3,
+      "name": "WSNS 501",
+      "educator": {
+        "id": 7,
+        "email": "marcus@demo.studentinsights.org",
+        "full_name": "Teacher, Marcus"
       }
     },
-    \\"school\\": {
-      \\"id\\": 6,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"West Somerville Neighborhood\\",
-      \\"local_id\\": \\"WSNS\\",
-      \\"slug\\": \\"wsns\\"
+    "school": {
+      "id": 6,
+      "school_type": "ESMS",
+      "name": "West Somerville Neighborhood",
+      "local_id": "WSNS",
+      "slug": "wsns"
     }
   },
   {
-    \\"id\\": 52,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 3,
-      \\"name\\": \\"WSNS 501\\",
-      \\"educator\\": {
-        \\"id\\": 7,
-        \\"email\\": \\"marcus@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Marcus\\"
+    "id": 52,
+    "grade": "5",
+    "first_name": "Pocahontas",
+    "last_name": "Skywalker",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 3,
+      "name": "WSNS 501",
+      "educator": {
+        "id": 7,
+        "email": "marcus@demo.studentinsights.org",
+        "full_name": "Teacher, Marcus"
       }
     },
-    \\"school\\": {
-      \\"id\\": 6,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"West Somerville Neighborhood\\",
-      \\"local_id\\": \\"WSNS\\",
-      \\"slug\\": \\"wsns\\"
+    "school": {
+      "id": 6,
+      "school_type": "ESMS",
+      "name": "West Somerville Neighborhood",
+      "local_id": "WSNS",
+      "slug": "wsns"
     }
   },
   {
-    \\"id\\": 49,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 3,
-      \\"name\\": \\"WSNS 501\\",
-      \\"educator\\": {
-        \\"id\\": 7,
-        \\"email\\": \\"marcus@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Marcus\\"
+    "id": 49,
+    "grade": "5",
+    "first_name": "Pocahontas",
+    "last_name": "Poppins",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": null,
+    "counselor": null,
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 3,
+      "name": "WSNS 501",
+      "educator": {
+        "id": 7,
+        "email": "marcus@demo.studentinsights.org",
+        "full_name": "Teacher, Marcus"
       }
     },
-    \\"school\\": {
-      \\"id\\": 6,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"West Somerville Neighborhood\\",
-      \\"local_id\\": \\"WSNS\\",
-      \\"slug\\": \\"wsns\\"
+    "school": {
+      "id": 6,
+      "school_type": "ESMS",
+      "name": "West Somerville Neighborhood",
+      "local_id": "WSNS",
+      "slug": "wsns"
     }
   }
 ]"
@@ -827,7 +827,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -840,177 +840,177 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/2"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 15,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 2,
-      \\"name\\": \\"HEA 500\\",
-      \\"educator\\": {
-        \\"id\\": 6,
-        \\"email\\": \\"sarah@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Sarah\\"
+    "id": 15,
+    "grade": "5",
+    "first_name": "Daisy",
+    "last_name": "Kenobi",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": null,
+    "counselor": null,
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 2,
+      "name": "HEA 500",
+      "educator": {
+        "id": 6,
+        "email": "sarah@demo.studentinsights.org",
+        "full_name": "Teacher, Sarah"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 16,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Rapunzel\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 2,
-      \\"name\\": \\"HEA 500\\",
-      \\"educator\\": {
-        \\"id\\": 6,
-        \\"email\\": \\"sarah@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Sarah\\"
+    "id": 16,
+    "grade": "5",
+    "first_name": "Rapunzel",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 2,
+      "name": "HEA 500",
+      "educator": {
+        "id": 6,
+        "email": "sarah@demo.studentinsights.org",
+        "full_name": "Teacher, Sarah"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 18,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 2,
-      \\"name\\": \\"HEA 500\\",
-      \\"educator\\": {
-        \\"id\\": 6,
-        \\"email\\": \\"sarah@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Sarah\\"
+    "id": 18,
+    "grade": "5",
+    "first_name": "Daisy",
+    "last_name": "Skywalker",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 2,
+      "name": "HEA 500",
+      "educator": {
+        "id": 6,
+        "email": "sarah@demo.studentinsights.org",
+        "full_name": "Teacher, Sarah"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 19,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 2,
-      \\"name\\": \\"HEA 500\\",
-      \\"educator\\": {
-        \\"id\\": 6,
-        \\"email\\": \\"sarah@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Sarah\\"
+    "id": 19,
+    "grade": "5",
+    "first_name": "Daisy",
+    "last_name": "Duck",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 2,
+      "name": "HEA 500",
+      "educator": {
+        "id": 6,
+        "email": "sarah@demo.studentinsights.org",
+        "full_name": "Teacher, Sarah"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 17,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Mickey\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 2,
-      \\"name\\": \\"HEA 500\\",
-      \\"educator\\": {
-        \\"id\\": 6,
-        \\"email\\": \\"sarah@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Sarah\\"
+    "id": 17,
+    "grade": "5",
+    "first_name": "Mickey",
+    "last_name": "Disney",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 2,
+      "name": "HEA 500",
+      "educator": {
+        "id": 6,
+        "email": "sarah@demo.studentinsights.org",
+        "full_name": "Teacher, Sarah"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   },
   {
-    \\"id\\": 21,
-    \\"grade\\": \\"5\\",
-    \\"first_name\\": \\"Winnie\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": null,
-    \\"counselor\\": null,
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 2,
-      \\"name\\": \\"HEA 500\\",
-      \\"educator\\": {
-        \\"id\\": 6,
-        \\"email\\": \\"sarah@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Sarah\\"
+    "id": 21,
+    "grade": "5",
+    "first_name": "Winnie",
+    "last_name": "Skywalker",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": null,
+    "counselor": null,
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 2,
+      "name": "HEA 500",
+      "educator": {
+        "id": 6,
+        "email": "sarah@demo.studentinsights.org",
+        "full_name": "Teacher, Sarah"
       }
     },
-    \\"school\\": {
-      \\"id\\": 2,
-      \\"school_type\\": \\"ESMS\\",
-      \\"name\\": \\"Arthur D Healey\\",
-      \\"local_id\\": \\"HEA\\",
-      \\"slug\\": \\"hea\\"
+    "school": {
+      "id": 2,
+      "school_type": "ESMS",
+      "name": "Arthur D Healey",
+      "local_id": "HEA",
+      "slug": "hea"
     }
   }
 ]"
@@ -1023,7 +1023,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1038,7 +1038,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1050,7 +1050,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1063,7 +1063,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1076,7 +1076,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1089,7 +1089,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1104,7 +1104,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1116,7 +1116,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1129,7 +1129,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1142,7 +1142,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1155,7 +1155,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1168,233 +1168,233 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/5"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 3,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Mari\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": null,
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 3,
+    "grade": "9",
+    "first_name": "Mari",
+    "last_name": "Kenobi",
+    "program_assigned": null,
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 4,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Amir\\",
-    \\"last_name\\": \\"Solo\\",
-    \\"program_assigned\\": null,
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"FISHMAN\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 4,
+    "grade": "9",
+    "first_name": "Amir",
+    "last_name": "Solo",
+    "program_assigned": null,
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "FISHMAN",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 30,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 30,
+    "grade": "9",
+    "first_name": "Aladdin",
+    "last_name": "Poppins",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 32,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"CONCEPCION\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 32,
+    "grade": "9",
+    "first_name": "Pluto",
+    "last_name": "Kenobi",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": "CONCEPCION",
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 33,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 33,
+    "grade": "9",
+    "first_name": "Pocahontas",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 35,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 35,
+    "grade": "9",
+    "first_name": "Snow",
+    "last_name": "Pan",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 37,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"Mouse\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 37,
+    "grade": "9",
+    "first_name": "Pluto",
+    "last_name": "Mouse",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 34,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 5,
-      \\"name\\": \\"SHS 942\\",
-      \\"educator\\": {
-        \\"id\\": 10,
-        \\"email\\": \\"jodi@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Jodi\\"
+    "id": 34,
+    "grade": "9",
+    "first_name": "Pluto",
+    "last_name": "Pan",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 5,
+      "name": "SHS 942",
+      "educator": {
+        "id": 10,
+        "email": "jodi@demo.studentinsights.org",
+        "full_name": "Teacher, Jodi"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   }
 ]"
@@ -1406,233 +1406,233 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/6"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 22,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Olaf\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 22,
+    "grade": "9",
+    "first_name": "Olaf",
+    "last_name": "Poppins",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 23,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Minnie\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 23,
+    "grade": "9",
+    "first_name": "Minnie",
+    "last_name": "White",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 25,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 25,
+    "grade": "9",
+    "first_name": "Pocahontas",
+    "last_name": "Disney",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 26,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 26,
+    "grade": "9",
+    "first_name": "Daisy",
+    "last_name": "White",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 27,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Elsa\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 27,
+    "grade": "9",
+    "first_name": "Elsa",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 29,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 29,
+    "grade": "9",
+    "first_name": "Snow",
+    "last_name": "Duck",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 24,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 24,
+    "grade": "9",
+    "first_name": "Snow",
+    "last_name": "Skywalker",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 28,
-    \\"grade\\": \\"9\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Full Inclusion\\",
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": \\"MORENO\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 6,
-      \\"name\\": \\"SHS 917\\",
-      \\"educator\\": {
-        \\"id\\": 12,
-        \\"email\\": \\"bill@demo.studentinsights.org\\",
-        \\"full_name\\": \\"Teacher, Bill\\"
+    "id": 28,
+    "grade": "9",
+    "first_name": "Aladdin",
+    "last_name": "Skywalker",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Full Inclusion",
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": "MORENO",
+    "has_photo": true,
+    "homeroom": {
+      "id": 6,
+      "name": "SHS 917",
+      "educator": {
+        "id": 12,
+        "email": "bill@demo.studentinsights.org",
+        "full_name": "Teacher, Bill"
       }
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   }
 ]"
@@ -1647,7 +1647,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1659,7 +1659,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1672,7 +1672,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1685,7 +1685,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1698,7 +1698,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -1711,1320 +1711,1320 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
             <a
               href="/homerooms/4"
               style={
-                Object {
+                {
                   "display": "block",
                 }
               }
               title="[
   {
-    \\"id\\": 38,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 38,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "Pan",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 39,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Winnie\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 39,
+    "grade": "10",
+    "first_name": "Winnie",
+    "last_name": "Duck",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 41,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 41,
+    "grade": "10",
+    "first_name": "Mowgli",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 42,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 42,
+    "grade": "10",
+    "first_name": "Pocahontas",
+    "last_name": "Duck",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 45,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Winnie\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 45,
+    "grade": "10",
+    "first_name": "Winnie",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 63,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Elsa\\",
-    \\"last_name\\": \\"Mouse\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 63,
+    "grade": "10",
+    "first_name": "Elsa",
+    "last_name": "Mouse",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 65,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mickey\\",
-    \\"last_name\\": \\"Mouse\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 65,
+    "grade": "10",
+    "first_name": "Mickey",
+    "last_name": "Mouse",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 66,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Chip\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 66,
+    "grade": "10",
+    "first_name": "Chip",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 68,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 68,
+    "grade": "10",
+    "first_name": "Mowgli",
+    "last_name": "Poppins",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 69,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Minnie\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 69,
+    "grade": "10",
+    "first_name": "Minnie",
+    "last_name": "Duck",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 85,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 85,
+    "grade": "10",
+    "first_name": "Pluto",
+    "last_name": "White",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 88,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 88,
+    "grade": "10",
+    "first_name": "Aladdin",
+    "last_name": "Skywalker",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 89,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 89,
+    "grade": "10",
+    "first_name": "Daisy",
+    "last_name": "Poppins",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 71,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Elsa\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 71,
+    "grade": "10",
+    "first_name": "Elsa",
+    "last_name": "Skywalker",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 73,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Rapunzel\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 73,
+    "grade": "10",
+    "first_name": "Rapunzel",
+    "last_name": "Duck",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 74,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 74,
+    "grade": "10",
+    "first_name": "Aladdin",
+    "last_name": "Duck",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 76,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Elsa\\",
-    \\"last_name\\": \\"Mouse\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 76,
+    "grade": "10",
+    "first_name": "Elsa",
+    "last_name": "Mouse",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 77,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 77,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 78,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Chip\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Full Inclusion\\",
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 78,
+    "grade": "10",
+    "first_name": "Chip",
+    "last_name": "White",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Full Inclusion",
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 79,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 79,
+    "grade": "10",
+    "first_name": "Daisy",
+    "last_name": "Disney",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 82,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 82,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "Pan",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 83,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 83,
+    "grade": "10",
+    "first_name": "Pocahontas",
+    "last_name": "Pan",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 86,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Winnie\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 86,
+    "grade": "10",
+    "first_name": "Winnie",
+    "last_name": "Pan",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 87,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Minnie\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 87,
+    "grade": "10",
+    "first_name": "Minnie",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 91,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Donald\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 91,
+    "grade": "10",
+    "first_name": "Donald",
+    "last_name": "Poppins",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 92,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Partial Inclusion\\",
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 92,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "White",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Partial Inclusion",
+    "house": "Broadway",
+    "counselor": "SOFIA",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 93,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Rapunzel\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Partial Inclusion\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 93,
+    "grade": "10",
+    "first_name": "Rapunzel",
+    "last_name": "Pan",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Partial Inclusion",
+    "house": "Elm",
+    "counselor": "BUZZ",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 94,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 94,
+    "grade": "10",
+    "first_name": "Aladdin",
+    "last_name": "Disney",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 97,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 97,
+    "grade": "10",
+    "first_name": "Aladdin",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 98,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Olaf\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 98,
+    "grade": "10",
+    "first_name": "Olaf",
+    "last_name": "Poppins",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 100,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Mouse\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 100,
+    "grade": "10",
+    "first_name": "Mowgli",
+    "last_name": "Mouse",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 104,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Private Separate\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MORENO\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 104,
+    "grade": "10",
+    "first_name": "Daisy",
+    "last_name": "Disney",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Private Separate",
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": "MORENO",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 40,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Rapunzel\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 40,
+    "grade": "10",
+    "first_name": "Rapunzel",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 44,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Full Inclusion\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": \\"MORENO\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 44,
+    "grade": "10",
+    "first_name": "Daisy",
+    "last_name": "Poppins",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Full Inclusion",
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": "MORENO",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 102,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Elsa\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 102,
+    "grade": "10",
+    "first_name": "Elsa",
+    "last_name": "Duck",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 103,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Full Inclusion\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 103,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "Poppins",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Full Inclusion",
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 105,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 105,
+    "grade": "10",
+    "first_name": "Daisy",
+    "last_name": "Disney",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 107,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 107,
+    "grade": "10",
+    "first_name": "Mowgli",
+    "last_name": "Pan",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 108,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pocahontas\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 108,
+    "grade": "10",
+    "first_name": "Pocahontas",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 109,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way English\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 109,
+    "grade": "10",
+    "first_name": "Pluto",
+    "last_name": "White",
+    "program_assigned": "2Way English",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 111,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"Mouse\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 111,
+    "grade": "10",
+    "first_name": "Pluto",
+    "last_name": "Mouse",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 112,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Rapunzel\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 112,
+    "grade": "10",
+    "first_name": "Rapunzel",
+    "last_name": "Poppins",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 113,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Olaf\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 113,
+    "grade": "10",
+    "first_name": "Olaf",
+    "last_name": "Kenobi",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 114,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Rapunzel\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 114,
+    "grade": "10",
+    "first_name": "Rapunzel",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 116,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 116,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "Pan",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 64,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mickey\\",
-    \\"last_name\\": \\"Duck\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 64,
+    "grade": "10",
+    "first_name": "Mickey",
+    "last_name": "Duck",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 67,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Pluto\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 67,
+    "grade": "10",
+    "first_name": "Pluto",
+    "last_name": "Disney",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 70,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Chip\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Partial Inclusion\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 70,
+    "grade": "10",
+    "first_name": "Chip",
+    "last_name": "Poppins",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Partial Inclusion",
+    "house": "Elm",
+    "counselor": "WOODY",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 75,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Minnie\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 75,
+    "grade": "10",
+    "first_name": "Minnie",
+    "last_name": "Skywalker",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 84,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Snow\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 84,
+    "grade": "10",
+    "first_name": "Snow",
+    "last_name": "Poppins",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 90,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Olaf\\",
-    \\"last_name\\": \\"Skywalker\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Full Inclusion\\",
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 90,
+    "grade": "10",
+    "first_name": "Olaf",
+    "last_name": "Skywalker",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Full Inclusion",
+    "house": "Broadway",
+    "counselor": "SOFIA",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 95,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Elsa\\",
-    \\"last_name\\": \\"Disney\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 95,
+    "grade": "10",
+    "first_name": "Elsa",
+    "last_name": "Disney",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 99,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Mowgli\\",
-    \\"last_name\\": \\"Kenobi\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 99,
+    "grade": "10",
+    "first_name": "Mowgli",
+    "last_name": "Kenobi",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 101,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Minnie\\",
-    \\"last_name\\": \\"White\\",
-    \\"program_assigned\\": \\"2Way Spanish\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Beacon\\",
-    \\"counselor\\": \\"BUZZ\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 101,
+    "grade": "10",
+    "first_name": "Minnie",
+    "last_name": "White",
+    "program_assigned": "2Way Spanish",
+    "sped_placement": null,
+    "house": "Beacon",
+    "counselor": "BUZZ",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 106,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Aladdin\\",
-    \\"last_name\\": \\"Pan\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Broadway\\",
-    \\"counselor\\": \\"WOODY\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 106,
+    "grade": "10",
+    "first_name": "Aladdin",
+    "last_name": "Pan",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Broadway",
+    "counselor": "WOODY",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 110,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Daisy\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Sp Ed\\",
-    \\"sped_placement\\": \\"Partial Inclusion\\",
-    \\"house\\": \\"Elm\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": \\"MILNER\\",
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 110,
+    "grade": "10",
+    "first_name": "Daisy",
+    "last_name": "Poppins",
+    "program_assigned": "Sp Ed",
+    "sped_placement": "Partial Inclusion",
+    "house": "Elm",
+    "counselor": "SOFIA",
+    "sped_liaison": "MILNER",
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   },
   {
-    \\"id\\": 115,
-    \\"grade\\": \\"10\\",
-    \\"first_name\\": \\"Chip\\",
-    \\"last_name\\": \\"Poppins\\",
-    \\"program_assigned\\": \\"Reg Ed\\",
-    \\"sped_placement\\": null,
-    \\"house\\": \\"Highland\\",
-    \\"counselor\\": \\"SOFIA\\",
-    \\"sped_liaison\\": null,
-    \\"has_photo\\": true,
-    \\"homeroom\\": {
-      \\"id\\": 4,
-      \\"name\\": \\"SHS ALL\\"
+    "id": 115,
+    "grade": "10",
+    "first_name": "Chip",
+    "last_name": "Poppins",
+    "program_assigned": "Reg Ed",
+    "sped_placement": null,
+    "house": "Highland",
+    "counselor": "SOFIA",
+    "sped_liaison": null,
+    "has_photo": true,
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
     },
-    \\"school\\": {
-      \\"id\\": 9,
-      \\"school_type\\": \\"HS\\",
-      \\"name\\": \\"Somerville High\\",
-      \\"local_id\\": \\"SHS\\",
-      \\"slug\\": \\"shs\\"
+    "school": {
+      "id": 9,
+      "school_type": "HS",
+      "name": "Somerville High",
+      "local_id": "SHS",
+      "slug": "shs"
     }
   }
 ]"
@@ -3039,7 +3039,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -3051,7 +3051,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -3064,7 +3064,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -3077,7 +3077,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,
@@ -3090,7 +3090,7 @@ exports[`DistrictHomeroomsView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "overflow": "hidden",
               "padding": 5,

@@ -3,7 +3,7 @@
 exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments\` label set 1`] = `
 <div
   style={
-    Object {
+    {
       "fontSize": 14,
       "margin": "auto",
       "width": "100%",
@@ -12,7 +12,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "flex-start",
@@ -22,7 +22,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
   >
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 20,
         }
@@ -31,7 +31,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       <div>
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "display": "flex",
               "justifyContent": "flex-start",
@@ -213,7 +213,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </svg>
           <h3
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline-block",
                 "fontSize": 20,
@@ -227,7 +227,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
         </div>
         <ul
           style={
-            Object {
+            {
               "listStyleType": "none",
               "paddingLeft": 0,
             }
@@ -236,7 +236,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -248,7 +248,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/2"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -259,7 +259,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/2/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -270,7 +270,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/2/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -281,7 +281,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/2/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -294,7 +294,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -306,7 +306,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/6"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -317,7 +317,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/6/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -328,7 +328,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/6/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -339,7 +339,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/6/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -352,7 +352,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -364,7 +364,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/9"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -375,7 +375,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/9/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -386,7 +386,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/9/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -397,7 +397,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/schools/9/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -412,7 +412,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 20,
         }
@@ -421,7 +421,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       <div>
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "display": "flex",
               "justifyContent": "flex-start",
@@ -432,7 +432,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
             enableBackground="new 0 0 100 100"
             height={70}
             style={
-              Object {
+              {
                 "transform": "rotate(50deg)",
               }
             }
@@ -451,7 +451,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </svg>
           <h3
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline-block",
                 "fontSize": 20,
@@ -466,7 +466,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -476,7 +476,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -486,7 +486,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/admin/authorization"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -498,7 +498,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/admin"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -510,7 +510,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/admin/labels"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -523,7 +523,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -533,7 +533,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -543,7 +543,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/district/enrollment"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -555,7 +555,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/district/homerooms"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -567,7 +567,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/admin/sample_students"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -579,7 +579,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/educators/services"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -591,7 +591,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/reading/debug_star"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -604,7 +604,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -614,7 +614,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -624,7 +624,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/admin/import_records"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -636,7 +636,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/service_uploads"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -648,7 +648,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/admin/student_voice_survey_uploads"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -661,7 +661,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -671,7 +671,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -681,7 +681,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/district/wide_students_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -693,7 +693,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
               <a
                 href="/district/discipline_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -713,7 +713,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           </ul>
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#f8f8f8",
                 "border": "1px solid #ccc",
                 "fontSize": 12,
@@ -724,7 +724,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           >
             <div
               style={
-                Object {
+                {
                   "marginBottom": 5,
                 }
               }
@@ -750,7 +750,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
   </div>
   <div
     style={
-      Object {
+      {
         "marginTop": 40,
       }
     }
@@ -758,7 +758,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
     <div
       className="SectionHeading"
       style={
-        Object {
+        {
           "borderBottom": "1px solid #333",
           "padding": 10,
         }
@@ -766,7 +766,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
     >
       <h4
         style={
-          Object {
+          {
             "color": "black",
             "display": "inline",
           }
@@ -777,7 +777,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
     </div>
     <div
       style={
-        Object {
+        {
           "background": "red",
           "color": "white",
           "fontWeight": "bold",
@@ -790,7 +790,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       </span>
       <span
         style={
-          Object {
+          {
             "marginLeft": 10,
           }
         }
@@ -799,7 +799,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
         <a
           href="mailto:ideas@studentinsights.org"
           style={
-            Object {
+            {
               "fontWeight": "bold",
             }
           }
@@ -811,14 +811,14 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
     </div>
     <div
       style={
-        Object {
+        {
           "margin": 20,
         }
       }
     >
       <div
         style={
-          Object {
+          {
             "fontSize": 18,
             "marginTop": 15,
           }
@@ -828,7 +828,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       </div>
       <ul
         style={
-          Object {
+          {
             "listStyleType": "none",
             "paddingLeft": 0,
           }
@@ -861,7 +861,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       </ul>
       <div
         style={
-          Object {
+          {
             "fontSize": 18,
             "marginTop": 15,
           }
@@ -871,7 +871,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       </div>
       <ul
         style={
-          Object {
+          {
             "listStyleType": "none",
             "paddingLeft": 0,
           }
@@ -904,7 +904,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       </ul>
       <div
         style={
-          Object {
+          {
             "fontSize": 18,
             "marginTop": 15,
           }
@@ -914,7 +914,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
       </div>
       <ul
         style={
-          Object {
+          {
             "listStyleType": "none",
             "paddingLeft": 0,
           }
@@ -924,7 +924,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           <a
             href="/equity/classlists_index"
             style={
-              Object {
+              {
                 "fontSize": 14,
               }
             }
@@ -936,7 +936,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
           <a
             href="/equity/stats_by_school"
             style={
-              Object {
+              {
                 "fontSize": 14,
               }
             }
@@ -953,7 +953,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_equity_experiments
 exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` label set 1`] = `
 <div
   style={
-    Object {
+    {
       "fontSize": 14,
       "margin": "auto",
       "width": "100%",
@@ -962,7 +962,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "flex-start",
@@ -972,7 +972,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
   >
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 20,
         }
@@ -981,7 +981,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
       <div>
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "display": "flex",
               "justifyContent": "flex-start",
@@ -1163,7 +1163,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </svg>
           <h3
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline-block",
                 "fontSize": 20,
@@ -1177,7 +1177,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
         </div>
         <ul
           style={
-            Object {
+            {
               "listStyleType": "none",
               "paddingLeft": 0,
             }
@@ -1186,7 +1186,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -1198,7 +1198,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/2"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1209,7 +1209,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/2/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1220,7 +1220,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/2/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1231,7 +1231,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/2/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1244,7 +1244,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -1256,7 +1256,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/6"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1267,7 +1267,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/6/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1278,7 +1278,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/6/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1289,7 +1289,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/6/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1302,7 +1302,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -1314,7 +1314,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/9"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1325,7 +1325,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/9/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1336,7 +1336,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/9/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1347,7 +1347,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/schools/9/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -1362,7 +1362,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 20,
         }
@@ -1371,7 +1371,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
       <div>
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "display": "flex",
               "justifyContent": "flex-start",
@@ -1382,7 +1382,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
             enableBackground="new 0 0 100 100"
             height={70}
             style={
-              Object {
+              {
                 "transform": "rotate(50deg)",
               }
             }
@@ -1401,7 +1401,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </svg>
           <h3
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline-block",
                 "fontSize": 20,
@@ -1416,7 +1416,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -1426,7 +1426,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -1436,7 +1436,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/admin/authorization"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1448,7 +1448,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/admin"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1460,7 +1460,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/admin/labels"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1473,7 +1473,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -1483,7 +1483,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -1493,7 +1493,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/district/enrollment"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1505,7 +1505,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/district/homerooms"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1517,7 +1517,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/admin/sample_students"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1529,7 +1529,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/educators/services"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1541,7 +1541,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/reading/debug_star"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1553,7 +1553,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/reading/debug"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1565,7 +1565,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/reading/homerooms"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1577,7 +1577,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/reading/thresholds"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1590,7 +1590,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -1600,7 +1600,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -1610,7 +1610,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/admin/import_records"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1622,7 +1622,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/service_uploads"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1634,7 +1634,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/admin/student_voice_survey_uploads"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1647,7 +1647,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -1657,7 +1657,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -1667,7 +1667,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/district/wide_students_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1679,7 +1679,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/district/discipline_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1691,7 +1691,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
               <a
                 href="/reading/debug_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -1711,7 +1711,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           </ul>
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#f8f8f8",
                 "border": "1px solid #ccc",
                 "fontSize": 12,
@@ -1722,7 +1722,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
           >
             <div
               style={
-                Object {
+                {
                   "marginBottom": 5,
                 }
               }
@@ -1752,7 +1752,7 @@ exports[`DistrictOverviewPageView pure snapshot when \`enable_reading_debug\` la
 exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
 <div
   style={
-    Object {
+    {
       "fontSize": 14,
       "margin": "auto",
       "width": "100%",
@@ -1761,7 +1761,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "flex-start",
@@ -1771,7 +1771,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 20,
         }
@@ -1780,7 +1780,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
       <div>
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "display": "flex",
               "justifyContent": "flex-start",
@@ -1962,7 +1962,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </svg>
           <h3
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline-block",
                 "fontSize": 20,
@@ -1976,7 +1976,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
         </div>
         <ul
           style={
-            Object {
+            {
               "listStyleType": "none",
               "paddingLeft": 0,
             }
@@ -1985,7 +1985,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -1997,7 +1997,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/2"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2008,7 +2008,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/2/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2019,7 +2019,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/2/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2030,7 +2030,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/2/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2043,7 +2043,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -2055,7 +2055,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/6"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2066,7 +2066,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/6/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2077,7 +2077,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/6/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2088,7 +2088,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/6/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2101,7 +2101,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           <li>
             <div
               style={
-                Object {
+                {
                   "fontSize": 18,
                   "marginTop": 15,
                 }
@@ -2113,7 +2113,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/9"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2124,7 +2124,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/9/absences"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2135,7 +2135,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/9/tardies"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2146,7 +2146,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/schools/9/discipline"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "paddingRight": 10,
                   }
@@ -2161,7 +2161,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "flex": 1,
           "margin": 20,
         }
@@ -2170,7 +2170,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
       <div>
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "display": "flex",
               "justifyContent": "flex-start",
@@ -2181,7 +2181,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
             enableBackground="new 0 0 100 100"
             height={70}
             style={
-              Object {
+              {
                 "transform": "rotate(50deg)",
               }
             }
@@ -2200,7 +2200,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </svg>
           <h3
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline-block",
                 "fontSize": 20,
@@ -2215,7 +2215,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -2225,7 +2225,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -2235,7 +2235,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/admin/authorization"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2247,7 +2247,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/admin"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2259,7 +2259,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/admin/labels"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2272,7 +2272,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -2282,7 +2282,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -2292,7 +2292,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/district/enrollment"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2304,7 +2304,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/district/homerooms"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2316,7 +2316,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/admin/sample_students"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2328,7 +2328,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/educators/services"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2340,7 +2340,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/reading/debug_star"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2353,7 +2353,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -2363,7 +2363,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -2373,7 +2373,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/admin/import_records"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2385,7 +2385,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/service_uploads"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2397,7 +2397,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/admin/student_voice_survey_uploads"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2410,7 +2410,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
         <div>
           <div
             style={
-              Object {
+              {
                 "fontSize": 18,
                 "marginTop": 15,
               }
@@ -2420,7 +2420,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </div>
           <ul
             style={
-              Object {
+              {
                 "listStyleType": "none",
                 "paddingLeft": 0,
               }
@@ -2430,7 +2430,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/district/wide_students_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2442,7 +2442,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
               <a
                 href="/district/discipline_csv"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                   }
                 }
@@ -2462,7 +2462,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           </ul>
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#f8f8f8",
                 "border": "1px solid #ccc",
                 "fontSize": 12,
@@ -2473,7 +2473,7 @@ exports[`DistrictOverviewPageView pure snapshot, without work board 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "marginBottom": 5,
                 }
               }

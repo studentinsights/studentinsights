@@ -4,7 +4,7 @@ exports[`snapshots works with four students 1`] = `
 <div
   className="Card StudentVoiceCard"
   style={
-    Object {
+    {
       "border": "1px solid #ccc",
       "borderRadius": 3,
       "padding": 10,
@@ -15,7 +15,7 @@ exports[`snapshots works with four students 1`] = `
     <a
       href="/students/7"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -28,7 +28,7 @@ exports[`snapshots works with four students 1`] = `
     <a
       href="/students/6"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -47,7 +47,7 @@ exports[`snapshots works with four students 1`] = `
      shared their perspective in student voice surveys. 
     <span
       style={
-        Object {
+        {
           "position": "relative",
           "top": 1,
         }
@@ -63,7 +63,7 @@ exports[`snapshots works with one student 1`] = `
 <div
   className="Card StudentVoiceCard"
   style={
-    Object {
+    {
       "border": "1px solid #ccc",
       "borderRadius": 3,
       "padding": 10,
@@ -74,7 +74,7 @@ exports[`snapshots works with one student 1`] = `
     <a
       href="/students/4"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -86,7 +86,7 @@ exports[`snapshots works with one student 1`] = `
      shared their perspective in a student voice survey. 
     <span
       style={
-        Object {
+        {
           "position": "relative",
           "top": 1,
         }
@@ -102,7 +102,7 @@ exports[`snapshots works with three students 1`] = `
 <div
   className="Card StudentVoiceCard"
   style={
-    Object {
+    {
       "border": "1px solid #ccc",
       "borderRadius": 3,
       "padding": 10,
@@ -113,7 +113,7 @@ exports[`snapshots works with three students 1`] = `
     <a
       href="/students/4"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -126,7 +126,7 @@ exports[`snapshots works with three students 1`] = `
     <a
       href="/students/5"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -139,7 +139,7 @@ exports[`snapshots works with three students 1`] = `
     <a
       href="/students/6"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -151,7 +151,7 @@ exports[`snapshots works with three students 1`] = `
      shared their perspective in student voice surveys. 
     <span
       style={
-        Object {
+        {
           "position": "relative",
           "top": 1,
         }
@@ -167,7 +167,7 @@ exports[`snapshots works with two students 1`] = `
 <div
   className="Card StudentVoiceCard"
   style={
-    Object {
+    {
       "border": "1px solid #ccc",
       "borderRadius": 3,
       "padding": 10,
@@ -178,7 +178,7 @@ exports[`snapshots works with two students 1`] = `
     <a
       href="/students/4"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -191,7 +191,7 @@ exports[`snapshots works with two students 1`] = `
     <a
       href="/students/5"
       style={
-        Object {
+        {
           "fontWeight": "bold",
         }
       }
@@ -203,7 +203,7 @@ exports[`snapshots works with two students 1`] = `
      shared their perspective in student voice surveys. 
     <span
       style={
-        Object {
+        {
           "position": "relative",
           "top": 1,
         }

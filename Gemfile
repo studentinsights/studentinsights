@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.1.4'
+ruby '3.1.5'
 
 # forced patches
 # (none)
@@ -9,8 +9,8 @@ ruby '3.1.4'
 gem 'bootsnap', require: false
 gem 'execjs', '~>2.7.0'
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 6.0.1'
-gem 'rails', '6.1.7.6'
+gem 'jquery-ui-rails', '~> 7.0.0'
+gem 'rails', '6.1.7.8'
 gem 'sprockets'
 gem 'thor', '1.2.2'
 gem 'uglifier', '>= 1.3.0'
@@ -36,7 +36,7 @@ gem 'google-api-client'
 gem 'net-ldap'
 gem 'net-sftp'
 gem 'net-ssh'
-gem 'nokogiri', '~> 1.14.3'
+gem 'nokogiri', '~> 1.16.5'
 gem 'openssl'
 gem 'pg'
 gem 'puma', '~> 5.6.8'

@@ -4,7 +4,7 @@ exports[`snapshots view 1`] = `
 <div
   className="FullCaseHistory"
   style={
-    Object {
+    {
       "fontSize": 14,
     }
   }
@@ -12,7 +12,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2015"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -23,7 +23,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -36,7 +36,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Absence-991"
       style={
-        Object {
+        {
           "borderRadius": 10,
           "marginBottom": 10,
         }
@@ -44,14 +44,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "paddingLeft": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontSize": 14,
               "fontWeight": 400,
@@ -60,7 +60,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -70,7 +70,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -89,7 +89,7 @@ exports[`snapshots view 1`] = `
     <div
       id="STAR-Reading-2016-01-18T00:00:00Z"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -98,14 +98,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -113,7 +113,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -123,7 +123,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#ffe7d6",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -143,7 +143,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2014"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -154,7 +154,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -167,7 +167,7 @@ exports[`snapshots view 1`] = `
     <div
       id="MCAS-ELA-02-18"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -176,14 +176,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -191,7 +191,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -201,7 +201,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#ffe7d6",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -220,7 +220,7 @@ exports[`snapshots view 1`] = `
     <div
       id="MCAS-Math-09-18"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -229,14 +229,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -244,7 +244,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -254,7 +254,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8e9fc",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -274,7 +274,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2013"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -285,7 +285,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -298,7 +298,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Tardy-998"
       style={
-        Object {
+        {
           "borderRadius": 10,
           "marginBottom": 10,
         }
@@ -306,14 +306,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "paddingLeft": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontSize": 14,
               "fontWeight": 400,
@@ -322,7 +322,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -332,7 +332,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -352,7 +352,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2012"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -363,7 +363,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -376,7 +376,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Note-945"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -385,14 +385,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -400,7 +400,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -410,7 +410,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -428,7 +428,7 @@ exports[`snapshots view 1`] = `
     <div
       id="STAR-Math-2012-11-18T00:00:00Z"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -437,14 +437,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -452,7 +452,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -462,7 +462,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8e9fc",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -482,7 +482,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2011"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -493,7 +493,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -506,7 +506,7 @@ exports[`snapshots view 1`] = `
     <div
       id="DIBELS-901"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -515,14 +515,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -530,7 +530,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -540,7 +540,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -559,7 +559,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Incident-9912"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -568,14 +568,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -583,7 +583,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -593,7 +593,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -613,7 +613,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2010"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -624,7 +624,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -637,7 +637,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Note-992"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -646,14 +646,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -661,7 +661,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -671,7 +671,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -689,7 +689,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Service-945"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -698,14 +698,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -713,7 +713,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -723,7 +723,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -742,7 +742,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Note-997"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -751,14 +751,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -766,7 +766,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -776,7 +776,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,
@@ -796,7 +796,7 @@ exports[`snapshots view 1`] = `
   <div
     id="school-year-starting-2009"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "marginBottom": 10,
         "marginTop": 10,
@@ -807,7 +807,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "#555555",
           "marginBottom": 10,
           "padding": 10,
@@ -820,7 +820,7 @@ exports[`snapshots view 1`] = `
     <div
       id="Service-996"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "borderRadius": 10,
           "marginBottom": 10,
@@ -829,14 +829,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "padding": 10,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "color": "#555555",
               "fontWeight": 400,
             }
@@ -844,7 +844,7 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "width": 180,
               }
@@ -854,7 +854,7 @@ exports[`snapshots view 1`] = `
           </span>
           <span
             style={
-              Object {
+              {
                 "background": "#e8fce8",
                 "display": "inline-block",
                 "marginLeft": 10,

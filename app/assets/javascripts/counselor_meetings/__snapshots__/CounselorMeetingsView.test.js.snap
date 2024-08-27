@@ -3,7 +3,7 @@
 exports[`snapshots view 1`] = `
 <div
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -14,7 +14,7 @@ exports[`snapshots view 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -22,7 +22,7 @@ exports[`snapshots view 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -38,7 +38,7 @@ exports[`snapshots view 1`] = `
     className="FilterStudentsBar EscapeListener"
     onKeyDown={[Function]}
     style={
-      Object {
+      {
         "display": "flex",
         "flex": 1,
         "flexDirection": "column",
@@ -52,7 +52,7 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "display": "flex",
           }
@@ -60,7 +60,7 @@ exports[`snapshots view 1`] = `
       >
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "marginRight": 10,
             }
@@ -72,7 +72,7 @@ exports[`snapshots view 1`] = `
           onChange={[Function]}
           placeholder="Search 70 students..."
           style={
-            Object {
+            {
               "border": "1px solid #ccc",
               "borderRadius": 4,
               "display": "inline-block",
@@ -96,7 +96,7 @@ exports[`snapshots view 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             style={
-              Object {
+              {
                 "marginLeft": 10,
                 "marginRight": 10,
                 "width": "9em",
@@ -115,7 +115,7 @@ exports[`snapshots view 1`] = `
               <div
                 className="Select-input"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                   }
                 }
@@ -131,7 +131,7 @@ exports[`snapshots view 1`] = `
                   required={false}
                   role="combobox"
                   style={
-                    Object {
+                    {
                       "boxSizing": "content-box",
                       "width": "5px",
                     }
@@ -140,7 +140,7 @@ exports[`snapshots view 1`] = `
                 />
                 <div
                   style={
-                    Object {
+                    {
                       "height": 0,
                       "left": 0,
                       "overflow": "scroll",
@@ -177,7 +177,7 @@ exports[`snapshots view 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             style={
-              Object {
+              {
                 "marginLeft": 10,
                 "marginRight": 10,
                 "width": "9em",
@@ -196,7 +196,7 @@ exports[`snapshots view 1`] = `
               <div
                 className="Select-input"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                   }
                 }
@@ -212,7 +212,7 @@ exports[`snapshots view 1`] = `
                   required={false}
                   role="combobox"
                   style={
-                    Object {
+                    {
                       "boxSizing": "content-box",
                       "width": "5px",
                     }
@@ -221,7 +221,7 @@ exports[`snapshots view 1`] = `
                 />
                 <div
                   style={
-                    Object {
+                    {
                       "height": 0,
                       "left": 0,
                       "overflow": "scroll",
@@ -258,7 +258,7 @@ exports[`snapshots view 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             style={
-              Object {
+              {
                 "marginLeft": 10,
                 "marginRight": 10,
                 "width": "9em",
@@ -277,7 +277,7 @@ exports[`snapshots view 1`] = `
               <div
                 className="Select-input"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                   }
                 }
@@ -293,7 +293,7 @@ exports[`snapshots view 1`] = `
                   required={false}
                   role="combobox"
                   style={
-                    Object {
+                    {
                       "boxSizing": "content-box",
                       "width": "5px",
                     }
@@ -302,7 +302,7 @@ exports[`snapshots view 1`] = `
                 />
                 <div
                   style={
-                    Object {
+                    {
                       "height": 0,
                       "left": 0,
                       "overflow": "scroll",
@@ -339,7 +339,7 @@ exports[`snapshots view 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             style={
-              Object {
+              {
                 "marginLeft": 10,
                 "width": "9em",
               }
@@ -364,7 +364,7 @@ exports[`snapshots view 1`] = `
                 onFocus={[Function]}
                 role="combobox"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "display": "inline-block",
                     "width": 1,
@@ -388,7 +388,7 @@ exports[`snapshots view 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "row",
@@ -397,14 +397,14 @@ exports[`snapshots view 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "minWidth": 600,
           }
         }
       >
         <div
           style={
-            Object {
+            {
               "height": 0,
               "overflow": "visible",
               "width": 0,
@@ -415,7 +415,7 @@ exports[`snapshots view 1`] = `
             className="ReactVirtualized__Table"
             role="grid"
             style={
-              Object {
+              {
                 "fontSize": 14,
               }
             }
@@ -424,7 +424,7 @@ exports[`snapshots view 1`] = `
               className="ReactVirtualized__Table__headerRow"
               role="row"
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "backgroundColor": null,
                   "cursor": "default",
@@ -443,7 +443,7 @@ exports[`snapshots view 1`] = `
                 onKeyDown={[Function]}
                 role="columnheader"
                 style={
-                  Object {
+                  {
                     "WebkitFlex": "0 1 260px",
                     "cursor": "pointer",
                     "display": "flex",
@@ -469,7 +469,7 @@ exports[`snapshots view 1`] = `
                 onKeyDown={[Function]}
                 role="columnheader"
                 style={
-                  Object {
+                  {
                     "WebkitFlex": "0 1 120px",
                     "cursor": "pointer",
                     "display": "flex",
@@ -508,7 +508,7 @@ exports[`snapshots view 1`] = `
                 onKeyDown={[Function]}
                 role="columnheader"
                 style={
-                  Object {
+                  {
                     "WebkitFlex": "0 1 100px",
                     "cursor": "pointer",
                     "display": "flex",
@@ -530,7 +530,7 @@ exports[`snapshots view 1`] = `
                 className="ReactVirtualized__Table__headerColumn"
                 role="columnheader"
                 style={
-                  Object {
+                  {
                     "WebkitFlex": "0 1 100px",
                     "cursor": "pointer",
                     "display": "flex",
@@ -551,7 +551,7 @@ exports[`snapshots view 1`] = `
                 className="ReactVirtualized__Table__headerColumn"
                 role="columnheader"
                 style={
-                  Object {
+                  {
                     "WebkitFlex": "0 1 40px",
                     "cursor": "pointer",
                     "display": "flex",
@@ -576,7 +576,7 @@ exports[`snapshots view 1`] = `
               onScroll={[Function]}
               role="rowgroup"
               style={
-                Object {
+                {
                   "WebkitOverflowScrolling": "touch",
                   "boxSizing": "border-box",
                   "direction": "ltr",
@@ -595,7 +595,7 @@ exports[`snapshots view 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "height": 0,
             "overflow": "visible",
           }
@@ -603,7 +603,7 @@ exports[`snapshots view 1`] = `
       >
         <div
           style={
-            Object {
+            {
               "flex": 1,
               "height": 0,
               "overflowY": "scroll",
@@ -612,7 +612,7 @@ exports[`snapshots view 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "paddingLeft": 20,
                 "paddingRight": 10,
                 "paddingTop": 50,

@@ -5,7 +5,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -13,7 +13,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -25,7 +25,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "fontSize": 12,
         "margin": 10,
       }
@@ -35,7 +35,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
   </div>
   <table
     style={
-      Object {
+      {
         "border": "1px solid #eee",
         "borderCollapse": "collapse",
         "margin": 10,
@@ -48,7 +48,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <th
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -59,7 +59,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -69,14 +69,14 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/6"
-            style={Object {}}
+            style={{}}
           >
             wsns
           </a>
         </th>
         <th
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -86,14 +86,14 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/2"
-            style={Object {}}
+            style={{}}
           >
             hea
           </a>
         </th>
         <th
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -103,14 +103,14 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
           <a
             className="School"
             href="/schools/9"
-            style={Object {}}
+            style={{}}
           >
             shs
           </a>
         </th>
         <th
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -125,7 +125,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -136,7 +136,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -145,7 +145,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -160,7 +160,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -169,7 +169,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -184,7 +184,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -193,7 +193,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -208,7 +208,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -217,7 +217,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ffe78e",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -234,7 +234,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -245,7 +245,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -254,7 +254,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -269,7 +269,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -278,7 +278,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -293,7 +293,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -302,7 +302,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -317,7 +317,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -326,7 +326,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ffe78e",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -343,7 +343,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -354,7 +354,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -363,7 +363,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -378,7 +378,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -387,7 +387,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -402,7 +402,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -411,7 +411,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -426,7 +426,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -435,7 +435,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ffe78e",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -452,7 +452,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -463,7 +463,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -472,7 +472,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -487,7 +487,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -496,7 +496,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -511,7 +511,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -520,7 +520,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -535,7 +535,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -544,7 +544,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ffe78e",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -561,7 +561,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -572,7 +572,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -581,7 +581,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -596,7 +596,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -605,7 +605,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -620,7 +620,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -629,7 +629,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ccc",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -644,7 +644,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -653,7 +653,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "#ffe78e",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -670,7 +670,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -681,7 +681,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -690,7 +690,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "rgb(255, 173, 142)",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -705,7 +705,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -714,7 +714,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "rgb(255, 173, 142)",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -729,7 +729,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",
@@ -738,7 +738,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "backgroundColor": "rgb(255, 173, 142)",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
@@ -753,7 +753,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "overflow": "hidden",
               "padding": 5,
               "textAlign": "left",

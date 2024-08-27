@@ -3,7 +3,7 @@
 exports[`snapshots works for bedford 1`] = `
 <div
   style={
-    Object {
+    {
       "background": "#333",
       "width": "100%",
     }
@@ -11,7 +11,7 @@ exports[`snapshots works for bedford 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "background": "white",
         "border": "5px solid #333",
         "display": "flex",
@@ -25,7 +25,7 @@ exports[`snapshots works for bedford 1`] = `
       className="SchoolDisciplineDashboard EscapeListener"
       onKeyDown={[Function]}
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -35,7 +35,7 @@ exports[`snapshots works for bedford 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -48,7 +48,7 @@ exports[`snapshots works for bedford 1`] = `
         <div
           className="SectionHeading"
           style={
-            Object {
+            {
               "borderBottom": "1px solid #333",
               "padding": 10,
             }
@@ -56,7 +56,7 @@ exports[`snapshots works for bedford 1`] = `
         >
           <h4
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline",
               }
@@ -68,7 +68,7 @@ exports[`snapshots works for bedford 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "borderBottom": "1px solid #ccc",
               "display": "flex",
               "flexDirection": "row",
@@ -81,7 +81,7 @@ exports[`snapshots works for bedford 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -89,7 +89,7 @@ exports[`snapshots works for bedford 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -97,7 +97,7 @@ exports[`snapshots works for bedford 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -116,7 +116,7 @@ exports[`snapshots works for bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -134,7 +134,7 @@ exports[`snapshots works for bedford 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -150,7 +150,7 @@ exports[`snapshots works for bedford 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -159,7 +159,7 @@ exports[`snapshots works for bedford 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -196,7 +196,7 @@ exports[`snapshots works for bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "8em",
                     }
@@ -214,7 +214,7 @@ exports[`snapshots works for bedford 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -230,7 +230,7 @@ exports[`snapshots works for bedford 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -239,7 +239,7 @@ exports[`snapshots works for bedford 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -270,7 +270,7 @@ exports[`snapshots works for bedford 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -278,7 +278,7 @@ exports[`snapshots works for bedford 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -286,7 +286,7 @@ exports[`snapshots works for bedford 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -305,7 +305,7 @@ exports[`snapshots works for bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -337,7 +337,7 @@ exports[`snapshots works for bedford 1`] = `
                       onFocus={[Function]}
                       role="combobox"
                       style={
-                        Object {
+                        {
                           "border": 0,
                           "display": "inline-block",
                           "width": 1,
@@ -362,7 +362,7 @@ exports[`snapshots works for bedford 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flex": "1",
               "padding": 10,
@@ -371,7 +371,7 @@ exports[`snapshots works for bedford 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "alignContent": "flex-start",
                 "display": "flex",
                 "width": 450,
@@ -381,7 +381,7 @@ exports[`snapshots works for bedford 1`] = `
             <div
               className="StudentsTable"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "flexDirection": "column",
@@ -392,14 +392,14 @@ exports[`snapshots works for bedford 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
               />
               <div
                 style={
-                  Object {
+                  {
                     "paddingTop": 10,
                   }
                 }
@@ -410,7 +410,7 @@ exports[`snapshots works for bedford 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "flex",
                 "flex": "1",
                 "flexDirection": "column",
@@ -420,7 +420,7 @@ exports[`snapshots works for bedford 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "display": "flex",
                   "justifyContent": "center",
                   "marginTop": "20px",
@@ -429,7 +429,7 @@ exports[`snapshots works for bedford 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "alignSelf": "center",
                     "fontSize": "18px",
                     "marginRight": "10px",
@@ -449,7 +449,7 @@ exports[`snapshots works for bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "width": "200px",
                     }
                   }
@@ -473,7 +473,7 @@ exports[`snapshots works for bedford 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -489,7 +489,7 @@ exports[`snapshots works for bedford 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -498,7 +498,7 @@ exports[`snapshots works for bedford 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -529,7 +529,7 @@ exports[`snapshots works for bedford 1`] = `
               className="DisciplineScatterPlot"
               id="String"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "padding": 10,
@@ -540,7 +540,7 @@ exports[`snapshots works for bedford 1`] = `
               <div
                 className="HighchartsWrapper"
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
@@ -557,7 +557,7 @@ exports[`snapshots works for bedford 1`] = `
 exports[`snapshots works for demo 1`] = `
 <div
   style={
-    Object {
+    {
       "background": "#333",
       "width": "100%",
     }
@@ -565,7 +565,7 @@ exports[`snapshots works for demo 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "background": "white",
         "border": "5px solid #333",
         "display": "flex",
@@ -579,7 +579,7 @@ exports[`snapshots works for demo 1`] = `
       className="SchoolDisciplineDashboard EscapeListener"
       onKeyDown={[Function]}
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -589,7 +589,7 @@ exports[`snapshots works for demo 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -602,7 +602,7 @@ exports[`snapshots works for demo 1`] = `
         <div
           className="SectionHeading"
           style={
-            Object {
+            {
               "borderBottom": "1px solid #333",
               "padding": 10,
             }
@@ -610,7 +610,7 @@ exports[`snapshots works for demo 1`] = `
         >
           <h4
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline",
               }
@@ -622,7 +622,7 @@ exports[`snapshots works for demo 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "borderBottom": "1px solid #ccc",
               "display": "flex",
               "flexDirection": "row",
@@ -635,7 +635,7 @@ exports[`snapshots works for demo 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -643,7 +643,7 @@ exports[`snapshots works for demo 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -651,7 +651,7 @@ exports[`snapshots works for demo 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -670,7 +670,7 @@ exports[`snapshots works for demo 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -688,7 +688,7 @@ exports[`snapshots works for demo 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -704,7 +704,7 @@ exports[`snapshots works for demo 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -713,7 +713,7 @@ exports[`snapshots works for demo 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -750,7 +750,7 @@ exports[`snapshots works for demo 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "8em",
                     }
@@ -768,7 +768,7 @@ exports[`snapshots works for demo 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -784,7 +784,7 @@ exports[`snapshots works for demo 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -793,7 +793,7 @@ exports[`snapshots works for demo 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -824,7 +824,7 @@ exports[`snapshots works for demo 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -832,7 +832,7 @@ exports[`snapshots works for demo 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -840,7 +840,7 @@ exports[`snapshots works for demo 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -859,7 +859,7 @@ exports[`snapshots works for demo 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -891,7 +891,7 @@ exports[`snapshots works for demo 1`] = `
                       onFocus={[Function]}
                       role="combobox"
                       style={
-                        Object {
+                        {
                           "border": 0,
                           "display": "inline-block",
                           "width": 1,
@@ -916,7 +916,7 @@ exports[`snapshots works for demo 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flex": "1",
               "padding": 10,
@@ -925,7 +925,7 @@ exports[`snapshots works for demo 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "alignContent": "flex-start",
                 "display": "flex",
                 "width": 450,
@@ -935,7 +935,7 @@ exports[`snapshots works for demo 1`] = `
             <div
               className="StudentsTable"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "flexDirection": "column",
@@ -946,14 +946,14 @@ exports[`snapshots works for demo 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
               />
               <div
                 style={
-                  Object {
+                  {
                     "paddingTop": 10,
                   }
                 }
@@ -964,7 +964,7 @@ exports[`snapshots works for demo 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "flex",
                 "flex": "1",
                 "flexDirection": "column",
@@ -974,7 +974,7 @@ exports[`snapshots works for demo 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "display": "flex",
                   "justifyContent": "center",
                   "marginTop": "20px",
@@ -983,7 +983,7 @@ exports[`snapshots works for demo 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "alignSelf": "center",
                     "fontSize": "18px",
                     "marginRight": "10px",
@@ -1003,7 +1003,7 @@ exports[`snapshots works for demo 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "width": "200px",
                     }
                   }
@@ -1027,7 +1027,7 @@ exports[`snapshots works for demo 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -1043,7 +1043,7 @@ exports[`snapshots works for demo 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -1052,7 +1052,7 @@ exports[`snapshots works for demo 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -1083,7 +1083,7 @@ exports[`snapshots works for demo 1`] = `
               className="DisciplineScatterPlot"
               id="String"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "padding": 10,
@@ -1094,7 +1094,7 @@ exports[`snapshots works for demo 1`] = `
               <div
                 className="HighchartsWrapper"
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
@@ -1111,7 +1111,7 @@ exports[`snapshots works for demo 1`] = `
 exports[`snapshots works for new_bedford 1`] = `
 <div
   style={
-    Object {
+    {
       "background": "#333",
       "width": "100%",
     }
@@ -1119,7 +1119,7 @@ exports[`snapshots works for new_bedford 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "background": "white",
         "border": "5px solid #333",
         "display": "flex",
@@ -1133,7 +1133,7 @@ exports[`snapshots works for new_bedford 1`] = `
       className="SchoolDisciplineDashboard EscapeListener"
       onKeyDown={[Function]}
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -1143,7 +1143,7 @@ exports[`snapshots works for new_bedford 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -1156,7 +1156,7 @@ exports[`snapshots works for new_bedford 1`] = `
         <div
           className="SectionHeading"
           style={
-            Object {
+            {
               "borderBottom": "1px solid #333",
               "padding": 10,
             }
@@ -1164,7 +1164,7 @@ exports[`snapshots works for new_bedford 1`] = `
         >
           <h4
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline",
               }
@@ -1176,7 +1176,7 @@ exports[`snapshots works for new_bedford 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "borderBottom": "1px solid #ccc",
               "display": "flex",
               "flexDirection": "row",
@@ -1189,7 +1189,7 @@ exports[`snapshots works for new_bedford 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -1197,7 +1197,7 @@ exports[`snapshots works for new_bedford 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -1205,7 +1205,7 @@ exports[`snapshots works for new_bedford 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -1224,7 +1224,7 @@ exports[`snapshots works for new_bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -1242,7 +1242,7 @@ exports[`snapshots works for new_bedford 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -1258,7 +1258,7 @@ exports[`snapshots works for new_bedford 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -1267,7 +1267,7 @@ exports[`snapshots works for new_bedford 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -1304,7 +1304,7 @@ exports[`snapshots works for new_bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "8em",
                     }
@@ -1322,7 +1322,7 @@ exports[`snapshots works for new_bedford 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -1338,7 +1338,7 @@ exports[`snapshots works for new_bedford 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -1347,7 +1347,7 @@ exports[`snapshots works for new_bedford 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -1378,7 +1378,7 @@ exports[`snapshots works for new_bedford 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -1386,7 +1386,7 @@ exports[`snapshots works for new_bedford 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -1394,7 +1394,7 @@ exports[`snapshots works for new_bedford 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -1413,7 +1413,7 @@ exports[`snapshots works for new_bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -1445,7 +1445,7 @@ exports[`snapshots works for new_bedford 1`] = `
                       onFocus={[Function]}
                       role="combobox"
                       style={
-                        Object {
+                        {
                           "border": 0,
                           "display": "inline-block",
                           "width": 1,
@@ -1470,7 +1470,7 @@ exports[`snapshots works for new_bedford 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flex": "1",
               "padding": 10,
@@ -1479,7 +1479,7 @@ exports[`snapshots works for new_bedford 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "alignContent": "flex-start",
                 "display": "flex",
                 "width": 450,
@@ -1489,7 +1489,7 @@ exports[`snapshots works for new_bedford 1`] = `
             <div
               className="StudentsTable"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "flexDirection": "column",
@@ -1500,14 +1500,14 @@ exports[`snapshots works for new_bedford 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
               />
               <div
                 style={
-                  Object {
+                  {
                     "paddingTop": 10,
                   }
                 }
@@ -1518,7 +1518,7 @@ exports[`snapshots works for new_bedford 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "flex",
                 "flex": "1",
                 "flexDirection": "column",
@@ -1528,7 +1528,7 @@ exports[`snapshots works for new_bedford 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "display": "flex",
                   "justifyContent": "center",
                   "marginTop": "20px",
@@ -1537,7 +1537,7 @@ exports[`snapshots works for new_bedford 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "alignSelf": "center",
                     "fontSize": "18px",
                     "marginRight": "10px",
@@ -1557,7 +1557,7 @@ exports[`snapshots works for new_bedford 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "width": "200px",
                     }
                   }
@@ -1581,7 +1581,7 @@ exports[`snapshots works for new_bedford 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -1597,7 +1597,7 @@ exports[`snapshots works for new_bedford 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -1606,7 +1606,7 @@ exports[`snapshots works for new_bedford 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -1637,7 +1637,7 @@ exports[`snapshots works for new_bedford 1`] = `
               className="DisciplineScatterPlot"
               id="String"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "padding": 10,
@@ -1648,7 +1648,7 @@ exports[`snapshots works for new_bedford 1`] = `
               <div
                 className="HighchartsWrapper"
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
@@ -1665,7 +1665,7 @@ exports[`snapshots works for new_bedford 1`] = `
 exports[`snapshots works for somerville 1`] = `
 <div
   style={
-    Object {
+    {
       "background": "#333",
       "width": "100%",
     }
@@ -1673,7 +1673,7 @@ exports[`snapshots works for somerville 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "background": "white",
         "border": "5px solid #333",
         "display": "flex",
@@ -1687,7 +1687,7 @@ exports[`snapshots works for somerville 1`] = `
       className="SchoolDisciplineDashboard EscapeListener"
       onKeyDown={[Function]}
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -1697,7 +1697,7 @@ exports[`snapshots works for somerville 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -1710,7 +1710,7 @@ exports[`snapshots works for somerville 1`] = `
         <div
           className="SectionHeading"
           style={
-            Object {
+            {
               "borderBottom": "1px solid #333",
               "padding": 10,
             }
@@ -1718,7 +1718,7 @@ exports[`snapshots works for somerville 1`] = `
         >
           <h4
             style={
-              Object {
+              {
                 "color": "black",
                 "display": "inline",
               }
@@ -1730,7 +1730,7 @@ exports[`snapshots works for somerville 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "borderBottom": "1px solid #ccc",
               "display": "flex",
               "flexDirection": "row",
@@ -1743,7 +1743,7 @@ exports[`snapshots works for somerville 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -1751,7 +1751,7 @@ exports[`snapshots works for somerville 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -1759,7 +1759,7 @@ exports[`snapshots works for somerville 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -1778,7 +1778,7 @@ exports[`snapshots works for somerville 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -1796,7 +1796,7 @@ exports[`snapshots works for somerville 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -1812,7 +1812,7 @@ exports[`snapshots works for somerville 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -1821,7 +1821,7 @@ exports[`snapshots works for somerville 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -1858,7 +1858,7 @@ exports[`snapshots works for somerville 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "8em",
                     }
@@ -1876,7 +1876,7 @@ exports[`snapshots works for somerville 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -1892,7 +1892,7 @@ exports[`snapshots works for somerville 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -1901,7 +1901,7 @@ exports[`snapshots works for somerville 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -1932,7 +1932,7 @@ exports[`snapshots works for somerville 1`] = `
           <div
             className="FilterBar"
             style={
-              Object {
+              {
                 "display": "flex",
                 "justifyContent": "center",
               }
@@ -1940,7 +1940,7 @@ exports[`snapshots works for somerville 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                 }
@@ -1948,7 +1948,7 @@ exports[`snapshots works for somerville 1`] = `
             >
               <span
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "marginRight": 10,
                   }
@@ -1967,7 +1967,7 @@ exports[`snapshots works for somerville 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "marginLeft": 10,
                       "width": "10em",
                     }
@@ -1999,7 +1999,7 @@ exports[`snapshots works for somerville 1`] = `
                       onFocus={[Function]}
                       role="combobox"
                       style={
-                        Object {
+                        {
                           "border": 0,
                           "display": "inline-block",
                           "width": 1,
@@ -2024,7 +2024,7 @@ exports[`snapshots works for somerville 1`] = `
         </div>
         <div
           style={
-            Object {
+            {
               "display": "flex",
               "flex": "1",
               "padding": 10,
@@ -2033,7 +2033,7 @@ exports[`snapshots works for somerville 1`] = `
         >
           <div
             style={
-              Object {
+              {
                 "alignContent": "flex-start",
                 "display": "flex",
                 "width": 450,
@@ -2043,7 +2043,7 @@ exports[`snapshots works for somerville 1`] = `
             <div
               className="StudentsTable"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "flexDirection": "column",
@@ -2054,14 +2054,14 @@ exports[`snapshots works for somerville 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }
               />
               <div
                 style={
-                  Object {
+                  {
                     "paddingTop": 10,
                   }
                 }
@@ -2072,7 +2072,7 @@ exports[`snapshots works for somerville 1`] = `
           </div>
           <div
             style={
-              Object {
+              {
                 "display": "flex",
                 "flex": "1",
                 "flexDirection": "column",
@@ -2082,7 +2082,7 @@ exports[`snapshots works for somerville 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "display": "flex",
                   "justifyContent": "center",
                   "marginTop": "20px",
@@ -2091,7 +2091,7 @@ exports[`snapshots works for somerville 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "alignSelf": "center",
                     "fontSize": "18px",
                     "marginRight": "10px",
@@ -2111,7 +2111,7 @@ exports[`snapshots works for somerville 1`] = `
                   onTouchMove={[Function]}
                   onTouchStart={[Function]}
                   style={
-                    Object {
+                    {
                       "width": "200px",
                     }
                   }
@@ -2135,7 +2135,7 @@ exports[`snapshots works for somerville 1`] = `
                     <div
                       className="Select-input"
                       style={
-                        Object {
+                        {
                           "display": "inline-block",
                         }
                       }
@@ -2151,7 +2151,7 @@ exports[`snapshots works for somerville 1`] = `
                         required={false}
                         role="combobox"
                         style={
-                          Object {
+                          {
                             "boxSizing": "content-box",
                             "width": "5px",
                           }
@@ -2160,7 +2160,7 @@ exports[`snapshots works for somerville 1`] = `
                       />
                       <div
                         style={
-                          Object {
+                          {
                             "height": 0,
                             "left": 0,
                             "overflow": "scroll",
@@ -2191,7 +2191,7 @@ exports[`snapshots works for somerville 1`] = `
               className="DisciplineScatterPlot"
               id="String"
               style={
-                Object {
+                {
                   "display": "flex",
                   "flex": 1,
                   "padding": 10,
@@ -2202,7 +2202,7 @@ exports[`snapshots works for somerville 1`] = `
               <div
                 className="HighchartsWrapper"
                 style={
-                  Object {
+                  {
                     "flex": 1,
                   }
                 }

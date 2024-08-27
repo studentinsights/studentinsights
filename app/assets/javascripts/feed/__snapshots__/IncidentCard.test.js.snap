@@ -7,7 +7,7 @@ exports[`matches snapshot 1`] = `
   <div
     className="Card FeedCardFrame"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "borderRadius": 3,
         "padding": 10,
@@ -17,7 +17,7 @@ exports[`matches snapshot 1`] = `
     <div
       className="FeedCardFrame-FrameHeader"
       style={
-        Object {
+        {
           "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
@@ -27,7 +27,7 @@ exports[`matches snapshot 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
           }
         }
@@ -35,7 +35,7 @@ exports[`matches snapshot 1`] = `
         <div
           className="StudentPhotoCropped"
           style={
-            Object {
+            {
               "backgroundColor": "#ddd",
               "backgroundImage": "url(/students/100/photo)",
               "backgroundPosition": "center top",
@@ -53,7 +53,7 @@ exports[`matches snapshot 1`] = `
         />
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "column",
@@ -65,7 +65,7 @@ exports[`matches snapshot 1`] = `
             <a
               href="/students/100"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -83,7 +83,7 @@ exports[`matches snapshot 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
@@ -101,7 +101,7 @@ exports[`matches snapshot 1`] = `
         <div>
           <div
             className="Timestamp"
-            style={Object {}}
+            style={{}}
           >
             13 days ago
              on 
@@ -113,7 +113,7 @@ exports[`matches snapshot 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 20,
           "marginTop": 20,
         }
@@ -129,7 +129,7 @@ exports[`matches snapshot 1`] = `
     <div
       className="FeedCardFrame-footer"
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "marginBottom": 5,
@@ -141,7 +141,7 @@ exports[`matches snapshot 1`] = `
         <span
           className="HouseBadge"
           style={
-            Object {
+            {
               "backgroundColor": "#333",
               "color": "white",
               "marginLeft": 5,
@@ -155,7 +155,7 @@ exports[`matches snapshot 1`] = `
         <span
           className="Badge"
           style={
-            Object {
+            {
               "backgroundColor": "rgb(49, 171, 57)",
               "color": "white",
               "marginLeft": 5,
@@ -179,7 +179,7 @@ exports[`matches when no location 1`] = `
   <div
     className="Card FeedCardFrame"
     style={
-      Object {
+      {
         "border": "1px solid #ccc",
         "borderRadius": 3,
         "padding": 10,
@@ -189,7 +189,7 @@ exports[`matches when no location 1`] = `
     <div
       className="FeedCardFrame-FrameHeader"
       style={
-        Object {
+        {
           "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
@@ -199,7 +199,7 @@ exports[`matches when no location 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
           }
         }
@@ -207,7 +207,7 @@ exports[`matches when no location 1`] = `
         <div
           className="StudentPhotoCropped"
           style={
-            Object {
+            {
               "backgroundColor": "#ddd",
               "backgroundImage": "url(/students/100/photo)",
               "backgroundPosition": "center top",
@@ -225,7 +225,7 @@ exports[`matches when no location 1`] = `
         />
         <div
           style={
-            Object {
+            {
               "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "column",
@@ -237,7 +237,7 @@ exports[`matches when no location 1`] = `
             <a
               href="/students/100"
               style={
-                Object {
+                {
                   "fontWeight": "bold",
                 }
               }
@@ -255,7 +255,7 @@ exports[`matches when no location 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "column",
@@ -268,7 +268,7 @@ exports[`matches when no location 1`] = `
         <div>
           <div
             className="Timestamp"
-            style={Object {}}
+            style={{}}
           >
             13 days ago
              on 
@@ -280,7 +280,7 @@ exports[`matches when no location 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginBottom": 20,
           "marginTop": 20,
         }
@@ -296,7 +296,7 @@ exports[`matches when no location 1`] = `
     <div
       className="FeedCardFrame-footer"
       style={
-        Object {
+        {
           "display": "flex",
           "justifyContent": "space-between",
           "marginBottom": 5,
@@ -308,7 +308,7 @@ exports[`matches when no location 1`] = `
         <span
           className="HouseBadge"
           style={
-            Object {
+            {
               "backgroundColor": "#333",
               "color": "white",
               "marginLeft": 5,
@@ -322,7 +322,7 @@ exports[`matches when no location 1`] = `
         <span
           className="Badge"
           style={
-            Object {
+            {
               "backgroundColor": "rgb(49, 171, 57)",
               "color": "white",
               "marginLeft": 5,

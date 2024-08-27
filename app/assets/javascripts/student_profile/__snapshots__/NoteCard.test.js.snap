@@ -10,14 +10,14 @@ exports[`snapshots can render substanceOnly so callers can use their own frame 1
     <div
       className="ResizingTextArea"
       style={
-        Object {
+        {
           "position": "relative",
         }
       }
     >
       <span
         style={
-          Object {
+          {
             "border": 0,
             "borderRadius": 3,
             "fontFamily": "'Open Sans', sans-serif",
@@ -44,7 +44,7 @@ exports[`snapshots can render substanceOnly so callers can use their own frame 1
         className="ResizingTextArea-textarea"
         onChange={[Function]}
         style={
-          Object {
+          {
             "border": 0,
             "borderRadius": 3,
             "fontFamily": "'Open Sans', sans-serif",
@@ -65,7 +65,7 @@ exports[`snapshots can render substanceOnly so callers can use their own frame 1
   </div>
   <div
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "justifyContent": "space-between",
@@ -75,7 +75,7 @@ exports[`snapshots can render substanceOnly so callers can use their own frame 1
   >
     <span
       style={
-        Object {
+        {
           "fontSize": 12,
         }
       }
@@ -84,7 +84,7 @@ exports[`snapshots can render substanceOnly so callers can use their own frame 1
     </span>
     <span
       style={
-        Object {
+        {
           "fontSize": 12,
         }
       }
@@ -96,7 +96,7 @@ exports[`snapshots can render substanceOnly so callers can use their own frame 1
 `;
 
 exports[`snapshots works across all scenarios at once 1`] = `
-Array [
+[
   <div>
     <h3>
       scenario for snapshot: 
@@ -105,7 +105,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -116,7 +116,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -125,7 +125,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -137,7 +137,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -152,7 +152,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -161,7 +161,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -169,7 +169,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -183,14 +183,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -217,7 +217,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -238,7 +238,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -248,7 +248,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -261,7 +261,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "color": "#ff9b00",
                   "display": "flex",
@@ -276,7 +276,7 @@ Array [
               <div
                 className="ModalSmall"
                 style={
-                  Object {
+                  {
                     "display": "inline",
                     "fontSize": 12,
                     "marginLeft": 10,
@@ -287,7 +287,7 @@ Array [
                   href="#"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "fontSize": 12,
                       "outline": "none",
                     }
@@ -295,7 +295,7 @@ Array [
                 >
                   <span
                     style={
-                      Object {
+                      {
                         "color": "#3177c9",
                         "fontWeight": "normal",
                       }
@@ -310,7 +310,7 @@ Array [
           <div>
             <p
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "fontSize": 12,
@@ -322,7 +322,7 @@ Array [
                 href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "fontSize": 12,
                     "marginRight": 10,
@@ -338,7 +338,7 @@ Array [
                 href="#"
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "color": "#999",
                     "display": "inline-block",
                     "fontSize": 12,
@@ -363,7 +363,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -374,7 +374,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -383,7 +383,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -395,7 +395,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -410,7 +410,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -419,7 +419,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -427,7 +427,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -438,7 +438,7 @@ Array [
           <div
             className="NoteText"
             style={
-              Object {
+              {
                 "border": 0,
                 "fontFamily": "'Open Sans', sans-serif",
                 "fontSize": 14,
@@ -455,7 +455,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -465,7 +465,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -474,7 +474,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -494,7 +494,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -505,7 +505,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -514,7 +514,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -526,7 +526,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -541,7 +541,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -550,7 +550,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -558,7 +558,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -569,7 +569,7 @@ Array [
           <div
             className="NoteText"
             style={
-              Object {
+              {
                 "border": 0,
                 "fontFamily": "'Open Sans', sans-serif",
                 "fontSize": 14,
@@ -586,7 +586,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -596,7 +596,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -609,7 +609,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -629,7 +629,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -640,7 +640,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -649,7 +649,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -661,7 +661,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -676,7 +676,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -685,7 +685,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -693,7 +693,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -704,7 +704,7 @@ Array [
           <div
             className="NoteText"
             style={
-              Object {
+              {
                 "border": 0,
                 "fontFamily": "'Open Sans', sans-serif",
                 "fontSize": 14,
@@ -721,7 +721,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -731,7 +731,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -744,7 +744,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -764,7 +764,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -775,7 +775,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -784,7 +784,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -796,7 +796,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -811,7 +811,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -820,7 +820,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -828,7 +828,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -839,7 +839,7 @@ Array [
           <div
             className="NoteText"
             style={
-              Object {
+              {
                 "border": 0,
                 "fontFamily": "'Open Sans', sans-serif",
                 "fontSize": 14,
@@ -856,7 +856,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -866,7 +866,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -875,7 +875,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -886,7 +886,7 @@ Array [
           <div>
             <p
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "fontSize": 12,
@@ -898,7 +898,7 @@ Array [
                 href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "fontSize": 12,
                     "marginRight": 10,
@@ -924,7 +924,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -935,7 +935,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -944,7 +944,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -956,7 +956,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -971,7 +971,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -980,7 +980,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -988,7 +988,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -1002,14 +1002,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1036,7 +1036,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1057,7 +1057,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -1067,7 +1067,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1076,7 +1076,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1096,7 +1096,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -1107,7 +1107,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -1116,7 +1116,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -1128,7 +1128,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -1143,7 +1143,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -1152,7 +1152,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -1160,7 +1160,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -1174,14 +1174,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1208,7 +1208,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1229,7 +1229,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -1239,7 +1239,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -1252,7 +1252,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1272,7 +1272,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -1283,7 +1283,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -1292,7 +1292,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -1304,7 +1304,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -1319,7 +1319,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -1328,7 +1328,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -1336,7 +1336,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -1350,14 +1350,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1384,7 +1384,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1405,7 +1405,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -1415,7 +1415,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -1428,7 +1428,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1448,7 +1448,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -1459,7 +1459,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -1468,7 +1468,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -1480,7 +1480,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -1495,7 +1495,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -1504,7 +1504,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -1512,7 +1512,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -1526,14 +1526,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1560,7 +1560,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1581,7 +1581,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -1591,7 +1591,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1600,7 +1600,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1611,7 +1611,7 @@ Array [
           <div>
             <p
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "fontSize": 12,
@@ -1623,7 +1623,7 @@ Array [
                 href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "fontSize": 12,
                     "marginRight": 10,
@@ -1649,7 +1649,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -1660,7 +1660,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -1669,7 +1669,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -1681,7 +1681,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -1696,7 +1696,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -1705,7 +1705,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -1713,7 +1713,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -1727,14 +1727,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1761,7 +1761,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1782,7 +1782,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -1792,7 +1792,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1801,7 +1801,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -1812,7 +1812,7 @@ Array [
           <div>
             <p
               style={
-                Object {
+                {
                   "alignItems": "flex-start",
                   "display": "flex",
                   "fontSize": 12,
@@ -1824,7 +1824,7 @@ Array [
                 href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "display": "inline-block",
                     "fontSize": 12,
                     "marginRight": 10,
@@ -1840,7 +1840,7 @@ Array [
                 href="#"
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "color": "#999",
                     "display": "inline-block",
                     "fontSize": 12,
@@ -1865,7 +1865,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -1876,7 +1876,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -1885,7 +1885,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -1897,7 +1897,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -1912,7 +1912,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -1921,7 +1921,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -1929,7 +1929,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -1943,14 +1943,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1977,7 +1977,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -1998,7 +1998,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2008,7 +2008,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2017,7 +2017,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -2038,7 +2038,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2049,7 +2049,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2058,7 +2058,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2070,7 +2070,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2085,7 +2085,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -2094,7 +2094,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -2102,7 +2102,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -2116,14 +2116,14 @@ Array [
             <div
               className="ResizingTextArea"
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
             >
               <span
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2150,7 +2150,7 @@ Array [
                 className="ResizingTextArea-textarea"
                 onChange={[Function]}
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "borderRadius": 3,
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2171,7 +2171,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2181,7 +2181,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2190,7 +2190,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "color": "#ff9b00",
                   "display": "flex",
@@ -2205,7 +2205,7 @@ Array [
               <div
                 className="ModalSmall"
                 style={
-                  Object {
+                  {
                     "display": "inline",
                     "fontSize": 12,
                     "marginLeft": 10,
@@ -2216,7 +2216,7 @@ Array [
                   href="#"
                   onClick={[Function]}
                   style={
-                    Object {
+                    {
                       "fontSize": 12,
                       "outline": "none",
                     }
@@ -2224,7 +2224,7 @@ Array [
                 >
                   <span
                     style={
-                      Object {
+                      {
                         "color": "#3177c9",
                         "fontWeight": "normal",
                       }
@@ -2248,7 +2248,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2259,7 +2259,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2268,7 +2268,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2280,7 +2280,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2295,7 +2295,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -2304,7 +2304,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -2312,7 +2312,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -2327,7 +2327,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2347,7 +2347,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2357,7 +2357,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2366,7 +2366,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2386,7 +2386,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2397,7 +2397,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2406,7 +2406,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2418,7 +2418,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2433,7 +2433,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -2442,7 +2442,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -2450,7 +2450,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -2465,7 +2465,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2485,7 +2485,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2495,7 +2495,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -2508,7 +2508,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2528,7 +2528,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2539,7 +2539,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2548,7 +2548,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2560,7 +2560,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2575,7 +2575,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -2584,7 +2584,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -2592,7 +2592,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -2607,7 +2607,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2627,7 +2627,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2637,7 +2637,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "color": "#aaa",
                   "fontSize": 12,
                 }
@@ -2650,7 +2650,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2670,7 +2670,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2681,7 +2681,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2690,7 +2690,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2702,7 +2702,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2717,7 +2717,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -2726,7 +2726,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -2734,7 +2734,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -2749,7 +2749,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2769,7 +2769,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2779,7 +2779,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2788,7 +2788,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2808,7 +2808,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2819,7 +2819,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2828,7 +2828,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2840,7 +2840,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2855,7 +2855,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -2864,7 +2864,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -2872,7 +2872,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -2887,7 +2887,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -2907,7 +2907,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -2917,7 +2917,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2926,7 +2926,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -2946,7 +2946,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -2957,7 +2957,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -2966,7 +2966,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -2978,7 +2978,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -2993,7 +2993,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -3002,7 +3002,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -3010,7 +3010,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -3025,7 +3025,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -3045,7 +3045,7 @@ Array [
                 href="#"
                 onClick={[Function]}
                 style={
-                  Object {
+                  {
                     "color": "#999",
                     "cursor": "pointer",
                     "display": "inline-block",
@@ -3061,7 +3061,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -3071,7 +3071,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -3080,7 +3080,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -3100,7 +3100,7 @@ Array [
     <div
       className="NoteShell"
       style={
-        Object {
+        {
           "border": "1px solid #eee",
           "marginBottom": 10,
           "marginTop": 10,
@@ -3111,7 +3111,7 @@ Array [
     >
       <div
         style={
-          Object {
+          {
             "display": "flex",
             "justifyContent": "space-between",
           }
@@ -3120,7 +3120,7 @@ Array [
         <span
           className="date"
           style={
-            Object {
+            {
               "display": "inline-block",
               "fontWeight": "bold",
               "paddingRight": 10,
@@ -3132,7 +3132,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "background": "#eee",
               "display": "inline-block",
               "marginLeft": 10,
@@ -3147,7 +3147,7 @@ Array [
         </span>
         <span
           style={
-            Object {
+            {
               "display": "inline-block",
               "paddingLeft": 5,
             }
@@ -3156,7 +3156,7 @@ Array [
           <a
             className="Educator"
             href="mailto:demo@example.com"
-            style={Object {}}
+            style={{}}
           >
             demo@
           </a>
@@ -3164,7 +3164,7 @@ Array [
       </div>
       <div
         style={
-          Object {
+          {
             "marginTop": 10,
           }
         }
@@ -3179,7 +3179,7 @@ Array [
               <div
                 className="NoteText"
                 style={
-                  Object {
+                  {
                     "border": 0,
                     "color": "#999",
                     "fontFamily": "'Open Sans', sans-serif",
@@ -3199,7 +3199,7 @@ Array [
           </div>
           <div
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -3209,7 +3209,7 @@ Array [
           >
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }
@@ -3218,7 +3218,7 @@ Array [
             </span>
             <span
               style={
-                Object {
+                {
                   "fontSize": 12,
                 }
               }

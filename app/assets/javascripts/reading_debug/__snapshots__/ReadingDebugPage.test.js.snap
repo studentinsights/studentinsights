@@ -3,7 +3,7 @@
 exports[`snapshots view 1`] = `
 <div
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -13,7 +13,7 @@ exports[`snapshots view 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "justifyContent": "space-between",
@@ -24,7 +24,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
         }
@@ -41,7 +41,7 @@ exports[`snapshots view 1`] = `
           onTouchMove={[Function]}
           onTouchStart={[Function]}
           style={
-            Object {
+            {
               "marginLeft": 10,
               "width": "20em",
             }
@@ -66,7 +66,7 @@ exports[`snapshots view 1`] = `
             <div
               className="Select-input"
               style={
-                Object {
+                {
                   "display": "inline-block",
                 }
               }
@@ -82,7 +82,7 @@ exports[`snapshots view 1`] = `
                 required={false}
                 role="combobox"
                 style={
-                  Object {
+                  {
                     "boxSizing": "content-box",
                     "width": "5px",
                   }
@@ -91,7 +91,7 @@ exports[`snapshots view 1`] = `
               />
               <div
                 style={
-                  Object {
+                  {
                     "height": 0,
                     "left": 0,
                     "overflow": "scroll",
@@ -128,7 +128,7 @@ exports[`snapshots view 1`] = `
           onTouchMove={[Function]}
           onTouchStart={[Function]}
           style={
-            Object {
+            {
               "marginLeft": 10,
               "width": "10em",
             }
@@ -146,7 +146,7 @@ exports[`snapshots view 1`] = `
             <div
               className="Select-input"
               style={
-                Object {
+                {
                   "display": "inline-block",
                 }
               }
@@ -162,7 +162,7 @@ exports[`snapshots view 1`] = `
                 required={false}
                 role="combobox"
                 style={
-                  Object {
+                  {
                     "boxSizing": "content-box",
                     "width": "5px",
                   }
@@ -171,7 +171,7 @@ exports[`snapshots view 1`] = `
               />
               <div
                 style={
-                  Object {
+                  {
                     "height": 0,
                     "left": 0,
                     "overflow": "scroll",
@@ -208,7 +208,7 @@ exports[`snapshots view 1`] = `
           onTouchMove={[Function]}
           onTouchStart={[Function]}
           style={
-            Object {
+            {
               "marginLeft": 10,
               "width": "10em",
             }
@@ -226,7 +226,7 @@ exports[`snapshots view 1`] = `
             <div
               className="Select-input"
               style={
-                Object {
+                {
                   "display": "inline-block",
                 }
               }
@@ -242,7 +242,7 @@ exports[`snapshots view 1`] = `
                 required={false}
                 role="combobox"
                 style={
-                  Object {
+                  {
                     "boxSizing": "content-box",
                     "width": "5px",
                   }
@@ -251,7 +251,7 @@ exports[`snapshots view 1`] = `
               />
               <div
                 style={
-                  Object {
+                  {
                     "height": 0,
                     "left": 0,
                     "overflow": "scroll",
@@ -280,7 +280,7 @@ exports[`snapshots view 1`] = `
       <div
         onClick={[Function]}
         style={
-          Object {
+          {
             "color": "#333",
             "cursor": "pointer",
             "fontSize": 14,
@@ -304,7 +304,7 @@ exports[`snapshots view 1`] = `
         href="/reading/thresholds"
         rel="noopener noreferrer"
         style={
-          Object {
+          {
             "marginLeft": 10,
           }
         }
@@ -317,7 +317,7 @@ exports[`snapshots view 1`] = `
   <div>
     <table
       style={
-        Object {
+        {
           "width": "100%",
         }
       }
@@ -326,13 +326,13 @@ exports[`snapshots view 1`] = `
         <tr>
           <th
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
           />
           <th
-            style={Object {}}
+            style={{}}
           >
             <div>
               <div>
@@ -341,7 +341,7 @@ exports[`snapshots view 1`] = `
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 10,
                   }
@@ -353,7 +353,7 @@ exports[`snapshots view 1`] = `
             </div>
           </th>
           <th
-            style={Object {}}
+            style={{}}
           >
             <div>
               <div>
@@ -362,7 +362,7 @@ exports[`snapshots view 1`] = `
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 10,
                   }
@@ -374,7 +374,7 @@ exports[`snapshots view 1`] = `
             </div>
           </th>
           <th
-            style={Object {}}
+            style={{}}
           >
             <div>
               <div>
@@ -383,7 +383,7 @@ exports[`snapshots view 1`] = `
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 10,
                   }
@@ -395,7 +395,7 @@ exports[`snapshots view 1`] = `
             </div>
           </th>
           <th
-            style={Object {}}
+            style={{}}
           >
             <div>
               <div>
@@ -404,7 +404,7 @@ exports[`snapshots view 1`] = `
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 10,
                   }
@@ -416,7 +416,7 @@ exports[`snapshots view 1`] = `
             </div>
           </th>
           <th
-            style={Object {}}
+            style={{}}
           >
             <div>
               <div>
@@ -425,7 +425,7 @@ exports[`snapshots view 1`] = `
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 10,
                   }
@@ -437,7 +437,7 @@ exports[`snapshots view 1`] = `
             </div>
           </th>
           <th
-            style={Object {}}
+            style={{}}
           >
             <div>
               <div>
@@ -446,7 +446,7 @@ exports[`snapshots view 1`] = `
               </div>
               <div
                 style={
-                  Object {
+                  {
                     "color": "#aaa",
                     "fontSize": 10,
                   }
@@ -463,7 +463,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -476,7 +476,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -484,7 +484,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -493,7 +493,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -503,14 +503,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -520,7 +520,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -533,7 +533,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -554,7 +554,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -562,7 +562,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -571,7 +571,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -581,14 +581,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -598,7 +598,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -611,7 +611,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -628,7 +628,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "20%",
@@ -641,7 +641,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "20%",
                             "paddingRight": 1,
@@ -658,7 +658,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "74%",
@@ -671,7 +671,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "74%",
                             "paddingRight": 1,
@@ -692,7 +692,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -700,7 +700,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -709,7 +709,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -719,14 +719,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -736,7 +736,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -749,7 +749,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -766,7 +766,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "23%",
@@ -779,7 +779,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "23%",
                             "paddingRight": 1,
@@ -796,7 +796,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "74%",
@@ -809,7 +809,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "74%",
                             "paddingRight": 1,
@@ -830,7 +830,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -838,7 +838,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -847,7 +847,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -857,14 +857,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -874,7 +874,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -887,7 +887,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -904,7 +904,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -917,7 +917,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -934,7 +934,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "59%",
@@ -947,7 +947,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "59%",
                             "paddingRight": 1,
@@ -968,7 +968,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -976,7 +976,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -985,7 +985,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -995,14 +995,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1012,7 +1012,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1025,7 +1025,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1042,7 +1042,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "21%",
@@ -1055,7 +1055,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "21%",
                             "paddingRight": 1,
@@ -1072,7 +1072,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "55%",
@@ -1085,7 +1085,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "55%",
                             "paddingRight": 1,
@@ -1106,7 +1106,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1114,7 +1114,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1123,7 +1123,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1133,14 +1133,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1150,7 +1150,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1163,7 +1163,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1180,7 +1180,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "12%",
@@ -1193,7 +1193,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "12%",
                             "paddingRight": 1,
@@ -1210,7 +1210,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "52%",
@@ -1223,7 +1223,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "52%",
                             "paddingRight": 1,
@@ -1246,7 +1246,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -1259,7 +1259,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1267,7 +1267,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1276,7 +1276,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1286,14 +1286,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1303,7 +1303,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1316,7 +1316,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1333,7 +1333,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "48%",
@@ -1346,7 +1346,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "48%",
                             "paddingRight": 1,
@@ -1363,7 +1363,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "89%",
@@ -1376,7 +1376,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "89%",
                             "paddingRight": 1,
@@ -1397,7 +1397,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1405,7 +1405,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1414,7 +1414,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1424,14 +1424,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1441,7 +1441,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1454,7 +1454,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1471,7 +1471,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "25%",
@@ -1484,7 +1484,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "25%",
                             "paddingRight": 1,
@@ -1501,7 +1501,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "80%",
@@ -1514,7 +1514,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "80%",
                             "paddingRight": 1,
@@ -1535,7 +1535,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1543,7 +1543,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1552,7 +1552,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1562,14 +1562,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1579,7 +1579,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1592,7 +1592,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1609,7 +1609,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "25%",
@@ -1622,7 +1622,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "25%",
                             "paddingRight": 1,
@@ -1639,7 +1639,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "60%",
@@ -1652,7 +1652,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "60%",
                             "paddingRight": 1,
@@ -1673,7 +1673,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1681,7 +1681,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1690,7 +1690,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1700,14 +1700,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1717,7 +1717,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1730,7 +1730,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1747,7 +1747,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "14%",
@@ -1760,7 +1760,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "14%",
                             "paddingRight": 1,
@@ -1777,7 +1777,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "51%",
@@ -1790,7 +1790,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "51%",
                             "paddingRight": 1,
@@ -1811,7 +1811,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1819,7 +1819,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1828,7 +1828,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1838,14 +1838,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1855,7 +1855,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -1868,7 +1868,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -1885,7 +1885,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "22%",
@@ -1898,7 +1898,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "22%",
                             "paddingRight": 1,
@@ -1915,7 +1915,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "55%",
@@ -1928,7 +1928,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "55%",
                             "paddingRight": 1,
@@ -1949,7 +1949,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -1957,7 +1957,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -1966,7 +1966,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -1976,14 +1976,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -1993,7 +1993,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2006,7 +2006,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2023,7 +2023,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "18%",
@@ -2036,7 +2036,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "18%",
                             "paddingRight": 1,
@@ -2053,7 +2053,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "40%",
@@ -2066,7 +2066,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "40%",
                             "paddingRight": 1,
@@ -2089,7 +2089,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -2102,7 +2102,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2110,7 +2110,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2119,7 +2119,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2129,14 +2129,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2146,7 +2146,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2159,7 +2159,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2180,7 +2180,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2188,7 +2188,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2197,7 +2197,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2207,14 +2207,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2224,7 +2224,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2237,7 +2237,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2254,7 +2254,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -2267,7 +2267,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -2284,7 +2284,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "87%",
@@ -2297,7 +2297,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "87%",
                             "paddingRight": 1,
@@ -2318,7 +2318,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2326,7 +2326,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2335,7 +2335,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2345,14 +2345,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2362,7 +2362,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2375,7 +2375,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2392,7 +2392,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "22%",
@@ -2405,7 +2405,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "22%",
                             "paddingRight": 1,
@@ -2422,7 +2422,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "78%",
@@ -2435,7 +2435,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "78%",
                             "paddingRight": 1,
@@ -2456,7 +2456,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2464,7 +2464,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2473,7 +2473,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2483,14 +2483,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2500,7 +2500,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2513,7 +2513,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2530,7 +2530,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "17%",
@@ -2543,7 +2543,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "17%",
                             "paddingRight": 1,
@@ -2560,7 +2560,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "62%",
@@ -2573,7 +2573,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "62%",
                             "paddingRight": 1,
@@ -2594,7 +2594,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2602,7 +2602,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2611,7 +2611,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2621,14 +2621,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2638,7 +2638,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2651,7 +2651,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2668,7 +2668,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -2681,7 +2681,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -2698,7 +2698,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "54%",
@@ -2711,7 +2711,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "54%",
                             "paddingRight": 1,
@@ -2732,7 +2732,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2740,7 +2740,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2749,7 +2749,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2759,14 +2759,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2776,7 +2776,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2789,7 +2789,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2806,7 +2806,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "18%",
@@ -2819,7 +2819,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "18%",
                             "paddingRight": 1,
@@ -2836,7 +2836,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "49%",
@@ -2849,7 +2849,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "49%",
                             "paddingRight": 1,
@@ -2872,7 +2872,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -2885,7 +2885,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2893,7 +2893,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2902,7 +2902,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2912,14 +2912,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -2929,7 +2929,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -2942,7 +2942,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -2963,7 +2963,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -2971,7 +2971,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -2980,7 +2980,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -2990,14 +2990,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3007,7 +3007,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3020,7 +3020,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3037,7 +3037,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -3050,7 +3050,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -3067,7 +3067,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "82%",
@@ -3080,7 +3080,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "82%",
                             "paddingRight": 1,
@@ -3101,7 +3101,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3109,7 +3109,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3118,7 +3118,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3128,14 +3128,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3145,7 +3145,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3158,7 +3158,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3175,7 +3175,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "25%",
@@ -3188,7 +3188,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "25%",
                             "paddingRight": 1,
@@ -3205,7 +3205,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "64%",
@@ -3218,7 +3218,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "64%",
                             "paddingRight": 1,
@@ -3239,7 +3239,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3247,7 +3247,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3256,7 +3256,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3266,14 +3266,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3283,7 +3283,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3296,7 +3296,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3313,7 +3313,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "17%",
@@ -3326,7 +3326,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "17%",
                             "paddingRight": 1,
@@ -3343,7 +3343,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "50%",
@@ -3356,7 +3356,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "50%",
                             "paddingRight": 1,
@@ -3377,7 +3377,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3385,7 +3385,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3394,7 +3394,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3404,14 +3404,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3421,7 +3421,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3434,7 +3434,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3451,7 +3451,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "36%",
@@ -3464,7 +3464,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "36%",
                             "paddingRight": 1,
@@ -3481,7 +3481,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "61%",
@@ -3494,7 +3494,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "61%",
                             "paddingRight": 1,
@@ -3515,7 +3515,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3523,7 +3523,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3532,7 +3532,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3542,14 +3542,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3559,7 +3559,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3572,7 +3572,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3589,7 +3589,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "12%",
@@ -3602,7 +3602,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "12%",
                             "paddingRight": 1,
@@ -3619,7 +3619,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "35%",
@@ -3632,7 +3632,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "35%",
                             "paddingRight": 1,
@@ -3655,7 +3655,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -3668,7 +3668,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3676,7 +3676,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3685,7 +3685,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3695,14 +3695,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3712,7 +3712,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3725,7 +3725,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3742,7 +3742,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -3755,7 +3755,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -3772,7 +3772,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "77%",
@@ -3785,7 +3785,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "77%",
                             "paddingRight": 1,
@@ -3806,7 +3806,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3814,7 +3814,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3823,7 +3823,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3833,14 +3833,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3850,7 +3850,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -3863,7 +3863,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -3880,7 +3880,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "25%",
@@ -3893,7 +3893,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "25%",
                             "paddingRight": 1,
@@ -3910,7 +3910,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "72%",
@@ -3923,7 +3923,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "72%",
                             "paddingRight": 1,
@@ -3944,7 +3944,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -3952,7 +3952,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -3961,7 +3961,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -3971,14 +3971,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -3988,7 +3988,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4001,7 +4001,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4018,7 +4018,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "25%",
@@ -4031,7 +4031,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "25%",
                             "paddingRight": 1,
@@ -4048,7 +4048,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "61%",
@@ -4061,7 +4061,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "61%",
                             "paddingRight": 1,
@@ -4082,7 +4082,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4090,7 +4090,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4099,7 +4099,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4109,14 +4109,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4126,7 +4126,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4139,7 +4139,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4156,7 +4156,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -4169,7 +4169,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -4186,7 +4186,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "61%",
@@ -4199,7 +4199,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "61%",
                             "paddingRight": 1,
@@ -4220,7 +4220,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4228,7 +4228,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4237,7 +4237,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4247,14 +4247,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4264,7 +4264,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4277,7 +4277,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4294,7 +4294,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "19%",
@@ -4307,7 +4307,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "19%",
                             "paddingRight": 1,
@@ -4324,7 +4324,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "38%",
@@ -4337,7 +4337,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "38%",
                             "paddingRight": 1,
@@ -4358,7 +4358,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4366,7 +4366,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4375,7 +4375,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4385,14 +4385,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4402,7 +4402,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4415,7 +4415,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4432,7 +4432,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "26%",
@@ -4445,7 +4445,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "26%",
                             "paddingRight": 1,
@@ -4462,7 +4462,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "38%",
@@ -4475,7 +4475,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "38%",
                             "paddingRight": 1,
@@ -4498,7 +4498,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -4511,7 +4511,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4519,7 +4519,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4528,7 +4528,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4538,14 +4538,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4555,7 +4555,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4568,7 +4568,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4589,7 +4589,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4597,7 +4597,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4606,7 +4606,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4616,14 +4616,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4633,7 +4633,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4646,7 +4646,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4663,7 +4663,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "24%",
@@ -4676,7 +4676,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "24%",
                             "paddingRight": 1,
@@ -4693,7 +4693,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "92%",
@@ -4706,7 +4706,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "92%",
                             "paddingRight": 1,
@@ -4727,7 +4727,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4735,7 +4735,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4744,7 +4744,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4754,14 +4754,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4771,7 +4771,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4784,7 +4784,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4801,7 +4801,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "30%",
@@ -4814,7 +4814,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "30%",
                             "paddingRight": 1,
@@ -4831,7 +4831,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "78%",
@@ -4844,7 +4844,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "78%",
                             "paddingRight": 1,
@@ -4865,7 +4865,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -4873,7 +4873,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -4882,7 +4882,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -4892,14 +4892,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -4909,7 +4909,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -4922,7 +4922,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -4939,7 +4939,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "21%",
@@ -4952,7 +4952,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "21%",
                             "paddingRight": 1,
@@ -4969,7 +4969,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "62%",
@@ -4982,7 +4982,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "62%",
                             "paddingRight": 1,
@@ -5003,7 +5003,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5011,7 +5011,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5020,7 +5020,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5030,14 +5030,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5047,7 +5047,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5060,7 +5060,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5077,7 +5077,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "27%",
@@ -5090,7 +5090,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "27%",
                             "paddingRight": 1,
@@ -5107,7 +5107,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "60%",
@@ -5120,7 +5120,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "60%",
                             "paddingRight": 1,
@@ -5141,7 +5141,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5149,7 +5149,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5158,7 +5158,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5168,14 +5168,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5185,7 +5185,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5198,7 +5198,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5215,7 +5215,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "18%",
@@ -5228,7 +5228,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "18%",
                             "paddingRight": 1,
@@ -5245,7 +5245,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "43%",
@@ -5258,7 +5258,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "43%",
                             "paddingRight": 1,
@@ -5281,7 +5281,7 @@ exports[`snapshots view 1`] = `
         <tr>
           <td
             style={
-              Object {
+              {
                 "textAlign": "left",
               }
             }
@@ -5294,7 +5294,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5302,7 +5302,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5311,7 +5311,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5321,14 +5321,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5338,7 +5338,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5351,7 +5351,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5372,7 +5372,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5380,7 +5380,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5389,7 +5389,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5399,14 +5399,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5416,7 +5416,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5429,7 +5429,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5446,7 +5446,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "27%",
@@ -5459,7 +5459,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "27%",
                             "paddingRight": 1,
@@ -5476,7 +5476,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "80%",
@@ -5489,7 +5489,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "80%",
                             "paddingRight": 1,
@@ -5510,7 +5510,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5518,7 +5518,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5527,7 +5527,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5537,14 +5537,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5554,7 +5554,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5567,7 +5567,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5584,7 +5584,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "27%",
@@ -5597,7 +5597,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "27%",
                             "paddingRight": 1,
@@ -5614,7 +5614,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "74%",
@@ -5627,7 +5627,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "74%",
                             "paddingRight": 1,
@@ -5648,7 +5648,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5656,7 +5656,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5665,7 +5665,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5675,14 +5675,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5692,7 +5692,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5705,7 +5705,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5722,7 +5722,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "16%",
@@ -5735,7 +5735,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "16%",
                             "paddingRight": 1,
@@ -5752,7 +5752,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "44%",
@@ -5765,7 +5765,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "44%",
                             "paddingRight": 1,
@@ -5786,7 +5786,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5794,7 +5794,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5803,7 +5803,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5813,14 +5813,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5830,7 +5830,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5843,7 +5843,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5860,7 +5860,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "27%",
@@ -5873,7 +5873,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "27%",
                             "paddingRight": 1,
@@ -5890,7 +5890,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "49%",
@@ -5903,7 +5903,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "49%",
                             "paddingRight": 1,
@@ -5924,7 +5924,7 @@ exports[`snapshots view 1`] = `
           </td>
           <td
             style={
-              Object {
+              {
                 "textAlign": "center",
               }
             }
@@ -5932,7 +5932,7 @@ exports[`snapshots view 1`] = `
             <div
               onClick={[Function]}
               style={
-                Object {
+                {
                   "border": "2px solid white",
                   "cursor": "pointer",
                   "padding": 10,
@@ -5941,7 +5941,7 @@ exports[`snapshots view 1`] = `
             >
               <div
                 style={
-                  Object {
+                  {
                     "minHeight": 40,
                     "minWidth": 80,
                     "overflow": "hidden",
@@ -5951,14 +5951,14 @@ exports[`snapshots view 1`] = `
                 <div
                   className="BreakdownBar"
                   style={
-                    Object {
+                    {
                       "height": 5,
                     }
                   }
                 >
                   <div
                     style={
-                      Object {
+                      {
                         "height": 5,
                         "position": "relative",
                         "width": "100%",
@@ -5968,7 +5968,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "#ccc",
                             "height": 5,
                             "left": "0%",
@@ -5981,7 +5981,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "#ccc",
                             "left": "0%",
                             "paddingRight": 1,
@@ -5998,7 +5998,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(0,128,0,0.5)",
                             "height": 5,
                             "left": "12%",
@@ -6011,7 +6011,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(0,128,0,0.5)",
                             "left": "12%",
                             "paddingRight": 1,
@@ -6028,7 +6028,7 @@ exports[`snapshots view 1`] = `
                     <div>
                       <div
                         style={
-                          Object {
+                          {
                             "background": "rgba(255,140,0,0.6)",
                             "height": 5,
                             "left": "55%",
@@ -6041,7 +6041,7 @@ exports[`snapshots view 1`] = `
                       </div>
                       <div
                         style={
-                          Object {
+                          {
                             "color": "rgba(255,140,0,0.6)",
                             "left": "55%",
                             "paddingRight": 1,
@@ -6066,7 +6066,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "borderTop": "1px solid #ccc",
         "flex": 1,
         "marginTop": 10,
@@ -6076,7 +6076,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "fontSize": 14,
         }
       }

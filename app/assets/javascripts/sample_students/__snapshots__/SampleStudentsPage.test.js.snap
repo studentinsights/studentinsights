@@ -3,7 +3,7 @@
 exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
 <div
   style={
-    Object {
+    {
       "margin": 10,
     }
   }
@@ -11,7 +11,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
   <div
     className="SectionHeading"
     style={
-      Object {
+      {
         "borderBottom": "1px solid #333",
         "padding": 10,
       }
@@ -19,7 +19,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
   >
     <h4
       style={
-        Object {
+        {
           "color": "black",
           "display": "inline",
         }
@@ -30,7 +30,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "fontSize": 10,
         "margin": 15,
       }
@@ -43,7 +43,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
   </div>
   <table
     style={
-      Object {
+      {
         "border": "1px solid #eee",
         "borderCollapse": "collapse",
         "margin": 10,
@@ -54,7 +54,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -68,7 +68,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -82,7 +82,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -96,7 +96,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontWeight": "bold",
@@ -114,7 +114,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -128,7 +128,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -140,7 +140,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -152,7 +152,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -172,7 +172,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -186,7 +186,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -198,7 +198,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -210,7 +210,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -230,7 +230,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -244,7 +244,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -256,7 +256,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -268,7 +268,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -288,7 +288,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -302,7 +302,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -314,7 +314,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -326,7 +326,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -346,7 +346,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -360,7 +360,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -372,7 +372,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -384,7 +384,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -404,7 +404,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -418,7 +418,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -430,7 +430,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -442,7 +442,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -462,7 +462,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -476,7 +476,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -488,7 +488,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -500,7 +500,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -520,7 +520,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -534,7 +534,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -546,7 +546,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -558,7 +558,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -578,7 +578,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -592,7 +592,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -604,7 +604,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -616,7 +616,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -636,7 +636,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -650,7 +650,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -662,7 +662,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -674,7 +674,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -694,7 +694,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -708,7 +708,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -720,7 +720,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -732,7 +732,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -752,7 +752,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -766,7 +766,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -778,7 +778,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -790,7 +790,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -810,7 +810,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -824,7 +824,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -836,7 +836,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -848,7 +848,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -868,7 +868,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -882,7 +882,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -894,7 +894,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -906,7 +906,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -926,7 +926,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -940,7 +940,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -952,7 +952,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -964,7 +964,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -984,7 +984,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -998,7 +998,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1010,7 +1010,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1022,7 +1022,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1042,7 +1042,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1056,7 +1056,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1068,7 +1068,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1080,7 +1080,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1100,7 +1100,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1114,7 +1114,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1126,7 +1126,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1138,7 +1138,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1158,7 +1158,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1172,7 +1172,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1184,7 +1184,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1196,7 +1196,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1216,7 +1216,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1230,7 +1230,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1242,7 +1242,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",
@@ -1254,7 +1254,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "left",

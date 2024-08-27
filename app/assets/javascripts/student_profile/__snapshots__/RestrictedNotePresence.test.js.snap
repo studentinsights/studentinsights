@@ -8,7 +8,7 @@ exports[`snapshots 1`] = `
     <div
       className="NoteText"
       style={
-        Object {
+        {
           "border": 0,
           "color": "#999",
           "fontFamily": "'Open Sans', sans-serif",

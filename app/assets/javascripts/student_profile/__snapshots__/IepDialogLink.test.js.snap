@@ -9,7 +9,7 @@ exports[`snapshots works for Bedford 1`] = `
 exports[`snapshots works for New Bedford 1`] = `
 <div
   style={
-    Object {
+    {
       "display": "block",
       "marginLeft": 0,
     }
@@ -19,7 +19,7 @@ exports[`snapshots works for New Bedford 1`] = `
     href="#"
     onClick={[Function]}
     style={
-      Object {
+      {
         "display": "inline-block",
         "fontSize": 14,
         "outline": "none",
@@ -34,7 +34,7 @@ exports[`snapshots works for New Bedford 1`] = `
 exports[`snapshots works for Somerville 1`] = `
 <div
   style={
-    Object {
+    {
       "display": "block",
       "marginLeft": 0,
     }
@@ -44,7 +44,7 @@ exports[`snapshots works for Somerville 1`] = `
     href="#"
     onClick={[Function]}
     style={
-      Object {
+      {
         "display": "inline-block",
         "fontSize": 14,
         "outline": "none",

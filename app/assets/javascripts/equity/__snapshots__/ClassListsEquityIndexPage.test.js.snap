@@ -4,7 +4,7 @@ exports[`snapshots view 1`] = `
 <div>
   <table
     style={
-      Object {
+      {
         "border": "1px solid #eee",
         "borderCollapse": "collapse",
         "margin": 10,
@@ -15,7 +15,7 @@ exports[`snapshots view 1`] = `
       <tr>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -30,7 +30,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -45,7 +45,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -60,7 +60,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -75,7 +75,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -90,7 +90,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -105,7 +105,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -120,7 +120,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -135,7 +135,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -150,7 +150,7 @@ exports[`snapshots view 1`] = `
         </th>
         <th
           style={
-            Object {
+            {
               "backgroundColor": "#ccc",
               "border": "1px solid #eee",
               "fontSize": 10,
@@ -167,7 +167,7 @@ exports[`snapshots view 1`] = `
       <tr>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -178,14 +178,14 @@ exports[`snapshots view 1`] = `
           <a
             className="School"
             href="/schools/2"
-            style={Object {}}
+            style={{}}
           >
             Arthur D Healey
           </a>
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -197,7 +197,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -207,9 +207,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     255,
                     165,
                     0,
@@ -229,7 +229,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -239,9 +239,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     255,
                     255,
                     255,
@@ -261,7 +261,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -271,9 +271,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     204,
                     204,
                     204,
@@ -293,7 +293,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -303,9 +303,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     255,
                     165,
                     0,
@@ -325,7 +325,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -335,9 +335,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     204,
                     204,
                     204,
@@ -357,7 +357,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -367,9 +367,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     255,
                     165,
                     0,
@@ -389,7 +389,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -399,9 +399,9 @@ exports[`snapshots view 1`] = `
         >
           <span
             style={
-              Object {
+              {
                 "backgroundColor": Color {
-                  "_rgb": Array [
+                  "_rgb": [
                     255,
                     255,
                     255,
@@ -421,7 +421,7 @@ exports[`snapshots view 1`] = `
         </td>
         <td
           style={
-            Object {
+            {
               "border": "1px solid #eee",
               "padding": 10,
               "textAlign": "center",
@@ -432,7 +432,7 @@ exports[`snapshots view 1`] = `
           <a
             href="/classlists/af0cabfe-35c5-4c14-b6b8-2b725bf22e2b"
             style={
-              Object {
+              {
                 "padding": 10,
               }
             }

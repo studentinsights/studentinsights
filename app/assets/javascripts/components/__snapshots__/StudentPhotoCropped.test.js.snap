@@ -4,7 +4,7 @@ exports[`snapshots for Bedford 1`] = `
 <div
   className="StudentPhotoCropped"
   style={
-    Object {
+    {
       "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
@@ -26,7 +26,7 @@ exports[`snapshots for New Bedford 1`] = `
 <div
   className="StudentPhotoCropped"
   style={
-    Object {
+    {
       "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
@@ -48,7 +48,7 @@ exports[`snapshots for Somerville 1`] = `
 <div
   className="StudentPhotoCropped"
   style={
-    Object {
+    {
       "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
@@ -70,7 +70,7 @@ exports[`snapshots for demo 1`] = `
 <div
   className="StudentPhotoCropped"
   style={
-    Object {
+    {
       "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",

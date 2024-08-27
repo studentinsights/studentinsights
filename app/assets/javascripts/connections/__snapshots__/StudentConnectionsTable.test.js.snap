@@ -4,7 +4,7 @@ exports[`snapshots with unvirtualized render 1`] = `
 <div
   className="StudentConnectionsTable"
   style={
-    Object {
+    {
       "display": "block",
       "flex": 1,
       "flexDirection": "column",
@@ -75,7 +75,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -85,7 +85,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/22/photo)",
                     "backgroundPosition": "center top",
@@ -105,7 +105,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/22"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -121,7 +121,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -132,7 +132,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -144,7 +144,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -167,7 +167,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -187,7 +187,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -197,7 +197,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/25/photo)",
                     "backgroundPosition": "center top",
@@ -217,7 +217,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/25"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -233,7 +233,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -244,7 +244,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -256,7 +256,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -279,7 +279,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -299,7 +299,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -309,7 +309,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/26/photo)",
                     "backgroundPosition": "center top",
@@ -329,7 +329,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/26"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -345,7 +345,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -356,7 +356,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -368,7 +368,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -394,7 +394,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -404,7 +404,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/28/photo)",
                     "backgroundPosition": "center top",
@@ -424,7 +424,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/28"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -440,7 +440,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -451,7 +451,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -463,7 +463,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -486,7 +486,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -506,7 +506,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -516,7 +516,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/31/photo)",
                     "backgroundPosition": "center top",
@@ -536,7 +536,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/31"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -552,7 +552,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -563,7 +563,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -575,7 +575,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -601,7 +601,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -611,7 +611,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/33/photo)",
                     "backgroundPosition": "center top",
@@ -631,7 +631,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/33"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -647,7 +647,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -658,7 +658,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -670,7 +670,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -696,7 +696,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -706,7 +706,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/34/photo)",
                     "backgroundPosition": "center top",
@@ -726,7 +726,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/34"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -742,7 +742,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -753,7 +753,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -765,7 +765,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -780,7 +780,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgb(255, 231, 214)",
                   "color": "#666",
                   "cursor": "default",
@@ -805,7 +805,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",
@@ -825,7 +825,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <div
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "display": "flex",
                   "justifyContent": "flex-start",
@@ -835,7 +835,7 @@ exports[`snapshots with unvirtualized render 1`] = `
               <div
                 className="StudentPhotoCropped"
                 style={
-                  Object {
+                  {
                     "backgroundColor": "#ddd",
                     "backgroundImage": "url(/students/41/photo)",
                     "backgroundPosition": "center top",
@@ -855,7 +855,7 @@ exports[`snapshots with unvirtualized render 1`] = `
                 href="/students/41"
                 rel="noopener noreferrer"
                 style={
-                  Object {
+                  {
                     "fontSize": 14,
                     "fontWeight": "bold",
                   }
@@ -871,7 +871,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
@@ -882,7 +882,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -894,7 +894,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "display": "inline-block",
                   "padding": 8,
                 }
@@ -917,7 +917,7 @@ exports[`snapshots with unvirtualized render 1`] = `
           <td>
             <span
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(51, 51, 51, 0.5)",
                   "color": "white",
                   "display": "inline-block",

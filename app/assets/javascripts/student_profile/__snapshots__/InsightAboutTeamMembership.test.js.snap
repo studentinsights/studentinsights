@@ -4,7 +4,7 @@ exports[`snapshots for last year 1`] = `
 <div
   className="InsightQuote InsightAboutTeamMembership"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -13,7 +13,7 @@ exports[`snapshots for last year 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flex": 1,
         "margin": 20,
@@ -24,7 +24,7 @@ exports[`snapshots for last year 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -42,7 +42,7 @@ exports[`snapshots for last year 1`] = `
              was on the 
             <Team
               team={
-                Object {
+                {
                   "active": false,
                   "activity_text": "Indoor Track - Girls Varsity",
                   "coach_text": "Eric Taylor",
@@ -60,7 +60,7 @@ exports[`snapshots for last year 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "alignItems": "flex-end",
         "display": "flex",
         "flexDirection": "row",
@@ -95,7 +95,7 @@ exports[`snapshots view 1`] = `
 <div
   className="InsightQuote InsightAboutTeamMembership"
   style={
-    Object {
+    {
       "display": "flex",
       "flex": 1,
       "flexDirection": "column",
@@ -104,7 +104,7 @@ exports[`snapshots view 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "flex": 1,
         "margin": 20,
@@ -115,7 +115,7 @@ exports[`snapshots view 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flex": 1,
           "flexDirection": "column",
@@ -133,7 +133,7 @@ exports[`snapshots view 1`] = `
              is on the 
             <Team
               team={
-                Object {
+                {
                   "active": true,
                   "activity_text": "Indoor Track - Girls Varsity",
                   "coach_text": "Eric Taylor",
@@ -150,7 +150,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "alignItems": "flex-end",
         "display": "flex",
         "flexDirection": "row",

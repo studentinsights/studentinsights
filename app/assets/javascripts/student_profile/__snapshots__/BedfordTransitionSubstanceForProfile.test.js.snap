@@ -6,7 +6,7 @@ exports[`snapshots view 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "marginBottom": 15,
       }
     }
@@ -27,7 +27,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "marginBottom": 15,
       }
     }
@@ -39,7 +39,7 @@ exports[`snapshots view 1`] = `
       <div
         className="NoteText"
         style={
-          Object {
+          {
             "border": 0,
             "fontFamily": "'Open Sans', sans-serif",
             "fontSize": 14,
@@ -58,7 +58,7 @@ exports[`snapshots view 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "marginBottom": 15,
       }
     }
@@ -70,7 +70,7 @@ exports[`snapshots view 1`] = `
       <div
         className="NoteText"
         style={
-          Object {
+          {
             "border": 0,
             "fontFamily": "'Open Sans', sans-serif",
             "fontSize": 14,

@@ -4,7 +4,7 @@ exports[`snapshots across all scenarios at once 1`] = `
 <div
   className="NoteShell"
   style={
-    Object {
+    {
       "border": "1px solid #eee",
       "marginBottom": 10,
       "marginTop": 10,
@@ -15,7 +15,7 @@ exports[`snapshots across all scenarios at once 1`] = `
 >
   <div
     style={
-      Object {
+      {
         "display": "flex",
         "justifyContent": "space-between",
       }
@@ -24,7 +24,7 @@ exports[`snapshots across all scenarios at once 1`] = `
     <span
       className="date"
       style={
-        Object {
+        {
           "display": "inline-block",
           "fontWeight": "bold",
           "paddingRight": 10,
@@ -36,7 +36,7 @@ exports[`snapshots across all scenarios at once 1`] = `
     </span>
     <span
       style={
-        Object {
+        {
           "background": "#eee",
           "display": "inline-block",
           "marginLeft": 10,
@@ -51,7 +51,7 @@ exports[`snapshots across all scenarios at once 1`] = `
     </span>
     <span
       style={
-        Object {
+        {
           "display": "inline-block",
           "paddingLeft": 5,
         }
@@ -62,7 +62,7 @@ exports[`snapshots across all scenarios at once 1`] = `
   </div>
   <div
     style={
-      Object {
+      {
         "marginTop": 10,
       }
     }

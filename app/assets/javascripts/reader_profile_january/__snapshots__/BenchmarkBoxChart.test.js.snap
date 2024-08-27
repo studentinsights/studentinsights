@@ -4,7 +4,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
 <div
   className="BoxChartContainer"
   style={
-    Object {
+    {
       "display": "flex",
       "flexDirection": "row",
       "fontSize": 12,
@@ -14,14 +14,14 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
   <div
     className="YearBoxContainer"
     style={
-      Object {
+      {
         "flex": 1,
       }
     }
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
         }
@@ -29,7 +29,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#ccc",
             "color": "#6d6d6d",
@@ -48,7 +48,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#ccc",
             "color": "#6d6d6d",
@@ -67,7 +67,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "orange",
             "color": "#904a00",
@@ -87,7 +87,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginTop": 5,
         }
       }
@@ -98,7 +98,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
   <div
     className="YearBoxContainer"
     style={
-      Object {
+      {
         "flex": 1,
         "paddingLeft": 20,
       }
@@ -106,7 +106,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
         }
@@ -114,7 +114,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "rgb(147, 196, 125)",
             "color": "#366525",
@@ -133,7 +133,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "rgb(147, 196, 125)",
             "color": "#366525",
@@ -152,7 +152,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#95959580",
@@ -172,7 +172,7 @@ exports[`snapshots renderDibelsBoxFn 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginTop": 5,
         }
       }
@@ -187,7 +187,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
 <div
   className="BoxChartContainer"
   style={
-    Object {
+    {
       "display": "flex",
       "flexDirection": "row",
       "fontSize": 12,
@@ -197,14 +197,14 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
   <div
     className="YearBoxContainer"
     style={
-      Object {
+      {
         "flex": 1,
       }
     }
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
         }
@@ -212,7 +212,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#666",
@@ -231,7 +231,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#666",
@@ -250,7 +250,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#666",
@@ -270,7 +270,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginTop": 5,
         }
       }
@@ -281,7 +281,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
   <div
     className="YearBoxContainer"
     style={
-      Object {
+      {
         "flex": 1,
         "paddingLeft": 20,
       }
@@ -289,7 +289,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
         }
@@ -297,7 +297,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
     >
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#666",
@@ -316,7 +316,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#666",
@@ -335,7 +335,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
       </div>
       <div
         style={
-          Object {
+          {
             "alignItems": "center",
             "background": "#f8f8f8",
             "color": "#666",
@@ -353,7 +353,7 @@ exports[`snapshots renderRawDibelsScoreBoxFn 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "marginTop": 5,
         }
       }
